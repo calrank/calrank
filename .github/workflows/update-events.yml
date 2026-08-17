@@ -1,9 +1,12 @@
 name: Update events data
 
 # scripts/fetch_events.py에 roadrun.co.kr 실제 크롤링 로직이 들어가 있습니다.
-# 다만 샌드박스 환경 네트워크 제약으로 작성자(Claude)가 직접 실행 테스트는 못 했습니다.
-# 아래 "Fetch events" 단계를 workflow_dispatch(수동 실행)로 먼저 한 번 돌려서
-# events.json이 정상적으로 채워지는지 사람이 확인한 뒤에, 그 아래 schedule 주석을 해제하세요.
+# 첫 수동 실행에서 크롤링 자체는 성공했으나(events.json 변경 감지됨),
+# github-actions[bot]의 기본 권한이 읽기 전용이라 push가 403으로 거부되었습니다.
+# 아래 permissions 블록으로 쓰기 권한을 명시적으로 부여합니다.
+#
+# 이 \"Fetch events\" 단계가 workflow_dispatch(수동 실행)로 정상 작동하는 것을 확인한 뒤에,
+# 아래 schedule 주석을 해제하면 매일 자동화됩니다.
 #
 # on:
 #   schedule:
@@ -12,6 +15,9 @@ name: Update events data
 
 on:
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   update:
