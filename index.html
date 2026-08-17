@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>calrank — 전종목 대회 캘린더</title>
+<meta name="description" content="마라톤, 자전거, 트레일러닝, 하이록스 등 국내 동호인 대회를 한곳에서. 접수 마감 알림까지.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <span class="wordmark">calrank</span>
+    <nav class="main-nav">
+      <a href="#" class="nav-link active">캘린더</a>
+      <a href="#" class="nav-link soon">대회랭킹 <span class="soon-tag">준비중</span></a>
+      <a href="#" class="nav-link soon">내 랭크 <span class="soon-tag">준비중</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <h1>전 종목 대회, 한 화면에서.</h1>
+    <p class="hero-sub">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 하이록스 접수 마감을 놓치지 마세요.</p>
+  </section>
+
+  <section class="filter-bar" id="filterBar">
+    <button class="chip active" data-sport="all">전체</button>
+    <button class="chip" data-sport="marathon">마라톤</button>
+    <button class="chip" data-sport="cycling">자전거</button>
+    <button class="chip" data-sport="trail">트레일</button>
+    <button class="chip" data-sport="triathlon">철인3종</button>
+    <button class="chip" data-sport="hyrox">하이록스</button>
+  </section>
+
+  <p class="result-count" id="resultCount">대회를 불러오는 중…</p>
+
+  <section class="event-grid" id="eventGrid" aria-live="polite"></section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 정보가 실제와 다를 경우 주최측 공식 채널을 확인해 주세요.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
