@@ -188,3 +188,50 @@ body{
   .main-nav{gap:16px;}
   .hero{padding:36px 0 12px;}
 }
+
+/* 상세보기 모달 */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(20,23,26,0.5);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:100;
+}
+.modal-overlay.open{display:flex;}
+.modal-card{
+  background:var(--surface);
+  border-radius:14px;
+  max-width:480px;width:100%;
+  max-height:85vh;overflow-y:auto;
+  padding:28px 24px 24px;
+  position:relative;
+}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;border-radius:50%;
+  border:1px solid var(--line);background:var(--bg);
+  cursor:pointer;font-size:14px;color:var(--ink-soft);
+}
+.modal-top{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.modal-title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:22px;margin:0 0 18px;color:var(--ink);
+}
+.modal-fields{
+  display:grid;grid-template-columns:auto 1fr;gap:8px 16px;
+  margin:0 0 22px;
+}
+.modal-fields dt{font-size:13px;color:var(--ink-faint);}
+.modal-fields dd{font-size:14px;color:var(--ink);margin:0;}
+.modal-actions{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.modal-save-btn{
+  padding:10px 18px;border-radius:20px;
+  border:1px solid var(--line);background:var(--surface);
+  font-size:14px;font-weight:500;cursor:pointer;color:var(--ink);
+}
+.modal-save-btn:hover{border-color:var(--accent);color:var(--accent);}
+.modal-source-link{
+  font-size:13px;color:var(--ink-soft);text-decoration:underline;
+}
+.modal-disclaimer{
+  font-size:11px;color:var(--ink-faint);margin:0;line-height:1.5;
+}
