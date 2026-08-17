@@ -1,9 +1,17 @@
+const ICON_GLYPH = {
+  run: "마",
+  bike: "자",
+  trail: "트",
+  hyrox: "하",
+  tri: "철",
+};
+
 const SPORT_META = {
-  marathon:   { label: "마라톤",  icon: "directions_run",     bg: "var(--marathon-bg)",   ink: "var(--marathon-ink)",   tint: "var(--marathon-tint)" },
-  cycling:    { label: "자전거",  icon: "directions_bike",    bg: "var(--cycling-bg)",    ink: "var(--cycling-ink)",    tint: "var(--cycling-tint)" },
-  trail:      { label: "트레일",  icon: "landscape",bg: "var(--trail-bg)",      ink: "var(--trail-ink)",      tint: "var(--trail-tint)" },
-  hyrox:      { label: "하이록스",icon: "fitness_center", bg: "var(--hyrox-bg)",      ink: "var(--hyrox-ink)",      tint: "var(--hyrox-tint)" },
-  triathlon:  { label: "철인3종", icon: "pool",bg: "var(--triathlon-bg)",  ink: "var(--triathlon-ink)",  tint: "var(--triathlon-tint)" },
+  marathon:   { label: "마라톤",  icon: "run",     bg: "var(--marathon-bg)",   ink: "var(--marathon-ink)",   tint: "var(--marathon-tint)" },
+  cycling:    { label: "자전거",  icon: "bike",    bg: "var(--cycling-bg)",    ink: "var(--cycling-ink)",    tint: "var(--cycling-tint)" },
+  trail:      { label: "트레일",  icon: "trail",bg: "var(--trail-bg)",      ink: "var(--trail-ink)",      tint: "var(--trail-tint)" },
+  hyrox:      { label: "하이록스",icon: "hyrox", bg: "var(--hyrox-bg)",      ink: "var(--hyrox-ink)",      tint: "var(--hyrox-tint)" },
+  triathlon:  { label: "철인3종", icon: "tri",bg: "var(--triathlon-bg)",  ink: "var(--triathlon-ink)",  tint: "var(--triathlon-tint)" },
 };
 
 const state = {
@@ -42,8 +50,6 @@ function monthLabel(key) {
   const [, m] = key.split("-");
   return `${parseInt(m, 10)}월`;
 }
-
-/* ---- 필터 UI 구성 ---- */
 
 function setupSportChips() {
   const wrap = document.getElementById("sportChips");
@@ -118,8 +124,6 @@ function setupRegionSelect() {
   });
 }
 
-/* ---- 카드 렌더링 ---- */
-
 function renderCard(ev) {
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
@@ -134,7 +138,7 @@ function renderCard(ev) {
   card.style.setProperty("--sport-ink", meta.ink);
 
   card.innerHTML = `
-    <div class="ev-icon"><span class="material-symbols-outlined" aria-hidden="true">${meta.icon}</span></div>
+    <div class="ev-icon"><span class="ev-icon-glyph" aria-hidden="true">${ICON_GLYPH[meta.icon] || "•"}</span></div>
     <div class="event-body">
       <div class="event-top">
         <span class="sport-badge">${meta.label}</span>
@@ -180,8 +184,6 @@ function render() {
   });
 }
 
-/* ---- 상세 모달 ---- */
-
 function buildIcs(ev) {
   const dt = ev.date.replace(/-/g, "");
   const uid = `${ev.id}@calrank.vercel.app`;
@@ -217,7 +219,7 @@ function openDetail(id) {
   body.innerHTML = `
     <div class="modal-icon-row">
       <div class="ev-icon" style="--sport-color:${meta.bg};--sport-ink:${meta.ink};">
-        <span class="material-symbols-outlined" aria-hidden="true">${meta.icon}</span>
+        <span class="ev-icon-glyph" aria-hidden="true">${ICON_GLYPH[meta.icon] || "•"}</span>
       </div>
       <div>
         <p class="modal-sport" style="color:${meta.ink}">${meta.label}</p>
@@ -231,8 +233,8 @@ function openDetail(id) {
       <dt>주최</dt><dd>${ev.organizer || "미확인"}${ev.organizerPhone ? " · ☎" + ev.organizerPhone : ""}</dd>
       <dt>접수</dt><dd>${dday.label}</dd>
     </dl>
-    <button class="modal-apply-btn" id="applyBtn">신청 페이지 바로가기<span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></button>
-    <button class="modal-cal-btn" id="calBtn"><span class="material-symbols-outlined" aria-hidden="true">event_available</span>내 캘린더에 추가</button>
+    <button class="modal-apply-btn" id="applyBtn">신청 페이지 바로가기 ↗</button>
+    <button class="modal-cal-btn" id="calBtn">내 캘린더에 추가</button>
     <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
 
