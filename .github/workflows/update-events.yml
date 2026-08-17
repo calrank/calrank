@@ -1,0 +1,36 @@
+name: Update events data
+
+# scripts/fetch_events.py에 roadrun.co.kr 실제 크롤링 로직이 들어가 있습니다.
+# 다만 샌드박스 환경 네트워크 제약으로 작성자(Claude)가 직접 실행 테스트는 못 했습니다.
+# 아래 "Fetch events" 단계를 workflow_dispatch(수동 실행)로 먼저 한 번 돌려서
+# events.json이 정상적으로 채워지는지 사람이 확인한 뒤에, 그 아래 schedule 주석을 해제하세요.
+#
+# on:
+#   schedule:
+#     - cron: "0 21 * * *"  # 매일 06:00 KST
+#   workflow_dispatch: {}
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Fetch events
+        run: python scripts/fetch_events.py --out events.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git diff --quiet events.json || (git add events.json && git commit -m "chore: update events.json" && git push)
