@@ -141,6 +141,14 @@ def parse_organizer_cell(cell) -> tuple[str | None, str | None]:
     return name, phone
 
 
+def parse_homepage_url(organizer_cell) -> str | None:
+    for a in organizer_cell.find_all("a"):
+        href = a.get("href", "").strip()
+        if href.startswith("http://") or href.startswith("https://"):
+            return href
+    return None
+
+
 def parse_detail_url(cell) -> str | None:
     a = cell.find("a")
     if not a:
@@ -178,6 +186,7 @@ def fetch_roadrun() -> list[dict]:
         sport, sport_label = guess_sport(name)
         organizer, phone = parse_organizer_cell(cells[3])
         detail_url = parse_detail_url(cells[1])
+        homepage_url = parse_homepage_url(cells[3])
 
         events.append(blank_event(
             id=slugify(name, date_iso, "rr"),
@@ -191,7 +200,7 @@ def fetch_roadrun() -> list[dict]:
             organizer=organizer,
             organizerPhone=phone,
             sourceUrl=ROADRUN_URL,
-            applyUrl=detail_url or ROADRUN_URL,
+            applyUrl=homepage_url or detail_url or ROADRUN_URL,
         ))
 
     return events
@@ -244,7 +253,6 @@ SOURCES = [
 
 
 def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]:
-    """id 기준으로 합치고 중복을 제거합니다. 사용자 데이터(찜)는 보존합니다."""
     by_id = {ev["id"]: ev for ev in existing}
     for ev in new_events:
         prev = by_id.get(ev["id"], {})
