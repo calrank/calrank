@@ -135,3 +135,12 @@ body{
   .main-nav{gap:16px;}
   .hero{padding:34px 0 12px;}
 }
+
+.material-symbols-outlined{
+  font-family:'Material Symbols Outlined';
+  font-weight:normal;font-style:normal;
+  font-size:22px;line-height:1;
+  display:inline-block;vertical-align:middle;
+}
+.ev-icon .material-symbols-outlined{font-size:24px;color:var(--sport-ink,#333);}
+.modal-apply-btn .material-symbols-outlined,.modal-cal-btn .material-symbols-outlined{font-size:18px;}
