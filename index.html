@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>calrank — 전종목 대회 캘린더</title>
-<meta name="description" content="마라톤, 자전거, 트레일러닝, 하이록스 등 국내 동호인 대회를 한곳에서. 접수 마감 알림까지.">
+<meta name="description" content="마라톤, 자전거, 트레일러닝, 하이록스 등 국내 동호인 대회를 한곳에서. 주최자 정보까지 한눈에.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,16 +26,17 @@
 
   <section class="hero">
     <h1>전 종목 대회, 한 화면에서.</h1>
-    <p class="hero-sub">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 하이록스 접수 마감을 놓치지 마세요.</p>
+    <p class="hero-sub">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 하이록스, 주최자 정보까지 한눈에 확인하세요.</p>
   </section>
 
-  <section class="filter-bar" id="filterBar">
-    <button class="chip active" data-sport="all">전체</button>
-    <button class="chip" data-sport="marathon">마라톤</button>
-    <button class="chip" data-sport="cycling">자전거</button>
-    <button class="chip" data-sport="trail">트레일</button>
-    <button class="chip" data-sport="triathlon">철인3종</button>
-    <button class="chip" data-sport="hyrox">하이록스</button>
+  <section class="filter-row">
+    <div class="filter-group" id="monthTabs"></div>
+  </section>
+  <section class="filter-row">
+    <div class="filter-group" id="sportChips"></div>
+  </section>
+  <section class="filter-row">
+    <select id="regionSelect" class="region-select"></select>
   </section>
 
   <p class="result-count" id="resultCount">대회를 불러오는 중…</p>
@@ -44,9 +45,16 @@
 
 </main>
 
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
 <footer class="site-footer">
   <div class="wrap">
-    <p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 정보가 실제와 다를 경우 주최측 공식 채널을 확인해 주세요.</p>
+    <p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   </div>
 </footer>
 
