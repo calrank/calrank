@@ -1,23 +1,23 @@
-const SPORT_COLORS = {
-  marathon:   { color: "var(--marathon)",   bg: "var(--marathon-bg)" },
-  cycling:    { color: "var(--cycling)",    bg: "var(--cycling-bg)" },
-  trail:      { color: "var(--trail)",      bg: "var(--trail-bg)" },
-  hyrox:      { color: "var(--hyrox)",      bg: "var(--hyrox-bg)" },
-  triathlon:  { color: "var(--triathlon)",  bg: "var(--triathlon-bg)" },
+const SPORT_META = {
+  marathon:   { label: "마라톤",  icon: "ti-run",     bg: "var(--marathon-bg)",   ink: "var(--marathon-ink)",   tint: "var(--marathon-tint)" },
+  cycling:    { label: "자전거",  icon: "ti-bike",    bg: "var(--cycling-bg)",    ink: "var(--cycling-ink)",    tint: "var(--cycling-tint)" },
+  trail:      { label: "트레일",  icon: "ti-mountain",bg: "var(--trail-bg)",      ink: "var(--trail-ink)",      tint: "var(--trail-tint)" },
+  hyrox:      { label: "하이록스",icon: "ti-barbell", bg: "var(--hyrox-bg)",      ink: "var(--hyrox-ink)",      tint: "var(--hyrox-tint)" },
+  triathlon:  { label: "철인3종", icon: "ti-swimming",bg: "var(--triathlon-bg)",  ink: "var(--triathlon-ink)",  tint: "var(--triathlon-tint)" },
 };
 
 const state = {
   events: [],
-  filter: "all",
-  saved: new Set(),
+  sport: "all",
+  month: "all",
+  region: "all",
 };
 
 function daysUntil(dateStr) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const target = new Date(dateStr);
-  const diffMs = target - today;
-  return Math.round(diffMs / (1000 * 60 * 60 * 24));
+  return Math.round((target - today) / (1000 * 60 * 60 * 24));
 }
 
 function formatDate(dateStr, timeStr) {
@@ -28,18 +28,100 @@ function formatDate(dateStr, timeStr) {
 }
 
 function ddayInfo(ev) {
-  if (!ev.regDeadline) {
-    return { label: "접수기간 미확인", urgent: false };
-  }
-  const regDday = daysUntil(ev.regDeadline);
-  const urgent = regDday >= 0 && regDday <= 7;
-  const label = regDday < 0 ? "접수 마감" : `접수 D-${regDday}`;
-  return { label, urgent };
+  if (!ev.regDeadline) return { label: "접수기간 미확인", urgent: false };
+  const n = daysUntil(ev.regDeadline);
+  return { label: n < 0 ? "접수 마감" : `접수 D-${n}`, urgent: n >= 0 && n <= 7 };
 }
 
+function monthKey(dateStr) {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function monthLabel(key) {
+  const [, m] = key.split("-");
+  return `${parseInt(m, 10)}월`;
+}
+
+/* ---- 필터 UI 구성 ---- */
+
+function setupSportChips() {
+  const wrap = document.getElementById("sportChips");
+  const all = document.createElement("button");
+  all.className = "chip active";
+  all.textContent = "전체";
+  all.dataset.sport = "all";
+  wrap.appendChild(all);
+
+  Object.entries(SPORT_META).forEach(([key, meta]) => {
+    const chip = document.createElement("button");
+    chip.className = "chip";
+    chip.textContent = meta.label;
+    chip.dataset.sport = key;
+    wrap.appendChild(chip);
+  });
+
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if (!btn) return;
+    wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    state.sport = btn.dataset.sport;
+    render();
+  });
+}
+
+function setupMonthTabs() {
+  const wrap = document.getElementById("monthTabs");
+  const months = [...new Set(state.events.map(ev => monthKey(ev.date)))].sort();
+
+  const all = document.createElement("button");
+  all.className = "chip active";
+  all.textContent = "전체 기간";
+  all.dataset.month = "all";
+  wrap.appendChild(all);
+
+  months.forEach(key => {
+    const chip = document.createElement("button");
+    chip.className = "chip";
+    chip.textContent = monthLabel(key);
+    chip.dataset.month = key;
+    wrap.appendChild(chip);
+  });
+
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if (!btn) return;
+    wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    state.month = btn.dataset.month;
+    render();
+  });
+}
+
+function setupRegionSelect() {
+  const sel = document.getElementById("regionSelect");
+  const regions = [...new Set(state.events.map(ev => ev.region || "전국"))].sort();
+  const optAll = document.createElement("option");
+  optAll.value = "all";
+  optAll.textContent = "전체 지역";
+  sel.appendChild(optAll);
+  regions.forEach(r => {
+    const opt = document.createElement("option");
+    opt.value = r;
+    opt.textContent = r;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener("change", () => {
+    state.region = sel.value;
+    render();
+  });
+}
+
+/* ---- 카드 렌더링 ---- */
+
 function renderCard(ev) {
-  const sc = SPORT_COLORS[ev.sport] || { color: "#333", bg: "#eee" };
-  const isSaved = state.saved.has(ev.id);
+  const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
 
   const card = document.createElement("article");
@@ -47,20 +129,20 @@ function renderCard(ev) {
   card.setAttribute("data-id", ev.id);
   card.setAttribute("role", "button");
   card.setAttribute("tabindex", "0");
-  card.style.setProperty("--sport-color", sc.color);
-  card.style.setProperty("--sport-bg", sc.bg);
+  card.style.setProperty("--sport-tint", meta.tint);
+  card.style.setProperty("--sport-color", meta.bg);
+  card.style.setProperty("--sport-ink", meta.ink);
 
   card.innerHTML = `
-    <div class="event-card-top">
-      <span class="sport-badge">${ev.sportLabel}</span>
-      <span class="dday-badge ${dday.urgent ? "dday-urgent" : "dday-normal"}">${dday.label}</span>
-    </div>
-    <p class="event-name">${ev.name}</p>
-    <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}</p>
-    <p class="event-distances">${ev.distances.join(" / ")}</p>
-    <div class="event-foot">
-      <span class="saves">찜 ${ev.saves + (isSaved ? 1 : 0)}</span>
-      <button class="save-btn" data-id="${ev.id}" aria-label="찜하기" aria-pressed="${isSaved}">${isSaved ? "♥" : "♡"}</button>
+    <div class="ev-icon"><i class="ti ${meta.icon}" aria-hidden="true"></i></div>
+    <div class="event-body">
+      <div class="event-top">
+        <span class="sport-badge">${meta.label}</span>
+        <span class="dday-badge ${dday.urgent ? "dday-urgent" : "dday-normal"}">${dday.label}</span>
+      </div>
+      <p class="event-name">${ev.name}</p>
+      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}</p>
+      <p class="event-organizer">${ev.organizer ? "주최 " + ev.organizer : "주최 정보 미확인"}</p>
     </div>
   `;
   return card;
@@ -72,7 +154,9 @@ function render() {
   grid.innerHTML = "";
 
   const filtered = state.events
-    .filter(ev => state.filter === "all" || ev.sport === state.filter)
+    .filter(ev => state.sport === "all" || ev.sport === state.sport)
+    .filter(ev => state.month === "all" || monthKey(ev.date) === state.month)
+    .filter(ev => state.region === "all" || (ev.region || "전국") === state.region)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   countEl.textContent = `${filtered.length}개 대회`;
@@ -80,124 +164,101 @@ function render() {
   if (filtered.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = "해당 종목의 예정된 대회가 없습니다.";
+    empty.textContent = "조건에 맞는 대회가 없습니다.";
     grid.appendChild(empty);
     return;
   }
 
   filtered.forEach(ev => grid.appendChild(renderCard(ev)));
 
-  grid.querySelectorAll(".save-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const id = btn.getAttribute("data-id");
-      if (state.saved.has(id)) {
-        state.saved.delete(id);
-      } else {
-        state.saved.add(id);
-      }
-      render();
-    });
-  });
-
   grid.querySelectorAll(".event-card").forEach(card => {
     const open = () => openDetail(card.getAttribute("data-id"));
     card.addEventListener("click", open);
     card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        open();
-      }
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
     });
   });
 }
 
-function setupFilters() {
-  document.querySelectorAll(".chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      state.filter = chip.getAttribute("data-sport");
-      render();
-    });
-  });
+/* ---- 상세 모달 ---- */
+
+function buildIcs(ev) {
+  const dt = ev.date.replace(/-/g, "");
+  const uid = `${ev.id}@calrank.vercel.app`;
+  return [
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//calrank//KO",
+    "BEGIN:VEVENT",
+    `UID:${uid}`,
+    `DTSTART;VALUE=DATE:${dt}`,
+    `SUMMARY:${ev.name}`,
+    `LOCATION:${ev.location}`,
+    `DESCRIPTION:calrank에서 자동 생성됨. 신청 페이지: ${ev.applyUrl || ev.sourceUrl || ""}`,
+    "END:VEVENT", "END:VCALENDAR",
+  ].join("\r\n");
 }
 
-/* ---- 상세보기 모달 ---- */
-
-function buildModal() {
-  const overlay = document.createElement("div");
-  overlay.id = "detailOverlay";
-  overlay.className = "modal-overlay";
-  overlay.innerHTML = `
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
-      <div id="modalBody"></div>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) closeDetail();
-  });
-  document.getElementById("modalClose").addEventListener("click", closeDetail);
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeDetail();
-  });
+function downloadIcs(ev) {
+  const blob = new Blob([buildIcs(ev)], { type: "text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${ev.name}.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function openDetail(id) {
   const ev = state.events.find(e => e.id === id);
   if (!ev) return;
-
-  const sc = SPORT_COLORS[ev.sport] || { color: "#333", bg: "#eee" };
+  const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
-  const isSaved = state.saved.has(ev.id);
 
   const body = document.getElementById("modalBody");
   body.innerHTML = `
-    <div class="modal-top">
-      <span class="sport-badge" style="background:${sc.bg};color:${sc.color};">${ev.sportLabel}</span>
-      <span class="dday-badge ${dday.urgent ? "dday-urgent" : "dday-normal"}">${dday.label}</span>
+    <div class="modal-icon-row">
+      <div class="ev-icon" style="--sport-color:${meta.bg};--sport-ink:${meta.ink};">
+        <i class="ti ${meta.icon}" aria-hidden="true"></i>
+      </div>
+      <div>
+        <p class="modal-sport" style="color:${meta.ink}">${meta.label}</p>
+        <p class="modal-title">${ev.name}</p>
+      </div>
     </div>
-    <h2 class="modal-title">${ev.name}</h2>
     <dl class="modal-fields">
       <dt>일시</dt><dd>${formatDate(ev.date, ev.time)}</dd>
       <dt>장소</dt><dd>${ev.location}</dd>
       <dt>종목/거리</dt><dd>${ev.distances.join(" / ")}</dd>
+      <dt>주최</dt><dd>${ev.organizer || "미확인"}${ev.organizerPhone ? " · ☎" + ev.organizerPhone : ""}</dd>
       <dt>접수</dt><dd>${dday.label}</dd>
-      <dt>찜</dt><dd>${ev.saves + (isSaved ? 1 : 0)}명</dd>
     </dl>
-    <div class="modal-actions">
-      <button class="modal-save-btn" id="modalSaveBtn">${isSaved ? "♥ 찜 취소" : "♡ 찜하기"}</button>
-      ${ev.sourceUrl ? `<a class="modal-source-link" href="${ev.sourceUrl}" target="_blank" rel="noopener">원본 출처 보기 ↗</a>` : ""}
-    </div>
-    <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 원본 출처에서 다시 확인해 주세요.</p>
+    <button class="modal-apply-btn" id="applyBtn">신청 페이지 바로가기<i class="ti ti-external-link" aria-hidden="true"></i></button>
+    <button class="modal-cal-btn" id="calBtn"><i class="ti ti-calendar-plus" aria-hidden="true"></i>내 캘린더에 추가</button>
+    <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
 
-  document.getElementById("modalSaveBtn").addEventListener("click", () => {
-    if (state.saved.has(ev.id)) {
-      state.saved.delete(ev.id);
-    } else {
-      state.saved.add(ev.id);
-    }
-    render();
-    openDetail(ev.id);
+  document.getElementById("applyBtn").addEventListener("click", () => {
+    window.open(ev.applyUrl || ev.sourceUrl || "#", "_blank", "noopener");
   });
+  document.getElementById("calBtn").addEventListener("click", () => downloadIcs(ev));
 
-  document.getElementById("detailOverlay").classList.add("open");
+  document.getElementById("modalOverlay").classList.add("open");
   document.body.style.overflow = "hidden";
 }
 
 function closeDetail() {
-  const overlay = document.getElementById("detailOverlay");
-  overlay.classList.remove("open");
+  document.getElementById("modalOverlay").classList.remove("open");
   document.body.style.overflow = "";
 }
 
+function setupModal() {
+  const overlay = document.getElementById("modalOverlay");
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) closeDetail(); });
+  document.getElementById("modalClose").addEventListener("click", closeDetail);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
+}
+
 async function init() {
-  setupFilters();
-  buildModal();
+  setupModal();
   try {
     const res = await fetch("events.json");
     state.events = await res.json();
@@ -207,6 +268,9 @@ async function init() {
     console.error(err);
     return;
   }
+  setupSportChips();
+  setupMonthTabs();
+  setupRegionSelect();
   render();
 }
 
