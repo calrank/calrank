@@ -45,7 +45,6 @@ REGIONS = [
 
 
 def guess_sport(name: str) -> tuple[str, str]:
-    """대회명에 포함된 키워드로 종목을 추정합니다."""
     if any(k in name for k in TRAIL_KEYWORDS):
         return "trail", "트레일"
     if any(k in name for k in CYCLING_KEYWORDS):
@@ -54,7 +53,6 @@ def guess_sport(name: str) -> tuple[str, str]:
 
 
 def guess_region(location: str) -> str:
-    """장소 문자열에서 시도 단위 지역을 추정합니다. 못 찾으면 '전국'."""
     for r in REGIONS:
         if r in location:
             return r
@@ -62,10 +60,6 @@ def guess_region(location: str) -> str:
 
 
 def guess_year(month: int, day: int) -> int:
-    """
-    페이지에 연도가 표기되지 않으므로 연도를 추정합니다.
-    최근 지난 대회도 며칠간 계속 보여주는 사이트가 있어, 90일 유예기간을 둡니다.
-    """
     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     candidate = datetime(today.year, month, day)
     grace_period_days = 90
@@ -80,7 +74,6 @@ def slugify(name: str, date: str, prefix: str) -> str:
 
 
 def blank_event(**kwargs) -> dict:
-    """모든 이벤트가 동일한 필드 스키마를 갖도록 하는 헬퍼."""
     base = {
         "id": None,
         "sport": "marathon",
@@ -103,8 +96,6 @@ def blank_event(**kwargs) -> dict:
     return base
 
 
-# ---- 소스 1: roadrun.co.kr (마라톤/트레일) ----
-
 def parse_date_cell(text: str) -> str | None:
     m = re.search(r"(\d{1,2})/(\d{1,2})", text)
     if not m:
@@ -126,7 +117,6 @@ def parse_name_cell(text: str) -> tuple[str, list[str]]:
 
 
 def parse_organizer_cell(cell) -> tuple[str | None, str | None]:
-    """조직명과 전화번호를 분리합니다. 예: '러너블\n☎02-2031-1935\n...'"""
     text = cell.get_text("\n", strip=True)
     lines = [l.strip() for l in text.split("\n") if l.strip()]
     if not lines:
@@ -206,8 +196,6 @@ def fetch_roadrun() -> list[dict]:
     return events
 
 
-# ---- 소스 2: cyclo.kr (자전거) ----
-
 def fetch_cyclo() -> list[dict]:
     resp = requests.get(CYCLO_API_URL, timeout=15)
     resp.raise_for_status()
@@ -244,12 +232,85 @@ def fetch_cyclo() -> list[dict]:
     return events
 
 
-# ---- 병합 ----
+RUNNINGWIKI_URL = "https://runningwikii.com/"
+
+
+def fetch_runningwiki() -> list[dict]:
+    resp = requests.get(RUNNINGWIKI_URL, timeout=15)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    table = soup.find("table")
+    if not table:
+        return []
+
+    events = []
+    this_year = datetime.now().year
+
+    for row in table.find_all("tr"):
+        cells = row.find_all("td")
+        if len(cells) != 4:
+            continue
+
+        date_text = cells[0].get_text(" ", strip=True)
+        m = re.search(r"(\d{1,2})월\s*(\d{1,2})일", date_text)
+        if not m:
+            continue
+        month, day = int(m.group(1)), int(m.group(2))
+        date_iso = f"{this_year:04d}-{month:02d}-{day:02d}"
+
+        name_link = cells[1].find("a")
+        if not name_link:
+            continue
+        name = name_link.get_text(strip=True)
+        course_span = cells[1].find("span", class_="race-courses")
+        distances = [course_span.get_text(strip=True)] if course_span else ["거리 미확인"]
+
+        region = cells[2].get_text(strip=True) or "전국"
+
+        status_span = cells[3].find("span")
+        reg_deadline = status_span.get("data-deadline") if status_span else None
+
+        detail_url = name_link.get("href")
+
+        sport, sport_label = guess_sport(name)
+
+        events.append(blank_event(
+            id=slugify(name, date_iso, "rw"),
+            sport=sport,
+            sportLabel=sport_label,
+            name=name,
+            date=date_iso,
+            location=region,
+            region=guess_region(region),
+            distances=distances,
+            regDeadline=reg_deadline,
+            sourceUrl=RUNNINGWIKI_URL,
+            applyUrl=detail_url or RUNNINGWIKI_URL,
+        ))
+
+    return events
+
 
 SOURCES = [
     ("roadrun.co.kr", fetch_roadrun),
     ("cyclo.kr", fetch_cyclo),
+    ("runningwikii.com", fetch_runningwiki),
 ]
+
+
+def dedupe_across_sources(events: list[dict]) -> list[dict]:
+    groups: dict[tuple, dict] = {}
+    for ev in events:
+        key = (ev["name"].strip(), ev["date"])
+        if key not in groups:
+            groups[key] = ev
+        else:
+            existing = groups[key]
+            for field in ("regDeadline", "organizer", "organizerPhone", "region", "location"):
+                if not existing.get(field) and ev.get(field):
+                    existing[field] = ev[field]
+    return list(groups.values())
 
 
 def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]:
@@ -283,7 +344,7 @@ def main():
         except Exception as e:
             print(f"[{source_name}] 수집 실패, 건너뜀: {e}")
 
-    merged = merge_and_dedupe(existing, all_new)
+    merged = merge_and_dedupe(existing, dedupe_across_sources(all_new))
 
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(merged, f, ensure_ascii=False, indent=2)
