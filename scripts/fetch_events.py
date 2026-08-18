@@ -2,12 +2,8 @@
 calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
 
 소스가 하나 죽어도 나머지 소스는 계속 작동하도록, 소스별로 실패를 격리합니다.
-같은 사람이 만든 하나의 사이트에만 의존하지 않기 위한 설계입니다.
 
-현재 소스:
-  - roadrun.co.kr  : 마라톤/트레일 (표 스크래핑)
-  - cyclo.kr       : 자전거 (공개 JSON API)
-  - runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr
+현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr, runningmap.kr
 
 사용 예시:
   python scripts/fetch_events.py --out events.json
@@ -435,12 +431,75 @@ def fetch_triathlon() -> list[dict]:
     return events
 
 
+RUNNINGMAP_BASE = "https://runningmap.kr"
+RUNNINGMAP_SUPABASE_URL = "https://cukapfkyrfchluxgpixt.supabase.co/rest/v1/races"
+
+
+def find_runningmap_supabase_key() -> str | None:
+    try:
+        html = requests.get(RUNNINGMAP_BASE, timeout=15).text
+        script_match = re.search(r'src="(/assets/index-[^"]+\.js)"', html)
+        if not script_match:
+            return None
+        js_url = RUNNINGMAP_BASE + script_match.group(1)
+        js_text = requests.get(js_url, timeout=15).text
+        key_match = re.search(r"eyJ[\w-]+\.[\w-]+\.[\w-]+", js_text)
+        return key_match.group(0) if key_match else None
+    except Exception:
+        return None
+
+
+def fetch_runningmap() -> list[dict]:
+    key = find_runningmap_supabase_key()
+    if not key:
+        return []
+
+    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    resp = requests.get(
+        f"{RUNNINGMAP_SUPABASE_URL}?select=*&order=race_date.asc",
+        headers=headers, timeout=15,
+    )
+    resp.raise_for_status()
+    rows = resp.json()
+
+    events = []
+    for row in rows:
+        name = row.get("name") or row.get("race_name") or row.get("title")
+        date_iso = row.get("race_date") or row.get("date")
+        if not name or not date_iso:
+            continue
+        date_iso = str(date_iso)[:10]
+
+        location = row.get("location") or row.get("venue") or row.get("place") or "장소 미확인"
+        reg_deadline = row.get("reg_end") or row.get("application_end") or row.get("apply_end")
+        homepage = row.get("url") or row.get("homepage") or row.get("website")
+
+        sport, sport_label = guess_sport(name)
+
+        events.append(blank_event(
+            id=slugify(name, date_iso, "rm"),
+            sport=sport,
+            sportLabel=sport_label,
+            name=name,
+            date=date_iso,
+            location=location,
+            region=guess_region(location),
+            distances=["거리 미확인"],
+            regDeadline=str(reg_deadline)[:10] if reg_deadline else None,
+            sourceUrl=RUNNINGMAP_BASE,
+            applyUrl=homepage or RUNNINGMAP_BASE,
+        ))
+
+    return events
+
+
 SOURCES = [
     ("roadrun.co.kr", fetch_roadrun),
     ("cyclo.kr", fetch_cyclo),
     ("runningwikii.com", fetch_runningwiki),
     ("hyroxsouthkorea.com", fetch_hyrox),
     ("triathlon.or.kr", fetch_triathlon),
+    ("runningmap.kr", fetch_runningmap),
 ]
 
 
