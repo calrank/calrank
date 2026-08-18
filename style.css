@@ -84,7 +84,6 @@ body{
   display:flex;align-items:center;justify-content:center;
   background:var(--sport-color,#ccc);
 }
-.ev-icon i{font-size:23px;color:var(--sport-ink,#333);}
 .event-body{flex:1;min-width:0;}
 .event-top{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
 .sport-badge{font-size:12px;font-weight:500;color:var(--sport-ink,#333);}
@@ -136,11 +135,8 @@ body{
   .hero{padding:34px 0 12px;}
 }
 
-.material-symbols-outlined{
-  font-family:'Material Symbols Outlined';
-  font-weight:normal;font-style:normal;
-  font-size:22px;line-height:1;
-  display:inline-block;vertical-align:middle;
+.ev-icon-glyph{
+  font-family:var(--font-display);
+  font-size:20px;
+  color:var(--sport-ink,#333);
 }
-.ev-icon .material-symbols-outlined{font-size:24px;color:var(--sport-ink,#333);}
-.modal-apply-btn .material-symbols-outlined,.modal-cal-btn .material-symbols-outlined{font-size:18px;}
