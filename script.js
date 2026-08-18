@@ -1,17 +1,9 @@
-const ICON_GLYPH = {
-  run: "마",
-  bike: "자",
-  trail: "트",
-  hyrox: "하",
-  tri: "철",
-};
-
 const SPORT_META = {
-  marathon:   { label: "마라톤",  icon: "run",     bg: "var(--marathon-bg)",   ink: "var(--marathon-ink)",   tint: "var(--marathon-tint)" },
-  cycling:    { label: "자전거",  icon: "bike",    bg: "var(--cycling-bg)",    ink: "var(--cycling-ink)",    tint: "var(--cycling-tint)" },
-  trail:      { label: "트레일",  icon: "trail",bg: "var(--trail-bg)",      ink: "var(--trail-ink)",      tint: "var(--trail-tint)" },
-  hyrox:      { label: "하이록스",icon: "hyrox", bg: "var(--hyrox-bg)",      ink: "var(--hyrox-ink)",      tint: "var(--hyrox-tint)" },
-  triathlon:  { label: "철인3종", icon: "tri",bg: "var(--triathlon-bg)",  ink: "var(--triathlon-ink)",  tint: "var(--triathlon-tint)" },
+  marathon:   { label: "마라톤",  tag: "MAR", color: "var(--marathon)" },
+  cycling:    { label: "자전거",  tag: "BIK", color: "var(--cycling)" },
+  trail:      { label: "트레일",  tag: "TRL", color: "var(--trail)" },
+  hyrox:      { label: "하이록스",tag: "HYX", color: "var(--hyrox)" },
+  triathlon:  { label: "철인3종", tag: "TRI", color: "var(--triathlon)" },
 };
 
 const state = {
@@ -38,7 +30,7 @@ function formatDate(dateStr, timeStr) {
 function ddayInfo(ev) {
   if (!ev.regDeadline) return { label: "접수기간 미확인", urgent: false };
   const n = daysUntil(ev.regDeadline);
-  return { label: n < 0 ? "접수 마감" : `접수 D-${n}`, urgent: n >= 0 && n <= 7 };
+  return { label: n < 0 ? "접수 마감" : `D-${n}`, urgent: n >= 0 && n <= 7 };
 }
 
 function monthKey(dateStr) {
@@ -133,21 +125,18 @@ function renderCard(ev) {
   card.setAttribute("data-id", ev.id);
   card.setAttribute("role", "button");
   card.setAttribute("tabindex", "0");
-  card.style.setProperty("--sport-tint", meta.tint);
-  card.style.setProperty("--sport-color", meta.bg);
-  card.style.setProperty("--sport-ink", meta.ink);
+  card.style.setProperty("--sport-color", meta.color);
 
   card.innerHTML = `
-    <div class="ev-icon"><span class="ev-icon-glyph" aria-hidden="true">${ICON_GLYPH[meta.icon] || "•"}</span></div>
+    <span class="ev-tag">${meta.tag}</span>
     <div class="event-body">
       <div class="event-top">
-        <span class="sport-badge">${meta.label}</span>
-        <span class="dday-badge ${dday.urgent ? "dday-urgent" : "dday-normal"}">${dday.label}</span>
+        <span class="event-name">${ev.name}</span>
+        <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span>
       </div>
-      <p class="event-name">${ev.name}</p>
-      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}</p>
-      <p class="event-organizer">${ev.organizer ? "주최 " + ev.organizer : "주최 정보 미확인"}</p>
+      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}</p>
     </div>
+    <span class="event-chevron">›</span>
   `;
   return card;
 }
@@ -216,25 +205,21 @@ function openDetail(id) {
   const dday = ddayInfo(ev);
 
   const body = document.getElementById("modalBody");
+  body.style.setProperty("--sport-color", meta.color);
   body.innerHTML = `
-    <div class="modal-icon-row">
-      <div class="ev-icon" style="--sport-color:${meta.bg};--sport-ink:${meta.ink};">
-        <span class="ev-icon-glyph" aria-hidden="true">${ICON_GLYPH[meta.icon] || "•"}</span>
-      </div>
-      <div>
-        <p class="modal-sport" style="color:${meta.ink}">${meta.label}</p>
-        <p class="modal-title">${ev.name}</p>
-      </div>
+    <div class="modal-top-row">
+      <span class="modal-tag">${meta.tag}</span>
+      <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span>
     </div>
-    <dl class="modal-fields">
-      <dt>일시</dt><dd>${formatDate(ev.date, ev.time)}</dd>
-      <dt>장소</dt><dd>${ev.location}</dd>
-      <dt>종목/거리</dt><dd>${ev.distances.join(" / ")}</dd>
-      <dt>주최</dt><dd>${ev.organizer || "미확인"}${ev.organizerPhone ? " · ☎" + ev.organizerPhone : ""}</dd>
-      <dt>접수</dt><dd>${dday.label}</dd>
-    </dl>
-    <button class="modal-apply-btn" id="applyBtn">신청 페이지 바로가기 ↗</button>
-    <button class="modal-cal-btn" id="calBtn">내 캘린더에 추가</button>
+    <p class="modal-title">${ev.name}</p>
+    <div class="modal-fields">
+      <div class="modal-field-row"><span class="k">일시</span><span class="v">${formatDate(ev.date, ev.time)}</span></div>
+      <div class="modal-field-row"><span class="k">장소</span><span class="v">${ev.location}</span></div>
+      <div class="modal-field-row"><span class="k">종목/거리</span><span class="v">${ev.distances.join(" / ")}</span></div>
+      <div class="modal-field-row"><span class="k">주최</span><span class="v">${ev.organizer || "미확인"}${ev.organizerPhone ? " · " + ev.organizerPhone : ""}</span></div>
+    </div>
+    <button class="modal-apply-btn" id="applyBtn">신청하기 ↗</button>
+    <button class="modal-cal-btn" id="calBtn">캘린더에 저장</button>
     <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
 
