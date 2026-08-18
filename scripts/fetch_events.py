@@ -6,17 +6,8 @@ calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
 
 현재 소스:
   - roadrun.co.kr  : 마라톤/트레일 (표 스크래핑)
-  - cyclo.kr       : 자전거 (공개 JSON API, /api/meetup/schedule)
-
-중요 — 반드시 지킬 것:
-  - "대회 일정 정보"(대회명/날짜/장소/종목/거리/주최자)만 다룹니다.
-    참가자 개인 기록(이름, 기록시간 등)은 이 스크립트로 수집하지 않습니다.
-  - 새 소스를 추가하기 전에 이용약관 / robots.txt를 반드시 먼저 확인하세요.
-    명시적으로 크롤링을 금지하는 사이트는 절대 대상에 포함하지 마세요.
-    (예: smartchip.co.kr은 개인 기록 페이지에 크롤링 금지 문구가 있어 제외됨)
-  - 주의: 실제 페이지 구조를 브라우저로 직접 확인해 작성했지만, 샌드박스 환경
-    네트워크 제약으로 이 환경에서 직접 실행 테스트는 못 했습니다.
-    GitHub Actions 첫 실행 후 결과를 사람이 한 번 검수하세요.
+  - cyclo.kr       : 자전거 (공개 JSON API)
+  - runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr
 
 사용 예시:
   python scripts/fetch_events.py --out events.json
@@ -45,7 +36,6 @@ REGIONS = [
 
 
 def guess_sport(name: str) -> tuple[str, str]:
-    """대회명에 포함된 키워드로 종목을 추정합니다."""
     if any(k in name for k in TRAIL_KEYWORDS):
         return "trail", "트레일"
     if any(k in name for k in CYCLING_KEYWORDS):
@@ -54,7 +44,6 @@ def guess_sport(name: str) -> tuple[str, str]:
 
 
 def guess_region(location: str) -> str:
-    """장소 문자열에서 시도 단위 지역을 추정합니다. 못 찾으면 '전국'."""
     for r in REGIONS:
         if r in location:
             return r
@@ -62,10 +51,6 @@ def guess_region(location: str) -> str:
 
 
 def guess_year(month: int, day: int) -> int:
-    """
-    페이지에 연도가 표기되지 않으므로 연도를 추정합니다.
-    최근 지난 대회도 며칠간 계속 보여주는 사이트가 있어, 90일 유예기간을 둡니다.
-    """
     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     candidate = datetime(today.year, month, day)
     grace_period_days = 90
@@ -80,7 +65,6 @@ def slugify(name: str, date: str, prefix: str) -> str:
 
 
 def blank_event(**kwargs) -> dict:
-    """모든 이벤트가 동일한 필드 스키마를 갖도록 하는 헬퍼."""
     base = {
         "id": None,
         "sport": "marathon",
@@ -103,8 +87,6 @@ def blank_event(**kwargs) -> dict:
     return base
 
 
-# ---- 소스 1: roadrun.co.kr (마라톤/트레일) ----
-
 def parse_date_cell(text: str) -> str | None:
     m = re.search(r"(\d{1,2})/(\d{1,2})", text)
     if not m:
@@ -126,7 +108,6 @@ def parse_name_cell(text: str) -> tuple[str, list[str]]:
 
 
 def parse_organizer_cell(cell) -> tuple[str | None, str | None]:
-    """조직명과 전화번호를 분리합니다."""
     text = cell.get_text("\n", strip=True)
     lines = [l.strip() for l in text.split("\n") if l.strip()]
     if not lines:
@@ -206,7 +187,17 @@ def fetch_roadrun() -> list[dict]:
     return events
 
 
-# ---- 소스 2: cyclo.kr (자전거) ----
+CYCLO_MEETUP_API_BASE = "https://cyclo.kr/api/meetup/"
+
+
+def fetch_cyclo_outlink(meetup_id: int) -> str | None:
+    try:
+        resp = requests.get(f"{CYCLO_MEETUP_API_BASE}{meetup_id}", timeout=10)
+        data = resp.json()
+        return data.get("outlink") or None
+    except Exception:
+        return None
+
 
 def fetch_cyclo() -> list[dict]:
     resp = requests.get(CYCLO_API_URL, timeout=15)
@@ -225,6 +216,10 @@ def fetch_cyclo() -> list[dict]:
             time_str = dest_date.split(" ")[1][:5] if " " in dest_date else "미확인"
             location = (m.get("address") or {}).get("name", "장소 미확인")
             organizer = m.get("organizer")
+            meetup_id = m.get("id")
+
+            outlink = fetch_cyclo_outlink(meetup_id) if meetup_id else None
+            detail_url = f"https://cyclo.kr/event_detail/{meetup_id}" if meetup_id else CYCLO_FALLBACK_URL
 
             events.append(blank_event(
                 id=slugify(name, date_iso, "cy"),
@@ -238,7 +233,7 @@ def fetch_cyclo() -> list[dict]:
                 distances=["거리 미확인"],
                 organizer=organizer,
                 sourceUrl=CYCLO_FALLBACK_URL,
-                applyUrl=CYCLO_FALLBACK_URL,
+                applyUrl=outlink or detail_url,
             ))
 
     return events
