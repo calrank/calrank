@@ -45,6 +45,7 @@ REGIONS = [
 
 
 def guess_sport(name: str) -> tuple[str, str]:
+    """대회명에 포함된 키워드로 종목을 추정합니다."""
     if any(k in name for k in TRAIL_KEYWORDS):
         return "trail", "트레일"
     if any(k in name for k in CYCLING_KEYWORDS):
@@ -53,6 +54,7 @@ def guess_sport(name: str) -> tuple[str, str]:
 
 
 def guess_region(location: str) -> str:
+    """장소 문자열에서 시도 단위 지역을 추정합니다. 못 찾으면 '전국'."""
     for r in REGIONS:
         if r in location:
             return r
@@ -60,6 +62,10 @@ def guess_region(location: str) -> str:
 
 
 def guess_year(month: int, day: int) -> int:
+    """
+    페이지에 연도가 표기되지 않으므로 연도를 추정합니다.
+    최근 지난 대회도 며칠간 계속 보여주는 사이트가 있어, 90일 유예기간을 둡니다.
+    """
     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     candidate = datetime(today.year, month, day)
     grace_period_days = 90
@@ -74,6 +80,7 @@ def slugify(name: str, date: str, prefix: str) -> str:
 
 
 def blank_event(**kwargs) -> dict:
+    """모든 이벤트가 동일한 필드 스키마를 갖도록 하는 헬퍼."""
     base = {
         "id": None,
         "sport": "marathon",
@@ -96,6 +103,8 @@ def blank_event(**kwargs) -> dict:
     return base
 
 
+# ---- 소스 1: roadrun.co.kr (마라톤/트레일) ----
+
 def parse_date_cell(text: str) -> str | None:
     m = re.search(r"(\d{1,2})/(\d{1,2})", text)
     if not m:
@@ -117,6 +126,7 @@ def parse_name_cell(text: str) -> tuple[str, list[str]]:
 
 
 def parse_organizer_cell(cell) -> tuple[str | None, str | None]:
+    """조직명과 전화번호를 분리합니다."""
     text = cell.get_text("\n", strip=True)
     lines = [l.strip() for l in text.split("\n") if l.strip()]
     if not lines:
@@ -195,6 +205,8 @@ def fetch_roadrun() -> list[dict]:
 
     return events
 
+
+# ---- 소스 2: cyclo.kr (자전거) ----
 
 def fetch_cyclo() -> list[dict]:
     resp = requests.get(CYCLO_API_URL, timeout=15)
@@ -292,10 +304,148 @@ def fetch_runningwiki() -> list[dict]:
     return events
 
 
+HYROX_LIST_URL = "https://hyroxsouthkorea.com/find-your-race/"
+HYROX_CITY_KEYWORDS = ["SEOUL", "INCHEON"]
+MONTH_ABBR = {
+    "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6,
+    "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12,
+}
+
+
+def parse_hyrox_date(text: str) -> str | None:
+    m = re.search(r"(\d{1,2})\.\s*([A-Za-z]{3})\.?\s*(\d{4})", text)
+    if not m:
+        return None
+    day = int(m.group(1))
+    month = MONTH_ABBR.get(m.group(2))
+    year = int(m.group(3))
+    if not month:
+        return None
+    return f"{year:04d}-{month:02d}-{day:02d}"
+
+
+def fetch_hyrox_ticket_url(detail_url: str) -> str | None:
+    try:
+        resp = requests.get(detail_url, timeout=15)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        for a in soup.find_all("a"):
+            href = a.get("href", "")
+            if "hyrox.com/event" in href:
+                return href
+    except Exception:
+        pass
+    return None
+
+
+def fetch_hyrox() -> list[dict]:
+    resp = requests.get(HYROX_LIST_URL, timeout=15)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    items = soup.select(".w-grid-item.event")
+    events = []
+
+    for item in items:
+        text = item.get_text(" ", strip=True)
+        if not any(city in text.upper() for city in HYROX_CITY_KEYWORDS):
+            continue
+
+        link = item.find("a")
+        if not link:
+            continue
+        detail_url = link.get("href")
+
+        name_el = item.select_one(".post_title")
+        name = name_el.get_text(strip=True) if name_el else text[:40]
+
+        date_iso = parse_hyrox_date(text)
+        if not date_iso:
+            continue
+
+        location = "서울" if "SEOUL" in text.upper() else "인천"
+        ticket_url = fetch_hyrox_ticket_url(detail_url) if detail_url else None
+
+        events.append(blank_event(
+            id=slugify(name, date_iso, "hx"),
+            sport="hyrox",
+            sportLabel="하이록스",
+            name=name,
+            date=date_iso,
+            location=location,
+            region=location,
+            distances=["하이록스"],
+            sourceUrl=HYROX_LIST_URL,
+            applyUrl=ticket_url or detail_url or HYROX_LIST_URL,
+        ))
+
+    return events
+
+
+TRIATHLON_URL = "https://triathlon.or.kr/events/tour/"
+TRIATHLON_BASE = "https://triathlon.or.kr"
+
+
+def parse_triathlon_date(text: str) -> str | None:
+    m = re.match(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", text.strip())
+    if not m:
+        return None
+    year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    return f"{year:04d}-{month:02d}-{day:02d}"
+
+
+def fetch_triathlon() -> list[dict]:
+    resp = requests.get(TRIATHLON_URL, timeout=15)
+    resp.encoding = resp.apparent_encoding
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    events = []
+    for row in soup.select("table tr"):
+        cells = row.find_all("td")
+        if len(cells) != 3:
+            continue
+
+        info_text = cells[0].get_text("\n", strip=True)
+        lines = [l for l in info_text.split("\n") if l.strip()]
+        if len(lines) < 2:
+            continue
+
+        name = lines[1] if lines[0] in ("접수중", "접수예정", "접수마감") else lines[0]
+        location_match = re.search(r"장소:\s*(.+)", info_text)
+        location = location_match.group(1).strip() if location_match else "전국"
+
+        date_text = cells[1].get_text(strip=True)
+        date_iso = parse_triathlon_date(date_text)
+        if not date_iso or not name:
+            continue
+
+        link = cells[0].find("a")
+        detail_url = None
+        if link:
+            href = link.get("href", "")
+            detail_url = TRIATHLON_BASE + href if href.startswith("/") else href
+
+        events.append(blank_event(
+            id=slugify(name, date_iso, "tri"),
+            sport="triathlon",
+            sportLabel="철인3종",
+            name=name,
+            date=date_iso,
+            location=location,
+            region=guess_region(location),
+            distances=["종목 미확인"],
+            sourceUrl=TRIATHLON_URL,
+            applyUrl=detail_url or TRIATHLON_URL,
+        ))
+
+    return events
+
+
 SOURCES = [
     ("roadrun.co.kr", fetch_roadrun),
     ("cyclo.kr", fetch_cyclo),
     ("runningwikii.com", fetch_runningwiki),
+    ("hyroxsouthkorea.com", fetch_hyrox),
+    ("triathlon.or.kr", fetch_triathlon),
 ]
 
 
