@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 랭크 — calrank</title>
+<meta name="description" content="내 대회 기록을 저장하고 관리하세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="myrank.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="wordmark">CALRANK</a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">캘린더</a>
+      <a href="#" class="nav-link soon">대회랭킹 <span class="soon-tag">준비중</span></a>
+      <a href="myrank.html" class="nav-link active">내 랭크</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap myrank-wrap">
+
+  <section class="hero">
+    <h1>내 기록, 내 랭크.</h1>
+    <p class="hero-sub">완주한 대회를 기록하고 나의 페이스 등급을 확인하세요.</p>
+  </section>
+
+  <!-- 로그인 전 -->
+  <section id="authSection" class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-mode="signin">로그인</button>
+      <button class="auth-tab" data-mode="signup">회원가입</button>
+    </div>
+
+    <form id="authForm" class="auth-form">
+      <label>이메일</label>
+      <input type="email" id="authEmail" required placeholder="you@example.com">
+      <label>비밀번호</label>
+      <input type="password" id="authPassword" required placeholder="6자 이상" minlength="6">
+      <button type="submit" class="auth-submit-btn" id="authSubmitBtn">로그인</button>
+      <p class="auth-msg" id="authMsg"></p>
+    </form>
+  </section>
+
+  <!-- 로그인 후 -->
+  <section id="dashSection" class="dash-section" style="display:none;">
+    <div class="dash-top">
+      <p class="dash-welcome">안녕하세요, <span id="displayName"></span>님</p>
+      <button id="signOutBtn" class="signout-btn">로그아웃</button>
+    </div>
+
+    <div class="tier-grid" id="tierGrid"></div>
+
+    <div class="record-form-card">
+      <p class="record-form-title">대회 기록 추가</p>
+      <form id="recordForm" class="record-form">
+        <input type="text" id="rfName" placeholder="대회명" required>
+        <input type="date" id="rfDate" required>
+        <select id="rfSport">
+          <option value="marathon">마라톤</option>
+          <option value="cycling">자전거</option>
+          <option value="trail">트레일</option>
+          <option value="hyrox">하이록스</option>
+          <option value="triathlon">철인3종</option>
+        </select>
+        <select id="rfDistance"></select>
+        <input type="text" id="rfTime" placeholder="완주시간 (예: 1:45:30)" pattern="^\d{1,2}:\d{2}(:\d{2})?$">
+        <input type="text" id="rfNotes" placeholder="메모 (선택)">
+        <button type="submit" class="record-submit-btn">기록 추가</button>
+      </form>
+      <p class="record-msg" id="recordMsg"></p>
+    </div>
+
+    <p class="result-count" id="recordCount"></p>
+    <div class="record-list" id="recordList"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>내 랭크의 등급 기준은 일반적으로 통용되는 동호인 페이스 구간을 참고한 것으로, 공식 통계가 아닙니다.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="myrank.js"></script>
+</body>
+</html>
