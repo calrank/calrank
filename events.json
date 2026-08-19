@@ -13194,6 +13194,26 @@
     "applyUrl": "https://runyc.kr/"
   },
   {
+    "id": "ro-넥슨과-함께하는-2026-미라클365-푸르메런-2026-11-07",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "넥슨과 함께하는 2026 미라클365 푸르메런",
+    "date": "2026-11-07",
+    "time": "미확인",
+    "location": "서울 상암 월드컵공원 평화광장",
+    "region": "서울",
+    "distances": [
+      "10km/3km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://www.runneron.com/marathon",
+    "applyUrl": "https://purmerun.com/"
+  },
+  {
     "id": "rr-2026-해남땅끝-전국마라톤대회-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
