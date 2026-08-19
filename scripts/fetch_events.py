@@ -1,7 +1,7 @@
 """
 calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
 
-현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr, runningmap.kr
+현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr, runningmap.kr, runneron.com
 
 사용 예시:
   python scripts/fetch_events.py --out events.json
@@ -500,6 +500,91 @@ def fetch_runningmap() -> list[dict]:
     return events
 
 
+RUNNERON_LIST_URL = "https://www.runneron.com/marathon"
+RUNNERON_BASE = "https://www.runneron.com"
+
+
+def fetch_runneron_detail(detail_url: str) -> tuple[str | None, str | None, str | None]:
+    try:
+        resp = requests.get(detail_url, timeout=15)
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        homepage = None
+        for a in soup.find_all("a"):
+            if "공식 홈페이지" in a.get_text() or "접수 페이지" in a.get_text():
+                href = a.get("href", "")
+                if href.startswith("http"):
+                    homepage = href
+                    break
+
+        text = soup.get_text()
+        m = re.search(r"접수기간\s*([\d.]+)\s*~\s*([\d.]+)", text)
+        reg_start = reg_end = None
+        if m:
+            reg_start = m.group(1).replace(".", "-")
+            reg_end = m.group(2).replace(".", "-")
+
+        return homepage, reg_start, reg_end
+    except Exception:
+        return None, None, None
+
+
+def fetch_runneron() -> list[dict]:
+    resp = requests.get(RUNNERON_LIST_URL, timeout=15)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    events = []
+    for card in soup.select("a.marathon_card"):
+        name = card.select_one(".marathon_card_name")
+        if not name:
+            continue
+        name = name.get_text(strip=True)
+
+        date_el = card.select_one(".marathon_card_date")
+        date_text = date_el.get_text(" ", strip=True) if date_el else ""
+        m = re.search(r"(\d{1,2})\.(\d{1,2})", date_text)
+        if not m:
+            continue
+        month, day = int(m.group(1)), int(m.group(2))
+        date_iso = f"{guess_year(month, day):04d}-{month:02d}-{day:02d}"
+
+        loc_el = card.select_one(".marathon_card_loc")
+        location = loc_el.get_text(strip=True) if loc_el else "장소 미확인"
+        region_el = card.select_one(".marathon_card_region")
+        region = region_el.get_text(strip=True) if region_el else guess_region(location)
+
+        meta_el = card.select_one(".marathon_card_meta")
+        distances = ["거리 미확인"]
+        if meta_el:
+            meta_lines = [l.strip() for l in meta_el.get_text("\n").split("\n") if l.strip() and l.strip() != location]
+            if meta_lines:
+                distances = meta_lines
+
+        detail_href = card.get("href", "")
+        detail_url = RUNNERON_BASE + detail_href if detail_href.startswith("/") else detail_href
+
+        homepage, reg_start, reg_end = fetch_runneron_detail(detail_url) if detail_url else (None, None, None)
+
+        sport, sport_label = guess_sport(name)
+
+        events.append(blank_event(
+            id=slugify(name, date_iso, "ro"),
+            sport=sport,
+            sportLabel=sport_label,
+            name=name,
+            date=date_iso,
+            location=location,
+            region=region,
+            distances=distances,
+            regDeadline=reg_end,
+            sourceUrl=RUNNERON_LIST_URL,
+            applyUrl=homepage or detail_url or RUNNERON_LIST_URL,
+        ))
+
+    return events
+
+
 SOURCES = [
     ("roadrun.co.kr", fetch_roadrun),
     ("cyclo.kr", fetch_cyclo),
@@ -507,6 +592,7 @@ SOURCES = [
     ("hyroxsouthkorea.com", fetch_hyrox),
     ("triathlon.or.kr", fetch_triathlon),
     ("runningmap.kr", fetch_runningmap),
+    ("runneron.com", fetch_runneron),
 ]
 
 
