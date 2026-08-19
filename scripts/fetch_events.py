@@ -1,8 +1,6 @@
 """
 calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
 
-소스가 하나 죽어도 나머지 소스는 계속 작동하도록, 소스별로 실패를 격리합니다.
-
 현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr, runningmap.kr
 
 사용 예시:
@@ -443,8 +441,12 @@ def find_runningmap_supabase_key() -> str | None:
             return None
         js_url = RUNNINGMAP_BASE + script_match.group(1)
         js_text = requests.get(js_url, timeout=15).text
-        key_match = re.search(r"eyJ[\w-]+\.[\w-]+\.[\w-]+", js_text)
-        return key_match.group(0) if key_match else None
+
+        new_format = re.search(r"sb_publishable_[\w-]+", js_text)
+        if new_format:
+            return new_format.group(0)
+        old_format = re.search(r"eyJ[\w-]+\.[\w-]+\.[\w-]+", js_text)
+        return old_format.group(0) if old_format else None
     except Exception:
         return None
 
@@ -464,15 +466,19 @@ def fetch_runningmap() -> list[dict]:
 
     events = []
     for row in rows:
-        name = row.get("name") or row.get("race_name") or row.get("title")
-        date_iso = row.get("race_date") or row.get("date")
+        name = row.get("name")
+        date_iso = row.get("race_date")
         if not name or not date_iso:
             continue
         date_iso = str(date_iso)[:10]
 
-        location = row.get("location") or row.get("venue") or row.get("place") or "장소 미확인"
-        reg_deadline = row.get("reg_end") or row.get("application_end") or row.get("apply_end")
-        homepage = row.get("url") or row.get("homepage") or row.get("website")
+        location = row.get("location") or "장소 미확인"
+        region = row.get("region") or guess_region(location)
+        reg_deadline = row.get("reg_end")
+        apply_url = row.get("apply_url") or row.get("homepage_url")
+        organizer = row.get("organizer")
+        courses = row.get("courses")
+        distances = courses if isinstance(courses, list) and courses else ["거리 미확인"]
 
         sport, sport_label = guess_sport(name)
 
@@ -483,11 +489,12 @@ def fetch_runningmap() -> list[dict]:
             name=name,
             date=date_iso,
             location=location,
-            region=guess_region(location),
-            distances=["거리 미확인"],
+            region=region,
+            distances=distances,
+            organizer=organizer,
             regDeadline=str(reg_deadline)[:10] if reg_deadline else None,
             sourceUrl=RUNNINGMAP_BASE,
-            applyUrl=homepage or RUNNINGMAP_BASE,
+            applyUrl=apply_url or RUNNINGMAP_BASE,
         ))
 
     return events
