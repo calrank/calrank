@@ -1,0 +1,45 @@
+/* 포디움 (상위 3명) */
+.podium{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+  margin:24px 0 28px;align-items:end;
+}
+.podium-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:2px;
+  padding:20px 12px;text-align:center;
+}
+.podium-first{
+  border-color:var(--marathon);padding-top:28px;
+  box-shadow:0 0 0 1px var(--marathon);
+}
+.podium-rank{font-size:11px;font-weight:900;color:var(--ink-faint);margin:0 0 8px;letter-spacing:0.5px;}
+.podium-first .podium-rank{color:var(--marathon);}
+.podium-name{font-size:16px;font-weight:900;color:var(--ink);margin:0 0 6px;}
+.podium-time{font-size:22px;font-weight:900;color:var(--ink);margin:0 0 8px;}
+.podium-race{font-size:10.5px;color:var(--ink-faint);margin:0;line-height:1.4;}
+
+.rank-list{display:flex;flex-direction:column;gap:1px;background:var(--line);margin-bottom:16px;}
+.rank-row{background:var(--bg);padding:14px 16px;display:flex;align-items:center;gap:16px;}
+.rank-row-me{background:#161008;}
+.rank-num{font-size:13px;font-weight:900;color:var(--ink-faint);width:32px;flex-shrink:0;text-align:center;}
+.rank-row-me .rank-num{color:var(--marathon);}
+.rank-body{flex:1;min-width:0;}
+.rank-name{font-size:14px;font-weight:700;color:var(--ink);margin:0 0 3px;}
+.rank-race{font-size:11px;color:var(--ink-faint);margin:0;}
+.rank-time{font-size:15px;font-weight:900;color:var(--ink);flex-shrink:0;}
+
+.myrank-context-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:2px;
+  padding:20px;margin:8px 0 24px;
+}
+.myrank-context-title{font-size:13px;font-weight:900;color:var(--ink);margin:0 0 14px;}
+.myrank-login-hint{text-align:center;padding:28px 20px;}
+.myrank-login-hint p{font-size:13px;color:var(--ink-faint);margin:0 0 14px;}
+.myrank-login-link{
+  display:inline-block;width:auto;padding:10px 22px;text-decoration:none;
+  font-size:13px;
+}
+
+@media (max-width:600px){
+  .podium{grid-template-columns:1fr;}
+  .podium-first{padding-top:20px;order:-1;}
+}
