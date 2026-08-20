@@ -2,13 +2,13 @@
 calrank 종목별 뉴스 자동 수집 (다중 소스, 상호 독립).
 
 법적으로 안전한 방식만 사용합니다: Google 뉴스 RSS처럼 "개인적·비영리
-목적"으로 이용이 제한된 피드는 쓰지 않고, 각 종목 공식 협회가 스스로 공개 운영하는
-뉴스 게시판만 개별적으로 수집합니다.
+목적"으로 이용이 제한된 피드는 쓰지 않고, 각 종목 공식 협회가 스스로
+공개 운영하는 뉴스 게시판만 개별적으로 수집합니다.
 
 현재 소스:
   - emarathon.or.kr : 마라톤 (런코리아 운영, e-마라톤 "마라톤 관련뉴스")
   - cycling.or.kr   : 자전거 (대한사이클연맹 "사이클뉴스")
-  - triathlon.or.kr : 철인3종 (대한철인사종협회 "뉴스")
+  - triathlon.or.kr : 철인3종 (대한철인3종협회 "뉴스")
 
 trail(대한산악연맹), hyrox는 아직 안정적인 공식 뉴스 소스를 찾지 못해
 제외되어 있습니다.
@@ -39,6 +39,8 @@ SPORT_LABEL = {
 
 
 def guess_year_for_md(month: int, day: int) -> int:
+    """MM.DD 형식(연도 없음)에서 연도를 추정합니다. 미래 날짜로 너무 멀면
+    작년, 과거로 너무 멀면 내년으로 보정합니다."""
     today = datetime.now()
     candidate = datetime(today.year, month, day)
     diff_days = (today - candidate).days
@@ -53,6 +55,8 @@ def slugify_id(sport: str, title: str, date: str) -> str:
     base = re.sub(r"[^0-9A-Za-z가-힣]+", "-", title).strip("-").lower()
     return f"{sport}-{base[:60]}-{date}"
 
+
+# ---- 소스 1: e-마라톤 (마라톤) ----
 
 EMARATHON_URL = "https://emarathon.or.kr/bbs/board.php?bo_table=emara02_03"
 EMARATHON_BASE = "https://emarathon.or.kr/bbs/"
@@ -101,6 +105,8 @@ def fetch_marathon_news() -> list[dict]:
     return events
 
 
+# ---- 소스 2: 대한사이클연맹 (자전거) ----
+
 CYCLING_URL = "https://cycling.or.kr/news/news/"
 
 
@@ -146,6 +152,8 @@ def fetch_cycling_news() -> list[dict]:
     return events
 
 
+# ---- 소스 3: 대한철인3종협회 (철인3종) ----
+
 TRIATHLON_NEWS_URL = "https://triathlon.or.kr/community/news/"
 
 
@@ -186,7 +194,7 @@ def fetch_triathlon_news() -> list[dict]:
             "date": date_iso,
             "excerpt": excerpt,
             "sourceUrl": article_url or TRIATHLON_NEWS_URL,
-            "sourceName": "대한철인사종협회",
+            "sourceName": "대한철인3종협회",
         })
 
     return events
@@ -203,6 +211,7 @@ def merge_and_dedupe(existing: list[dict], new_items: list[dict]) -> list[dict]:
     by_id = {it["id"]: it for it in existing}
     for it in new_items:
         by_id[it["id"]] = it
+    # 최신순 정렬, 최대 300개만 유지 (게시판이 계속 쌓이는 걸 방지)
     merged = sorted(by_id.values(), key=lambda e: e["date"], reverse=True)
     return merged[:300]
 
