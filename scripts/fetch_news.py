@@ -8,7 +8,7 @@ calrank 종목별 뉴스 자동 수집 (다중 소스, 상호 독립).
 현재 소스:
   - emarathon.or.kr : 마라톤 (런코리아 운영, e-마라톤 "마라톤 관련뉴스")
   - cycling.or.kr   : 자전거 (대한사이클연맹 "사이클뉴스")
-  - triathlon.or.kr : 철인3종 (대한철인뎄3종협회 "뉴스")
+  - triathlon.or.kr : 철인3종 (대한철인3종협회 "뉴스")
 
 trail(대한산악연맹), hyrox는 아직 안정적인 공식 뉴스 소스를 찾지 못해
 제외되어 있습니다.
@@ -39,8 +39,6 @@ SPORT_LABEL = {
 
 
 def guess_year_for_md(month: int, day: int) -> int:
-    """MM.DD 형식(연도 없음)에서 연도를 추정합니다. 미래 날짜로 너무 멀면
-    작년, 과거로 너무 멀면 내년으로 보정합니다."""
     today = datetime.now()
     candidate = datetime(today.year, month, day)
     diff_days = (today - candidate).days
@@ -188,7 +186,7 @@ def fetch_triathlon_news() -> list[dict]:
             "date": date_iso,
             "excerpt": excerpt,
             "sourceUrl": article_url or TRIATHLON_NEWS_URL,
-            "sourceName": "대한철인뎄3종협회",
+            "sourceName": "대한철인3종협회",
         })
 
     return events
