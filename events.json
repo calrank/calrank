@@ -7014,6 +7014,26 @@
     "applyUrl": "https://inthetrail.com/shop_view/?idx=54%3Futm_source%3Dmarathongo"
   },
   {
+    "id": "rw-제2회-한양도성길-트레일런-2026-08-22",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "제2회 한양도성길 트레일런",
+    "date": "2026-08-22",
+    "time": "미확인",
+    "location": "서울",
+    "region": "서울",
+    "distances": [
+      "20km"
+    ],
+    "organizer": "파브코리아",
+    "organizerPhone": null,
+    "regDeadline": "2026-08-20",
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "http://www.mtrailrun.kr/"
+  },
+  {
     "id": "rr-2026-교룡산성-백야드-2026-08-23",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -7468,6 +7488,27 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "http://wmac2026.com/kr/"
+  },
+  {
+    "id": "rr-포항호미반도트레일런-2026-08-30",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "포항호미반도트레일런",
+    "date": "2026-08-30",
+    "time": "미확인",
+    "location": "도구해수욕장",
+    "region": "전국",
+    "distances": [
+      "15km",
+      "10km"
+    ],
+    "organizer": "파브코리아",
+    "organizerPhone": "010-3526-9120",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.mtrailrun.kr/"
   },
   {
     "id": "rr-사우나런-in-뚝섬한강공원-2026-08-31",
@@ -9503,6 +9544,46 @@
     "applyUrl": "http://www.gomarathon.co.kr/"
   },
   {
+    "id": "ro-7080-띠별-온라인-마라톤-대회-2026-09-29",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "7080 띠별 온라인 마라톤 대회",
+    "date": "2026-09-29",
+    "time": "미확인",
+    "location": "온라인 (러너온 앱)",
+    "region": "온라인",
+    "distances": [
+      "누적 거리"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://www.runneron.com/marathon",
+    "applyUrl": "https://www.runneron.com/Event/2/guide"
+  },
+  {
+    "id": "ro-러너온-크루-매치-2026-09-29",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "러너온 크루 매치",
+    "date": "2026-09-29",
+    "time": "미확인",
+    "location": "온라인 (러너온 앱)",
+    "region": "온라인",
+    "distances": [
+      "누적 거리"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://www.runneron.com/marathon",
+    "applyUrl": "https://www.runneron.com/Event/1/guide"
+  },
+  {
     "id": "rr-2026-춘천연합마라톤-2026-10-03",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -10563,6 +10644,28 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "https://amarunhs.com/marathon_application/app2.asp"
+  },
+  {
+    "id": "rr-2026-고흥우주항공배-마라톤-2026-10-09",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 고흥우주항공배 마라톤",
+    "date": "2026-10-09",
+    "time": "미확인",
+    "location": "고흥군 박지성공설운동장",
+    "region": "전국",
+    "distances": [
+      "하프",
+      "10km",
+      "5km"
+    ],
+    "organizer": "고흥군체육회",
+    "organizerPhone": "042-638-1080",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://mara1080.com/event/10fcc153-1bb7-403e-8f57-7571c1c324d5"
   },
   {
     "id": "rr-제3회서울트레일런-대회-2026-10-10",
@@ -13214,6 +13317,47 @@
     "applyUrl": "https://purmerun.com/"
   },
   {
+    "id": "rr-saverace-2026-2026-11-07",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "SaveRace 2026",
+    "date": "2026-11-07",
+    "time": "미확인",
+    "location": "여의도공원 문화의마당",
+    "region": "전국",
+    "distances": [
+      "10km"
+    ],
+    "organizer": "카카오뱅크, 유니셰프",
+    "organizerPhone": "02-1566-1936",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.saverace.co.kr"
+  },
+  {
+    "id": "rr-2026-푸르메런-2026-11-07",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 푸르메런",
+    "date": "2026-11-07",
+    "time": "미확인",
+    "location": "상암 월드컵공원 평화광장",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "3km"
+    ],
+    "organizer": "푸르메재단",
+    "organizerPhone": "02-338-0344",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://purmerun.com/"
+  },
+  {
     "id": "rr-2026-해남땅끝-전국마라톤대회-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -13553,6 +13697,28 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "https://www.runneron.com/marathon/제주국제트레일러닝"
+  },
+  {
+    "id": "rr-제24회-전국-나주-금성산숲길마라톤-2026-11-08",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "제24회 전국 나주 금성산숲길마라톤",
+    "date": "2026-11-08",
+    "time": "미확인",
+    "location": "나주시 금성산 일원",
+    "region": "전국",
+    "distances": [
+      "하프",
+      "6km",
+      "11km"
+    ],
+    "organizer": "나주시체육회",
+    "organizerPhone": "061-331-6482",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.geumsungsan.co.kr"
   },
   {
     "id": "hx-airasia-hyrox-seoul-2026-11-13",
@@ -14106,6 +14272,27 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "http://happytrailrun.com/"
+  },
+  {
+    "id": "rr-2026-나눔레이스-인-용인-2026-11-15",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 나눔레이스 인 용인",
+    "date": "2026-11-15",
+    "time": "미확인",
+    "location": "세리박위드용인",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "15km"
+    ],
+    "organizer": "나눔레이스조직위원회",
+    "organizerPhone": "02-2135-1297",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://nanumrun.or.kr"
   },
   {
     "id": "rr-give-run-2026-부산-2026-11-21",
