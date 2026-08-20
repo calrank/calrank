@@ -97,6 +97,153 @@ function populateDistanceSelect(sport) {
   });
 }
 
+function haversineMeters(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = (d) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.asin(Math.sqrt(a));
+}
+
+function parseGpx(xmlDoc) {
+  const points = Array.from(xmlDoc.getElementsByTagName("trkpt"));
+  if (points.length < 2) return null;
+
+  let distanceMeters = 0;
+  let prevLat = null, prevLon = null;
+  let startTime = null, endTime = null;
+
+  for (const pt of points) {
+    const lat = parseFloat(pt.getAttribute("lat"));
+    const lon = parseFloat(pt.getAttribute("lon"));
+    const timeEl = pt.getElementsByTagName("time")[0];
+    const time = timeEl ? new Date(timeEl.textContent) : null;
+
+    if (prevLat != null) {
+      distanceMeters += haversineMeters(prevLat, prevLon, lat, lon);
+    }
+    prevLat = lat;
+    prevLon = lon;
+
+    if (time && !isNaN(time.getTime())) {
+      if (!startTime) startTime = time;
+      endTime = time;
+    }
+  }
+
+  const nameEl = xmlDoc.getElementsByTagName("name")[0];
+  const name = nameEl ? nameEl.textContent.trim() : null;
+
+  return {
+    distanceMeters,
+    durationSeconds: startTime && endTime ? Math.round((endTime - startTime) / 1000) : null,
+    startTime,
+    name,
+  };
+}
+
+function parseTcx(xmlDoc) {
+  const laps = Array.from(xmlDoc.getElementsByTagName("Lap"));
+  if (laps.length === 0) return null;
+
+  let distanceMeters = 0;
+  let durationSeconds = 0;
+
+  laps.forEach(lap => {
+    const distEl = lap.getElementsByTagName("DistanceMeters")[0];
+    const timeEl = lap.getElementsByTagName("TotalTimeSeconds")[0];
+    if (distEl) distanceMeters += parseFloat(distEl.textContent) || 0;
+    if (timeEl) durationSeconds += parseFloat(timeEl.textContent) || 0;
+  });
+
+  const activityEl = xmlDoc.getElementsByTagName("Activity")[0];
+  const idEl = activityEl ? activityEl.getElementsByTagName("Id")[0] : null;
+  const startTime = idEl ? new Date(idEl.textContent) : null;
+  const sportAttr = activityEl ? activityEl.getAttribute("Sport") : null;
+
+  return {
+    distanceMeters,
+    durationSeconds: Math.round(durationSeconds),
+    startTime: startTime && !isNaN(startTime.getTime()) ? startTime : null,
+    name: sportAttr,
+  };
+}
+
+function guessDistanceCategory(sport, km) {
+  if (sport === "marathon") {
+    if (km >= 40) return "full";
+    if (km >= 19) return "half";
+    if (km >= 8) return "10km";
+    return "5km";
+  }
+  if (sport === "trail") {
+    if (km >= 80) return "100km";
+    if (km >= 35) return "50km";
+    return "20km";
+  }
+  if (sport === "cycling") {
+    if (km >= 180) return "200km+";
+    if (km >= 120) return "150km";
+    if (km >= 70) return "100km";
+    return "50km";
+  }
+  return null;
+}
+
+function handleFileImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const msgEl = document.getElementById("importMsg");
+  msgEl.textContent = "분석 중...";
+  msgEl.className = "import-msg";
+
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try {
+      const xmlDoc = new DOMParser().parseFromString(evt.target.result, "application/xml");
+      if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+        throw new Error("파일 형식을 읽을 수 없어요");
+      }
+
+      const isTcx = file.name.toLowerCase().endsWith(".tcx") || xmlDoc.getElementsByTagName("TrainingCenterDatabase").length > 0;
+      const result = isTcx ? parseTcx(xmlDoc) : parseGpx(xmlDoc);
+
+      if (!result || !result.distanceMeters) {
+        throw new Error("거리/시간 정보를 찾지 못했어요");
+      }
+
+      const km = result.distanceMeters / 1000;
+      const sport = document.getElementById("rfSport").value;
+      const guessedDist = guessDistanceCategory(sport, km);
+
+      if (result.name) document.getElementById("rfName").value = result.name;
+      if (result.startTime) {
+        const d = result.startTime;
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const dd = String(d.getDate()).padStart(2, "0");
+        document.getElementById("rfDate").value = `${yyyy}-${mm}-${dd}`;
+      }
+      if (result.durationSeconds) {
+        document.getElementById("rfTime").value = formatSeconds(result.durationSeconds);
+      }
+      if (guessedDist) {
+        document.getElementById("rfDistance").value = guessedDist;
+      }
+
+      msgEl.textContent = `인식된 거리: ${km.toFixed(1)}km · 아래 폼을 확인하고 저장해주세요`;
+      msgEl.className = "import-msg success";
+    } catch (err) {
+      msgEl.textContent = "가져오기 실패: " + err.message;
+      msgEl.className = "import-msg error";
+    }
+  };
+  reader.readAsText(file);
+}
+
 let authMode = "signin";
 
 function setupAuthTabs() {
@@ -228,6 +375,7 @@ async function handleRecordSubmit(e) {
   msgEl.textContent = "기록이 저장되었습니다.";
   msgEl.className = "record-msg";
   e.target.reset();
+  document.getElementById("importMsg").textContent = "";
   populateDistanceSelect(document.getElementById("rfSport").value);
   await loadRecords();
 }
@@ -327,6 +475,7 @@ async function init() {
   document.getElementById("signOutBtn").addEventListener("click", handleSignOut);
   document.getElementById("recordForm").addEventListener("submit", handleRecordSubmit);
   document.getElementById("rfSport").addEventListener("change", (e) => populateDistanceSelect(e.target.value));
+  document.getElementById("gpxFileInput").addEventListener("change", handleFileImport);
 
   populateDistanceSelect("marathon");
 
