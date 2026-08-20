@@ -1,0 +1,18 @@
+.news-list{display:flex;flex-direction:column;gap:1px;background:var(--line);}
+.news-card{
+  display:block;background:var(--bg);padding:18px 4px;
+  text-decoration:none;color:inherit;
+}
+.news-card-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:8px;
+}
+.news-sport-tag{
+  font-size:10px;font-weight:900;letter-spacing:0.5px;color:var(--marathon);
+  border:1px solid var(--marathon);padding:2px 8px;border-radius:1px;
+}
+.news-date{font-size:11px;color:var(--ink-faint);}
+.news-title{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 6px;line-height:1.4;}
+.news-excerpt{font-size:12.5px;color:var(--ink-faint);margin:0 0 8px;line-height:1.5;}
+.news-source{font-size:11px;color:var(--ink-soft);margin:0;}
+.news-card:hover .news-title{color:var(--marathon);}
