@@ -59,6 +59,15 @@
 
     <div class="record-form-card">
       <p class="record-form-title">대회 기록 추가</p>
+
+      <div class="import-box">
+        <label for="gpxFileInput" class="import-label">
+          📁 GPX/TCX 파일로 자동 채우기 <span class="import-sub">(Strava·Garmin·코로스 등에서 내보낸 파일)</span>
+        </label>
+        <input type="file" id="gpxFileInput" accept=".gpx,.tcx" class="import-input">
+        <p class="import-msg" id="importMsg"></p>
+      </div>
+
       <form id="recordForm" class="record-form">
         <input type="text" id="rfName" placeholder="대회명" required>
         <input type="date" id="rfDate" required>
