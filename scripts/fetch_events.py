@@ -15,6 +15,16 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
+# 일부 사이트가 requests 라이브러리의 기본 User-Agent를 자동 차단하는 경우가 있어,
+# 실제 브라우저처럼 보이는 공통 헤더를 모든 요청에 씁니다.
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+}
+
 ROADRUN_URL = "http://www.roadrun.co.kr/schedule/list.php"
 ROADRUN_DETAIL_BASE = "http://www.roadrun.co.kr/schedule/"
 CYCLO_API_URL = "https://cyclo.kr/api/meetup/schedule"
@@ -136,7 +146,7 @@ def parse_detail_url(cell) -> str | None:
 
 
 def fetch_roadrun() -> list[dict]:
-    resp = requests.get(ROADRUN_URL, timeout=15)
+    resp = requests.get(ROADRUN_URL, timeout=15, headers=HEADERS)
     resp.encoding = resp.apparent_encoding
     soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -184,17 +194,27 @@ def fetch_roadrun() -> list[dict]:
 CYCLO_MEETUP_API_BASE = "https://cyclo.kr/api/meetup/"
 
 
-def fetch_cyclo_outlink(meetup_id: int) -> str | None:
+def format_km(distance: float) -> str:
+    if distance == int(distance):
+        return f"{int(distance)}km"
+    return f"{distance}km"
+
+
+def fetch_cyclo_detail(meetup_id: int) -> tuple[str | None, list[str]]:
+    """개별 대회 상세 API에서 원문 링크와 코스 거리를 함께 가져옵니다."""
     try:
-        resp = requests.get(f"{CYCLO_MEETUP_API_BASE}{meetup_id}", timeout=10)
+        resp = requests.get(f"{CYCLO_MEETUP_API_BASE}{meetup_id}", timeout=10, headers=HEADERS)
         data = resp.json()
-        return data.get("outlink") or None
+        outlink = data.get("outlink") or None
+        courses = data.get("courses") or []
+        distances = [format_km(c["distance"]) for c in courses if c.get("distance")]
+        return outlink, distances
     except Exception:
-        return None
+        return None, []
 
 
 def fetch_cyclo() -> list[dict]:
-    resp = requests.get(CYCLO_API_URL, timeout=15)
+    resp = requests.get(CYCLO_API_URL, timeout=15, headers=HEADERS)
     resp.raise_for_status()
     groups = resp.json()
 
@@ -212,7 +232,7 @@ def fetch_cyclo() -> list[dict]:
             organizer = m.get("organizer")
             meetup_id = m.get("id")
 
-            outlink = fetch_cyclo_outlink(meetup_id) if meetup_id else None
+            outlink, distances = fetch_cyclo_detail(meetup_id) if meetup_id else (None, [])
             detail_url = f"https://cyclo.kr/event_detail/{meetup_id}" if meetup_id else CYCLO_FALLBACK_URL
 
             events.append(blank_event(
@@ -224,7 +244,7 @@ def fetch_cyclo() -> list[dict]:
                 time=time_str,
                 location=location,
                 region=guess_region(location),
-                distances=["거리 미확인"],
+                distances=distances or ["거리 미확인"],
                 organizer=organizer,
                 sourceUrl=CYCLO_FALLBACK_URL,
                 applyUrl=outlink or detail_url,
@@ -237,7 +257,7 @@ RUNNINGWIKI_URL = "https://runningwikii.com/"
 
 
 def fetch_runningwiki() -> list[dict]:
-    resp = requests.get(RUNNINGWIKI_URL, timeout=15)
+    resp = requests.get(RUNNINGWIKI_URL, timeout=15, headers=HEADERS)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -315,7 +335,7 @@ def parse_hyrox_date(text: str) -> str | None:
 
 def fetch_hyrox_ticket_url(detail_url: str) -> str | None:
     try:
-        resp = requests.get(detail_url, timeout=15)
+        resp = requests.get(detail_url, timeout=15, headers=HEADERS)
         soup = BeautifulSoup(resp.text, "html.parser")
         for a in soup.find_all("a"):
             href = a.get("href", "")
@@ -327,7 +347,7 @@ def fetch_hyrox_ticket_url(detail_url: str) -> str | None:
 
 
 def fetch_hyrox() -> list[dict]:
-    resp = requests.get(HYROX_LIST_URL, timeout=15)
+    resp = requests.get(HYROX_LIST_URL, timeout=15, headers=HEADERS)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -383,7 +403,7 @@ def parse_triathlon_date(text: str) -> str | None:
 
 
 def fetch_triathlon() -> list[dict]:
-    resp = requests.get(TRIATHLON_URL, timeout=15)
+    resp = requests.get(TRIATHLON_URL, timeout=15, headers=HEADERS)
     resp.encoding = resp.apparent_encoding
     soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -435,12 +455,12 @@ RUNNINGMAP_SUPABASE_URL = "https://cukapfkyrfchluxgpixt.supabase.co/rest/v1/race
 
 def find_runningmap_supabase_key() -> str | None:
     try:
-        html = requests.get(RUNNINGMAP_BASE, timeout=15).text
+        html = requests.get(RUNNINGMAP_BASE, timeout=15, headers=HEADERS).text
         script_match = re.search(r'src="(/assets/index-[^"]+\.js)"', html)
         if not script_match:
             return None
         js_url = RUNNINGMAP_BASE + script_match.group(1)
-        js_text = requests.get(js_url, timeout=15).text
+        js_text = requests.get(js_url, timeout=15, headers=HEADERS).text
 
         new_format = re.search(r"sb_publishable_[\w-]+", js_text)
         if new_format:
@@ -456,7 +476,7 @@ def fetch_runningmap() -> list[dict]:
     if not key:
         return []
 
-    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    headers = {**HEADERS, "apikey": key, "Authorization": f"Bearer {key}"}
     resp = requests.get(
         f"{RUNNINGMAP_SUPABASE_URL}?select=*&order=race_date.asc",
         headers=headers, timeout=15,
@@ -506,7 +526,7 @@ RUNNERON_BASE = "https://www.runneron.com"
 
 def fetch_runneron_detail(detail_url: str) -> tuple[str | None, str | None, str | None]:
     try:
-        resp = requests.get(detail_url, timeout=15)
+        resp = requests.get(detail_url, timeout=15, headers=HEADERS)
         soup = BeautifulSoup(resp.text, "html.parser")
 
         homepage = None
@@ -530,7 +550,7 @@ def fetch_runneron_detail(detail_url: str) -> tuple[str | None, str | None, str 
 
 
 def fetch_runneron() -> list[dict]:
-    resp = requests.get(RUNNERON_LIST_URL, timeout=15)
+    resp = requests.get(RUNNERON_LIST_URL, timeout=15, headers=HEADERS)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
