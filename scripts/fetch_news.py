@@ -62,6 +62,23 @@ EMARATHON_URL = "https://emarathon.or.kr/bbs/board.php?bo_table=emara02_03"
 EMARATHON_BASE = "https://emarathon.or.kr/bbs/"
 
 
+def fetch_marathon_article_link(detail_url: str) -> str | None:
+    """상세페이지 본문에 외부 언론사 원문 링크가 있으면 그 링크를 반환합니다.
+    (자체 작성 공지 글은 외부 링크가 없어 None을 반환, 이 경우 상세페이지
+    자체를 그대로 씁니다.)"""
+    try:
+        resp = requests.get(detail_url, timeout=10, headers=HEADERS)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        content = soup.select_one("div.view-content")
+        if content:
+            a = content.find("a", href=True)
+            if a and a["href"].startswith("http") and "emarathon.or.kr" not in a["href"]:
+                return a["href"]
+    except Exception:
+        pass
+    return None
+
+
 def fetch_marathon_news() -> list[dict]:
     resp = requests.get(EMARATHON_URL, timeout=15, headers=HEADERS)
     resp.raise_for_status()
@@ -91,6 +108,8 @@ def fetch_marathon_news() -> list[dict]:
         href = link_el.get("href", "")
         article_url = EMARATHON_BASE + href if href.startswith("board.php") else href
 
+        real_url = fetch_marathon_article_link(article_url) if article_url else None
+
         events.append({
             "id": slugify_id("marathon", title, date_iso),
             "sport": "marathon",
@@ -98,7 +117,7 @@ def fetch_marathon_news() -> list[dict]:
             "title": title,
             "date": date_iso,
             "excerpt": None,
-            "sourceUrl": article_url or EMARATHON_URL,
+            "sourceUrl": real_url or article_url or EMARATHON_URL,
             "sourceName": "e-마라톤",
         })
 
