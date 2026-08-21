@@ -148,3 +148,7 @@ body{
   .main-nav{gap:14px;}
   .hero{padding:32px 0 12px;}
 }
+
+.footer-links{margin-top:8px !important;}
+.footer-links a{color:var(--ink-soft);text-decoration:underline;}
+.footer-links a:hover{color:var(--ink);}
