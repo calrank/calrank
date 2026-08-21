@@ -12,51 +12,52 @@
 <body>
 
 <header class="site-header">
-  <div class="wrap header-inner">
-    <span class="wordmark">CALRANK</span>
-    <nav class="main-nav">
-      <a href="#" class="nav-link active">캘린더</a>
-      <a href="ranking.html" class="nav-link">대회랭킹</a>
-      <a href="news.html" class="nav-link">종목뉴스</a>
-      <a href="myrank.html" class="nav-link">내 랭크</a>
-    </nav>
-  </div>
+<div class="wrap header-inner">
+<span class="wordmark">CALRANK</span>
+<nav class="main-nav">
+<a href="#" class="nav-link active">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+</nav>
+</div>
 </header>
 
 <main class="wrap">
 
-  <section class="hero">
-    <h1>너의 다음 출발선, 바로 여기야!</h1>
-    <p class="hero-sub">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 하이록스</p>
-  </section>
+<section class="hero">
+<h1>너의 다음 출발선, 바로 여기야!</h1>
+<p class="hero-sub">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 하이록스</p>
+</section>
 
-  <section class="filter-row">
-    <div class="filter-group" id="monthTabs"></div>
-  </section>
-  <section class="filter-row">
-    <div class="filter-group" id="sportChips"></div>
-  </section>
-  <section class="filter-row">
-    <select id="regionSelect" class="region-select"></select>
-  </section>
+<section class="filter-row">
+<div class="filter-group" id="monthTabs"></div>
+</section>
+<section class="filter-row">
+<div class="filter-group" id="sportChips"></div>
+</section>
+<section class="filter-row">
+<select id="regionSelect" class="region-select"></select>
+</section>
 
-  <p class="result-count" id="resultCount">대회를 불러오는 중…</p>
+<p class="result-count" id="resultCount">대회를 불러오는 중…</p>
 
-  <section class="event-list" id="eventGrid" aria-live="polite"></section>
+<section class="event-list" id="eventGrid" aria-live="polite"></section>
 
 </main>
 
 <div id="modalOverlay" class="modal-overlay">
-  <div class="modal-card" role="dialog" aria-modal="true">
-    <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
-    <div id="modalBody"></div>
-  </div>
+<div class="modal-card" role="dialog" aria-modal="true">
+<button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
+<div id="modalBody"></div>
+</div>
 </div>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
-  </div>
+<div class="wrap">
+<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
+<p class="footer-links"><a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
 </footer>
 
 <script src="script.js"></script>
