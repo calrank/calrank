@@ -959,7 +959,7 @@
     "location": "영월 스포츠파크",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "80.8km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -1197,7 +1197,8 @@
     "location": "경상남도 고성군 종합운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "120.2km",
+      "118.9km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -1626,7 +1627,8 @@
     "location": "한라대학교 소운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "125.1km",
+      "83.5km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -1775,7 +1777,7 @@
     "location": "부안스포츠파크",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "82.7km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -1986,7 +1988,8 @@
     "location": "예천스타디움",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "102.6km",
+      "93.1km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -2599,7 +2602,8 @@
     "location": "홍천종합운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "122.5km",
+      "79.2km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -2685,7 +2689,7 @@
     "location": "춘천 애니메이션박물관",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "74.3km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -3216,7 +3220,8 @@
     "location": "북면생활체육공원",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "108.2km",
+      "65.2km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -3531,7 +3536,8 @@
     "location": "내장산 워터파크 행사장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "118.5km",
+      "82.2km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -3804,7 +3810,7 @@
     "location": "화천생활체육공원 주경기장",
     "region": "경기",
     "distances": [
-      "거리 미확인"
+      "74.9km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -4600,7 +4606,8 @@
     "location": "맹방 해수욕장 주차장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "130.6km",
+      "59.1km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -4812,7 +4819,7 @@
     "location": "여주도자세상",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "73.5km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -4982,7 +4989,7 @@
     "location": "광주전남통합특별시 여수시 화양면 장수로 193",
     "region": "광주",
     "distances": [
-      "거리 미확인"
+      "79.5km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -5493,7 +5500,8 @@
     "location": "상남생활체육공원",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "202.4km",
+      "104.3km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -5932,7 +5940,8 @@
     "location": "정선종합경기장 제1주차장",
     "region": "경기",
     "distances": [
-      "거리 미확인"
+      "92km",
+      "46.7km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -7269,7 +7278,7 @@
     "location": "물맑은양평종합운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "93.9km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -7712,7 +7721,8 @@
     "location": "문경시민운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "153.3km",
+      "107.7km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -9263,6 +9273,26 @@
     "applyUrl": "http://www.cyber-run.com/"
   },
   {
+    "id": "cy-2026-펄스에너지-그란폰도-영동-2026-09-19",
+    "sport": "cycling",
+    "sportLabel": "자전거",
+    "name": "2026 펄스에너지 그란폰도 - 영동",
+    "date": "2026-09-19",
+    "time": "08:00",
+    "location": "영동군민운동장",
+    "region": "전국",
+    "distances": [
+      "106.3km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://cyclo.kr/schedule",
+    "applyUrl": "https://pulsesport.co.kr/register"
+  },
+  {
     "id": "rr-2026-울산남구육상연맹-회장배-단축마라톤-2026-09-20",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -9767,7 +9797,8 @@
     "location": "충주종합운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "112.1km",
+      "86.4km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -9787,7 +9818,8 @@
     "location": "상주북천시민공원",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "101.4km",
+      "61.1km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -10551,7 +10583,8 @@
     "location": "공주시민운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "113.3km",
+      "106.7km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -11912,7 +11945,8 @@
     "location": "춘천송암스포츠타운",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "122.9km",
+      "81.7km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -12225,7 +12259,8 @@
     "location": "여수 소호요트마리나",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "112.8km",
+      "93.3km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -12546,7 +12581,8 @@
     "location": "홍천종합운동장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "121.4km",
+      "58.3km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -12842,7 +12878,8 @@
     "location": "예천스타디움",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "103.9km",
+      "93.8km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -12862,7 +12899,8 @@
     "location": "영산강 둔치체육공원",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "126.5km",
+      "106.2km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -13245,7 +13283,7 @@
     "location": "무주등나무운동장 주차장",
     "region": "전국",
     "distances": [
-      "거리 미확인"
+      "95.5km"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -14509,6 +14547,28 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://ssrun.kr/"
+  },
+  {
+    "id": "rr-2026-인천마라톤-2026-11-22",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 인천마라톤",
+    "date": "2026-11-22",
+    "time": "미확인",
+    "location": "인천아시아드 주경기장",
+    "region": "인천",
+    "distances": [
+      "풀",
+      "10km",
+      "5km"
+    ],
+    "organizer": "인천시,대한육연",
+    "organizerPhone": "00-1866-1718",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://incheonmarathn.or.kr"
   },
   {
     "id": "rm-2026-무진장트레일레이스-2026-11-23",
