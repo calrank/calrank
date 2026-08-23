@@ -152,3 +152,9 @@ body{
 .footer-links{margin-top:8px !important;}
 .footer-links a{color:var(--ink-soft);text-decoration:underline;}
 .footer-links a:hover{color:var(--ink);}
+
+.nav-contact-link{font-size:10.5px;font-weight:400;color:var(--ink-faint);text-decoration:none;padding:4px 0;margin-left:2px;border-left:1px solid var(--border);padding-left:14px;}
+.nav-contact-link:hover{color:var(--ink-soft);}
+@media (max-width:600px){
+  .nav-contact-link{display:none;}
+}
