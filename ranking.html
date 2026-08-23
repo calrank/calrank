@@ -14,50 +14,53 @@
 <body>
 
 <header class="site-header">
-  <div class="wrap header-inner">
-    <a href="index.html" class="wordmark">CALRANK</a>
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">캘린더</a>
-      <a href="ranking.html" class="nav-link active">대회랭킹</a>
-      <a href="myrank.html" class="nav-link">내 랭크</a>
-    </nav>
-  </div>
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link active">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
 </header>
 
 <main class="wrap myrank-wrap">
 
-  <section class="hero">
-    <h1>누가 가장 빨랐을까.</h1>
-    <p class="hero-sub">종목별 완주 기록 순위. 이름은 마스킹되어 표시됩니다.</p>
-  </section>
+<section class="hero">
+<h1>누가 가장 빨랐을까.</h1>
+<p class="hero-sub">종목별 완주 기록 순위. 이름은 마스킹되어 표시됩니다.</p>
+</section>
 
-  <section class="filter-row">
-    <div class="filter-group" id="sportChipsR"></div>
-  </section>
-  <section class="filter-row">
-    <div class="filter-group" id="distChipsR"></div>
-  </section>
+<section class="filter-row">
+<div class="filter-group" id="sportChipsR"></div>
+</section>
+<section class="filter-row">
+<div class="filter-group" id="distChipsR"></div>
+</section>
 
-  <div id="podium" class="podium"></div>
+<div id="podium" class="podium"></div>
 
-  <div class="rank-list" id="rankList"></div>
+<div class="rank-list" id="rankList"></div>
 
-  <section class="myrank-context-card" id="myContextCard" style="display:none;">
-    <p class="myrank-context-title">내 순위 근처</p>
-    <div class="rank-list" id="myContextList"></div>
-  </section>
+<section class="myrank-context-card" id="myContextCard" style="display:none;">
+<p class="myrank-context-title">내 순위 근처</p>
+<div class="rank-list" id="myContextList"></div>
+</section>
 
-  <section class="myrank-context-card myrank-login-hint" id="loginHint" style="display:none;">
-    <p>로그인하면 내 순위 근처를 확인할 수 있어요.</p>
-    <a href="myrank.html" class="record-submit-btn myrank-login-link">내 랭크로 가기</a>
-  </section>
+<section class="myrank-context-card myrank-login-hint" id="loginHint" style="display:none;">
+<p>로그인하면 내 순위 근처를 확인할 수 있어요.</p>
+<a href="myrank.html" class="record-submit-btn myrank-login-link">내 랭크로 가기</a>
+</section>
 
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p>대회랭킹은 calrank 사용자가 직접 입력한 완주 기록을 바탕으로 하며, 이름은 마스킹되어 표시됩니다(예: 박정희 → 박*희). 공식 대회 순위가 아닙니다.</p>
-  </div>
+<div class="wrap">
+<p>대회랭킹은 calrank 사용자가 직접 입력한 완주 기록을 바탕으로 하며, 이름은 마스킹되어 표시됩니다(예: 박정희 → 박*희). 공식 대회 순위가 아닙니다.</p>
+<p class="footer-links"><a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
