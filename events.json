@@ -7079,7 +7079,7 @@
     ],
     "organizer": "대구광역시,세계마스터즈육상연맹",
     "organizerPhone": "053-803-1834",
-    "regDeadline": "2026-06-23",
+    "regDeadline": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -13777,7 +13777,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.geumsungsan.co.kr"
+    "applyUrl": "http://www.geumsungsan.kr"
   },
   {
     "id": "rm-제2회-완주군-만경강-마라톤-대회-2026-11-08",
