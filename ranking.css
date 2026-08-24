@@ -1,15 +1,15 @@
 /* 포디움 (상위 3명) */
 .podium{
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
-  margin:24px 0 28px;align-items:end;
+display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+margin:24px 0 28px;align-items:end;
 }
 .podium-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:2px;
-  padding:20px 12px;text-align:center;
+background:var(--surface);border:1px solid var(--border);border-radius:2px;
+padding:20px 12px;text-align:center;
 }
 .podium-first{
-  border-color:var(--marathon);padding-top:28px;
-  box-shadow:0 0 0 1px var(--marathon);
+border-color:var(--marathon);padding-top:28px;
+box-shadow:0 0 0 1px var(--marathon);
 }
 .podium-rank{font-size:11px;font-weight:900;color:var(--ink-faint);margin:0 0 8px;letter-spacing:0.5px;}
 .podium-first .podium-rank{color:var(--marathon);}
@@ -28,18 +28,43 @@
 .rank-time{font-size:15px;font-weight:900;color:var(--ink);flex-shrink:0;}
 
 .myrank-context-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:2px;
-  padding:20px;margin:8px 0 24px;
+background:var(--surface);border:1px solid var(--border);border-radius:2px;
+padding:20px;margin:8px 0 24px;
 }
 .myrank-context-title{font-size:13px;font-weight:900;color:var(--ink);margin:0 0 14px;}
 .myrank-login-hint{text-align:center;padding:28px 20px;}
 .myrank-login-hint p{font-size:13px;color:var(--ink-faint);margin:0 0 14px;}
 .myrank-login-link{
-  display:inline-block;width:auto;padding:10px 22px;text-decoration:none;
-  font-size:13px;
+display:inline-block;width:auto;padding:10px 22px;text-decoration:none;
+font-size:13px;
 }
 
+/* 공식기록 배지 */
+.official-badge{
+display:inline-block;font-size:9.5px;font-weight:900;color:var(--accent);
+border:1px solid var(--accent);border-radius:2px;padding:1px 6px;
+margin-left:4px;vertical-align:middle;letter-spacing:0.3px;
+}
+.official-source-link{color:var(--ink-faint);text-decoration:underline;}
+.official-source-link:hover{color:var(--ink-soft);}
+
+.official-legend{
+font-size:11px;color:var(--ink-faint);margin:0 0 16px;line-height:1.6;
+}
+
+/* 체력등급 확인 CTA 배너 */
+.level-cta-banner{
+display:flex;align-items:center;justify-content:space-between;
+background:var(--surface);border:1px solid var(--border);border-radius:2px;
+padding:14px 18px;margin:20px 0;text-decoration:none;
+transition:border-color 0.15s;
+}
+.level-cta-banner:hover{border-color:var(--accent);}
+.level-cta-text{font-size:13px;color:var(--ink);font-weight:700;}
+.level-cta-arrow{font-size:16px;color:var(--accent);flex-shrink:0;margin-left:12px;}
+
 @media (max-width:600px){
-  .podium{grid-template-columns:1fr;}
-  .podium-first{padding-top:20px;order:-1;}
+.podium{grid-template-columns:1fr;}
+.podium-first{padding-top:20px;order:-1;}
+.level-cta-banner{flex-direction:column;align-items:flex-start;gap:6px;}
 }
