@@ -1,0 +1,42 @@
+.level-form-card{
+  max-width:420px;margin:24px auto 0;
+  background:var(--surface);border:1px solid var(--border);border-radius:2px;
+  padding:24px 22px;
+}
+.level-form{display:flex;flex-direction:column;gap:10px;}
+.level-form label{font-size:12px;color:var(--ink-faint);margin-top:4px;}
+.level-form input,.level-form select{
+  padding:11px 12px;border:1px solid var(--border);border-radius:2px;
+  background:var(--bg);color:var(--ink);font-size:14px;font-family:var(--font-body);
+}
+
+.level-result{
+  max-width:420px;margin:24px auto 0;
+  background:var(--surface);border:1px solid var(--border);border-radius:2px;
+  padding:28px 22px;text-align:center;
+}
+.level-tier-badge{
+  display:inline-block;font-family:var(--font-display);font-size:24px;
+  color:var(--accent);border:2px solid var(--accent);border-radius:2px;
+  padding:8px 20px;margin-bottom:12px;
+}
+.level-tier-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;margin:0 0 20px;}
+
+.level-stats{display:flex;justify-content:space-around;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:20px;}
+.level-stat{display:flex;flex-direction:column;gap:4px;}
+.level-stat-label{font-size:10.5px;color:var(--ink-faint);}
+.level-stat-value{font-size:16px;font-weight:900;color:var(--ink);}
+
+.level-tier-table-title{font-size:11.5px;color:var(--ink-faint);margin:0 0 8px;text-align:left;}
+.level-tier-table{display:flex;flex-direction:column;gap:1px;background:var(--line);text-align:left;}
+.level-tier-row{background:var(--bg);padding:9px 12px;font-size:12.5px;color:var(--ink-faint);}
+.level-tier-row.current{background:var(--surface);color:var(--accent);font-weight:900;border-left:3px solid var(--accent);padding-left:9px;}
+
+.level-disclaimer{
+  max-width:420px;margin:16px auto 0;font-size:10.5px;color:var(--ink-faint);
+  line-height:1.6;text-align:center;
+}
+
+@media (max-width:600px){
+  .level-stats{flex-direction:column;gap:12px;}
+}
