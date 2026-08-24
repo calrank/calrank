@@ -6203,26 +6203,6 @@
     "applyUrl": "http://koreatrail.net/"
   },
   {
-    "id": "tri-2026-철인3종-7차-대회규정-정기교육-2026-07-08",
-    "sport": "triathlon",
-    "sportLabel": "철인3종",
-    "name": "2026 철인3종 7차 대회규정 정기교육",
-    "date": "2026-07-08",
-    "time": "미확인",
-    "location": "온라인 ZOOM",
-    "region": "전국",
-    "distances": [
-      "종목 미확인"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2109&page=1&sYear=2026&vType=list&field=&keyword="
-  },
-  {
     "id": "tri-2026-챌린지-군산-새만금-2026-07-10",
     "sport": "triathlon",
     "sportLabel": "철인3종",
@@ -6252,7 +6232,7 @@
     "location": "서울특별시 석촌호수 및 롯데월드타워",
     "region": "서울",
     "distances": [
-      "종목 미확인"
+      "아쿠아슬론"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -6532,26 +6512,6 @@
     "applyUrl": "http://rocknrun.kr"
   },
   {
-    "id": "tri-2026-2차-level-c-심판-강습회-신규-심판-과정-2026-08-01",
-    "sport": "triathlon",
-    "sportLabel": "철인3종",
-    "name": "2026 2차 Level C 심판 강습회(신규 심판 과정)",
-    "date": "2026-08-01",
-    "time": "미확인",
-    "location": "경기도 광주 G스타디움",
-    "region": "광주",
-    "distances": [
-      "종목 미확인"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2102&page=1&sYear=2026&vType=list&field=&keyword="
-  },
-  {
     "id": "rm-미정-2026-나이트런-부산-2026-08-01",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -6818,26 +6778,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
     "applyUrl": "https://runningwikii.com/entry/incheon-night-race/"
-  },
-  {
-    "id": "tri-2026-level-1-승급-세미나-2026-08-15",
-    "sport": "triathlon",
-    "sportLabel": "철인3종",
-    "name": "2026 Level 1 승급 세미나",
-    "date": "2026-08-15",
-    "time": "미확인",
-    "location": "올림픽 회관 1층 장애인체육회 대회의실",
-    "region": "전국",
-    "distances": [
-      "종목 미확인"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2050&page=1&sYear=2026&vType=list&field=&keyword="
   },
   {
     "id": "rm-제38회-지리산화대종주-trail-run-2026-08-15",
@@ -7185,26 +7125,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "https://www.runneron.com/Event/3/guide"
-  },
-  {
-    "id": "tri-2026-철인3종-8차-대회규정-정기교육-2026-08-26",
-    "sport": "triathlon",
-    "sportLabel": "철인3종",
-    "name": "2026 철인3종 8차 대회규정 정기교육",
-    "date": "2026-08-26",
-    "time": "미확인",
-    "location": "온라인 ZOOM",
-    "region": "전국",
-    "distances": [
-      "종목 미확인"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2112&page=1&sYear=2026&sStat=&sPost=&field=&keyword="
   },
   {
     "id": "tri-제18회-전국해양스포츠제전-2026-08-27",
@@ -7590,7 +7510,8 @@
     "location": "경기도 시흥시 시화해역 및 거북섬 일원",
     "region": "경기",
     "distances": [
-      "종목 미확인"
+      "토요일: 스프린트",
+      "일요일: 스탠다드"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -9116,7 +9037,7 @@
     "location": "전북특별자치도 익산시 익산국제철인3종경기장 일원",
     "region": "경기",
     "distances": [
-      "종목 미확인"
+      "아쿠아슬론"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -9541,7 +9462,7 @@
     "location": "전북특별자치도 익산시 익산국제철인3종경기장 일원",
     "region": "경기",
     "distances": [
-      "종목 미확인"
+      "아쿠아슬론"
     ],
     "organizer": null,
     "organizerPhone": null,
@@ -10216,7 +10137,7 @@
     "location": "전남 구례군 지리산호수공원오토캠핑장 및 구례공설운동장 일원",
     "region": "전남",
     "distances": [
-      "종목 미확인"
+      "아이언맨"
     ],
     "organizer": null,
     "organizerPhone": null,
