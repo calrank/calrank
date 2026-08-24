@@ -402,6 +402,15 @@ def parse_triathlon_date(text: str) -> str | None:
     return f"{year:04d}-{month:02d}-{day:02d}"
 
 
+def parse_triathlon_course(info_text: str) -> list[str]:
+    """목록 페이지에 이미 포함된 '코스: ...' 텍스트에서 종목/코스 정보를 추출합니다."""
+    m = re.search(r"코스:\s*(.+)", info_text)
+    if not m:
+        return ["종목 미확인"]
+    course_text = m.group(1).strip()
+    return [course_text] if course_text else ["종목 미확인"]
+
+
 def fetch_triathlon() -> list[dict]:
     resp = requests.get(TRIATHLON_URL, timeout=15, headers=HEADERS)
     resp.encoding = resp.apparent_encoding
@@ -421,6 +430,7 @@ def fetch_triathlon() -> list[dict]:
         name = lines[1] if lines[0] in ("접수중", "접수예정", "접수마감") else lines[0]
         location_match = re.search(r"장소:\s*(.+)", info_text)
         location = location_match.group(1).strip() if location_match else "전국"
+        distances = parse_triathlon_course(info_text)
 
         date_text = cells[1].get_text(strip=True)
         date_iso = parse_triathlon_date(date_text)
@@ -441,7 +451,7 @@ def fetch_triathlon() -> list[dict]:
             date=date_iso,
             location=location,
             region=guess_region(location),
-            distances=["종목 미확인"],
+            distances=distances,
             sourceUrl=TRIATHLON_URL,
             applyUrl=detail_url or TRIATHLON_URL,
         ))
