@@ -676,7 +676,14 @@ def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]
         merged["saves"] = prev.get("saves", ev["saves"])
         merged["savesTrend7d"] = prev.get("savesTrend7d", ev["savesTrend7d"])
         by_id[ev["id"]] = merged
-    return sorted(by_id.values(), key=lambda e: e["date"])
+
+    # 예전에 저장된 철인3종 비-대회 게시물(정기교육/세미나/강습회 등)은
+    # 이후 수집에서 더 이상 나타나지 않아도 계속 남아있으므로 여기서 함께 제거합니다.
+    values = [
+        ev for ev in by_id.values()
+        if not (ev.get("sport") == "triathlon" and is_triathlon_non_race(ev.get("name", "")))
+    ]
+    return sorted(values, key=lambda e: e["date"])
 
 
 def main():
