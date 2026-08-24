@@ -54,7 +54,10 @@
 <section id="dashSection" class="dash-section" style="display:none;">
 <div class="dash-top">
 <p class="dash-welcome">안녕하세요, <span id="displayName"></span>님</p>
+<div class="dash-top-actions">
+<button id="shareBtn" class="share-btn">📤 기록 공유</button>
 <button id="signOutBtn" class="signout-btn">로그아웃</button>
+</div>
 </div>
 
 <div class="tier-grid" id="tierGrid"></div>
@@ -91,6 +94,19 @@
 <p class="result-count" id="recordCount"></p>
 <div class="record-list" id="recordList"></div>
 </section>
+
+<div class="modal-overlay" id="shareModalOverlay">
+<div class="modal-card share-modal-card">
+<button class="modal-close" id="shareModalClose">✕</button>
+<p class="modal-title">내 기록 카드</p>
+<canvas id="shareCanvas" class="share-canvas"></canvas>
+<div class="share-actions">
+<button id="shareNativeBtn" class="modal-apply-btn">공유하기</button>
+<button id="shareDownloadBtn" class="modal-cal-btn">이미지로 저장</button>
+</div>
+<p class="modal-disclaimer">카카오톡, 인스타그램 스토리 등에 공유해보세요.</p>
+</div>
+</div>
 
 </main>
 
