@@ -469,6 +469,171 @@ function renderRecordList() {
   });
 }
 
+const SPORT_COLOR = {
+marathon: "#FF3D1A", cycling: "#5B8DEF", trail: "#4CAF7D", hyrox: "#F2C230", triathlon: "#B37FEA",
+};
+
+function buildShareRows() {
+const rows = [];
+const sportOrder = ["marathon", "hyrox", "triathlon", "cycling", "trail"];
+sportOrder.forEach(sport => {
+const distOptions = (DISTANCE_OPTIONS[sport] || []).map(([v]) => v);
+distOptions.forEach(dist => {
+const recs = currentRecords.filter(r => r.sport === sport && r.distance_category === dist);
+if (recs.length === 0) return;
+if (hasTimeTier(sport)) {
+const best = recs.filter(r => r.finish_time_seconds).sort((a, b) => a.finish_time_seconds - b.finish_time_seconds)[0];
+rows.push({
+sport,
+sportLabel: SPORT_LABEL[sport],
+distLabel: distanceLabel(sport, dist),
+time: best ? formatSeconds(best.finish_time_seconds) : null,
+tier: best ? (getTier(sport, dist, best.finish_time_seconds) || "-") : `완주 ${recs.length}회`,
+});
+} else {
+rows.push({
+sport,
+sportLabel: SPORT_LABEL[sport],
+distLabel: distanceLabel(sport, dist),
+time: null,
+tier: `완주 ${recs.length}회`,
+});
+}
+});
+});
+return rows;
+}
+
+async function drawShareCard(canvas) {
+const W = 720, H = 960;
+const dpr = 2;
+canvas.width = W * dpr;
+canvas.height = H * dpr;
+canvas.style.width = W + "px";
+canvas.style.height = H + "px";
+const ctx = canvas.getContext("2d");
+ctx.scale(dpr, dpr);
+
+if (document.fonts && document.fonts.ready) {
+try { await document.fonts.ready; } catch (e) {}
+}
+
+const grad = ctx.createLinearGradient(0, 0, 0, H);
+grad.addColorStop(0, "#0B0B0B");
+grad.addColorStop(1, "#141414");
+ctx.fillStyle = grad;
+ctx.fillRect(0, 0, W, H);
+
+ctx.fillStyle = "#FF3D1A";
+ctx.fillRect(0, 0, W, 6);
+
+ctx.fillStyle = "#FFFFFF";
+ctx.font = "40px 'Black Han Sans'";
+ctx.textBaseline = "alphabetic";
+ctx.fillText("CALRANK", 48, 92);
+
+ctx.fillStyle = "#6A6A6A";
+ctx.font = "13px 'Noto Sans KR'";
+ctx.fillText("calrank.vercel.app", 48, 114);
+
+const name = document.getElementById("displayName").textContent || "회원";
+ctx.fillStyle = "#9A9A9A";
+ctx.font = "16px 'Noto Sans KR'";
+ctx.fillText(`${name}님의 기록`, 48, 160);
+
+ctx.strokeStyle = "#2E2E2E";
+ctx.beginPath();
+ctx.moveTo(48, 182);
+ctx.lineTo(W - 48, 182);
+ctx.stroke();
+
+const rows = buildShareRows();
+let y = 236;
+
+if (rows.length === 0) {
+ctx.fillStyle = "#6A6A6A";
+ctx.font = "15px 'Noto Sans KR'";
+ctx.fillText("아직 등록된 기록이 없습니다.", 48, y);
+}
+
+rows.slice(0, 6).forEach(row => {
+const color = SPORT_COLOR[row.sport] || "#9A9A9A";
+
+ctx.fillStyle = color;
+ctx.font = "bold 11px 'Noto Sans KR'";
+ctx.fillText(row.sportLabel, 48, y);
+
+ctx.fillStyle = "#DADADA";
+ctx.font = "bold 18px 'Noto Sans KR'";
+ctx.fillText(row.distLabel, 48, y + 28);
+
+if (row.time) {
+ctx.fillStyle = "#FFFFFF";
+ctx.font = "34px 'Black Han Sans'";
+ctx.fillText(row.time, 48, y + 70);
+}
+
+const badgeText = row.tier || "";
+ctx.font = "bold 13px 'Noto Sans KR'";
+const badgeWidth = ctx.measureText(badgeText).width + 24;
+const badgeX = W - 48 - badgeWidth;
+const badgeY = y + 16;
+ctx.strokeStyle = color;
+ctx.lineWidth = 1;
+ctx.strokeRect(badgeX, badgeY - 20, badgeWidth, 30);
+ctx.fillStyle = color;
+ctx.fillText(badgeText, badgeX + 12, badgeY);
+
+y += 108;
+});
+
+ctx.fillStyle = "#6A6A6A";
+ctx.font = "12px 'Noto Sans KR'";
+ctx.fillText("나만의 페이스, 나만의 랭크 — calrank", 48, H - 40);
+}
+
+async function openShareModal() {
+document.getElementById("shareModalOverlay").classList.add("open");
+const canvas = document.getElementById("shareCanvas");
+await drawShareCard(canvas);
+}
+
+function closeShareModal() {
+document.getElementById("shareModalOverlay").classList.remove("open");
+}
+
+function downloadShareCard() {
+const canvas = document.getElementById("shareCanvas");
+canvas.toBlob(blob => {
+const url = URL.createObjectURL(blob);
+const a = document.createElement("a");
+a.href = url;
+a.download = "calrank-my-record.png";
+a.click();
+URL.revokeObjectURL(url);
+}, "image/png");
+}
+
+async function nativeShareCard() {
+const canvas = document.getElementById("shareCanvas");
+canvas.toBlob(async blob => {
+const file = new File([blob], "calrank-my-record.png", { type: "image/png" });
+if (navigator.canShare && navigator.canShare({ files: [file] })) {
+try {
+await navigator.share({
+files: [file],
+title: "CALRANK 내 기록",
+text: "내 대회 기록을 확인해보세요! calrank.vercel.app",
+});
+} catch (e) {
+/* 사용자가 공유를 취소한 경우 */
+}
+} else {
+downloadShareCard();
+}
+}, "image/png");
+}
+
 async function init() {
   setupAuthTabs();
   document.getElementById("authForm").addEventListener("submit", handleAuthSubmit);
@@ -476,6 +641,13 @@ async function init() {
   document.getElementById("recordForm").addEventListener("submit", handleRecordSubmit);
   document.getElementById("rfSport").addEventListener("change", (e) => populateDistanceSelect(e.target.value));
   document.getElementById("gpxFileInput").addEventListener("change", handleFileImport);
+document.getElementById("shareBtn").addEventListener("click", openShareModal);
+document.getElementById("shareModalClose").addEventListener("click", closeShareModal);
+document.getElementById("shareModalOverlay").addEventListener("click", (e) => {
+if (e.target.id === "shareModalOverlay") closeShareModal();
+});
+document.getElementById("shareDownloadBtn").addEventListener("click", downloadShareCard);
+document.getElementById("shareNativeBtn").addEventListener("click", nativeShareCard);
 
   populateDistanceSelect("marathon");
 
