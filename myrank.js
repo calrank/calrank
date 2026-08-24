@@ -509,8 +509,9 @@ const W = 720, H = 960;
 const dpr = 2;
 canvas.width = W * dpr;
 canvas.height = H * dpr;
-canvas.style.width = W + "px";
-canvas.style.height = H + "px";
+canvas.style.width = "100%";
+canvas.style.height = "auto";
+canvas.style.aspectRatio = `${W} / ${H}`;
 const ctx = canvas.getContext("2d");
 ctx.scale(dpr, dpr);
 
