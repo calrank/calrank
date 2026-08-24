@@ -19,6 +19,7 @@ trail(대한산악연맹), hyrox는 아직 안정적인 공식 뉴스 소스를 
 
 import json
 import re
+import time
 import argparse
 from datetime import datetime
 
@@ -36,6 +37,24 @@ HEADERS = {
 SPORT_LABEL = {
     "marathon": "마라톤", "cycling": "자전거", "triathlon": "철인3종",
 }
+
+
+def fetch_with_retry(url: str, timeout: int = 15, retries: int = 3, backoff: float = 2.0) -> requests.Response:
+    """일시적인 타임아웃/연결 오류에 대비해 지수 백오프로 재시도합니다.
+    (예: cycling.or.kr이 간헐적으로 응답이 느려 실패하는 문제 완화용)"""
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.get(url, timeout=timeout, headers=HEADERS)
+            resp.raise_for_status()
+            return resp
+        except requests.exceptions.RequestException as e:
+            last_error = e
+            if attempt < retries:
+                wait = backoff * attempt
+                print(f"  [재시도 {attempt}/{retries}] {url} 요청 실패({e}), {wait:.0f}초 후 재시도")
+                time.sleep(wait)
+    raise last_error
 
 
 def guess_year_for_md(month: int, day: int) -> int:
@@ -65,9 +84,9 @@ EMARATHON_BASE = "https://emarathon.or.kr/bbs/"
 def fetch_marathon_article_link(detail_url: str) -> str | None:
     """상세페이지 본문에 외부 언론사 원문 링크가 있으면 그 링크를 반환합니다.
     (자체 작성 공지 글은 외부 링크가 없어 None을 반환, 이 경우 상세페이지
-    자체를 그대로 씁니다.)"""
+    자체가 그대로 씁니다.)"""
     try:
-        resp = requests.get(detail_url, timeout=10, headers=HEADERS)
+        resp = fetch_with_retry(detail_url, timeout=10, retries=2)
         soup = BeautifulSoup(resp.text, "html.parser")
         content = soup.select_one("div.view-content")
         if content:
@@ -80,8 +99,7 @@ def fetch_marathon_article_link(detail_url: str) -> str | None:
 
 
 def fetch_marathon_news() -> list[dict]:
-    resp = requests.get(EMARATHON_URL, timeout=15, headers=HEADERS)
-    resp.raise_for_status()
+    resp = fetch_with_retry(EMARATHON_URL)
     soup = BeautifulSoup(resp.text, "html.parser")
 
     events = []
@@ -130,8 +148,7 @@ CYCLING_URL = "https://cycling.or.kr/news/news/"
 
 
 def fetch_cycling_news() -> list[dict]:
-    resp = requests.get(CYCLING_URL, timeout=15, headers=HEADERS)
-    resp.raise_for_status()
+    resp = fetch_with_retry(CYCLING_URL)
     soup = BeautifulSoup(resp.text, "html.parser")
 
     events = []
@@ -177,8 +194,7 @@ TRIATHLON_NEWS_URL = "https://triathlon.or.kr/community/news/"
 
 
 def fetch_triathlon_news() -> list[dict]:
-    resp = requests.get(TRIATHLON_NEWS_URL, timeout=15, headers=HEADERS)
-    resp.raise_for_status()
+    resp = fetch_with_retry(TRIATHLON_NEWS_URL)
     soup = BeautifulSoup(resp.text, "html.parser")
 
     events = []
@@ -258,7 +274,7 @@ def main():
     merged = merge_and_dedupe(existing, all_new)
 
     with open(args.out, "w", encoding="utf-8") as f:
-        json.dump(merged, f, ensure_ascii=False, indent=2)
+     json.dump(merged, f, ensure_ascii=False, indent=2)
 
     print(f"[{datetime.now().isoformat()}] {len(merged)}개 뉴스 저장 완료 ({args.out})")
 
