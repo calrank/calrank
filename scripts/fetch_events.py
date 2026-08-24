@@ -393,6 +393,12 @@ def fetch_hyrox() -> list[dict]:
 TRIATHLON_URL = "https://triathlon.or.kr/events/tour/"
 TRIATHLON_BASE = "https://triathlon.or.kr"
 
+TRIATHLON_NON_RACE_KEYWORDS = ["정기교육", "세미나", "강습회", "심판"]
+TRIATHLON_COURSE_KEYWORDS = [
+    "아이언맨", "하프코스", "올림픽코스", "스탠다드", "스프린트", "슈퍼스프린트",
+    "아쿠아슬론", "듀애슬론", "킹코스", "숏코스", "미니코스",
+]
+
 
 def parse_triathlon_date(text: str) -> str | None:
     m = re.match(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", text.strip())
@@ -402,13 +408,33 @@ def parse_triathlon_date(text: str) -> str | None:
     return f"{year:04d}-{month:02d}-{day:02d}"
 
 
-def parse_triathlon_course(info_text: str) -> list[str]:
-    """목록 페이지에 이미 포함된 '코스: ...' 텍스트에서 종목/코스 정보를 추출합니다."""
+def is_triathlon_non_race(name: str) -> bool:
+    """대회규정 정기교육, 심판 강습회, 승급 세미나 등 실제 대회가 아닌 협회 공지를 걸러냅니다."""
+    return any(k in name for k in TRIATHLON_NON_RACE_KEYWORDS)
+
+
+def parse_triathlon_course(info_text: str, name: str = "") -> list[str]:
+    """목록 페이지의 '코스: ...' 텍스트, 없으면 제목의 괄호/키워드에서 종목·코스 정보를 추출합니다."""
     m = re.search(r"코스:\s*(.+)", info_text)
-    if not m:
-        return ["종목 미확인"]
-    course_text = m.group(1).strip()
-    return [course_text] if course_text else ["종목 미확인"]
+    if m:
+        course_text = m.group(1).strip()
+        if course_text:
+            return [course_text]
+
+    # Fallback 1: 제목 괄호 안에 코스 정보가 있는 경우
+    # 예: "...전국 철인3종대회(토요일: 스프린트 / 일요일: 스탠다드)"
+    paren_m = re.search(r"\(([^)]+)\)", name)
+    if paren_m and any(k in paren_m.group(1) for k in TRIATHLON_COURSE_KEYWORDS):
+        parts = [p.strip() for p in re.split(r"[/,]", paren_m.group(1)) if p.strip()]
+        if parts:
+            return parts
+
+    # Fallback 2: 제목 자체에 코스 키워드가 포함된 경우
+    found = [k for k in TRIATHLON_COURSE_KEYWORDS if k in name]
+    if found:
+        return found
+
+    return ["종목 미확인"]
 
 
 def fetch_triathlon() -> list[dict]:
@@ -428,9 +454,12 @@ def fetch_triathlon() -> list[dict]:
             continue
 
         name = lines[1] if lines[0] in ("접수중", "접수예정", "접수마감") else lines[0]
+        if is_triathlon_non_race(name):
+            continue
+
         location_match = re.search(r"장소:\s*(.+)", info_text)
         location = location_match.group(1).strip() if location_match else "전국"
-        distances = parse_triathlon_course(info_text)
+        distances = parse_triathlon_course(info_text, name)
 
         date_text = cells[1].get_text(strip=True)
         date_iso = parse_triathlon_date(date_text)
@@ -457,7 +486,6 @@ def fetch_triathlon() -> list[dict]:
         ))
 
     return events
-
 
 RUNNINGMAP_BASE = "https://runningmap.kr"
 RUNNINGMAP_SUPABASE_URL = "https://cukapfkyrfchluxgpixt.supabase.co/rest/v1/races"
@@ -681,3 +709,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+AiPrice
