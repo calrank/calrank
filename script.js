@@ -11,6 +11,7 @@ const state = {
   sport: "all",
   month: "all",
   region: "all",
+  status: "all",
 };
 
 function daysUntil(dateStr) {
@@ -31,6 +32,14 @@ function ddayInfo(ev) {
   if (!ev.regDeadline) return { label: "접수기간 미확인", urgent: false };
   const n = daysUntil(ev.regDeadline);
   return { label: n < 0 ? "접수 마감" : `D-${n}`, urgent: n >= 0 && n <= 7 };
+}
+
+function getRegStatus(ev) {
+  if (!ev.regDeadline) return "unknown";
+  const n = daysUntil(ev.regDeadline);
+  if (n < 0) return "closed";
+  if (n <= 7) return "urgent";
+  return "open";
 }
 
 function monthKey(dateStr) {
@@ -65,6 +74,33 @@ function setupSportChips() {
     wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     btn.classList.add("active");
     state.sport = btn.dataset.sport;
+    render();
+  });
+}
+
+function setupStatusChips() {
+  const wrap = document.getElementById("statusChips");
+  if (!wrap) return;
+  const options = [
+    ["all", "전체"],
+    ["open", "접수중"],
+    ["urgent", "마감임박"],
+    ["closed", "마감"],
+  ];
+  options.forEach(([value, label]) => {
+    const chip = document.createElement("button");
+    chip.className = value === "all" ? "chip active" : "chip";
+    chip.textContent = label;
+    chip.dataset.status = value;
+    wrap.appendChild(chip);
+  });
+
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if (!btn) return;
+    wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    state.status = btn.dataset.status;
     render();
   });
 }
@@ -150,6 +186,7 @@ function render() {
     .filter(ev => state.sport === "all" || ev.sport === state.sport)
     .filter(ev => state.month === "all" || monthKey(ev.date) === state.month)
     .filter(ev => state.region === "all" || (ev.region || "전국") === state.region)
+    .filter(ev => state.status === "all" || getRegStatus(ev) === state.status)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   countEl.textContent = `${filtered.length}개 대회`;
@@ -256,6 +293,7 @@ async function init() {
     return;
   }
   setupSportChips();
+  setupStatusChips();
   setupMonthTabs();
   setupRegionSelect();
   render();
