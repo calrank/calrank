@@ -63,6 +63,7 @@ JEJU_MBC_RACE_NAME = "제주MBC국제평화마라톤"
 def fetch_jeju_mbc(race_year: int) -> list[dict]:
     resp = requests.get(JEJU_MBC_URL, timeout=15, headers=HEADERS)
     resp.raise_for_status()
+    resp.encoding = resp.apparent_encoding
     soup = BeautifulSoup(resp.text, "html.parser")
 
     table = soup.select_one("table.win-table")
