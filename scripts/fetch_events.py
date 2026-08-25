@@ -10,6 +10,8 @@ calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
 import json
 import re
 import argparse
+import random
+import time
 from datetime import datetime
 
 import requests
@@ -698,13 +700,17 @@ def main():
         existing = []
 
     all_new = []
-    for source_name, fetch_fn in SOURCES:
+    for i, (source_name, fetch_fn) in enumerate(SOURCES):
         try:
             new_events = fetch_fn()
             print(f"[{source_name}] {len(new_events)}개 수집 성공")
             all_new.extend(new_events)
         except Exception as e:
             print(f"[{source_name}] 수집 실패, 건너뜀: {e}")
+
+        # 상대 사이트에 부담을 덜 주기 위해 소스 간에 짧은 랜덤 딜레이를 둡니다.
+        if i < len(SOURCES) - 1:
+            time.sleep(random.uniform(1.5, 3.5))
 
     merged = merge_and_dedupe(existing, dedupe_across_sources(all_new))
 
