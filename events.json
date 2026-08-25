@@ -10998,6 +10998,27 @@
     "applyUrl": "http://xn--939aw8timh48hotq.com/"
   },
   {
+    "id": "rr-2026-하트런-2026-10-10",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 하트런",
+    "date": "2026-10-10",
+    "time": "미확인",
+    "location": "올림픽공원 피크닉장",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "하트-하트재단",
+    "organizerPhone": "070-4350-5663",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://heartrun.co.kr/"
+  },
+  {
     "id": "rr-2026-인천로봇랜드-퓨처런-2026-10-11",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -13847,6 +13868,26 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://pohangmarathon.com/"
+  },
+  {
+    "id": "rr-제2회-한강-브릿지-런-2026-11-14",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "제2회 한강 브릿지 런",
+    "date": "2026-11-14",
+    "time": "미확인",
+    "location": "구리한강시민공원 주차장",
+    "region": "전국",
+    "distances": [
+      "65km"
+    ],
+    "organizer": "파브코리아",
+    "organizerPhone": "010-3526-9120",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.mtrailrun.kr/"
   },
   {
     "id": "rr-제28회-부산국제마라톤-2026-11-15",
