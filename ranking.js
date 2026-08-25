@@ -119,7 +119,7 @@ function renderPodiumAndList(rows) {
     card.className = "podium-card" + (r.rank === 1 ? " podium-first" : "");
     card.innerHTML = `
       <p class="podium-rank">${r.rank}위</p>
-      <p class="podium-name">${r.masked_name}</p>
+      <p class="podium-name">${r.masked_name}${r.is_official ? ' <span class="official-badge">공식</span>' : ''}</p>
       <p class="podium-time">${formatSeconds(r.finish_time_seconds)}</p>
       <p class="podium-race">${r.race_year}년 · ${r.race_name}</p>
     `;
@@ -137,7 +137,7 @@ function buildRankRow(r) {
   row.innerHTML = `
     <span class="rank-num">${r.rank}</span>
     <div class="rank-body">
-      <p class="rank-name">${r.masked_name}</p>
+      <p class="rank-name">${r.masked_name}${r.is_official ? ' <span class="official-badge">공식</span>' : ''}</p>
       <p class="rank-race">${r.race_year}년 · ${r.race_name}</p>
     </div>
     <span class="rank-time">${formatSeconds(r.finish_time_seconds)}</span>
