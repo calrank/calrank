@@ -12,6 +12,7 @@ const state = {
   month: "all",
   region: "all",
   status: "all",
+  distBucket: "all",
 };
 
 function daysUntil(dateStr) {
@@ -40,6 +41,29 @@ function getRegStatus(ev) {
   if (n < 0) return "closed";
   if (n <= 7) return "urgent";
   return "open";
+}
+
+function parseDistanceKm(text) {
+  if (!text) return null;
+  if (/하프/.test(text)) return 21.1;
+  if (/풀코스|풀(?!.*코스)/.test(text) && !/미확인/.test(text)) return 42.2;
+  const m1 = text.match(/(\d+(?:\.\d+)?)\s*km/i);
+  if (m1) return parseFloat(m1[1]);
+  const m2 = text.match(/(\d+(?:\.\d+)?)\s*K\b/i);
+  if (m2) return parseFloat(m2[1]);
+  return null;
+}
+
+function getDistanceBucket(ev) {
+  const text = (ev.distances || []).join(" ");
+  const kms = text.split(/[\s\/,]+/).map(part => parseDistanceKm(part)).filter(v => v != null);
+  const fullText = parseDistanceKm(text);
+  const km = kms.length ? Math.max(...kms) : fullText;
+  if (km == null) return null;
+  if (km <= 10) return "short";
+  if (km <= 25) return "mid";
+  if (km <= 50) return "long";
+  return "ultra";
 }
 
 function monthKey(dateStr) {
@@ -101,6 +125,34 @@ function setupStatusChips() {
     wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     btn.classList.add("active");
     state.status = btn.dataset.status;
+    render();
+  });
+}
+
+function setupDistBucketChips() {
+  const wrap = document.getElementById("distBucketChips");
+  if (!wrap) return;
+  const options = [
+    ["all", "전체 거리"],
+    ["short", "~10km"],
+    ["mid", "10~25km"],
+    ["long", "25~50km"],
+    ["ultra", "50km~"],
+  ];
+  options.forEach(([value, label]) => {
+    const chip = document.createElement("button");
+    chip.className = value === "all" ? "chip active" : "chip";
+    chip.textContent = label;
+    chip.dataset.dist = value;
+    wrap.appendChild(chip);
+  });
+
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if (!btn) return;
+    wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    state.distBucket = btn.dataset.dist;
     render();
   });
 }
@@ -187,6 +239,7 @@ function render() {
     .filter(ev => state.month === "all" || monthKey(ev.date) === state.month)
     .filter(ev => state.region === "all" || (ev.region || "전국") === state.region)
     .filter(ev => state.status === "all" || getRegStatus(ev) === state.status)
+    .filter(ev => state.distBucket === "all" || getDistanceBucket(ev) === state.distBucket)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   countEl.textContent = `${filtered.length}개 대회`;
@@ -294,6 +347,7 @@ async function init() {
   }
   setupSportChips();
   setupStatusChips();
+  setupDistBucketChips();
   setupMonthTabs();
   setupRegionSelect();
   render();
