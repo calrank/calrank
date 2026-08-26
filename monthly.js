@@ -126,6 +126,8 @@ function setupModal() {
 
 async function init() {
   setupModal();
+  const targetSport = window.TARGET_SPORT || "marathon";
+  const sportLabel = (SPORT_META[targetSport] || SPORT_META.marathon).label;
   try {
     const res = await fetch("events.json");
     allEvents = await res.json();
@@ -137,11 +139,11 @@ async function init() {
   const now = new Date();
   const y = now.getFullYear();
   const m = now.getMonth() + 1;
-  document.getElementById("pageTitle").textContent = `${y}년 ${m}월 주말 마라톤 대회 총정리`;
-  document.title = `${y}년 ${m}월 주말 마라톤 대회 총정리 — calrank`;
+  document.getElementById("pageTitle").textContent = `${y}년 ${m}월 주말 ${sportLabel} 대회 총정리`;
+  document.title = `${y}년 ${m}월 주말 ${sportLabel} 대회 총정리 — calrank`;
 
   const filtered = allEvents
-    .filter(ev => ev.sport === "marathon")
+    .filter(ev => ev.sport === targetSport)
     .filter(ev => {
       const d = new Date(ev.date);
       return d.getFullYear() === y && d.getMonth() + 1 === m;
@@ -156,7 +158,7 @@ async function init() {
   if (filtered.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = "이번 달 주말에는 등록된 마라톤 대회가 없습니다.";
+    empty.textContent = `이번 달 주말에는 등록된 ${sportLabel} 대회가 없습니다.`;
     grid.appendChild(empty);
   } else {
     filtered.forEach(ev => grid.appendChild(renderCard(ev)));
