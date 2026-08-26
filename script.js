@@ -334,11 +334,50 @@ function setupModal() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
 }
 
+function injectEventSchema(events) {
+  const upcoming = events
+    .filter(ev => ev.date && new Date(ev.date) >= new Date(new Date().toDateString()))
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .slice(0, 30);
+
+  const itemListElement = upcoming.map((ev, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "SportsEvent",
+      "name": ev.name,
+      "startDate": ev.date,
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": ev.location || "전국",
+        "address": ev.location || "전국",
+      },
+      "organizer": ev.organizer ? { "@type": "Organization", "name": ev.organizer } : undefined,
+      "url": ev.applyUrl || ev.sourceUrl || "https://calrank.vercel.app/",
+    },
+  }));
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "calrank 대회 캘린더",
+    "itemListElement": itemListElement,
+  };
+
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
 async function init() {
   setupModal();
   try {
     const res = await fetch("events.json");
     state.events = await res.json();
+    injectEventSchema(state.events);
   } catch (err) {
     document.getElementById("resultCount").textContent =
       "대회 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해 주세요.";
