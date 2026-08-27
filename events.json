@@ -4426,6 +4426,26 @@
     "applyUrl": "http://s2s2.co.kr/sites/610manse"
   },
   {
+    "id": "tri-2026-아이치-나고야-아시안게임-국가대표-선발전-3차-2026-05-30",
+    "sport": "triathlon",
+    "sportLabel": "철인3종",
+    "name": "2026 아이치·나고야 아시안게임 국가대표 선발전(3차)",
+    "date": "2026-05-30",
+    "time": "미확인",
+    "location": "경상남도 양산시",
+    "region": "전국",
+    "distances": [
+      "종목 미확인"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://triathlon.or.kr/events/tour/",
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2080&page=1&sYear=2026&vType=list&field=&keyword="
+  },
+  {
     "id": "rm-2026-the-race-gwangju-2026-05-31",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -9975,6 +9995,26 @@
     "applyUrl": "http://www.yonma.kr/"
   },
   {
+    "id": "ro-2026-rok-army-트레일러닝-대회-2026-10-03",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "2026 ROK ARMY 트레일러닝 대회",
+    "date": "2026-10-03",
+    "time": "미확인",
+    "location": "경기도 용인시 한국외국어대학교 글로벌캠퍼스",
+    "region": "경기도 용인시",
+    "distances": [
+      "10.1마일(16.25km)"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://www.runneron.com/marathon",
+    "applyUrl": "https://www.rokatrail.com/"
+  },
+  {
     "id": "rr-제14회-광명시장배건강달리기-2026-10-04",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -13825,26 +13865,6 @@
     "applyUrl": "https://wjrun.co.kr/"
   },
   {
-    "id": "hx-airasia-hyrox-seoul-2026-11-13",
-    "sport": "hyrox",
-    "sportLabel": "하이록스",
-    "name": "AirAsia HYROX Seoul",
-    "date": "2026-11-13",
-    "time": "미확인",
-    "location": "서울",
-    "region": "서울",
-    "distances": [
-      "하이록스"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://hyroxsouthkorea.com/find-your-race/",
-    "applyUrl": "https://korea.hyrox.com/event/hyrox-seoul-season-26-27-vthaza?useEmbed=true"
-  },
-  {
     "id": "rr-제2회-안양천-단풍길-마라톤-2026-11-14",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -15294,25 +15314,5 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "http://www.badarun.co.kr"
-  },
-  {
-    "id": "hx-byd-hyrox-incheon-2027-05-13",
-    "sport": "hyrox",
-    "sportLabel": "하이록스",
-    "name": "BYD HYROX Incheon",
-    "date": "2027-05-13",
-    "time": "미확인",
-    "location": "인천",
-    "region": "인천",
-    "distances": [
-      "하이록스"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://hyroxsouthkorea.com/find-your-race/",
-    "applyUrl": "https://hyroxsouthkorea.com/event/hyrox-incheon/"
   }
 ]
