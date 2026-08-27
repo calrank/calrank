@@ -310,6 +310,7 @@ function openDetail(id) {
     </div>
     <button class="modal-apply-btn" id="applyBtn">신청하기 ↗</button>
     <button class="modal-cal-btn" id="calBtn">캘린더에 저장</button>
+    <a class="modal-cal-btn" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box;" href="event.html?id=${encodeURIComponent(ev.id)}">상세 페이지 보기</a>
     <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
 
@@ -355,7 +356,7 @@ function injectEventSchema(events) {
         "address": ev.location || "전국",
       },
       "organizer": ev.organizer ? { "@type": "Organization", "name": ev.organizer } : undefined,
-      "url": ev.applyUrl || ev.sourceUrl || "https://calrank.vercel.app/",
+      "url": `https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}`,
     },
   }));
 
