@@ -11,6 +11,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/aquathlon.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/trail-monthly.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
