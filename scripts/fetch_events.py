@@ -1,7 +1,8 @@
 """
 calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
 
-현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, hyroxsouthkorea.com, triathlon.or.kr, runningmap.kr, runneron.com
+현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, triathlon.or.kr, runningmap.kr, runneron.com
+(hyroxsouthkorea.com은 robots.txt에서 AI 크롤러를 명시적으로 차단하여 2026-08-27부로 사용 중단)
 
 사용 예시:
   python scripts/fetch_events.py --out events.json
@@ -649,7 +650,7 @@ SOURCES = [
     ("roadrun.co.kr", fetch_roadrun),
     ("cyclo.kr", fetch_cyclo),
     ("runningwikii.com", fetch_runningwiki),
-    ("hyroxsouthkorea.com", fetch_hyrox),
+    # ("hyroxsouthkorea.com", fetch_hyrox),  # 2026-08-27: robots.txt에서 anthropic-ai 등 AI 크롤러를 명시적으로 차단하고 있어 사용 중단
     ("triathlon.or.kr", fetch_triathlon),
     ("runningmap.kr", fetch_runningmap),
     ("runneron.com", fetch_runneron),
