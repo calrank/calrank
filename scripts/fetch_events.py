@@ -685,6 +685,9 @@ def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]
     values = [
         ev for ev in by_id.values()
         if not (ev.get("sport") == "triathlon" and is_triathlon_non_race(ev.get("name", "")))
+        # hyroxsouthkorea.com은 2026-08-27부로 소스에서 제외되어 더 이상 갱신되지 않으므로,
+        # 남아있는 하이록스 데이터도 함께 정리합니다.
+        and ev.get("sport") != "hyrox"
     ]
     return sorted(values, key=lambda e: e["date"])
 
