@@ -6552,6 +6552,26 @@
     "applyUrl": "http://www.nightracebusan.co.kr/"
   },
   {
+    "id": "rm-2026-쿨밸리트레일레이스-2026-08-01",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "2026 쿨밸리트레일레이스",
+    "date": "2026-08-01",
+    "time": "미확인",
+    "location": "장수종합경기장",
+    "region": "전북",
+    "distances": [
+      "18K"
+    ],
+    "organizer": "(주)락앤런",
+    "organizerPhone": null,
+    "regDeadline": "2026-07-10",
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://rocknrun.kr/"
+  },
+  {
     "id": "rm-2026-쿨밸리트레일레이스-2026-08-02",
     "sport": "trail",
     "sportLabel": "트레일",
@@ -6633,6 +6653,26 @@
     "applyUrl": "https://runningwikii.com/entry/busan-tema-imdo-trail-run/"
   },
   {
+    "id": "rm-제1회-테마임도-트레일런-2026-08-08",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "제1회 테마임도 트레일런",
+    "date": "2026-08-08",
+    "time": "미확인",
+    "location": "부산스포원",
+    "region": "부산",
+    "distances": [
+      "50km"
+    ],
+    "organizer": "코리안런조직위",
+    "organizerPhone": null,
+    "regDeadline": "2026-06-30",
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://korearun01.imweb.me/"
+  },
+  {
     "id": "rr-2026-incheon-night-race-2026-08-15",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -6688,7 +6728,7 @@
     ],
     "organizer": "(주)락앤런",
     "organizerPhone": "063-353-2025",
-    "regDeadline": "2026-07-31",
+    "regDeadline": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -6709,7 +6749,7 @@
     ],
     "organizer": "JYD자연을달린다",
     "organizerPhone": "010-4539-6887",
-    "regDeadline": "2026-07-15",
+    "regDeadline": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -6753,7 +6793,7 @@
     ],
     "organizer": "(사)한국산악마라톤연맹",
     "organizerPhone": "02-424-2195",
-    "regDeadline": "2026-07-31",
+    "regDeadline": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -6875,7 +6915,7 @@
     ],
     "organizer": "한국실업육상연맹",
     "organizerPhone": "00-1600-3949",
-    "regDeadline": "2026-07-25",
+    "regDeadline": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -7000,6 +7040,26 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "http://www.mtrailrun.kr/"
+  },
+  {
+    "id": "rm-제2회-한양도성길-트레일런-2026-08-22",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "제2회 한양도성길 트레일런",
+    "date": "2026-08-22",
+    "time": "미확인",
+    "location": "낙산공원중앙광장(낙산길54)",
+    "region": "서울",
+    "distances": [
+      "20km"
+    ],
+    "organizer": "파브코리아",
+    "organizerPhone": null,
+    "regDeadline": "2026-08-20",
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://www.mtrailrun.kr/"
   },
   {
@@ -7519,6 +7579,27 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
     "applyUrl": "https://runningwikii.com/entry/sauna-run-ttukseom-hangang-park/"
+  },
+  {
+    "id": "rm-사우나런-in-뚝섬한강공원-2026-08-31",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "사우나런 in 뚝섬한강공원",
+    "date": "2026-08-31",
+    "time": "미확인",
+    "location": "뚝섬한강공원 인근",
+    "region": "서울",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "사우나런",
+    "organizerPhone": null,
+    "regDeadline": "2026-08-31",
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://saunarun.com"
   },
   {
     "id": "tri-2026-시흥시장배-거북섬-전국-철인3종대회-토요일-스프린트-일요일-스탠다드-2026-09-04",
