@@ -14,6 +14,7 @@ import argparse
 import random
 import time
 from datetime import datetime
+from urllib.parse import quote
 
 import requests
 from bs4 import BeautifulSoup
@@ -692,6 +693,38 @@ def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]
     return sorted(values, key=lambda e: e["date"])
 
 
+def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.xml") -> None:
+    """대회별 상세 페이지(event.html?id=...) URL을 모은 sitemap을 자동 생성합니다.
+    구글이 개별 대회 페이지를 빠르게 발견할 수 있도록, 매 크롤링마다 최신 상태로 갱신됩니다."""
+    today = datetime.now().date()
+    upcoming = []
+    for ev in events:
+        try:
+            ev_date = datetime.strptime(ev["date"], "%Y-%m-%d").date()
+        except (KeyError, ValueError, TypeError):
+            continue
+        if ev_date >= today:
+            upcoming.append(ev)
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for ev in upcoming:
+        url = f"https://calrank.vercel.app/event.html?id={quote(ev['id'])}"
+        lines.append("  <url>")
+        lines.append(f"    <loc>{url}</loc>")
+        lines.append("    <changefreq>weekly</changefreq>")
+        lines.append("    <priority>0.5</priority>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+
+    print(f"[sitemap-events.xml] {len(upcoming)}개 대회 URL 기록 완료")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="events.json")
@@ -720,6 +753,8 @@ def main():
 
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(merged, f, ensure_ascii=False, indent=2)
+
+    generate_event_sitemap(merged)
 
     print(f"[{datetime.now().isoformat()}] {len(merged)}개 대회 저장 완료 ({args.out})")
 
