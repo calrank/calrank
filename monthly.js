@@ -127,7 +127,8 @@ function setupModal() {
 async function init() {
   setupModal();
   const targetSport = window.TARGET_SPORT || "marathon";
-  const sportLabel = (SPORT_META[targetSport] || SPORT_META.marathon).label;
+  const targetKeyword = window.TARGET_KEYWORD || null;
+  const pageLabel = window.PAGE_SPORT_LABEL || (SPORT_META[targetSport] || SPORT_META.marathon).label;
   try {
     const res = await fetch("events.json");
     allEvents = await res.json();
@@ -139,17 +140,27 @@ async function init() {
   const now = new Date();
   const y = now.getFullYear();
   const m = now.getMonth() + 1;
-  document.getElementById("pageTitle").textContent = `${y}년 ${m}월 주말 ${sportLabel} 대회 총정리`;
-  document.title = `${y}년 ${m}월 주말 ${sportLabel} 대회 총정리 — calrank`;
 
-  const filtered = allEvents
-    .filter(ev => ev.sport === targetSport)
-    .filter(ev => {
-      const d = new Date(ev.date);
-      return d.getFullYear() === y && d.getMonth() + 1 === m;
-    })
-    .filter(ev => isWeekend(ev.date))
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  let filtered;
+  if (targetKeyword) {
+    document.getElementById("pageTitle").textContent = `${pageLabel} 대회 일정 총정리`;
+    document.title = `${pageLabel} 대회 일정 총정리 — calrank`;
+    filtered = allEvents
+      .filter(ev => (ev.distances || []).some(d => d.includes(targetKeyword)))
+      .filter(ev => new Date(ev.date) >= new Date(new Date().toDateString()))
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else {
+    document.getElementById("pageTitle").textContent = `${y}년 ${m}월 주말 ${pageLabel} 대회 총정리`;
+    document.title = `${y}년 ${m}월 주말 ${pageLabel} 대회 총정리 — calrank`;
+    filtered = allEvents
+      .filter(ev => ev.sport === targetSport)
+      .filter(ev => {
+        const d = new Date(ev.date);
+        return d.getFullYear() === y && d.getMonth() + 1 === m;
+      })
+      .filter(ev => isWeekend(ev.date))
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  }
 
   const grid = document.getElementById("eventGrid");
   const countEl = document.getElementById("resultCount");
@@ -158,7 +169,9 @@ async function init() {
   if (filtered.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = `이번 달 주말에는 등록된 ${sportLabel} 대회가 없습니다.`;
+    empty.textContent = targetKeyword
+      ? `현재 등록된 ${pageLabel} 대회가 없습니다.`
+      : `이번 달 주말에는 등록된 ${pageLabel} 대회가 없습니다.`;
     grid.appendChild(empty);
   } else {
     filtered.forEach(ev => grid.appendChild(renderCard(ev)));
