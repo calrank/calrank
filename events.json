@@ -7481,6 +7481,26 @@
     "applyUrl": "http://saunarun.com"
   },
   {
+    "id": "rw-사우나런-in-뚝섬한강공원-2026-08-31",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "사우나런 in 뚝섬한강공원",
+    "date": "2026-08-31",
+    "time": "미확인",
+    "location": "서울",
+    "region": "서울",
+    "distances": [
+      "10km · 5km"
+    ],
+    "organizer": "사우나런",
+    "organizerPhone": null,
+    "regDeadline": "2026-08-31",
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "https://runningwikii.com/entry/sauna-run-ttukseom-hangang-park/"
+  },
+  {
     "id": "tri-2026-시흥시장배-거북섬-전국-철인3종대회-토요일-스프린트-일요일-스탠다드-2026-09-04",
     "sport": "triathlon",
     "sportLabel": "철인3종",
@@ -12063,6 +12083,27 @@
     "applyUrl": "https://www.runneron.com/marathon/제19회-중랑구청장배-마라톤-8월5일-접수시작"
   },
   {
+    "id": "rr-2026-하남시-시장기-당정마라톤-2026-10-18",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 하남시 시장기 당정마라톤",
+    "date": "2026-10-18",
+    "time": "미확인",
+    "location": "하남스타필드 앞 당정뜰",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "하남시육상연맹",
+    "organizerPhone": "02-515-9033",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://runcop.com/event/hanam"
+  },
+  {
     "id": "rr-2026-서울-펫림픽-런-위드-고-2026-10-24",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -13890,6 +13931,28 @@
     "applyUrl": "http://www.mtrailrun.kr/"
   },
   {
+    "id": "rr-2026-영종-하늘길-마라톤-2026-11-14",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 영종 하늘길 마라톤",
+    "date": "2026-11-14",
+    "time": "미확인",
+    "location": "인천, 영종 씨사이드파크 일대",
+    "region": "인천",
+    "distances": [
+      "하프",
+      "10km",
+      "5km"
+    ],
+    "organizer": "리빗",
+    "organizerPhone": "02-852-0077",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.leaveit.co.kr/"
+  },
+  {
     "id": "rr-제28회-부산국제마라톤-2026-11-15",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -15088,6 +15151,28 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://youngrun.kr"
+  },
+  {
+    "id": "rr-2026-코리아-시즌-레이스-2026-12-26",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 코리아 시즌 레이스",
+    "date": "2026-12-26",
+    "time": "미확인",
+    "location": "상암월드컵공원 평화광장",
+    "region": "전국",
+    "distances": [
+      "하프",
+      "10km",
+      "5km"
+    ],
+    "organizer": "(사)한국경비원협회중앙회",
+    "organizerPhone": "02-888-8875",
+    "regDeadline": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://k-run.kr"
   },
   {
     "id": "rr-2026-한강런-2026-12-28",
