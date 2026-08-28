@@ -41,6 +41,25 @@
 </div>
 <div id="saveWidget" style="margin-top:12px;"></div>
 
+<section id="reviewSection" style="margin-top:32px;">
+<p class="record-form-title">참가 후기</p>
+<p id="reviewSummary" class="hero-sub"></p>
+<div class="record-form-card" style="margin-top:12px;">
+<label for="reviewRatingSelect">별점</label>
+<select id="reviewRatingSelect">
+<option value="5">★★★★★ (5)</option>
+<option value="4">★★★★☆ (4)</option>
+<option value="3">★★★☆☆ (3)</option>
+<option value="2">★★☆☆☆ (2)</option>
+<option value="1">★☆☆☆☆ (1)</option>
+</select>
+<textarea id="reviewComment" placeholder="코스, 진행, 편의시설 등 후기를 남겨주세요 (선택)" rows="3" style="width:100%; margin-top:8px; padding:10px; border-radius:8px; border:1px solid var(--line, #333); background:transparent; color:inherit;"></textarea>
+<button id="reviewSubmitBtn" class="record-submit-btn" style="margin-top:8px;">후기 남기기</button>
+<p class="record-msg" id="reviewMsg"></p>
+</div>
+<div id="reviewList" style="margin-top:16px;"></div>
+</section>
+
 <p class="modal-disclaimer" style="margin-top:32px;">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
 
 <p style="margin-top:24px;"><a href="index.html" style="color:var(--ink-soft);">← 전체 대회 캘린더로 돌아가기</a></p>
