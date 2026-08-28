@@ -1,3 +1,7 @@
+const SUPABASE_URL = "https://mlbzsqeoqlyvnyzeegeu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 const SPORT_META = {
   marathon:   { label: "마라톤",  tag: "MAR", color: "var(--marathon)" },
   cycling:    { label: "자전거",  tag: "BIK", color: "var(--cycling)" },
@@ -288,6 +292,34 @@ function downloadIcs(ev) {
   URL.revokeObjectURL(url);
 }
 
+async function renderSaveWidget(eventId) {
+  const el = document.getElementById("saveWidgetModal");
+  if (!el) return;
+  const { data: { session } } = await sb.auth.getSession();
+  const { data: countData } = await sb.rpc("get_save_count", { p_event_id: eventId });
+  const count = countData || 0;
+  let isSaved = false;
+  if (session?.user) {
+    const { data } = await sb.from("event_saves").select("id").eq("event_id", eventId).eq("user_id", session.user.id).maybeSingle();
+    isSaved = !!data;
+  }
+  el.innerHTML = `<button id="saveToggleBtnModal" class="modal-cal-btn" style="width:100%;">${isSaved ? "★ 찜 완료" : "☆ 찜하기"} ${count > 0 ? `(${count}명이 찜함)` : ""}</button>`;
+  document.getElementById("saveToggleBtnModal").addEventListener("click", async () => {
+    const { data: { session: s } } = await sb.auth.getSession();
+    if (!s?.user) {
+      alert("로그인이 필요한 기능입니다. 내 랭크 페이지에서 로그인해주세요.");
+      location.href = "myrank.html";
+      return;
+    }
+    if (isSaved) {
+      await sb.from("event_saves").delete().eq("event_id", eventId).eq("user_id", s.user.id);
+    } else {
+      await sb.from("event_saves").insert({ event_id: eventId, user_id: s.user.id });
+    }
+    renderSaveWidget(eventId);
+  });
+}
+
 function openDetail(id) {
   const ev = state.events.find(e => e.id === id);
   if (!ev) return;
@@ -310,6 +342,7 @@ function openDetail(id) {
     </div>
     <button class="modal-apply-btn" id="applyBtn">신청하기 ↗</button>
     <button class="modal-cal-btn" id="calBtn">캘린더에 저장</button>
+    <div id="saveWidgetModal" style="margin-top:8px;"></div>
     <a class="modal-cal-btn" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box;" href="event.html?id=${encodeURIComponent(ev.id)}">상세 페이지 보기</a>
     <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
@@ -321,6 +354,7 @@ function openDetail(id) {
 
   document.getElementById("modalOverlay").classList.add("open");
   document.body.style.overflow = "hidden";
+  renderSaveWidget(id);
 }
 
 function closeDetail() {
