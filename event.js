@@ -144,6 +144,31 @@ async function renderReviews(eventId) {
   }
 }
 
+function setupShareAndMap(ev, pageUrl) {
+  const mapLink = document.getElementById("mapLink");
+  if (mapLink) {
+    const query = encodeURIComponent(ev.location || ev.name);
+    mapLink.href = `https://map.kakao.com/?q=${query}`;
+  }
+
+  const shareBtn = document.getElementById("shareEventBtn");
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      const shareData = {
+        title: ev.name,
+        text: `${ev.name} 같이 가실 분 찾습니다! | ${formatDate(ev.date, ev.time)} · ${ev.location}`,
+        url: pageUrl,
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) { /* 사용자가 취소한 경우 등 무시 */ }
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(pageUrl);
+        alert("링크가 복사되었습니다! 친구에게 공유해보세요.");
+      }
+    });
+  }
+}
+
 async function init() {
   const id = getParam("id");
   if (!id) { renderNotFound(); return; }
@@ -162,6 +187,7 @@ async function init() {
 
   renderSaveWidget(ev.id);
   renderReviews(ev.id);
+  setupShareAndMap(ev, pageUrl);
 
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
