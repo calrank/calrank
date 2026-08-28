@@ -312,6 +312,73 @@ async function showDashSection() {
 
   populateDistanceSelect(document.getElementById("rfSport").value);
   await loadRecords();
+  setupClaimSearch();
+}
+
+function formatSecondsToTime(sec) {
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  return h > 0
+    ? `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`
+    : `${m}:${String(s).padStart(2, "0")}`;
+}
+
+let claimSearchBound = false;
+function setupClaimSearch() {
+  if (claimSearchBound) return;
+  claimSearchBound = true;
+  const btn = document.getElementById("claimSearchBtn");
+  const input = document.getElementById("claimSearchInput");
+  if (!btn || !input) return;
+  const run = () => runClaimSearch();
+  btn.addEventListener("click", run);
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") run(); });
+}
+
+async function runClaimSearch() {
+  const input = document.getElementById("claimSearchInput");
+  const resultsEl = document.getElementById("claimResults");
+  const name = (input.value || "").trim();
+  if (!name) { resultsEl.innerHTML = ""; return; }
+
+  resultsEl.innerHTML = '<p class="record-msg">검색 중…</p>';
+
+  const { data, error } = await sb
+    .from("official_records")
+    .select("id, race_name, race_year, distance_category, athlete_name, finish_time_seconds, claimed_by_user_id")
+    .ilike("athlete_name", `%${name}%`)
+    .limit(20);
+
+  if (error || !data || data.length === 0) {
+    resultsEl.innerHTML = '<p class="record-msg">검색 결과가 없습니다. 이름이 정확한지 확인해주세요.</p>';
+    return;
+  }
+
+  resultsEl.innerHTML = data.map(r => {
+    const claimedByMe = r.claimed_by_user_id === currentUser.id;
+    const claimedByOther = r.claimed_by_user_id && !claimedByMe;
+    const timeStr = formatSecondsToTime(r.finish_time_seconds);
+    const btnHtml = claimedByOther
+      ? '<span class="import-sub">이미 다른 사용자가 클레임한 기록입니다</span>'
+      : claimedByMe
+      ? `<button class="modal-cal-btn claim-action-btn" data-action="unclaim" data-id="${r.id}">클레임 취소</button>`
+      : `<button class="record-submit-btn claim-action-btn" data-action="claim" data-id="${r.id}" style="width:auto; padding:0 16px;">이 기록이 내 기록이에요</button>`;
+    return `<div class="record-item"><p>${r.race_name} (${r.race_year}) · ${r.distance_category} · ${r.athlete_name} · ${timeStr}</p>${btnHtml}</div>`;
+  }).join("");
+
+  resultsEl.querySelectorAll(".claim-action-btn").forEach(b => {
+    b.addEventListener("click", async () => {
+      const id = b.getAttribute("data-id");
+      const action = b.getAttribute("data-action");
+      if (action === "claim") {
+        await sb.from("official_records").update({ claimed_by_user_id: currentUser.id }).eq("id", id);
+      } else {
+        await sb.from("official_records").update({ claimed_by_user_id: null }).eq("id", id);
+      }
+      runClaimSearch();
+    });
+  });
 }
 
 async function refreshSession() {
