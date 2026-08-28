@@ -22,7 +22,8 @@ python3 -m http.server 8000
 | `news.html` | 종목별 뉴스 자동 수집 |
 | `myrank.html` | 로그인 후 개인 기록 관리, 기록 공유 카드 생성 |
 | `level.html` | 마라톤 페이스 등급 계산기 |
-| `event.html?id=` | 대회별 상세 permalink 페이지 (SEO용 개별 URL, Schema.org SportsEvent) |
+| `event.html?id=` | 대회별 상세 permalink 페이지 (SEO용 개별 URL, Schema.org SportsEvent, 찜하기·참가 후기) |
+| `submit-event.html` | 로그인 사용자가 새 대회 정보를 제보하는 폼 (검토 후 반영) |
 | `monthly.html` / `trail-monthly.html` / `cycling-monthly.html` / `triathlon-monthly.html` / `aquathlon.html` | 종목별 월간/키워드 SEO 랜딩 페이지 |
 | `terms.html` / `privacy.html` / `contact.html` | 이용약관 / 개인정보처리방침 / 제휴문의 |
 
@@ -50,8 +51,11 @@ python3 -m http.server 8000
 ## 백엔드 (Supabase)
 
 - `profiles`, `personal_records`: 로그인 사용자의 개인 대회 기록. RLS로 본인만 조회/수정/삭제 가능.
-- `official_records`: 대회 주최측 공식 기록. RLS로 조회는 공개, 쓰기는 `service_role` 키(GitHub Actions)만 가능.
+- `official_records`: 대회 주최측 공식 기록. RLS로 조회는 공개, 쓰기는 `service_role` 키(GitHub Actions)만 가능. `claimed_by_user_id` 컬럼으로 사용자가 본인 기록을 클레임할 수 있음 (트리거로 기록 데이터 자체는 변조 불가).
 - `get_top_rankings()` RPC 함수가 `personal_records` + `official_records`를 UNION으로 합쳐 랭킹을 계산하고, 개인 기록은 이름을 마스킹 처리합니다.
+- `event_saves`: 로그인 사용자의 대회 찜하기(즐겨찾기). `get_save_count()`, `get_top_saved_events()` RPC로 집계.
+- `event_reviews`: 대회별 참가 후기(별점 1~5 + 텍스트). 조회는 공개, 작성/수정/삭제는 본인만. `get_review_summary()` RPC로 평균 별점 집계.
+- `event_submissions`: 사용자가 제보한 신규 대회 정보. 반영 여부는 Kevin님이 Supabase Table Editor에서 직접 검토.
 
 ## SEO
 
