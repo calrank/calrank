@@ -187,7 +187,6 @@ async function init() {
 
   renderSaveWidget(ev.id);
   renderReviews(ev.id);
-  setupShareAndMap(ev, pageUrl);
 
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
@@ -238,6 +237,8 @@ async function init() {
   script.type = "application/ld+json";
   script.textContent = JSON.stringify(schema);
   document.head.appendChild(script);
+
+  setupShareAndMap(ev, pageUrl);
 }
 
 init();
