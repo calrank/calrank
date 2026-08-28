@@ -79,6 +79,71 @@ async function renderSaveWidget(eventId) {
   });
 }
 
+function timeAgo(dateStr) {
+  const diffMs = Date.now() - new Date(dateStr).getTime();
+  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (days < 1) return "오늘";
+  if (days < 30) return `${days}일 전`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months}개월 전`;
+  return `${Math.floor(months / 12)}년 전`;
+}
+
+let reviewSubmitBound = false;
+async function renderReviews(eventId) {
+  const summaryEl = document.getElementById("reviewSummary");
+  const listEl = document.getElementById("reviewList");
+  if (!summaryEl || !listEl) return;
+
+  const { data: summaryData } = await sb.rpc("get_review_summary", { p_event_id: eventId });
+  const summary = Array.isArray(summaryData) ? summaryData[0] : summaryData;
+  const avg = summary ? Number(summary.avg_rating) : 0;
+  const count = summary ? Number(summary.review_count) : 0;
+  summaryEl.textContent = count > 0
+    ? `⭐ 평균 ${avg.toFixed(1)}점 (${count}개 후기)`
+    : "아직 후기가 없습니다. 첫 후기를 남겨보세요!";
+
+  const { data: reviews } = await sb
+    .from("event_reviews")
+    .select("id, rating, comment, created_at, user_id")
+    .eq("event_id", eventId)
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  if (!reviews || reviews.length === 0) {
+    listEl.innerHTML = "";
+  } else {
+    listEl.innerHTML = reviews.map(r => {
+      const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+      return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${r.comment}</p>` : ""}</div>`;
+    }).join("");
+  }
+
+  if (!reviewSubmitBound) {
+    reviewSubmitBound = true;
+    document.getElementById("reviewSubmitBtn").addEventListener("click", async () => {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session?.user) {
+        alert("로그인이 필요한 기능입니다. 내 랭크 페이지에서 로그인해주세요.");
+        location.href = "myrank.html";
+        return;
+      }
+      const rating = Number(document.getElementById("reviewRatingSelect").value);
+      const comment = document.getElementById("reviewComment").value.trim();
+      const msgEl = document.getElementById("reviewMsg");
+      const { error } = await sb.from("event_reviews").upsert({
+        event_id: eventId,
+        user_id: session.user.id,
+        rating,
+        comment: comment || null,
+      }, { onConflict: "event_id,user_id" });
+      msgEl.textContent = error ? "후기 등록에 실패했습니다." : "후기가 등록되었습니다. 감사합니다!";
+      document.getElementById("reviewComment").value = "";
+      renderReviews(eventId);
+    });
+  }
+}
+
 async function init() {
   const id = getParam("id");
   if (!id) { renderNotFound(); return; }
@@ -96,6 +161,7 @@ async function init() {
   if (!ev) { renderNotFound(); return; }
 
   renderSaveWidget(ev.id);
+  renderReviews(ev.id);
 
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
