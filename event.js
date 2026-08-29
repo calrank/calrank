@@ -26,7 +26,7 @@ function formatDate(dateStr, timeStr) {
 function ddayInfo(ev) {
   if (!ev.regDeadline) return { label: "접수기간 미확인", urgent: false };
   const n = daysUntil(ev.regDeadline);
-  return { label: n < 0 ? "접수 마감" : `D-${n}`, urgent: n >= 0 && n <= 7 };
+  return { label: n < 0 ? "접수 마감" : `접수 D-${n}`, urgent: n >= 0 && n <= 7 };
 }
 
 function getParam(name) {
