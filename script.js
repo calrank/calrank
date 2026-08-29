@@ -6,7 +6,6 @@ const SPORT_META = {
   marathon:   { label: "마라톤",  tag: "MAR", color: "var(--marathon)" },
   cycling:    { label: "자전거",  tag: "BIK", color: "var(--cycling)" },
   trail:      { label: "트레일",  tag: "TRL", color: "var(--trail)" },
-  hyrox:      { label: "하이록스",tag: "HYX", color: "var(--hyrox)" },
   triathlon:  { label: "철인3종", tag: "TRI", color: "var(--triathlon)" },
 };
 
