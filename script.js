@@ -33,13 +33,21 @@ function formatDate(dateStr, timeStr) {
 }
 
 function ddayInfo(ev) {
-  if (!ev.regDeadline) return { label: "접수기간 미확인", urgent: false };
+  if (!ev.regDeadline) {
+    if (ev.regClosed === true) return { label: "접수 마감", urgent: false };
+    if (ev.regClosed === false) return { label: "접수중 (마감일 미확인)", urgent: false };
+    return { label: "접수기간 미확인", urgent: false };
+  }
   const n = daysUntil(ev.regDeadline);
   return { label: n < 0 ? "접수 마감" : `접수 D-${n}`, urgent: n >= 0 && n <= 7 };
 }
 
 function getRegStatus(ev) {
-  if (!ev.regDeadline) return "unknown";
+  if (!ev.regDeadline) {
+    if (ev.regClosed === true) return "closed";
+    if (ev.regClosed === false) return "open";
+    return "unknown";
+  }
   const n = daysUntil(ev.regDeadline);
   if (n < 0) return "closed";
   if (n <= 7) return "urgent";
