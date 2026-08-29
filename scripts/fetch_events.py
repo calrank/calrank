@@ -86,6 +86,7 @@ def blank_event(**kwargs) -> dict:
         "organizer": None,
         "organizerPhone": None,
         "regDeadline": None,
+        "regClosed": None,
         "saves": 0,
         "savesTrend7d": 0,
         "sourceUrl": None,
@@ -204,17 +205,19 @@ def format_km(distance: float) -> str:
     return f"{distance}km"
 
 
-def fetch_cyclo_detail(meetup_id: int) -> tuple[str | None, list[str]]:
-    """개별 대회 상세 API에서 원문 링크와 코스 거리를 함께 가져옵니다."""
+def fetch_cyclo_detail(meetup_id: int) -> tuple[str | None, list[str], bool | None]:
+    """개별 대회 상세 API에서 원문 링크, 코스 거리, 접수 마감 여부를 함께 가져옵니다.
+    cyclo.kr API는 명시적인 접수 마감일 필드가 없고, 대신 is_closed(현재 마감 여부) 불리언만 제공합니다."""
     try:
         resp = requests.get(f"{CYCLO_MEETUP_API_BASE}{meetup_id}", timeout=10, headers=HEADERS)
         data = resp.json()
         outlink = data.get("outlink") or None
         courses = data.get("courses") or []
         distances = [format_km(c["distance"]) for c in courses if c.get("distance")]
-        return outlink, distances
+        is_closed = data.get("is_closed")
+        return outlink, distances, is_closed
     except Exception:
-        return None, []
+        return None, [], None
 
 
 def fetch_cyclo() -> list[dict]:
@@ -236,7 +239,7 @@ def fetch_cyclo() -> list[dict]:
             organizer = m.get("organizer")
             meetup_id = m.get("id")
 
-            outlink, distances = fetch_cyclo_detail(meetup_id) if meetup_id else (None, [])
+            outlink, distances, is_closed = fetch_cyclo_detail(meetup_id) if meetup_id else (None, [], None)
             detail_url = f"https://cyclo.kr/event_detail/{meetup_id}" if meetup_id else CYCLO_FALLBACK_URL
 
             events.append(blank_event(
@@ -250,6 +253,7 @@ def fetch_cyclo() -> list[dict]:
                 region=guess_region(location),
                 distances=distances or ["거리 미확인"],
                 organizer=organizer,
+                regClosed=is_closed,
                 sourceUrl=CYCLO_FALLBACK_URL,
                 applyUrl=outlink or detail_url,
             ))
