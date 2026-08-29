@@ -87,6 +87,8 @@ def blank_event(**kwargs) -> dict:
         "organizerPhone": None,
         "regDeadline": None,
         "regClosed": None,
+        "lat": None,
+        "lng": None,
         "saves": 0,
         "savesTrend7d": 0,
         "sourceUrl": None,
@@ -545,6 +547,9 @@ def fetch_runningmap() -> list[dict]:
         organizer = row.get("organizer")
         courses = row.get("courses")
         distances = courses if isinstance(courses, list) and courses else ["거리 미확인"]
+        race_time = row.get("race_time") or "미확인"
+        lat = row.get("lat")
+        lng = row.get("lng")
 
         sport, sport_label = guess_sport(name)
 
@@ -554,11 +559,14 @@ def fetch_runningmap() -> list[dict]:
             sportLabel=sport_label,
             name=name,
             date=date_iso,
+            time=race_time,
             location=location,
             region=region,
             distances=distances,
             organizer=organizer,
             regDeadline=str(reg_deadline)[:10] if reg_deadline else None,
+            lat=lat,
+            lng=lng,
             sourceUrl=RUNNINGMAP_BASE,
             applyUrl=apply_url or RUNNINGMAP_BASE,
         ))
