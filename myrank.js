@@ -5,8 +5,7 @@ const SUPABASE_KEY = "sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const SPORT_LABEL = {
-  marathon: "마라톤", cycling: "자전거", trail: "트레일",
-  hyrox: "하이록스", triathlon: "철인3종",
+  marathon: "마라톤", cycling: "자전거", trail: "트레일", triathlon: "철인3종",
 };
 
 const DISTANCE_OPTIONS = {
@@ -18,9 +17,6 @@ const DISTANCE_OPTIONS = {
   ],
   trail: [
     ["20km", "20km급"], ["50km", "50km급"], ["100km", "100km급"],
-  ],
-  hyrox: [
-    ["open", "오픈(Open)"], ["pro", "프로(Pro)"],
   ],
   triathlon: [
     ["sprint", "스프린트"], ["olympic", "올림픽"], ["half70_3", "하프(70.3)"], ["full", "풀(아이언맨)"],
