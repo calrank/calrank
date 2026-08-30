@@ -13218,6 +13218,30 @@
     "applyUrl": "https://wvgumi6k2026-self.vercel.app"
   },
   {
+    "id": "rr-제22회-금천구청장배-건강달리기-2026-10-11",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "제22회  금천구청장배 건강달리기",
+    "date": "2026-10-11",
+    "time": "미확인",
+    "location": "안양천 다목적광장",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "금천구청",
+    "organizerPhone": "010-9118-7632",
+    "regDeadline": null,
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.gcrun.kr/s1p1"
+  },
+  {
     "id": "tri-제107회-전국체육대회-2026-10-16",
     "sport": "triathlon",
     "sportLabel": "철인3종",
