@@ -207,9 +207,10 @@ def format_km(distance: float) -> str:
     return f"{distance}km"
 
 
-def fetch_cyclo_detail(meetup_id: int) -> tuple[str | None, list[str], bool | None]:
-    """개별 대회 상세 API에서 원문 링크, 코스 거리, 접수 마감 여부를 함께 가져옵니다.
-    cyclo.kr API는 명시적인 접수 마감일 필드가 없고, 대신 is_closed(현재 마감 여부) 불리언만 제공합니다."""
+def fetch_cyclo_detail(meetup_id: int) -> tuple[str | None, list[str], bool | None, float | None, float | None]:
+    """개별 대회 상세 API에서 원문 링크, 코스 거리, 접수 마감 여부, 좌표를 함께 가져옵니다.
+    cyclo.kr API는 명시적인 접수 마감일 필드가 없고, 대신 is_closed(현재 마감 여부) 불리언만 제공합니다.
+    위경도는 최상위가 아니라 address.latitude/longitude에 중첩되어 있습니다."""
     try:
         resp = requests.get(f"{CYCLO_MEETUP_API_BASE}{meetup_id}", timeout=10, headers=HEADERS)
         data = resp.json()
@@ -217,9 +218,12 @@ def fetch_cyclo_detail(meetup_id: int) -> tuple[str | None, list[str], bool | No
         courses = data.get("courses") or []
         distances = [format_km(c["distance"]) for c in courses if c.get("distance")]
         is_closed = data.get("is_closed")
-        return outlink, distances, is_closed
+        address = data.get("address") or {}
+        lat = address.get("latitude")
+        lng = address.get("longitude")
+        return outlink, distances, is_closed, lat, lng
     except Exception:
-        return None, [], None
+        return None, [], None, None, None
 
 
 def fetch_cyclo() -> list[dict]:
@@ -241,7 +245,7 @@ def fetch_cyclo() -> list[dict]:
             organizer = m.get("organizer")
             meetup_id = m.get("id")
 
-            outlink, distances, is_closed = fetch_cyclo_detail(meetup_id) if meetup_id else (None, [], None)
+            outlink, distances, is_closed, lat, lng = fetch_cyclo_detail(meetup_id) if meetup_id else (None, [], None, None, None)
             detail_url = f"https://cyclo.kr/event_detail/{meetup_id}" if meetup_id else CYCLO_FALLBACK_URL
 
             events.append(blank_event(
@@ -256,6 +260,8 @@ def fetch_cyclo() -> list[dict]:
                 distances=distances or ["거리 미확인"],
                 organizer=organizer,
                 regClosed=is_closed,
+                lat=lat,
+                lng=lng,
                 sourceUrl=CYCLO_FALLBACK_URL,
                 applyUrl=outlink or detail_url,
             ))
