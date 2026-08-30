@@ -272,6 +272,45 @@ function render() {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
     });
   });
+
+  const mapDiv = document.getElementById("mapContainer");
+  if (mapDiv && mapDiv.style.display !== "none") renderMap(filtered);
+}
+
+let mapInstance = null;
+let mapMarkersLayer = null;
+
+function renderMap(filteredEvents) {
+  const mapDiv = document.getElementById("mapContainer");
+  if (!mapDiv || typeof L === "undefined") return;
+
+  const withCoords = filteredEvents.filter(ev => ev.lat && ev.lng);
+
+  if (!mapInstance) {
+    mapInstance = L.map("mapContainer").setView([36.5, 127.8], 7);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+      maxZoom: 18,
+    }).addTo(mapInstance);
+    mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+  }
+
+  mapMarkersLayer.clearLayers();
+  withCoords.forEach(ev => {
+    const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
+    const marker = L.circleMarker([ev.lat, ev.lng], {
+      radius: 7,
+      color: meta.color,
+      fillColor: meta.color,
+      fillOpacity: 0.85,
+      weight: 2,
+    });
+    marker.bindTooltip(ev.name, { direction: "top" });
+    marker.on("click", () => openDetail(ev.id));
+    marker.addTo(mapMarkersLayer);
+  });
+
+  setTimeout(() => { if (mapInstance) mapInstance.invalidateSize(); }, 100);
 }
 
 function buildIcs(ev) {
@@ -432,6 +471,28 @@ async function init() {
   setupMonthTabs();
   setupRegionSelect();
   render();
+
+  const mapToggleBtn = document.getElementById("mapToggleBtn");
+  if (mapToggleBtn) {
+    mapToggleBtn.addEventListener("click", () => {
+      const grid = document.getElementById("eventGrid");
+      const mapDiv = document.getElementById("mapContainer");
+      const countEl = document.getElementById("resultCount");
+      const showingMap = mapDiv.style.display !== "none";
+      if (showingMap) {
+        mapDiv.style.display = "none";
+        grid.style.display = "";
+        countEl.style.display = "";
+        mapToggleBtn.textContent = "🗺️ 지도로 보기";
+      } else {
+        mapDiv.style.display = "block";
+        grid.style.display = "none";
+        countEl.style.display = "none";
+        mapToggleBtn.textContent = "📋 목록으로 보기";
+        render();
+      }
+    });
+  }
 }
 
 init();
