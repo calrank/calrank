@@ -286,6 +286,16 @@ function renderMap(filteredEvents) {
 
   const withCoords = filteredEvents.filter(ev => ev.lat && ev.lng);
 
+  const legendEl = document.getElementById("mapLegend");
+  if (legendEl) {
+    const usedSports = [...new Set(withCoords.map(ev => ev.sport))];
+    legendEl.style.display = usedSports.length ? "flex" : "none";
+    legendEl.innerHTML = usedSports.map(s => {
+      const meta = SPORT_META[s] || SPORT_META.marathon;
+      return `<span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:${meta.color}; display:inline-block;"></span>${meta.label}</span>`;
+    }).join("");
+  }
+
   if (!mapInstance) {
     mapInstance = L.map("mapContainer").setView([36.5, 127.8], 7);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
