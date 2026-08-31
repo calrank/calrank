@@ -16051,6 +16051,30 @@
     "applyUrl": "https://wjrun.co.kr/"
   },
   {
+    "id": "rm-올림픽데이런-2026-11-08",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "올림픽데이런",
+    "date": "2026-11-08",
+    "time": "미확인",
+    "location": "올림픽공원",
+    "region": "서울",
+    "distances": [
+      "5km",
+      "10km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "regClosed": null,
+    "lat": 37.5205340628851,
+    "lng": 127.120812783275,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://www.olympicday.co.kr/"
+  },
+  {
     "id": "rr-제2회-안양천-단풍길-마라톤-2026-11-14",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -17415,6 +17439,30 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://mara1080.com/event/df4b4e7d-4fbc-4843-858c-f15c032e92cb"
+  },
+  {
+    "id": "rm-2026-전국마라톤협회-금산-골드런-마라톤-2026-12-05",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 전국마라톤협회 금산 골드런 마라톤",
+    "date": "2026-12-05",
+    "time": "9시 집결",
+    "location": "금산",
+    "region": "충남",
+    "distances": [
+      "5km",
+      "12km"
+    ],
+    "organizer": "전국마라톤협회",
+    "organizerPhone": null,
+    "regDeadline": "2026-09-01",
+    "regClosed": null,
+    "lat": 36.0482503787735,
+    "lng": 127.591517658155,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://mara1080.com/event/df4b4e7d-4fbc-4843-858c-f15c032e92cb"
   },
   {
