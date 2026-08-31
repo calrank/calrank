@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>calrank 대회 일정 위젯</title>
+<meta name="robots" content="noindex">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#0B0B0B;color:#FFFFFF;font-family:'Noto Sans KR',sans-serif;font-size:13px;}
+  .wrap{padding:12px;}
+  .w-title{font-size:12px;color:#9A9A9A;margin:0 0 8px;display:flex;justify-content:space-between;align-items:center;}
+  .w-title a{color:#FF3D1A;text-decoration:none;font-weight:700;}
+  .w-item{display:block;padding:8px 0;border-bottom:1px solid #2A2A2A;text-decoration:none;color:#FFFFFF;}
+  .w-item:last-child{border-bottom:none;}
+  .w-name{font-weight:700;font-size:13px;margin:0 0 3px;}
+  .w-meta{font-size:11px;color:#9A9A9A;}
+  .w-empty{color:#9A9A9A;text-align:center;padding:20px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="w-title"><span>다가오는 대회 일정</span><a href="https://calrank.vercel.app/" target="_blank" rel="noopener">calrank ↗</a></p>
+<div id="widgetList"><p class="w-empty">불러오는 중…</p></div>
+</div>
+<script>
+(async function() {
+  const params = new URLSearchParams(location.search);
+  const sport = params.get("sport");
+  const region = params.get("region");
+  const limit = parseInt(params.get("limit") || "5", 10);
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    const days = ["일","월","화","수","목","금","토"];
+    return `${d.getMonth() + 1}.${d.getDate()}(${days[d.getDay()]})`;
+  }
+
+  try {
+    const res = await fetch("https://calrank.vercel.app/events.json");
+    const events = await res.json();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    let filtered = events.filter(ev => {
+      const d = new Date(ev.date);
+      return d >= today;
+    });
+    if (sport) filtered = filtered.filter(ev => ev.sport === sport);
+    if (region) filtered = filtered.filter(ev => ev.region === region);
+    filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    filtered = filtered.slice(0, limit);
+
+    const listEl = document.getElementById("widgetList");
+    if (filtered.length === 0) {
+      listEl.innerHTML = '<p class="w-empty">예정된 대회가 없습니다.</p>';
+      return;
+    }
+    listEl.innerHTML = filtered.map(ev => `
+      <a class="w-item" href="https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}" target="_blank" rel="noopener">
+        <p class="w-name">${ev.name}</p>
+        <p class="w-meta">${formatDate(ev.date)} · ${ev.location || ""}</p>
+      </a>
+    `).join("");
+  } catch (e) {
+    document.getElementById("widgetList").innerHTML = '<p class="w-empty">불러오지 못했습니다.</p>';
+  }
+})();
+</script>
+</body>
+</html>
