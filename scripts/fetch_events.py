@@ -673,6 +673,7 @@ SOURCES = [
     ("triathlon.or.kr", fetch_triathlon),
     ("runningmap.kr", fetch_runningmap),
     ("runneron.com", fetch_runneron),
+    ("koreaskate.or.kr", fetch_koreaskate),
 ]
 
 
@@ -792,6 +793,51 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
         f.write("\n".join(lines) + "\n")
 
     print(f"[sitemap-events.xml] {len(upcoming)}개 대회 URL 기록 완료")
+
+
+KOREASKATE_API_URL = "https://koreaskate.or.kr/api/schedule"
+KOREASKATE_BASE_URL = "https://koreaskate.or.kr/news/schedule/"
+KOREASKATE_OVERSEAS_KEYWORDS = ["중국", "일본", "대만", "이탈리아", "브라질", "파라과이", "세네갈", "미국", "유럽"]
+
+
+def fetch_koreaskate() -> list[dict]:
+    """대한롤러스포츠연맹 API에서 '생활체육'/'마라톤' 카테고리(동호인 참가형)만 골라 수집합니다.
+    학교/실업팀 대항전, 국가대표 선발전 등 엘리트 전용 대회와 해외 대회는 제외합니다."""
+    events = []
+    current_year = datetime.now().year
+    for year in (current_year, current_year + 1):
+        try:
+            resp = requests.get(f"{KOREASKATE_API_URL}?year={year}", timeout=15, headers=HEADERS)
+            resp.raise_for_status()
+            items = resp.json()
+        except Exception:
+            continue
+
+        for item in items:
+            title = (item.get("title") or "").strip()
+            if not title or not ("생활체육" in title or "마라톤" in title):
+                continue
+            location = item.get("location") or "장소 미확인"
+            if any(kw in location for kw in KOREASKATE_OVERSEAS_KEYWORDS):
+                continue
+            event_date = item.get("eventDate")
+            if not event_date:
+                continue
+            date_iso = str(event_date)[:10]
+
+            events.append(blank_event(
+                id=slugify(title, date_iso, "ks"),
+                sport="inline",
+                sportLabel="인라인",
+                name=title,
+                date=date_iso,
+                location=location,
+                region=guess_region(location),
+                distances=["거리 미확인"],
+                sourceUrl=KOREASKATE_BASE_URL,
+                applyUrl=KOREASKATE_BASE_URL,
+            ))
+    return events
 
 
 def main():
