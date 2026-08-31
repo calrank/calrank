@@ -34,7 +34,9 @@ python3 -m http.server 8000
 ### 1. `update-events.yml` → `scripts/fetch_events.py`
 대회 일정을 여러 소스에서 수집해 `events.json`에 저장합니다.
 
-현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, triathlon.or.kr, runningmap.kr, runneron.com
+현재 소스: roadrun.co.kr, cyclo.kr, runningwikii.com, triathlon.or.kr, runningmap.kr, runneron.com, koreaskate.or.kr
+
+지원 종목: 마라톤, 자전거, 트레일러닝, 철인3종, **인라인(2026-08-31 추가)**. 인라인은 대한롤러스포츠연맹 API(`/api/schedule`)에서 "생활체육"/"마라톤" 키워드가 포함된 동호인 참가형 대회만 필터링해서 수집합니다 (학교·실업팀 대항전, 국가대표 선발전, 해외 대회는 제외).
 
 - 각 크롤러 함수(`fetch_roadrun`, `fetch_cyclo` 등)는 상호 독립적이며, 하나가 실패해도 나머지는 계속 수집됩니다.
 - `merge_and_dedupe()`가 이름+날짜 기준으로 중복을 제거하고, 더 이상 소스에서 나타나지 않는 오래된 게시물(철인3종 비대회 공지, 소스가 중단된 종목)을 자동 정리합니다.
