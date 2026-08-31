@@ -39,6 +39,7 @@ python3 -m http.server 8000
 - 각 크롤러 함수(`fetch_roadrun`, `fetch_cyclo` 등)는 상호 독립적이며, 하나가 실패해도 나머지는 계속 수집됩니다.
 - `merge_and_dedupe()`가 이름+날짜 기준으로 중복을 제거하고, 더 이상 소스에서 나타나지 않는 오래된 게시물(철인3종 비대회 공지, 소스가 중단된 종목)을 자동 정리합니다.
 - 저장과 동시에 `generate_event_sitemap()`이 `sitemap-events.xml`을 자동 재생성합니다 (오늘 이후 대회만 포함, `event.html?id=` URL 목록).
+- 같은 시점에 `generate_ics_feed()`가 `feed.ics`(iCalendar 구독 피드)를 자동 재생성합니다. 사용자가 구글/애플 캘린더에 `https://calrank.vercel.app/feed.ics`를 한 번 구독해두면, 크롤링마다 새로 추가되는 대회가 자동으로 사용자 캘린더에 반영됩니다 (index.html의 "캘린더 구독하기" 버튼에서 안내).
 - **소스 추가 전 체크리스트**: robots.txt 확인 (특히 AI 크롤러 차단 여부 — 발견 시 사용하지 않음), 대회 "일정 정보"만 수집(참가자 개인 기록은 수집하지 않음).
 - 과거 제외 이력: `hyroxsouthkorea.com`(robots.txt에서 anthropic-ai 등 AI 크롤러 명시적 차단, 2026-08-27 제외)
 
