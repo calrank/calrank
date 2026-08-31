@@ -503,6 +503,14 @@ async function init() {
       }
     });
   }
+
+  const subscribeBtn = document.getElementById("subscribeBtn");
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener("click", () => {
+      const infoDiv = document.getElementById("subscribeInfo");
+      infoDiv.style.display = infoDiv.style.display === "none" ? "block" : "none";
+    });
+  }
 }
 
 init();
