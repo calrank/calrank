@@ -309,6 +309,7 @@ async function showDashSection() {
   populateDistanceSelect(document.getElementById("rfSport").value);
   await loadRecords();
   setupClaimSearch();
+  setupProfileToggle();
 }
 
 function formatSecondsToTime(sec) {
@@ -374,6 +375,38 @@ async function runClaimSearch() {
       }
       runClaimSearch();
     });
+  });
+}
+
+async function setupProfileToggle() {
+  const toggle = document.getElementById("profilePublicToggle");
+  const linkBox = document.getElementById("profileLinkBox");
+  const linkText = document.getElementById("profileLinkText");
+  if (!toggle) return;
+
+  const { data: profile } = await sb
+    .from("profiles")
+    .select("profile_public")
+    .eq("id", currentUser.id)
+    .single();
+
+  const isPublic = !!(profile && profile.profile_public);
+  toggle.checked = isPublic;
+  const profileUrl = `https://calrank.vercel.app/profile.html?id=${currentUser.id}`;
+  if (isPublic) {
+    linkBox.style.display = "block";
+    linkText.textContent = profileUrl;
+  }
+
+  toggle.addEventListener("change", async () => {
+    const newValue = toggle.checked;
+    await sb.from("profiles").update({ profile_public: newValue }).eq("id", currentUser.id);
+    if (newValue) {
+      linkBox.style.display = "block";
+      linkText.textContent = profileUrl;
+    } else {
+      linkBox.style.display = "none";
+    }
   });
 }
 
