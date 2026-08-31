@@ -43,7 +43,76 @@ body{
 .nav-link.active{color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:4px;}
 .soon-tag{font-size:9px;font-weight:700;color:var(--ink-faint);border:1px solid var(--border);padding:1px 5px;margin-left:4px;vertical-align:2px;}
 
-.hero{padding:48px 0 20px;}
+.hero{padding:48px 0 20px;position:relative;overflow:hidden;}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-20% -10% auto -10%;
+  height:220px;
+  background:radial-gradient(ellipse at 85% 0%, rgba(255,61,26,0.16) 0%, rgba(255,61,26,0) 60%);
+  pointer-events:none;
+  z-index:0;
+}
+.hero-speedlines{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.5;
+}
+.hero-speedlines span{
+  position:absolute;
+  height:1px;
+  width:140%;
+  left:-40%;
+  background:linear-gradient(90deg, transparent 0%, var(--accent) 40%, transparent 100%);
+  animation:heroSlide 5.5s linear infinite;
+}
+.hero-speedlines span:nth-child(1){top:18%;animation-duration:6.5s;opacity:0.5;}
+.hero-speedlines span:nth-child(2){top:42%;animation-duration:4.5s;animation-delay:-1.5s;opacity:0.35;}
+.hero-speedlines span:nth-child(3){top:68%;animation-duration:7.5s;animation-delay:-3s;opacity:0.25;}
+@keyframes heroSlide{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(60%);}
+}
+.hero h1, .hero-sub, .hero-stats{position:relative;z-index:1;}
+.hero-stats{
+  display:flex;
+  gap:20px;
+  margin:14px 0 0;
+  flex-wrap:wrap;
+}
+.hero-stat{
+  font-size:13px;
+  color:var(--ink-faint);
+}
+.hero-stat b{
+  color:var(--accent);
+  font-family:var(--font-display);
+  font-size:16px;
+  font-weight:400;
+  margin-right:4px;
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-speedlines span{animation:none;}
+}
+.dday-badge.dday-urgent{
+  animation:ddayPulse 1.8s ease-in-out infinite;
+}
+@keyframes ddayPulse{
+  0%,100%{opacity:1;}
+  50%{opacity:0.55;}
+}
+.chip, .event-card{
+  transition:transform 0.15s ease, border-color 0.15s ease;
+}
+.chip:hover{
+  transform:translateY(-1px);
+}
+.event-card:hover{
+  border-color:var(--accent);
+}
 .hero h1{
   font-family:var(--font-display);
   font-size:clamp(28px,4vw,40px);
