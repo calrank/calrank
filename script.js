@@ -463,6 +463,38 @@ function injectEventSchema(events) {
   document.head.appendChild(script);
 }
 
+function animateCount(el, target, duration) {
+  const start = 0;
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.round(start + (target - start) * eased);
+    el.textContent = value.toLocaleString("ko-KR");
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function renderHeroStats() {
+  const wrap = document.getElementById("heroStats");
+  if (!wrap) return;
+  const totalCount = state.events.length;
+  const sportCount = new Set(state.events.map(ev => ev.sport)).size;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const urgentCount = state.events.filter(ev => getRegStatus(ev) === "urgent").length;
+
+  wrap.innerHTML = `
+    <span class="hero-stat"><b id="statTotal">0</b>개 대회 진행중</span>
+    <span class="hero-stat"><b id="statSport">0</b>개 종목</span>
+    <span class="hero-stat"><b id="statUrgent">0</b>개 접수마감임박</span>
+  `;
+  animateCount(document.getElementById("statTotal"), totalCount, 900);
+  animateCount(document.getElementById("statSport"), sportCount, 700);
+  animateCount(document.getElementById("statUrgent"), urgentCount, 900);
+}
+
 async function init() {
   setupModal();
   try {
@@ -481,6 +513,7 @@ async function init() {
   setupMonthTabs();
   setupRegionSelect();
   render();
+  renderHeroStats();
 
   const mapToggleBtn = document.getElementById("mapToggleBtn");
   if (mapToggleBtn) {
