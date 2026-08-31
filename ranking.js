@@ -18,7 +18,7 @@ const DISTANCE_OPTIONS = {
 };
 
 let currentSport = "marathon";
-let currentDistance = "5km";
+let currentDistance = "10km";
 let currentUser = null;
 
 function formatSeconds(sec) {
