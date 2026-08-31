@@ -73,6 +73,19 @@
 <div class="tier-grid" id="tierGrid"></div>
 
 <div class="record-form-card">
+<p class="record-form-title">공개 프로필</p>
+<p class="import-sub" style="margin-bottom:12px;">공개하면 친구에게 보낼 수 있는 나만의 기록 페이지 링크가 생겨요. 이름·완주 통계·PR만 보이고, 비공개면 아무도 볼 수 없습니다.</p>
+<label style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-bottom:10px;">
+<input type="checkbox" id="profilePublicToggle">
+<span>내 프로필 공개하기</span>
+</label>
+<div id="profileLinkBox" style="display:none;">
+<p class="import-sub">아래 링크를 복사해서 공유하세요:</p>
+<code id="profileLinkText" style="user-select:all; word-break:break-all; display:block; padding:8px; background:var(--surface, #141414); border-radius:6px;"></code>
+</div>
+</div>
+
+<div class="record-form-card">
 <p class="record-form-title">공식기록에서 내 기록 찾기</p>
 <p class="import-sub" style="margin-bottom:12px;">주최측이 발표한 공식 완주 기록에서 내 이름을 검색해 계정에 연결하면, 대회랭킹에 공식 배지가 붙어요.</p>
 <div class="import-box" style="display:flex; gap:8px; align-items:center;">
