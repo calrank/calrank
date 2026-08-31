@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitleTag">러너 프로필 — calrank</title>
+<meta id="metaDesc" name="description" content="calrank에서 완주 기록과 대회 히스토리를 확인해보세요.">
+<meta id="ogTitle" property="og:title" content="러너 프로필 — calrank">
+<meta id="ogDesc" property="og:description" content="calrank에서 완주 기록과 대회 히스토리를 확인해보세요.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="myrank.css">
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<main class="wrap myrank-wrap">
+
+<div id="profileContent">
+<p class="result-count">불러오는 중…</p>
+</div>
+
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p class="footer-links"><a href="index.html">calrank 전종목 대회 캘린더 바로가기 →</a></p>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="profile.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
