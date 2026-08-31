@@ -711,6 +711,57 @@ def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]
     return sorted(values, key=lambda e: e["date"])
 
 
+def ics_escape(text: str) -> str:
+    return (text or "").replace("\\", "\\\\").replace(",", "\\,").replace(";", "\\;").replace("\n", "\\n")
+
+
+def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
+    """전체 예정 대회를 하나의 iCalendar 구독 피드로 생성합니다.
+    사용자가 구글/애플 캘린더에 이 URL을 구독하면 새 대회가 등록될 때마다 자동으로 반영됩니다."""
+    today = datetime.now().date()
+    upcoming = []
+    for ev in events:
+        try:
+            ev_date = datetime.strptime(ev["date"], "%Y-%m-%d").date()
+        except (KeyError, ValueError, TypeError):
+            continue
+        if ev_date >= today:
+            upcoming.append(ev)
+
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//calrank//KO",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "X-WR-CALNAME:calrank 전체 대회 일정",
+        "X-WR-TIMEZONE:Asia/Seoul",
+    ]
+    now_stamp = datetime.now().strftime("%Y%m%dT%H%M%SZ")
+    for ev in upcoming:
+        dt = ev["date"].replace("-", "")
+        uid = f"{ev['id']}@calrank.vercel.app"
+        summary = ics_escape(ev.get("name", "대회"))
+        location = ics_escape(ev.get("location", ""))
+        url = f"https://calrank.vercel.app/event.html?id={quote(ev['id'])}"
+        lines += [
+            "BEGIN:VEVENT",
+            f"UID:{uid}",
+            f"DTSTAMP:{now_stamp}",
+            f"DTSTART;VALUE=DATE:{dt}",
+            f"SUMMARY:{summary}",
+            f"LOCATION:{location}",
+            f"URL:{url}",
+            "END:VEVENT",
+        ]
+    lines.append("END:VCALENDAR")
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\r\n".join(lines) + "\r\n")
+
+    print(f"[feed.ics] {len(upcoming)}개 대회 캘린더 구독 피드 생성 완료")
+
+
 def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.xml") -> None:
     """대회별 상세 페이지(event.html?id=...) URL을 모은 sitemap을 자동 생성합니다.
     구글이 개별 대회 페이지를 빠르게 발견할 수 있도록, 매 크롤링마다 최신 상태로 갱신됩니다."""
@@ -773,6 +824,7 @@ def main():
         json.dump(merged, f, ensure_ascii=False, indent=2)
 
     generate_event_sitemap(merged)
+    generate_ics_feed(merged)
 
     print(f"[{datetime.now().isoformat()}] {len(merged)}개 대회 저장 완료 ({args.out})")
 
