@@ -7,6 +7,7 @@ const SPORT_META = {
   cycling: { label: "자전거", tag: "BIK", color: "var(--cycling)" },
   trail: { label: "트레일", tag: "TRL", color: "var(--trail)" },
   triathlon: { label: "철인3종", tag: "TRI", color: "var(--triathlon)" },
+  inline: { label: "인라인", tag: "INL", color: "var(--inline)" },
 };
 
 function daysUntil(dateStr) {
