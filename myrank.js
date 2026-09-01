@@ -600,6 +600,175 @@ tier: `완주 ${recs.length}회`,
 return rows;
 }
 
+function getCertRecords() {
+  return (currentRecords || []).filter(r => r.race_name && r.finish_time_seconds != null);
+}
+
+async function openCertModal() {
+  const records = getCertRecords();
+  const sel = document.getElementById("certRecordSelect");
+  if (records.length === 0) {
+    sel.innerHTML = '<option value="">등록된 완주 기록이 없습니다</option>';
+    document.getElementById("certModalOverlay").classList.add("open");
+    return;
+  }
+  sel.innerHTML = records.map((r, i) => {
+    const label = `${r.race_name} · ${SPORT_LABEL[r.sport] || r.sport} ${distanceLabel(r.sport, r.distance_category)} · ${formatSeconds(r.finish_time_seconds)}`;
+    return `<option value="${i}">${label}</option>`;
+  }).join("");
+  document.getElementById("certModalOverlay").classList.add("open");
+  const canvas = document.getElementById("certCanvas");
+  await drawCertificate(canvas, records[0]);
+  sel.onchange = async () => {
+    await drawCertificate(canvas, records[Number(sel.value)]);
+  };
+}
+
+function closeCertModal() {
+  document.getElementById("certModalOverlay").classList.remove("open");
+}
+
+function downloadCertificate() {
+  const canvas = document.getElementById("certCanvas");
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "calrank-certificate.png";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, "image/png");
+}
+
+async function drawCertificate(canvas, record) {
+  const W = 1600, H = 1131;
+  const dpr = 2;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = "100%";
+  canvas.style.height = "auto";
+  canvas.style.aspectRatio = `${W} / ${H}`;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+
+  if (document.fonts && document.fonts.ready) {
+    try { await document.fonts.ready; } catch (e) {}
+  }
+
+  const PAPER = "#F7F3E8";
+  const INK = "#1A1A1A";
+  const INK_SOFT = "#6B6558";
+  const ACCENT = "#FF3D1A";
+
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  ctx.globalAlpha = 0.05;
+  ctx.fillStyle = INK;
+  ctx.font = "900 40px 'Black Han Sans'";
+  ctx.translate(W / 2, H / 2);
+  ctx.rotate(-Math.PI / 8);
+  for (let y = -H; y < H; y += 90) {
+    for (let x = -W; x < W; x += 320) {
+      ctx.fillText("CALRANK", x, y);
+    }
+  }
+  ctx.restore();
+
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(28, 28, W - 56, H - 56);
+  ctx.strokeStyle = ACCENT;
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(40, 40, W - 80, H - 80);
+
+  const cx = W / 2, sealY = 130, sealR = 46;
+  ctx.save();
+  ctx.strokeStyle = ACCENT;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(cx, sealY, sealR, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(cx, sealY, sealR - 8, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fillStyle = ACCENT;
+  ctx.beginPath();
+  ctx.moveTo(cx - 20, sealY - 20);
+  ctx.lineTo(cx + 20, sealY - 20);
+  ctx.lineTo(cx + 8, sealY);
+  ctx.lineTo(cx + 20, sealY + 20);
+  ctx.lineTo(cx - 20, sealY + 20);
+  ctx.lineTo(cx - 8, sealY);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  ctx.fillStyle = INK_SOFT;
+  ctx.font = "bold 13px 'Noto Sans KR'";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillText("C A L R A N K   O F F I C I A L", cx, sealY + sealR + 24);
+
+  ctx.fillStyle = INK;
+  ctx.font = "900 56px 'Black Han Sans'";
+  ctx.fillText("완 주 인 증 서", cx, 290);
+
+  ctx.strokeStyle = INK_SOFT;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - 90, 312);
+  ctx.lineTo(cx + 90, 312);
+  ctx.stroke();
+
+  ctx.fillStyle = INK_SOFT;
+  ctx.font = "16px 'Noto Sans KR'";
+  ctx.fillText("이 증서는 아래 러너가 다음 대회를 완주했음을 증명합니다", cx, 355);
+
+  const name = (document.getElementById("displayName").textContent || "회원").trim();
+  ctx.fillStyle = INK;
+  ctx.font = "700 52px 'Noto Sans KR'";
+  ctx.fillText(name, cx, 440);
+
+  ctx.font = "22px 'Noto Sans KR'";
+  ctx.fillStyle = INK;
+  ctx.fillText(record.race_name, cx, 510);
+
+  ctx.fillStyle = INK_SOFT;
+  ctx.font = "16px 'Noto Sans KR'";
+  const sportLabel = SPORT_LABEL[record.sport] || record.sport;
+  const distLabel = distanceLabel(record.sport, record.distance_category);
+  const dateLabel = record.race_date || "";
+  ctx.fillText(`${sportLabel} · ${distLabel} · ${dateLabel}`, cx, 545);
+
+  ctx.fillStyle = ACCENT;
+  ctx.font = "900 72px 'Black Han Sans'";
+  ctx.fillText(formatSeconds(record.finish_time_seconds), cx, 650);
+
+  ctx.fillStyle = INK_SOFT;
+  ctx.font = "13px 'Noto Sans KR'";
+  ctx.fillText("완주 기록", cx, 675);
+
+  ctx.textAlign = "left";
+  const today = new Date().toISOString().slice(0, 10);
+  ctx.fillStyle = INK_SOFT;
+  ctx.font = "12px 'Noto Sans KR'";
+  ctx.fillText(`발급일: ${today}`, 70, H - 70);
+  const certId = `CR-${(record.race_name.length + record.finish_time_seconds).toString(16).toUpperCase()}`;
+  ctx.fillText(`인증번호: ${certId}`, 70, H - 50);
+
+  ctx.textAlign = "right";
+  ctx.fillStyle = INK;
+  ctx.font = "700 20px 'Black Han Sans'";
+  ctx.fillText("CALRANK", W - 70, H - 60);
+  ctx.fillStyle = INK_SOFT;
+  ctx.font = "12px 'Noto Sans KR'";
+  ctx.fillText("calrank.vercel.app", W - 70, H - 42);
+  ctx.textAlign = "left";
+}
+
 async function drawShareCard(canvas) {
 const W = 720, H = 960;
 const dpr = 2;
@@ -745,6 +914,13 @@ if (e.target.id === "shareModalOverlay") closeShareModal();
 });
 document.getElementById("shareDownloadBtn").addEventListener("click", downloadShareCard);
 document.getElementById("shareNativeBtn").addEventListener("click", nativeShareCard);
+
+  document.getElementById("certBtn").addEventListener("click", openCertModal);
+  document.getElementById("certModalClose").addEventListener("click", closeCertModal);
+  document.getElementById("certModalOverlay").addEventListener("click", (e) => {
+    if (e.target.id === "certModalOverlay") closeCertModal();
+  });
+  document.getElementById("certDownloadBtn").addEventListener("click", downloadCertificate);
 
   populateDistanceSelect("marathon");
 
