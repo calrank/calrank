@@ -79,6 +79,20 @@ async function init() {
     </div>
     <p class="import-sub" style="margin-top:16px;"><a href="index.html" style="color:inherit; text-decoration:underline;">calrank에서 나도 대회 찾아보기 →</a></p>
   `;
+  const { data: races } = await sb.rpc("get_public_races", { p_user_id: userId });
+  if (Array.isArray(races) && races.length > 0) {
+    const historyHtml = `
+      <div class="record-form-card">
+        <p class="record-form-title">대회 히스토리</p>
+        ${races.map(r => `
+          <div class="record-item">
+            <p>${r.race_date} · ${SPORT_LABEL[r.sport] || r.sport} · <strong>${r.race_name}</strong>${r.finish_time_seconds ? " · " + formatSecondsToTime(r.finish_time_seconds) : ""}</p>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    document.getElementById("profileContent").insertAdjacentHTML("beforeend", historyHtml);
+  }
 }
 
 init();
