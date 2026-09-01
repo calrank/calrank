@@ -97,7 +97,7 @@
 </div>
 
 <div class="record-form-card">
-<p class="record-form-title">대회 기록 추가</p>
+<p class="record-form-title" id="recordFormTitle">대회 기록 추가</p>
 
 <div class="import-box">
 <label for="gpxFileInput" class="import-label">
@@ -119,7 +119,8 @@
 <select id="rfDistance"></select>
 <input type="text" id="rfTime" placeholder="완주시간 (예: 1:45:30)" pattern="^\d{1,2}:\d{2}(:\d{2})?$">
 <input type="text" id="rfNotes" placeholder="메모 (선택)">
-<button type="submit" class="record-submit-btn">기록 추가</button>
+<button type="submit" class="record-submit-btn" id="recordSubmitBtn">기록 추가</button>
+<button type="button" id="recordCancelBtn" class="record-submit-btn" style="display:none; background:transparent; border:1px solid var(--border,#2A2A2A); margin-top:6px;">취소</button>
 </form>
 <p class="record-msg" id="recordMsg"></p>
 </div>
@@ -145,7 +146,9 @@
 <div class="modal-card share-modal-card">
 <button class="modal-close" id="certModalClose">×</button>
 <p class="modal-title">🏅 완주 인증서</p>
-<select id="certRecordSelect" style="width:100%; margin-bottom:10px; padding:8px; border-radius:6px; background:var(--surface,#141414); color:#fff; border:1px solid var(--border,#2A2A2A);"></select>
+<input type="text" id="certNameInput" placeholder="인증서에 표시할 이름 (예: 홍길동)" style="width:100%; margin-bottom:8px; padding:8px; border-radius:6px; background:var(--surface,#141414); color:#fff; border:1px solid var(--border,#2A2A2A); box-sizing:border-box;">
+<select id="certRecordSelect" style="width:100%; margin-bottom:8px; padding:8px; border-radius:6px; background:var(--surface,#141414); color:#fff; border:1px solid var(--border,#2A2A2A);"></select>
+<label style="display:flex; align-items:center; gap:6px; margin-bottom:10px; font-size:13px; color:var(--ink-soft,#9A9A9A); cursor:pointer;"><input type="checkbox" id="certLangToggle"> English</label>
 <canvas id="certCanvas" class="share-canvas"></canvas>
 <div class="share-actions">
 <button id="certDownloadBtn" class="modal-cal-btn">이미지로 저장</button>
