@@ -1,5 +1,25 @@
 [
   {
+    "id": "marathon-에티오피아-고베나-시드니-마라톤-코스-신기록-우승-2026-08-31",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "title": "에티오피아 고베나, 시드니 마라톤 '코스 신기록 우승'",
+    "date": "2026-08-31",
+    "excerpt": null,
+    "sourceUrl": "https://www.newsis.com/view/NISX20260830_0003768338",
+    "sourceName": "e-마라톤"
+  },
+  {
+    "id": "cycling-track-asia-cup-2026-결과-알림-2026-08-31",
+    "sport": "cycling",
+    "sportLabel": "자전거",
+    "title": "Track Asia Cup 2026 결과 알림",
+    "date": "2026-08-31",
+    "excerpt": "1. 대 회 명: Track Asia Cup 2026 2. 대회기간: 2026. 8. 28.(금) - 8. 30.(일) 3. 대회장소: 태국 방콕 4. 참가명단 [경북체육회-GSB] - 지도자 : 김영수 - 선 수 : 최태호 [국민체육진흥공.. |",
+    "sourceUrl": "https://cycling.or.kr/news/news/./?mode=view&nid=20260831100043484&page=1&sTour=&sPart=&field=&keyword=",
+    "sourceName": "대한사이클연맹"
+  },
+  {
     "id": "marathon-쿠키런-진짜-달린다-7000명-참가-서울-도심-마라톤-개최-2026-08-27",
     "sport": "marathon",
     "sportLabel": "마라톤",
