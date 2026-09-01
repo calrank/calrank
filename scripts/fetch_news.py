@@ -81,21 +81,25 @@ EMARATHON_URL = "https://emarathon.or.kr/bbs/board.php?bo_table=emara02_03"
 EMARATHON_BASE = "https://emarathon.or.kr/bbs/"
 
 
-def fetch_marathon_article_link(detail_url: str) -> str | None:
-    """상세페이지 본문에 외부 언론사 원문 링크가 있으면 그 링크를 반환합니다.
-    (자체 작성 공지 글은 외부 링크가 없어 None을 반환, 이 경우 상세페이지
-    자체가 그대로 씁니다.)"""
+def fetch_marathon_article_link(detail_url: str) -> tuple:
+    """상세페이지 본문에서 외부 링크와 짧은 발췌문(최대 120자)을 함께 반환합니다.
+    반환값: (외부_링크 또는 None, 발췌문 또는 None)"""
     try:
         resp = fetch_with_retry(detail_url, timeout=10, retries=2)
         soup = BeautifulSoup(resp.text, "html.parser")
         content = soup.select_one("div.view-content")
+        excerpt = None
         if content:
+            text = re.sub(r"\s+", " ", content.get_text(" ", strip=True)).strip()
+            if text:
+                excerpt = (text[:120] + "…") if len(text) > 120 else text
             a = content.find("a", href=True)
             if a and a["href"].startswith("http") and "emarathon.or.kr" not in a["href"]:
-                return a["href"]
+                return a["href"], excerpt
+        return None, excerpt
     except Exception:
         pass
-    return None
+    return None, None
 
 
 def fetch_marathon_news() -> list[dict]:
@@ -126,7 +130,7 @@ def fetch_marathon_news() -> list[dict]:
         href = link_el.get("href", "")
         article_url = EMARATHON_BASE + href if href.startswith("board.php") else href
 
-        real_url = fetch_marathon_article_link(article_url) if article_url else None
+        real_url, excerpt = fetch_marathon_article_link(article_url) if article_url else (None, None)
 
         events.append({
             "id": slugify_id("marathon", title, date_iso),
@@ -134,7 +138,7 @@ def fetch_marathon_news() -> list[dict]:
             "sportLabel": SPORT_LABEL["marathon"],
             "title": title,
             "date": date_iso,
-            "excerpt": None,
+            "excerpt": excerpt,
             "sourceUrl": real_url or article_url or EMARATHON_URL,
             "sourceName": "e-마라톤",
         })
