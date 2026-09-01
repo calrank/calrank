@@ -796,6 +796,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/event.html?id=cy-2026-%EC%96%91%ED%8F%89-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-05</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/event.html?id=rr-2026-%ED%95%9C%EA%B8%80%EB%9F%B0-2026-10-09</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -1392,6 +1397,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/event.html?id=tri-%EC%A0%9C22%ED%9A%8C-%EC%9A%B8%EC%A7%84-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%A0%EC%8A%AC%EB%A1%A0-%EB%8C%80%ED%9A%8C-2026-10-31</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=cy-2026-%EB%B6%80%EC%97%AC-%EA%B5%BF%EB%9C%A8%EB%9E%98-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-31</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

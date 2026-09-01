@@ -12591,7 +12591,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--439ar1m25cg1c810a7ro.com"
+    "applyUrl": "http://xn--439ar1m25cg1c810a7ro.com/"
   },
   {
     "id": "ro-제20회-달서하프마라톤-2026-대회-2026-10-04",
@@ -12837,6 +12837,29 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "http://shmarathon.kr/"
+  },
+  {
+    "id": "cy-2026-양평-그란폰도-2026-10-05",
+    "sport": "cycling",
+    "sportLabel": "자전거",
+    "name": "2026 양평 그란폰도",
+    "date": "2026-10-05",
+    "time": "07:00",
+    "location": "물맑은양평종합운동장",
+    "region": "전국",
+    "distances": [
+      "93.9km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "regClosed": false,
+    "lat": 37.4902518,
+    "lng": 127.5231841,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://cyclo.kr/schedule",
+    "applyUrl": "https://www.yangpyeonggranfondo.com/"
   },
   {
     "id": "rr-2026-한글런-2026-10-09",
@@ -15746,6 +15769,30 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
     "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2111&page=1&sYear=2026&vType=list&field=&keyword="
+  },
+  {
+    "id": "cy-2026-부여-굿뜨래-그란폰도-2026-10-31",
+    "sport": "cycling",
+    "sportLabel": "자전거",
+    "name": "2026 부여 굿뜨래 그란폰도",
+    "date": "2026-10-31",
+    "time": "07:00",
+    "location": "부여 종합운동장",
+    "region": "전국",
+    "distances": [
+      "54.9km",
+      "105.7km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
+    "regClosed": false,
+    "lat": 36.2786745,
+    "lng": 126.8637199,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://cyclo.kr/schedule",
+    "applyUrl": "https://www.thebike.co.kr/race/view?r_idx=343"
   },
   {
     "id": "rr-26서울동행마라톤대회-2026-11-01",
