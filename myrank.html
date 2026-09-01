@@ -66,6 +66,7 @@
 <p class="dash-welcome">안녕하세요, <span id="displayName"></span>님</p>
 <div class="dash-top-actions">
 <button id="shareBtn" class="share-btn">📤 기록 공유</button>
+<button id="certBtn" class="share-btn">🏅 인증서 만들기</button>
 <button id="signOutBtn" class="signout-btn">로그아웃</button>
 </div>
 </div>
@@ -137,6 +138,19 @@
 <button id="shareDownloadBtn" class="modal-cal-btn">이미지로 저장</button>
 </div>
 <p class="modal-disclaimer">카카오톡, 인스타그램 스토리 등에 공유해보세요.</p>
+</div>
+</div>
+
+<div class="modal-overlay" id="certModalOverlay">
+<div class="modal-card share-modal-card">
+<button class="modal-close" id="certModalClose">×</button>
+<p class="modal-title">🏅 완주 인증서</p>
+<select id="certRecordSelect" style="width:100%; margin-bottom:10px; padding:8px; border-radius:6px; background:var(--surface,#141414); color:#fff; border:1px solid var(--border,#2A2A2A);"></select>
+<canvas id="certCanvas" class="share-canvas"></canvas>
+<div class="share-actions">
+<button id="certDownloadBtn" class="modal-cal-btn">이미지로 저장</button>
+</div>
+<p class="modal-disclaimer">인쇄하거나 SNS 프로필에 저장해보세요.</p>
 </div>
 </div>
 
