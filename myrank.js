@@ -327,6 +327,10 @@ async function showDashSection() {
   populateDateSelects();
   populateTimeSelects();
   populateDistanceSelect(document.getElementById("rfSport").value);
+  ["rfSport", "rfDistance", "rfHour", "rfMin", "rfSec"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("change", updateRecordPreview);
+  });
   await loadRecords();
   setupClaimSearch();
   setupProfileToggle();
@@ -467,6 +471,7 @@ function handleEditRecord(id) {
   document.getElementById("rfDistance").value = r.distance_category;
   setTimeSelectsFromSeconds(r.finish_time_seconds);
   document.getElementById("rfNotes").value = r.notes || "";
+  updateRecordPreview();
   editingRecordId = id;
   document.getElementById("recordFormTitle").textContent = "기록 수정";
   document.getElementById("recordSubmitBtn").textContent = "수정 완료";
@@ -486,6 +491,7 @@ function cancelEditRecord() {
   document.getElementById("rfMonth").value = String(today.getMonth() + 1).padStart(2, "0");
   document.getElementById("rfDay").value = String(today.getDate()).padStart(2, "0");
   setTimeSelectsFromSeconds(null);
+  updateRecordPreview();
 }
 
 function populateDateSelects() {
@@ -575,6 +581,23 @@ function setTimeSelectsFromSeconds(totalSeconds) {
   const m = Math.floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;
   hourSel.value = h; minSel.value = m; secSel.value = s;
+}
+
+function updateRecordPreview() {
+  const previewEl = document.getElementById("recordPreview");
+  if (!previewEl) return;
+  const sport = document.getElementById("rfSport").value;
+  const distance = document.getElementById("rfDistance").value;
+  const seconds = getTimeSecondsFromSelects();
+  if (!distance || seconds == null) {
+    previewEl.textContent = "";
+    return;
+  }
+  const distLabel = distanceLabel(sport, distance);
+  const timeLabel = formatSeconds(seconds);
+  const km = getDistanceKm(sport, distance);
+  const pace = formatPace(seconds, km);
+  previewEl.textContent = `예상 기록: ${distLabel} · ${timeLabel}` + (pace ? ` · 페이스 ${pace}` : "");
 }
 
 async function handleRecordSubmit(e) {
