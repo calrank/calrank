@@ -12,9 +12,7 @@ const DISTANCE_OPTIONS = {
   marathon: [
     ["5km", "5km"], ["10km", "10km"], ["half", "하프(21.1km)"], ["full", "풀(42.2km)"],
   ],
-  triathlon: [
-    ["sprint", "스프린트"], ["olympic", "올림픽"], ["half70_3", "하프(70.3)"], ["full", "풀(아이언맨)"],
-  ],
+  // triathlon: 공식기록 크롤러가 아직 없어 실제 데이터가 전혀 없으므로, 소스가 마련될 때까지 탭을 숨깁니다.
 };
 
 let currentSport = "marathon";
