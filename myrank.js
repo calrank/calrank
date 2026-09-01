@@ -239,10 +239,10 @@ function handleFileImport(e) {
         const yyyy = d.getFullYear();
         const mm = String(d.getMonth() + 1).padStart(2, "0");
         const dd = String(d.getDate()).padStart(2, "0");
-        document.getElementById("rfDate").value = `${yyyy}-${mm}-${dd}`;
+        setDateValue(`${yyyy}-${mm}-${dd}`);
       }
       if (result.durationSeconds) {
-        document.getElementById("rfTime").value = formatSeconds(result.durationSeconds);
+        setTimeSelectsFromSeconds(result.durationSeconds);
       }
       if (guessedDist) {
         document.getElementById("rfDistance").value = guessedDist;
@@ -324,6 +324,8 @@ async function showDashSection() {
   document.getElementById("displayName").textContent =
     profile?.display_name || currentUser.email.split("@")[0];
 
+  populateDateSelects();
+  populateTimeSelects();
   populateDistanceSelect(document.getElementById("rfSport").value);
   await loadRecords();
   setupClaimSearch();
@@ -459,11 +461,11 @@ function handleEditRecord(id) {
   const r = currentRecords.find(rec => String(rec.id) === String(id));
   if (!r) return;
   document.getElementById("rfName").value = r.race_name || "";
-  document.getElementById("rfDate").value = r.race_date || "";
+  setDateValue(r.race_date || "");
   document.getElementById("rfSport").value = r.sport;
   populateDistanceSelect(r.sport);
   document.getElementById("rfDistance").value = r.distance_category;
-  document.getElementById("rfTime").value = r.finish_time_seconds != null ? formatSeconds(r.finish_time_seconds) : "";
+  setTimeSelectsFromSeconds(r.finish_time_seconds);
   document.getElementById("rfNotes").value = r.notes || "";
   editingRecordId = id;
   document.getElementById("recordFormTitle").textContent = "기록 수정";
@@ -479,24 +481,112 @@ function cancelEditRecord() {
   document.getElementById("recordSubmitBtn").textContent = "기록 추가";
   document.getElementById("recordCancelBtn").style.display = "none";
   populateDistanceSelect(document.getElementById("rfSport").value);
+  const today = new Date();
+  document.getElementById("rfYear").value = today.getFullYear();
+  document.getElementById("rfMonth").value = String(today.getMonth() + 1).padStart(2, "0");
+  document.getElementById("rfDay").value = String(today.getDate()).padStart(2, "0");
+  setTimeSelectsFromSeconds(null);
+}
+
+function populateDateSelects() {
+  const yearSel = document.getElementById("rfYear");
+  const monthSel = document.getElementById("rfMonth");
+  const daySel = document.getElementById("rfDay");
+  if (!yearSel || yearSel.options.length > 0) return;
+  const nowY = new Date().getFullYear();
+  for (let y = nowY + 1; y >= nowY - 10; y--) {
+    const opt = document.createElement("option");
+    opt.value = y; opt.textContent = y + "년";
+    yearSel.appendChild(opt);
+  }
+  for (let m = 1; m <= 12; m++) {
+    const opt = document.createElement("option");
+    opt.value = String(m).padStart(2, "0"); opt.textContent = m + "월";
+    monthSel.appendChild(opt);
+  }
+  for (let d = 1; d <= 31; d++) {
+    const opt = document.createElement("option");
+    opt.value = String(d).padStart(2, "0"); opt.textContent = d + "일";
+    daySel.appendChild(opt);
+  }
+  const today = new Date();
+  yearSel.value = today.getFullYear();
+  monthSel.value = String(today.getMonth() + 1).padStart(2, "0");
+  daySel.value = String(today.getDate()).padStart(2, "0");
+}
+
+function getDateValue() {
+  const y = document.getElementById("rfYear").value;
+  const m = document.getElementById("rfMonth").value;
+  const d = document.getElementById("rfDay").value;
+  return `${y}-${m}-${d}`;
+}
+
+function setDateValue(dateStr) {
+  if (!dateStr) return;
+  const [y, m, d] = dateStr.split("-");
+  document.getElementById("rfYear").value = y;
+  document.getElementById("rfMonth").value = m;
+  document.getElementById("rfDay").value = d;
+}
+
+function populateTimeSelects() {
+  const hourSel = document.getElementById("rfHour");
+  const minSel = document.getElementById("rfMin");
+  const secSel = document.getElementById("rfSec");
+  if (!hourSel || hourSel.options.length > 0) return;
+  [hourSel, minSel, secSel].forEach(sel => {
+    const blank = document.createElement("option");
+    blank.value = ""; blank.textContent = "-";
+    sel.appendChild(blank);
+  });
+  for (let h = 0; h <= 30; h++) {
+    const opt = document.createElement("option");
+    opt.value = h; opt.textContent = String(h).padStart(2, "0") + "시";
+    hourSel.appendChild(opt);
+  }
+  for (let m = 0; m <= 59; m++) {
+    const optM = document.createElement("option");
+    optM.value = m; optM.textContent = String(m).padStart(2, "0") + "분";
+    minSel.appendChild(optM);
+    const optS = document.createElement("option");
+    optS.value = m; optS.textContent = String(m).padStart(2, "0") + "초";
+    secSel.appendChild(optS);
+  }
+}
+
+function getTimeSecondsFromSelects() {
+  const h = document.getElementById("rfHour").value;
+  const m = document.getElementById("rfMin").value;
+  const s = document.getElementById("rfSec").value;
+  if (h === "" || m === "" || s === "") return null;
+  return Number(h) * 3600 + Number(m) * 60 + Number(s);
+}
+
+function setTimeSelectsFromSeconds(totalSeconds) {
+  const hourSel = document.getElementById("rfHour");
+  const minSel = document.getElementById("rfMin");
+  const secSel = document.getElementById("rfSec");
+  if (totalSeconds == null) {
+    hourSel.value = ""; minSel.value = ""; secSel.value = "";
+    return;
+  }
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  hourSel.value = h; minSel.value = m; secSel.value = s;
 }
 
 async function handleRecordSubmit(e) {
   e.preventDefault();
   const msgEl = document.getElementById("recordMsg");
   const name = document.getElementById("rfName").value.trim();
-  const date = document.getElementById("rfDate").value;
+  const date = getDateValue();
   const sport = document.getElementById("rfSport").value;
   const distance = document.getElementById("rfDistance").value;
-  const timeText = document.getElementById("rfTime").value.trim();
   const notes = document.getElementById("rfNotes").value.trim();
 
-  const finishSeconds = timeText ? parseTimeToSeconds(timeText) : null;
-  if (timeText && finishSeconds == null) {
-    msgEl.textContent = "완주시간 형식이 올바르지 않습니다. 예: 1:45:30 또는 19:30";
-    msgEl.className = "record-msg error";
-    return;
-  }
+  const finishSeconds = getTimeSecondsFromSelects();
 
   const payload = {
     race_name: name,
