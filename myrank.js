@@ -69,6 +69,24 @@ function distanceLabel(sport, dist) {
   return opt ? opt[1] : dist;
 }
 
+const DISTANCE_KM = {
+  marathon: { "5km": 5, "10km": 10, "half": 21.1, "full": 42.2 },
+  cycling: { "50km": 50, "100km": 100, "150km": 150, "200km+": 200 },
+  trail: { "20km": 20, "50km": 50, "100km": 100 },
+};
+
+function getDistanceKm(sport, distance) {
+  return (DISTANCE_KM[sport] || {})[distance] || null;
+}
+
+function formatPace(seconds, km) {
+  if (!seconds || !km) return null;
+  const paceSec = seconds / km;
+  const m = Math.floor(paceSec / 60);
+  const s = Math.round(paceSec % 60);
+  return `${m}'${String(s).padStart(2, "0")}"/km`;
+}
+
 function getTier(sport, distance, seconds) {
   const bands = TIER_BENCHMARKS[sport]?.[distance];
   if (!bands || seconds == null) return null;
@@ -587,7 +605,7 @@ function renderRecordList() {
       <span class="rr-tag">${SPORT_LABEL[r.sport] || r.sport}</span>
       <div class="rr-body">
         <p class="rr-name">${r.race_name}</p>
-        <p class="rr-meta">${r.race_date} · ${distanceLabel(r.sport, r.distance_category)}${r.finish_time_seconds ? " · " + formatSeconds(r.finish_time_seconds) : ""}${r.notes ? " · " + r.notes : ""}</p>
+        <p class="rr-meta">${r.race_date} · ${distanceLabel(r.sport, r.distance_category)}${r.finish_time_seconds ? " · " + formatSeconds(r.finish_time_seconds) : ""}${(() => { const km = getDistanceKm(r.sport, r.distance_category); const pace = formatPace(r.finish_time_seconds, km); return pace ? " · " + pace : ""; })()}${r.notes ? " · " + r.notes : ""}</p>
       </div>
       <button class="rr-edit" data-id="${r.id}" aria-label="수정" style="margin-right:4px;">✏️</button>
         <button class="rr-delete" data-id="${r.id}" aria-label="삭제">✕</button>
@@ -813,6 +831,14 @@ async function drawCertificate(canvas, record) {
   ctx.fillStyle = INK_SOFT;
   ctx.font = "13px 'Noto Sans KR'";
   ctx.fillText(isEN ? "FINISH TIME" : "완주 기록", cx, 675);
+
+  const paceKm = getDistanceKm(record.sport, record.distance_category);
+  const paceStr = formatPace(record.finish_time_seconds, paceKm);
+  if (paceStr) {
+    ctx.fillStyle = INK_SOFT;
+    ctx.font = "18px 'Noto Sans KR'";
+    ctx.fillText((isEN ? "Pace " : "페이스 ") + paceStr, cx, 705);
+  }
 
   ctx.textAlign = "left";
   const today = new Date().toISOString().slice(0, 10);
