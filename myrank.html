@@ -109,7 +109,11 @@
 
 <form id="recordForm" class="record-form">
 <input type="text" id="rfName" placeholder="대회명" required>
-<input type="date" id="rfDate" required>
+<div style="display:flex; gap:4px; margin-bottom:8px;">
+<select id="rfYear" required style="flex:1.2;"></select>
+<select id="rfMonth" required style="flex:1;"></select>
+<select id="rfDay" required style="flex:1;"></select>
+</div>
 <select id="rfSport">
 <option value="marathon">마라톤</option>
 <option value="cycling">자전거</option>
@@ -117,7 +121,12 @@
 <option value="triathlon">철인3종</option>
 </select>
 <select id="rfDistance"></select>
-<input type="text" id="rfTime" placeholder="완주시간 (예: 1:45:30)" pattern="^\d{1,2}:\d{2}(:\d{2})?$">
+<div style="display:flex; align-items:center; gap:4px; margin-bottom:8px;">
+<span style="font-size:12px; color:var(--ink-faint,#6A6A6A); margin-right:2px;">완주시간</span>
+<select id="rfHour" style="flex:1;"></select><span>:</span>
+<select id="rfMin" style="flex:1;"></select><span>:</span>
+<select id="rfSec" style="flex:1;"></select>
+</div>
 <input type="text" id="rfNotes" placeholder="메모 (선택)">
 <button type="submit" class="record-submit-btn" id="recordSubmitBtn">기록 추가</button>
 <button type="button" id="recordCancelBtn" class="record-submit-btn" style="display:none; background:transparent; border:1px solid var(--border,#2A2A2A); margin-top:6px;">취소</button>
