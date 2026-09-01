@@ -10,6 +10,30 @@ const SPORT_META = {
   inline: { label: "인라인", tag: "INL", color: "var(--inline)" },
 };
 
+function getSeason(dateStr) {
+  const m = new Date(dateStr).getMonth() + 1;
+  if (m >= 3 && m <= 5) return "봄";
+  if (m >= 6 && m <= 8) return "여름";
+  if (m >= 9 && m <= 11) return "가을";
+  return "겨울";
+}
+
+function buildEventTags(ev) {
+  const tags = [];
+  const sportLabel = (SPORT_META[ev.sport] || {}).label;
+  if (sportLabel) tags.push({ label: sportLabel, href: `index.html?sport=${encodeURIComponent(ev.sport)}` });
+  if (ev.region && ev.region !== "전국") tags.push({ label: ev.region, href: `index.html?region=${encodeURIComponent(ev.region)}` });
+  try {
+    const year = new Date(ev.date).getFullYear();
+    const season = getSeason(ev.date);
+    tags.push({ label: `${year}${season}`, href: `index.html?sport=${encodeURIComponent(ev.sport)}` });
+  } catch (e) {}
+  (ev.distances || []).forEach(d => {
+    tags.push({ label: d, href: `index.html?sport=${encodeURIComponent(ev.sport)}` });
+  });
+  return tags;
+}
+
 function daysUntil(dateStr) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -219,6 +243,7 @@ async function init() {
       <div class="modal-field-row"><span class="k">종목/거리</span><span class="v">${ev.distances.join(" / ")}</span></div>
       <div class="modal-field-row"><span class="k">주최</span><span class="v">${ev.organizer || "미확인"}${ev.organizerPhone ? " · " + ev.organizerPhone : ""}</span></div>
     </div>
+    <div class="event-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">${buildEventTags(ev).map(tag => `<a href="${tag.href}" class="chip" style="text-decoration:none; font-size:12px; padding:4px 10px;">#${tag.label}</a>`).join("")}</div>
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
   `;
 
