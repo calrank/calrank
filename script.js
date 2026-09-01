@@ -210,6 +210,7 @@ function setupRegionSelect() {
     opt.textContent = r;
     sel.appendChild(opt);
   });
+  sel.value = state.region;
   sel.addEventListener("change", () => {
     state.region = sel.value;
     render();
