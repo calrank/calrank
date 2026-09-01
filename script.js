@@ -502,6 +502,12 @@ async function init() {
     const res = await fetch("events.json");
     state.events = await res.json();
     injectEventSchema(state.events);
+
+    const urlParams = new URLSearchParams(location.search);
+    const urlSport = urlParams.get("sport");
+    if (urlSport && SPORT_META[urlSport]) state.sport = urlSport;
+    const urlRegion = urlParams.get("region");
+    if (urlRegion) state.region = urlRegion;
   } catch (err) {
     document.getElementById("resultCount").textContent =
       "대회 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해 주세요.";
