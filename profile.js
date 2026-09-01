@@ -62,6 +62,7 @@ async function init() {
       <p class="hero-sub">${memberSince} 부터 calrank와 함께 달리는 중</p>
       <div class="hero-stats">
         <span class="hero-stat"><b>${profile.total_records}</b>개 완주 기록</span>
+        <span class="hero-stat"><b>${Number(profile.total_distance_km || 0).toLocaleString("ko-KR", { maximumFractionDigits: 1 })}</b>km 누적 완주</span>
         <span class="hero-stat"><b>${profile.official_count}</b>개 공식기록 보유</span>
       </div>
     </section>
