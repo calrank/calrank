@@ -47,7 +47,11 @@
 <option value="inline">인라인</option>
 <option value="etc">기타</option>
 </select>
-<input type="date" id="seDate">
+<div style="display:flex; gap:4px; margin-bottom:8px;">
+<select id="seYear" style="flex:1.2;"></select>
+<select id="seMonth" style="flex:1;"></select>
+<select id="seDay" style="flex:1;"></select>
+</div>
 <input type="text" id="seLocation" placeholder="장소">
 <input type="text" id="seRegion" placeholder="지역 (예: 서울, 부산)">
 <input type="url" id="seApplyUrl" placeholder="신청/공식 페이지 URL">
