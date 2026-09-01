@@ -435,6 +435,34 @@ async function loadRecords() {
   renderRecordList();
 }
 
+let editingRecordId = null;
+
+function handleEditRecord(id) {
+  const r = currentRecords.find(rec => String(rec.id) === String(id));
+  if (!r) return;
+  document.getElementById("rfName").value = r.race_name || "";
+  document.getElementById("rfDate").value = r.race_date || "";
+  document.getElementById("rfSport").value = r.sport;
+  populateDistanceSelect(r.sport);
+  document.getElementById("rfDistance").value = r.distance_category;
+  document.getElementById("rfTime").value = r.finish_time_seconds != null ? formatSeconds(r.finish_time_seconds) : "";
+  document.getElementById("rfNotes").value = r.notes || "";
+  editingRecordId = id;
+  document.getElementById("recordFormTitle").textContent = "기록 수정";
+  document.getElementById("recordSubmitBtn").textContent = "수정 완료";
+  document.getElementById("recordCancelBtn").style.display = "inline-block";
+  document.getElementById("recordForm").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function cancelEditRecord() {
+  editingRecordId = null;
+  document.getElementById("recordForm").reset();
+  document.getElementById("recordFormTitle").textContent = "대회 기록 추가";
+  document.getElementById("recordSubmitBtn").textContent = "기록 추가";
+  document.getElementById("recordCancelBtn").style.display = "none";
+  populateDistanceSelect(document.getElementById("rfSport").value);
+}
+
 async function handleRecordSubmit(e) {
   e.preventDefault();
   const msgEl = document.getElementById("recordMsg");
@@ -452,15 +480,21 @@ async function handleRecordSubmit(e) {
     return;
   }
 
-  const { error } = await sb.from("personal_records").insert({
-    user_id: currentUser.id,
+  const payload = {
     race_name: name,
     race_date: date,
     sport,
     distance_category: distance,
     finish_time_seconds: finishSeconds,
     notes: notes || null,
-  });
+  };
+
+  let error;
+  if (editingRecordId) {
+    ({ error } = await sb.from("personal_records").update(payload).eq("id", editingRecordId));
+  } else {
+    ({ error } = await sb.from("personal_records").insert({ user_id: currentUser.id, ...payload }));
+  }
 
   if (error) {
     msgEl.textContent = "저장 실패: " + error.message;
@@ -468,11 +502,11 @@ async function handleRecordSubmit(e) {
     return;
   }
 
-  msgEl.textContent = "기록이 저장되었습니다.";
+  msgEl.textContent = editingRecordId ? "기록이 수정되었습니다." : "기록이 저장되었습니다.";
   msgEl.className = "record-msg";
   e.target.reset();
   document.getElementById("importMsg").textContent = "";
-  populateDistanceSelect(document.getElementById("rfSport").value);
+  cancelEditRecord();
   await loadRecords();
 }
 
@@ -555,13 +589,17 @@ function renderRecordList() {
         <p class="rr-name">${r.race_name}</p>
         <p class="rr-meta">${r.race_date} · ${distanceLabel(r.sport, r.distance_category)}${r.finish_time_seconds ? " · " + formatSeconds(r.finish_time_seconds) : ""}${r.notes ? " · " + r.notes : ""}</p>
       </div>
-      <button class="rr-delete" data-id="${r.id}" aria-label="삭제">✕</button>
+      <button class="rr-edit" data-id="${r.id}" aria-label="수정" style="margin-right:4px;">✏️</button>
+        <button class="rr-delete" data-id="${r.id}" aria-label="삭제">✕</button>
     `;
     list.appendChild(row);
   });
 
   list.querySelectorAll(".rr-delete").forEach(btn => {
     btn.addEventListener("click", () => handleDeleteRecord(btn.dataset.id));
+  });
+  list.querySelectorAll(".rr-edit").forEach(btn => {
+    btn.addEventListener("click", () => handleEditRecord(btn.dataset.id));
   });
 }
 
@@ -663,6 +701,8 @@ async function drawCertificate(canvas, record) {
   ctx.fillStyle = PAPER;
   ctx.fillRect(0, 0, W, H);
 
+  const isEN = !!(document.getElementById("certLangToggle") || {}).checked;
+
   ctx.save();
   ctx.globalAlpha = 0.05;
   ctx.fillStyle = INK;
@@ -683,6 +723,18 @@ async function drawCertificate(canvas, record) {
   ctx.lineWidth = 1.5;
   ctx.strokeRect(40, 40, W - 80, H - 80);
 
+  // corner flourishes
+  ctx.strokeStyle = ACCENT;
+  ctx.lineWidth = 2;
+  const cl = 26, co = 40;
+  [[co, co, 1, 1], [W - co, co, -1, 1], [co, H - co, 1, -1], [W - co, H - co, -1, -1]].forEach(([x, y, dx, dy]) => {
+    ctx.beginPath();
+    ctx.moveTo(x + cl * dx, y);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x, y + cl * dy);
+    ctx.stroke();
+  });
+
   const cx = W / 2, sealY = 130, sealR = 46;
   ctx.save();
   ctx.strokeStyle = ACCENT;
@@ -694,6 +746,16 @@ async function drawCertificate(canvas, record) {
   ctx.beginPath();
   ctx.arc(cx, sealY, sealR - 8, 0, Math.PI * 2);
   ctx.stroke();
+  // tick marks around seal ring
+  for (let i = 0; i < 24; i++) {
+    const a = (i / 24) * Math.PI * 2;
+    const r1 = sealR + 6, r2 = sealR + 11;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a) * r1, sealY + Math.sin(a) * r1);
+    ctx.lineTo(cx + Math.cos(a) * r2, sealY + Math.sin(a) * r2);
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
   ctx.fillStyle = ACCENT;
   ctx.beginPath();
   ctx.moveTo(cx - 20, sealY - 20);
@@ -713,8 +775,8 @@ async function drawCertificate(canvas, record) {
   ctx.fillText("C A L R A N K   O F F I C I A L", cx, sealY + sealR + 24);
 
   ctx.fillStyle = INK;
-  ctx.font = "900 56px 'Black Han Sans'";
-  ctx.fillText("완 주 인 증 서", cx, 290);
+  ctx.font = isEN ? "900 44px 'Black Han Sans'" : "900 56px 'Black Han Sans'";
+  ctx.fillText(isEN ? "CERTIFICATE OF COMPLETION" : "완 주 인 증 서", cx, 290);
 
   ctx.strokeStyle = INK_SOFT;
   ctx.lineWidth = 1;
@@ -725,9 +787,10 @@ async function drawCertificate(canvas, record) {
 
   ctx.fillStyle = INK_SOFT;
   ctx.font = "16px 'Noto Sans KR'";
-  ctx.fillText("이 증서는 아래 러너가 다음 대회를 완주했음을 증명합니다", cx, 355);
+  ctx.fillText(isEN ? "This certifies that the athlete below has successfully completed the race" : "이 증서는 아래 러너가 다음 대회를 완주했음을 증명합니다", cx, 355);
 
-  const name = (document.getElementById("displayName").textContent || "회원").trim();
+  const nameInput = (document.getElementById("certNameInput") || {}).value || "";
+  const name = (nameInput.trim() || (document.getElementById("displayName").textContent || "회원").trim());
   ctx.fillStyle = INK;
   ctx.font = "700 52px 'Noto Sans KR'";
   ctx.fillText(name, cx, 440);
@@ -749,15 +812,15 @@ async function drawCertificate(canvas, record) {
 
   ctx.fillStyle = INK_SOFT;
   ctx.font = "13px 'Noto Sans KR'";
-  ctx.fillText("완주 기록", cx, 675);
+  ctx.fillText(isEN ? "FINISH TIME" : "완주 기록", cx, 675);
 
   ctx.textAlign = "left";
   const today = new Date().toISOString().slice(0, 10);
   ctx.fillStyle = INK_SOFT;
   ctx.font = "12px 'Noto Sans KR'";
-  ctx.fillText(`발급일: ${today}`, 70, H - 70);
+  ctx.fillText((isEN ? "Issued: " : "발급일: ") + today, 70, H - 70);
   const certId = `CR-${(record.race_name.length + record.finish_time_seconds).toString(16).toUpperCase()}`;
-  ctx.fillText(`인증번호: ${certId}`, 70, H - 50);
+  ctx.fillText((isEN ? "Cert No: " : "인증번호: ") + certId, 70, H - 50);
 
   ctx.textAlign = "right";
   ctx.fillStyle = INK;
@@ -914,6 +977,7 @@ if (e.target.id === "shareModalOverlay") closeShareModal();
 });
 document.getElementById("shareDownloadBtn").addEventListener("click", downloadShareCard);
 document.getElementById("shareNativeBtn").addEventListener("click", nativeShareCard);
+  document.getElementById("recordCancelBtn").addEventListener("click", cancelEditRecord);
 
   document.getElementById("certBtn").addEventListener("click", openCertModal);
   document.getElementById("certModalClose").addEventListener("click", closeCertModal);
