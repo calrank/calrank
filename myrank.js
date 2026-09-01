@@ -457,6 +457,7 @@ async function loadRecords() {
   currentRecords = data || [];
   renderTiers();
   renderRecordList();
+  renderPaceTrendChart();
 }
 
 let editingRecordId = null;
@@ -598,6 +599,95 @@ function updateRecordPreview() {
   const km = getDistanceKm(sport, distance);
   const pace = formatPace(seconds, km);
   previewEl.textContent = `예상 기록: ${distLabel} · ${timeLabel}` + (pace ? ` · 페이스 ${pace}` : "");
+}
+
+function renderPaceTrendChart() {
+  const card = document.getElementById("trendCard");
+  const sel = document.getElementById("trendSelect");
+  if (!card || !sel) return;
+
+  const groups = {};
+  (currentRecords || []).forEach(r => {
+    if (r.finish_time_seconds == null) return;
+    const key = `${r.sport}|${r.distance_category}`;
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(r);
+  });
+  const validKeys = Object.keys(groups).filter(k => groups[k].length >= 2);
+  if (validKeys.length === 0) {
+    card.style.display = "none";
+    return;
+  }
+  card.style.display = "block";
+
+  sel.innerHTML = validKeys.map(k => {
+    const [sport, dist] = k.split("|");
+    const label = `${SPORT_LABEL[sport] || sport} ${distanceLabel(sport, dist)} (${groups[k].length}회)`;
+    return `<option value="${k}">${label}</option>`;
+  }).join("");
+
+  const drawSelected = () => {
+    const key = sel.value;
+    const records = (groups[key] || []).slice().sort((a, b) => new Date(a.race_date) - new Date(b.race_date));
+    drawTrendChart(document.getElementById("trendCanvas"), records);
+  };
+  sel.onchange = drawSelected;
+  drawSelected();
+}
+
+function drawTrendChart(canvas, records) {
+  if (!canvas || records.length === 0) return;
+  const W = 640, H = 320, pad = 40;
+  const dpr = 2;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const times = records.map(r => r.finish_time_seconds);
+  const minT = Math.min(...times);
+  const maxT = Math.max(...times);
+  const range = maxT - minT || 1;
+
+  ctx.strokeStyle = "#2A2A2A";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad, pad);
+  ctx.lineTo(pad, H - pad);
+  ctx.lineTo(W - pad, H - pad);
+  ctx.stroke();
+
+  const stepX = records.length > 1 ? (W - pad * 2) / (records.length - 1) : 0;
+  const pts = records.map((r, i) => {
+    const x = pad + stepX * i;
+    const yRatio = (r.finish_time_seconds - minT) / range;
+    const y = pad + yRatio * (H - pad * 2);
+    return { x, y, r };
+  });
+
+  ctx.strokeStyle = "#FF3D1A";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  pts.forEach((p, i) => { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+  ctx.stroke();
+
+  pts.forEach(p => {
+    ctx.fillStyle = "#FF3D1A";
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "11px 'Noto Sans KR'";
+    ctx.textAlign = "center";
+    ctx.fillText(formatSeconds(p.r.finish_time_seconds), p.x, p.y - 10);
+
+    ctx.fillStyle = "#9A9A9A";
+    ctx.font = "10px 'Noto Sans KR'";
+    const d = new Date(p.r.race_date);
+    ctx.fillText(`${d.getMonth() + 1}/${d.getDate()}`, p.x, H - pad + 16);
+  });
 }
 
 async function handleRecordSubmit(e) {
