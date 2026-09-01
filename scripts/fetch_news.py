@@ -91,7 +91,7 @@ def fetch_marathon_article_link(detail_url: str) -> tuple:
         excerpt = None
         if content:
             text = re.sub(r"\s+", " ", content.get_text(" ", strip=True)).strip()
-            if text:
+            if text and not text.startswith("http"):
                 excerpt = (text[:120] + "…") if len(text) > 120 else text
             a = content.find("a", href=True)
             if a and a["href"].startswith("http") and "emarathon.or.kr" not in a["href"]:
