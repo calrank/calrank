@@ -458,6 +458,7 @@ async function loadRecords() {
   renderTiers();
   renderRecordList();
   renderPaceTrendChart();
+  renderBadges();
 }
 
 let editingRecordId = null;
@@ -688,6 +689,38 @@ function drawTrendChart(canvas, records) {
     const d = new Date(p.r.race_date);
     ctx.fillText(`${d.getMonth() + 1}/${d.getDate()}`, p.x, H - pad + 16);
   });
+}
+
+const BADGE_DEFS = [
+  { icon: "🏃", name: "첫 완주", check: recs => recs.length >= 1, prog: recs => [recs.length, 1] },
+  { icon: "🔥", name: "5회 완주", check: recs => recs.length >= 5, prog: recs => [recs.length, 5] },
+  { icon: "💯", name: "10회 완주", check: recs => recs.length >= 10, prog: recs => [recs.length, 10] },
+  { icon: "⚡", name: "풀코스 서브4", check: recs => recs.some(r => r.sport === "marathon" && r.distance_category === "full" && r.finish_time_seconds != null && r.finish_time_seconds < 14400), prog: null },
+  { icon: "🌟", name: "풀코스 서브3", check: recs => recs.some(r => r.sport === "marathon" && r.distance_category === "full" && r.finish_time_seconds != null && r.finish_time_seconds < 10800), prog: null },
+  { icon: "🚴", name: "자전거 5회", check: recs => recs.filter(r => r.sport === "cycling").length >= 5, prog: recs => [recs.filter(r => r.sport === "cycling").length, 5] },
+  { icon: "⛰️", name: "트레일 3회", check: recs => recs.filter(r => r.sport === "trail").length >= 3, prog: recs => [recs.filter(r => r.sport === "trail").length, 3] },
+  { icon: "🏊", name: "철인3종 완주", check: recs => recs.some(r => r.sport === "triathlon"), prog: recs => [recs.filter(r => r.sport === "triathlon").length, 1] },
+  { icon: "🛼", name: "인라인 완주", check: recs => recs.some(r => r.sport === "inline"), prog: recs => [recs.filter(r => r.sport === "inline").length, 1] },
+];
+
+function renderBadges() {
+  const grid = document.getElementById("badgeGrid");
+  if (!grid) return;
+  const recs = currentRecords || [];
+  grid.innerHTML = BADGE_DEFS.map(b => {
+    const unlocked = b.check(recs);
+    const prog = (!unlocked && b.prog) ? b.prog(recs) : null;
+    const progText = prog ? `<div style="font-size:10px; color:var(--ink-faint,#6A6A6A); margin-top:2px;">${prog[0]}/${prog[1]}</div>` : "";
+    const bg = unlocked ? "rgba(255,61,26,0.12)" : "var(--surface,#141414)";
+    const border = unlocked ? "var(--accent,#FF3D1A)" : "var(--border,#2A2A2A)";
+    const iconStyle = unlocked ? "" : "filter:grayscale(1);opacity:0.35;";
+    const textColor = unlocked ? "#FFFFFF" : "var(--ink-faint,#6A6A6A)";
+    return `<div style="text-align:center;padding:12px 4px;border-radius:8px;background:${bg};border:1px solid ${border};">
+      <div style="font-size:28px;${iconStyle}">${b.icon}</div>
+      <div style="font-size:11px;margin-top:4px;color:${textColor};">${b.name}</div>
+      ${progText}
+    </div>`;
+  }).join("");
 }
 
 async function handleRecordSubmit(e) {
