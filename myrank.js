@@ -647,8 +647,12 @@ function drawTrendChart(canvas, records) {
   ctx.clearRect(0, 0, W, H);
 
   const times = records.map(r => r.finish_time_seconds);
-  const minT = Math.min(...times);
-  const maxT = Math.max(...times);
+  const rawMinT = Math.min(...times);
+  const rawMaxT = Math.max(...times);
+  const rawRange = rawMaxT - rawMinT;
+  const timePad = Math.max(rawRange, rawMaxT * 0.08);
+  const minT = rawMinT - timePad;
+  const maxT = rawMaxT + timePad;
   const range = maxT - minT || 1;
 
   ctx.strokeStyle = "#2A2A2A";
