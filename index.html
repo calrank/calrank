@@ -2,6 +2,20 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script>
+(function(){
+  try {
+    var ref = document.referrer || "";
+    var isSearchEngine = /google\.|naver\.|bing\.|daum\.|yahoo\./i.test(ref);
+    var hasVisited = localStorage.getItem("crVisited");
+    if (!isSearchEngine && !hasVisited && ref === "") {
+      window.location.replace("welcome.html");
+    } else {
+      localStorage.setItem("crVisited", "1");
+    }
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>calrank — 전종목 대회 캘린더</title>
 <meta name="description" content="마라톤, 자전거, 트레일러닝 등 국내 동호인 대회를 한곳에서. 주최자 정보까지 한눈에.">
