@@ -14,13 +14,13 @@
   .welcome-hero { position: relative; width: 100%; height: 100vh; min-height: 640px; overflow: hidden; }
   .bg-slide { position: absolute; inset: 0; background-size: cover; background-position: center 30%; opacity: 0; transform: scale(1.08); animation: welcomeSlide 28s infinite; }
   .bg-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(11,11,11,0.96) 0%, rgba(11,11,11,0.78) 32%, rgba(11,11,11,0.2) 58%, rgba(11,11,11,0.4) 100%); }
-  .bg-slide:nth-child(1) { background-image: url('duo1.jpg'); animation-delay: 0s; }
-  .bg-slide:nth-child(2) { background-image: url('duo2.jpg'); animation-delay: 4s; }
-  .bg-slide:nth-child(3) { background-image: url('duo3.jpg'); animation-delay: 8s; background-position: center 25%; }
-  .bg-slide:nth-child(4) { background-image: url('duo4.jpg'); animation-delay: 12s; }
-  .bg-slide:nth-child(5) { background-image: url('duo5.jpg'); animation-delay: 16s; background-position: center 40%; }
-  .bg-slide:nth-child(6) { background-image: url('duo6.jpg'); animation-delay: 20s; background-position: center 20%; }
-  .bg-slide:nth-child(7) { background-image: url('duo7.jpg'); animation-delay: 24s; background-position: center 25%; }
+  .bg-slide:nth-child(1) { background-image: url('duo1.jpg'); animation-delay: 0s; background-position: 75% 30%; }
+  .bg-slide:nth-child(2) { background-image: url('duo2.jpg'); animation-delay: 4s; background-position: 72% 30%; }
+  .bg-slide:nth-child(3) { background-image: url('duo3.jpg'); animation-delay: 8s; background-position: 70% 25%; }
+  .bg-slide:nth-child(4) { background-image: url('duo4.jpg'); animation-delay: 12s; background-position: 72% 30%; }
+  .bg-slide:nth-child(5) { background-image: url('duo5.jpg'); animation-delay: 16s; background-position: 75% 40%; }
+  .bg-slide:nth-child(6) { background-image: url('duo6.jpg'); animation-delay: 20s; background-position: 65% 20%; }
+  .bg-slide:nth-child(7) { background-image: url('duo7.jpg'); animation-delay: 24s; background-position: 70% 25%; }
   @keyframes welcomeSlide {
     0% { opacity: 0; transform: scale(1.08); }
     1.8% { opacity: 1; transform: scale(1.08); }
