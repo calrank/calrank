@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>calrank — 너의 다음 출발선</title>
+<meta name="description" content="마라톤, 자전거, 트레일러닝, 철인3종, 인라인 등 국내 동호인 대회를 한곳에서. calrank에 오신 것을 환영합니다.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  .welcome-hero { position: relative; width: 100%; height: 100vh; min-height: 640px; overflow: hidden; }
+  .bg-slide { position: absolute; inset: 0; background-size: cover; background-position: center 30%; opacity: 0; transform: scale(1.08); animation: welcomeSlide 28s infinite; }
+  .bg-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(11,11,11,0.96) 0%, rgba(11,11,11,0.78) 32%, rgba(11,11,11,0.2) 58%, rgba(11,11,11,0.4) 100%); }
+  .bg-slide:nth-child(1) { background-image: url('duo1.jpg'); animation-delay: 0s; }
+  .bg-slide:nth-child(2) { background-image: url('duo2.jpg'); animation-delay: 4s; }
+  .bg-slide:nth-child(3) { background-image: url('duo3.jpg'); animation-delay: 8s; background-position: center 25%; }
+  .bg-slide:nth-child(4) { background-image: url('duo4.jpg'); animation-delay: 12s; }
+  .bg-slide:nth-child(5) { background-image: url('duo5.jpg'); animation-delay: 16s; background-position: center 40%; }
+  .bg-slide:nth-child(6) { background-image: url('duo6.jpg'); animation-delay: 20s; background-position: center 20%; }
+  .bg-slide:nth-child(7) { background-image: url('duo7.jpg'); animation-delay: 24s; background-position: center 25%; }
+  @keyframes welcomeSlide {
+    0% { opacity: 0; transform: scale(1.08); }
+    1.8% { opacity: 1; transform: scale(1.08); }
+    12% { opacity: 1; transform: scale(1.14); }
+    15% { opacity: 0; transform: scale(1.14); }
+    100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .bg-slide { animation: none; opacity: 0; } .bg-slide:nth-child(1) { opacity: 1; } }
+  .welcome-diag { position: absolute; inset: 0; clip-path: polygon(0 0, 60% 0, 36% 100%, 0 100%); background: linear-gradient(160deg, #0B0B0B 0%, #161311 100%); }
+  .welcome-content { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 6vw 0 6vw 6vw; max-width: 600px; }
+  .welcome-wordmark { font-family: 'Black Han Sans', sans-serif; font-size: clamp(24px, 3vw, 34px); letter-spacing: 1px; color: var(--accent); margin-bottom: 24px; }
+  .welcome-headline { font-family: 'Black Han Sans', sans-serif; font-size: clamp(36px, 5.6vw, 68px); line-height: 1.1; color: #fff; }
+  .welcome-headline .em { color: var(--accent); }
+  .welcome-sub { margin-top: 20px; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.7; color: #B8B0AC; max-width: 420px; }
+  .welcome-sports { margin-top: 30px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .welcome-chip { font-size: 12px; padding: 6px 14px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; color: #E8E4E1; }
+  .welcome-cta { margin-top: 36px; display: inline-flex; align-items: center; gap: 10px; width: fit-content; background: var(--accent); color: #fff; font-weight: 700; font-size: 15px; padding: 15px 28px; border-radius: 6px; text-decoration: none; }
+  @media (max-width: 720px) {
+    .welcome-diag { clip-path: polygon(0 0, 100% 0, 100% 60%, 0 86%); }
+    .welcome-content { max-width: 100%; padding: 8vw 6vw; justify-content: flex-end; height: 60%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<section class="welcome-hero">
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+
+  <div class="welcome-diag"></div>
+
+  <div class="welcome-content">
+    <div class="welcome-wordmark">CALRANK</div>
+    <h1 class="welcome-headline">너의 다음<br><span class="em">출발선</span>, 여기.</h1>
+    <p class="welcome-sub">마라톤, 자전거, 트레일러닝, 철인3종, 인라인 — 흩어진 국내 동호인 대회를 한곳에 모았습니다. 접수 마감일부터 완주 기록까지.</p>
+    <div class="welcome-sports">
+      <span class="welcome-chip">마라톤</span>
+      <span class="welcome-chip">자전거</span>
+      <span class="welcome-chip">트레일</span>
+      <span class="welcome-chip">철인3종</span>
+      <span class="welcome-chip">인라인</span>
+    </div>
+    <a class="welcome-cta" href="index.html">대회 찾아보기 →</a>
+  </div>
+</section>
+
+<script>
+  try { localStorage.setItem('crVisited', '1'); } catch(e) {}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
