@@ -244,6 +244,7 @@ async function init() {
       <div class="modal-field-row"><span class="k">주최</span><span class="v">${ev.organizer || "미확인"}${ev.organizerPhone ? " · " + ev.organizerPhone : ""}</span></div>
     </div>
     <div class="event-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">${buildEventTags(ev).map(tag => `<a href="${tag.href}" class="chip" style="text-decoration:none; font-size:12px; padding:4px 10px;">#${tag.label}</a>`).join("")}</div>
+    <div id="weatherWidget"></div>
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
   `;
 
@@ -264,6 +265,38 @@ async function init() {
   document.head.appendChild(script);
 
   setupShareAndMap(ev, pageUrl);
+  renderWeatherWidget(ev);
 }
 
 init();
+
+async function renderWeatherWidget(ev) {
+  const el = document.getElementById("weatherWidget");
+  if (!el || !ev.lat || !ev.lng) return;
+  const target = new Date(ev.date + "T00:00:00");
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const diffDays = Math.round((target - today) / 86400000);
+  if (diffDays < 0 || diffDays > 15) return;
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${ev.lat}&longitude=${ev.lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&timezone=Asia%2FSeoul&start_date=${ev.date}&end_date=${ev.date}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const d = data.daily;
+    if (!d || !d.time || d.time.length === 0) return;
+    const tMax = Math.round(d.temperature_2m_max[0]);
+    const tMin = Math.round(d.temperature_2m_min[0]);
+    const rain = d.precipitation_probability_max[0];
+    const code = d.weathercode[0];
+    const iconMap = { 0: "☀️", 1: "🌤️", 2: "⛅", 3: "☁️", 45: "🌫️", 48: "🌫️", 51: "🌦️", 61: "🌧️", 63: "🌧️", 65: "🌧️", 71: "🌨️", 73: "🌨️", 75: "🌨️", 80: "🌦️", 95: "⛈️" };
+    const icon = iconMap[code] || "🌡️";
+    el.innerHTML = `
+      <div style="margin-top:16px; padding:14px; border-radius:10px; background:var(--surface,#141414); border:1px solid var(--border,#2A2A2A); display:flex; align-items:center; gap:12px;">
+        <div style="font-size:32px;">${icon}</div>
+        <div>
+          <p style="margin:0; font-size:13px; color:var(--ink-faint,#6A6A6A);">대회 당일 예상 날씨</p>
+          <p style="margin:2px 0 0; font-size:16px; font-weight:700;">${tMin}° / ${tMax}°C · 강수확률 ${rain}%</p>
+        </div>
+      </div>
+    `;
+  } catch (e) {}
+}
