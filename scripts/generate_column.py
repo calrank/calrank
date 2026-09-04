@@ -1,22 +1,18 @@
 """
-calrank 칼럼 자동 생성 스크립트
+calrank 칼럼 자동 생성 스크립트 (순수 통계 기반, AI 미사용)
 
-events.json에서 실제 대회 통계를 계산한 뒤, Claude API에게 "이 숫자만 사용해서"
-자연스러운 칼럼 본문을 쓰도록 요청합니다. 할루시네이션 방지를 위해 프롬프트에서
-제공된 통계 외의 사실(대회명, 수치)을 지어내지 말라고 명시적으로 지시합니다.
+events.json에서 실제 대회 통계를 계산한 뒤, 여러 문장 템플릿 중 하나를
+무작위로 골라 숫자를 끼워 넣습니다. 새로운 사실을 지어내지 않으므로
+할루시네이션 위험이 없습니다.
 
 사용 예시:
   python scripts/generate_column.py
 """
 import json
-import os
-import re
+import random
 import sys
-import unicodedata
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-
-import requests
 
 ROOT = Path(__file__).resolve().parent.parent
 KST = timezone(timedelta(hours=9))
@@ -67,10 +63,14 @@ def compute_stats(events, sport, month_label):
 
     sample_names = [e.get("name") for e in subset[:6] if e.get("name")]
 
+    y, m = month_label.split("-")
+    month_kr = f"{y}년 {int(m)}월"
+
     return {
         "sport": sport,
         "sport_label": SPORT_LABEL[sport],
         "month_label": month_label,
+        "month_kr": month_kr,
         "total": len(subset),
         "top_regions": top_regions,
         "top_distances": top_distances,
@@ -98,60 +98,65 @@ def pick_topic(events, state):
     return None, None, None, None, None
 
 
-def call_claude(stats):
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ANTHROPIC_API_KEY not set", file=sys.stderr)
-        sys.exit(1)
+def build_content(stats, rng):
+    s = stats
+    region_lines = ", ".join(f"{r}({c}개)" for r, c in s["top_regions"][:4])
+    distance_lines = ", ".join(f"{d}({c}개)" for d, c in s["top_distances"][:5])
+    sample_lines = ", ".join(s["sample_names"][:5])
+    top_region_name, top_region_count = s["top_regions"][0]
 
-    region_lines = ", ".join(f"{r}({c}개)" for r, c in stats["top_regions"])
-    distance_lines = ", ".join(f"{d}({c}개)" for d, c in stats["top_distances"])
-    sample_lines = ", ".join(stats["sample_names"])
+    title_options = [
+        f'{s["month_kr"]}, 전국 {s["sport_label"]} 대회 {s["total"]}개 — 지역별 완전정리',
+        f'{s["month_kr"]} {s["sport_label"]} 대회 총정리 — {s["total"]}개 대회 한눈에',
+        f'{s["month_kr"]}에 열리는 {s["sport_label"]} 대회 {s["total"]}곳',
+    ]
+    title = rng.choice(title_options)
 
-    system_prompt = (
-        "당신은 calrank(국내 동호인 스포츠 대회 캘린더 서비스)의 데이터 분석 칼럼니스트입니다. "
-        "반드시 아래 제공된 통계 숫자와 대회명만 사용하세요. 제공되지 않은 수치, 지역, 대회명, "
-        "일화를 절대 지어내지 마세요. 한국어로, 친근하지만 정보 전달 위주로 담백하게 쓰세요. "
-        "반드시 아래 JSON 스키마로만 응답하세요(다른 텍스트 없이): "
-        '{"title": "...", "intro": "...", "sections": [{"heading": "...", "body": "..."}], "cta_text": "..."}'
-    )
+    intro_options = [
+        f'{s["sport_label"]}은 계절이 바뀔 때마다 대회 일정도 함께 바뀝니다. calrank에 등록된 실제 데이터를 기준으로, {s["month_kr"]} 한 달간 열리는 {s["sport_label"]} 대회를 지역별·거리별로 정리했습니다.',
+        f'calrank가 보유한 실제 대회 데이터를 바탕으로, {s["month_kr"]} {s["sport_label"]} 대회 현황을 살펴봤습니다. 어디서, 어떤 거리로 대회가 열리는지 한눈에 확인해보세요.',
+        f'{s["month_kr"]}에 {s["sport_label"]} 대회를 찾고 계신다면 참고하세요. calrank 데이터를 기준으로 이번 달 대회를 지역별·거리별로 직접 집계했습니다.',
+    ]
+    intro = rng.choice(intro_options)
 
-    user_prompt = (
-        f"종목: {stats['sport_label']}\n"
-        f"대상 월: {stats['month_label']}\n"
-        f"이번달 총 대회 수: {stats['total']}개\n"
-        f"지역별 분포: {region_lines}\n"
-        f"거리별 분포: {distance_lines}\n"
-        f"실제 대회명 샘플: {sample_lines}\n\n"
-        "위 데이터만 사용해서, 3~4개 섹션(h2 소제목 + 2~3문장 본문)으로 구성된 칼럼을 써주세요. "
-        "intro는 1~2문장의 도입부, cta_text는 '지금 바로 OO 대회를 찾아보세요' 톤의 한 문장입니다."
-    )
+    sec1_heading = rng.choice(["이번 달 대회 현황", f'{s["month_kr"]} {s["sport_label"]} 대회 규모', "총 몇 개나 열릴까"])
+    sec1_body_options = [
+        f'{s["month_kr"]} 한 달간 calrank에 등록된 {s["sport_label"]} 대회는 총 {s["total"]}개입니다.',
+        f'이번 달 {s["sport_label"]} 대회는 전국에서 {s["total"]}개가 확인됩니다.',
+        f'calrank 데이터 기준으로 {s["month_kr"]}에 {s["total"]}개의 {s["sport_label"]} 대회가 등록되어 있습니다.',
+    ]
+    sec1_body = rng.choice(sec1_body_options)
+    if sample_lines:
+        sec1_body += f' 대표적으로 {sample_lines} 등의 대회를 확인할 수 있습니다.'
 
-    resp = requests.post(
-        "https://api.anthropic.com/v1/messages",
-        headers={
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-        json={
-            "model": "claude-sonnet-4-6",
-            "max_tokens": 1500,
-            "system": system_prompt,
-            "messages": [{"role": "user", "content": user_prompt}],
-        },
-        timeout=60,
-    )
-    if resp.status_code >= 400:
-        print(f"Anthropic API error {resp.status_code}: {resp.text}", file=sys.stderr)
-    resp.raise_for_status()
-    data = resp.json()
-    text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```[a-zA-Z]*\n?", "", text)
-        text = re.sub(r"```$", "", text).strip()
-    return json.loads(text)
+    sec2_heading = rng.choice(["어느 지역에서 가장 많이 열릴까", "지역별 분포", f'{s["sport_label"]} 대회, 어디서 많이 열리나'])
+    sec2_body_options = [
+        f'지역별로 나눠보면 {top_region_name}이 {top_region_count}개로 가장 많고, 그 뒤를 {region_lines} 순으로 이어집니다.',
+        f'{region_lines} 순으로 대회가 분포되어 있으며, 그중 {top_region_name} 지역이 {top_region_count}개로 가장 활발합니다.',
+        f'전국 각지에서 열리지만, 특히 {top_region_name}({top_region_count}개) 지역에 대회가 몰려있는 경향을 보입니다.',
+    ]
+    sec2_body = rng.choice(sec2_body_options)
+
+    sections = [
+        {"heading": sec1_heading, "body": sec1_body},
+        {"heading": sec2_heading, "body": sec2_body},
+    ]
+
+    if distance_lines:
+        sec3_heading = rng.choice(["거리별로는 어떨까", "코스 거리 분포", "어떤 거리의 대회가 많을까"])
+        sec3_body_options = [
+            f'참가 거리 기준으로는 {distance_lines} 순으로 대회가 많습니다. 본인 체력 수준에 맞는 거리를 골라보세요.',
+            f'거리별 분포는 {distance_lines} 순입니다. 처음이라면 짧은 거리부터 도전해보는 것을 추천합니다.',
+        ]
+        sections.append({"heading": sec3_heading, "body": rng.choice(sec3_body_options)})
+
+    cta_options = [
+        f'지금 바로 {s["month_kr"]} {s["sport_label"]} 대회를 지역·거리별로 필터링해서 찾아보세요.',
+        f'{s["sport_label"]} 대회 접수 마감일까지 calrank에서 한눈에 확인하세요.',
+    ]
+    cta_text = rng.choice(cta_options)
+
+    return {"title": title, "intro": intro, "sections": sections, "cta_text": cta_text}
 
 
 def build_tags(stats):
@@ -176,21 +181,20 @@ def build_tags(stats):
     return uniq[:12]
 
 
-def build_html(stats, ai, slug):
+def build_html(stats, content, slug):
     tags_html = "\n".join(
         f'<a href="{href}" class="column-tag">{label}</a>' for href, label in build_tags(stats)
     )
     sections_html = "\n".join(
-        f'<h2>{s["heading"]}</h2>\n<p>{s["body"]}</p>' for s in ai["sections"]
+        f'<h2>{sec["heading"]}</h2>\n<p>{sec["body"]}</p>' for sec in content["sections"]
     )
-    stat_boxes = f'''
-<div class="stat-grid">
-<div class="stat-box"><b>{stats["total"]}개</b><span>{stats["month_label"]} {stats["sport_label"]} 대회</span></div>
-{"".join(f'<div class="stat-box"><b>{r}</b><span>{c}개</span></div>' for r, c in stats["top_regions"][:3])}
-</div>
-'''
-    title = ai["title"]
-    desc = ai["intro"][:120]
+    region_boxes = "".join(
+        f'<div class="stat-box"><b>{r}</b><span>{c}개</span></div>' for r, c in stats["top_regions"][:3]
+    )
+    stat_boxes = f'<div class="stat-grid"><div class="stat-box"><b>{stats["total"]}개</b><span>{stats["month_label"]} {stats["sport_label"]} 대회</span></div>{region_boxes}</div>'
+
+    title = content["title"]
+    desc = content["intro"][:120]
     return f'''<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -246,11 +250,11 @@ def build_html(stats, ai, slug):
 {tags_html}
 </div>
 <div class="column-body">
-<p>{ai["intro"]}</p>
+<p>{content["intro"]}</p>
 {stat_boxes}
 {sections_html}
 <div class="column-cta">
-<p>{ai["cta_text"]}</p>
+<p>{content["cta_text"]}</p>
 <a href="index.html?sport={stats["sport"]}">{stats["sport_label"]} 대회 전체 보기 →</a>
 </div>
 </div>
@@ -307,9 +311,10 @@ def main():
         print("No suitable topic found (insufficient data or all covered).")
         return
 
-    ai = call_claude(stats)
+    rng = random.Random(topic_key)
+    content = build_content(stats, rng)
     slug = slugify(sport, month_label)
-    html, title, desc = build_html(stats, ai, slug)
+    html, title, desc = build_html(stats, content, slug)
 
     (ROOT / slug).write_text(html, encoding="utf-8")
     update_column_list(title, desc, slug, month_label)
