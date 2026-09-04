@@ -30,6 +30,9 @@
   .stat-box span { font-size: 12px; color: var(--ink-faint, #6A6A6A); }
   .column-cta { margin-top: 40px; padding: 24px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }
   .column-cta a { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 28px; border-radius: 6px; text-decoration: none; }
+  .column-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }
+  .column-tag { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }
+  .column-tag:hover { border-color: var(--accent); color: #fff; }
 </style>
 </head>
 <body>
@@ -50,6 +53,21 @@
 <main class="column-wrap">
 <p class="column-meta">📊 데이터 분석 · 2026년 9월</p>
 <h1 class="column-title">2026년 9월, 전국 마라톤 대회 90개 — 이달의 러닝 캘린더 완전정리</h1>
+
+<div class="column-tags">
+<a href="index.html?sport=marathon" class="column-tag">#마라톤</a>
+<a href="index.html?sport=marathon" class="column-tag">#9월대회</a>
+<a href="index.html" class="column-tag">#러닝캘린더</a>
+<a href="index.html?region=서울" class="column-tag">#서울마라톤</a>
+<a href="index.html?sport=marathon" class="column-tag">#10km</a>
+<a href="index.html?sport=marathon" class="column-tag">#5km</a>
+<a href="index.html?sport=marathon" class="column-tag">#하프코스</a>
+<a href="column.html" class="column-tag">#대회분석</a>
+<a href="column.html" class="column-tag">#러닝트렌드</a>
+<a href="index.html?sport=trail" class="column-tag">#트레일러닝</a>
+<a href="index.html" class="column-tag">#동호인대회</a>
+<a href="index.html?region=인천" class="column-tag">#인천마라톤</a>
+</div>
 
 <div class="stat-body-wrap column-body">
 <p>9월은 선선해진 날씨 덕분에 1년 중 대회가 가장 몰리는 달 중 하나입니다. calrank에 등록된 데이터를 기준으로, 2026년 9월 한 달간 전국에서 열리는 동호인 스포츠 대회를 종목별·지역별·거리별로 직접 집계해봤습니다.</p>
