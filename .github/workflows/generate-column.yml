@@ -1,0 +1,38 @@
+name: Generate column
+
+# scripts/generate_column.py가 events.json의 실제 통계를 계산하고,
+# Claude API에게 그 숫자만 사용해서 칼럼을 쓰도록 요청한 뒤 자동 게시합니다.
+# 2일 간격으로 실행되며, 종목을 순환하면서 매번 다른 주제를 다룹니다.
+
+on:
+  schedule:
+    - cron: "0 21 */2 * *" # 2일마다 06:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate column
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/generate_column.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add column-*.html column.html sitemap.xml scripts/column_state.json
+          git diff --quiet --cached || (git commit -m "chore: auto-generate column" && git push)
