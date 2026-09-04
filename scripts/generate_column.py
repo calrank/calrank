@@ -79,8 +79,23 @@ def slugify(sport, month_label):
     return f"column-{month_label}-{sport}-auto.html"
 
 
-def compute_stats(events, sport, month_label):
+def compute_stats(events, sport, month_label, now_kst):
+    # 1차: 해당 월(calendar month) 기준으로 시도
     subset = [e for e in events if e.get("sport") == sport and (e.get("date") or "").startswith(month_label)]
+    window_label = month_label
+
+    # 데이터가 적은 종목(자전거·인라인 등)은 이번 달만으로는 기사 분량이 안 나올 수 있어,
+    # 오늘부터 45일 이내로 창을 넓혀 재시도한다. 로테이션이 계속 막히는 것을 방지한다.
+    if len(subset) < MIN_EVENTS_FOR_TOPIC:
+        today = now_kst.date()
+        end = today + timedelta(days=45)
+        subset = [
+            e for e in events
+            if e.get("sport") == sport and e.get("date")
+            and today.isoformat() <= e["date"][:10] <= end.isoformat()
+        ]
+        window_label = f'{today.strftime("%m.%d")}~{end.strftime("%m.%d")}'
+
     if len(subset) < MIN_EVENTS_FOR_TOPIC:
         return None
 
@@ -98,8 +113,11 @@ def compute_stats(events, sport, month_label):
 
     sample_names = [e.get("name") for e in subset[:6] if e.get("name")]
 
-    y, m = month_label.split("-")
-    month_kr = f"{y}년 {int(m)}월"
+    if window_label == month_label:
+        y, m = month_label.split("-")
+        month_kr = f"{y}년 {int(m)}월"
+    else:
+        month_kr = f"{window_label} 사이"
 
     return {
         "sport": sport,
@@ -125,7 +143,7 @@ def pick_topic(events, state):
         topic_key = f"{sport}-{month_label}"
         if topic_key in published:
             continue
-        stats = compute_stats(events, sport, month_label)
+        stats = compute_stats(events, sport, month_label, now_kst)
         if stats is None:
             continue
         return idx, sport, month_label, topic_key, stats
