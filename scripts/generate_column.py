@@ -142,6 +142,8 @@ def call_claude(stats):
         },
         timeout=60,
     )
+    if resp.status_code >= 400:
+        print(f"Anthropic API error {resp.status_code}: {resp.text}", file=sys.stderr)
     resp.raise_for_status()
     data = resp.json()
     text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
