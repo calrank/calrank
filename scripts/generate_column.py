@@ -25,6 +25,41 @@ SPORT_LABEL = {
     "inline": "인라인",
 }
 SPORT_ROTATION = ["marathon", "cycling", "trail", "triathlon", "inline"]
+
+# 실제 검색 트렌드 조사(대회 브랜드명, 이벤트 형식, 관련 커뮤니티 용어) 기반 키워드 풀.
+# 종목당 20개 이상, 총 100개 이상을 확보해 매번 다르게 순환 사용한다.
+SPORT_KEYWORD_POOL = {
+    "marathon": [
+        "마라톤대회", "마라톤일정", "마라톤접수", "하프마라톤", "풀코스마라톤",
+        "10km마라톤", "5km마라톤", "울트라마라톤", "나이트런", "컬러런",
+        "애니멀런", "버츄얼레이스", "런트립", "국제마라톤", "가을마라톤",
+        "봄마라톤", "초보마라톤", "마라톤완주", "마라톤기록증", "마라톤PB",
+        "마라톤서브3", "마라톤서브4", "러닝크루", "마스터즈마라톤", "마라톤코스",
+    ],
+    "cycling": [
+        "그란폰도", "메디오폰도", "자전거대회", "라이딩대회", "자전거대회일정",
+        "MTB대회", "로드바이크대회", "자전거동호인", "자전거완주", "힐클라임",
+        "자전거투어", "사이클대회", "센추리라이드", "자전거접수", "그란폰도일정",
+        "장거리라이딩", "자전거코스", "자전거동호회대회", "라이딩코스", "자전거대회추천",
+    ],
+    "trail": [
+        "트레일러닝대회", "울트라트레일", "산악마라톤", "트레일런", "100K대회",
+        "트레일러닝입문", "가을트레일", "봄트레일", "산길달리기", "등산마라톤",
+        "스카이러닝", "트레일러닝코스", "트레일러닝일정", "트레일러닝접수", "산악레이스",
+        "트레일완주", "국내트레일대회", "숲길마라톤", "트레일러닝추천", "트레일러닝초보",
+    ],
+    "triathlon": [
+        "철인3종대회", "트라이애슬론", "듀애슬론", "아쿠아슬론", "올림픽코스철인",
+        "스프린트철인3종", "스탠다드철인3종", "철인3종입문", "철인3종완주", "바다수영대회",
+        "철인3종일정", "전국철인3종", "철인3종접수", "철인3종코스", "철인3종추천",
+        "아이언맨코스", "철인3종훈련", "3종경기대회", "트라이애슬론일정", "철인3종동호인",
+    ],
+    "inline": [
+        "인라인스케이트대회", "인라인스피드", "인라인마라톤", "인라인프리스타일", "인라인하키",
+        "롤러스포츠대회", "인라인대회일정", "인라인스케이팅", "인라인완주", "전국인라인대회",
+        "인라인동호인", "스피드스케이팅대회", "인라인레이스", "인라인입문", "인라인스케이트동호회",
+    ],
+}
 MIN_EVENTS_FOR_TOPIC = 3
 
 
@@ -159,18 +194,20 @@ def build_content(stats, rng):
     return {"title": title, "intro": intro, "sections": sections, "cta_text": cta_text}
 
 
-def build_tags(stats):
+def build_tags(stats, rng):
     sport = stats["sport"]
     tags = [
         (f"index.html?sport={sport}", f"#{stats['sport_label']}"),
-        (f"index.html?sport={sport}", "#" + stats["month_label"].replace("-", "월") + "대회"),
-        ("column.html", "#대회분석"),
-        ("column.html", "#러닝트렌드"),
-        ("myrank.html", "#러닝기록관리"),
     ]
-    for r, _ in stats["top_regions"][:4]:
+    # 실제 조사한 종목별 키워드 풀에서 매번 다른 조합을 무작위로 골라 사용한다.
+    pool = SPORT_KEYWORD_POOL.get(sport, [])
+    picked = rng.sample(pool, k=min(7, len(pool)))
+    for kw in picked:
+        tags.append((f"index.html?sport={sport}", f"#{kw}"))
+    for r, _ in stats["top_regions"][:3]:
         if r and r not in ("미표기", "전국"):
             tags.append((f"index.html?region={r}", f"#{r}{stats['sport_label']}"))
+    tags.append(("column.html", "#대회분석"))
     seen = set()
     uniq = []
     for href, label in tags:
@@ -178,12 +215,12 @@ def build_tags(stats):
             continue
         seen.add(label)
         uniq.append((href, label))
-    return uniq[:12]
+    return uniq[:14]
 
 
-def build_html(stats, content, slug):
+def build_html(stats, content, slug, rng):
     tags_html = "\n".join(
-        f'<a href="{href}" class="column-tag">{label}</a>' for href, label in build_tags(stats)
+        f'<a href="{href}" class="column-tag">{label}</a>' for href, label in build_tags(stats, rng)
     )
     sections_html = "\n".join(
         f'<h2>{sec["heading"]}</h2>\n<p>{sec["body"]}</p>' for sec in content["sections"]
@@ -314,7 +351,7 @@ def main():
     rng = random.Random(topic_key)
     content = build_content(stats, rng)
     slug = slugify(sport, month_label)
-    html, title, desc = build_html(stats, content, slug)
+    html, title, desc = build_html(stats, content, slug, rng)
 
     (ROOT / slug).write_text(html, encoding="utf-8")
     update_column_list(title, desc, slug, month_label)
