@@ -9400,6 +9400,29 @@
     "applyUrl": "http://runten.co.kr"
   },
   {
+    "id": "rw-2026-이일선마라톤-2026-09-05",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 이일선마라톤",
+    "date": "2026-09-05",
+    "time": "미확인",
+    "location": "경북",
+    "region": "경북",
+    "distances": [
+      "10km · 4.4km걷기"
+    ],
+    "organizer": "이일선기념사업회",
+    "organizerPhone": null,
+    "regDeadline": "2026-08-18",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "https://runningwikii.com/entry/ulleungdo-iisun-marathon/"
+  },
+  {
     "id": "rr-2026-문경새재-트레일런-2026-09-06",
     "sport": "trail",
     "sportLabel": "트레일",
@@ -12251,6 +12274,30 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
     "applyUrl": "https://www.rokatrail.com/"
+  },
+  {
+    "id": "rr-2026-이일선마라톤-2026-10-03",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 이일선마라톤",
+    "date": "2026-10-03",
+    "time": "미확인",
+    "location": "울릉도내 나리분지",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "4.4km걷기"
+    ],
+    "organizer": "이일선기념사업회",
+    "organizerPhone": "010-6353-7227",
+    "regDeadline": null,
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://forms.gle/6Y88RJqW6QCZkZoE7"
   },
   {
     "id": "rr-제14회-광명시장배건강달리기-2026-10-04",
@@ -18727,6 +18774,52 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/guide/overview"
+  },
+  {
+    "id": "rr-사바스티안-사웨-초청기념-월드레코드-마라톤축제-2026-12-05",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "사바스티안 사웨 초청기념 월드레코드 마라톤축제",
+    "date": "2026-12-05",
+    "time": "미확인",
+    "location": "금산세계인삼엑스포광장",
+    "region": "전국",
+    "distances": [
+      "14km"
+    ],
+    "organizer": "전국마라톤협회",
+    "organizerPhone": "042- 638-1080",
+    "regDeadline": null,
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/guide/overview"
+  },
+  {
+    "id": "rm-2026월드-레코드-국제-마라톤-축제-사웨-2026-12-05",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026월드 레코드 국제 마라톤 축제 - 사웨",
+    "date": "2026-12-05",
+    "time": "10 집결",
+    "location": "금산세계인삼엑스포광장",
+    "region": "충남",
+    "distances": [
+      "14km"
+    ],
+    "organizer": "전국마라톤협회",
+    "organizerPhone": null,
+    "regDeadline": "2026-09-20",
+    "regClosed": null,
+    "lat": 36.1001537406102,
+    "lng": 127.500522500931,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/guide/overview"
   },
   {
