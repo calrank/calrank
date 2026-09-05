@@ -1,0 +1,33 @@
+name: Generate landing pages
+
+# scripts/generate_landing_pages.py가 events.json 기준 "지역 x 종목" 조합 중
+# 데이터가 충분한(3개 이상) 조합마다 정적 SEO 랜딩페이지를 만든다.
+# evergreen 허브 페이지라서 매일 새로 발행하는 대신 주기적으로 전체 재생성한다.
+
+on:
+  schedule:
+    - cron: "0 19 * * 1" # 매주 월요일 04:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate landing pages
+        run: python scripts/generate_landing_pages.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add landing-*.html regions.html sitemap.xml
+          git diff --quiet --cached || (git commit -m "chore: regenerate landing pages" && git push)
