@@ -229,3 +229,31 @@ body{
 @media (max-width:600px){
   .nav-contact-link{display:none;}
 }
+
+
+/* ===== 내 랭크 — 등급 카드 (성취감/자랑거리 강화) ===== */
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:14px;margin:20px 0 32px;}
+.tier-card{position:relative;padding:18px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--line);text-align:center;overflow:hidden;}
+.tier-sport{font-size:12px;color:var(--ink-faint);margin-bottom:2px;}
+.tier-dist{font-size:13px;color:var(--ink-soft);margin-bottom:8px;}
+.tier-time{font-family:var(--font-display);font-size:20px;color:#fff;margin-bottom:10px;}
+.tier-badge{display:inline-block;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:700;background:rgba(255,255,255,0.08);color:var(--ink-soft);}
+.tier-badge-plain{background:rgba(255,255,255,0.06);color:var(--ink-faint);}
+.tier-empty{color:var(--ink-faint);font-size:14px;padding:20px 0;}
+
+/* 등급별 색상 — 희소성이 높을수록 화려하게 */
+.tier-card.tier-finisher{border-color:var(--line);}
+.tier-card.tier-bronze{border-color:#8a5a3c;}
+.tier-card.tier-bronze .tier-badge{background:linear-gradient(135deg,#a86a44,#7a4a2c);color:#fff;}
+.tier-card.tier-silver{border-color:#9ea6ad;}
+.tier-card.tier-silver .tier-badge{background:linear-gradient(135deg,#d4d9dd,#9ea6ad);color:#141414;}
+.tier-card.tier-gold{border-color:#d4af37;}
+.tier-card.tier-gold .tier-badge{background:linear-gradient(135deg,#f3d074,#c69a2e);color:#141414;}
+.tier-card.tier-gold{box-shadow:0 0 0 1px rgba(212,175,55,0.25);}
+.tier-card.tier-top{border-color:var(--accent);}
+.tier-card.tier-top .tier-badge{background:var(--accent);color:#fff;}
+.tier-card.tier-top{box-shadow:0 0 20px rgba(255,61,26,0.2);}
+.tier-card.tier-elite{border-color:#b892ff;background:linear-gradient(160deg, var(--surface) 0%, rgba(120,80,220,0.12) 100%);}
+.tier-card.tier-elite .tier-badge{background:linear-gradient(135deg,#c9a6ff,#8a5cf5);color:#fff;}
+.tier-card.tier-elite{box-shadow:0 0 24px rgba(140,90,240,0.3);}
+.tier-card.tier-elite::before{content:"★";position:absolute;top:8px;right:10px;font-size:14px;color:#c9a6ff;opacity:0.7;}
