@@ -68,3 +68,17 @@ transition:border-color 0.15s;
 .podium-first{padding-top:20px;order:-1;}
 .level-cta-banner{flex-direction:column;align-items:flex-start;gap:6px;}
 }
+
+/* ===== 대회랭킹 고도화: 등록 유도 CTA + 챔피언 하이라이트 ===== */
+.submit-record-cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 22px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;border-radius:8px;text-decoration:none;}
+.submit-record-cta:hover{filter:brightness(1.08);}
+
+.champion-section{margin:28px 0;}
+.champion-title{font-size:15px;font-weight:700;margin-bottom:12px;color:#fff;}
+.champion-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));gap:10px;}
+.champion-card{display:block;padding:14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);text-decoration:none;transition:border-color 0.15s ease, transform 0.15s ease;}
+.champion-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.champion-sport{font-size:11px;color:var(--ink-faint);margin-bottom:6px;}
+.champion-name{font-size:14px;color:#fff;font-weight:700;margin-bottom:4px;}
+.champion-time{font-family:var(--font-display);font-size:18px;color:var(--accent);}
+.champion-empty{color:var(--ink-faint);font-size:13px;padding:12px 0;grid-column:1/-1;}
