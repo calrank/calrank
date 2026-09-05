@@ -171,10 +171,61 @@ async function loadMyContext() {
   data.forEach(r => list.appendChild(buildRankRow(r)));
 }
 
+// 종목별 최고 기록(챔피언)을 한눈에 보여준다. 필터를 조작하지 않아도
+// "지금 여기 사람들이 얼마나 뛰고 있는지" 구경할 거리를 만들어 재방문을 유도한다.
+async function loadChampions() {
+  const grid = document.getElementById("championGrid");
+  if (!grid) return;
+
+  const targets = [];
+  Object.keys(DISTANCE_OPTIONS).forEach(sport => {
+    DISTANCE_OPTIONS[sport].forEach(([value, label]) => {
+      targets.push({ sport, distance: value, label });
+    });
+  });
+
+  const results = await Promise.all(targets.map(async (t) => {
+    const { data } = await sb.rpc("get_top_rankings", {
+      p_sport: t.sport, p_distance: t.distance, p_limit: 1,
+    });
+    return { ...t, top: (data && data[0]) || null };
+  }));
+
+  grid.innerHTML = "";
+  results.forEach(r => {
+    if (!r.top) return; // 아직 기록이 없는 종목/거리는 건너뛴다
+    const card = document.createElement("a");
+    card.href = "#";
+    card.className = "champion-card";
+    card.dataset.sport = r.sport;
+    card.dataset.dist = r.distance;
+    card.innerHTML = `
+      <p class="champion-sport">${SPORT_LABEL[r.sport]} · ${r.label}</p>
+      <p class="champion-name">${r.top.masked_name}${r.top.is_official ? ' <span class="official-badge">공식</span>' : ''}</p>
+      <p class="champion-time">${formatSeconds(r.top.finish_time_seconds)}</p>
+    `;
+    card.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentSport = r.sport;
+      currentDistance = r.distance;
+      setupSportChips();
+      setupDistChips();
+      loadRankings();
+      document.getElementById("podium")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    grid.appendChild(card);
+  });
+
+  if (!grid.children.length) {
+    grid.innerHTML = '<p class="champion-empty">아직 등록된 기록이 없습니다. 첫 챔피언이 되어보세요!</p>';
+  }
+}
+
 async function init() {
   setupSportChips();
   setupDistChips();
   await loadRankings();
+  await loadChampions();
 }
 
 init();
