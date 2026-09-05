@@ -781,12 +781,46 @@ async function handleDeleteRecord(id) {
   await loadRecords();
 }
 
-function renderTiers() {
+// 다음 상위 등급까지 남은 시간을 계산해, "조금만 더 당기면 골드" 같은
+// 구체적인 동기부여 문구를 만든다.
+function nextTierInfo(sport, distance, seconds) {
+  const bands = TIER_BENCHMARKS[sport]?.[distance];
+  if (!bands || seconds == null) return null;
+  for (let i = 0; i < bands.length; i++) {
+    const [limit] = bands[i];
+    if (seconds <= limit) {
+      if (i === 0) return null; // 이미 최고 등급(엘리트)
+      const prevLimit = bands[i - 1][0];
+      const nextLabel = bands[i - 1][1];
+      return { nextLabel, diffSeconds: Math.max(1, Math.round(seconds - prevLimit)) };
+    }
+  }
+  return null;
+}
+
+// 같은 종목/거리의 전체 등록 기록 중 내 기록이 몇 등인지 계산한다.
+// (익명 세션이라도 시간 값만으로 상대 순위를 매길 수 있어 로그인 여부와 무관하게 동작)
+async function getRankContext(sport, distance, seconds) {
+  try {
+    const { data, error } = await sb.rpc("get_top_rankings", {
+      p_sport: sport, p_distance: distance, p_limit: 100,
+    });
+    if (error || !data || data.length === 0) return null;
+    const total = data.length;
+    const faster = data.filter(r => r.finish_time_seconds != null && r.finish_time_seconds < seconds).length;
+    return { rank: faster + 1, total };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function renderTiers() {
   const grid = document.getElementById("tierGrid");
   grid.innerHTML = "";
 
   const sportOrder = ["marathon", "hyrox", "triathlon", "cycling", "trail"];
   let hasAny = false;
+  const pending = []; // [card, sport, dist, seconds]
 
   sportOrder.forEach(sport => {
     const distOptions = (DISTANCE_OPTIONS[sport] || []).map(([v]) => v);
@@ -812,12 +846,19 @@ function renderTiers() {
           const tier = getTier(sport, dist, best.finish_time_seconds);
           const tierClass = TIER_CLASS[tier] || "";
           card.className = "tier-card " + tierClass;
+          const next = nextTierInfo(sport, dist, best.finish_time_seconds);
+          const nextHtml = next
+            ? `<p class="tier-next">${next.nextLabel}까지 ${next.diffSeconds}초!</p>`
+            : `<p class="tier-next tier-next-max">최고 등급입니다 🏆</p>`;
           card.innerHTML = `
             <p class="tier-sport">${SPORT_LABEL[sport]}</p>
             <p class="tier-dist">${distanceLabel(sport, dist)}</p>
             <p class="tier-time">${formatSeconds(best.finish_time_seconds)}</p>
             <span class="tier-badge ${tierClass}">${tier || "-"}</span>
+            ${nextHtml}
+            <p class="tier-rank" data-rank-slot="1">순위 확인 중…</p>
           `;
+          pending.push([card, sport, dist, best.finish_time_seconds]);
         }
       } else {
         card.innerHTML = `
@@ -833,7 +874,20 @@ function renderTiers() {
 
   if (!hasAny) {
     grid.innerHTML = `<p class="tier-empty">대회 기록을 추가하면 종목별 기록이 여기 표시됩니다.</p>`;
+    return;
   }
+
+  // 순위 조회는 화면을 먼저 그린 뒤 비동기로 채운다.
+  await Promise.all(pending.map(async ([card, sport, dist, seconds]) => {
+    const ctx = await getRankContext(sport, dist, seconds);
+    const slot = card.querySelector('[data-rank-slot]');
+    if (!slot) return;
+    if (ctx) {
+      slot.textContent = `전체 ${ctx.total}명 중 ${ctx.rank}위`;
+    } else {
+      slot.remove();
+    }
+  }));
 }
 
 function renderRecordList() {
