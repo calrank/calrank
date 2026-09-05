@@ -1,0 +1,33 @@
+name: Geocode events
+
+# scripts/geocode_events.py가 좌표 없는 대회 중 주소가 있는 것들을
+# OpenStreetMap Nominatim으로 지오코딩해서 lat/lng를 채운다.
+# 매일 최대 60건씩 처리하며, 무료 API 사용정책(초당 1회)을 지킨다.
+
+on:
+  schedule:
+    - cron: "30 20 * * *" # 매일 05:30 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  geocode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Geocode events
+        run: python scripts/geocode_events.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add events.json scripts/geocode_cache.json
+          git diff --quiet --cached || (git commit -m "chore: geocode events" && git push)
