@@ -261,3 +261,6 @@ body{
 .tier-next{font-size:11px;color:var(--accent);margin-top:8px;font-weight:600;}
 .tier-next-max{color:#d4af37;}
 .tier-rank{font-size:11px;color:var(--ink-faint);margin-top:4px;}
+
+.view-full-ranking-link{display:inline-block;margin:12px 0 24px;font-size:13px;color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--ink-faint);}
+.view-full-ranking-link:hover{color:var(--accent);border-color:var(--accent);}
