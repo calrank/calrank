@@ -23,23 +23,31 @@ const DISTANCE_OPTIONS = {
   ],
 };
 
+// 6단계 등급: 엘리트 > 상위권 > 골드 > 실버 > 브론즈 > 피니셔.
+// 대부분의 완주자가 "완주"라는 밋밋한 라벨이 아니라 실질적인 등급을 받도록,
+// 상위 극소수만을 위한 기준이 아니라 일반 동호인 러너 분포를 고려해 완만하게 설계했다.
 const TIER_BENCHMARKS = {
   marathon: {
-    "5km": [[20 * 60, "상위권"], [25 * 60, "준수"], [Infinity, "완주"]],
-    "10km": [[45 * 60, "상위권"], [55 * 60, "준수"], [Infinity, "완주"]],
-    half: [[105 * 60, "상위권"], [120 * 60, "준수"], [Infinity, "완주"]],
-    full: [[210 * 60, "엘리트"], [240 * 60, "상위권"], [270 * 60, "준수"], [Infinity, "완주"]],
+    "5km": [[18 * 60, "엘리트"], [22 * 60, "상위권"], [26 * 60, "골드"], [30 * 60, "실버"], [35 * 60, "브론즈"], [Infinity, "피니셔"]],
+    "10km": [[38 * 60, "엘리트"], [45 * 60, "상위권"], [52 * 60, "골드"], [60 * 60, "실버"], [70 * 60, "브론즈"], [Infinity, "피니셔"]],
+    half: [[85 * 60, "엘리트"], [100 * 60, "상위권"], [115 * 60, "골드"], [130 * 60, "실버"], [150 * 60, "브론즈"], [Infinity, "피니셔"]],
+    full: [[165 * 60, "엘리트"], [195 * 60, "상위권"], [220 * 60, "골드"], [240 * 60, "실버"], [270 * 60, "브론즈"], [Infinity, "피니셔"]],
   },
   hyrox: {
-    open: [[75 * 60, "상위권"], [90 * 60, "준수"], [Infinity, "완주"]],
-    pro: [[90 * 60, "상위권"], [110 * 60, "준수"], [Infinity, "완주"]],
+    open: [[65 * 60, "엘리트"], [75 * 60, "상위권"], [90 * 60, "골드"], [105 * 60, "실버"], [120 * 60, "브론즈"], [Infinity, "피니셔"]],
+    pro: [[80 * 60, "엘리트"], [95 * 60, "상위권"], [115 * 60, "골드"], [130 * 60, "실버"], [150 * 60, "브론즈"], [Infinity, "피니셔"]],
   },
   triathlon: {
-    sprint: [[75 * 60, "상위권"], [105 * 60, "준수"], [Infinity, "완주"]],
-    olympic: [[150 * 60, "상위권"], [195 * 60, "준수"], [Infinity, "완주"]],
-    half70_3: [[300 * 60, "상위권"], [390 * 60, "준수"], [Infinity, "완주"]],
-    full: [[660 * 60, "상위권"], [810 * 60, "준수"], [Infinity, "완주"]],
+    sprint: [[65 * 60, "엘리트"], [80 * 60, "상위권"], [100 * 60, "골드"], [120 * 60, "실버"], [140 * 60, "브론즈"], [Infinity, "피니셔"]],
+    olympic: [[130 * 60, "엘리트"], [150 * 60, "상위권"], [180 * 60, "골드"], [210 * 60, "실버"], [240 * 60, "브론즈"], [Infinity, "피니셔"]],
+    half70_3: [[260 * 60, "엘리트"], [300 * 60, "상위권"], [350 * 60, "골드"], [400 * 60, "실버"], [450 * 60, "브론즈"], [Infinity, "피니셔"]],
+    full: [[600 * 60, "엘리트"], [660 * 60, "상위권"], [750 * 60, "골드"], [840 * 60, "실버"], [930 * 60, "브론즈"], [Infinity, "피니셔"]],
   },
+};
+
+const TIER_CLASS = {
+  "엘리트": "tier-elite", "상위권": "tier-top", "골드": "tier-gold",
+  "실버": "tier-silver", "브론즈": "tier-bronze", "피니셔": "tier-finisher",
 };
 
 let currentUser = null;
@@ -802,11 +810,13 @@ function renderTiers() {
           `;
         } else {
           const tier = getTier(sport, dist, best.finish_time_seconds);
+          const tierClass = TIER_CLASS[tier] || "";
+          card.className = "tier-card " + tierClass;
           card.innerHTML = `
             <p class="tier-sport">${SPORT_LABEL[sport]}</p>
             <p class="tier-dist">${distanceLabel(sport, dist)}</p>
             <p class="tier-time">${formatSeconds(best.finish_time_seconds)}</p>
-            <span class="tier-badge">${tier || "-"}</span>
+            <span class="tier-badge ${tierClass}">${tier || "-"}</span>
           `;
         }
       } else {
