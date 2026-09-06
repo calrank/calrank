@@ -113,10 +113,21 @@ function timeAgo(dateStr) {
   return `${Math.floor(months / 12)}년 전`;
 }
 
+// "제24회", "2026" 같은 회차·연도 표기를 지워서 같은 대회의 다른 해 개최를
+// 하나의 시리즈로 묶는다. "2026 서울마라톤"과 "2027 서울마라톤"이 같은 시리즈로 매칭된다.
+function seriesKey(name) {
+  return (name || "")
+    .replace(/\d{4}\s*/g, "")
+    .replace(/제\s*\d+\s*회/g, "")
+    .replace(/\s+/g, "")
+    .toLowerCase();
+}
+
 let reviewSubmitBound = false;
-async function renderReviews(eventId) {
+async function renderReviews(eventId, allEvents, currentName) {
   const summaryEl = document.getElementById("reviewSummary");
   const listEl = document.getElementById("reviewList");
+  const pastEl = document.getElementById("pastReviewList");
   if (!summaryEl || !listEl) return;
 
   const { data: summaryData } = await sb.rpc("get_review_summary", { p_event_id: eventId });
@@ -141,6 +152,38 @@ async function renderReviews(eventId) {
       const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
       return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${r.comment}</p>` : ""}</div>`;
     }).join("");
+  }
+
+  // 같은 대회의 지난 회차 후기를 모아서 보여준다. 이번 회차 후기가 없어도
+  // "지난 대회는 어땠는지" 참고할 수 있어 정보 가치가 커진다.
+  if (pastEl && allEvents && currentName) {
+    const myKey = seriesKey(currentName);
+    const pastEvents = myKey
+      ? allEvents.filter(e => e.id !== eventId && seriesKey(e.name) === myKey)
+      : [];
+    if (pastEvents.length === 0) {
+      pastEl.innerHTML = "";
+    } else {
+      const pastIds = pastEvents.map(e => e.id);
+      const nameById = Object.fromEntries(pastEvents.map(e => [e.id, e.name]));
+      const { data: pastReviews } = await sb
+        .from("event_reviews")
+        .select("id, event_id, rating, comment, created_at")
+        .in("event_id", pastIds)
+        .order("created_at", { ascending: false })
+        .limit(20);
+
+      if (!pastReviews || pastReviews.length === 0) {
+        pastEl.innerHTML = "";
+      } else {
+        pastEl.innerHTML = `<p class="record-form-title" style="margin-top:24px;">🕒 지난 대회 후기</p>` +
+          pastReviews.map(r => {
+            const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+            const raceLabel = nameById[r.event_id] || "이전 대회";
+            return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${raceLabel} · ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${r.comment}</p>` : ""}</div>`;
+          }).join("");
+      }
+    }
   }
 
   if (!reviewSubmitBound) {
@@ -210,7 +253,7 @@ async function init() {
   if (!ev) { renderNotFound(); return; }
 
   renderSaveWidget(ev.id);
-  renderReviews(ev.id);
+  renderReviews(ev.id, allEvents, ev.name);
 
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
