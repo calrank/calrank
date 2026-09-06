@@ -241,12 +241,43 @@ async function loadReviewSummaries() {
   }
 }
 
+const TIER_ICON = { "플래티넘": "💠", "골드": "🏅", "실버": "🥈", "브론즈": "🥉", "일반": "" };
+
+// calrank 자체 "규모·인지도 지수"를 간단한 표로 보여준다. 참가자 후기 평점과는
+// 완전히 다른 지표임을 항상 명시하고, 근거(19개 항목)를 투명하게 공개한다.
+function buildScaleIndexTable(eventId) {
+  const rating = eventRatingsCache && eventRatingsCache[eventId];
+  if (!rating) return "";
+  const rows = rating.criteria.map(c => `
+    <tr>
+      <td class="scale-idx-label">${c.label}</td>
+      <td class="scale-idx-check">${c.achieved ? "✓" : "–"}</td>
+    </tr>
+  `).join("");
+
+  return `
+    <div class="scale-index-box">
+      <p class="scale-index-title">${TIER_ICON[rating.tier] || ""} calrank 규모·인지도 지수 — ${rating.tier} (${rating.indexScore}/100)</p>
+      <table class="scale-index-table">
+        <tbody>${rows}</tbody>
+      </table>
+      <p class="scale-index-disclaimer">${rating.disclaimer}</p>
+    </div>
+  `;
+}
+
 function renderCard(ev) {
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
   const review = reviewSummaryCache && reviewSummaryCache[ev.id];
   const reviewBadgeHtml = review
     ? `<span class="ev-review-badge">⭐ ${review.avg.toFixed(1)} (${review.count})</span>`
+    : "";
+  const rating = eventRatingsCache && eventRatingsCache[ev.id];
+  // 유저 후기(⭐)와 헷갈리지 않도록, calrank 자체 규모·인지도 지수는
+  // 별 모양이 아닌 티어 아이콘 + 숫자로만 표시한다.
+  const scaleBadgeHtml = rating && rating.tier !== "일반"
+    ? `<span class="ev-scale-badge" title="calrank 규모·인지도 지수(참고용)">${TIER_ICON[rating.tier] || ""} ${rating.tier} ${rating.indexScore}</span>`
     : "";
 
   const card = document.createElement("article");
@@ -261,6 +292,7 @@ function renderCard(ev) {
     <div class="event-body">
       <div class="event-top">
         <span class="event-name">${ev.name}</span>
+        ${scaleBadgeHtml}
         <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span>
       </div>
       <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}${reviewBadgeHtml}</p>
@@ -430,6 +462,7 @@ function openDetail(id) {
     <button class="modal-cal-btn" id="calBtn">캘린더에 저장</button>
     <div id="saveWidgetModal" style="margin-top:8px;"></div>
     <a class="modal-cal-btn" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box;" href="event.html?id=${encodeURIComponent(ev.id)}">상세 페이지 보기</a>
+    ${buildScaleIndexTable(ev.id)}
     <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
 
@@ -525,11 +558,22 @@ function renderHeroStats() {
   animateCount(document.getElementById("statUrgent"), urgentCount, 900);
 }
 
+let eventRatingsCache = {};
+async function loadEventRatings() {
+  try {
+    const res = await fetch("event_ratings.json");
+    eventRatingsCache = await res.json();
+  } catch (e) {
+    eventRatingsCache = {};
+  }
+}
+
 async function init() {
   setupModal();
   try {
     const res = await fetch("events.json");
     state.events = await res.json();
+    await loadEventRatings();
     injectEventSchema(state.events);
 
     const urlParams = new URLSearchParams(location.search);
