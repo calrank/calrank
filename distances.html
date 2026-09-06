@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>거리별 대회 일정 — calrank</title>
+<meta name="description" content="5km, 10km, 하프, 풀코스, 울트라 등 거리별 동호인 스포츠 대회 일정을 한눈에 확인하세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  .landing-wrap { max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }
+  .landing-wrap h2 { margin-top: 32px; font-size: 18px; }
+  .landing-index-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .landing-index-item { font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #E8E4E1; text-decoration: none; }
+  .landing-index-item span { color: var(--accent); margin-left: 4px; }
+  .landing-index-item:hover { border-color: var(--accent); }
+  .cross-link { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--ink-soft); text-decoration: none; border-bottom: 1px dashed var(--ink-faint); }
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="regions.html" class="nav-link">지역별</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+<main class="landing-wrap">
+<h1>거리별 대회 일정</h1>
+<p>원하는 거리를 선택해서 해당 대회 목록을 바로 확인하세요.</p>
+<a href="regions.html" class="cross-link">지역별로 찾아보기 →</a>
+<h2>마라톤</h2>
+<div class="landing-index-grid"><a href="landing-dist-marathon-10km.html" class="landing-index-item">마라톤 10km <span>484개</span></a>
+<a href="landing-dist-marathon-5km.html" class="landing-index-item">마라톤 5km <span>396개</span></a>
+<a href="landing-dist-marathon-half.html" class="landing-index-item">마라톤 하프 <span>255개</span></a>
+<a href="landing-dist-marathon-full.html" class="landing-index-item">마라톤 풀코스 <span>40개</span></a>
+<a href="landing-dist-marathon-ultra.html" class="landing-index-item">마라톤 울트라 <span>10개</span></a></div>
+<h2>트레일러닝</h2>
+<div class="landing-index-grid"><a href="landing-dist-trail-10km.html" class="landing-index-item">트레일러닝 10km <span>23개</span></a>
+<a href="landing-dist-trail-5km.html" class="landing-index-item">트레일러닝 5km <span>7개</span></a>
+<a href="landing-dist-trail-half.html" class="landing-index-item">트레일러닝 하프 <span>7개</span></a>
+<a href="landing-dist-trail-ultra.html" class="landing-index-item">트레일러닝 울트라 <span>5개</span></a></div>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
+</div>
+</footer>
+</body>
+</html>
