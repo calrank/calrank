@@ -217,9 +217,37 @@ function setupRegionSelect() {
   });
 }
 
+// 대회 카드에 후기 평점을 노출한다. 800개 카드마다 개별 조회하면 느리므로,
+// event_reviews 테이블 전체를 한 번만 가져와 event_id별로 집계해 캐싱한다.
+let reviewSummaryCache = null;
+async function loadReviewSummaries() {
+  try {
+    const { data } = await sb.from("event_reviews").select("event_id, rating");
+    const grouped = {};
+    (data || []).forEach(r => {
+      if (!grouped[r.event_id]) grouped[r.event_id] = { sum: 0, count: 0 };
+      grouped[r.event_id].sum += r.rating;
+      grouped[r.event_id].count += 1;
+    });
+    reviewSummaryCache = {};
+    Object.keys(grouped).forEach(id => {
+      reviewSummaryCache[id] = {
+        avg: grouped[id].sum / grouped[id].count,
+        count: grouped[id].count,
+      };
+    });
+  } catch (e) {
+    reviewSummaryCache = {};
+  }
+}
+
 function renderCard(ev) {
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
+  const review = reviewSummaryCache && reviewSummaryCache[ev.id];
+  const reviewBadgeHtml = review
+    ? `<span class="ev-review-badge">⭐ ${review.avg.toFixed(1)} (${review.count})</span>`
+    : "";
 
   const card = document.createElement("article");
   card.className = "event-card";
@@ -235,7 +263,7 @@ function renderCard(ev) {
         <span class="event-name">${ev.name}</span>
         <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span>
       </div>
-      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}</p>
+      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}${reviewBadgeHtml}</p>
     </div>
     <span class="event-chevron">›</span>
   `;
@@ -522,6 +550,10 @@ async function init() {
   setupRegionSelect();
   render();
   renderHeroStats();
+
+  // 리뷰 평점은 초기 렌더링을 지연시키지 않도록 백그라운드로 불러온 뒤
+  // 조용히 다시 그려서 배지를 붙인다.
+  loadReviewSummaries().then(() => render());
 
   const mapToggleBtn = document.getElementById("mapToggleBtn");
   if (mapToggleBtn) {
