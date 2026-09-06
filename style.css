@@ -269,3 +269,13 @@ body{
 .rr-review-link:hover{text-decoration:underline;}
 
 .ev-review-badge{margin-left:6px;color:#d4af37;font-weight:600;}
+
+/* ===== calrank 규모·인지도 지수 (유저 후기 ⭐와 시각적으로 구분) ===== */
+.ev-scale-badge{margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;}
+.scale-index-box{margin-top:16px;padding:14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);}
+.scale-index-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:10px;}
+.scale-index-table{width:100%;border-collapse:collapse;font-size:12px;}
+.scale-index-table td{padding:5px 4px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.scale-idx-label{color:var(--ink-soft);}
+.scale-idx-check{width:24px;text-align:center;color:var(--accent);font-weight:700;}
+.scale-index-disclaimer{margin-top:10px;font-size:11px;color:var(--ink-faint);line-height:1.5;}
