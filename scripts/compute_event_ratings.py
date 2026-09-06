@@ -1,14 +1,18 @@
 """
-calrank 대회 등급(자체 평가 점수) 자동 산정 스크립트
+calrank 대회 규모·인지도 지수 자동 산정 스크립트
 
-유저가 남기는 참가 후기(별점)와는 별개로, calrank가 보유한 실제 데이터
-(주최기관, 코스 구성, 대회 역사, 찜 수 등)만으로 대회 자체의 신뢰도·규모를
-20개 항목으로 채점한다. 지어낸 참가인원 등 없는 데이터는 절대 쓰지 않고,
-events.json에 실제로 존재하는 필드만 근거로 삼는다.
+유저가 남기는 참가 후기(별점)와는 완전히 별개의 지표다. 이건 "품질 평가"가
+아니라 "공개된 정보만으로 추정한 대회의 규모·인지도" 지수이며, 반드시
+그렇게만 취급한다. 실제 운영 품질·안전·참가자 만족도를 보장하지 않으므로
+화면에 노출할 때는 항상 면책 문구를 함께 표시해야 한다.
 
-결과는 event_ratings.json에 저장되며, 모든 대회(이벤트) 페이지/카드에서
-공통으로 참조한다. events.json이 매일 갱신될 때마다 다시 계산되어
-항상 최신 상태를 유지한다.
+지어낸 참가인원 등 없는 데이터는 절대 쓰지 않고, events.json에 실제로
+존재하는 필드만 근거로 삼는다. 특정 대회를 "질 낮다"고 낙인찍을 수 있는
+감점 항목은 포함하지 않는다 — 점수를 덜 받는 것과 나쁘다고 표시하는 것은
+다르다.
+
+결과는 event_ratings.json에 저장되며, 모든 대회 페이지/카드에서 공통으로
+참조한다. events.json이 매일 갱신될 때마다 다시 계산되어 최신 상태를 유지한다.
 
 사용 예시:
   python scripts/compute_event_ratings.py
@@ -23,8 +27,9 @@ PRESS_KEYWORDS = ["일보", "신문", "MBC", "KBS", "SBS", "YTN", "JTBC", "방�
 GOV_KEYWORDS = ["시청", "도청", "군청", "구청", "시체육회", "도체육회", "시육상연맹"]
 ASSOC_KEYWORDS = ["연맹", "협회", "체육회"]
 BRAND_KEYWORDS = ["삼성", "카카오", "현대", "LG", "SK", "코오롱", "나이키", "아디다스", "뉴발란스"]
-CASUAL_KEYWORDS = ["챌린지", "펀런", "fun run", "FUN RUN"]
 METRO_REGIONS = {"서울", "경기", "인천", "부산", "대구", "광주", "대전", "울산"}
+
+DISCLAIMER = "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
 
 
 def load_json(path, default):
@@ -56,8 +61,8 @@ def edition_number(name):
     return int(m.group(1)) if m else None
 
 
-# 20개 평가항목. 각 항목은 (라벨, 달성 여부/조건 함수, 배점) 형태로 정의한다.
-# 배점은 실제 대회 규모·신뢰도에 미치는 영향력을 감안해 차등 부여했다.
+# 19개 평가항목 — 전부 "가점만" 주는 방식이다. 특정 대회를 깎아내리는 감점
+# 항목은 의도적으로 두지 않았다(오인·명예훼손 소지를 없애기 위함).
 def build_criteria(ev, has_prior_edition):
     name = ev.get("name") or ""
     organizer = ev.get("organizer") or ""
@@ -76,8 +81,10 @@ def build_criteria(ev, has_prior_edition):
     add("풀코스(42.195km) 운영", "풀코스" in dist_text or "42.195" in dist_text or "42km" in dist_text, 8)
     add("하프코스(21km) 운영", "하프" in dist_text or "21" in dist_text, 5)
     add("코스 3종 이상 다양성", len(distances) >= 3, 4)
-    add("국제 대회 표방", "국제" in combined, 7)
-    add("언론사 주최·후원", has_any(combined, PRESS_KEYWORDS), 10)
+    add("국제 대회 표방", "국제" in combined, 8)
+    # 언론사 주최는 회차 표기가 없어도 그 자체로 대형 대회일 가능성이 매우 높아
+    # 가중치를 가장 높게 둔다(춘천마라톤, 동아마라톤 등 실제 사례 반영).
+    add("언론사 주최·후원", has_any(combined, PRESS_KEYWORDS), 20)
     add("지자체 주최", has_any(combined, GOV_KEYWORDS), 6)
     add("육상연맹·협회 주최", has_any(combined, ASSOC_KEYWORDS), 5)
     add("대회 역사 20회 이상", ed is not None and ed >= 20, 10)
@@ -92,21 +99,34 @@ def build_criteria(ev, has_prior_edition):
     add("주최측 연락처 공개", bool(ev.get("organizerPhone")), 3)
     add("울트라/100km 이상 코스 보유", "울트라" in dist_text or "100km" in dist_text.replace(" ", ""), 3)
     add("대기업·브랜드 후원 표기", has_any(combined, BRAND_KEYWORDS), 4)
-    add("소규모 캐주얼 대회 특성", has_any(combined, CASUAL_KEYWORDS) and ed is None, -3)
 
     return items
 
 
-def compute_stars(items):
-    positive_max = sum(i["weight"] for i in items if i["weight"] > 0)
-    # 역사 3단계(20회+/10~19/5~9)는 상호배타적이라 최고 구간만 만점 처리되므로,
-    # 이론상 달성 가능한 최댓값에서 하위 두 단계의 배점을 빼서 과소평가를 막는다.
-    positive_max -= 7 + 4  # "10~19회", "5~9회" 항목은 실제로는 동시 달성 불가능
+TIER_THRESHOLDS = [
+    (80, "플래티넘"),
+    (60, "골드"),
+    (40, "실버"),
+    (20, "브론즈"),
+    (0, "일반"),
+]
+
+
+def tier_for(pct):
+    for threshold, label in TIER_THRESHOLDS:
+        if pct >= threshold:
+            return label
+    return "일반"
+
+
+def compute_index(items):
+    positive_max = sum(i["weight"] for i in items)
+    # 역사 3단계(20회+/10~19/5~9)는 상호배타적이라 실제로는 최고 구간만 달성
+    # 가능하므로, 이론상 최댓값에서 하위 두 단계 배점을 빼 과소평가를 막는다.
+    positive_max -= 7 + 4
     achieved = sum(i["weight"] for i in items if i["achieved"])
-    ratio = max(0.0, min(1.0, achieved / positive_max)) if positive_max > 0 else 0
-    stars = 1 + ratio * 4
-    stars = round(stars * 2) / 2  # 0.5 단위로 반올림
-    return round(stars, 1), achieved, positive_max
+    pct = round(max(0.0, min(100.0, achieved / positive_max * 100))) if positive_max > 0 else 0
+    return pct, tier_for(pct), achieved, positive_max
 
 
 def main():
@@ -126,16 +146,18 @@ def main():
         k = series_key(e.get("name"))
         has_prior = k in keys_seen and len(keys_seen[k]) >= 2
         items = build_criteria(e, has_prior)
-        stars, achieved, positive_max = compute_stars(items)
+        pct, tier, achieved, positive_max = compute_index(items)
         ratings[eid] = {
-            "stars": stars,
+            "indexScore": pct,
+            "tier": tier,
             "score": achieved,
             "maxScore": positive_max,
             "criteria": items,
+            "disclaimer": DISCLAIMER,
         }
 
     save_json("event_ratings.json", ratings)
-    print(f"Computed ratings for {len(ratings)} events.")
+    print(f"Computed scale index for {len(ratings)} events.")
 
 
 if __name__ == "__main__":
