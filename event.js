@@ -299,6 +299,24 @@ async function init() {
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
   `;
 
+  // 실제 후기가 1개 이상 있을 때만 aggregateRating을 넣는다. 없는데도 넣으면
+  // 검색엔진에 거짓 정보를 제공하는 것이라 절대 하지 않는다.
+  let aggregateRating;
+  try {
+    const { data: summaryData } = await sb.rpc("get_review_summary", { p_event_id: ev.id });
+    const summary = Array.isArray(summaryData) ? summaryData[0] : summaryData;
+    const count = summary ? Number(summary.review_count) : 0;
+    if (count > 0) {
+      aggregateRating = {
+        "@type": "AggregateRating",
+        "ratingValue": Number(summary.avg_rating).toFixed(1),
+        "reviewCount": count,
+        "bestRating": "5",
+        "worstRating": "1",
+      };
+    }
+  } catch (e) { /* 후기 데이터 조회 실패 시 그냥 생략 */ }
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
@@ -308,6 +326,7 @@ async function init() {
     "eventStatus": "https://schema.org/EventScheduled",
     "location": { "@type": "Place", "name": ev.location, "address": ev.location },
     "organizer": ev.organizer ? { "@type": "Organization", "name": ev.organizer } : undefined,
+    "aggregateRating": aggregateRating,
     "url": pageUrl,
   };
   const script = document.createElement("script");
