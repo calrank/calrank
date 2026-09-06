@@ -134,9 +134,14 @@ async function renderReviews(eventId, allEvents, currentName) {
   const summary = Array.isArray(summaryData) ? summaryData[0] : summaryData;
   const avg = summary ? Number(summary.avg_rating) : 0;
   const count = summary ? Number(summary.review_count) : 0;
-  summaryEl.textContent = count > 0
-    ? `⭐ 평균 ${avg.toFixed(1)}점 (${count}개 후기)`
-    : "아직 후기가 없습니다. 첫 후기를 남겨보세요!";
+  const isFirstEdition = /제\s*1\s*회/.test(currentName || "");
+  if (count > 0) {
+    summaryEl.textContent = `⭐ 평균 ${avg.toFixed(1)}점 (${count}개 대회평·후기)`;
+  } else if (isFirstEdition) {
+    summaryEl.textContent = "이번이 제1회, 첫 대회라 아직 후기·평점이 없습니다. 첫 대회평의 주인공이 되어보세요!";
+  } else {
+    summaryEl.textContent = "아직 후기·평점이 등록되지 않았습니다. 참가하셨다면 대회평을 남겨주세요!";
+  }
 
   const { data: reviews } = await sb
     .from("event_reviews")
@@ -257,8 +262,11 @@ async function init() {
 
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
-  const pageTitle = `${ev.name} — calrank`;
-  const pageDesc = `${ev.name} | ${formatDate(ev.date, ev.time)} | ${ev.location} | ${ev.distances.join(", ")} | calrank에서 대회 일정과 접수 정보를 확인하세요.`;
+  const isFirstEdition = /제\s*1\s*회/.test(ev.name);
+  const pageTitle = `${ev.name} 후기·평점 — calrank`;
+  const pageDesc = isFirstEdition
+    ? `${ev.name} 대회 정보와 접수 일정을 확인하세요. 이번이 첫 회차라 아직 후기·평점이 없습니다 — 첫 대회평을 남겨보세요.`
+    : `${ev.name} 대회 후기, 대회평, 참가자 별점과 총평을 확인하고 일정·접수 정보도 함께 보세요.`;
   const pageUrl = `https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}`;
 
   document.title = pageTitle;
