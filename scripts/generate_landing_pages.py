@@ -183,6 +183,7 @@ def build_index(pages):
 <main class="landing-wrap">
 <h1>지역별 대회 일정</h1>
 <p>지역과 종목을 선택해서 해당 대회 목록을 바로 확인하세요.</p>
+<a href="distances.html" style="display:inline-block;margin-top:6px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #6A6A6A);">거리별로 찾아보기 →</a>
 {body}
 </main>
 <footer class="site-footer">
