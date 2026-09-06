@@ -1,0 +1,34 @@
+name: Compute event ratings
+
+# scripts/compute_event_ratings.py가 events.json의 실제 데이터(주최기관, 코스,
+# 대회 역사, 찜 수 등)만으로 대회 자체의 신뢰도 등급(20개 항목)을 계산해
+# event_ratings.json으로 저장한다. events.json이 매일 갱신되므로 그 이후에
+# 맞춰 매일 다시 계산한다.
+
+on:
+  schedule:
+    - cron: "0 20 * * *" # 매일 05:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compute event ratings
+        run: python scripts/compute_event_ratings.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add event_ratings.json
+          git diff --quiet --cached || (git commit -m "chore: recompute event ratings" && git push)
