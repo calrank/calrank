@@ -264,3 +264,6 @@ body{
 
 .view-full-ranking-link{display:inline-block;margin:12px 0 24px;font-size:13px;color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--ink-faint);}
 .view-full-ranking-link:hover{color:var(--accent);border-color:var(--accent);}
+
+.rr-review-link{display:none;margin-top:4px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:600;}
+.rr-review-link:hover{text-decoration:underline;}
