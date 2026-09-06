@@ -1,0 +1,34 @@
+name: Generate event sitemap
+
+# scripts/generate_event_sitemap.py가 events.json의 모든 대회에 대해
+# event.html?id=... URL을 sitemap.xml에 등록한다. "대회리뷰/대회평/대회후기/
+# 대회총평/대회별점/대회평점" 같은 검색어로 개별 대회 페이지가 검색엔진에
+# 발견·색인되려면 사이트맵 등재가 핵심이라, events.json 갱신 후 매일 다시 실행한다.
+
+on:
+  schedule:
+    - cron: "30 20 * * *" # 매일 05:30 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate event sitemap
+        run: python scripts/generate_event_sitemap.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add sitemap.xml
+          git diff --quiet --cached || (git commit -m "chore: register event pages in sitemap" && git push)
