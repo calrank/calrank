@@ -890,6 +890,30 @@ async function renderTiers() {
   }));
 }
 
+// 내가 입력한 대회명(race_name)을 calrank가 이미 알고 있는 실제 대회(events.json)와
+// 매칭해서, 있으면 "이 대회 후기 남기기" 링크를 만든다. 완전 일치가 안 되면
+// 공백을 뺀 부분일치까지만 시도하고, 그래도 안 맞으면 그냥 버튼을 생략한다
+// (틀린 대회로 후기를 유도하는 것보다 안 보여주는 게 낫다).
+let __eventsCache = null;
+async function findMatchingEventId(raceName) {
+  if (!raceName) return null;
+  if (!__eventsCache) {
+    try {
+      const res = await fetch("events.json");
+      __eventsCache = await res.json();
+    } catch (e) {
+      __eventsCache = [];
+    }
+  }
+  const norm = (s) => (s || "").replace(/\s+/g, "").toLowerCase();
+  const target = norm(raceName);
+  if (!target) return null;
+  const exact = __eventsCache.find(e => norm(e.name) === target);
+  if (exact) return exact.id;
+  const partial = __eventsCache.find(e => norm(e.name).includes(target) || target.includes(norm(e.name)));
+  return partial ? partial.id : null;
+}
+
 function renderRecordList() {
   const list = document.getElementById("recordList");
   const countEl = document.getElementById("recordCount");
@@ -910,6 +934,7 @@ function renderRecordList() {
       <div class="rr-body">
         <p class="rr-name">${r.race_name}</p>
         <p class="rr-meta">${r.race_date} · ${distanceLabel(r.sport, r.distance_category)}${r.finish_time_seconds ? " · " + formatSeconds(r.finish_time_seconds) : ""}${(() => { const km = getDistanceKm(r.sport, r.distance_category); const pace = formatPace(r.finish_time_seconds, km); return pace ? " · " + pace : ""; })()}${r.notes ? " · " + r.notes : ""}</p>
+        <a class="rr-review-link" data-race="${encodeURIComponent(r.race_name || "")}" style="display:none;" href="#">✍️ 이 대회 후기 남기기</a>
       </div>
       <button class="rr-edit" data-id="${r.id}" aria-label="수정" style="margin-right:4px;">✏️</button>
         <button class="rr-delete" data-id="${r.id}" aria-label="삭제">✕</button>
@@ -922,6 +947,16 @@ function renderRecordList() {
   });
   list.querySelectorAll(".rr-edit").forEach(btn => {
     btn.addEventListener("click", () => handleEditRecord(btn.dataset.id));
+  });
+
+  // 후기 링크는 대회 매칭이 끝난 것부터 하나씩 보여준다(화면을 막지 않기 위해 비동기 처리).
+  list.querySelectorAll(".rr-review-link").forEach(async (a) => {
+    const raceName = decodeURIComponent(a.dataset.race || "");
+    const eventId = await findMatchingEventId(raceName);
+    if (eventId) {
+      a.href = `event.html?id=${encodeURIComponent(eventId)}#reviewSection`;
+      a.style.display = "inline-block";
+    }
   });
 }
 
