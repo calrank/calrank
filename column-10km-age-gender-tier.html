@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10km 마라톤, 내 기록은 어느 수준일까? — 나이·성별 5단계 등급표 — calrank</title>
+<meta name="description" content="해외 데이터로 알아보는 10km 러닝 나이대별·성별 5단계(비기너~엘리트) 기록 등급표. 출처와 근거를 명확히 밝힙니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10km 마라톤, 내 기록은 어느 수준일까? — 나이·성별 5단계 등급표">
+<meta property="og:description" content="해외 데이터로 알아보는 10km 러닝 나이대별·성별 기록 등급표.">
+<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:url" content="https://calrank.vercel.app/column-10km-age-gender-tier.html">
+<meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  .column-wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+  .column-meta { font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }
+  .column-title { font-family: var(--font-display); font-size: clamp(24px, 3.8vw, 36px); line-height: 1.3; margin-bottom: 20px; }
+  .column-body { font-size: 16px; line-height: 1.9; color: #E8E4E1; }
+  .column-body h2 { font-size: 20px; margin: 36px 0 12px; color: #fff; }
+  .column-body h3 { font-size: 16px; margin: 24px 0 8px; color: #fff; }
+  .column-body p { margin-bottom: 16px; }
+  .column-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+  .column-tag { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }
+  .column-tag:hover { border-color: var(--accent); color: #fff; }
+  .source-box { background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 18px 20px; margin: 20px 0 28px; font-size: 13px; line-height: 1.8; color: #B8B0AC; }
+  .source-box strong { color: #fff; }
+  .tier-data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0 28px; }
+  .tier-data-table th, .tier-data-table td { padding: 8px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .tier-data-table th { color: #fff; font-weight: 700; background: rgba(255,255,255,0.03); }
+  .tier-data-table td:first-child, .tier-data-table th:first-child { text-align: left; color: #fff; font-weight: 600; }
+  .tier-data-table .tc-elite { color: #c9a6ff; font-weight: 700; }
+  .table-scroll { overflow-x: auto; }
+  .column-cta { margin-top: 32px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }
+  .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="regions.html" class="nav-link">지역별</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link active">칼럼</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<main class="column-wrap">
+<p class="column-meta">📊 데이터 분석 · 러닝 가이드</p>
+<h1 class="column-title">10km 마라톤, 내 기록은 어느 수준일까? — 나이·성별 5단계 등급표</h1>
+
+<div class="column-tags">
+<a href="index.html?sport=marathon" class="column-tag">#10km마라톤</a>
+<a href="column.html" class="column-tag">#러닝등급표</a>
+<a href="column.html" class="column-tag">#나이별기록</a>
+<a href="column.html" class="column-tag">#10대러닝</a>
+<a href="column.html" class="column-tag">#20대러닝</a>
+<a href="column.html" class="column-tag">#30대러닝</a>
+<a href="column.html" class="column-tag">#40대러닝</a>
+<a href="column.html" class="column-tag">#50대러닝</a>
+<a href="column.html" class="column-tag">#60대러닝</a>
+<a href="column.html" class="column-tag">#남자10km기록</a>
+<a href="column.html" class="column-tag">#여자10km기록</a>
+<a href="myrank.html" class="column-tag">#내랭크</a>
+</div>
+
+<div class="column-body">
+<p>10km를 완주하고 나면 누구나 궁금해집니다. "이 정도면 잘 뛴 건가?" 문제는 나이와 성별에 따라 신체 능력 차이가 크기 때문에, 절대 기록만으로는 내 위치를 알기 어렵다는 겁니다. 20대 남성의 46분과 60대 여성의 1시간 9분은 같은 "인터미디엇(중급)" 등급일 수 있습니다.</p>
+
+<div class="source-box">
+<strong>📌 이 칼럼의 출처</strong><br>
+· <strong>누가</strong>: Running Level(Strength Level 산하 러닝 데이터 분석 플랫폼)<br>
+· <strong>언제</strong>: 2024년 집계 데이터<br>
+· <strong>어디서</strong>: runninglevel.com 공개 데이터베이스<br>
+· <strong>무엇을</strong>: 대규모 실제 10km 레이스 완주기록을 나이·성별로 나눈 5단계(비기너~엘리트) 백분위 등급 기준<br>
+· <strong>어떻게</strong>: 상위 5%/20%/50%/80%/95% 컷오프 라인을 나이·성별 구간별로 산출<br>
+· <strong>왜</strong>: 개인이 절대 기록이 아닌 나이·성별 대비 상대적 위치를 객관적으로 확인할 수 있도록<br><br>
+· 보강 자료: Lepers, R., Bagley, A. & Stapley, P. (2021). <em>Sub 3-Hour Marathon Runners for Five Consecutive Decades Demonstrate a Reduced Age-Related Decline in Performance</em>. Frontiers in Physiology. (지구력 러닝 능력은 25~35세에 정점을 찍고, 50대 후반까지 10년마다 약 6~7% 감소한다는 연구)<br>
+· World Athletics (2025). 10 Kilometres Road Running Records. (남녀 세계기록 기준 비교용)
+</div>
+
+<h2>등급은 이렇게 나뉩니다</h2>
+<p>Running Level의 5단계 정의는 다음과 같습니다. 각 등급 "시간"은 그 등급에 속하기 위한 최소 기준선(컷오프)입니다.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>등급</th><th>정의</th></tr>
+<tr><td>비기너</td><td>전체 러너 중 상위 95%(하위권) — 러닝을 시작한 지 1개월 이상</td></tr>
+<tr><td>노비스</td><td>상위 80% — 6개월 이상 꾸준히 러닝</td></tr>
+<tr><td>인터미디엇</td><td>상위 50%(중앙값) — 2년 이상 꾸준히 러닝</td></tr>
+<tr><td>어드밴스드</td><td>상위 20% — 5년 이상 러닝</td></tr>
+<tr><td class="tc-elite">엘리트</td><td class="tc-elite">상위 5% — 5년 이상 경쟁력 있는 수준을 목표로 훈련</td></tr>
+</table>
+</div>
+
+<h2>남성 10km 기록 등급표 (나이대별)</h2>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>나이대</th><th>비기너</th><th>노비스</th><th>인터미디엇</th><th>어드밴스드</th><th class="tc-elite">엘리트</th></tr>
+<tr><td>10대</td><td>1:07:39</td><td>56:28</td><td>48:15</td><td>42:15</td><td class="tc-elite">37:51</td></tr>
+<tr><td>20대</td><td>1:05:30</td><td>54:39</td><td>46:43</td><td>40:54</td><td class="tc-elite">36:38</td></tr>
+<tr><td>30대</td><td>1:05:30</td><td>54:39</td><td>46:43</td><td>40:54</td><td class="tc-elite">36:38</td></tr>
+<tr><td>40대</td><td>1:07:58</td><td>56:43</td><td>48:29</td><td>42:26</td><td class="tc-elite">38:01</td></tr>
+<tr><td>50대</td><td>1:13:42</td><td>1:01:30</td><td>52:34</td><td>46:01</td><td class="tc-elite">41:14</td></tr>
+<tr><td>60대</td><td>1:20:30</td><td>1:07:11</td><td>57:25</td><td>50:16</td><td class="tc-elite">45:02</td></tr>
+<tr><td>70대</td><td>1:28:40</td><td>1:14:00</td><td>1:03:15</td><td>55:22</td><td class="tc-elite">49:36</td></tr>
+<tr><td>80대</td><td>1:43:56</td><td>1:26:45</td><td>1:14:08</td><td>1:04:54</td><td class="tc-elite">58:08</td></tr>
+</table>
+</div>
+
+<h2>여성 10km 기록 등급표 (나이대별)</h2>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>나이대</th><th>비기너</th><th>노비스</th><th>인터미디엇</th><th>어드밴스드</th><th class="tc-elite">엘리트</th></tr>
+<tr><td>10대</td><td>1:18:52</td><td>1:06:58</td><td>57:55</td><td>51:07</td><td class="tc-elite">46:03</td></tr>
+<tr><td>20대</td><td>1:13:49</td><td>1:02:40</td><td>54:13</td><td>47:51</td><td class="tc-elite">43:06</td></tr>
+<tr><td>30대</td><td>1:13:58</td><td>1:02:48</td><td>54:19</td><td>47:57</td><td class="tc-elite">43:12</td></tr>
+<tr><td>40대</td><td>1:16:43</td><td>1:05:08</td><td>56:20</td><td>49:44</td><td class="tc-elite">44:48</td></tr>
+<tr><td>50대</td><td>1:23:41</td><td>1:11:03</td><td>1:01:27</td><td>54:15</td><td class="tc-elite">48:52</td></tr>
+<tr><td>60대</td><td>1:34:18</td><td>1:20:04</td><td>1:09:15</td><td>1:01:08</td><td class="tc-elite">55:04</td></tr>
+<tr><td>70대</td><td>1:48:01</td><td>1:31:43</td><td>1:19:20</td><td>1:10:01</td><td class="tc-elite">1:03:05</td></tr>
+<tr><td>80대</td><td>2:08:29</td><td>1:49:06</td><td>1:34:22</td><td>1:23:18</td><td class="tc-elite">1:15:02</td></tr>
+</table>
+</div>
+<p style="font-size:13px; color:var(--ink-faint,#6A6A6A);">※ 10대는 아직 성장기라 성인 기준 등급을 그대로 적용하기는 조심스럽습니다. 참고용으로만 봐주세요. 데이터는 5세 단위로 제공되어, 각 나이대의 대표 구간 값을 사용했습니다.</p>
+
+<h2>기록은 왜 나이 들수록 떨어질까</h2>
+<p>Lepers 등(2021)의 연구에 따르면, 지구력 러닝 능력은 25~35세 사이에 정점을 찍고 이후 완만하게 감소합니다. 감소 폭은 10년마다 약 6~7% 수준이며, 50대 후반까지는 급격하지 않습니다. 표에서도 20~30대 기록이 거의 동일하고, 40대부터 서서히 벌어지는 걸 확인할 수 있습니다.</p>
+<p>성별 격차는 나이가 들수록 오히려 좁혀지는 경향이 있습니다. 20~30대에는 남녀 인터미디엇 기준 차이가 약 7~8분이지만, 60대에는 격차가 더 벌어지는 구간도 있어 일괄적이지 않습니다 — 정확한 수치는 위 표를 직접 비교해보시는 게 가장 정확합니다.</p>
+
+<div class="column-cta">
+<p>내 기록을 입력하고, 실제 등급과 전체 순위를 바로 확인해보세요.</p>
+<a href="myrank.html">내 기록 등급 확인하기 →</a>
+</div>
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼의 등급표는 외부 공개 데이터(Running Level, 2024)를 바탕으로 하며, 실제 신체 조건·훈련 상태에 따라 개인차가 있을 수 있습니다.</p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+
+</body>
+</html>
