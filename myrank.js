@@ -50,6 +50,37 @@ const TIER_CLASS = {
   "실버": "tier-silver", "브론즈": "tier-bronze", "피니셔": "tier-finisher",
 };
 
+// 출처: Running Level(runninglevel.com, 2024) 10km 완주기록 데이터베이스.
+// 각 배열은 [비기너, 노비스, 인터미디엇, 어드밴스드, 엘리트] 컷오프(초, 느린순).
+// calrank 자체 유저 수와 무관하게, 실제 국제 데이터 기준 상대적 위치를 보여준다.
+const GLOBAL_10K_SECONDS = {
+  male: {
+    "10대": [4059, 3388, 2895, 2535, 2271], "20대": [3930, 3279, 2803, 2454, 2198],
+    "30대": [3930, 3279, 2803, 2454, 2198], "40대": [4078, 3403, 2909, 2546, 2281],
+    "50대": [4422, 3690, 3154, 2761, 2474], "60대": [4830, 4031, 3445, 3016, 2702],
+    "70대": [5320, 4440, 3795, 3322, 2976], "80대": [6236, 5205, 4448, 3894, 3488],
+  },
+  female: {
+    "10대": [4732, 4018, 3475, 3067, 2763], "20대": [4429, 3760, 3253, 2871, 2586],
+    "30대": [4438, 3768, 3259, 2877, 2592], "40대": [4603, 3908, 3380, 2984, 2688],
+    "50대": [5021, 4263, 3687, 3255, 2932], "60대": [5658, 4804, 4155, 3668, 3304],
+    "70대": [6481, 5503, 4760, 4201, 3785], "80대": [7709, 6546, 5662, 4998, 4502],
+  },
+};
+const GLOBAL_TIER_LABELS = ["비기너", "노비스", "인터미디엇", "어드밴스드", "엘리트"];
+const GLOBAL_TIER_PERCENT = ["상위 95%", "상위 80%", "상위 50%", "상위 20%", "상위 5%"];
+
+function computeGlobal10kTier(gender, ageGroup, seconds) {
+  const cutoffs = GLOBAL_10K_SECONDS[gender] && GLOBAL_10K_SECONDS[gender][ageGroup];
+  if (!cutoffs) return null;
+  for (let i = cutoffs.length - 1; i >= 0; i--) {
+    if (seconds <= cutoffs[i]) {
+      return { label: GLOBAL_TIER_LABELS[i], percent: GLOBAL_TIER_PERCENT[i] };
+    }
+  }
+  return { label: "완주", percent: "그 자체로 의미있는 도전" };
+}
+
 let currentUser = null;
 let currentRecords = [];
 
@@ -850,6 +881,33 @@ async function renderTiers() {
           const nextHtml = next
             ? `<p class="tier-next">${next.nextLabel}까지 ${next.diffSeconds}초!</p>`
             : `<p class="tier-next tier-next-max">최고 등급입니다 🏆</p>`;
+          // 10km 마라톤은 국제 공개 데이터(Running Level)가 있어, calrank 유저 수와
+          // 무관하게 실제 전세계 기준 상대적 위치를 보여줄 수 있다.
+          const isGlobalEligible = sport === "marathon" && dist === "10km";
+          const globalBoxHtml = isGlobalEligible ? `
+            <div class="global-compare-box">
+              <button class="global-compare-btn" type="button">🌍 전세계 데이터로 비교하기</button>
+              <div class="global-compare-form" style="display:none;">
+                <select class="global-age-select">
+                  <option value="10대">10대</option>
+                  <option value="20대" selected>20대</option>
+                  <option value="30대">30대</option>
+                  <option value="40대">40대</option>
+                  <option value="50대">50대</option>
+                  <option value="60대">60대</option>
+                  <option value="70대">70대</option>
+                  <option value="80대">80대</option>
+                </select>
+                <select class="global-gender-select">
+                  <option value="male">남성</option>
+                  <option value="female">여성</option>
+                </select>
+                <button class="global-compare-submit" type="button">확인</button>
+              </div>
+              <p class="global-compare-result"></p>
+              <p class="global-compare-source">출처: Running Level(2024) · 참고용 지표</p>
+            </div>
+          ` : "";
           card.innerHTML = `
             <p class="tier-sport">${SPORT_LABEL[sport]}</p>
             <p class="tier-dist">${distanceLabel(sport, dist)}</p>
@@ -857,7 +915,25 @@ async function renderTiers() {
             <span class="tier-badge ${tierClass}">${tier || "-"}</span>
             ${nextHtml}
             <p class="tier-rank" data-rank-slot="1">순위 확인 중…</p>
+            ${globalBoxHtml}
           `;
+          if (isGlobalEligible) {
+            const btn = card.querySelector(".global-compare-btn");
+            const form = card.querySelector(".global-compare-form");
+            const submitBtn = card.querySelector(".global-compare-submit");
+            const resultEl = card.querySelector(".global-compare-result");
+            const ageSel = card.querySelector(".global-age-select");
+            const genderSel = card.querySelector(".global-gender-select");
+            btn.addEventListener("click", () => {
+              form.style.display = form.style.display === "none" ? "flex" : "none";
+            });
+            submitBtn.addEventListener("click", () => {
+              const result = computeGlobal10kTier(genderSel.value, ageSel.value, best.finish_time_seconds);
+              if (result) {
+                resultEl.textContent = `${ageSel.value} ${genderSel.value === "male" ? "남성" : "여성"} 기준 → ${result.label}(${result.percent})`;
+              }
+            });
+          }
           pending.push([card, sport, dist, best.finish_time_seconds]);
         }
       } else {
