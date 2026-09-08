@@ -58863,6 +58863,110 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
+  "rr-진안트레일레이스-2026-10-10": {
+    "indexScore": 10,
+    "tier": "일반",
+    "score": 10,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
   "rr-2026-인천로봇랜드-퓨처런-2026-10-11": {
     "indexScore": 33,
     "tier": "브론즈",
@@ -59072,9 +59176,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-진안고원-포레스티벌-run-heal-2026-10-11": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -59129,7 +59233,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -61047,6 +61151,214 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
+  "rr-함께런-러닝-페스티벌-2026-10-11": {
+    "indexScore": 10,
+    "tier": "일반",
+    "score": 10,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
+  "rm-진안고원-포레스티벌-run-heal-2026-10-11": {
+    "indexScore": 11,
+    "tier": "일반",
+    "score": 12,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": true,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
   "tri-제107회-전국체육대회-2026-10-16": {
     "indexScore": 13,
     "tier": "일반",
@@ -62800,6 +63112,110 @@
       {
         "label": "주최측 연락처 공개",
         "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
+  "rr-2026-억새노을마라톤대회-2026-10-17": {
+    "indexScore": 10,
+    "tier": "일반",
+    "score": 10,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
         "weight": 3
       },
       {
@@ -66247,6 +66663,110 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
+  "rr-불닭-버닝-트레일런-2026-10-24": {
+    "indexScore": 13,
+    "tier": "일반",
+    "score": 14,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
   "rr-제14회-정서진아라뱃길-전국마라톤대회-2026-10-25": {
     "indexScore": 44,
     "tier": "실버",
@@ -68951,6 +69471,110 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
+  "rr-2026-당진원런-마라톤-2026-10-31": {
+    "indexScore": 10,
+    "tier": "일반",
+    "score": 10,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
   "rr-26서울동행마라톤대회-2026-11-01": {
     "indexScore": 23,
     "tier": "브론즈",
@@ -71640,6 +72264,110 @@
       {
         "label": "주최측 연락처 공개",
         "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
+  "rr-런텐-13차-레이스-just-run10-대전-2026-11-07": {
+    "indexScore": 14,
+    "tier": "일반",
+    "score": 15,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": true,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
         "weight": 3
       },
       {
@@ -81328,9 +82056,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-사바스티안-사웨-초청기념-월드레코드-마라톤축제-2026-12-05": {
-    "indexScore": 14,
+    "indexScore": 19,
     "tier": "일반",
-    "score": 15,
+    "score": 20,
     "maxScore": 105,
     "criteria": [
       {
@@ -81385,7 +82113,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -81906,6 +82634,110 @@
       {
         "label": "연속 개최 이력 확인",
         "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
+  "rr-사바스티안-사웨-초청기념-월드레코드-마라톤축제-2026-12-06": {
+    "indexScore": 19,
+    "tier": "일반",
+    "score": 20,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": true,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": true,
         "weight": 5
       },
       {
