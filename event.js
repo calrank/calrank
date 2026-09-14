@@ -334,6 +334,37 @@ async function init() {
   script.textContent = JSON.stringify(schema);
   document.head.appendChild(script);
 
+  // BreadcrumbList — 구글이 확실히 지원하는 리치 결과 타입이라, 검색결과에
+  // URL 대신 "calrank > 종목 > 지역 > 대회명" 같은 탐색경로가 표시된다.
+  const SPORT_LABEL_MAP = { marathon: "마라톤", cycling: "자전거", trail: "트레일러닝", triathlon: "철인3종", inline: "인라인" };
+  const breadcrumbItems = [
+    { "@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html" },
+  ];
+  if (SPORT_LABEL_MAP[ev.sport]) {
+    breadcrumbItems.push({
+      "@type": "ListItem", "position": breadcrumbItems.length + 1,
+      "name": SPORT_LABEL_MAP[ev.sport],
+      "item": `https://calrank.vercel.app/index.html?sport=${ev.sport}`,
+    });
+  }
+  if (ev.region) {
+    breadcrumbItems.push({
+      "@type": "ListItem", "position": breadcrumbItems.length + 1,
+      "name": ev.region,
+      "item": `https://calrank.vercel.app/index.html?region=${encodeURIComponent(ev.region)}`,
+    });
+  }
+  breadcrumbItems.push({ "@type": "ListItem", "position": breadcrumbItems.length + 1, "name": ev.name });
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbItems,
+  };
+  const breadcrumbScript = document.createElement("script");
+  breadcrumbScript.type = "application/ld+json";
+  breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+  document.head.appendChild(breadcrumbScript);
+
   setupShareAndMap(ev, pageUrl);
   renderWeatherWidget(ev);
 }
