@@ -101,6 +101,43 @@ function buildTierMedal(tierLabel, size) {
   </svg>`;
 }
 
+// "내 랭크" 홈에서 전체 등급 체계를 한눈에 보여주는 갤러리. 각 등급이 대략
+// 어느 수준을 의미하는지 한 줄 설명을 곁들여, 배지만 봐서는 알 수 없던
+// "이게 뭐지?" 궁금증을 그 자리에서 해소한다.
+const TIER_GUIDE_DESC = {
+  "엘리트": "최상위권 실력자 — 대회 입상권에 가까운 수준",
+  "상위권": "매우 준수한 기록 — 동호인 중에서도 상위권",
+  "골드": "꾸준한 훈련으로 도달하는 우수한 기록",
+  "실버": "준수하게 완주한 기록",
+  "브론즈": "안정적으로 완주한 기록",
+  "피니셔": "완주 자체로 이미 의미있는 도전",
+};
+
+function renderTierGuide() {
+  const panel = document.getElementById("tierGuidePanel");
+  if (!panel) return;
+  const order = ["엘리트", "상위권", "골드", "실버", "브론즈", "피니셔"];
+  panel.innerHTML = order.map(label => `
+    <div class="tier-guide-item">
+      ${buildTierMedal(label, 60)}
+      <p class="tier-guide-name">${label}</p>
+      <p class="tier-guide-desc">${TIER_GUIDE_DESC[label]}</p>
+    </div>
+  `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("tierGuideToggle");
+  const panel = document.getElementById("tierGuidePanel");
+  if (!toggleBtn || !panel) return;
+  let rendered = false;
+  toggleBtn.addEventListener("click", () => {
+    if (!rendered) { renderTierGuide(); rendered = true; }
+    const isOpen = panel.classList.toggle("show");
+    toggleBtn.textContent = isOpen ? "🏅 등급 안내 접기" : "🏅 전체 등급 안내 보기";
+  });
+});
+
 // 출처: Running Level(runninglevel.com, 2024) 10km 완주기록 데이터베이스.
 // 각 배열은 [비기너, 노비스, 인터미디엇, 어드밴스드, 엘리트] 컷오프(초, 느린순).
 // calrank 자체 유저 수와 무관하게, 실제 국제 데이터 기준 상대적 위치를 보여준다.
