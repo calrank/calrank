@@ -1,7 +1,8 @@
 {
   "published": [
     "marathon:goal-time",
-    "marathon:injury"
+    "marathon:injury",
+    "marathon:race-day-gi"
   ],
   "cycle": 0
 }
