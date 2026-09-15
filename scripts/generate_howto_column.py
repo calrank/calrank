@@ -177,7 +177,7 @@ def update_sitemap(slug):
 
 
 def main():
-    bank = load_json("tips_bank.json", {})
+    bank = load_json("scripts/tips_bank.json", {})
     state = load_json("scripts/howto_state.json", {"published": [], "cycle": 0})
 
     # (종목, 고민) 조합을 전부 나열해 순서대로 순환한다.
