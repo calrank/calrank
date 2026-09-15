@@ -50,6 +50,57 @@ const TIER_CLASS = {
   "실버": "tier-silver", "브론즈": "tier-bronze", "피니셔": "tier-finisher",
 };
 
+// 월계관 + 메달 형태의 SVG 등급 배지를 생성한다. 텍스트 필보다 훨씬 격식있고
+// "성취"의 느낌을 주기 위해 각 등급마다 다른 메탈 색상과 월계수 잎을 그린다.
+const MEDAL_PALETTE = {
+  "엘리트": { light: "#e8d5ff", mid: "#8a5cf5", dark: "#4c1fa8", leaf: "#a06cf0", text: "#fff" },
+  "상위권": { light: "#ffd9c2", mid: "#ff6b3d", dark: "#b8340a", leaf: "#ff8a5c", text: "#fff" },
+  "골드":   { light: "#fdf0c0", mid: "#e8b93f", dark: "#93690f", leaf: "#d4af37", text: "#3a2b00" },
+  "실버":   { light: "#f7f9fa", mid: "#c3cbd1", dark: "#6d757c", leaf: "#aab2b8", text: "#20242a" },
+  "브론즈": { light: "#e8bd94", mid: "#b4703f", dark: "#5c331a", leaf: "#a0672f", text: "#fff" },
+  "피니셔": { light: "#d8d8d8", mid: "#9a9a9a", dark: "#4a4a4a", leaf: "#8a8a8a", text: "#fff" },
+};
+
+function buildLaurelLeaves(size, color, side) {
+  const cx = size / 2, cy = size / 2;
+  const radius = size * 0.44;
+  const count = 6;
+  let out = "";
+  for (let i = 0; i < count; i++) {
+    const t2 = i / (count - 1);
+    const angle = Math.PI * 0.92 - t2 * Math.PI * 0.62;
+    const x = cx + side * radius * Math.cos(angle);
+    const y = cy + radius * Math.sin(angle) * 0.98;
+    const rot = side > 0 ? (90 - angle * 180 / Math.PI) : -(90 - angle * 180 / Math.PI) + 180;
+    const leafLen = size * (0.11 + t2 * 0.02);
+    out += `<ellipse cx="${x}" cy="${y}" rx="${leafLen}" ry="${leafLen * 0.42}" fill="${color}" transform="rotate(${rot} ${x} ${y})" opacity="${0.55 + t2 * 0.4}"/>`;
+  }
+  return out;
+}
+
+function buildTierMedal(tierLabel, size) {
+  size = size || 76;
+  const p = MEDAL_PALETTE[tierLabel] || MEDAL_PALETTE["피니셔"];
+  const gradId = "medalGrad" + Math.random().toString(36).slice(2, 8);
+  const r = size * 0.30;
+  const cx = size / 2, cy = size / 2;
+  const leaves = buildLaurelLeaves(size, p.leaf, -1) + buildLaurelLeaves(size, p.leaf, 1);
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
+    <defs>
+      <radialGradient id="${gradId}" cx="35%" cy="28%" r="75%">
+        <stop offset="0%" stop-color="${p.light}"/>
+        <stop offset="55%" stop-color="${p.mid}"/>
+        <stop offset="100%" stop-color="${p.dark}"/>
+      </radialGradient>
+    </defs>
+    ${leaves}
+    <polygon points="${cx - r * 0.55},${cy + r * 0.75} ${cx - r * 0.15},${cy + r * 1.85} ${cx},${cy + r * 1.5} ${cx + r * 0.15},${cy + r * 1.85} ${cx + r * 0.55},${cy + r * 0.75}" fill="${p.dark}" opacity="0.85"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${gradId})" stroke="${p.dark}" stroke-width="${size * 0.02}"/>
+    <circle cx="${cx}" cy="${cy}" r="${r - size * 0.035}" fill="none" stroke="${p.light}" stroke-width="${size * 0.012}" opacity="0.65"/>
+    <text x="${cx}" y="${cy + size * 0.045}" text-anchor="middle" font-size="${size * 0.16}" font-weight="900" fill="${p.text}" font-family="'Noto Sans KR', sans-serif">${tierLabel}</text>
+  </svg>`;
+}
+
 // 출처: Running Level(runninglevel.com, 2024) 10km 완주기록 데이터베이스.
 // 각 배열은 [비기너, 노비스, 인터미디엇, 어드밴스드, 엘리트] 컷오프(초, 느린순).
 // calrank 자체 유저 수와 무관하게, 실제 국제 데이터 기준 상대적 위치를 보여준다.
@@ -912,7 +963,7 @@ async function renderTiers() {
             <p class="tier-sport">${SPORT_LABEL[sport]}</p>
             <p class="tier-dist">${distanceLabel(sport, dist)}</p>
             <p class="tier-time">${formatSeconds(best.finish_time_seconds)}</p>
-            <span class="tier-badge ${tierClass}">${tier || "-"}</span>
+            <div class="tier-medal-wrap">${buildTierMedal(tier || "피니셔")}</div>
             ${nextHtml}
             <p class="tier-rank" data-rank-slot="1">순위 확인 중…</p>
             ${globalBoxHtml}
