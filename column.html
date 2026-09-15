@@ -60,7 +60,9 @@
 </div>
 </div>
 
-<div style="margin-top:32px;">
+<nav class="column-toc" id="columnToc" aria-label="카테고리 목차"></nav>
+
+<div style="margin-top:24px;" id="columnCardsContainer">
 
 <a href="record-issue-diagnosis-tool.html" class="column-card">
 <p class="column-card-meta">🔧 문제해결 · 인터랙티브 도구</p>
@@ -146,5 +148,66 @@
 </div>
 </footer>
 
+<style>
+.column-toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 4px;}
+.column-toc a{font-size:13px;padding:7px 16px;border:1px solid var(--border,#2A2A2A);border-radius:999px;color:var(--ink-soft,#B8B0AC);text-decoration:none;font-weight:600;}
+.column-toc a:hover{border-color:var(--accent);color:#fff;}
+.column-section-title{font-size:18px;font-weight:800;color:#fff;margin:40px 0 14px;padding-top:8px;scroll-margin-top:90px;display:flex;align-items:center;gap:8px;}
+.column-section-count{font-size:12px;font-weight:600;color:var(--ink-faint,#6A6A6A);background:rgba(255,255,255,0.06);padding:2px 9px;border-radius:999px;}
+</style>
+<script>
+(function() {
+  // 자동화 스크립트들은 카드를 #columnCardsContainer 안에 그대로 이어붙이기만 한다.
+  // 이 스크립트가 실행 시점에 카드들을 스캔해 카테고리별 섹션으로 재배치하고,
+  // 상단에 목차(TOC)를 만든다. HTML 원본 구조를 바꾸지 않아 자동 발행 로직과 충돌하지 않는다.
+  const CATEGORY_ORDER = [
+    { key: "🔧", label: "🔧 문제해결" },
+    { key: "🎯", label: "🎯 노하우" },
+    { key: "🏔️", label: "🏔️ 대회 심화 가이드" },
+    { key: "📊", label: "📊 데이터 분석" },
+  ];
+  const FALLBACK_LABEL = "📁 기타";
+
+  const container = document.getElementById("columnCardsContainer");
+  const toc = document.getElementById("columnToc");
+  if (!container) return;
+
+  const cards = Array.from(container.querySelectorAll(".column-card"));
+  if (cards.length === 0) return;
+
+  const groups = new Map();
+  function groupFor(card) {
+    const metaEl = card.querySelector(".column-card-meta");
+    const metaText = metaEl ? metaEl.textContent : "";
+    const match = CATEGORY_ORDER.find(c => metaText.includes(c.key));
+    return match ? match.label : FALLBACK_LABEL;
+  }
+  cards.forEach(card => {
+    const label = groupFor(card);
+    if (!groups.has(label)) groups.set(label, []);
+    groups.get(label).push(card);
+  });
+
+  const orderedLabels = [...CATEGORY_ORDER.map(c => c.label), FALLBACK_LABEL].filter(l => groups.has(l));
+
+  container.innerHTML = "";
+  orderedLabels.forEach(label => {
+    const anchorId = "sec-" + label.replace(/[^a-zA-Z0-9가-힣]/g, "");
+    const heading = document.createElement("h2");
+    heading.className = "column-section-title";
+    heading.id = anchorId;
+    heading.innerHTML = label + ' <span class="column-section-count">' + groups.get(label).length + '개</span>';
+    container.appendChild(heading);
+    groups.get(label).forEach(card => container.appendChild(card));
+
+    if (toc) {
+      const link = document.createElement("a");
+      link.href = "#" + anchorId;
+      link.textContent = label;
+      toc.appendChild(link);
+    }
+  });
+})();
+</script>
 </body>
 </html>
