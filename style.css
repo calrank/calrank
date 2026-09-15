@@ -288,3 +288,5 @@ body{
 .global-compare-submit{background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;}
 .global-compare-result{font-size:12px;color:#fff;font-weight:700;margin-top:8px;}
 .global-compare-source{font-size:10px;color:var(--ink-faint,#6A6A6A);margin-top:4px;}
+
+.tier-medal-wrap{margin:8px 0 4px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.4));}
