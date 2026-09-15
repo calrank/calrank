@@ -86320,9 +86320,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제4회-가든파이브-라이프-레이스-2026-12-05": {
-    "indexScore": 32,
+    "indexScore": 28,
     "tier": "브론즈",
-    "score": 34,
+    "score": 29,
     "maxScore": 105,
     "criteria": [
       {
@@ -86357,7 +86357,7 @@
       },
       {
         "label": "육상연맹·협회 주최",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
