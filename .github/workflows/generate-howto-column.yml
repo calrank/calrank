@@ -1,0 +1,34 @@
+name: Generate howto column
+
+# scripts/generate_howto_column.py가 tips_bank.json(사전 조사·집필된
+# 마라톤·트레일·자전거·철인3종 "고민 기반" 노하우, 실제 출처 포함)에서
+# 아직 발행하지 않은 조합을 하나씩 순환 발행한다. 실시간 AI 생성이 아니라
+# 콘텐츠 뱅크 로테이션이라 API 비용이 들지 않는다.
+
+on:
+  schedule:
+    - cron: "0 22 */3 * *" # 3일마다 07:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate howto column
+        run: python scripts/generate_howto_column.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add column-howto-*.html column.html sitemap.xml scripts/howto_state.json
+          git diff --quiet --cached || (git commit -m "chore: auto-publish howto column" && git push)
