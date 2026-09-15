@@ -335,7 +335,7 @@ def update_column_list(title, desc, slug, month_label):
         f'<p class="column-card-desc">{desc}</p>\n'
         f'</a>\n\n'
     )
-    marker = '<div style="margin-top:32px;">\n\n'
+    marker = '<div style="margin-top:24px;" id="columnCardsContainer">\n\n'
     if marker in html:
         html = html.replace(marker, marker + card)
         path.write_text(html, encoding="utf-8")
