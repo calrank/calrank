@@ -290,3 +290,12 @@ body{
 .global-compare-source{font-size:10px;color:var(--ink-faint,#6A6A6A);margin-top:4px;}
 
 .tier-medal-wrap{margin:8px 0 4px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.4));}
+
+.tier-guide-toggle{display:block;width:100%;margin:18px 0 0;padding:12px;background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);border-radius:10px;color:#B8B0AC;font-size:13.5px;font-weight:700;cursor:pointer;}
+.tier-guide-toggle:hover{border-color:var(--accent);color:#fff;}
+.tier-guide-panel{display:none;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
+.tier-guide-panel.show{display:grid;}
+@media (max-width:520px){.tier-guide-panel{grid-template-columns:repeat(2,1fr);}}
+.tier-guide-item{text-align:center;background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);border-radius:12px;padding:16px 10px;}
+.tier-guide-name{font-size:13px;font-weight:800;color:#fff;margin:8px 0 4px;}
+.tier-guide-desc{font-size:11px;color:var(--ink-faint,#6A6A6A);line-height:1.5;}
