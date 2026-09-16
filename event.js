@@ -283,10 +283,29 @@ async function init() {
   canonical.href = pageUrl;
   document.head.appendChild(canonical);
 
+  // "찜하기" — index.html 카드 목록과 동일한 localStorage 키를 공유해서,
+  // 어느 화면에서 찜하든 saved-events.html에서 한곳에 모여 보인다.
+  const SAVED_EVENTS_KEY = "calrank-saved-events";
+  function getSavedEventIds() {
+    try { return JSON.parse(localStorage.getItem(SAVED_EVENTS_KEY) || "[]"); } catch (e) { return []; }
+  }
+  function isEventSaved(id) { return getSavedEventIds().includes(id); }
+  function toggleSavedEvent(id) {
+    const saved = getSavedEventIds();
+    const idx = saved.indexOf(id);
+    if (idx >= 0) { saved.splice(idx, 1); } else { saved.push(id); }
+    try { localStorage.setItem(SAVED_EVENTS_KEY, JSON.stringify(saved)); } catch (e) {}
+    return idx < 0;
+  }
+  const savedInitial = isEventSaved(ev.id);
+
   document.getElementById("eventContent").innerHTML = `
     <section class="hero">
       <p class="hero-sub">${meta.label} · <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span></p>
-      <h1>${ev.name}</h1>
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <h1 style="margin:0;flex:1;">${ev.name}</h1>
+        <button id="eventSaveBtn" class="ev-save-btn ${savedInitial ? "saved" : ""}" style="font-size:24px;" aria-label="찜하기" title="찜하기">${savedInitial ? "❤️" : "🤍"}</button>
+      </div>
     </section>
     <div class="modal-fields" style="margin-top:24px;">
       <div class="modal-field-row"><span class="k">일시</span><span class="v">${formatDate(ev.date, ev.time)}</span></div>
@@ -298,6 +317,15 @@ async function init() {
     <div id="weatherWidget"></div>
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
   `;
+
+  const eventSaveBtn = document.getElementById("eventSaveBtn");
+  if (eventSaveBtn) {
+    eventSaveBtn.addEventListener("click", () => {
+      const nowSaved = toggleSavedEvent(ev.id);
+      eventSaveBtn.textContent = nowSaved ? "❤️" : "🤍";
+      eventSaveBtn.classList.toggle("saved", nowSaved);
+    });
+  }
 
   // 실제 후기가 1개 이상 있을 때만 aggregateRating을 넣는다. 없는데도 넣으면
   // 검색엔진에 거짓 정보를 제공하는 것이라 절대 하지 않는다.
