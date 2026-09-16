@@ -3,7 +3,8 @@
     "marathon:goal-time",
     "marathon:injury",
     "marathon:race-day-gi",
-    "marathon:first-timer"
+    "marathon:first-timer",
+    "marathon:recovery"
   ],
   "cycle": 0
 }
