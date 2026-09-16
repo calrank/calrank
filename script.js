@@ -266,6 +266,36 @@ function buildScaleIndexTable(eventId) {
   `;
 }
 
+// "찜하기" — localStorage 기반 개인화 저장 목록. 서버 계정 없이도 관심 대회를
+// 모아볼 수 있게 하고, saved-events.html에서 접수마감 임박순으로 재방문을 유도한다.
+const SAVED_EVENTS_KEY = "calrank-saved-events";
+
+function getSavedEventIds() {
+  try {
+    return JSON.parse(localStorage.getItem(SAVED_EVENTS_KEY) || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
+function isEventSaved(id) {
+  return getSavedEventIds().includes(id);
+}
+
+function toggleSavedEvent(id) {
+  const saved = getSavedEventIds();
+  const idx = saved.indexOf(id);
+  if (idx >= 0) {
+    saved.splice(idx, 1);
+  } else {
+    saved.push(id);
+  }
+  try {
+    localStorage.setItem(SAVED_EVENTS_KEY, JSON.stringify(saved));
+  } catch (e) {}
+  return idx < 0;
+}
+
 function renderCard(ev) {
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
@@ -287,8 +317,10 @@ function renderCard(ev) {
   card.setAttribute("tabindex", "0");
   card.style.setProperty("--sport-color", meta.color);
 
+  const savedInitial = isEventSaved(ev.id);
   card.innerHTML = `
     <span class="ev-tag">${meta.tag}</span>
+    <button class="ev-save-btn ${savedInitial ? "saved" : ""}" data-save-id="${ev.id}" aria-label="찜하기" title="찜하기">${savedInitial ? "❤️" : "🤍"}</button>
     <div class="event-body">
       <div class="event-top">
         <span class="event-name">${ev.name}</span>
@@ -299,6 +331,13 @@ function renderCard(ev) {
     </div>
     <span class="event-chevron">›</span>
   `;
+  const saveBtn = card.querySelector(".ev-save-btn");
+  saveBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const nowSaved = toggleSavedEvent(ev.id);
+    saveBtn.textContent = nowSaved ? "❤️" : "🤍";
+    saveBtn.classList.toggle("saved", nowSaved);
+  });
   return card;
 }
 
