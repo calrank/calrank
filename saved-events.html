@@ -4,22 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>내가 찜한 대회 — calrank</title>
-<meta name="description" content="찜한 대회를 한곳에 모아보고, 접수 마감이 임박한 순서로 확인하세요.">
+<meta name="description" content="찜한 대회를 한곳에 모아보고, 접수 마감이 임박한 순서로 확인하세요. 2~3개를 골라 나란히 비교할 수도 있습니다.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="style.css">
 <style>
-  .sw { max-width: 720px; margin: 0 auto; padding: 48px 20px 90px; }
+  .sw { max-width: 760px; margin: 0 auto; padding: 48px 20px 100px; }
   .stitle { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 8px; }
   .ssub { font-size: 14.5px; color: #B8B0AC; margin-bottom: 28px; }
   .sempty { text-align: center; padding: 60px 20px; }
   .sempty-icon { font-size: 40px; margin-bottom: 14px; }
   .sempty-text { font-size: 15px; color: #B8B0AC; margin-bottom: 20px; line-height: 1.7; }
   .sempty a { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; padding: 11px 24px; border-radius: 6px; text-decoration: none; font-size: 14px; }
-  .scard { display: flex; align-items: center; gap: 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; text-decoration: none; }
-  .scard:hover { border-color: var(--accent); }
+
+  .scard { display: flex; align-items: center; gap: 12px; background: var(--surface, #141414); border: 1.5px solid var(--border, #2A2A2A); border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; }
+  .scard.compare-checked { border-color: var(--accent); }
+  .scompare-check { flex-shrink: 0; width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+  .scard-link { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; text-decoration: none; }
   .scard-tag { font-size: 10px; font-weight: 900; letter-spacing: 1px; width: 34px; flex-shrink: 0; color: var(--ink-soft, #B8B0AC); }
   .scard-body { flex: 1; min-width: 0; }
   .scard-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
@@ -28,6 +31,21 @@
   .scard-dday.urgent { background: var(--accent); border-color: var(--accent); color: #fff; }
   .sremove { flex-shrink: 0; background: none; border: none; font-size: 16px; cursor: pointer; opacity: 0.5; padding: 4px; }
   .sremove:hover { opacity: 1; }
+
+  .compare-bar { position: sticky; bottom: 16px; margin-top: 20px; background: var(--accent); color: #fff; border-radius: 10px; padding: 14px 18px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+  .compare-bar.show { display: flex; }
+  .compare-bar-text { font-size: 13.5px; font-weight: 700; }
+  .compare-bar button { background: #fff; color: var(--accent); border: none; font-weight: 800; padding: 9px 18px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+
+  .compare-result { margin-top: 30px; display: none; }
+  .compare-result.show { display: block; }
+  .compare-result h2 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 14px; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .compare-table th, .compare-table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+  .compare-table th { color: var(--ink-faint, #6A6A6A); font-weight: 600; width: 90px; white-space: nowrap; }
+  .compare-table td { color: #fff; font-weight: 600; }
+  .compare-table .compare-name-cell { font-weight: 800; }
+  .table-scroll { overflow-x: auto; }
 </style>
 </head>
 <body>
@@ -48,8 +66,15 @@
 
 <main class="sw">
 <h1 class="stitle">❤️ 내가 찜한 대회</h1>
-<p class="ssub">접수 마감이 가까운 순서로 정렬했습니다.</p>
+<p class="ssub">접수 마감이 가까운 순서로 정렬했습니다. 2~3개를 체크하면 나란히 비교할 수 있어요.</p>
 <div id="savedList"></div>
+
+<div class="compare-bar" id="compareBar">
+<span class="compare-bar-text" id="compareBarText">0개 선택됨</span>
+<button id="compareBtn">비교하기</button>
+</div>
+
+<div class="compare-result" id="compareResult"></div>
 </main>
 
 <footer class="site-footer">
@@ -62,6 +87,9 @@
 (function() {
   const SAVED_EVENTS_KEY = "calrank-saved-events";
   const SPORT_TAG = { marathon: "RUN", trail: "TRL", cycling: "BIKE", triathlon: "TRI", inline: "SKT" };
+  const MAX_COMPARE = 3;
+  let allEvents = [];
+  const checkedIds = new Set();
 
   function getSavedIds() {
     try { return JSON.parse(localStorage.getItem(SAVED_EVENTS_KEY) || "[]"); } catch (e) { return []; }
@@ -82,6 +110,48 @@
     return { label: `D-${diff}`, urgent: diff <= 3, sortKey: diff };
   }
 
+  function updateCompareBar() {
+    const bar = document.getElementById("compareBar");
+    const text = document.getElementById("compareBarText");
+    const btn = document.getElementById("compareBtn");
+    if (checkedIds.size >= 2) {
+      bar.classList.add("show");
+      text.textContent = `${checkedIds.size}개 선택됨 (최대 ${MAX_COMPARE}개)`;
+      btn.disabled = false;
+    } else if (checkedIds.size === 1) {
+      bar.classList.add("show");
+      text.textContent = "1개 선택됨 — 하나 더 골라주세요";
+      btn.disabled = true;
+    } else {
+      bar.classList.remove("show");
+    }
+  }
+
+  function renderCompareTable() {
+    const picked = allEvents.filter(ev => checkedIds.has(ev.id));
+    if (picked.length < 2) return;
+    const resultEl = document.getElementById("compareResult");
+    const rows = [
+      { label: "날짜", get: ev => ev.date },
+      { label: "지역", get: ev => ev.location || ev.region || "-" },
+      { label: "종목/거리", get: ev => (ev.distances || []).join(", ") },
+      { label: "주최", get: ev => ev.organizer || "미확인" },
+      { label: "접수마감", get: ev => ddayInfo(ev).label },
+    ];
+    const html = `
+      <h2>📊 대회 비교 (${picked.length}개)</h2>
+      <div class="table-scroll">
+      <table class="compare-table">
+        <tr><th></th>${picked.map(ev => `<td class="compare-name-cell">${ev.name}</td>`).join("")}</tr>
+        ${rows.map(r => `<tr><th>${r.label}</th>${picked.map(ev => `<td>${r.get(ev)}</td>`).join("")}</tr>`).join("")}
+      </table>
+      </div>
+    `;
+    resultEl.innerHTML = html;
+    resultEl.classList.add("show");
+    resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   async function init() {
     const ids = getSavedIds();
     const listEl = document.getElementById("savedList");
@@ -97,16 +167,15 @@
       return;
     }
 
-    let events = [];
     try {
       const res = await fetch("events.json");
-      events = await res.json();
+      allEvents = await res.json();
     } catch (e) {
       listEl.innerHTML = '<p class="ssub">대회 정보를 불러오지 못했어요.</p>';
       return;
     }
 
-    const saved = events
+    const saved = allEvents
       .filter(ev => ids.includes(ev.id))
       .map(ev => ({ ev, dday: ddayInfo(ev) }))
       .sort((a, b) => a.dday.sortKey - b.dday.sortKey);
@@ -123,15 +192,18 @@
     }
 
     listEl.innerHTML = saved.map(({ ev, dday }) => `
-      <a href="event.html?id=${encodeURIComponent(ev.id)}" class="scard">
-        <span class="scard-tag">${SPORT_TAG[ev.sport] || ""}</span>
-        <div class="scard-body">
-          <p class="scard-name">${ev.name}</p>
-          <p class="scard-meta">${ev.location || ev.region || ""} · ${ev.date}</p>
-        </div>
-        <span class="scard-dday ${dday.urgent ? "urgent" : ""}">${dday.label}</span>
+      <div class="scard" data-card-id="${ev.id}">
+        <input type="checkbox" class="scompare-check" data-check-id="${ev.id}" aria-label="비교 선택">
+        <a href="event.html?id=${encodeURIComponent(ev.id)}" class="scard-link">
+          <span class="scard-tag">${SPORT_TAG[ev.sport] || ""}</span>
+          <div class="scard-body">
+            <p class="scard-name">${ev.name}</p>
+            <p class="scard-meta">${ev.location || ev.region || ""} · ${ev.date}</p>
+          </div>
+          <span class="scard-dday ${dday.urgent ? "urgent" : ""}">${dday.label}</span>
+        </a>
         <button class="sremove" data-remove-id="${ev.id}" aria-label="찜 해제" title="찜 해제">✕</button>
-      </a>
+      </div>
     `).join("");
 
     listEl.querySelectorAll(".sremove").forEach(btn => {
@@ -139,9 +211,30 @@
         e.preventDefault();
         e.stopPropagation();
         removeSaved(btn.dataset.removeId);
+        checkedIds.delete(btn.dataset.removeId);
         init();
       });
     });
+
+    listEl.querySelectorAll(".scompare-check").forEach(chk => {
+      chk.addEventListener("change", () => {
+        const id = chk.dataset.checkId;
+        if (chk.checked) {
+          if (checkedIds.size >= MAX_COMPARE) {
+            chk.checked = false;
+            alert(`최대 ${MAX_COMPARE}개까지 비교할 수 있어요.`);
+            return;
+          }
+          checkedIds.add(id);
+        } else {
+          checkedIds.delete(id);
+        }
+        chk.closest(".scard").classList.toggle("compare-checked", chk.checked);
+        updateCompareBar();
+      });
+    });
+
+    document.getElementById("compareBtn").addEventListener("click", renderCompareTable);
   }
 
   init();
