@@ -1,0 +1,19 @@
+{
+  "name": "calrank — 마라톤·자전거·트레일·철인3종 대회 캘린더",
+  "short_name": "calrank",
+  "description": "너의 다음 출발선, 바로 여기야! 국내 동호인 스포츠대회 통합 캘린더",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0B",
+  "theme_color": "#0B0B0B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
