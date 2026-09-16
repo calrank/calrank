@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내가 찜한 대회 — calrank</title>
+<meta name="description" content="찜한 대회를 한곳에 모아보고, 접수 마감이 임박한 순서로 확인하세요.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  .sw { max-width: 720px; margin: 0 auto; padding: 48px 20px 90px; }
+  .stitle { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 8px; }
+  .ssub { font-size: 14.5px; color: #B8B0AC; margin-bottom: 28px; }
+  .sempty { text-align: center; padding: 60px 20px; }
+  .sempty-icon { font-size: 40px; margin-bottom: 14px; }
+  .sempty-text { font-size: 15px; color: #B8B0AC; margin-bottom: 20px; line-height: 1.7; }
+  .sempty a { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; padding: 11px 24px; border-radius: 6px; text-decoration: none; font-size: 14px; }
+  .scard { display: flex; align-items: center; gap: 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; text-decoration: none; }
+  .scard:hover { border-color: var(--accent); }
+  .scard-tag { font-size: 10px; font-weight: 900; letter-spacing: 1px; width: 34px; flex-shrink: 0; color: var(--ink-soft, #B8B0AC); }
+  .scard-body { flex: 1; min-width: 0; }
+  .scard-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .scard-meta { font-size: 11.5px; color: var(--ink-faint, #6A6A6A); }
+  .scard-dday { flex-shrink: 0; font-size: 12px; font-weight: 900; padding: 4px 9px; border-radius: 4px; border: 1px solid var(--ink-faint, #6A6A6A); color: #B8B0AC; }
+  .scard-dday.urgent { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .sremove { flex-shrink: 0; background: none; border: none; font-size: 16px; cursor: pointer; opacity: 0.5; padding: 4px; }
+  .sremove:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="regions.html" class="nav-link">지역별</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<main class="sw">
+<h1 class="stitle">❤️ 내가 찜한 대회</h1>
+<p class="ssub">접수 마감이 가까운 순서로 정렬했습니다.</p>
+<div id="savedList"></div>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p>찜한 대회는 이 브라우저에만 저장됩니다. 다른 기기나 브라우저에서는 보이지 않을 수 있습니다.</p>
+</div>
+</footer>
+
+<script>
+(function() {
+  const SAVED_EVENTS_KEY = "calrank-saved-events";
+  const SPORT_TAG = { marathon: "RUN", trail: "TRL", cycling: "BIKE", triathlon: "TRI", inline: "SKT" };
+
+  function getSavedIds() {
+    try { return JSON.parse(localStorage.getItem(SAVED_EVENTS_KEY) || "[]"); } catch (e) { return []; }
+  }
+
+  function removeSaved(id) {
+    const ids = getSavedIds().filter(x => x !== id);
+    try { localStorage.setItem(SAVED_EVENTS_KEY, JSON.stringify(ids)); } catch (e) {}
+  }
+
+  function ddayInfo(ev) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const target = new Date(ev.regDeadline || ev.date);
+    const diff = Math.ceil((target - today) / (1000*60*60*24));
+    if (ev.regClosed) return { label: "마감", urgent: false, sortKey: 99999 };
+    if (diff < 0) return { label: "마감", urgent: false, sortKey: 99999 };
+    if (diff === 0) return { label: "오늘마감", urgent: true, sortKey: 0 };
+    return { label: `D-${diff}`, urgent: diff <= 3, sortKey: diff };
+  }
+
+  async function init() {
+    const ids = getSavedIds();
+    const listEl = document.getElementById("savedList");
+
+    if (ids.length === 0) {
+      listEl.innerHTML = `
+        <div class="sempty">
+          <div class="sempty-icon">🤍</div>
+          <p class="sempty-text">아직 찜한 대회가 없어요.<br>캘린더에서 관심 있는 대회의 하트를 눌러보세요.</p>
+          <a href="index.html">대회 캘린더 보기</a>
+        </div>
+      `;
+      return;
+    }
+
+    let events = [];
+    try {
+      const res = await fetch("events.json");
+      events = await res.json();
+    } catch (e) {
+      listEl.innerHTML = '<p class="ssub">대회 정보를 불러오지 못했어요.</p>';
+      return;
+    }
+
+    const saved = events
+      .filter(ev => ids.includes(ev.id))
+      .map(ev => ({ ev, dday: ddayInfo(ev) }))
+      .sort((a, b) => a.dday.sortKey - b.dday.sortKey);
+
+    if (saved.length === 0) {
+      listEl.innerHTML = `
+        <div class="sempty">
+          <div class="sempty-icon">🔍</div>
+          <p class="sempty-text">찜한 대회를 찾을 수 없어요.<br>이미 지난 대회이거나 정보가 변경됐을 수 있어요.</p>
+          <a href="index.html">대회 캘린더 보기</a>
+        </div>
+      `;
+      return;
+    }
+
+    listEl.innerHTML = saved.map(({ ev, dday }) => `
+      <a href="event.html?id=${encodeURIComponent(ev.id)}" class="scard">
+        <span class="scard-tag">${SPORT_TAG[ev.sport] || ""}</span>
+        <div class="scard-body">
+          <p class="scard-name">${ev.name}</p>
+          <p class="scard-meta">${ev.location || ev.region || ""} · ${ev.date}</p>
+        </div>
+        <span class="scard-dday ${dday.urgent ? "urgent" : ""}">${dday.label}</span>
+        <button class="sremove" data-remove-id="${ev.id}" aria-label="찜 해제" title="찜 해제">✕</button>
+      </a>
+    `).join("");
+
+    listEl.querySelectorAll(".sremove").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        removeSaved(btn.dataset.removeId);
+        init();
+      });
+    });
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
