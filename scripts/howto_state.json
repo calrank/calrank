@@ -2,7 +2,8 @@
   "published": [
     "marathon:goal-time",
     "marathon:injury",
-    "marathon:race-day-gi"
+    "marathon:race-day-gi",
+    "marathon:first-timer"
   ],
   "cycle": 0
 }
