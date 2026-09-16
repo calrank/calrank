@@ -299,3 +299,7 @@ body{
 .tier-guide-item{text-align:center;background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);border-radius:12px;padding:16px 10px;}
 .tier-guide-name{font-size:13px;font-weight:800;color:#fff;margin:8px 0 4px;}
 .tier-guide-desc{font-size:11px;color:var(--ink-faint,#6A6A6A);line-height:1.5;}
+
+.ev-save-btn{flex-shrink:0;background:none;border:none;font-size:17px;cursor:pointer;padding:4px;line-height:1;opacity:0.6;transition:opacity 0.15s ease, transform 0.15s ease;}
+.ev-save-btn:hover{opacity:1;transform:scale(1.12);}
+.ev-save-btn.saved{opacity:1;}
