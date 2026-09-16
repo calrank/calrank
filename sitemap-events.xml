@@ -736,6 +736,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-83%ED%83%80%EC%9B%8C-%EC%97%85%ED%9E%90%EB%9F%B0-2026-10-11</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/event.html?id=tri-%EC%A0%9C107%ED%9A%8C-%EC%A0%84%EA%B5%AD%EC%B2%B4%EC%9C%A1%EB%8C%80%ED%9A%8C-2026-10-16</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -1017,6 +1022,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/event.html?id=ro-2026-%ED%95%98%EB%82%A8-%EC%96%B4%ED%85%80-%ED%8C%A8%EB%B0%80%EB%A6%AC-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-24</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=rm-%EC%84%9C%EC%9A%B8-%ED%8E%AB%EB%A6%BC%ED%94%BD-%EB%9F%B0-%EC%9C%84%EB%93%9C-%EA%B3%A0-2026-10-24</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1342,6 +1352,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/event.html?id=rr-2026-%EC%97%AC%EC%88%98-%EC%9D%BC%EB%A0%88%EB%B8%90%EB%B8%8C%EB%A6%AC%EC%A7%80%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-2026-egg-run-2026-11-07</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1862,6 +1877,16 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/event.html?id=rm-%EA%B0%80%EC%A1%B1%EB%B6%80-2%EC%9D%B81%EC%A1%B0-%EB%8B%A8%EC%B2%B4%EC%A0%84-3%EC%9D%B81%EC%A1%B0-2026-%EC%A0%95%EC%9D%8D%EA%B3%B5%EB%8F%99%EC%B2%B4-%ED%94%84%EB%A6%AC%EB%A7%88%EC%BC%93-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-2026-%EC%B2%9C%EC%95%88-%ED%9D%AC%EB%A7%9D%EB%82%98%EB%88%94-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=rm-%EC%A0%9C2%ED%9A%8C-%EC%B2%9C%EC%95%88%EB%8F%85%EB%A6%BD%EA%B8%B0%EB%85%90%EA%B4%80-%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-11-29</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
