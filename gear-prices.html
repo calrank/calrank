@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>러닝화 실시간 최저가 비교 — calrank</title>
+<meta name="description" content="아식스, 뉴발란스, 나이키, 호카 등 인기 러닝화 모델의 실시간 최저가를 한눈에 비교하세요. 네이버쇼핑 공식 API 기반으로 매일 자동 갱신됩니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="stylesheet" href="style.css">
+<style>
+  .gw { max-width: 760px; margin: 0 auto; padding: 48px 20px 90px; }
+  .gtitle { font-family: var(--font-display); font-weight: 900; font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 8px; }
+  .gsub { font-size: 14.5px; color: #B8B0AC; margin-bottom: 8px; }
+  .gupdated { font-size: 12px; color: var(--ink-faint, #6A6A6A); margin-bottom: 28px; }
+
+  .gsection { margin-bottom: 28px; }
+  .gsection-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+  .gitem { display: flex; align-items: center; gap: 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 14px 16px; margin-bottom: 8px; text-decoration: none; }
+  .gitem:hover { border-color: var(--accent); }
+  .gitem-img { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #222; }
+  .gitem-body { flex: 1; min-width: 0; }
+  .gitem-title { font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gitem-mall { font-size: 11.5px; color: var(--ink-faint, #6A6A6A); }
+  .gitem-price { flex-shrink: 0; font-size: 16px; font-weight: 900; color: var(--accent); white-space: nowrap; }
+
+  .gempty { text-align: center; padding: 50px 20px; color: var(--ink-faint, #6A6A6A); font-size: 14px; line-height: 1.8; }
+  .gdisclosure { margin-top: 30px; font-size: 11.5px; color: var(--ink-faint, #6A6A6A); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="regions.html" class="nav-link">지역별</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<main class="gw">
+<h1 class="gtitle">🏷️ 러닝화 실시간 최저가</h1>
+<p class="gsub">인기 러닝화 모델의 실시간 최저가를 네이버쇼핑 공식 API로 매일 자동 비교합니다.</p>
+<p class="gupdated" id="gUpdated"></p>
+<div id="gContent"></div>
+
+<p class="gdisclosure">가격 정보는 네이버쇼핑 공식 검색 API를 통해 수집되며, 실제 결제 화면의 가격·재고와 다를 수 있습니다. 상품 링크를 통해 구매 시 calrank에 일부 제휴 수익이 발생할 수 있습니다.</p>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
+</div>
+</footer>
+
+<script>
+(function() {
+  async function init() {
+    const contentEl = document.getElementById("gContent");
+    const updatedEl = document.getElementById("gUpdated");
+    let data;
+    try {
+      const res = await fetch("gear_prices.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("no data yet");
+      data = await res.json();
+    } catch (e) {
+      contentEl.innerHTML = `
+        <div class="gempty">
+          🛠️ 아직 가격 데이터를 준비 중이에요.<br>
+          곧 실시간 최저가 비교가 열립니다!
+        </div>
+      `;
+      return;
+    }
+
+    if (data.updatedAt) {
+      const d = new Date(data.updatedAt);
+      updatedEl.textContent = `마지막 갱신: ${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+    }
+
+    const entries = Object.entries(data.items || {});
+    if (entries.length === 0) {
+      contentEl.innerHTML = '<div class="gempty">🛠️ 아직 가격 데이터를 준비 중이에요.</div>';
+      return;
+    }
+
+    contentEl.innerHTML = entries.map(([query, items]) => {
+      if (!items || items.length === 0) return "";
+      const rows = items.map(item => `
+        <a href="${item.link}" target="_blank" rel="noopener sponsored" class="gitem">
+          <img class="gitem-img" src="${item.image}" alt="" loading="lazy">
+          <div class="gitem-body">
+            <p class="gitem-title">${item.title}</p>
+            <p class="gitem-mall">${item.mallName}</p>
+          </div>
+          <span class="gitem-price">${Number(item.lprice).toLocaleString()}원</span>
+        </a>
+      `).join("");
+      return `
+        <div class="gsection">
+          <p class="gsection-title">${query}</p>
+          ${rows}
+        </div>
+      `;
+    }).join("");
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
