@@ -1,0 +1,37 @@
+name: Fetch gear prices
+
+# scripts/fetch_gear_prices.py가 네이버 쇼핑 검색 API로 러닝화 등 장비의
+# 실시간 최저가를 매일 수집해 gear_prices.json으로 저장한다.
+# NAVER_CLIENT_ID / NAVER_CLIENT_SECRET는 저장소 Secrets에 등록되어 있어야 하며,
+# 등록 전까지는 스크립트가 조용히 스킵하도록 되어 있다.
+
+on:
+  schedule:
+    - cron: "0 21 * * *" # 매일 06:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch gear prices
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: python scripts/fetch_gear_prices.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add gear_prices.json
+          git diff --quiet --cached || (git commit -m "chore: update gear prices" && git push)
