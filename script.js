@@ -380,6 +380,28 @@ function render() {
 
 let mapInstance = null;
 let mapMarkersLayer = null;
+let leafletLoadPromise = null;
+
+// Leaflet(지도 라이브러리)은 "지도로 보기" 버튼을 실제로 누르기 전까지는
+// 아무도 쓰지 않는데, 예전에는 페이지를 열 때마다 무조건 CSS/JS를 받아왔다.
+// 초기 로딩 속도를 확실히 체감되게 줄이기 위해 클릭 시점에만 지연 로드한다.
+function loadLeaflet() {
+  if (typeof L !== "undefined") return Promise.resolve();
+  if (leafletLoadPromise) return leafletLoadPromise;
+  leafletLoadPromise = new Promise((resolve, reject) => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.onload = resolve;
+    script.onerror = reject;
+    document.body.appendChild(script);
+  });
+  return leafletLoadPromise;
+}
 
 function renderMap(filteredEvents) {
   const mapDiv = document.getElementById("mapContainer");
@@ -640,7 +662,7 @@ async function init() {
 
   const mapToggleBtn = document.getElementById("mapToggleBtn");
   if (mapToggleBtn) {
-    mapToggleBtn.addEventListener("click", () => {
+    mapToggleBtn.addEventListener("click", async () => {
       const grid = document.getElementById("eventGrid");
       const mapDiv = document.getElementById("mapContainer");
       const countEl = document.getElementById("resultCount");
@@ -651,6 +673,13 @@ async function init() {
         countEl.style.display = "";
         mapToggleBtn.textContent = "🗺️ 지도로 보기";
       } else {
+        mapToggleBtn.textContent = "지도 불러오는 중...";
+        try {
+          await loadLeaflet();
+        } catch (e) {
+          mapToggleBtn.textContent = "🗺️ 지도로 보기";
+          return;
+        }
         mapDiv.style.display = "block";
         grid.style.display = "none";
         countEl.style.display = "none";
