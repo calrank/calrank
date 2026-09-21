@@ -137,7 +137,7 @@ body{
 .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 
 .region-select{
-  font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--ink-soft);
+  font-family:var(--font-body);font-size:12px;font-weight:700;color:var(--ink-soft);
   padding:8px 12px;border-radius:2px;border:1px solid var(--border);
   background:var(--bg);
 }
