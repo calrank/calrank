@@ -5,7 +5,8 @@
     "marathon:race-day-gi",
     "marathon:first-timer",
     "marathon:recovery",
-    "marathon:women-runners"
+    "marathon:women-runners",
+    "marathon:weather-heat"
   ],
   "cycle": 0
 }
