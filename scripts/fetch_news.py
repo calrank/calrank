@@ -35,7 +35,7 @@ HEADERS = {
 }
 
 SPORT_LABEL = {
-    "marathon": "마라톤", "cycling": "자전거", "triathlon": "철인3종",
+    "marathon": "마라톤", "cycling": "자전거", "triathlon": "철인3종", "trail": "트레일러닝",
 }
 
 
@@ -239,10 +239,72 @@ def fetch_triathlon_news() -> list[dict]:
     return events
 
 
+# ---- 소스 4: 대한산악연맹 (트레일러닝) ----
+# 트레일러닝 단독 협회가 아직 안정적인 뉴스 게시판을 운영하지 않아,
+# 산악·등반 커뮤니티에 가장 가까운 공식 협회인 대한산악연맹 뉴스를 사용한다.
+
+KAF_TRAIL_URL = "https://kaf.or.kr/news_04"
+
+
+def fetch_trail_article_excerpt(detail_url: str) -> str | None:
+    """emarathon과 동일한 그누보드 계열 CMS라 .view-content 셀렉터를 그대로 쓴다."""
+    try:
+        resp = fetch_with_retry(detail_url, timeout=10, retries=2)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        content = soup.select_one(".view-content")
+        if content:
+            text = re.sub(r"\s+", " ", content.get_text(" ", strip=True)).strip()
+            if text:
+                return (text[:120] + "…") if len(text) > 120 else text
+    except Exception:
+        pass
+    return None
+
+
+def fetch_trail_news() -> list[dict]:
+    resp = fetch_with_retry(KAF_TRAIL_URL)
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    events = []
+    for title_el in soup.select("h5.card-title.font-weight-bold"):
+        link_el = title_el.find("a")
+        if not link_el:
+            continue
+        title = link_el.get_text(strip=True)
+        if not title:
+            continue
+
+        card_body = title_el.parent
+        date_text_full = card_body.get_text(" ", strip=True) if card_body else ""
+        m = re.search(r"(\d{1,2})\.(\d{1,2})", date_text_full)
+        if not m:
+            continue
+        month, day = int(m.group(1)), int(m.group(2))
+        year = guess_year_for_md(month, day)
+        date_iso = f"{year:04d}-{month:02d}-{day:02d}"
+
+        article_url = link_el.get("href", "") or KAF_TRAIL_URL
+        excerpt = fetch_trail_article_excerpt(article_url) if article_url.startswith("http") else None
+
+        events.append({
+            "id": slugify_id("trail", title, date_iso),
+            "sport": "trail",
+            "sportLabel": SPORT_LABEL["trail"],
+            "title": title,
+            "date": date_iso,
+            "excerpt": excerpt,
+            "sourceUrl": article_url,
+            "sourceName": "대한산악연맹",
+        })
+
+    return events
+
+
 SOURCES = [
     ("emarathon.or.kr", fetch_marathon_news),
     ("cycling.or.kr", fetch_cycling_news),
     ("triathlon.or.kr", fetch_triathlon_news),
+    ("kaf.or.kr", fetch_trail_news),
 ]
 
 
