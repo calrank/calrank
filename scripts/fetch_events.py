@@ -152,6 +152,29 @@ def parse_detail_url(cell) -> str | None:
     return ROADRUN_DETAIL_BASE + m.group(0)
 
 
+def fetch_roadrun_deadline(detail_url: str) -> str | None:
+    """roadrun.co.kr 목록 페이지엔 접수기간이 없고, 개별 상세 페이지(view.php?no=...)에만
+    '접수기간: 2026년6월30일~2026년7월31일' 형태로 존재한다. 상세 페이지를 추가로 방문해
+    종료일(~ 뒤 날짜)만 뽑아 ISO 형식으로 반환한다. 실패해도 조용히 None을 반환해
+    전체 수집이 중단되지 않도록 한다."""
+    try:
+        resp = requests.get(detail_url, timeout=10, headers=HEADERS)
+        resp.encoding = resp.apparent_encoding
+        soup = BeautifulSoup(resp.text, "html.parser")
+        tds = soup.find_all("td")
+        for i, td in enumerate(tds):
+            if td.get_text(strip=True) == "접수기간" and i + 1 < len(tds):
+                period_text = tds[i + 1].get_text(strip=True)
+                m = re.search(r"~\s*(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일", period_text)
+                if m:
+                    y, mo, d = m.groups()
+                    return f"{int(y):04d}-{int(mo):02d}-{int(d):02d}"
+                return None
+    except Exception:
+        return None
+    return None
+
+
 def fetch_roadrun() -> list[dict]:
     resp = requests.get(ROADRUN_URL, timeout=15, headers=HEADERS)
     resp.encoding = resp.apparent_encoding
@@ -180,6 +203,13 @@ def fetch_roadrun() -> list[dict]:
         detail_url = parse_detail_url(cells[1])
         homepage_url = parse_homepage_url(cells[3])
 
+        # 목록에 없는 접수기간을 상세 페이지에서 추가로 가져온다. 대상 사이트에
+        # 부담을 주지 않도록 매 요청 사이 짧은 랜덤 딜레이를 둔다.
+        reg_deadline = None
+        if detail_url:
+            reg_deadline = fetch_roadrun_deadline(detail_url)
+            time.sleep(random.uniform(0.15, 0.35))
+
         events.append(blank_event(
             id=slugify(name, date_iso, "rr"),
             sport=sport,
@@ -191,6 +221,7 @@ def fetch_roadrun() -> list[dict]:
             distances=distances,
             organizer=organizer,
             organizerPhone=phone,
+            regDeadline=reg_deadline,
             sourceUrl=ROADRUN_URL,
             applyUrl=homepage_url or detail_url or ROADRUN_URL,
         ))
