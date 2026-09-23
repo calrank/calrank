@@ -125,7 +125,10 @@ body{
 .hero-sub{font-size:13px;color:var(--ink-faint);margin:0;letter-spacing:0.2px;}
 
 .filter-row{margin-bottom:8px;}
-.filter-group{display:flex;gap:6px;overflow-x:auto;padding:4px 2px;}
+.filter-row{position:relative;}
+.filter-group{display:flex;gap:6px;overflow-x:auto;padding:4px 2px;scrollbar-width:none;-ms-overflow-style:none;}
+.filter-group::-webkit-scrollbar{display:none;}
+.filter-row::after{content:"";position:absolute;top:0;right:0;bottom:0;width:24px;background:linear-gradient(to right, transparent, var(--bg,#0d0d0d));pointer-events:none;}
 .chip{
   flex-shrink:0;font-family:var(--font-body);font-size:11px;font-weight:700;
   padding:8px 16px;border:1px solid var(--border);
@@ -302,6 +305,6 @@ body{
 .tier-guide-name{font-size:13px;font-weight:800;color:#fff;margin:8px 0 4px;}
 .tier-guide-desc{font-size:11px;color:var(--ink-faint,#6A6A6A);line-height:1.5;}
 
-.ev-save-btn{flex-shrink:0;background:none;border:none;font-size:17px;cursor:pointer;padding:4px;line-height:1;opacity:0.6;transition:opacity 0.15s ease, transform 0.15s ease;}
+.ev-save-btn{flex-shrink:0;background:none;border:none;font-size:17px;cursor:pointer;padding:10px;margin:-10px;line-height:1;opacity:0.6;transition:opacity 0.15s ease, transform 0.15s ease;min-width:24px;min-height:24px;display:flex;align-items:center;justify-content:center;}
 .ev-save-btn:hover{opacity:1;transform:scale(1.12);}
 .ev-save-btn.saved{opacity:1;}
