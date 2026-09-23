@@ -223,6 +223,9 @@ body{
   .nav-text-full{display:none;}
   .nav-link-saved{font-size:15px;}
   .hero{padding:32px 0 12px;}
+  .wrap{padding:0 16px;}
+  .chip{padding:7px 13px;font-size:13px;}
+  .event-card{gap:10px;}
 }
 
 .footer-links{margin-top:8px !important;}
