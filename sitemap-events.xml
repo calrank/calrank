@@ -271,6 +271,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/event.html?id=rm-%EC%9D%B8%EC%82%BC%EB%9F%B0-2026-2026-10-05</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/event.html?id=rr-2026-%ED%95%9C%EA%B8%80%EB%9F%B0-2026-10-09</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
