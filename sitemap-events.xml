@@ -551,6 +551,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-%EB%8F%85%EB%A6%BD%EC%9C%A0%EA%B3%B5%EC%9E%90%ED%9B%84%EC%86%90-%EA%B8%B0%EB%B6%80%EB%A7%88%EB%9D%BC%ED%86%A4-2026%EB%8C%80%ED%95%99%EC%83%9Drun-2026-10-11</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/event.html?id=ro-7080-%EB%9D%A0%EB%B3%84-%EC%98%A8%EB%9D%BC%EC%9D%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-10-13</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -667,6 +672,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/event.html?id=rm-%EC%96%B5%EC%83%88%EB%85%B8%EC%9D%84%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-17</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-2026-%EC%9B%90%EC%A3%BC-%EB%B0%94%EB%9E%8C%EA%B8%B8%EC%88%B2-%EA%B8%B0%EB%B6%80%EB%9F%B0-2026-10-17</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1561,6 +1571,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-%EC%84%9C%EC%9A%B8-%EB%B9%B5%EB%B9%B5%EB%9F%B0-2026-2026-11-14</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/event.html?id=rr-%EC%A0%9C28%ED%9A%8C-%EB%B6%80%EC%82%B0%EA%B5%AD%EC%A0%9C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-15</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -1787,6 +1802,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/event.html?id=rm-%EC%A0%84%EB%A7%88%ED%98%91-%EB%B3%B4%EC%84%B1%EB%85%B9%EC%B0%A8-autumn-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-21</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/event.html?id=rr-2026-%EC%84%9C%EC%9A%B8-%EB%9D%BC%EC%9D%B4%ED%94%84%EB%A7%88%EB%9D%BC%ED%86%A4-%EA%B0%80%EC%9D%84-2026-11-21</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
