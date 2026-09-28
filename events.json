@@ -14576,6 +14576,30 @@
     "applyUrl": "http://www.univrun.co.kr/index.php"
   },
   {
+    "id": "rm-2026-대학생run-2026-10-11",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 대학생RUN",
+    "date": "2026-10-11",
+    "time": "08:30 집결",
+    "location": "구일역(1호선) 안양천 축구장",
+    "region": "서울",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "대학문화유니온",
+    "organizerPhone": null,
+    "regDeadline": "2026-09-20",
+    "regClosed": null,
+    "lat": 37.496254517687,
+    "lng": 126.86969110539,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://www.univrun.co.kr/"
+  },
+  {
     "id": "ro-7080-띠별-온라인-마라톤-대회-2026-10-13",
     "sport": "marathon",
     "sportLabel": "마라톤",
