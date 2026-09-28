@@ -1,7 +1,7 @@
 // calrank 종목뉴스 — 매일 자동 수집된 news.json을 필터링해서 보여줍니다.
 
 const SPORT_LABEL = {
-  marathon: "마라톤", cycling: "자전거", triathlon: "철인3종",
+  marathon: "마라톤", cycling: "자전거", triathlon: "철인3종", trail: "산악·트레일",
 };
 
 let allNews = [];
