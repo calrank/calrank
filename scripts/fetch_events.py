@@ -840,7 +840,7 @@ def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
 
 
 def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.xml") -> None:
-    """대회별 상세 페이지(event.html?id=...) URL을 모은 sitemap을 자동 생성합니다.
+    """대회별 정적 상세 페이지(e/<id>.html) URL을 모은 sitemap을 자동 생성합니다.
     구글이 개별 대회 페이지를 빠르게 발견할 수 있도록, 매 크롤링마다 최신 상태로 갱신됩니다."""
     today = datetime.now().date()
     upcoming = []
@@ -857,7 +857,9 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
     for ev in upcoming:
-        url = f"https://calrank.vercel.app/event.html?id={quote(ev['id'])}"
+        # 검색엔진이 내용을 바로 읽을 수 있는 정적 페이지(e/<id>.html)를 가리킨다.
+        # (event.html?id=... 는 내용을 JS가 채워서 색인에 불리했다)
+        url = f"https://calrank.vercel.app/e/{quote(ev['id'])}.html"
         lines.append("  <url>")
         lines.append(f"    <loc>{url}</loc>")
         lines.append("    <changefreq>weekly</changefreq>")
