@@ -27,9 +27,15 @@ jobs:
       - name: Fetch events
         run: python scripts/fetch_events.py --out events.json
 
+      - name: Generate static event pages
+        # events.json의 대회마다 내용이 미리 채워진 정적 페이지(e/<id>.html)를 만든다.
+        # 검색엔진이 자바스크립트 없이도 대회 정보를 읽을 수 있게 하기 위함.
+        run: python scripts/generate_event_pages.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
           git add events.json sitemap-events.xml feed.ics
+          git add e/
           git diff --quiet --cached || (git commit -m "chore: update events.json" && git push)
