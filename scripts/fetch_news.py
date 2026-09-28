@@ -254,6 +254,8 @@ def fetch_trail_article_excerpt(detail_url: str) -> str | None:
         content = soup.select_one(".view-content")
         if content:
             text = re.sub(r"\s+", " ", content.get_text(" ", strip=True)).strip()
+            # 본문 맨 앞에 붙는 게시일 메타("26-09-14 -", "2026-09-10" 등)는 발췌에서 제외
+            text = re.sub(r"^\s*\d{2,4}-\d{1,2}-\d{1,2}\s*-?\s*", "", text)
             if text:
                 return (text[:120] + "…") if len(text) > 120 else text
     except Exception:
