@@ -55,7 +55,8 @@ function ddayInfo(ev) {
 }
 
 function getParam(name) {
-  return new URLSearchParams(location.search).get(name);
+  // 정적 대회 페이지(/e/<id>.html)는 쿼리스트링이 없으므로 서버가 심어 준 window.EVENT_ID를 쓴다.
+  return new URLSearchParams(location.search).get(name) || (name === "id" ? (window.EVENT_ID || null) : null);
 }
 
 function renderNotFound() {
@@ -263,11 +264,11 @@ async function init() {
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
   const isFirstEdition = /제\s*1\s*회/.test(ev.name);
-  const pageTitle = `${ev.name} 후기·평점 — calrank`;
-  const pageDesc = isFirstEdition
+  const pageTitle = window.EVENT_STATIC_TITLE || `${ev.name} 후기·평점 — calrank`;
+  const pageDesc = window.EVENT_STATIC_DESC || (isFirstEdition
     ? `${ev.name} 대회 정보와 접수 일정을 확인하세요. 이번이 첫 회차라 아직 후기·평점이 없습니다 — 첫 대회평을 남겨보세요.`
-    : `${ev.name} 대회 후기, 대회평, 참가자 별점과 총평을 확인하고 일정·접수 정보도 함께 보세요.`;
-  const pageUrl = `https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}`;
+    : `${ev.name} 대회 후기, 대회평, 참가자 별점과 총평을 확인하고 일정·접수 정보도 함께 보세요.`);
+  const pageUrl = window.EVENT_STATIC_URL || `https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}`;
 
   document.title = pageTitle;
   document.getElementById("pageTitleTag").textContent = pageTitle;
@@ -278,10 +279,13 @@ async function init() {
   document.getElementById("twTitle").setAttribute("content", pageTitle);
   document.getElementById("twDesc").setAttribute("content", pageDesc);
 
-  const canonical = document.createElement("link");
-  canonical.rel = "canonical";
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
   canonical.href = pageUrl;
-  document.head.appendChild(canonical);
 
   // "찜하기" — index.html 카드 목록과 동일한 localStorage 키를 공유해서,
   // 어느 화면에서 찜하든 saved-events.html에서 한곳에 모여 보인다.
@@ -357,10 +361,19 @@ async function init() {
     "aggregateRating": aggregateRating,
     "url": pageUrl,
   };
-  const script = document.createElement("script");
-  script.type = "application/ld+json";
-  script.textContent = JSON.stringify(schema);
-  document.head.appendChild(script);
+  const existingLd = document.getElementById("eventLd");
+  if (existingLd) {
+    try {
+      const merged = JSON.parse(existingLd.textContent);
+      if (aggregateRating) merged.aggregateRating = aggregateRating;
+      existingLd.textContent = JSON.stringify(merged);
+    } catch (e) { /* 파싱 실패 시 정적 스키마를 그대로 둔다 */ }
+  } else {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
+  }
 
   // BreadcrumbList — 구글이 확실히 지원하는 리치 결과 타입이라, 검색결과에
   // URL 대신 "calrank > 종목 > 지역 > 대회명" 같은 탐색경로가 표시된다.
@@ -375,7 +388,7 @@ async function init() {
       "item": `https://calrank.vercel.app/index.html?sport=${ev.sport}`,
     });
   }
-  if (ev.region) {
+  if (ev.region && !["전국", "미표기"].includes(ev.region)) {
     breadcrumbItems.push({
       "@type": "ListItem", "position": breadcrumbItems.length + 1,
       "name": ev.region,
@@ -388,10 +401,12 @@ async function init() {
     "@type": "BreadcrumbList",
     "itemListElement": breadcrumbItems,
   };
-  const breadcrumbScript = document.createElement("script");
-  breadcrumbScript.type = "application/ld+json";
-  breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
-  document.head.appendChild(breadcrumbScript);
+  if (!document.getElementById("breadcrumbLd")) {
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(breadcrumbScript);
+  }
 
   setupShareAndMap(ev, pageUrl);
   renderWeatherWidget(ev);
