@@ -14,6 +14,7 @@ events.json에서 "지역 x 종목" 조합별 실제 대회 수를 계산해, �
 """
 import json
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -57,7 +58,7 @@ def build_page(region, sport, events):
     desc = f"calrank에 등록된 {region} 지역 {sport_label} 대회 {total}개를 날짜순으로 정리했습니다."
 
     rows = "\n".join(
-        f'<a href="event.html?id={e.get("id","")}" class="landing-row">'
+        f'<a href="e/{quote(e.get("id",""))}.html" class="landing-row">'  # 검색엔진이 읽을 수 있는 정적 상세페이지로 링크
         f'<span class="landing-date">{(e.get("date") or "")[:10]}</span>'
         f'<span class="landing-name">{e.get("name","")}</span>'
         f'</a>'
