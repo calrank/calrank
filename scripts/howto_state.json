@@ -7,7 +7,8 @@
     "marathon:recovery",
     "marathon:women-runners",
     "marathon:weather-heat",
-    "marathon:shoe-selection"
+    "marathon:shoe-selection",
+    "trail:beginner-gear"
   ],
   "cycle": 0
 }
