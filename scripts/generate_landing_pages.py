@@ -31,6 +31,9 @@ REGION_SLUG = {
     "제주": "jeju",
 }
 MIN_EVENTS = 3
+# 자전거·인라인은 이벤트 소스가 아직 1개뿐이라 지역당 데이터가 적다.
+# 마라톤과 같은 기준(3개)을 쓰면 페이지가 거의 안 생기므로 종목별로 완화한다.
+MIN_EVENTS_BY_SPORT = {"cycling": 2, "inline": 1}
 EXCLUDE_REGIONS = {"전국", "미표기", "온라인", None, ""}
 
 
@@ -266,7 +269,8 @@ def main():
     pages = []
     slugs = []
     for (region, sport), evs in combos.items():
-        if len(evs) < MIN_EVENTS:
+        min_events = MIN_EVENTS_BY_SPORT.get(sport, MIN_EVENTS)
+        if len(evs) < min_events:
             continue
         html, title, desc, slug = build_page(region, sport, evs)
         (ROOT / slug).write_text(html, encoding="utf-8")
