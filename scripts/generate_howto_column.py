@@ -65,6 +65,23 @@ def build_page(sport_label, sport, concern, cycle_count):
     )
 
     slug = slugify(sport, concern["id"])
+    canonical_url = f"https://calrank.vercel.app/{slug}"
+    date_iso = datetime.now(KST).strftime("%Y-%m-%d")
+    article_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": title, "description": desc, "datePublished": date_iso,
+        "author": {"@type": "Organization", "name": "calrank"},
+        "publisher": {"@type": "Organization", "name": "calrank"},
+        "mainEntityOfPage": canonical_url,
+    }, ensure_ascii=False)
+    breadcrumb_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"},
+            {"@type": "ListItem", "position": 2, "name": "칼럼", "item": "https://calrank.vercel.app/column.html"},
+            {"@type": "ListItem", "position": 3, "name": title},
+        ],
+    }, ensure_ascii=False)
 
     return f'''<!DOCTYPE html>
 <html lang="ko">
@@ -80,9 +97,16 @@ def build_page(sport_label, sport, concern, cycle_count):
 <meta property="og:url" content="https://calrank.vercel.app/{slug}">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="{canonical_url}">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{article_ld}</script>
+<script type="application/ld+json">{breadcrumb_ld}</script>
 <style>
   .column-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
   .column-meta {{ font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }}
