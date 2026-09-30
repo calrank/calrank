@@ -77,6 +77,19 @@ def build_page(sport, dist_label, events):
         for e in events_sorted[:60]
     )
     slug = slugify(sport, dist_label)
+    canonical_url = f"https://calrank.vercel.app/{slug}"
+    collection_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "name": title, "description": desc, "url": canonical_url,
+    }, ensure_ascii=False)
+    breadcrumb_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"},
+            {"@type": "ListItem", "position": 2, "name": "거리별", "item": "https://calrank.vercel.app/distances.html"},
+            {"@type": "ListItem", "position": 3, "name": title},
+        ],
+    }, ensure_ascii=False)
 
     return f'''<!DOCTYPE html>
 <html lang="ko">
@@ -92,9 +105,16 @@ def build_page(sport, dist_label, events):
 <meta property="og:url" content="https://calrank.vercel.app/{slug}">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="{canonical_url}">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{collection_ld}</script>
+<script type="application/ld+json">{breadcrumb_ld}</script>
 <style>
   .landing-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
   .landing-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }}
@@ -180,6 +200,10 @@ def build_index(pages):
         sections.append(f'<h2>{SPORT_LABEL[sport]}</h2>\n<div class="landing-index-grid">{items}</div>')
 
     body = "\n".join(sections)
+    index_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "name": "거리별 대회 일정", "url": "https://calrank.vercel.app/distances.html",
+    }, ensure_ascii=False)
 
     return f'''<!DOCTYPE html>
 <html lang="ko">
@@ -189,9 +213,15 @@ def build_index(pages):
 <title>거리별 대회 일정 — calrank</title>
 <meta name="description" content="5km, 10km, 하프, 풀코스, 울트라 등 거리별 동호인 스포츠 대회 일정을 한눈에 확인하세요.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://calrank.vercel.app/distances.html">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{index_ld}</script>
 <style>
   .landing-wrap {{ max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }}
   .landing-wrap h2 {{ margin-top: 32px; font-size: 18px; }}
