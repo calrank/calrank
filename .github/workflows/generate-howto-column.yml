@@ -8,7 +8,12 @@ name: Generate howto column
 on:
   schedule:
     - cron: "0 22 */3 * *" # 3일마다 07:00 KST
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      regenerate:
+        description: "체크하면 새 글 발행 없이, 이미 발행된 칼럼만 최신 템플릿으로 다시 굽습니다"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -24,7 +29,12 @@ jobs:
           python-version: "3.12"
 
       - name: Generate howto column
-        run: python scripts/generate_howto_column.py
+        run: |
+          if [ "${{ github.event.inputs.regenerate }}" = "true" ]; then
+            python scripts/generate_howto_column.py --regenerate-published
+          else
+            python scripts/generate_howto_column.py
+          fi
 
       - name: Commit if changed
         run: |
