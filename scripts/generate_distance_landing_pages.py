@@ -12,6 +12,7 @@ calrank 거리별 랜딩페이지 자동 생성 스크립트
 """
 import json
 import re
+from datetime import date
 from pathlib import Path
 from urllib.parse import quote
 
@@ -233,11 +234,16 @@ def build_index(pages):
 
 def main():
     events = load_json("events.json", [])
+    today_iso = date.today().isoformat()
 
     combos = {}
     for e in events:
         sport = e.get("sport")
         if sport not in SPORT_LABEL:
+            continue
+        # 지난 대회는 정적 상세페이지(e/<id>.html)가 삭제되어 링크가 깨지므로,
+        # 랜딩에는 앞으로 열리는 대회만 싣는다.
+        if (e.get("date") or "") < today_iso:
             continue
         seen_for_event = set()
         for raw in (e.get("distances") or []):
