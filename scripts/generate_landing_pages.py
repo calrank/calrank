@@ -13,6 +13,7 @@ events.json에서 "지역 x 종목" 조합별 실제 대회 수를 계산해, �
   python scripts/generate_landing_pages.py
 """
 import json
+from datetime import date
 from pathlib import Path
 from urllib.parse import quote
 
@@ -219,11 +220,16 @@ def update_sitemap(slugs):
 
 def main():
     events = load_json("events.json", [])
+    today_iso = date.today().isoformat()
 
     combos = {}
     for e in events:
         region, sport = e.get("region"), e.get("sport")
         if not sport or region in EXCLUDE_REGIONS or sport not in SPORT_LABEL:
+            continue
+        # 지난 대회는 정적 상세페이지(e/<id>.html)가 삭제되어 링크가 깨지므로,
+        # 랜딩에는 앞으로 열리는 대회만 싣는다.
+        if (e.get("date") or "") < today_iso:
             continue
         combos.setdefault((region, sport), []).append(e)
 
