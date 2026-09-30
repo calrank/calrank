@@ -21,7 +21,9 @@ import json
 import re
 import time
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+from email.utils import format_datetime
+from xml.sax.saxutils import escape
 
 import requests
 from bs4 import BeautifulSoup
@@ -319,6 +321,50 @@ def merge_and_dedupe(existing: list[dict], new_items: list[dict]) -> list[dict]:
     return merged[:300]
 
 
+def write_rss_feed(items, path="feed.xml", limit=50):
+    """news.json에 이미 모인 협회 공식 소식을 표준 RSS 2.0으로도 내보낸다.
+    네이버 블로그·텔레그램 등 다른 채널에 자동 연동하거나, 검색엔진에게
+    새 글이 계속 나온다는 걸 알리는 용도. 새 소스를 만드는 게 아니라
+    news.json을 다른 형식으로 한 번 더 펴내는 것뿐이라 비용이 들지 않는다."""
+    KST = timezone(timedelta(hours=9))
+    site = "https://calrank.vercel.app"
+
+    rss_items = []
+    for it in items[:limit]:
+        try:
+            pub_dt = datetime.strptime(it["date"], "%Y-%m-%d").replace(tzinfo=KST)
+        except (ValueError, KeyError):
+            continue
+        title = escape(it.get("title", ""))
+        desc = escape(it.get("excerpt") or it.get("title", ""))
+        link = escape(it.get("sourceUrl", site))
+        rss_items.append(
+            "  <item>\n"
+            f"    <title>{title}</title>\n"
+            f"    <link>{link}</link>\n"
+            f"    <guid isPermaLink=\"false\">{escape(it['id'])}</guid>\n"
+            f"    <pubDate>{format_datetime(pub_dt)}</pubDate>\n"
+            f"    <description>{desc}</description>\n"
+            f"    <category>{escape(it.get('sportLabel', ''))}</category>\n"
+            "  </item>"
+        )
+
+    now_rfc822 = format_datetime(datetime.now(KST))
+    rss = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0"><channel>\n'
+        "  <title>calrank 종목뉴스</title>\n"
+        f"  <link>{site}/news.html</link>\n"
+        "  <description>마라톤·자전거·철인3종·산악 공식 협회 소식을 매일 자동으로 모읍니다.</description>\n"
+        "  <language>ko</language>\n"
+        f"  <lastBuildDate>{now_rfc822}</lastBuildDate>\n"
+        + "\n".join(rss_items) +
+        "\n</channel></rss>\n"
+    )
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(rss)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="news.json")
@@ -343,6 +389,8 @@ def main():
 
     with open(args.out, "w", encoding="utf-8") as f:
      json.dump(merged, f, ensure_ascii=False, indent=2)
+
+    write_rss_feed(merged)
 
     print(f"[{datetime.now().isoformat()}] {len(merged)}개 뉴스 저장 완료 ({args.out})")
 
