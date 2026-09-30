@@ -8,7 +8,8 @@
     "marathon:women-runners",
     "marathon:weather-heat",
     "marathon:shoe-selection",
-    "trail:beginner-gear"
+    "trail:beginner-gear",
+    "trail:injury-ankle-knee"
   ],
   "cycle": 0
 }
