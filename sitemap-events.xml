@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://calrank.vercel.app/e/ro-7080-%EB%9D%A0%EB%B3%84-%EC%98%A8%EB%9D%BC%EC%9D%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-09-29.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/e/ro-%EB%9F%AC%EB%84%88%EC%98%A8-%ED%81%AC%EB%A3%A8-%EB%A7%A4%EC%B9%98-2026-09-29.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://calrank.vercel.app/e/rm-%EC%82%AC%EC%9A%B0%EB%82%98%EB%9F%B0-in-%EB%9A%9D%EC%84%AC%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90-2026-09-30.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -127,6 +117,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rm-2026-%EC%9D%B4%EC%9D%BC%EC%84%A0%EA%B8%B0%EB%85%90-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-03.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/e/ro-%EC%86%8C%EB%85%B8-%EB%9F%B0%ED%8A%B8%EB%A6%BD-180k-in-%EA%B2%BD%EC%A3%BC-2026-10-03.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -1581,6 +1576,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/e/ro-2026-%EA%B0%95%EC%9B%90-%EC%86%8D%EC%B4%88-%ED%95%B4%EB%B3%80%EA%B8%B8-%EA%B1%B4%EA%B0%95%EB%8B%AC%EB%A6%AC%EA%B8%B0-2026-11-14.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C28%ED%9A%8C-%EB%B6%80%EC%82%B0%EA%B5%AD%EC%A0%9C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-15.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -1812,6 +1812,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-2026-%EC%84%9C%EC%9A%B8-%EB%9D%BC%EC%9D%B4%ED%94%84%EB%A7%88%EB%9D%BC%ED%86%A4-%EA%B0%80%EC%9D%84-2026-11-21.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/e/rr-k-%EA%B1%B0%EC%83%81-%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%9F%AC%EB%8B%9D-%EB%8C%80%ED%9A%8C-2026-11-21.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
