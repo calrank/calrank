@@ -16,6 +16,7 @@ scripts/tips_bank.json에 미리 조사·집필해둔 "고민 기반" 노하우 
 """
 import json
 import re
+import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -200,7 +201,35 @@ def update_sitemap(slug):
         path.write_text(xml, encoding="utf-8")
 
 
+def regenerate_published():
+    """템플릿(head 구조)이 바뀐 뒤, 이미 발행된 모든 칼럼을 최신 템플릿으로
+    다시 굽는다. 새 글을 발행하는 게 아니라 기존 slug의 파일 내용만
+    갱신하므로 published 목록·sitemap·column.html 카드에는 손대지 않는다."""
+    bank = load_json("scripts/tips_bank.json", {})
+    state = load_json("scripts/howto_state.json", {"published": [], "cycle": 0})
+
+    count = 0
+    for entry in state["published"]:
+        sport, concern_id = entry.split(":", 1)
+        if sport not in bank:
+            continue
+        concern = next((c for c in bank[sport]["concerns"] if c["id"] == concern_id), None)
+        if not concern:
+            continue
+        sport_label = bank[sport]["label"]
+        html = build_page(sport_label, sport, concern, state["cycle"])
+        slug = slugify(sport, concern_id)
+        (ROOT / slug).write_text(html, encoding="utf-8")
+        count += 1
+        print(f"Regenerated: {slug}")
+    print(f"[regenerate] {count}/{len(state['published'])}개 칼럼을 최신 템플릿으로 다시 구웠습니다.")
+
+
 def main():
+    if "--regenerate-published" in sys.argv:
+        regenerate_published()
+        return
+
     bank = load_json("scripts/tips_bank.json", {})
     state = load_json("scripts/howto_state.json", {"published": [], "cycle": 0})
 
