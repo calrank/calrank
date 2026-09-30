@@ -31,5 +31,5 @@ jobs:
         run: |
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
-          git add news.json
-          git diff --quiet --cached news.json || (git commit -m "chore: update news.json" && git push)
+          git add news.json feed.xml
+          git diff --quiet --cached news.json feed.xml || (git commit -m "chore: update news.json" && git push)
