@@ -9,7 +9,8 @@
     "marathon:weather-heat",
     "marathon:shoe-selection",
     "trail:beginner-gear",
-    "trail:injury-ankle-knee"
+    "trail:injury-ankle-knee",
+    "trail:safety-nutrition"
   ],
   "cycle": 0
 }
