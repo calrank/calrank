@@ -1,1 +1,35 @@
+name: Generate RSS feed
 
+# scripts/generate_rss_feed.py가 calrank 도메인의 새 칼럼·대회 페이지만 담은 rss.xml을 만든다.
+# 발행일을 git 기록에서 읽기 때문에 전체 기록이 필요하다(fetch-depth: 0).
+# 네이버 서치어드바이저 RSS 제출 주소: https://calrank.vercel.app/rss.xml
+
+on:
+  schedule:
+    - cron: "30 21 * * *" # 매일 06:30 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate RSS feed
+        run: python scripts/generate_rss_feed.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add rss.xml
+          git diff --quiet --cached || (git commit -m "chore: update rss feed" && git pull --rebase && git push)
