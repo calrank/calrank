@@ -124,6 +124,10 @@ function seriesKey(name) {
     .toLowerCase();
 }
 
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+}
+
 let reviewSubmitBound = false;
 async function renderReviews(eventId, allEvents, currentName) {
   const summaryEl = document.getElementById("reviewSummary");
@@ -156,7 +160,7 @@ async function renderReviews(eventId, allEvents, currentName) {
   } else {
     listEl.innerHTML = reviews.map(r => {
       const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-      return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${r.comment}</p>` : ""}</div>`;
+      return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${escapeHtml(r.comment)}</p>` : ""}</div>`;
     }).join("");
   }
 
@@ -186,7 +190,7 @@ async function renderReviews(eventId, allEvents, currentName) {
           pastReviews.map(r => {
             const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
             const raceLabel = nameById[r.event_id] || "이전 대회";
-            return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${raceLabel} · ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${r.comment}</p>` : ""}</div>`;
+            return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${raceLabel} · ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${escapeHtml(r.comment)}</p>` : ""}</div>`;
           }).join("");
       }
     }
@@ -195,24 +199,51 @@ async function renderReviews(eventId, allEvents, currentName) {
   if (!reviewSubmitBound) {
     reviewSubmitBound = true;
     document.getElementById("reviewSubmitBtn").addEventListener("click", async () => {
+      const msgEl = document.getElementById("reviewMsg");
+      const submitBtn = document.getElementById("reviewSubmitBtn");
+      // 로그인 없이도 후기를 남길 수 있다. 로그인한 경우에만 본인 후기로 연결(재작성 시 덮어쓰기).
       const { data: { session } } = await sb.auth.getSession();
-      if (!session?.user) {
-        alert("로그인이 필요한 기능입니다. 내 랭크 페이지에서 로그인해주세요.");
-        location.href = "myrank.html";
-        return;
+      const isAnonymous = !session?.user;
+      const doneKey = "calrank-reviewed-" + eventId;
+      if (isAnonymous) {
+        let already = false;
+        try { already = !!localStorage.getItem(doneKey); } catch (e) {}
+        if (already) {
+          msgEl.textContent = "이 기기에서는 이미 이 대회의 후기를 남기셨어요. 감사합니다!";
+          return;
+        }
       }
       const rating = Number(document.getElementById("reviewRatingSelect").value);
       const comment = document.getElementById("reviewComment").value.trim();
-      const msgEl = document.getElementById("reviewMsg");
-      const { error } = await sb.from("event_reviews").upsert({
-        event_id: eventId,
-        user_id: session.user.id,
-        rating,
-        comment: comment || null,
-      }, { onConflict: "event_id,user_id" });
-      msgEl.textContent = error ? "후기 등록에 실패했습니다." : "후기가 등록되었습니다. 감사합니다!";
+      if (comment.length > 300) {
+        msgEl.textContent = "후기는 300자 이내로 작성해주세요.";
+        return;
+      }
+      if (/[<>]/.test(comment)) {
+        msgEl.textContent = "꺾쇠 기호(< >)는 사용할 수 없어요.";
+        return;
+      }
+      submitBtn.disabled = true;
+      let error;
+      if (isAnonymous) {
+        ({ error } = await sb.from("event_reviews").insert({ event_id: eventId, rating, comment: comment || null }));
+      } else {
+        ({ error } = await sb.from("event_reviews").upsert({
+          event_id: eventId,
+          user_id: session.user.id,
+          rating,
+          comment: comment || null,
+        }, { onConflict: "event_id,user_id" }));
+      }
+      submitBtn.disabled = false;
+      if (error) {
+        msgEl.textContent = "후기 등록에 실패했습니다. 잠시 후 다시 시도해주세요.";
+        return;
+      }
+      if (isAnonymous) { try { localStorage.setItem(doneKey, "1"); } catch (e) {} }
+      msgEl.textContent = "후기가 등록되었습니다. 감사합니다!";
       document.getElementById("reviewComment").value = "";
-      renderReviews(eventId);
+      renderReviews(eventId, allEvents, currentName);
     });
   }
 }
