@@ -819,13 +819,143 @@ def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]
     return sorted(values, key=lambda e: e["date"])
 
 
+# 주최측이 아직 안 정한 항목에 들어오는 문구들. 라벨이 붙은 형태도 함께 잡는다.
+_PLACEHOLDER_RE = re.compile(r"(장소|시간|주최|접수|코스|거리|종목)?\s*(미확인|미정|확인\s*중|추후\s*공지|별도\s*공지)")
+
+
 def ics_escape(text: str) -> str:
     return (text or "").replace("\\", "\\\\").replace(",", "\\,").replace(";", "\\;").replace("\n", "\\n")
 
 
+def ics_fold(line: str) -> str:
+    """RFC 5545: 한 줄은 75옥텟을 넘지 못한다. 넘으면 접고 다음 줄을 공백으로 시작한다.
+    한글은 UTF-8에서 3바이트라 글자 중간에서 자르면 캘린더 앱이 깨뜨린다.
+    그래서 바이트가 아니라 '글자를 더해 가며 바이트를 세는' 방식으로 자른다."""
+    out, cur, used, first = [], [], 0, True
+    for ch in line:
+        n = len(ch.encode("utf-8"))
+        limit = 75 if first else 74   # 이어지는 줄은 앞의 공백 1옥텟을 쓴다
+        if used + n > limit:
+            out.append("".join(cur))
+            cur, used, first = [ch], n, False
+        else:
+            cur.append(ch)
+            used += n
+    out.append("".join(cur))
+    return "\r\n ".join(out)
+
+
+# 구독자가 실제로 받고 싶은 알림은 둘이다: 접수 마감(놓치면 출전 불가)과 대회 당일.
+# 둘 다 VALARM 으로 넣으면 구글/애플 캘린더가 알아서 푸시를 보내 준다.
+# 서버도, 계정도, 이메일 발송도 필요 없다.
+def _valarm(trigger: str, text: str) -> list[str]:
+    return ["BEGIN:VALARM", "ACTION:DISPLAY",
+            f"TRIGGER:{trigger}", f"DESCRIPTION:{ics_escape(text)}", "END:VALARM"]
+
+
+def _event_block(ev: dict, now_stamp: str) -> list[str]:
+    """대회 하루 + (접수 마감이 아직 안 지났으면) 접수 마감일, 두 개의 일정을 만든다."""
+    blocks: list[str] = []
+    name = ev.get("name", "대회")
+    dt = ev["date"].replace("-", "")
+    url = f"https://calrank.vercel.app/e/{quote(ev['id'])}.html"
+
+    def val(key):
+        """'미확인', '장소 미확인' 같은 자리채움 값은 빼고 돌려준다.
+        캘린더에 그대로 들어가면 알림마다 의미 없는 줄이 하나씩 붙는다."""
+        v = ev.get(key)
+        if v is None:
+            return None
+        v = str(v).strip()
+        if not v or v in {"-", "none", "None"}:
+            return None
+        if _PLACEHOLDER_RE.fullmatch(v):
+            return None
+        return v
+
+    desc_parts = []
+    dists = [str(d).strip() for d in (ev.get("distances") or [])]
+    dists = [d for d in dists if d and not _PLACEHOLDER_RE.fullmatch(d)]
+    if dists:
+        desc_parts.append("종목: " + ", ".join(dists))
+    for key, label in (("time", "시간"), ("location", "장소"),
+                       ("regDeadline", "접수 마감"), ("organizer", "주최"),
+                       ("applyUrl", "신청")):
+        v = val(key)
+        if v:
+            desc_parts.append(f"{label}: {v}")
+    desc_parts.append(url)
+    desc = ics_escape("\n".join(desc_parts))
+
+    blocks += [
+        "BEGIN:VEVENT",
+        f"UID:{ev['id']}@calrank.vercel.app",
+        f"DTSTAMP:{now_stamp}",
+        f"DTSTART;VALUE=DATE:{dt}",
+        f"SUMMARY:{ics_escape(name)}",
+        f"LOCATION:{ics_escape(ev.get('location', ''))}",
+        f"DESCRIPTION:{desc}",
+        f"URL:{url}",
+        "TRANSP:TRANSPARENT",
+    ]
+    blocks += _valarm("-P7D", f"{name} D-7 — 준비물과 교통편을 확인하세요")
+    blocks += _valarm("-P1D", f"{name} 내일입니다 — 배번과 출발 시간을 확인하세요")
+    blocks.append("END:VEVENT")
+
+    # 접수 마감일: 아직 지나지 않았고 대회일보다 앞설 때만 별도 일정으로 넣는다
+    dl = ev.get("regDeadline")
+    if dl and isinstance(dl, str) and len(dl) == 10:
+        try:
+            dl_date = datetime.strptime(dl, "%Y-%m-%d").date()
+        except ValueError:
+            dl_date = None
+        if dl_date and dl_date >= datetime.now().date() and dl < ev["date"]:
+            blocks += [
+                "BEGIN:VEVENT",
+                f"UID:{ev['id']}-deadline@calrank.vercel.app",
+                f"DTSTAMP:{now_stamp}",
+                f"DTSTART;VALUE=DATE:{dl.replace('-', '')}",
+                f"SUMMARY:{ics_escape('[접수 마감] ' + name)}",
+                f"DESCRIPTION:{desc}",
+                f"URL:{url}",
+                "TRANSP:TRANSPARENT",
+            ]
+            blocks += _valarm("-P3D", f"{name} 접수 마감 3일 전입니다")
+            blocks += _valarm("-P1D", f"{name} 접수가 내일 마감됩니다")
+            blocks.append("END:VEVENT")
+    return blocks
+
+
+def _write_ics(path: str, cal_name: str, cal_desc: str, events: list[dict]) -> int:
+    now_stamp = datetime.now().strftime("%Y%m%dT%H%M%SZ")
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//calrank//KO",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        f"X-WR-CALNAME:{ics_escape(cal_name)}",
+        f"X-WR-CALDESC:{ics_escape(cal_desc)}",
+        "X-WR-TIMEZONE:Asia/Seoul",
+        # 캘린더 앱이 하루 두 번 다시 받아 가도록 (새 대회가 알아서 들어온다)
+        "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+        "X-PUBLISHED-TTL:PT12H",
+    ]
+    for ev in events:
+        lines += _event_block(ev, now_stamp)
+    lines.append("END:VCALENDAR")
+
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\r\n".join(ics_fold(l) for l in lines) + "\r\n")
+    return len(events)
+
+
 def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
-    """전체 예정 대회를 하나의 iCalendar 구독 피드로 생성합니다.
-    사용자가 구글/애플 캘린더에 이 URL을 구독하면 새 대회가 등록될 때마다 자동으로 반영됩니다."""
+    """예정 대회를 iCalendar 구독 피드로 만든다.
+
+    전체 1,000여 개를 한 덩어리로 주면 아무도 구독하지 못하므로 종목별 피드도 같이 낸다.
+    구독해 두면 새 대회가 올라올 때마다 캘린더가 알아서 받아 가고, 접수 마감과
+    대회 당일에 알림이 울린다 — 계정도 이메일 발송 설비도 필요 없는 재방문 장치다."""
     today = datetime.now().date()
     upcoming = []
     for ev in events:
@@ -835,40 +965,26 @@ def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
             continue
         if ev_date >= today:
             upcoming.append(ev)
+    upcoming.sort(key=lambda e: e["date"])
 
-    lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//calrank//KO",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "X-WR-CALNAME:calrank 전체 대회 일정",
-        "X-WR-TIMEZONE:Asia/Seoul",
-    ]
-    now_stamp = datetime.now().strftime("%Y%m%dT%H%M%SZ")
-    for ev in upcoming:
-        dt = ev["date"].replace("-", "")
-        uid = f"{ev['id']}@calrank.vercel.app"
-        summary = ics_escape(ev.get("name", "대회"))
-        location = ics_escape(ev.get("location", ""))
-        url = f"https://calrank.vercel.app/event.html?id={quote(ev['id'])}"
-        lines += [
-            "BEGIN:VEVENT",
-            f"UID:{uid}",
-            f"DTSTAMP:{now_stamp}",
-            f"DTSTART;VALUE=DATE:{dt}",
-            f"SUMMARY:{summary}",
-            f"LOCATION:{location}",
-            f"URL:{url}",
-            "END:VEVENT",
-        ]
-    lines.append("END:VCALENDAR")
+    n = _write_ics(out_path, "calrank 전체 대회 일정",
+                   "calrank.vercel.app — 마라톤·자전거·트레일·철인3종·인라인 대회 일정", upcoming)
+    print(f"[feed.ics] {n}개 대회 캘린더 구독 피드 생성 완료")
 
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write("\r\n".join(lines) + "\r\n")
+    # 종목 라벨은 상수로 두지 않고 데이터에서 그대로 읽는다 (새 종목이 생겨도 따라온다)
+    sports: dict[str, str] = {}
+    for e in upcoming:
+        sp = e.get("sport")
+        if sp and sp not in sports:
+            sports[sp] = e.get("sportLabel") or sp
 
-    print(f"[feed.ics] {len(upcoming)}개 대회 캘린더 구독 피드 생성 완료")
-
+    for sport, label in sorted(sports.items()):
+        subset = [e for e in upcoming if e.get("sport") == sport]
+        if not subset:
+            continue
+        _write_ics(f"feed-{sport}.ics", f"calrank {label} 대회 일정",
+                   f"calrank.vercel.app — {label} 대회 일정과 접수 마감 알림", subset)
+        print(f"[feed-{sport}.ics] {len(subset)}개 {label} 대회")
 
 def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.xml") -> None:
     """대회별 정적 상세 페이지(e/<id>.html) URL을 모은 sitemap을 자동 생성합니다.
