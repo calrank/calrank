@@ -3,13 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>내 체력 등급 확인 — calrank</title>
-<meta name="description" content="나이와 성별을 반영해서 내 완주 기록이 어느 정도 수준인지 확인해보세요.">
+<title>러닝 기록 등급 계산기 — 10km·하프·풀코스 나이별 수준 확인 | calrank</title>
+<meta name="description" content="완주 기록을 넣으면 나이와 성별을 반영해 내 러닝 수준이 어느 등급인지 알려드립니다. 5km·10km·하프·풀코스 나이별 기록 등급표도 함께 확인하세요.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="러닝 기록 등급 계산기 — 나이·성별 반영 수준 확인">
+<meta property="og:description" content="완주 기록을 넣으면 나이와 성별을 반영해 내 러닝 수준이 어느 등급인지 알려드립니다. 로그인 없이 바로 가능합니다.">
+<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:url" content="https://calrank.vercel.app/level.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://calrank.vercel.app/level.html">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="myrank.css">
 <link rel="stylesheet" href="level.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"러닝 기록 등급 계산기","url":"https://calrank.vercel.app/level.html","applicationCategory":"HealthApplication","operatingSystem":"All","inLanguage":"ko-KR","description":"완주 기록에 나이와 성별 보정을 적용해 러닝 수준 등급을 계산하는 무료 도구입니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"isPartOf":{"@type":"WebSite","name":"calrank","url":"https://calrank.vercel.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"10km를 몇 분에 뛰면 잘 달리는 편인가요?","acceptedAnswer":{"@type":"Answer","text":"나이에 따라 기준이 달라집니다. 40세 남성이라면 48분 안쪽이 '매우 좋은 편', 1시간 2분 24초 안쪽이면 '평균 이상'에 들어갑니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, 나이별 등급표에서 본인 연령대 줄을 확인하는 편이 정확합니다."}},{"@type":"Question","name":"나이와 성별은 어떻게 반영되나요?","acceptedAnswer":{"@type":"Answer","text":"50세를 기준(계수 1.00)으로 두고 연령별 보정 계수를 적용합니다. 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용됩니다. 성별은 여성에게 1.11의 보정 계수를 적용해 같은 조건에서 비교할 수 있게 했습니다."}},{"@type":"Question","name":"하프나 풀코스 기록으로도 등급을 확인할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"가능합니다. 모든 거리를 Riegel 환산식(지수 1.06)으로 10km 환산 페이스로 바꾼 뒤 같은 잣대로 비교하기 때문에, 5km·10km·하프·풀코스 어느 기록을 넣어도 동일한 기준으로 등급이 나옵니다."}},{"@type":"Question","name":"이 등급이 공식 기준인가요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 일반적으로 통용되는 동호인 페이스 구간을 참고해 만든 자체 기준이며, 대회 입상 기준이나 의학적 체력 평가와는 무관한 참고용 지표입니다."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"calrank","item":"https://calrank.vercel.app/index.html"},{"@type":"ListItem","position":2,"name":"러닝 기록 등급 계산기"}]}</script>
+<style>
+  .lv-intro { max-width: 640px; margin: 0 auto; font-size: 14.5px; line-height: 1.85; color: #C3BDB9; }
+  .lv-sec { max-width: 640px; margin: 44px auto 0; }
+  .lv-sec h2 { font-size: 18px; margin-bottom: 10px; }
+  .lv-sec p { font-size: 14.5px; line-height: 1.85; color: #C3BDB9; }
+  .lv-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+  .lv-grid a { font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #D6D1CD; text-decoration: none; }
+  .lv-grid a:hover { border-color: var(--accent); color: var(--accent); }
+  .lv-grid a.hub { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+  .lv-faq details { border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .lv-faq summary { cursor: pointer; font-size: 14px; font-weight: 700; color: #E8E4E1; }
+  .lv-faq p { margin-top: 9px; font-size: 14px; line-height: 1.8; color: #B5AFAB; }
+  .lv-links { max-width: 640px; margin: 30px auto 0; font-size: 13.5px; line-height: 2; }
+  .lv-links a { color: #D6D1CD; text-decoration: none; border-bottom: 1px dashed #5E5A57; }
+  .lv-links a:hover { color: var(--accent); border-color: var(--accent); }
+  @media (max-width: 680px) { .lv-sec { margin-top: 34px; } }
+</style>
 </head>
 <body>
 
@@ -20,6 +53,8 @@
 <a href="index.html" class="nav-link">캘린더</a>
 <a href="ranking.html" class="nav-link">대회랭킹</a>
 <a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="grade.html" class="nav-link">등급표</a>
 <a href="myrank.html" class="nav-link">내 랭크</a>
 <a href="contact.html" class="nav-contact-link">제휴문의</a>
 </nav>
@@ -29,9 +64,13 @@
 <main class="wrap myrank-wrap">
 
 <section class="hero">
-<h1>마라톤 페이스 등급 계산기</h1>
-<p class="hero-sub">내 기록, 어느 정도일까? 나이·성별을 반영해서 체력 수준을 확인해보세요. 로그인 없이 바로 가능합니다.</p>
+<h1>러닝 기록 등급 계산기</h1>
+<p class="hero-sub">내 기록, 어느 정도일까? 나이·성별을 반영해서 수준을 확인해보세요. 로그인 없이 바로 가능합니다.</p>
 </section>
+
+<p class="lv-intro">10km를 55분에 들어온 기록은 잘 뛴 걸까요. 서른다섯 살이라면 평범한 축에 들지만, 예순이 넘었다면 또래 사이에서 꽤 앞선 기록입니다.
+절대 시간만 늘어놓은 표가 내 수준을 알려 주지 못하는 이유가 여기 있습니다. 아래 계산기는 나이와 성별 차이를 먼저 보정한 뒤,
+같은 조건의 동호인 사이에서 내 기록이 어디쯤 놓이는지 알려 줍니다. 5km부터 풀코스까지 어느 거리든 넣어도 같은 기준으로 비교됩니다.</p>
 
 <div class="level-form-card">
 <form id="levelForm" class="level-form">
@@ -62,6 +101,49 @@
 <div id="levelResult" class="level-result" style="display:none;"></div>
 
 <p class="level-disclaimer">이 결과는 일반적으로 통용되는 동호인 페이스 데이터를 바탕으로 나이·성별 차이를 근사 반영한 참고용 추정치이며, 공식 통계나 의학적 판단이 아닙니다. 서로 다른 거리 기록 비교에는 Riegel 환산 공식(러닝 성과 환산에 흔히 쓰이는 방식)을 사용합니다.</p>
+
+<section class="lv-sec">
+<h2>나이별 기록 등급표로 바로 보기</h2>
+<p>숫자를 넣는 대신 표에서 내 자리를 찾고 싶다면, 거리와 성별별로 20세부터 75세까지 기준 기록을 정리해 둔 등급표가 있습니다.
+표에 적힌 시간은 그 등급을 받기 위한 가장 느린 기록이고, 계산기와 같은 모델로 계산해 두 결과가 어긋나지 않습니다.</p>
+<div class="lv-grid">
+<a class="hub" href="grade.html">전체 등급표 한눈에 보기</a>
+</div>
+<div class="lv-grid">
+<a href="grade-5km-male.html">5km 남성</a>
+<a href="grade-5km-female.html">5km 여성</a>
+<a href="grade-10km-male.html">10km 남성</a>
+<a href="grade-10km-female.html">10km 여성</a>
+<a href="grade-half-male.html">하프마라톤 남성</a>
+<a href="grade-half-female.html">하프마라톤 여성</a>
+<a href="grade-full-male.html">풀코스 남성</a>
+<a href="grade-full-female.html">풀코스 여성</a>
+</div>
+</section>
+
+<section class="lv-sec">
+<h2>등급은 어떻게 계산하나</h2>
+<p>등급 구분은 거리마다 따로 두지 않고 10km 환산 페이스 하나로 통일했습니다. 서로 다른 거리의 기록을 같은 잣대로 비교하기 위해
+러닝에서 널리 쓰이는 Riegel 환산식(지수 1.06)을 사용했고, 여기에 연령대별 기량 감소와 성별 차이를 보정 계수로 반영했습니다.
+50세를 기준(1.00)으로 두고 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용되는 구조입니다.
+등급은 빠른 순으로 상당한 러너 · 러닝 상급자 · 매우 좋은 편 · 상당히 좋은 편 · 평균 이상 · 보통 · 초보/기초체력 일곱 구간으로 나뉩니다.</p>
+</section>
+
+<section class="lv-sec">
+<h2>자주 묻는 질문</h2>
+<div class="lv-faq">
+<details><summary>10km를 몇 분에 뛰면 잘 달리는 편인가요?</summary><p>나이에 따라 기준이 달라집니다. 40세 남성이라면 48분 안쪽이 '매우 좋은 편', 1시간 2분 24초 안쪽이면 '평균 이상'에 들어갑니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, <a href="grade-10km-male.html" style="color:var(--accent);">나이별 등급표</a>에서 본인 연령대 줄을 확인하는 편이 정확합니다.</p></details>
+<details><summary>나이와 성별은 어떻게 반영되나요?</summary><p>50세를 기준(계수 1.00)으로 두고 연령별 보정 계수를 적용합니다. 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용됩니다. 성별은 여성에게 1.11의 보정 계수를 적용해 같은 조건에서 비교할 수 있게 했습니다.</p></details>
+<details><summary>하프나 풀코스 기록으로도 등급을 확인할 수 있나요?</summary><p>가능합니다. 모든 거리를 Riegel 환산식(지수 1.06)으로 10km 환산 페이스로 바꾼 뒤 같은 잣대로 비교하기 때문에, 5km·10km·하프·풀코스 어느 기록을 넣어도 동일한 기준으로 등급이 나옵니다.</p></details>
+<details><summary>이 등급이 공식 기준인가요?</summary><p>아닙니다. 일반적으로 통용되는 동호인 페이스 구간을 참고해 만든 자체 기준이며, 대회 입상 기준이나 의학적 체력 평가와는 무관한 참고용 지표입니다.</p></details>
+</div>
+</section>
+
+<div class="lv-links">
+<a href="myrank.html">내 기록 저장하고 랭킹에서 비교하기</a><br>
+<a href="index.html">다가오는 대회 일정 보기</a><br>
+<a href="column.html">러닝 칼럼 읽어보기</a>
+</div>
 
 </main>
 
