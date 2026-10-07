@@ -128,12 +128,10 @@ async function boot() {
   $("rsPwForm").addEventListener("submit", submitNewPassword);
   $("rsAgainForm").addEventListener("submit", resendLink);
 
-  // 토큰 처리가 끝나면 세션이 생기고 이벤트가 온다
-  sb.auth.onAuthStateChange((_event, session) => {
-    if (session) openPasswordForm();
-  });
-
-  // Supabase 가 링크를 거부한 경우 (#error=access_denied&error_code=otp_expired 등)
+  // Supabase 가 링크를 거부한 경우 (#error=access_denied&error_code=otp_expired 등).
+  // 이 판정은 세션 복구보다 먼저 해야 한다. 뒤로 미루면, 같은 브라우저에 남아 있던
+  // 다른 사람의 로그인 세션이 먼저 살아나 "만료된 링크로 남의 비밀번호를 바꾸는"
+  // 화면이 열린다(공용 PC). 거부된 링크는 무조건 재발송 화면으로 보낸다.
   if (HAS_ERROR) {
     // hash 와 search 를 따로 읽는다 (둘을 이어 붙이면 값이 섞인다)
     const parts = [location.hash.replace(/^#/, ""), location.search.replace(/^\?/, "")];
@@ -148,6 +146,11 @@ async function boot() {
       : "이 링크로는 비밀번호를 바꿀 수 없습니다. 가입한 이메일을 넣으면 새 링크를 보내드립니다.");
     return;
   }
+
+  // 토큰 처리가 끝나면 세션이 생기고 이벤트가 온다
+  sb.auth.onAuthStateChange((_event, session) => {
+    if (session) openPasswordForm();
+  });
 
   // 토큰이 있으면 처리될 때까지 잠깐 기다린다 (최대 약 3초)
   const tries = HAS_TOKEN ? 30 : 1;
