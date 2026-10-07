@@ -133,7 +133,8 @@
 </div>
 
 <form id="recordForm" class="record-form">
-<input type="text" id="rfName" placeholder="대회명" required>
+<input type="text" id="rfName" placeholder="대회명 (한두 글자만 쳐도 목록에서 고를 수 있어요)" list="rfNameList" autocomplete="off" required>
+<datalist id="rfNameList"></datalist>
 <div style="display:flex; gap:4px; margin-bottom:8px;">
 <select id="rfYear" required style="flex:1.2;"></select>
 <select id="rfMonth" required style="flex:1;"></select>
