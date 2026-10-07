@@ -716,14 +716,14 @@ function setupCalendarSubscribe() {
   const origin = "calrank.vercel.app";
   let picked = "";
 
-  function apply() {
+  let apply = function () {
     const path = "/feed" + picked + ".ics";
     go.href = "webcal://" + origin + path;
     urlEl.textContent = "https://" + origin + path;
     wrap.querySelectorAll(".sub-sport").forEach((b) => {
       b.classList.toggle("on", b.dataset.suffix === picked);
     });
-  }
+  };
 
   SUB_FEEDS.forEach(([suffix, label]) => {
     const b = document.createElement("button");
@@ -739,6 +739,51 @@ function setupCalendarSubscribe() {
   btn.addEventListener("click", () => {
     panel.style.display = panel.style.display === "none" ? "block" : "none";
   });
+
+  // 플랫폼마다 되는 길이 다르다. 안 되는 방법을 1순위로 보여 주면 거기서 끝난다.
+  //  · iOS/macOS : webcal:// 를 누르면 캘린더 앱이 바로 받는다.
+  //  · 안드로이드: 폰에서는 구독 자체가 불가능하다. 구글 캘린더 고객센터가
+  //    "To subscribe to a new calendar, you must use a computer web browser"
+  //    라고 못박고 있다. PC 에서 한 번 등록하면 폰으로 동기화된다.
+  //  · PC        : 구글 캘린더의 'URL로 추가' 화면을 바로 열어 준다.
+  var ua = navigator.userAgent || "";
+  var isApple = /iPhone|iPad|iPod|Macintosh/.test(ua);
+  var isAndroid = /Android/.test(ua);
+  var guide = document.getElementById("subGuide");
+
+  function applyPlatform() {
+    var https = urlEl.textContent;
+    if (isAndroid) {
+      go.textContent = "📋 주소 복사 (PC에서 등록)";
+      go.href = "#";
+      go.onclick = function (e) { e.preventDefault(); copyBtn.click(); };
+      if (guide) {
+        guide.innerHTML = "안드로이드는 <b>폰에서 캘린더 구독을 추가할 수 없습니다</b> — " +
+          "구글 캘린더가 \u201C새 캘린더를 구독하려면 PC 웹 브라우저를 사용해야 한다\u201D고 " +
+          "안내하고 있습니다. PC에서 한 번만 등록하면 폰으로 자동 동기화됩니다.<br>" +
+          "<b>폰에서 지금 바로 하시려면</b>, 대회 상세 페이지의 " +
+          "\u2018📅 내 캘린더에 추가\u2019 를 쓰시면 됩니다. 대회 한 건씩 바로 들어갑니다.";
+      }
+    } else if (isApple) {
+      go.textContent = "📅 내 캘린더에 추가";
+      go.onclick = null;
+      if (guide) guide.textContent = "누르면 캘린더 앱이 열립니다. 구독을 눌러 주세요.";
+    } else {
+      go.textContent = "📅 구글 캘린더에 추가";
+      go.href = "https://calendar.google.com/calendar/u/0/r?cid=" + encodeURIComponent(https);
+      go.target = "_blank";
+      go.rel = "noopener";
+      go.onclick = null;
+      if (guide) {
+        guide.textContent = "구글 캘린더가 열리면 \u2018추가\u2019 를 눌러 주세요. " +
+          "애플 캘린더를 쓰신다면 아래 주소를 복사해 \u2018구독 캘린더 추가\u2019 에 넣으시면 됩니다.";
+      }
+    }
+  }
+
+  var baseApply = apply;
+  apply = function () { baseApply(); applyPlatform(); };
+  apply();
 
   if (copyBtn) {
     copyBtn.addEventListener("click", async () => {

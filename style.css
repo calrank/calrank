@@ -374,3 +374,27 @@ body{
   .sub-panel{padding:14px;}
   .sub-lead{font-size:12.5px;}
 }
+
+/* 대회별 "내 캘린더에 추가".
+   전체 구독은 안드로이드에서 불가능하다 — 구글 캘린더 고객센터가
+   "새 캘린더를 구독하려면 PC 웹 브라우저를 써야 한다"고 명시한다.
+   방문자의 39%가 안드로이드라 대회 한 건을 넣는 경로를 따로 둔다. */
+.ac-box{
+  margin-top:20px;padding:15px 16px;border:1px solid var(--border);
+  border-radius:4px;background:var(--surface);
+}
+.ac-h{display:block;font-size:14px;color:var(--ink);margin-bottom:11px;}
+.ac-row{display:flex;gap:8px;flex-wrap:wrap;}
+.ac-btn{
+  flex:1 1 150px;padding:12px 14px;border-radius:3px;border:1px solid var(--border);
+  background:none;color:var(--ink);font-family:inherit;font-size:13.5px;font-weight:700;
+  text-align:center;text-decoration:none;cursor:pointer;line-height:1.3;
+}
+.ac-btn:hover{border-color:var(--accent);color:var(--accent);}
+.ac-btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;}
+.ac-btn.pri:hover{color:#fff;opacity:.9;}
+.ac-note{display:block;margin-top:10px;font-size:11.5px;line-height:1.65;color:var(--ink-faint);}
+@media (max-width:600px){
+  .ac-box{padding:13px 14px;}
+  .ac-btn{flex:1 1 100%;}
+}

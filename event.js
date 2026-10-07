@@ -351,7 +351,15 @@ async function init() {
     <div class="event-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">${buildEventTags(ev).map(tag => `<a href="${tag.href}" class="chip" style="text-decoration:none; font-size:12px; padding:4px 10px;">#${tag.label}</a>`).join("")}</div>
     <div id="weatherWidget"></div>
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
+    <div id="addCalWidget"></div>
   `;
+
+  // 전체 구독(feed.ics)은 안드로이드에서 불가능하다 — 구글 캘린더가 "새 캘린더를
+  // 구독하려면 PC 웹 브라우저를 써야 한다"고 명시한다. 방문자의 39%가 안드로이드라
+  // 대회 한 건을 그 자리에서 넣는 길을 따로 둔다.
+  if (window.CalrankAddCal) {
+    window.CalrankAddCal.mount(document.getElementById("addCalWidget"), ev);
+  }
 
   const eventSaveBtn = document.getElementById("eventSaveBtn");
   if (eventSaveBtn) {
