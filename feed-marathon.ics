@@ -3,9 +3,9 @@ VERSION:2.0
 PRODID:-//calrank//KO
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:calrank 전체 대회 일정
-X-WR-CALDESC:calrank.vercel.app — 마라톤·자전거·트레일·철인
- 3종·인라인 대회 일정
+X-WR-CALNAME:calrank 마라톤 대회 일정
+X-WR-CALDESC:calrank.vercel.app — 마라톤 대회 일정과 접수 마
+ 감 알림
 X-WR-TIMEZONE:Asia/Seoul
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
@@ -89,32 +89,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:제26회 홍성마라톤 내일입니다 — 배번과 출발 
  시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-2026-빙그레그란폰도-2026-10-09@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261009
-SUMMARY:2026 빙그레그란폰도
-LOCATION:공주시민운동장
-DESCRIPTION:종목: 113.3km\, 106.7km\n시간: 06:00\n장소: 공주시민
- 운동장\n신청: https://binggraegranfondo.com/\nhttps://calrank.vercel.
- app/e/cy-2026-%EB%B9%99%EA%B7%B8%EB%A0%88%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F
- %84-2026-10-09.html
-URL:https://calrank.vercel.app/e/cy-2026-%EB%B9%99%EA%B7%B8%EB%A0%88%EA%B7%
- B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-09.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 빙그레그란폰도 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 빙그레그란폰도 내일입니다 — 배번과 출발
-  시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -254,33 +228,6 @@ DESCRIPTION:2026 고흥우주항공배 마라톤 내일입니다 — 배번
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-제3회서울트레일런-대회-2026-10-10@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261010
-SUMMARY:제3회서울트레일런 대회
-LOCATION:시청 덕수궁돌담길
-DESCRIPTION:종목: 37: 20:11\n장소: 시청 덕수궁돌담길\n접수 
- 마감: 2026-08-05\n주최: 서울울트라랠리\n신청: http://www.xn--
- zl2btb922be3fb2a860c.com/\nhttps://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9
- A%8C%EC%84%9C%EC%9A%B8%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A
- %8C-2026-10-10.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C%EC%84%9C%EC%9A%B8%E
- D%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제3회서울트레일런 대회 D-7 — 준비물과 교통편
- 을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제3회서울트레일런 대회 내일입니다 — 배번과 
- 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-제주풍차런-2026-10-10@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261010
@@ -389,36 +336,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:제3회 성동구연맹회장기 마라톤 내일입니다 — 
  배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-제5회-구미시장배-금오산트레일-레이스-2026-10-10@calr
- ank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261010
-SUMMARY:제5회 구미시장배 금오산트레일 레이스
-LOCATION:금오산 공영 대주차장
-DESCRIPTION:종목: 10km\, 18k\, 23k\n장소: 금오산 공영 대주차장
- \n접수 마감: 2026-07-31\n주최: 구미시산악연맹\, 구미트레
- 일런\n신청: http://cafe.naver.com/gumitrailrunnerclub\nhttps://calrank
- .vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EA%B5%AC%EB%AF%B8%EC%8B%9C%EC%9E%A5%
- EB%B0%B0-%EA%B8%88%EC%98%A4%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%A0%88%
- EC%9D%B4%EC%8A%A4-2026-10-10.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EA%B5%AC%EB%AF%B8%
- EC%8B%9C%EC%9E%A5%EB%B0%B0-%EA%B8%88%EC%98%A4%EC%82%B0%ED%8A%B8%EB%A0%88%E
- C%9D%BC-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-10.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제5회 구미시장배 금오산트레일 레이스 D-7 — 
- 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제5회 구미시장배 금오산트레일 레이스 내일입
- 니다 — 배번과 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -590,35 +507,6 @@ DESCRIPTION:패밀리런 제4회 강서허준런(RUN) 내일입니다 —
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rm-37-20-11-제3회서울트레일런-대회-2026-10-10@calrank.vercel.
- app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261010
-SUMMARY:37: 20:11 제3회서울트레일런 대회
-LOCATION:시청 덕수궁돌담길
-DESCRIPTION:시간: 07시30분출발 집결\n장소: 시청 덕수궁돌담
- 길\n접수 마감: 2026-08-05\n주최: 서울울트라랠리\n신청: htt
- p://www.xn--zl2btb922be3fb2a860c.com/\nhttps://calrank.vercel.app/e/rm-37-
- 20-11-%EC%A0%9C3%ED%9A%8C%EC%84%9C%EC%9A%B8%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%
- 9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html
-URL:https://calrank.vercel.app/e/rm-37-20-11-%EC%A0%9C3%ED%9A%8C%EC%84%9C%E
- C%9A%B8%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:37: 20:11 제3회서울트레일런 대회 D-7 — 준비물과
-  교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:37: 20:11 제3회서울트레일런 대회 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:ro-제7회-천안삼거리-흥타령-울트라마라톤-2026-10-10@calr
  ank.vercel.app
 DTSTAMP:20261007T222541Z
@@ -726,32 +614,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:2026 하트런 내일입니다 — 배번과 출발 시간을 
  확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-진안트레일레이스-2026-10-10@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261010
-SUMMARY:진안트레일레이스
-LOCATION:국립진안고원산림치유원
-DESCRIPTION:종목: 16km\, 6km\n장소: 국립진안고원산림치유원\n
- 접수 마감: 2026-09-20\n주최: 주식회사 락앤런\n신청: http://
- rocknrun.kr\nhttps://calrank.vercel.app/e/rr-%EC%A7%84%EC%95%88%ED%8A%B8%E
- B%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-10.html
-URL:https://calrank.vercel.app/e/rr-%EC%A7%84%EC%95%88%ED%8A%B8%EB%A0%88%EC
- %9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-10.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:진안트레일레이스 D-7 — 준비물과 교통편을 확
- 인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:진안트레일레이스 내일입니다 — 배번과 출발 
- 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -944,32 +806,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:제4회 강서허준런 내일입니다 — 배번과 출발 
  시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rw-제3회-서울트레일런-대회-2026-10-10@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261010
-SUMMARY:제3회 서울트레일런 대회
-LOCATION:서울
-DESCRIPTION:종목: 37km · 20km · 10km\n장소: 서울\n접수 마감: 20
- 26-08-05\n신청: https://runningwikii.com/entry/seoul-trail-run/\nhttps:/
- /calrank.vercel.app/e/rw-%EC%A0%9C3%ED%9A%8C-%EC%84%9C%EC%9A%B8%ED%8A%B8%E
- B%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html
-URL:https://calrank.vercel.app/e/rw-%EC%A0%9C3%ED%9A%8C-%EC%84%9C%EC%9A%B8%
- ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제3회 서울트레일런 대회 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제3회 서울트레일런 대회 내일입니다 — 배번과
-  출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -2034,35 +1870,6 @@ DESCRIPTION:러너온 크루 매치 내일입니다 — 배번과 출발
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:tri-제107회-전국체육대회-2026-10-16@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261016
-SUMMARY:제107회 전국체육대회
-LOCATION:제주 제주시 구좌읍 김녕리 김녕해수욕장
-DESCRIPTION:종목: 전문체육(일반부(남/여) 개인전 및 단체전
- : 스탠다드 / 혼성릴레이: 슈퍼스프린트)\, 18세 이하부(
- 남) 개인전 및 단체전: 스프린트)\n장소: 제주 제주시 구
- 좌읍 김녕리 김녕해수욕장\n신청: https://triathlon.or.kr/event
- s/tour/overview/?mode=overview&tourcd=2051&page=1&sYear=2026&vType=list&fi
- eld=&keyword=\nhttps://calrank.vercel.app/e/tri-%EC%A0%9C107%ED%9A%8C-%EC%
- A0%84%EA%B5%AD%EC%B2%B4%EC%9C%A1%EB%8C%80%ED%9A%8C-2026-10-16.html
-URL:https://calrank.vercel.app/e/tri-%EC%A0%9C107%ED%9A%8C-%EC%A0%84%EA%B5%
- AD%EC%B2%B4%EC%9C%A1%EB%8C%80%ED%9A%8C-2026-10-16.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제107회 전국체육대회 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제107회 전국체육대회 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-2026-의정부시-물길마라톤-2026-10-17@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261017
@@ -3003,32 +2810,6 @@ DESCRIPTION:제23회 여주 세종대왕 마라톤 내일입니다 — 배
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:cy-2026-비앙키-그란폰도-춘천-2026-10-18@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261018
-SUMMARY:2026 비앙키 그란폰도 춘천
-LOCATION:춘천송암스포츠타운
-DESCRIPTION:종목: 122.9km\, 81.7km\n시간: 06:00\n장소: 춘천송암
- 스포츠타운\n신청: https://www.bianchigranfondo.kr/\nhttps://calrank
- .vercel.app/e/cy-2026-%EB%B9%84%EC%95%99%ED%82%A4-%EA%B7%B8%EB%9E%80%ED%8F
- %B0%EB%8F%84-%EC%B6%98%EC%B2%9C-2026-10-18.html
-URL:https://calrank.vercel.app/e/cy-2026-%EB%B9%84%EC%95%99%ED%82%A4-%EA%B7
- %B8%EB%9E%80%ED%8F%B0%EB%8F%84-%EC%B6%98%EC%B2%9C-2026-10-18.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 비앙키 그란폰도 춘천 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 비앙키 그란폰도 춘천 내일입니다 — 배번
- 과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-휠체어-제23회-여주-세종대왕-마라톤-2026-10-18@calrank.
  vercel.app
 DTSTAMP:20261007T222541Z
@@ -3581,92 +3362,6 @@ DESCRIPTION:2026 제3회 감성런 접수가 내일 마감됩니다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:cy-winspace와-함께하는-2026-섬섬여수-그란폰도-2026-10-24@c
- alrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:WINSPACE와 함께하는 2026 섬섬여수 그란폰도
-LOCATION:여수 소호요트마리나
-DESCRIPTION:종목: 112.8km\, 93.3km\n시간: 06:30\n장소: 여수 소호
- 요트마리나\n신청: http://speedagency.kr/more.html?game_code=112\nht
- tps://calrank.vercel.app/e/cy-winspace%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%9
- 8%EB%8A%94-2026-%EC%84%AC%EC%84%AC%EC%97%AC%EC%88%98-%EA%B7%B8%EB%9E%80%ED
- %8F%B0%EB%8F%84-2026-10-24.html
-URL:https://calrank.vercel.app/e/cy-winspace%EC%99%80-%ED%95%A8%EA%BB%98%ED
- %95%98%EB%8A%94-2026-%EC%84%AC%EC%84%AC%EC%97%AC%EC%88%98-%EA%B7%B8%EB%9E%
- 80%ED%8F%B0%EB%8F%84-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:WINSPACE와 함께하는 2026 섬섬여수 그란폰도 D-7 —
-  준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:WINSPACE와 함께하는 2026 섬섬여수 그란폰도 내일
- 입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:tri-2026-통영-월드-트라이애슬론-컵-2026-10-24@calrank.vercel
- .app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 통영 월드 트라이애슬론 컵
-LOCATION:경남 통영시 트라이애슬론광장 일원
-DESCRIPTION:종목: 전문체육(스프린트)\, 생활체육(스탠다드)
- \n장소: 경남 통영시 트라이애슬론광장 일원\n신청: https:
- //triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2042&page=1&s
- Year=2026&vType=list&field=&keyword=\nhttps://calrank.vercel.app/e/tri-202
- 6-%ED%86%B5%EC%98%81-%EC%9B%94%EB%93%9C-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%
- A0%EC%8A%AC%EB%A1%A0-%EC%BB%B5-2026-10-24.html
-URL:https://calrank.vercel.app/e/tri-2026-%ED%86%B5%EC%98%81-%EC%9B%94%EB%9
- 3%9C-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%A0%EC%8A%AC%EB%A1%A0-%EC%BB%B5-2026
- -10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 통영 월드 트라이애슬론 컵 D-7 — 준비물과 
- 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 통영 월드 트라이애슬론 컵 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-2026-gtws-무주-트레일-2026-10-24@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 GTWS 무주 트레일
-LOCATION:전북 무주 덕유산 리조트
-DESCRIPTION:종목: 26km\, 18km\, 10km\n장소: 전북 무주 덕유산 리
- 조트\n접수 마감: 2026-05-30\n주최: 전북\n신청: https://www.fac
- ebook.com/jeonbuk.kr/posts/1441578457998057\nhttps://calrank.vercel.app/e/
- rm-2026-gtws-%EB%AC%B4%EC%A3%BC-%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-10-24.htm
- l
-URL:https://calrank.vercel.app/e/rm-2026-gtws-%EB%AC%B4%EC%A3%BC-%ED%8A%B8%
- EB%A0%88%EC%9D%BC-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 GTWS 무주 트레일 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 GTWS 무주 트레일 내일입니다 — 배번과 출발
-  시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-2026-하남-어텀-패밀리-마라톤-2026-10-24@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261024
@@ -3832,115 +3527,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:2026 SEOUL PETLYMPIC & RUN WITH GO 내일입니다 — 배번
  과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-담양-트레일런-데이브레이크-2026-10-24@calrank.verce
- l.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 담양 트레일런 데이브레이크
-LOCATION:담양군 일원
-DESCRIPTION:종목: 29km\, 9km\n장소: 담양군 일원\n접수 마감: 20
- 26-10-24\n주최: 담양군\n신청: http://projectruntrip.com\nhttps://ca
- lrank.vercel.app/e/rr-2026-%EB%8B%B4%EC%96%91-%ED%8A%B8%EB%A0%88%EC%9D%BC%
- EB%9F%B0-%EB%8D%B0%EC%9D%B4%EB%B8%8C%EB%A0%88%EC%9D%B4%ED%81%AC-2026-10-24
- .html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%8B%B4%EC%96%91-%ED%8A%B8%EB%A0
- %88%EC%9D%BC%EB%9F%B0-%EB%8D%B0%EC%9D%B4%EB%B8%8C%EB%A0%88%EC%9D%B4%ED%81%
- AC-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 담양 트레일런 데이브레이크 D-7 — 준비물
- 과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 담양 트레일런 데이브레이크 내일입니다 —
-  배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-서울-대모-구룡산트레일런-2026-10-24@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:서울 대모-구룡산트레일런
-LOCATION:수서역6번출구
-DESCRIPTION:종목: 14.6km\n장소: 수서역6번출구\n접수 마감: 202
- 6-10-23\n주최: 파브코리아\n신청: http://www.mtrailrun.kr/\nhttps:
- //calrank.vercel.app/e/rr-%EC%84%9C%EC%9A%B8-%EB%8C%80%EB%AA%A8-%EA%B5%AC%
- EB%A3%A1%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-%EC%84%9C%EC%9A%B8-%EB%8C%80%EB%AA%A8-%
- EA%B5%AC%EB%A3%A1%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:서울 대모-구룡산트레일런 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:서울 대모-구룡산트레일런 내일입니다 — 배번
- 과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-서울-대모-구룡산트레일런-2026-10-24-deadline@calrank.verc
- el.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261023
-SUMMARY:[접수 마감] 서울 대모-구룡산트레일런
-DESCRIPTION:종목: 14.6km\n장소: 수서역6번출구\n접수 마감: 202
- 6-10-23\n주최: 파브코리아\n신청: http://www.mtrailrun.kr/\nhttps:
- //calrank.vercel.app/e/rr-%EC%84%9C%EC%9A%B8-%EB%8C%80%EB%AA%A8-%EA%B5%AC%
- EB%A3%A1%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-%EC%84%9C%EC%9A%B8-%EB%8C%80%EB%AA%A8-%
- EA%B5%AC%EB%A3%A1%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:서울 대모-구룡산트레일런 접수 마감 3일 전입
- 니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:서울 대모-구룡산트레일런 접수가 내일 마감됩
- 니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-불닭-버닝-트레일런-2026-10-24@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:불닭 버닝 트레일런
-LOCATION:대관령 삼양라운드힐
-DESCRIPTION:종목: 5km\, 23K\, 13K\n장소: 대관령 삼양라운드힐\n
- 접수 마감: 2026-09-06\n주최: 프립\, 러너킹\n신청: http://burn
- ingfesta.com\nhttps://calrank.vercel.app/e/rr-%EB%B6%88%EB%8B%AD-%EB%B2%84
- %EB%8B%9D-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-%EB%B6%88%EB%8B%AD-%EB%B2%84%EB%8B%9D-%
- ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:불닭 버닝 트레일런 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:불닭 버닝 트레일런 내일입니다 — 배번과 출발
-  시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -4694,62 +4280,6 @@ DESCRIPTION:2026 춘천마라톤 내일입니다 — 배번과 출발 시
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026-청송사과트레일런-2026-10-25@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261025
-SUMMARY:2026 청송사과트레일런
-LOCATION:청송군민운동장
-DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 청송군민운동장\n접
- 수 마감: 2026-08-30\n주최: 청송군\, 매일신문\n신청: http://c
- smarathon.co.kr/csmarathon/\nhttps://calrank.vercel.app/e/rr-2026-%EC%B2%A
- D%EC%86%A1%EC%82%AC%EA%B3%BC%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-2
- 5.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%B2%AD%EC%86%A1%EC%82%AC%EA%B3%
- BC%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-25.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 청송사과트레일런 D-7 — 준비물과 교통편을
-  확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 청송사과트레일런 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-위아위스와-함께-하는-2026-홍천-그란폰도-2026-10-25@ca
- lrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261025
-SUMMARY:위아위스와 함께 하는 2026 홍천 그란폰도
-LOCATION:홍천종합운동장
-DESCRIPTION:종목: 119.4km\, 75.3km\n시간: 07:00\n장소: 홍천종합
- 운동장\n신청: https://www.hongcheonbikefestival.com/riding/intro-gran
- fondo\nhttps://calrank.vercel.app/e/cy-%EC%9C%84%EC%95%84%EC%9C%84%EC%8A%A
- 4%EC%99%80-%ED%95%A8%EA%BB%98-%ED%95%98%EB%8A%94-2026-%ED%99%8D%EC%B2%9C-%
- EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-25.html
-URL:https://calrank.vercel.app/e/cy-%EC%9C%84%EC%95%84%EC%9C%84%EC%8A%A4%EC
- %99%80-%ED%95%A8%EA%BB%98-%ED%95%98%EB%8A%94-2026-%ED%99%8D%EC%B2%9C-%EA%B
- 7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-25.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:위아위스와 함께 하는 2026 홍천 그란폰도 D-7 — 
- 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:위아위스와 함께 하는 2026 홍천 그란폰도 내일
- 입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-울산-런-페스타-u-run-2026-10-25@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261025
@@ -4912,32 +4442,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:춘천마라톤 내일입니다 — 배번과 출발 시간을 
  확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ro-2026-청송사과-트레일런-2026-10-25@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261025
-SUMMARY:2026 청송사과 트레일런
-LOCATION:청송군민운동장
-DESCRIPTION:종목: 하프 · 10km · 5km\n장소: 청송군민운동장\n
- 접수 마감: 2026-08-30\n신청: https://csmarathon.co.kr/csmarathon/joi
- n/p/\nhttps://calrank.vercel.app/e/ro-2026-%EC%B2%AD%EC%86%A1%EC%82%AC%EA%
- B3%BC-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-25.html
-URL:https://calrank.vercel.app/e/ro-2026-%EC%B2%AD%EC%86%A1%EC%82%AC%EA%B3%
- BC-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-25.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 청송사과 트레일런 D-7 — 준비물과 교통편
- 을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 청송사과 트레일런 내일입니다 — 배번과 
- 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -5104,116 +4608,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:2026 오티즘 레이스 내일입니다 — 배번과 출발 
  시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-2026-스캇-백두대간챌린지-2026-10-31@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:2026 스캇 백두대간챌린지
-LOCATION:예천스타디움
-DESCRIPTION:종목: 103.9km\, 93.8km\n시간: 08:00\n장소: 예천스타
- 디움\n신청: https://xcworks.com/sub/race.html?type=view&wrNo=20\nhttps
- ://calrank.vercel.app/e/cy-2026-%EC%8A%A4%EC%BA%87-%EB%B0%B1%EB%91%90%EB%8
- C%80%EA%B0%84%EC%B1%8C%EB%A6%B0%EC%A7%80-2026-10-31.html
-URL:https://calrank.vercel.app/e/cy-2026-%EC%8A%A4%EC%BA%87-%EB%B0%B1%EB%91
- %90%EB%8C%80%EA%B0%84%EC%B1%8C%EB%A6%B0%EC%A7%80-2026-10-31.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 스캇 백두대간챌린지 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 스캇 백두대간챌린지 내일입니다 — 배번과
-  출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-광주mbc-2026-영산강-그란폰도-in-나주-2026-10-31@calrank.v
- ercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:광주MBC 2026 영산강 그란폰도 in 나주
-LOCATION:영산강 둔치체육공원
-DESCRIPTION:종목: 126.5km\, 106.2km\n시간: 06:30\n장소: 영산강 둔
- 치체육공원\n신청: http://speedagency.kr/more.html?game_code=114\nht
- tps://calrank.vercel.app/e/cy-%EA%B4%91%EC%A3%BCmbc-2026-%EC%98%81%EC%82%B
- 0%EA%B0%95-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-in-%EB%82%98%EC%A3%BC-2026
- -10-31.html
-URL:https://calrank.vercel.app/e/cy-%EA%B4%91%EC%A3%BCmbc-2026-%EC%98%81%EC
- %82%B0%EA%B0%95-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-in-%EB%82%98%EC%A3%BC
- -2026-10-31.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:광주MBC 2026 영산강 그란폰도 in 나주 D-7 — 준비
- 물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:광주MBC 2026 영산강 그란폰도 in 나주 내일입니다
-  — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:tri-제22회-울진-트라이애슬론-대회-2026-10-31@calrank.vercel
- .app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:제22회 울진 트라이애슬론 대회
-LOCATION:울진군 후포면 요트경기장
-DESCRIPTION:장소: 울진군 후포면 요트경기장\n신청: https://tr
- iathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2111&page=1&sYear
- =2026&vType=list&field=&keyword=\nhttps://calrank.vercel.app/e/tri-%EC%A0%
- 9C22%ED%9A%8C-%EC%9A%B8%EC%A7%84-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%A0%EC%8
- A%AC%EB%A1%A0-%EB%8C%80%ED%9A%8C-2026-10-31.html
-URL:https://calrank.vercel.app/e/tri-%EC%A0%9C22%ED%9A%8C-%EC%9A%B8%EC%A7%8
- 4-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%A0%EC%8A%AC%EB%A1%A0-%EB%8C%80%ED%9A%8
- C-2026-10-31.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제22회 울진 트라이애슬론 대회 D-7 — 준비물과 
- 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제22회 울진 트라이애슬론 대회 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-2026-부여-굿뜨래-그란폰도-2026-10-31@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:2026 부여 굿뜨래 그란폰도
-LOCATION:부여 종합운동장
-DESCRIPTION:종목: 54.9km\, 105.7km\n시간: 07:00\n장소: 부여 종합
- 운동장\n신청: https://www.thebike.co.kr/race/view?r_idx=343\nhttps://
- calrank.vercel.app/e/cy-2026-%EB%B6%80%EC%97%AC-%EA%B5%BF%EB%9C%A8%EB%9E%9
- 8-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-31.html
-URL:https://calrank.vercel.app/e/cy-2026-%EB%B6%80%EC%97%AC-%EA%B5%BF%EB%9C
- %A8%EB%9E%98-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-31.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 부여 굿뜨래 그란폰도 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 부여 굿뜨래 그란폰도 내일입니다 — 배번
- 과 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -6175,35 +5569,6 @@ DESCRIPTION:GVIE RUN 2026 구미 접수가 내일 마감됩니다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026-문경-레전드-트레일-백두대간-2026-11-07@calrank.verc
- el.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261107
-SUMMARY:2026 문경 레전드 트레일 백두대간
-LOCATION:문경새재도립공원 야외공연장
-DESCRIPTION:종목: 50k\, 34k\, 21k\n장소: 문경새재도립공원 야
- 외공연장\n접수 마감: 2026-08-12\n주최: 에코라인\n신청: htt
- p://legendtrail.kr/\nhttps://calrank.vercel.app/e/rr-2026-%EB%AC%B8%EA%B2%
- BD-%EB%A0%88%EC%A0%84%EB%93%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%B0%B1%EB%91
- %90%EB%8C%80%EA%B0%84-2026-11-07.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%AC%B8%EA%B2%BD-%EB%A0%88%EC%A0
- %84%EB%93%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%B0%B1%EB%91%90%EB%8C%80%EA%B0
- %84-2026-11-07.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 문경 레전드 트레일 백두대간 D-7 — 준비물
- 과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 문경 레전드 트레일 백두대간 내일입니다 
- — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-제19회-진해마라톤-2026-11-07@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261107
@@ -6337,37 +5702,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:2026 영천댐 마라톤 내일입니다 — 배번과 출발 
  시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-제35회-문화체육관광부장관기-무주메디오폰도대회-
- 2026-11-07@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261107
-SUMMARY:제35회 문화체육관광부장관기 무주메디오폰도대회
-LOCATION:무주등나무운동장 주차장
-DESCRIPTION:종목: 95.5km\n시간: 07:00\n장소: 무주등나무운동장
-  주차장\n신청: https://www.jbcycling.or.kr/reception/\nhttps://calran
- k.vercel.app/e/cy-%EC%A0%9C35%ED%9A%8C-%EB%AC%B8%ED%99%94%EC%B2%B4%EC%9C%A
- 1%EA%B4%80%EA%B4%91%EB%B6%80%EC%9E%A5%EA%B4%80%EA%B8%B0-%EB%AC%B4%EC%A3%BC
- %EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84%EB%8C%80%ED%9A%8C-2026-11-07
- .html
-URL:https://calrank.vercel.app/e/cy-%EC%A0%9C35%ED%9A%8C-%EB%AC%B8%ED%99%94
- %EC%B2%B4%EC%9C%A1%EA%B4%80%EA%B4%91%EB%B6%80%EC%9E%A5%EA%B4%80%EA%B8%B0-%
- EB%AC%B4%EC%A3%BC%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84%EB%8C%80%ED
- %9A%8C-2026-11-07.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제35회 문화체육관광부장관기 무주메디오폰도
- 대회 D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제35회 문화체육관광부장관기 무주메디오폰도
- 대회 내일입니다 — 배번과 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -6553,55 +5887,6 @@ DESCRIPTION:넥슨과 함께하는 2026 푸르메런 내일입니다 —
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-남한산성트레일-2026-11-07@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261107
-SUMMARY:남한산성트레일
-LOCATION:산성로타리
-DESCRIPTION:종목: 13km\n장소: 산성로타리\n접수 마감: 2026-11-0
- 6\n주최: 명품트레일런\n신청: http://www.mtrailrun.kr/\nhttps://c
- alrank.vercel.app/e/rr-%EB%82%A8%ED%95%9C%EC%82%B0%EC%84%B1%ED%8A%B8%EB%A0
- %88%EC%9D%BC-2026-11-07.html
-URL:https://calrank.vercel.app/e/rr-%EB%82%A8%ED%95%9C%EC%82%B0%EC%84%B1%ED
- %8A%B8%EB%A0%88%EC%9D%BC-2026-11-07.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:남한산성트레일 D-7 — 준비물과 교통편을 확인
- 하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:남한산성트레일 내일입니다 — 배번과 출발 시
- 간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-남한산성트레일-2026-11-07-deadline@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261106
-SUMMARY:[접수 마감] 남한산성트레일
-DESCRIPTION:종목: 13km\n장소: 산성로타리\n접수 마감: 2026-11-0
- 6\n주최: 명품트레일런\n신청: http://www.mtrailrun.kr/\nhttps://c
- alrank.vercel.app/e/rr-%EB%82%A8%ED%95%9C%EC%82%B0%EC%84%B1%ED%8A%B8%EB%A0
- %88%EC%9D%BC-2026-11-07.html
-URL:https://calrank.vercel.app/e/rr-%EB%82%A8%ED%95%9C%EC%82%B0%EC%84%B1%ED
- %8A%B8%EB%A0%88%EC%9D%BC-2026-11-07.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:남한산성트레일 접수 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:남한산성트레일 접수가 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-레디-셋-공익런-2026-11-07@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261107
@@ -6627,35 +5912,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:레디\, 셋\, 공익런! 내일입니다 — 배번과 출발 
  시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:cy-2026-원바이오젠-안동호반-라면-그란폰도-2026-11-07@cal
- rank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261107
-SUMMARY:2026 원바이오젠 안동호반 라면 그란폰도
-LOCATION:안동시 세계물포럼기념센터
-DESCRIPTION:종목: 102.1km\, 74.4km\n시간: 08:00\n장소: 안동시 세
- 계물포럼기념센터\n신청: https://speedagency.kr/more.html?game_co
- de=118\nhttps://calrank.vercel.app/e/cy-2026-%EC%9B%90%EB%B0%94%EC%9D%B4%E
- C%98%A4%EC%A0%A0-%EC%95%88%EB%8F%99%ED%98%B8%EB%B0%98-%EB%9D%BC%EB%A9%B4-%
- EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-11-07.html
-URL:https://calrank.vercel.app/e/cy-2026-%EC%9B%90%EB%B0%94%EC%9D%B4%EC%98%
- A4%EC%A0%A0-%EC%95%88%EB%8F%99%ED%98%B8%EB%B0%98-%EB%9D%BC%EB%A9%B4-%EA%B7
- %B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-11-07.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 원바이오젠 안동호반 라면 그란폰도 D-7 — 
- 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 원바이오젠 안동호반 라면 그란폰도 내일입
- 니다 — 배번과 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -7061,39 +6317,6 @@ DESCRIPTION:제21회 담양메타세쿼이아 마라톤 접수가 내일
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:tri-2026-경기도철인3종협회장배-전국듀애슬론-d100-대회
- -2026-11-07@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261107
-SUMMARY:2026 경기도철인3종협회장배 전국듀애슬론(D100)대회
-LOCATION:경기도 여주시 대신면 당남리 일원(이포보 인근)
-DESCRIPTION:종목: 듀애슬론 코스(달리기(run) 8km\, 사이클(bik
- e) 84km\, 달리기(run) 8km)\n장소: 경기도 여주시 대신면 당
- 남리 일원(이포보 인근)\n신청: https://triathlon.or.kr/events/to
- ur/overview/?mode=overview&tourcd=2129&page=1&sYear=2026&vType=list&field=
- &keyword=\nhttps://calrank.vercel.app/e/tri-2026-%EA%B2%BD%EA%B8%B0%EB%8F%
- 84%EC%B2%A0%EC%9D%B83%EC%A2%85%ED%98%91%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EC%A0%
- 84%EA%B5%AD%EB%93%80%EC%95%A0%EC%8A%AC%EB%A1%A0-d100-%EB%8C%80%ED%9A%8C-20
- 26-11-07.html
-URL:https://calrank.vercel.app/e/tri-2026-%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%B2
- %A0%EC%9D%B83%EC%A2%85%ED%98%91%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EC%A0%84%EA%B5
- %AD%EB%93%80%EC%95%A0%EC%8A%AC%EB%A1%A0-d100-%EB%8C%80%ED%9A%8C-2026-11-07
- .html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 경기도철인3종협회장배 전국듀애슬론(D100)
- 대회 D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 경기도철인3종협회장배 전국듀애슬론(D100)
- 대회 내일입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-넥슨과-함께하는-2026-푸르메런10km3km-2026-11-07@calrank.v
  ercel.app
 DTSTAMP:20261007T222541Z
@@ -7476,65 +6699,6 @@ DESCRIPTION:2026 전국사상에코마라톤 접수가 내일 마감됩니
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026-서울구석구석-국제-트레일런-2026-11-08@calrank.verce
- l.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261108
-SUMMARY:2026 서울구석구석 국제 트레일런
-LOCATION:서울마당(지하철1호선 시청역 4번출구)
-DESCRIPTION:종목: 트레일런 14km\, 트레일런 35km\n장소: 서울
- 마당(지하철1호선 시청역 4번출구)\n접수 마감: 2026-10-12\n
- 주최: 서울신문\, 한국익스트림앤스포츠\n신청: http://cafe
- .naver.com/seoultrailrun/?viewType=pc\nhttps://calrank.vercel.app/e/rr-202
- 6-%EC%84%9C%EC%9A%B8%EA%B5%AC%EC%84%9D%EA%B5%AC%EC%84%9D-%EA%B5%AD%EC%A0%9
- C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-11-08.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%84%9C%EC%9A%B8%EA%B5%AC%EC%84%
- 9D%EA%B5%AC%EC%84%9D-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%
- B0-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 서울구석구석 국제 트레일런 D-7 — 준비물
- 과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 서울구석구석 국제 트레일런 내일입니다 —
-  배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-서울구석구석-국제-트레일런-2026-11-08-deadline@calr
- ank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261012
-SUMMARY:[접수 마감] 2026 서울구석구석 국제 트레일런
-DESCRIPTION:종목: 트레일런 14km\, 트레일런 35km\n장소: 서울
- 마당(지하철1호선 시청역 4번출구)\n접수 마감: 2026-10-12\n
- 주최: 서울신문\, 한국익스트림앤스포츠\n신청: http://cafe
- .naver.com/seoultrailrun/?viewType=pc\nhttps://calrank.vercel.app/e/rr-202
- 6-%EC%84%9C%EC%9A%B8%EA%B5%AC%EC%84%9D%EA%B5%AC%EC%84%9D-%EA%B5%AD%EC%A0%9
- C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-11-08.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%84%9C%EC%9A%B8%EA%B5%AC%EC%84%
- 9D%EA%B5%AC%EC%84%9D-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%
- B0-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026 서울구석구석 국제 트레일런 접수 마감 3일 
- 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 서울구석구석 국제 트레일런 접수가 내일 
- 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-2026-과천마라톤-2026-11-08@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261108
@@ -7665,102 +6829,6 @@ DESCRIPTION:2026 양산 배내골 애플 런 내일입니다 — 배번과
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-제5회-거제시체육회장배-거제앵산트레일레이스-2026
- -11-08@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261108
-SUMMARY:제5회 거제시체육회장배 거제앵산트레일레이스
-LOCATION:경남 거제시 하청면스포츠타운
-DESCRIPTION:종목: 산악28km/17km\, 임도숲길 18km/10km\n장소: 경
- 남 거제시 하청면스포츠타운\n접수 마감: 2026-09-30\n주최:
-  하청면체육회\n신청: http://www.거제앵산트레일레이스.com
- \nhttps://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EA%B1%B0%EC%A0%9C%E
- C%8B%9C%EC%B2%B4%EC%9C%A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EA%B1%B0%EC%A0%9C%EC
- %95%B5%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026
- -11-08.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EA%B1%B0%EC%A0%9C%
- EC%8B%9C%EC%B2%B4%EC%9C%A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EA%B1%B0%EC%A0%9C%E
- C%95%B5%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-202
- 6-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제5회 거제시체육회장배 거제앵산트레일레이스
-  D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제5회 거제시체육회장배 거제앵산트레일레이스
-  내일입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-산악-제5회-거제시체육회장배-거제앵산트레일레이
- 스-2026-11-08@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261108
-SUMMARY:산악/ 제5회 거제시체육회장배 거제앵산트레일레
- 이스
-LOCATION:경남 거제시 하청면스포츠타운
-DESCRIPTION:종목: 28km\, 17km\n시간: 09:00 집결\n장소: 경남 거
- 제시 하청면스포츠타운\n접수 마감: 2026-09-30\n주최: 하청
- 면체육회\n신청: http://www.xn--v69ax3ta679frncr7fk7d1bz7fc91d.com/\n
- https://calrank.vercel.app/e/rm-%EC%82%B0%EC%95%85-%EC%A0%9C5%ED%9A%8C-%EA
- %B1%B0%EC%A0%9C%EC%8B%9C%EC%B2%B4%EC%9C%A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EA%
- B1%B0%EC%A0%9C%EC%95%B5%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D
- %B4%EC%8A%A4-2026-11-08.html
-URL:https://calrank.vercel.app/e/rm-%EC%82%B0%EC%95%85-%EC%A0%9C5%ED%9A%8C-
- %EA%B1%B0%EC%A0%9C%EC%8B%9C%EC%B2%B4%EC%9C%A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%
- EA%B1%B0%EC%A0%9C%EC%95%B5%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC
- %9D%B4%EC%8A%A4-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:산악/ 제5회 거제시체육회장배 거제앵산트레일
- 레이스 D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:산악/ 제5회 거제시체육회장배 거제앵산트레일
- 레이스 내일입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-트레일런-2026-서울구석구석-국제-트레일런-2026-11-08@
- calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261108
-SUMMARY:트레일런 2026 서울구석구석 국제 트레일런
-LOCATION:서울마당(지하철1호선 시청역 4번출구)
-DESCRIPTION:종목: 14km\n시간: 07:00~08:00 집결\n장소: 서울마당(
- 지하철1호선 시청역 4번출구)\n접수 마감: 2026-09-30\n주최:
-  서울신문\, 한국익스트림앤스포츠\n신청: http://cafe.naver.
- com/seoultrailrun/?viewType=pc%3Futm_source%3Dmarathongo\nhttps://calrank.
- vercel.app/e/rm-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-%EC%84%9C%EC%9A%
- B8%EA%B5%AC%EC%84%9D%EA%B5%AC%EC%84%9D-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%
- 88%EC%9D%BC%EB%9F%B0-2026-11-08.html
-URL:https://calrank.vercel.app/e/rm-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-20
- 26-%EC%84%9C%EC%9A%B8%EA%B5%AC%EC%84%9D%EA%B5%AC%EC%84%9D-%EA%B5%AD%EC%A0%
- 9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:트레일런 2026 서울구석구석 국제 트레일런 D-7 
- — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:트레일런 2026 서울구석구석 국제 트레일런 내일
- 입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-로드레이스-건강달리기-슬로조깅-2026-전국사상에코
  마라톤-2026-11-08@calrank.vercel.app
 DTSTAMP:20261007T222541Z
@@ -7824,32 +6892,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:로드레이스 건강달리기 슬로조깅 2026 전국사상
  에코마라톤 접수가 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ro-제주국제트레일러닝-2026-11-08@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261108
-SUMMARY:제주국제트레일러닝
-LOCATION:제주
-DESCRIPTION:종목: 트레일 33/55km\n장소: 제주\n신청: https://www.
- runneron.com/marathon/제주국제트레일러닝\nhttps://calrank.vercel.
- app/e/ro-%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%E
- B%9F%AC%EB%8B%9D-2026-11-08.html
-URL:https://calrank.vercel.app/e/ro-%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%ED
- %8A%B8%EB%A0%88%EC%9D%BC%EB%9F%AC%EB%8B%9D-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제주국제트레일러닝 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제주국제트레일러닝 내일입니다 — 배번과 출
- 발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -7989,38 +7031,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:올림픽데이런 내일입니다 — 배번과 출발 시간
  을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ks-2026-월드-스케이트-마라톤-투어-2026-전주월드인라인
- 마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261108
-SUMMARY:2026 월드 스케이트 마라톤 투어(2026 전주월드인라
- 인마라톤)
-LOCATION:대한민국\, 전주시
-DESCRIPTION:장소: 대한민국\, 전주시\n신청: https://koreaskate.or
- .kr/news/schedule/\nhttps://calrank.vercel.app/e/ks-2026-%EC%9B%94%EB%93%9
- C-%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%8A%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%ED%88%
- AC%EC%96%B4-2026-%EC%A0%84%EC%A3%BC%EC%9B%94%EB%93%9C%EC%9D%B8%EB%9D%BC%EC
- %9D%B8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html
-URL:https://calrank.vercel.app/e/ks-2026-%EC%9B%94%EB%93%9C-%EC%8A%A4%EC%BC
- %80%EC%9D%B4%ED%8A%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%ED%88%AC%EC%96%B4-2026-
- %EC%A0%84%EC%A3%BC%EC%9B%94%EB%93%9C%EC%9D%B8%EB%9D%BC%EC%9D%B8%EB%A7%88%E
- B%9D%BC%ED%86%A4-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 월드 스케이트 마라톤 투어(2026 전주월드인
- 라인마라톤) D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 월드 스케이트 마라톤 투어(2026 전주월드인
- 라인마라톤) 내일입니다 — 배번과 출발 시간을 확인하
- 세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -9718,90 +8728,6 @@ DESCRIPTION:2026 MBN 서울마라톤 내일입니다 — 배번과 출발
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-제17회-행복트레일런-축제-2026-11-15@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제17회 행복트레일런 축제
-LOCATION:청계산수변공원
-DESCRIPTION:종목: 20km\, 10km\n장소: 청계산수변공원\n접수 마
- 감: 2026-10-30\n주최: {사}소아암환우돕기 조직위\n신청: htt
- p://happytrailrun.com\nhttps://calrank.vercel.app/e/rr-%EC%A0%9C17%ED%9A%8
- C-%ED%96%89%EB%B3%B5%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EC%B6%95%EC%A0%9
- C-2026-11-15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C17%ED%9A%8C-%ED%96%89%EB%B3%B5
- %ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EC%B6%95%EC%A0%9C-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제17회 행복트레일런 축제 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제17회 행복트레일런 축제 내일입니다 — 배번
- 과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-제17회-행복트레일런-축제-2026-11-15-deadline@calrank.verce
- l.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261030
-SUMMARY:[접수 마감] 제17회 행복트레일런 축제
-DESCRIPTION:종목: 20km\, 10km\n장소: 청계산수변공원\n접수 마
- 감: 2026-10-30\n주최: {사}소아암환우돕기 조직위\n신청: htt
- p://happytrailrun.com\nhttps://calrank.vercel.app/e/rr-%EC%A0%9C17%ED%9A%8
- C-%ED%96%89%EB%B3%B5%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EC%B6%95%EC%A0%9
- C-2026-11-15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C17%ED%9A%8C-%ED%96%89%EB%B3%B5
- %ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EC%B6%95%EC%A0%9C-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:제17회 행복트레일런 축제 접수 마감 3일 전입니
- 다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제17회 행복트레일런 축제 접수가 내일 마감됩
- 니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-제4회-영남알프스-전국-하프마라톤-2026-11-15@calrank.ve
- rcel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제4회 영남알프스 전국 하프마라톤
-LOCATION:울주군 영남알프스 일원
-DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 울주군 영남알프스 
- 일원\n접수 마감: 2026-09-30\n주최: 울산광역시 울주군육상
- 연맹\n신청: http://영남알프스마라톤.kr\nhttps://calrank.vercel
- .app/e/rr-%EC%A0%9C4%ED%9A%8C-%EC%98%81%EB%82%A8%EC%95%8C%ED%94%84%EC%8A%A
- 4-%EC%A0%84%EA%B5%AD-%ED%95%98%ED%94%84%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11
- -15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C4%ED%9A%8C-%EC%98%81%EB%82%A8%
- EC%95%8C%ED%94%84%EC%8A%A4-%EC%A0%84%EA%B5%AD-%ED%95%98%ED%94%84%EB%A7%88%
- EB%9D%BC%ED%86%A4-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제4회 영남알프스 전국 하프마라톤 D-7 — 준비
- 물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제4회 영남알프스 전국 하프마라톤 내일입니다 
- — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-제24회-상주-곶감-마라톤-대회-2026-11-15@calrank.vercel.ap
  p
 DTSTAMP:20261007T222541Z
@@ -9939,244 +8865,6 @@ DESCRIPTION:제24회 고창고인돌마라톤 내일입니다 — 배번과
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-제3회-무등산더블하트국제트레일런대회-2026-11-15@cal
- rank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제3회 무등산더블하트국제트레일런대회
-LOCATION:조선대학교
-DESCRIPTION:종목: 16km/36km\, 51.8km\n장소: 조선대학교\n접수 마
- 감: 2026-10-15\n주최: 한국백혈병소아암협회/시유케이컴\n
- 신청: http://www.cuk-sports.com/\nhttps://calrank.vercel.app/e/rr-%EC%A0
- %9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A
- %B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8
- C-2026-11-15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%
- EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB
- %A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제3회 무등산더블하트국제트레일런대회 D-7 — 
- 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제3회 무등산더블하트국제트레일런대회 내일입
- 니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-제3회-무등산더블하트국제트레일런대회-2026-11-15-dea
- dline@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261015
-SUMMARY:[접수 마감] 제3회 무등산더블하트국제트레일런대
- 회
-DESCRIPTION:종목: 16km/36km\, 51.8km\n장소: 조선대학교\n접수 마
- 감: 2026-10-15\n주최: 한국백혈병소아암협회/시유케이컴\n
- 신청: http://www.cuk-sports.com/\nhttps://calrank.vercel.app/e/rr-%EC%A0
- %9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A
- %B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8
- C-2026-11-15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%
- EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB
- %A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:제3회 무등산더블하트국제트레일런대회 접수 
- 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제3회 무등산더블하트국제트레일런대회 접수가
-  내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-제24회-대모산-구룡산-트레일런-2026-11-15@calrank.vercel.
- app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제24회 대모산\,구룡산 트레일런
-LOCATION:수서역 7번출구광장
-DESCRIPTION:종목: 10km\n장소: 수서역 7번출구광장\n접수 마감
- : 2026-10-30\n주최: (사)한국산악마라톤연맹\n신청: http://www
- .koreatrail.net/home/main.php?link=event&einc=eapp&opp=20241014202801&csno
- =20200702232740#baseline\nhttps://calrank.vercel.app/e/rr-%EC%A0%9C24%ED%9
- A%8C-%EB%8C%80%EB%AA%A8%EC%82%B0-%EA%B5%AC%EB%A3%A1%EC%82%B0-%ED%8A%B8%EB%
- A0%88%EC%9D%BC%EB%9F%B0-2026-11-15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C24%ED%9A%8C-%EB%8C%80%EB%AA%A8
- %EC%82%B0-%EA%B5%AC%EB%A3%A1%EC%82%B0-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0
- -2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제24회 대모산\,구룡산 트레일런 D-7 — 준비물과
-  교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제24회 대모산\,구룡산 트레일런 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-제24회-대모산-구룡산-트레일런-2026-11-15-deadline@calran
- k.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261030
-SUMMARY:[접수 마감] 제24회 대모산\,구룡산 트레일런
-DESCRIPTION:종목: 10km\n장소: 수서역 7번출구광장\n접수 마감
- : 2026-10-30\n주최: (사)한국산악마라톤연맹\n신청: http://www
- .koreatrail.net/home/main.php?link=event&einc=eapp&opp=20241014202801&csno
- =20200702232740#baseline\nhttps://calrank.vercel.app/e/rr-%EC%A0%9C24%ED%9
- A%8C-%EB%8C%80%EB%AA%A8%EC%82%B0-%EA%B5%AC%EB%A3%A1%EC%82%B0-%ED%8A%B8%EB%
- A0%88%EC%9D%BC%EB%9F%B0-2026-11-15.html
-URL:https://calrank.vercel.app/e/rr-%EC%A0%9C24%ED%9A%8C-%EB%8C%80%EB%AA%A8
- %EC%82%B0-%EA%B5%AC%EB%A3%A1%EC%82%B0-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0
- -2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:제24회 대모산\,구룡산 트레일런 접수 마감 3일 
- 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제24회 대모산\,구룡산 트레일런 접수가 내일 마
- 감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-제3회-무등산더블하트국제트레일런대회-2026-11-15@cal
- rank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:/ 제3회 무등산더블하트국제트레일런대회
-LOCATION:조선대학교
-DESCRIPTION:종목: 16km\, 36km\n시간: 07:00 집결\n장소: 조선대학
- 교\n접수 마감: 2026-10-15\n주최: 한국백혈병소아암협회/시
- 유케이컴\n신청: http://www.cuk-sports.com/\nhttps://calrank.vercel.a
- pp/e/rm-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%
- ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB
- %8C%80%ED%9A%8C-2026-11-15.html
-URL:https://calrank.vercel.app/e/rm-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%
- EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB
- %A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:/ 제3회 무등산더블하트국제트레일런대회 D-7 —
-  준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:/ 제3회 무등산더블하트국제트레일런대회 내일
- 입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-제3회-무등산더블하트국제트레일런대회-2026-11-15-dea
- dline@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261015
-SUMMARY:[접수 마감] / 제3회 무등산더블하트국제트레일런
- 대회
-DESCRIPTION:종목: 16km\, 36km\n시간: 07:00 집결\n장소: 조선대학
- 교\n접수 마감: 2026-10-15\n주최: 한국백혈병소아암협회/시
- 유케이컴\n신청: http://www.cuk-sports.com/\nhttps://calrank.vercel.a
- pp/e/rm-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%
- ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB
- %8C%80%ED%9A%8C-2026-11-15.html
-URL:https://calrank.vercel.app/e/rm-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%
- EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB
- %A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:/ 제3회 무등산더블하트국제트레일런대회 접수 
- 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:/ 제3회 무등산더블하트국제트레일런대회 접수
- 가 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-제4회-영남알프스-전국-마라톤-2026-11-15@calrank.vercel.a
- pp
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제4회 영남알프스 전국 마라톤
-LOCATION:울주군 영남알프스 일원
-DESCRIPTION:종목: 하프\, 5km\, 10km\n시간: 09:00 집결\n장소: 울
- 주군 영남알프스 일원\n접수 마감: 2026-10-31\n주최: 울산
- 광역시 울주군육상연맹\n신청: http://영남알프스마라톤.k
- r\nhttps://calrank.vercel.app/e/rm-%EC%A0%9C4%ED%9A%8C-%EC%98%81%EB%82%A8%
- EC%95%8C%ED%94%84%EC%8A%A4-%EC%A0%84%EA%B5%AD-%EB%A7%88%EB%9D%BC%ED%86%A4-
- 2026-11-15.html
-URL:https://calrank.vercel.app/e/rm-%EC%A0%9C4%ED%9A%8C-%EC%98%81%EB%82%A8%
- EC%95%8C%ED%94%84%EC%8A%A4-%EC%A0%84%EA%B5%AD-%EB%A7%88%EB%9D%BC%ED%86%A4-
- 2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제4회 영남알프스 전국 마라톤 D-7 — 준비물과 
- 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제4회 영남알프스 전국 마라톤 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-제4회-영남알프스-전국-마라톤-2026-11-15-deadline@calrank
- .vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:[접수 마감] 제4회 영남알프스 전국 마라톤
-DESCRIPTION:종목: 하프\, 5km\, 10km\n시간: 09:00 집결\n장소: 울
- 주군 영남알프스 일원\n접수 마감: 2026-10-31\n주최: 울산
- 광역시 울주군육상연맹\n신청: http://영남알프스마라톤.k
- r\nhttps://calrank.vercel.app/e/rm-%EC%A0%9C4%ED%9A%8C-%EC%98%81%EB%82%A8%
- EC%95%8C%ED%94%84%EC%8A%A4-%EC%A0%84%EA%B5%AD-%EB%A7%88%EB%9D%BC%ED%86%A4-
- 2026-11-15.html
-URL:https://calrank.vercel.app/e/rm-%EC%A0%9C4%ED%9A%8C-%EC%98%81%EB%82%A8%
- EC%95%8C%ED%94%84%EC%8A%A4-%EC%A0%84%EA%B5%AD-%EB%A7%88%EB%9D%BC%ED%86%A4-
- 2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:제4회 영남알프스 전국 마라톤 접수 마감 3일 전
- 입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제4회 영남알프스 전국 마라톤 접수가 내일 마
- 감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-학생부-초등부-학생부중-고등부-제2회-세종특별자
  치시-전국-마라톤-2026-11-15@calrank.vercel.app
 DTSTAMP:20261007T222541Z
@@ -10295,117 +8983,6 @@ DESCRIPTION:JTBC 서울마라톤 내일입니다 — 배번과 출발 시
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:ro-제3회-무등산더블하트국제트레일런-2026-2026-11-15@calr
- ank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제3회 무등산더블하트국제트레일런 2026
-LOCATION:미정
-DESCRIPTION:종목: 16km · 36km · 47km\n접수 마감: 2026-10-15\n신청
- : http://www.cuk-sports.com/\nhttps://calrank.vercel.app/e/ro-%EC%A0%9C3%E
- D%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA
- %B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-2026-11-15.html
-URL:https://calrank.vercel.app/e/ro-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%
- EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB
- %A0%88%EC%9D%BC%EB%9F%B0-2026-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제3회 무등산더블하트국제트레일런 2026 D-7 — 
- 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제3회 무등산더블하트국제트레일런 2026 내일입
- 니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ro-제3회-무등산더블하트국제트레일런-2026-2026-11-15-dead
- line@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261015
-SUMMARY:[접수 마감] 제3회 무등산더블하트국제트레일런 202
- 6
-DESCRIPTION:종목: 16km · 36km · 47km\n접수 마감: 2026-10-15\n신청
- : http://www.cuk-sports.com/\nhttps://calrank.vercel.app/e/ro-%EC%A0%9C3%E
- D%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA
- %B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-2026-11-15.html
-URL:https://calrank.vercel.app/e/ro-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%
- EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB
- %A0%88%EC%9D%BC%EB%9F%B0-2026-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:제3회 무등산더블하트국제트레일런 2026 접수 마
- 감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제3회 무등산더블하트국제트레일런 2026 접수가 
- 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ro-제24회-대모산-구룡산-트레일런-2026-2026-11-15@calrank.ve
- rcel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제24회 대모산 구룡산 트레일런 2026
-LOCATION:수서역 7번출구광장
-DESCRIPTION:종목: 10km\n장소: 수서역 7번출구광장\n접수 마감
- : 2026-10-30\n신청: http://koreatrail.net/\nhttps://calrank.vercel.app/e
- /ro-%EC%A0%9C24%ED%9A%8C-%EB%8C%80%EB%AA%A8%EC%82%B0-%EA%B5%AC%EB%A3%A1%EC
- %82%B0-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-2026-11-15.html
-URL:https://calrank.vercel.app/e/ro-%EC%A0%9C24%ED%9A%8C-%EB%8C%80%EB%AA%A8
- %EC%82%B0-%EA%B5%AC%EB%A3%A1%EC%82%B0-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0
- -2026-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제24회 대모산 구룡산 트레일런 2026 D-7 — 준비
- 물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제24회 대모산 구룡산 트레일런 2026 내일입니다 
- — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ro-제24회-대모산-구룡산-트레일런-2026-2026-11-15-deadline@c
- alrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261030
-SUMMARY:[접수 마감] 제24회 대모산 구룡산 트레일런 2026
-DESCRIPTION:종목: 10km\n장소: 수서역 7번출구광장\n접수 마감
- : 2026-10-30\n신청: http://koreatrail.net/\nhttps://calrank.vercel.app/e
- /ro-%EC%A0%9C24%ED%9A%8C-%EB%8C%80%EB%AA%A8%EC%82%B0-%EA%B5%AC%EB%A3%A1%EC
- %82%B0-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-2026-11-15.html
-URL:https://calrank.vercel.app/e/ro-%EC%A0%9C24%ED%9A%8C-%EB%8C%80%EB%AA%A8
- %EC%82%B0-%EA%B5%AC%EB%A3%A1%EC%82%B0-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0
- -2026-2026-11-15.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:제24회 대모산 구룡산 트레일런 2026 접수 마감 3
- 일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제24회 대모산 구룡산 트레일런 2026 접수가 내일
-  마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:ro-제24회-상주-곶감-마라톤대회-2026-2026-11-15@calrank.verce
  l.app
 DTSTAMP:20261007T222541Z
@@ -10432,34 +9009,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:제24회 상주 곶감 마라톤대회 2026 내일입니다 —
   배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ro-제17회-행복트레일런-축제-2026-2026-11-15@calrank.vercel.ap
- p
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261115
-SUMMARY:제17회 행복트레일런 축제 2026
-LOCATION:수서역 6번 출구 광장
-DESCRIPTION:종목: 29km · 9km\n장소: 수서역 6번 출구 광장\n접
- 수 마감: 2026-08-31\n신청: http://happytrailrun.com/\nhttps://calrank
- .vercel.app/e/ro-%EC%A0%9C17%ED%9A%8C-%ED%96%89%EB%B3%B5%ED%8A%B8%EB%A0%88
- %EC%9D%BC%EB%9F%B0-%EC%B6%95%EC%A0%9C-2026-2026-11-15.html
-URL:https://calrank.vercel.app/e/ro-%EC%A0%9C17%ED%9A%8C-%ED%96%89%EB%B3%B5
- %ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EC%B6%95%EC%A0%9C-2026-2026-11-15.ht
- ml
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제17회 행복트레일런 축제 2026 D-7 — 준비물과 
- 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제17회 행복트레일런 축제 2026 내일입니다 — 배
- 번과 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -11114,60 +9663,6 @@ DESCRIPTION:GIVE RUN 2026 부산 접수가 내일 마감됩니다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026-남해트레일레이스-가을-2026-11-21@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261121
-SUMMARY:2026 남해트레일레이스(가을)
-LOCATION:남해공설운동장
-DESCRIPTION:종목: 풀\, 30km\, 12km\n장소: 남해공설운동장\n접
- 수 마감: 2026-10-15\n주최: 주식회사 락앤런\n신청: http://roc
- knrun.kr\nhttps://calrank.vercel.app/e/rr-2026-%EB%82%A8%ED%95%B4%ED%8A%B8
- %EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-%EA%B0%80%EC%9D%84-2026-11-2
- 1.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%82%A8%ED%95%B4%ED%8A%B8%EB%A0%
- 88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-%EA%B0%80%EC%9D%84-2026-11-21.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 남해트레일레이스(가을) D-7 — 준비물과 교
- 통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 남해트레일레이스(가을) 내일입니다 — 배
- 번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-남해트레일레이스-가을-2026-11-21-deadline@calrank.ver
- cel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261015
-SUMMARY:[접수 마감] 2026 남해트레일레이스(가을)
-DESCRIPTION:종목: 풀\, 30km\, 12km\n장소: 남해공설운동장\n접
- 수 마감: 2026-10-15\n주최: 주식회사 락앤런\n신청: http://roc
- knrun.kr\nhttps://calrank.vercel.app/e/rr-2026-%EB%82%A8%ED%95%B4%ED%8A%B8
- %EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-%EA%B0%80%EC%9D%84-2026-11-2
- 1.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%82%A8%ED%95%B4%ED%8A%B8%EB%A0%
- 88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-%EA%B0%80%EC%9D%84-2026-11-21.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026 남해트레일레이스(가을) 접수 마감 3일 전입
- 니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 남해트레일레이스(가을) 접수가 내일 마감
- 됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-2026-세정-가을바람-유러닝페스타-2026-11-21@calrank.verce
  l.app
 DTSTAMP:20261007T222541Z
@@ -11563,63 +10058,6 @@ DESCRIPTION:런텐 14차 레이스 JUST RUN10 대구 접수가 내일 마
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026-getr구미-에코-트레일레이스-2026-11-21@calrank.vercel.
- app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261121
-SUMMARY:2026 GETR구미 에코 트레일레이스
-LOCATION:구미시 경운대학교
-DESCRIPTION:종목: 10km\, 21km\, 키즈레이스\n장소: 구미시 경운
- 대학교\n접수 마감: 2026-10-30\n주최: 구미러닝크루\n신청: 
- http://naver.me/59lo1fB8\nhttps://calrank.vercel.app/e/rr-2026-getr%EA%B5%
- AC%EB%AF%B8-%EC%97%90%EC%BD%94-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%
- B4%EC%8A%A4-2026-11-21.html
-URL:https://calrank.vercel.app/e/rr-2026-getr%EA%B5%AC%EB%AF%B8-%EC%97%90%E
- C%BD%94-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-21.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 GETR구미 에코 트레일레이스 D-7 — 준비물과 
- 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 GETR구미 에코 트레일레이스 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-getr구미-에코-트레일레이스-2026-11-21-deadline@calran
- k.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261030
-SUMMARY:[접수 마감] 2026 GETR구미 에코 트레일레이스
-DESCRIPTION:종목: 10km\, 21km\, 키즈레이스\n장소: 구미시 경운
- 대학교\n접수 마감: 2026-10-30\n주최: 구미러닝크루\n신청: 
- http://naver.me/59lo1fB8\nhttps://calrank.vercel.app/e/rr-2026-getr%EA%B5%
- AC%EB%AF%B8-%EC%97%90%EC%BD%94-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%
- B4%EC%8A%A4-2026-11-21.html
-URL:https://calrank.vercel.app/e/rr-2026-getr%EA%B5%AC%EB%AF%B8-%EC%97%90%E
- C%BD%94-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-21.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026 GETR구미 에코 트레일레이스 접수 마감 3일 
- 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 GETR구미 에코 트레일레이스 접수가 내일 마
- 감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-아식스-서울신문-고프리런-2026-11-21@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261121
@@ -11726,33 +10164,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:2026 서울 라이프마라톤(가을) 접수가 내일 마감
  됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-k-거상-트레일-러닝-대회-2026-11-21@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261121
-SUMMARY:K-거상 트레일 러닝 대회
-LOCATION:가례초등학교(경남 의령)
-DESCRIPTION:종목: 5km\, 15km\, 20km\n장소: 가례초등학교(경남 
- 의령)\n접수 마감: 2026-11-21\n주최: 경남관광재단\n신청: ht
- tp://www.kpioneertrailrun.co.kr/\nhttps://calrank.vercel.app/e/rr-k-%EA%B1
- %B0%EC%83%81-%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%9F%AC%EB%8B%9D-%EB%8C%80%ED%9
- A%8C-2026-11-21.html
-URL:https://calrank.vercel.app/e/rr-k-%EA%B1%B0%EC%83%81-%ED%8A%B8%EB%A0%88
- %EC%9D%BC-%EB%9F%AC%EB%8B%9D-%EB%8C%80%ED%9A%8C-2026-11-21.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:K-거상 트레일 러닝 대회 D-7 — 준비물과 교통편
- 을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:K-거상 트레일 러닝 대회 내일입니다 — 배번과 
- 출발 시간을 확인하세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -12383,60 +10794,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:김대중마라톤 내일입니다 — 배번과 출발 시간
  을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-2026-무진장트레일레이스-2026-11-23@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261123
-SUMMARY:2026 무진장트레일레이스
-LOCATION:장수종합경기장
-DESCRIPTION:종목: 335km\n시간: 07:00 집결\n장소: 장수종합경기
- 장\n접수 마감: 2026-10-31\n주최: 주식회사 락앤런\n신청: ht
- tp://rocknrun.kr/\nhttps://calrank.vercel.app/e/rm-2026-%EB%AC%B4%EC%A7%84
- %EC%9E%A5%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-23
- .html
-URL:https://calrank.vercel.app/e/rm-2026-%EB%AC%B4%EC%A7%84%EC%9E%A5%ED%8A%
- B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-23.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 무진장트레일레이스 D-7 — 준비물과 교통편
- 을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 무진장트레일레이스 내일입니다 — 배번과 
- 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-2026-무진장트레일레이스-2026-11-23-deadline@calrank.vercel.
- app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:[접수 마감] 2026 무진장트레일레이스
-DESCRIPTION:종목: 335km\n시간: 07:00 집결\n장소: 장수종합경기
- 장\n접수 마감: 2026-10-31\n주최: 주식회사 락앤런\n신청: ht
- tp://rocknrun.kr/\nhttps://calrank.vercel.app/e/rm-2026-%EB%AC%B4%EC%A7%84
- %EC%9E%A5%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-23
- .html
-URL:https://calrank.vercel.app/e/rm-2026-%EB%AC%B4%EC%A7%84%EC%9E%A5%ED%8A%
- B8%EB%A0%88%EC%9D%BC%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-23.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026 무진장트레일레이스 접수 마감 3일 전입니
- 다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 무진장트레일레이스 접수가 내일 마감됩니
- 다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -13247,55 +11604,6 @@ DESCRIPTION:2026 원주 치악마라톤 접수가 내일 마감됩니다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026-대전보문산트레일-2026-11-29@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261129
-SUMMARY:2026 대전보문산트레일
-LOCATION:오월드 주차장
-DESCRIPTION:종목: 15km\, 10km\n장소: 오월드 주차장\n접수 마감
- : 2026-11-28\n주최: 명품 파브코리아\n신청: http://www.mtrailrun
- .kr/\nhttps://calrank.vercel.app/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%
- AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-11-29.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%
- B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-11-29.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 대전보문산트레일 D-7 — 준비물과 교통편을
-  확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 대전보문산트레일 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-대전보문산트레일-2026-11-29-deadline@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261128
-SUMMARY:[접수 마감] 2026 대전보문산트레일
-DESCRIPTION:종목: 15km\, 10km\n장소: 오월드 주차장\n접수 마감
- : 2026-11-28\n주최: 명품 파브코리아\n신청: http://www.mtrailrun
- .kr/\nhttps://calrank.vercel.app/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%
- AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-11-29.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%
- B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-11-29.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026 대전보문산트레일 접수 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 대전보문산트레일 접수가 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-2026-서울사랑마라톤-2026-11-29@calrank.vercel.app
 DTSTAMP:20261007T222541Z
 DTSTART;VALUE=DATE:20261129
@@ -13703,38 +12011,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:제9회 광진구청장배 육상대회 접수가 내일 마감
  됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:ks-제18회-대한체육회장배-생활체육-전국-인라인-스피
- 드대회-2026-12-01@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261201
-SUMMARY:제18회 대한체육회장배 생활체육 전국 인라인 스피
- 드대회
-LOCATION:미정
-DESCRIPTION:신청: https://koreaskate.or.kr/news/schedule/\nhttps://calran
- k.vercel.app/e/ks-%EC%A0%9C18%ED%9A%8C-%EB%8C%80%ED%95%9C%EC%B2%B4%EC%9C%A
- 1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1-%EC%A0%8
- 4%EA%B5%AD-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EC%8A%A4%ED%94%BC%EB%93%9C%EB%8C%8
- 0%ED%9A%8C-2026-12-01.html
-URL:https://calrank.vercel.app/e/ks-%EC%A0%9C18%ED%9A%8C-%EB%8C%80%ED%95%9C
- %EC%B2%B4%EC%9C%A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EC%83%9D%ED%99%9C%EC%B2%B4%
- EC%9C%A1-%EC%A0%84%EA%B5%AD-%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EC%8A%A4%ED%94%BC
- %EB%93%9C%EB%8C%80%ED%9A%8C-2026-12-01.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제18회 대한체육회장배 생활체육 전국 인라인 
- 스피드대회 D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제18회 대한체육회장배 생활체육 전국 인라인 
- 스피드대회 내일입니다 — 배번과 출발 시간을 확인하
- 세요
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
@@ -14795,66 +13071,6 @@ ACTION:DISPLAY
 TRIGGER:-P1D
 DESCRIPTION:ONE MORE RUN 내일입니다 — 배번과 출발 시간을 확
  인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-연합뉴스-하남-국제-트레일런-페스티벌-2026-12-12
- @calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261212
-SUMMARY:2026 연합뉴스 하남 국제 트레일런 페스티벌
-LOCATION:미사경정공원 및 하남시 일대
-DESCRIPTION:종목: 10km\, 5km\, 15km\, 28km\n장소: 미사경정공원 
- 및 하남시 일대\n접수 마감: 2026-11-26\n주최: 연합뉴스\,하
- 남시\,한국체육대학교\n신청: http://yhitf.co.kr\nhttps://calrank
- .vercel.app/e/rr-2026-%EC%97%B0%ED%95%A9%EB%89%B4%EC%8A%A4-%ED%95%98%EB%82
- %A8-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%ED%8E%98%EC%8
- A%A4%ED%8B%B0%EB%B2%8C-2026-12-12.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%97%B0%ED%95%A9%EB%89%B4%EC%8A%
- A4-%ED%95%98%EB%82%A8-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F
- %B0-%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C-2026-12-12.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 연합뉴스 하남 국제 트레일런 페스티벌 D-7 
- — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 연합뉴스 하남 국제 트레일런 페스티벌 내
- 일입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-연합뉴스-하남-국제-트레일런-페스티벌-2026-12-12
- -deadline@calrank.vercel.app
-DTSTAMP:20261007T222541Z
-DTSTART;VALUE=DATE:20261126
-SUMMARY:[접수 마감] 2026 연합뉴스 하남 국제 트레일런 페스
- 티벌
-DESCRIPTION:종목: 10km\, 5km\, 15km\, 28km\n장소: 미사경정공원 
- 및 하남시 일대\n접수 마감: 2026-11-26\n주최: 연합뉴스\,하
- 남시\,한국체육대학교\n신청: http://yhitf.co.kr\nhttps://calrank
- .vercel.app/e/rr-2026-%EC%97%B0%ED%95%A9%EB%89%B4%EC%8A%A4-%ED%95%98%EB%82
- %A8-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%ED%8E%98%EC%8
- A%A4%ED%8B%B0%EB%B2%8C-2026-12-12.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%97%B0%ED%95%A9%EB%89%B4%EC%8A%
- A4-%ED%95%98%EB%82%A8-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F
- %B0-%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C-2026-12-12.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026 연합뉴스 하남 국제 트레일런 페스티벌 접
- 수 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 연합뉴스 하남 국제 트레일런 페스티벌 접
- 수가 내일 마감됩니다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT

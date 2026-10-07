@@ -1,0 +1,263 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//calrank//KO
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:calrank 자전거 대회 일정
+X-WR-CALDESC:calrank.vercel.app — 자전거 대회 일정과 접수 마
+ 감 알림
+X-WR-TIMEZONE:Asia/Seoul
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:cy-2026-빙그레그란폰도-2026-10-09@calrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261009
+SUMMARY:2026 빙그레그란폰도
+LOCATION:공주시민운동장
+DESCRIPTION:종목: 113.3km\, 106.7km\n시간: 06:00\n장소: 공주시민
+ 운동장\n신청: https://binggraegranfondo.com/\nhttps://calrank.vercel.
+ app/e/cy-2026-%EB%B9%99%EA%B7%B8%EB%A0%88%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F
+ %84-2026-10-09.html
+URL:https://calrank.vercel.app/e/cy-2026-%EB%B9%99%EA%B7%B8%EB%A0%88%EA%B7%
+ B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-09.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:2026 빙그레그란폰도 D-7 — 준비물과 교통편을 
+ 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:2026 빙그레그란폰도 내일입니다 — 배번과 출발
+  시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-2026-비앙키-그란폰도-춘천-2026-10-18@calrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261018
+SUMMARY:2026 비앙키 그란폰도 춘천
+LOCATION:춘천송암스포츠타운
+DESCRIPTION:종목: 122.9km\, 81.7km\n시간: 06:00\n장소: 춘천송암
+ 스포츠타운\n신청: https://www.bianchigranfondo.kr/\nhttps://calrank
+ .vercel.app/e/cy-2026-%EB%B9%84%EC%95%99%ED%82%A4-%EA%B7%B8%EB%9E%80%ED%8F
+ %B0%EB%8F%84-%EC%B6%98%EC%B2%9C-2026-10-18.html
+URL:https://calrank.vercel.app/e/cy-2026-%EB%B9%84%EC%95%99%ED%82%A4-%EA%B7
+ %B8%EB%9E%80%ED%8F%B0%EB%8F%84-%EC%B6%98%EC%B2%9C-2026-10-18.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:2026 비앙키 그란폰도 춘천 D-7 — 준비물과 교통
+ 편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:2026 비앙키 그란폰도 춘천 내일입니다 — 배번
+ 과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-winspace와-함께하는-2026-섬섬여수-그란폰도-2026-10-24@c
+ alrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261024
+SUMMARY:WINSPACE와 함께하는 2026 섬섬여수 그란폰도
+LOCATION:여수 소호요트마리나
+DESCRIPTION:종목: 112.8km\, 93.3km\n시간: 06:30\n장소: 여수 소호
+ 요트마리나\n신청: http://speedagency.kr/more.html?game_code=112\nht
+ tps://calrank.vercel.app/e/cy-winspace%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%9
+ 8%EB%8A%94-2026-%EC%84%AC%EC%84%AC%EC%97%AC%EC%88%98-%EA%B7%B8%EB%9E%80%ED
+ %8F%B0%EB%8F%84-2026-10-24.html
+URL:https://calrank.vercel.app/e/cy-winspace%EC%99%80-%ED%95%A8%EA%BB%98%ED
+ %95%98%EB%8A%94-2026-%EC%84%AC%EC%84%AC%EC%97%AC%EC%88%98-%EA%B7%B8%EB%9E%
+ 80%ED%8F%B0%EB%8F%84-2026-10-24.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:WINSPACE와 함께하는 2026 섬섬여수 그란폰도 D-7 —
+  준비물과 교통편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:WINSPACE와 함께하는 2026 섬섬여수 그란폰도 내일
+ 입니다 — 배번과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-위아위스와-함께-하는-2026-홍천-그란폰도-2026-10-25@ca
+ lrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261025
+SUMMARY:위아위스와 함께 하는 2026 홍천 그란폰도
+LOCATION:홍천종합운동장
+DESCRIPTION:종목: 119.4km\, 75.3km\n시간: 07:00\n장소: 홍천종합
+ 운동장\n신청: https://www.hongcheonbikefestival.com/riding/intro-gran
+ fondo\nhttps://calrank.vercel.app/e/cy-%EC%9C%84%EC%95%84%EC%9C%84%EC%8A%A
+ 4%EC%99%80-%ED%95%A8%EA%BB%98-%ED%95%98%EB%8A%94-2026-%ED%99%8D%EC%B2%9C-%
+ EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-25.html
+URL:https://calrank.vercel.app/e/cy-%EC%9C%84%EC%95%84%EC%9C%84%EC%8A%A4%EC
+ %99%80-%ED%95%A8%EA%BB%98-%ED%95%98%EB%8A%94-2026-%ED%99%8D%EC%B2%9C-%EA%B
+ 7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-25.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:위아위스와 함께 하는 2026 홍천 그란폰도 D-7 — 
+ 준비물과 교통편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:위아위스와 함께 하는 2026 홍천 그란폰도 내일
+ 입니다 — 배번과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-2026-스캇-백두대간챌린지-2026-10-31@calrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261031
+SUMMARY:2026 스캇 백두대간챌린지
+LOCATION:예천스타디움
+DESCRIPTION:종목: 103.9km\, 93.8km\n시간: 08:00\n장소: 예천스타
+ 디움\n신청: https://xcworks.com/sub/race.html?type=view&wrNo=20\nhttps
+ ://calrank.vercel.app/e/cy-2026-%EC%8A%A4%EC%BA%87-%EB%B0%B1%EB%91%90%EB%8
+ C%80%EA%B0%84%EC%B1%8C%EB%A6%B0%EC%A7%80-2026-10-31.html
+URL:https://calrank.vercel.app/e/cy-2026-%EC%8A%A4%EC%BA%87-%EB%B0%B1%EB%91
+ %90%EB%8C%80%EA%B0%84%EC%B1%8C%EB%A6%B0%EC%A7%80-2026-10-31.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:2026 스캇 백두대간챌린지 D-7 — 준비물과 교통
+ 편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:2026 스캇 백두대간챌린지 내일입니다 — 배번과
+  출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-광주mbc-2026-영산강-그란폰도-in-나주-2026-10-31@calrank.v
+ ercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261031
+SUMMARY:광주MBC 2026 영산강 그란폰도 in 나주
+LOCATION:영산강 둔치체육공원
+DESCRIPTION:종목: 126.5km\, 106.2km\n시간: 06:30\n장소: 영산강 둔
+ 치체육공원\n신청: http://speedagency.kr/more.html?game_code=114\nht
+ tps://calrank.vercel.app/e/cy-%EA%B4%91%EC%A3%BCmbc-2026-%EC%98%81%EC%82%B
+ 0%EA%B0%95-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-in-%EB%82%98%EC%A3%BC-2026
+ -10-31.html
+URL:https://calrank.vercel.app/e/cy-%EA%B4%91%EC%A3%BCmbc-2026-%EC%98%81%EC
+ %82%B0%EA%B0%95-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-in-%EB%82%98%EC%A3%BC
+ -2026-10-31.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:광주MBC 2026 영산강 그란폰도 in 나주 D-7 — 준비
+ 물과 교통편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:광주MBC 2026 영산강 그란폰도 in 나주 내일입니다
+  — 배번과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-2026-부여-굿뜨래-그란폰도-2026-10-31@calrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261031
+SUMMARY:2026 부여 굿뜨래 그란폰도
+LOCATION:부여 종합운동장
+DESCRIPTION:종목: 54.9km\, 105.7km\n시간: 07:00\n장소: 부여 종합
+ 운동장\n신청: https://www.thebike.co.kr/race/view?r_idx=343\nhttps://
+ calrank.vercel.app/e/cy-2026-%EB%B6%80%EC%97%AC-%EA%B5%BF%EB%9C%A8%EB%9E%9
+ 8-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-31.html
+URL:https://calrank.vercel.app/e/cy-2026-%EB%B6%80%EC%97%AC-%EA%B5%BF%EB%9C
+ %A8%EB%9E%98-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-31.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:2026 부여 굿뜨래 그란폰도 D-7 — 준비물과 교통
+ 편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:2026 부여 굿뜨래 그란폰도 내일입니다 — 배번
+ 과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-제35회-문화체육관광부장관기-무주메디오폰도대회-
+ 2026-11-07@calrank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261107
+SUMMARY:제35회 문화체육관광부장관기 무주메디오폰도대회
+LOCATION:무주등나무운동장 주차장
+DESCRIPTION:종목: 95.5km\n시간: 07:00\n장소: 무주등나무운동장
+  주차장\n신청: https://www.jbcycling.or.kr/reception/\nhttps://calran
+ k.vercel.app/e/cy-%EC%A0%9C35%ED%9A%8C-%EB%AC%B8%ED%99%94%EC%B2%B4%EC%9C%A
+ 1%EA%B4%80%EA%B4%91%EB%B6%80%EC%9E%A5%EA%B4%80%EA%B8%B0-%EB%AC%B4%EC%A3%BC
+ %EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84%EB%8C%80%ED%9A%8C-2026-11-07
+ .html
+URL:https://calrank.vercel.app/e/cy-%EC%A0%9C35%ED%9A%8C-%EB%AC%B8%ED%99%94
+ %EC%B2%B4%EC%9C%A1%EA%B4%80%EA%B4%91%EB%B6%80%EC%9E%A5%EA%B4%80%EA%B8%B0-%
+ EB%AC%B4%EC%A3%BC%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84%EB%8C%80%ED
+ %9A%8C-2026-11-07.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:제35회 문화체육관광부장관기 무주메디오폰도
+ 대회 D-7 — 준비물과 교통편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:제35회 문화체육관광부장관기 무주메디오폰도
+ 대회 내일입니다 — 배번과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cy-2026-원바이오젠-안동호반-라면-그란폰도-2026-11-07@cal
+ rank.vercel.app
+DTSTAMP:20261007T222541Z
+DTSTART;VALUE=DATE:20261107
+SUMMARY:2026 원바이오젠 안동호반 라면 그란폰도
+LOCATION:안동시 세계물포럼기념센터
+DESCRIPTION:종목: 102.1km\, 74.4km\n시간: 08:00\n장소: 안동시 세
+ 계물포럼기념센터\n신청: https://speedagency.kr/more.html?game_co
+ de=118\nhttps://calrank.vercel.app/e/cy-2026-%EC%9B%90%EB%B0%94%EC%9D%B4%E
+ C%98%A4%EC%A0%A0-%EC%95%88%EB%8F%99%ED%98%B8%EB%B0%98-%EB%9D%BC%EB%A9%B4-%
+ EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-11-07.html
+URL:https://calrank.vercel.app/e/cy-2026-%EC%9B%90%EB%B0%94%EC%9D%B4%EC%98%
+ A4%EC%A0%A0-%EC%95%88%EB%8F%99%ED%98%B8%EB%B0%98-%EB%9D%BC%EB%A9%B4-%EA%B7
+ %B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-11-07.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:2026 원바이오젠 안동호반 라면 그란폰도 D-7 — 
+ 준비물과 교통편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:2026 원바이오젠 안동호반 라면 그란폰도 내일입
+ 니다 — 배번과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+END:VCALENDAR

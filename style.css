@@ -339,3 +339,38 @@ body{
   .cert-cta .cc-txt span{font-size:11.5px;}
   .cert-cta .cc-go{display:none;}
 }
+
+/* 캘린더 구독 패널 — 계정 없이 쓰는 재방문 장치.
+   접수 마감과 대회 당일 알림은 구독자의 캘린더 앱이 직접 보낸다. */
+.sub-panel{
+  margin-top:12px;max-width:560px;padding:16px 18px;
+  border:1px solid var(--border);border-radius:4px;background:var(--surface);
+}
+.sub-lead{margin:0 0 14px;font-size:13px;line-height:1.75;color:var(--ink-soft);}
+.sub-lead b{color:var(--ink);font-weight:700;}
+.sub-sports{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.sub-sport{
+  padding:7px 13px;border:1px solid var(--border);border-radius:2px;background:none;
+  color:var(--ink-faint);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+.sub-sport.on{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.sub-go{
+  display:block;text-align:center;padding:13px;border-radius:2px;
+  background:var(--accent);color:#fff;font-weight:900;font-size:14px;text-decoration:none;
+}
+.sub-manual{margin:14px 0 7px;font-size:11.5px;line-height:1.7;color:var(--ink-faint);}
+.sub-urlrow{display:flex;gap:6px;align-items:stretch;}
+.sub-urlrow code{
+  flex:1 1 auto;min-width:0;padding:9px 11px;border:1px solid var(--border);border-radius:2px;
+  background:var(--bg);color:var(--ink-soft);font-size:11.5px;
+  user-select:all;word-break:break-all;line-height:1.5;
+}
+.sub-urlrow button{
+  flex:0 0 auto;padding:0 15px;border:1px solid var(--border);border-radius:2px;
+  background:none;color:var(--ink);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+.sub-urlrow button:hover{border-color:var(--accent);color:var(--accent);}
+@media (max-width:600px){
+  .sub-panel{padding:14px;}
+  .sub-lead{font-size:12.5px;}
+}

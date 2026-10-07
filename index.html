@@ -70,10 +70,17 @@
 <div class="hero-speedlines"><span></span><span></span><span></span></div>
 <p class="hero-sub">너의 다음 출발선, 바로 여기야!</p>
 <div class="hero-stats" id="heroStats"></div>
-<button id="subscribeBtn" class="chip" style="margin-top:12px;">📅 캘린더 구독하기 (신규 대회 자동 반영)</button>
-<div id="subscribeInfo" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft, #9A9A9A); max-width:520px;">
-구글/애플 캘린더 앱에서 "URL로 캘린더 구독" 또는 "웹 캘린더 구독"을 선택하고 아래 주소를 붙여넣으세요:<br>
-<code id="subscribeUrl" style="user-select:all; word-break:break-all;">https://calrank.vercel.app/feed.ics</code>
+<button id="subscribeBtn" class="chip" style="margin-top:12px;">🔔 대회·접수마감 알림 받기 (내 캘린더로)</button>
+<div id="subscribeInfo" class="sub-panel" style="display:none;">
+<p class="sub-lead">한 번 추가해 두면 <b>접수 마감 3일 전·하루 전</b>, <b>대회 7일 전·하루 전</b>에 휴대폰 캘린더가 알려줍니다.
+새 대회가 등록되면 자동으로 들어옵니다. <b>가입도 앱 설치도 필요 없습니다.</b></p>
+<div class="sub-sports" id="subSports"></div>
+<a class="sub-go" id="subGo" href="webcal://calrank.vercel.app/feed.ics">📅 내 캘린더에 추가</a>
+<p class="sub-manual">버튼이 열리지 않으면(안드로이드·구글 캘린더) 아래 주소를 복사해 “URL로 캘린더 추가”에 붙여넣으세요.</p>
+<div class="sub-urlrow">
+<code id="subscribeUrl">https://calrank.vercel.app/feed.ics</code>
+<button type="button" id="subCopy">복사</button>
+</div>
 </div>
 </section>
 

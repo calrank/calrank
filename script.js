@@ -689,11 +689,73 @@ async function init() {
     });
   }
 
-  const subscribeBtn = document.getElementById("subscribeBtn");
-  if (subscribeBtn) {
-    subscribeBtn.addEventListener("click", () => {
-      const infoDiv = document.getElementById("subscribeInfo");
-      infoDiv.style.display = infoDiv.style.display === "none" ? "block" : "none";
+  setupCalendarSubscribe();
+}
+
+// ── 캘린더 구독 ──────────────────────────────────────────────────────────
+// 전체 1,000여 개를 한 덩어리로 주면 아무도 구독하지 않으므로 종목별 피드를 고르게 한다.
+// 알림은 서버가 아니라 구독자의 캘린더 앱이 ICS 안의 VALARM 을 보고 직접 보낸다.
+const SUB_FEEDS = [
+  ["", "전체"],
+  ["-marathon", "마라톤"],
+  ["-trail", "트레일"],
+  ["-cycling", "자전거"],
+  ["-triathlon", "철인3종"],
+  ["-inline", "인라인"],
+];
+
+function setupCalendarSubscribe() {
+  const btn = document.getElementById("subscribeBtn");
+  const panel = document.getElementById("subscribeInfo");
+  const wrap = document.getElementById("subSports");
+  const go = document.getElementById("subGo");
+  const urlEl = document.getElementById("subscribeUrl");
+  const copyBtn = document.getElementById("subCopy");
+  if (!btn || !panel || !wrap || !go || !urlEl) return;
+
+  const origin = "calrank.vercel.app";
+  let picked = "";
+
+  function apply() {
+    const path = "/feed" + picked + ".ics";
+    go.href = "webcal://" + origin + path;
+    urlEl.textContent = "https://" + origin + path;
+    wrap.querySelectorAll(".sub-sport").forEach((b) => {
+      b.classList.toggle("on", b.dataset.suffix === picked);
+    });
+  }
+
+  SUB_FEEDS.forEach(([suffix, label]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "sub-sport";
+    b.dataset.suffix = suffix;
+    b.textContent = label;
+    b.addEventListener("click", () => { picked = suffix; apply(); });
+    wrap.appendChild(b);
+  });
+  apply();
+
+  btn.addEventListener("click", () => {
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+  });
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", async () => {
+      const text = urlEl.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (_) {
+        // clipboard API 가 막힌 환경(비 HTTPS, 구형 브라우저)에서는 선택만 해 준다
+        const r = document.createRange();
+        r.selectNodeContents(urlEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(r);
+      }
+      const old = copyBtn.textContent;
+      copyBtn.textContent = "복사됨";
+      setTimeout(() => { copyBtn.textContent = old; }, 1500);
     });
   }
 }
