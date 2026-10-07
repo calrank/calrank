@@ -14,6 +14,7 @@ calrank 대회 상세 정적 페이지 생성 스크립트
 """
 import html
 import json
+import math
 import re
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -22,7 +23,9 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://calrank.vercel.app"
 OUT_DIR = ROOT / "e"
-KEEP_DAYS_AFTER = 60  # 대회일이 지난 뒤에도 이 기간 동안은 페이지를 유지한다
+# "○○마라톤 기록"은 대회가 끝난 뒤에 검색된다. 60일 만에 페이지를 지우면
+# 검색 수요가 생기는 바로 그 시점에 받을 페이지가 없어지므로 길게 보존한다.
+KEEP_DAYS_AFTER = 1095  # 약 3년
 
 SPORT_LABEL = {
     "marathon": "마라톤", "cycling": "자전거", "trail": "트레일러닝",
@@ -77,14 +80,16 @@ def build_summary(ev: dict) -> str:
     place = (ev.get("location") or "").strip()
     parts = []
 
+    is_past = bool(d) and d < date.today()
     when = date_ko(d) if d else "일정 미확인"
     t = ev.get("time")
     if t and re.match(r"^\d{1,2}:\d{2}", str(t)):
         when += f" {t[:5]} 출발"
+    verb = "열린" if is_past else "열리는"
     if place:
-        parts.append(f"{name}{josa_eun_neun(name)} {when}, {place}에서 열리는 {sport} 대회입니다.")
+        parts.append(f"{name}{josa_eun_neun(name)} {when}, {place}에서 {verb} {sport} 대회입니다.")
     else:
-        parts.append(f"{name}{josa_eun_neun(name)} {when}에 열리는 {sport} 대회입니다.")
+        parts.append(f"{name}{josa_eun_neun(name)} {when}에 {verb} {sport} 대회입니다.")
 
     dist = [x for x in (ev.get("distances") or []) if x]
     if dist:
@@ -95,6 +100,9 @@ def build_summary(ev: dict) -> str:
         parts.append(f"주최는 {org}입니다.")
 
     rd = parse_date(ev.get("regDeadline"))
+    if is_past:
+        parts.append("이미 종료된 대회입니다. 다음 회차 일정은 주최 측 공지를 확인해 주세요.")
+        return " ".join(parts)
     if ev.get("regClosed"):
         parts.append("접수는 이미 마감되었습니다.")
     elif rd:
@@ -102,6 +110,113 @@ def build_summary(ev: dict) -> str:
     else:
         parts.append("접수 기간은 주최 측 공지에서 확인해 주세요.")
     return " ".join(parts)
+
+
+# --- 기록 수준 한 단락 (level.js / 등급표와 같은 모델) ---
+_AGE_ANCHORS = [(20, 0.90), (30, 0.93), (40, 0.96), (50, 1.00),
+                (60, 1.10), (70, 1.25), (80, 1.45)]
+_GENDER_FACTOR = {"male": 1.00, "female": 1.11}
+_RIEGEL = 1.06
+_GRADE_SLUG = {5.0: "5km", 10.0: "10km", 21.0975: "half", 42.195: "full"}
+_NAMED_DIST = {"하프": 21.0975, "풀코스": 42.195, "풀": 42.195}
+
+
+def _age_factor(age):
+    if age <= 20:
+        return 0.90
+    if age >= 80:
+        return 1.45
+    for i in range(len(_AGE_ANCHORS) - 1):
+        a0, f0 = _AGE_ANCHORS[i]
+        a1, f1 = _AGE_ANCHORS[i + 1]
+        if a0 <= age <= a1:
+            return f0 + (f1 - f0) * (age - a0) / (a1 - a0)
+    return 1.0
+
+
+def _norm_pace(sec, age, gender, km):
+    return (sec * (10.0 / km) ** _RIEGEL) / 10.0 / _age_factor(age) / _GENDER_FACTOR[gender]
+
+
+def _boundary(bound, age, gender, km):
+    s = math.floor(bound * _age_factor(age) * _GENDER_FACTOR[gender] * 10.0 * (km / 10.0) ** _RIEGEL)
+    while s > 0 and _norm_pace(s, age, gender, km) > bound:
+        s -= 1
+    while _norm_pace(s + 1, age, gender, km) <= bound:
+        s += 1
+    return int(s)
+
+
+def _fmt_time(sec):
+    h, r = divmod(int(sec), 3600)
+    m, s = divmod(r, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
+def _parse_km(raw):
+    """events.json의 distances에서 Riegel 환산이 유효한 거리만 뽑는다."""
+    out = []
+    items = raw if isinstance(raw, list) else [raw]
+    for item in items:
+        for part in re.split(r"[·,/]| 및 ", str(item)):
+            t = part.strip().lower()
+            if not t:
+                continue
+            km = None
+            for nm, v in _NAMED_DIST.items():
+                if nm in t:
+                    km = v
+                    break
+            if km is None:
+                m = re.search(r"(\d+(?:\.\d+)?)\s*km", t)
+                if m:
+                    km = float(m.group(1))
+            # 울트라는 Riegel 환산 신뢰도가 떨어져 제외한다
+            if km is not None and 3.0 <= km <= 42.3 and km not in out:
+                out.append(km)
+    return sorted(out)
+
+
+def _km_label(km):
+    if abs(km - 21.0975) < 0.01:
+        return "하프"
+    if abs(km - 42.195) < 0.01:
+        return "풀코스"
+    return f"{km:g}km"
+
+
+def build_record_standards(ev: dict) -> str:
+    """이 대회 거리 기준으로 '어느 정도면 어느 수준인지'를 짧은 산문으로."""
+    kms = _parse_km(ev.get("distances"))
+    if not kms:
+        return ""
+    # 가장 수요가 많은 거리 하나만 문장으로 다룬다 (페이지가 표로 뒤덮이지 않게)
+    main = None
+    for pref in (10.0, 21.0975, 5.0, 42.195):
+        if pref in kms:
+            main = pref
+            break
+    if main is None:
+        main = kms[0]
+
+    lab = _km_label(main)
+    m_avg = _fmt_time(_boundary(390, 40, "male", main))
+    m_good = _fmt_time(_boundary(300, 40, "male", main))
+    f_avg = _fmt_time(_boundary(390, 40, "female", main))
+    f_good = _fmt_time(_boundary(300, 40, "female", main))
+
+    slug = _GRADE_SLUG.get(main)
+    link = ""
+    if slug:
+        link = (f' 20대부터 75세까지 나이별 전체 기준은 '
+                f'<a href="/grade-{slug}-male.html">{lab} 남성 등급표</a>와 '
+                f'<a href="/grade-{slug}-female.html">여성 등급표</a>에 있습니다.')
+
+    return (
+        f"이 대회 {lab}를 기준으로 보면, 40대 남성은 {m_avg} 안에 들어오면 '평균 이상', "
+        f"{m_good} 안쪽이면 '매우 좋은 편'에 해당합니다. 40대 여성은 각각 {f_avg}, {f_good}입니다. "
+        f"나이와 성별을 보정한 calrank 자체 기준이며 공인 통계는 아닙니다.{link}"
+    )
 
 
 def build_meta_description(ev: dict) -> str:
@@ -258,9 +373,14 @@ def render_page(template: str, ev: dict) -> str:
         raise RuntimeError("템플릿에서 로딩 문구 자리를 찾지 못했습니다")
     out = out.replace(placeholder, build_static_content(ev), 1)
 
+    standards = build_record_standards(ev)
+    standards_html = (
+        f'<p style="margin-top:10px;">{standards}</p>' if standards else ""
+    )
     summary_block = (
         '<section id="eventSummary" style="margin-top:20px;line-height:1.8;color:var(--ink-soft);font-size:14px;">'
         f"<p>{esc(summary)}</p>"
+        f"{standards_html}"
         f'<p style="margin-top:8px;font-size:13px;">{build_related_links(ev)}</p>'
         "</section>\n"
     )
