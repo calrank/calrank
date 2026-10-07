@@ -13,7 +13,7 @@ import re
 import argparse
 import random
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from urllib.parse import quote
 
 import requests
@@ -874,34 +874,41 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
     """대회별 정적 상세 페이지(e/<id>.html) URL을 모은 sitemap을 자동 생성합니다.
     구글이 개별 대회 페이지를 빠르게 발견할 수 있도록, 매 크롤링마다 최신 상태로 갱신됩니다."""
     today = datetime.now().date()
-    upcoming = []
+    # generate_event_pages.py가 지난 대회 페이지도 약 3년간 남긴다.
+    # "○○마라톤 기록"은 대회가 끝난 뒤에 검색되므로, 지난 대회도 사이트맵에
+    # 넣어야 보존한 의미가 있다. (예전에는 예정 대회만 넣어 지난 페이지가
+    # 파일로만 존재하고 검색엔진에는 제출되지 않았다.)
+    oldest = today - timedelta(days=1095)
+    listed = []
     for ev in events:
         try:
             ev_date = datetime.strptime(ev["date"], "%Y-%m-%d").date()
         except (KeyError, ValueError, TypeError):
             continue
-        if ev_date >= today:
-            upcoming.append(ev)
+        if ev_date >= oldest:
+            listed.append((ev, ev_date >= today))
 
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    for ev in upcoming:
+    for ev, is_upcoming in listed:
         # 검색엔진이 내용을 바로 읽을 수 있는 정적 페이지(e/<id>.html)를 가리킨다.
         # (event.html?id=... 는 내용을 JS가 채워서 색인에 불리했다)
         url = f"https://calrank.vercel.app/e/{quote(ev['id'])}.html"
         lines.append("  <url>")
         lines.append(f"    <loc>{url}</loc>")
-        lines.append("    <changefreq>weekly</changefreq>")
-        lines.append("    <priority>0.5</priority>")
+        # 끝난 대회는 내용이 더 바뀌지 않는다
+        lines.append(f"    <changefreq>{'weekly' if is_upcoming else 'yearly'}</changefreq>")
+        lines.append(f"    <priority>{'0.5' if is_upcoming else '0.4'}</priority>")
         lines.append("  </url>")
     lines.append("</urlset>")
 
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
-    print(f"[sitemap-events.xml] {len(upcoming)}개 대회 URL 기록 완료")
+    past_n = sum(1 for _, up in listed if not up)
+    print(f"[sitemap-events.xml] {len(listed)}개 대회 URL 기록 완료 (지난 대회 {past_n}개 포함)")
 
 
 def main():
