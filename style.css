@@ -316,3 +316,26 @@ body{
 .ev-save-btn{flex-shrink:0;background:none;border:none;font-size:17px;cursor:pointer;padding:10px;margin:-10px;line-height:1;opacity:0.6;transition:opacity 0.15s ease, transform 0.15s ease;min-width:24px;min-height:24px;display:flex;align-items:center;justify-content:center;}
 .ev-save-btn:hover{opacity:1;transform:scale(1.12);}
 .ev-save-btn.saved{opacity:1;}
+
+/* 기록증 진입 배너 — 로그인 없이 바로 쓸 수 있는 입구.
+   커뮤니티에서 들어온 방문자가 가입 벽을 만나기 전에 먼저 가치를 보게 한다. */
+.cert-cta{
+  display:flex;align-items:center;gap:14px;
+  margin:18px 0 8px;padding:16px 18px;
+  border:1px solid var(--border);border-radius:4px;
+  background:linear-gradient(90deg,rgba(255,61,26,.10),rgba(255,61,26,0) 70%);
+  text-decoration:none;transition:border-color .15s;
+}
+.cert-cta:hover{border-color:var(--accent);}
+.cert-cta .cc-ico{flex:0 0 auto;font-size:26px;line-height:1;}
+.cert-cta .cc-txt{flex:1 1 auto;min-width:0;}
+.cert-cta .cc-txt b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px;}
+.cert-cta .cc-txt span{display:block;color:var(--ink-soft);font-size:12.5px;line-height:1.6;}
+.cert-cta .cc-go{flex:0 0 auto;color:var(--accent);font-weight:900;font-size:13px;white-space:nowrap;}
+@media (max-width:600px){
+  .cert-cta{padding:14px;gap:11px;}
+  .cert-cta .cc-ico{font-size:22px;}
+  .cert-cta .cc-txt b{font-size:13.5px;}
+  .cert-cta .cc-txt span{font-size:11.5px;}
+  .cert-cta .cc-go{display:none;}
+}
