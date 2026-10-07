@@ -156,7 +156,7 @@ const GLOBAL_10K_SECONDS = {
   },
 };
 const GLOBAL_TIER_LABELS = ["비기너", "노비스", "인터미디엇", "어드밴스드", "엘리트"];
-const GLOBAL_TIER_PERCENT = ["상위 95%", "상위 80%", "상위 50%", "상위 20%", "상위 5%"];
+const GLOBAL_TIER_PERCENT = ["하위권", "상위 80% 수준", "상위 50% 수준", "상위 20% 수준", "상위 5% 수준"];
 
 function computeGlobal10kTier(gender, ageGroup, seconds) {
   const cutoffs = GLOBAL_10K_SECONDS[gender] && GLOBAL_10K_SECONDS[gender][ageGroup];
@@ -1030,7 +1030,7 @@ async function renderTiers() {
           const isGlobalEligible = sport === "marathon" && dist === "10km";
           const globalBoxHtml = isGlobalEligible ? `
             <div class="global-compare-box">
-              <button class="global-compare-btn" type="button">🌍 전세계 데이터로 비교하기</button>
+              <button class="global-compare-btn" type="button">🌍 세계 기준으로도 보기 (더 엄격)</button>
               <div class="global-compare-form" style="display:none;">
                 <select class="global-age-select">
                   <option value="10대">10대</option>
@@ -1049,7 +1049,7 @@ async function renderTiers() {
                 <button class="global-compare-submit" type="button">확인</button>
               </div>
               <p class="global-compare-result"></p>
-              <p class="global-compare-source">출처: Running Level(2024) · 참고용 지표</p>
+              <p class="global-compare-source">출처: Running Level(2024). 기록을 자발적으로 올리는 해외 러너 기준이라 국내 대회보다 엄격합니다. calrank 등급이 기본 기준이며, 이 수치는 참고용입니다.</p>
             </div>
           ` : "";
           card.innerHTML = `
