@@ -1,0 +1,40 @@
+name: Generate grade pages
+
+# scripts/generate_grade_pages.py가 거리 4종 x 성별 2종 등급표 8개와 허브 1개를 만든다.
+# 표의 경계값은 level.js(계산기)와 같은 모델로 계산하며, 스크립트가 실행 전에
+# level.js 상수를 직접 대조해 어긋나면 중단한다.
+# 등급표는 events.json과 무관하므로 매일 돌릴 필요가 없고,
+# level.js나 생성 스크립트가 바뀔 때 + 주 1회만 갱신한다.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "level.js"
+      - "scripts/generate_grade_pages.py"
+  schedule:
+    - cron: "10 20 * * 1" # 매주 월요일 05:10 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate grade pages
+        run: python scripts/generate_grade_pages.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add grade.html grade-*.html sitemap.xml
+          git diff --quiet --cached || (git commit -m "chore: update grade tables" && git pull --rebase && git push)
