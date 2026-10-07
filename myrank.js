@@ -453,6 +453,7 @@ async function showDashSection() {
 
   populateDateSelects();
   populateTimeSelects();
+  populateRaceAutocomplete();
   populateDistanceSelect(document.getElementById("rfSport").value);
   ["rfSport", "rfDistance", "rfHour", "rfMin", "rfSec"].forEach(id => {
     const el = document.getElementById(id);
@@ -735,8 +736,13 @@ function renderPaceTrendChart() {
   if (!card || !sel) return;
 
   const groups = {};
+  // 아직 열리지 않은 대회(미래 날짜)는 완주 기록이 아니므로 추이에서 제외한다.
+  // 저장된 데이터는 지우지 않고 그래프 계산에서만 빼고, 몇 건을 뺐는지 아래에 알린다.
+  const todayStr = todayIsoDate();
+  let excludedFuture = 0;
   (currentRecords || []).forEach(r => {
     if (r.finish_time_seconds == null) return;
+    if ((r.race_date || "") > todayStr) { excludedFuture += 1; return; }
     const key = `${r.sport}|${r.distance_category}`;
     if (!groups[key]) groups[key] = [];
     groups[key].push(r);
@@ -747,6 +753,18 @@ function renderPaceTrendChart() {
     return;
   }
   card.style.display = "block";
+
+  // 점이 말없이 사라진 것처럼 보이지 않도록 이유를 적어 둔다
+  let note = document.getElementById("trendFutureNote");
+  if (!note) {
+    note = document.createElement("p");
+    note.id = "trendFutureNote";
+    note.style.cssText = "font-size:12px;color:var(--ink-faint,#6A6A6A);margin:8px 2px 0;";
+    card.appendChild(note);
+  }
+  note.textContent = excludedFuture
+    ? `아직 열리지 않은 대회 ${excludedFuture}건은 추이에서 제외했습니다. 기록 목록에는 그대로 남아 있습니다.`
+    : "";
 
   sel.innerHTML = validKeys.map(k => {
     const [sport, dist] = k.split("|");
@@ -790,9 +808,25 @@ function drawTrendChart(canvas, records) {
   ctx.lineTo(W - pad, H - pad);
   ctx.stroke();
 
+  // x축은 "몇 번째 기록"이 아니라 실제 날짜 간격에 비례해야 추이가 사실대로 보인다.
+  // (예전에는 5개월 간격과 1개월 간격이 똑같은 폭으로 그려졌다.)
+  const stamps = records.map(r => {
+    const t = Date.parse(r.race_date);
+    return Number.isNaN(t) ? null : t;
+  });
+  const validStamps = stamps.filter(t => t !== null);
+  const minD = validStamps.length ? Math.min.apply(null, validStamps) : 0;
+  const maxD = validStamps.length ? Math.max.apply(null, validStamps) : 0;
+  const dSpan = maxD - minD;
   const stepX = records.length > 1 ? (W - pad * 2) / (records.length - 1) : 0;
+  const years = new Set(records.map(r => String(r.race_date || "").slice(0, 4)));
+  const multiYear = years.size > 1;
+  let lastLabelX = -Infinity;
   const pts = records.map((r, i) => {
-    const x = pad + stepX * i;
+    const t = stamps[i];
+    const x = (dSpan > 0 && t !== null)
+      ? pad + ((t - minD) / dSpan) * (W - pad * 2)
+      : pad + stepX * i;
     const yRatio = (r.finish_time_seconds - minT) / range;
     const y = pad + yRatio * (H - pad * 2);
     return { x, y, r };
@@ -817,9 +851,26 @@ function drawTrendChart(canvas, records) {
 
     ctx.fillStyle = "#9A9A9A";
     ctx.font = "10px 'Noto Sans KR'";
-    const d = new Date(p.r.race_date);
-    ctx.fillText(`${d.getMonth() + 1}/${d.getDate()}`, p.x, H - pad + 16);
+    const iso = String(p.r.race_date || "");
+    const parts = iso.split("-");
+    // 연도가 섞여 있으면 라벨에 연도를 넣는다.
+    // (작년 11/8과 올해 11/8이 똑같이 보이던 문제)
+    const dateText = multiYear
+      ? parts[0].slice(2) + "." + Number(parts[1]) + "/" + Number(parts[2])
+      : Number(parts[1]) + "/" + Number(parts[2]);
+    // 날짜 간격에 비례해 찍다 보면 라벨이 겹칠 수 있어 최소 간격을 둔다
+    if (p.x - lastLabelX >= 34) {
+      ctx.fillText(dateText, p.x, H - pad + 16);
+      lastLabelX = p.x;
+    }
   });
+
+  if (!multiYear && records.length) {
+    ctx.fillStyle = "#6A6A6A";
+    ctx.font = "10px 'Noto Sans KR'";
+    ctx.textAlign = "right";
+    ctx.fillText(String(records[0].race_date || "").slice(0, 4) + "년", W - pad, H - pad + 30);
+  }
 }
 
 const BADGE_DEFS = [
@@ -859,6 +910,11 @@ async function handleRecordSubmit(e) {
   const msgEl = document.getElementById("recordMsg");
   const name = document.getElementById("rfName").value.trim();
   const date = getDateValue();
+  if (date > todayIsoDate()) {
+    msgEl.textContent = "아직 열리지 않은 날짜입니다. 완주한 대회의 실제 날짜를 입력해주세요.";
+    msgEl.className = "record-msg error";
+    return;
+  }
   const sport = document.getElementById("rfSport").value;
   const distance = document.getElementById("rfDistance").value;
   const notes = document.getElementById("rfNotes").value.trim();
@@ -1059,6 +1115,99 @@ async function renderTiers() {
 // 공백을 뺀 부분일치까지만 시도하고, 그래도 안 맞으면 그냥 버튼을 생략한다
 // (틀린 대회로 후기를 유도하는 것보다 안 보여주는 게 낫다).
 let __eventsCache = null;
+
+// 오늘 날짜를 로컬 기준 YYYY-MM-DD로 돌려준다.
+// (toISOString()은 UTC라 한국 시간 오전에 하루 밀린다)
+function todayIsoDate() {
+  const d = new Date();
+  return d.getFullYear() + "-" +
+    String(d.getMonth() + 1).padStart(2, "0") + "-" +
+    String(d.getDate()).padStart(2, "0");
+}
+
+// events.json을 한 번만 읽어 캐시한다 (findMatchingEventId와 공유).
+async function loadEventsCache() {
+  if (!__eventsCache) {
+    try {
+      const res = await fetch("events.json");
+      __eventsCache = await res.json();
+    } catch (e) {
+      __eventsCache = [];
+    }
+  }
+  return __eventsCache;
+}
+
+// 대회명을 직접 타이핑하게 두면 오타도 나고 귀찮아서 입력을 포기하게 된다.
+// calrank가 이미 아는 대회를 datalist로 붙여서 한두 글자만 쳐도 고를 수 있게 하고,
+// 고르는 순간 날짜·종목·거리까지 채워 준다.
+let __raceLookup = null;
+async function populateRaceAutocomplete() {
+  const input = document.getElementById("rfName");
+  const list = document.getElementById("rfNameList");
+  if (!input || !list || list.dataset.filled === "1") return;
+
+  const events = await loadEventsCache();
+  const today = todayIsoDate();
+
+  // 같은 이름이 여러 해에 걸쳐 있으면 가장 최근 "지난" 대회를 기본으로 삼는다.
+  const byName = new Map();
+  events.forEach(e => {
+    const name = (e.name || "").trim();
+    if (!name) return;
+    const prev = byName.get(name);
+    const isPast = (e.date || "") <= today;
+    const prevPast = prev ? (prev.date || "") <= today : false;
+    if (!prev) { byName.set(name, e); return; }
+    if (isPast && !prevPast) { byName.set(name, e); return; }
+    if (isPast === prevPast && (e.date || "") > (prev.date || "")) byName.set(name, e);
+  });
+
+  __raceLookup = byName;
+
+  const sorted = Array.from(byName.values()).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  const frag = document.createDocumentFragment();
+  sorted.forEach(e => {
+    const opt = document.createElement("option");
+    opt.value = e.name;
+    opt.label = [(e.date || "").slice(0, 10), e.region, e.sportLabel].filter(Boolean).join(" · ");
+    frag.appendChild(opt);
+  });
+  list.innerHTML = "";
+  list.appendChild(frag);
+  list.dataset.filled = "1";
+
+  input.addEventListener("input", onRaceNameChosen);
+  input.addEventListener("change", onRaceNameChosen);
+}
+
+// 목록에서 고른 대회명과 정확히 일치할 때만 자동으로 채운다.
+// (타이핑 중에 값이 멋대로 바뀌면 더 불편하므로 완전 일치일 때만)
+function onRaceNameChosen(ev) {
+  if (!__raceLookup) return;
+  const e = __raceLookup.get((ev.target.value || "").trim());
+  if (!e) return;
+
+  if (e.date) setDateValue(String(e.date).slice(0, 10));
+
+  const sportSel = document.getElementById("rfSport");
+  if (e.sport && sportSel && Array.from(sportSel.options).some(o => o.value === e.sport)) {
+    sportSel.value = e.sport;
+    populateDistanceSelect(e.sport);
+  }
+
+  // 대회가 제공하는 거리 중 지금 고를 수 있는 게 있으면 첫 번째를 기본값으로
+  const distSel = document.getElementById("rfDistance");
+  const distances = Array.isArray(e.distances) ? e.distances : [];
+  if (distSel && distances.length) {
+    const opts = Array.from(distSel.options).map(o => o.value);
+    const hit = distances.map(String).find(d => opts.includes(d));
+    if (hit) distSel.value = hit;
+  }
+
+  if (typeof updateRecordPreview === "function") updateRecordPreview();
+}
+
 async function findMatchingEventId(raceName) {
   if (!raceName) return null;
   if (!__eventsCache) {
