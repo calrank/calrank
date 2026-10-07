@@ -8,6 +8,7 @@ calrank 대회 일정 자동 수집 (다중 소스, 상호 독립).
   python scripts/fetch_events.py --out events.json
 """
 
+import os
 import json
 import re
 import argparse
@@ -784,18 +785,96 @@ SOURCES = [
 ]
 
 
-def dedupe_across_sources(events: list[dict]) -> list[dict]:
-    groups: dict[tuple, dict] = {}
+# 같은 대회가 소스마다 조금씩 다르게 적혀 들어온다.
+#   "제3회서울트레일런 대회" / "제3회 서울트레일런 대회"   (띄어쓰기)
+#   "2026 연수 꿈이음길 러닝대회" / "연수 꿈이음길 러닝대회"  (앞머리 연도)
+# 예전에는 이름을 글자 그대로 비교해서 이런 것들이 전부 별개 대회로 남았고,
+# 그 결과 전체의 19%가 중복이었다. 캘린더에 같은 대회가 세 번 뜨고,
+# e/<id>.html 도 세 벌씩 생겨 검색엔진에는 중복 콘텐츠로 보인다.
+def normalize_name(name: str) -> str:
+    s = str(name or "")
+    s = re.sub(r"^\s*20\d{2}\s*년?\s*", "", s)   # 앞머리 연도
+    s = re.sub(r"제?\s*\d+\s*회", "", s)          # 제N회
+    s = re.sub(r"[^0-9A-Za-z가-힣]", "", s)        # 공백·기호
+    return s.lower()
+
+
+def _meaningful(v) -> bool:
+    if v is None:
+        return False
+    s = str(v).strip()
+    return bool(s) and not _PLACEHOLDER_RE.fullmatch(s)
+
+
+def _completeness(ev: dict) -> int:
+    """정보가 더 많이 찬 레코드를 대표로 삼기 위한 점수."""
+    score = 0
+    for f in ("regDeadline", "applyUrl", "organizer", "organizerPhone", "sourceUrl"):
+        if _meaningful(ev.get(f)):
+            score += 1
+    if ev.get("lat") and ev.get("lng"):
+        score += 2
+    score += len([d for d in (ev.get("distances") or []) if _meaningful(d)])
+    # 지역명("서울")보다 실제 장소("낙산공원 중앙광장")가 쓸모 있다
+    loc, region = ev.get("location"), ev.get("region")
+    if _meaningful(loc) and str(loc).strip() != str(region or "").strip():
+        score += 2
+    return score
+
+
+def dedupe_across_sources(
+    events: list[dict], known_ids: "set[str] | None" = None
+) -> "tuple[list[dict], dict[str, str]]":
+    """이름을 정규화해 같은 대회를 하나로 합친다.
+
+    돌려주는 두 번째 값은 {사라진 id: 살아남은 id} 다. 이미 색인된 주소가
+    404 가 되지 않도록 vercel.json 에 301 리다이렉트로 깔기 위한 것이다.
+    """
+    known = known_ids or set()
+    groups: "dict[tuple, list[dict]]" = {}
     for ev in events:
-        key = (ev["name"].strip(), ev["date"])
-        if key not in groups:
-            groups[key] = ev
-        else:
-            existing = groups[key]
-            for field in ("regDeadline", "organizer", "organizerPhone", "region", "location"):
-                if not existing.get(field) and ev.get(field):
-                    existing[field] = ev[field]
-    return list(groups.values())
+        groups.setdefault((normalize_name(ev.get("name")), ev.get("date")), []).append(ev)
+
+    out: list[dict] = []
+    aliases: dict[str, str] = {}
+
+    for items in groups.values():
+        # 대표는 '이미 배포된 주소'를 최우선으로 고른다. 검색엔진이 알고 있는
+        # 주소를 유지해야 쌓인 색인이 날아가지 않는다.
+        published = [e for e in items if e.get("id") in known]
+        pool = published or items
+        winner = max(pool, key=_completeness)
+
+        merged = {**winner}
+        for other in items:
+            if other is winner:
+                continue
+            for field in ("regDeadline", "organizer", "organizerPhone", "applyUrl",
+                          "sourceUrl", "time", "region"):
+                if not _meaningful(merged.get(field)) and _meaningful(other.get(field)):
+                    merged[field] = other[field]
+            if not (merged.get("lat") and merged.get("lng")) and other.get("lat") and other.get("lng"):
+                merged["lat"], merged["lng"] = other["lat"], other["lng"]
+            # 지역명뿐이면 구체적인 장소로 바꾼다
+            if _meaningful(other.get("location")) and \
+               str(other["location"]).strip() != str(other.get("region") or "").strip() and \
+               (not _meaningful(merged.get("location")) or
+                    str(merged["location"]).strip() == str(merged.get("region") or "").strip()):
+                merged["location"] = other["location"]
+            # 거리는 소스마다 일부만 적어 두는 일이 많아 합집합으로 모은다
+            seen = [d for d in (merged.get("distances") or []) if _meaningful(d)]
+            for d in (other.get("distances") or []):
+                if _meaningful(d) and d not in seen:
+                    seen.append(d)
+            merged["distances"] = seen
+            merged["saves"] = max(merged.get("saves") or 0, other.get("saves") or 0)
+
+        out.append(merged)
+        for other in items:
+            if other.get("id") and other["id"] != merged["id"]:
+                aliases[other["id"]] = merged["id"]
+
+    return out, aliases
 
 
 def merge_and_dedupe(existing: list[dict], new_events: list[dict]) -> list[dict]:
@@ -1027,6 +1106,79 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
     print(f"[sitemap-events.xml] {len(listed)}개 대회 URL 기록 완료 (지난 대회 {past_n}개 포함)")
 
 
+ALIAS_PATH = "event_aliases.json"
+VERCEL_PATH = "vercel.json"
+VERCEL_REDIRECT_CAP = 900   # Vercel 한도는 1024. 여유를 둔다.
+
+ICS_FEEDS = ["feed.ics", "feed-marathon.ics", "feed-trail.ics",
+             "feed-cycling.ics", "feed-triathlon.ics", "feed-inline.ics"]
+
+
+def update_aliases(new_aliases: dict, live_ids: set) -> dict:
+    """중복으로 사라진 주소를 계속 모아 둔다.
+
+    한 번 색인된 주소는 나중에 다시 요청이 들어오므로, 이번 실행에서 합쳐진
+    것만이 아니라 과거에 합쳐진 것도 계속 리다이렉트해야 한다.
+    """
+    stored = {}
+    if os.path.exists(ALIAS_PATH):
+        try:
+            with open(ALIAS_PATH, encoding="utf-8") as f:
+                stored = json.load(f)
+        except (OSError, ValueError):
+            stored = {}
+
+    stored.update(new_aliases)
+
+    # 사슬을 편다 (a->b, b->c  ==>  a->c). 리다이렉트가 두 번 도는 걸 막는다.
+    def resolve(i, depth=0):
+        while i in stored and depth < 10:
+            nxt = stored[i]
+            if nxt == i:
+                break
+            i, depth = nxt, depth + 1
+        return i
+
+    flat = {src: resolve(dst) for src, dst in stored.items()}
+    # 목적지가 더 이상 존재하지 않거나 자기 자신이면 버린다
+    flat = {k: v for k, v in flat.items() if v in live_ids and k != v and k not in live_ids}
+
+    with open(ALIAS_PATH, "w", encoding="utf-8") as f:
+        json.dump(dict(sorted(flat.items())), f, ensure_ascii=False, indent=1)
+    return flat
+
+
+def generate_vercel_config(aliases: dict) -> None:
+    """ICS 헤더와 301 리다이렉트를 vercel.json 으로 쓴다.
+
+    Vercel 은 리다이렉트를 파일시스템보다 먼저 평가하므로, 합쳐져 사라진
+    e/<id>.html 이 아직 남아 있어도 곧바로 대표 주소로 넘어간다.
+    """
+    redirects = [
+        {"source": f"/e/{quote(src)}.html",
+         "destination": f"/e/{quote(dst)}.html",
+         "permanent": True}
+        for src, dst in sorted(aliases.items())[:VERCEL_REDIRECT_CAP]
+    ]
+    cfg = {
+        "$schema": "https://openapi.vercel.sh/vercel.json",
+        "headers": [
+            {"source": f"/{name}",
+             "headers": [
+                 {"key": "Content-Type", "value": "text/calendar; charset=utf-8"},
+                 {"key": "Cache-Control",
+                  "value": "public, max-age=0, s-maxage=3600, must-revalidate"},
+             ]}
+            for name in ICS_FEEDS
+        ],
+        "redirects": redirects,
+    }
+    with open(VERCEL_PATH, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"[vercel.json] 301 리다이렉트 {len(redirects)}개 기록")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="events.json")
@@ -1051,11 +1203,23 @@ def main():
         if i < len(SOURCES) - 1:
             time.sleep(random.uniform(1.5, 3.5))
 
-    merged = merge_and_dedupe(existing, dedupe_across_sources(all_new))
+    # 이미 배포된 주소를 알려 줘야 대표를 고를 때 색인된 쪽을 남길 수 있다.
+    known_ids = {ev["id"] for ev in existing if ev.get("id")}
+
+    # 중복 제거는 '합친 뒤 전체'에 대고 한다. 새로 긁어온 것만 정리하면,
+    # merge_and_dedupe 가 기존 events.json 을 통째로 seed 로 쓰기 때문에
+    # 예전에 쌓인 중복이 그대로 되살아난다.
+    merged = merge_and_dedupe(existing, all_new)
+    merged, aliases = dedupe_across_sources(merged, known_ids=known_ids)
+    merged.sort(key=lambda e: e["date"])
+
+    live_ids = {ev["id"] for ev in merged if ev.get("id")}
 
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(merged, f, ensure_ascii=False, indent=2)
 
+    all_aliases = update_aliases(aliases, live_ids)
+    generate_vercel_config(all_aliases)
     generate_event_sitemap(merged)
     generate_ics_feed(merged)
 
