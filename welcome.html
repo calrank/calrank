@@ -11,7 +11,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="style.css">
 <style>
-  .welcome-hero { position: relative; width: 100%; height: 100vh; min-height: 640px; overflow: hidden; }
+  .welcome-hero { position: relative; width: 100%; height: min(86vh, 760px); min-height: 520px; overflow: hidden; }
   .bg-slide { position: absolute; inset: 0; background-size: 120% auto; background-position: center 30%; opacity: 0; transform: scale(1.08); animation: welcomeSlide 28s infinite; }
   .bg-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(11,11,11,0.96) 0%, rgba(11,11,11,0.78) 32%, rgba(11,11,11,0.2) 58%, rgba(11,11,11,0.4) 100%); }
   .bg-slide:nth-child(1) { background-image: url('duo1.jpg'); animation-delay: 0s; background-size: cover; background-position: 68% 35%; }
@@ -42,6 +42,34 @@
     .welcome-diag { clip-path: polygon(0 0, 100% 0, 100% 60%, 0 86%); }
     .welcome-content { max-width: 100%; padding: 8vw 6vw; justify-content: flex-end; height: 60%; }
   }
+
+  .wc-main{max-width:720px;margin:0 auto;padding:44px 18px 72px;}
+  .wc-sec{margin-bottom:46px;}
+  .wc-h2{font-family:var(--font-display);font-size:clamp(19px,3.4vw,24px);color:var(--ink);margin:0 0 6px;}
+  .wc-sub{font-size:13px;line-height:1.7;color:var(--ink-soft);margin:0 0 16px;}
+  .wc-list{display:flex;flex-direction:column;gap:8px;}
+  .wc-loading{font-size:13px;color:var(--ink-faint);margin:0;padding:10px 0;}
+  .wc-row{display:flex;align-items:center;gap:14px;padding:14px 16px;text-decoration:none;
+    border:1px solid var(--border);border-radius:4px;background:var(--surface);transition:border-color .15s;}
+  .wc-row:hover{border-color:var(--accent);}
+  .wc-dday{flex:0 0 auto;min-width:56px;text-align:center;padding:7px 8px;border-radius:3px;
+    background:var(--bg);border:1px solid var(--border);font-size:13px;font-weight:900;
+    color:var(--ink-soft);line-height:1.2;}
+  .wc-dday.urgent{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .wc-body{flex:1 1 auto;min-width:0;}
+  .wc-body b{display:block;font-size:14.5px;color:var(--ink);font-weight:700;line-height:1.45;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .wc-body span{display:block;font-size:12px;color:var(--ink-faint);margin-top:4px;line-height:1.5;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .wc-more{display:inline-block;margin-top:14px;font-size:13px;color:var(--ink-soft);
+    text-decoration:none;border-bottom:1px dashed var(--ink-faint);padding-bottom:2px;}
+  .wc-more:hover{color:var(--accent);border-color:var(--accent);}
+  @media (max-width:600px){
+    .wc-main{padding:34px 16px 60px;}
+    .wc-row{padding:12px 13px;gap:11px;}
+    .wc-dday{min-width:50px;font-size:12px;padding:6px;}
+    .wc-body b{font-size:13.5px;}
+  }
 </style>
 </head>
 <body>
@@ -51,9 +79,10 @@
 <a href="index.html" class="wordmark">CALRANK</a>
 <nav class="main-nav">
 <a href="index.html" class="nav-link">캘린더</a>
-<a href="regions.html" class="nav-link">지역별</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
 <a href="news.html" class="nav-link">종목뉴스</a>
 <a href="column.html" class="nav-link">칼럼</a>
+<a href="grade.html" class="nav-link">등급표</a>
 <a href="myrank.html" class="nav-link">내 랭크</a>
 <a href="contact.html" class="nav-contact-link">제휴문의</a>
 </nav>
@@ -86,9 +115,52 @@
   </div>
 </section>
 
+<main class="wc-main">
+
+<section class="wc-sec" id="wcDeadlineSec">
+<h2 class="wc-h2">접수가 곧 마감됩니다</h2>
+<p class="wc-sub">놓치면 올해는 못 나갑니다. 눌러서 대회 상세로 가세요.</p>
+<div class="wc-list" id="wcDeadlines">
+<p class="wc-loading">불러오는 중...</p>
+</div>
+<a class="wc-more" href="index.html">전체 대회 캘린더 보기 →</a>
+</section>
+
+<section class="wc-sec">
+<h2 class="wc-h2">가입 없이 지금 해볼 수 있는 것</h2>
+
+<a href="cert.html" class="cert-cta" style="margin-top:0;">
+<span class="cc-ico">📷</span>
+<span class="cc-txt"><b>기록증 사진 한 장이면 등급이 나옵니다</b><span>완주 시간을 읽어 나이·성별을 보정한 내 등급과 공유 카드까지. 타이핑도 필요 없습니다.</span></span>
+<span class="cc-go">바로 확인 →</span>
+</a>
+
+<a href="index.html" class="cert-cta">
+<span class="cc-ico">🔔</span>
+<span class="cc-txt"><b>접수 마감·대회 D-day를 캘린더로 받기</b><span>한 번 추가해 두면 마감 3일 전과 대회 전날 휴대폰이 알려줍니다. 새 대회도 자동으로 들어옵니다.</span></span>
+<span class="cc-go">설정하기 →</span>
+</a>
+
+<a href="grade.html" class="cert-cta">
+<span class="cc-ico">📊</span>
+<span class="cc-txt"><b>내 기록은 어느 수준일까</b><span>거리별·나이별·성별 등급표에서 내 기록이 어느 칸인지 바로 확인하세요.</span></span>
+<span class="cc-go">등급표 →</span>
+</a>
+
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p>등급 기준은 calrank가 정한 자체 지표이며 공식 통계나 의학적 판단이 아닙니다.</p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+
 <script>
   try { localStorage.setItem('crVisited', '1'); } catch(e) {}
 </script>
+<script src="welcome.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
