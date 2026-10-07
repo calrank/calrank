@@ -55,7 +55,7 @@
 <!-- 로그인 전 -->
 <section id="authSection" class="auth-card">
 <p class="auth-reassure">✅ 이메일 인증만 하면 30초면 끝 · 실명·전화번호 필요 없어요 · 랭킹엔 이름이 박*희처럼 가려져서 나와요</p>
-<div class="auth-tabs">
+<div class="auth-tabs" id="authTabsWrap">
 <button class="auth-tab active" data-mode="signin">로그인</button>
 <button class="auth-tab" data-mode="signup">회원가입</button>
 </div>
@@ -67,6 +67,17 @@
 <input type="password" id="authPassword" required placeholder="6자 이상" minlength="6">
 <button type="submit" class="auth-submit-btn" id="authSubmitBtn">로그인</button>
 <p class="auth-msg" id="authMsg"></p>
+</form>
+
+<p class="auth-alt" id="forgotWrap"><a href="#" id="forgotLink">비밀번호를 잊으셨나요?</a></p>
+
+<form id="resetForm" class="auth-form" style="display:none;">
+<p class="auth-note">가입한 이메일을 넣으면, 비밀번호를 새로 정할 수 있는 링크를 보내드립니다.</p>
+<label for="resetEmail">이메일</label>
+<input type="email" id="resetEmail" required placeholder="you@example.com" autocomplete="email">
+<button type="submit" class="auth-submit-btn" id="resetSubmitBtn">재설정 링크 받기</button>
+<p class="auth-msg" id="resetMsg"></p>
+<p class="auth-alt"><a href="#" id="resetBackLink">← 로그인으로 돌아가기</a></p>
 </form>
 </section>
 

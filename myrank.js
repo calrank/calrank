@@ -436,6 +436,63 @@ async function handleSignOut() {
 function showAuthSection() {
   document.getElementById("authSection").style.display = "block";
   document.getElementById("dashSection").style.display = "none";
+  showAuthForm("login");
+}
+
+// ── 비밀번호 찾기 ───────────────────────────────────────────────────────
+// 재설정 링크를 누르면 reset.html 로 돌아온다. 이 주소는 Supabase 대시보드의
+// Authentication > URL Configuration > Redirect URLs 에 등록돼 있어야 하며,
+// 등록돼 있지 않으면 Supabase 가 Site URL 로 보내 버려 폼이 열리지 않는다.
+function resetRedirectUrl() {
+  return location.origin + "/reset.html";
+}
+
+function showAuthForm(which) {
+  const login = which !== "reset";
+  const tabs = document.getElementById("authTabsWrap");
+  if (!tabs) return; // 혹시 구버전 HTML 이 캐시돼 있어도 로그인은 막지 않는다
+  tabs.style.display = login ? "flex" : "none";
+  document.getElementById("authForm").style.display = login ? "flex" : "none";
+  document.getElementById("forgotWrap").style.display = login ? "block" : "none";
+  document.getElementById("resetForm").style.display = login ? "none" : "flex";
+  if (!login) {
+    const typed = document.getElementById("authEmail").value.trim();
+    const target = document.getElementById("resetEmail");
+    if (typed && !target.value) target.value = typed;
+    target.focus();
+  } else {
+    document.getElementById("resetMsg").textContent = "";
+  }
+}
+
+async function handleResetRequest(e) {
+  e.preventDefault();
+  const email = document.getElementById("resetEmail").value.trim();
+  const msgEl = document.getElementById("resetMsg");
+  const btn = document.getElementById("resetSubmitBtn");
+  if (!email) return;
+
+  msgEl.className = "auth-msg";
+  msgEl.textContent = "보내는 중...";
+  btn.disabled = true;
+
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: resetRedirectUrl(),
+  });
+  btn.disabled = false;
+
+  if (error) {
+    const m = String(error.message || "");
+    msgEl.className = "auth-msg error";
+    msgEl.textContent = (error.status === 429 || /rate limit|too many/i.test(m))
+      ? "잠시 후 다시 시도해 주세요. 메일 발송 횟수에 제한이 있습니다."
+      : m;
+    return;
+  }
+
+  // 가입된 메일인지 여부는 알려주지 않는다 (계정 존재 여부가 드러나지 않도록)
+  msgEl.className = "auth-msg ok";
+  msgEl.textContent = email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인해 주세요.";
 }
 
 async function showDashSection() {
@@ -1644,6 +1701,13 @@ downloadShareCard();
 async function init() {
   setupAuthTabs();
   document.getElementById("authForm").addEventListener("submit", handleAuthSubmit);
+  document.getElementById("forgotLink").addEventListener("click", (e) => {
+    e.preventDefault(); showAuthForm("reset");
+  });
+  document.getElementById("resetBackLink").addEventListener("click", (e) => {
+    e.preventDefault(); showAuthForm("login");
+  });
+  document.getElementById("resetForm").addEventListener("submit", handleResetRequest);
   document.getElementById("signOutBtn").addEventListener("click", handleSignOut);
   document.getElementById("recordForm").addEventListener("submit", handleRecordSubmit);
   document.getElementById("rfSport").addEventListener("change", (e) => populateDistanceSelect(e.target.value));
