@@ -1,0 +1,83 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/feed.ics",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/calendar; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/feed-marathon.ics",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/calendar; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/feed-trail.ics",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/calendar; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/feed-cycling.ics",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/calendar; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/feed-triathlon.ics",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/calendar; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/feed-inline.ics",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/calendar; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
