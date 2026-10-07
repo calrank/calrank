@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank</title>
+<meta name="description" content="5km·10km·하프·풀코스 완주 기록이 어느 수준인지 나이와 성별까지 반영해 정리한 러닝 기록 등급표입니다. 거리와 성별을 골라 바로 확인하세요.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank">
+<meta property="og:description" content="5km·10km·하프·풀코스 완주 기록이 어느 수준인지 나이와 성별까지 반영해 정리한 러닝 기록 등급표입니다. 거리와 성별을 골라 바로 확인하세요.">
+<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:url" content="https://calrank.vercel.app/grade.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://calrank.vercel.app/grade.html">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank", "description": "5km·10km·하프·풀코스 완주 기록이 어느 수준인지 나이와 성별까지 반영해 정리한 러닝 기록 등급표입니다. 거리와 성별을 골라 바로 확인하세요.", "url": "https://calrank.vercel.app/grade.html", "inLanguage": "ko-KR"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"}, {"@type": "ListItem", "position": 2, "name": "기록 등급표"}]}</script>
+<style>
+  .gr-wrap { max-width: 860px; margin: 0 auto; padding: 44px 20px 80px; }
+  .gr-title { font-family: var(--font-display); font-size: clamp(23px, 3.4vw, 33px); line-height: 1.3; margin-bottom: 12px; }
+  .gr-lead { font-size: 15px; line-height: 1.8; color: #C9C3BF; margin-bottom: 22px; }
+  .gr-switch { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 26px; }
+  .gr-switch a { font-size: 13px; padding: 7px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #D6D1CD; text-decoration: none; }
+  .gr-switch a:hover { border-color: var(--accent); }
+  .gr-switch a.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+  .gr-tablebox { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border, #2A2A2A); border-radius: 10px; }
+  table.gr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 13px; }
+  table.gr-table th, table.gr-table td { padding: 10px 8px; text-align: center; white-space: nowrap; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  table.gr-table thead th { background: #171514; color: #E8E4E1; font-weight: 700; font-size: 12px; line-height: 1.4; }
+  /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
+  table.gr-table tbody th { background: #121010; color: var(--accent); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid rgba(255,255,255,0.09); }
+  table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid rgba(255,255,255,0.09); }
+  table.gr-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .gr-swipe { display: none; font-size: 12px; color: #8E8884; margin: 8px 2px 0; }
+  @media (max-width: 680px) {
+    .gr-wrap { padding: 32px 14px 70px; }
+    table.gr-table { font-size: 12.5px; }
+    table.gr-table th, table.gr-table td { padding: 9px 7px; }
+    .gr-swipe { display: block; }
+  }
+  .gr-note { font-size: 13px; line-height: 1.8; color: #A9A29E; margin-top: 14px; }
+  .gr-h2 { font-size: 18px; margin: 38px 0 12px; }
+  .gr-p { font-size: 14.5px; line-height: 1.85; color: #C3BDB9; }
+  .gr-faq { margin-top: 10px; }
+  .gr-faq details { border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .gr-faq summary { cursor: pointer; font-size: 14px; font-weight: 700; color: #E8E4E1; }
+  .gr-faq p { margin-top: 9px; font-size: 14px; line-height: 1.8; color: #B5AFAB; }
+  .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; text-align: center; }
+  .gr-cta p { font-size: 14.5px; color: #C9C3BF; }
+  .gr-cta a { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
+  .gr-links { margin-top: 26px; font-size: 13.5px; line-height: 2; }
+  .gr-links a { color: #D6D1CD; text-decoration: none; border-bottom: 1px dashed #5E5A57; }
+  .gr-links a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="grade.html" class="nav-link">등급표</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+<main class="gr-wrap">
+<h1 class="gr-title">러닝 기록 등급표</h1>
+<p class="gr-lead">같은 1시간이라도 25세 남성이 뛴 10km와 62세 여성이 뛴 10km는 전혀 다른 의미를 가집니다.
+그래서 절대 기록만 늘어놓은 표는 실제로 내 수준을 알려 주지 못합니다. calrank의 등급표는 나이와 성별 차이를
+먼저 보정한 뒤 같은 조건의 동호인 사이에서 내 기록이 어디쯤인지 보여 줍니다. 거리와 성별을 고르면
+20대부터 75세까지 연령별 기준 기록이 표로 나옵니다.</p>
+
+<h2 class="gr-h2">5km</h2>
+<div class="gr-switch"><a href="grade-5km-male.html">5km · 남성</a><a href="grade-5km-female.html">5km · 여성</a></div>
+<h2 class="gr-h2">10km</h2>
+<div class="gr-switch"><a href="grade-10km-male.html">10km · 남성</a><a href="grade-10km-female.html">10km · 여성</a></div>
+<h2 class="gr-h2">하프(21.1km)</h2>
+<div class="gr-switch"><a href="grade-half-male.html">하프마라톤 · 남성</a><a href="grade-half-female.html">하프마라톤 · 여성</a></div>
+<h2 class="gr-h2">풀코스(42.195km)</h2>
+<div class="gr-switch"><a href="grade-full-male.html">풀코스 마라톤 · 남성</a><a href="grade-full-female.html">풀코스 마라톤 · 여성</a></div>
+
+<h2 class="gr-h2">한눈에 보는 40세 기준</h2>
+<p class="gr-p">가장 많이 찾는 40세 기준으로, 각 거리에서 '매우 좋은 편'과 '평균 이상'에 들어가려면
+어느 정도 기록이 필요한지 추려 봤습니다. 다른 나이는 각 등급표에서 확인하세요.</p>
+<div class="gr-tablebox"><table class="gr-table">
+<thead><tr><th>구분</th><th>매우 좋은 편</th><th>평균 이상</th></tr></thead>
+<tbody>
+<tr><th>5km 남성</th><td>23:01</td><td>29:55</td></tr>
+<tr><th>5km 여성</th><td>25:33</td><td>33:13</td></tr>
+<tr><th>10km 남성</th><td>48:00</td><td>1:02:24</td></tr>
+<tr><th>10km 여성</th><td>53:16</td><td>1:09:15</td></tr>
+<tr><th>하프(21.1km) 남성</th><td>1:45:54</td><td>2:17:40</td></tr>
+<tr><th>하프(21.1km) 여성</th><td>1:57:33</td><td>2:32:49</td></tr>
+<tr><th>풀코스(42.195km) 남성</th><td>3:40:48</td><td>4:47:03</td></tr>
+<tr><th>풀코스(42.195km) 여성</th><td>4:05:05</td><td>5:18:37</td></tr>
+</tbody></table></div>
+
+<h2 class="gr-h2">등급은 어떻게 계산했나</h2>
+<p class="gr-p">등급 구분은 거리마다 따로 두지 않고 10km 환산 페이스 하나로 통일했습니다. 서로 다른 거리의 기록을 같은 잣대로 비교하기 위해 러닝에서 널리 쓰이는 Riegel 환산식(지수 1.06)을 사용했고, 여기에 연령대별 기량 감소와 성별 차이를 보정 계수로 반영했습니다. 50세를 기준(1.00)으로 두고 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용되는 구조입니다.</p>
+
+<div class="gr-cta">
+<p>표를 찾아보는 대신 내 기록을 바로 넣어 보고 싶다면 계산기가 더 빠릅니다.</p>
+<a href="level.html">내 기록으로 등급 계산하기 →</a>
+</div>
+
+<div class="gr-links">
+<a href="myrank.html">내 기록 저장하고 랭킹에서 비교하기</a><br>
+<a href="index.html">다가오는 대회 일정 보기</a>
+</div>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<p>등급 기준은 일반적으로 통용되는 동호인 페이스 구간을 참고한 자체 지표이며, 공식 통계나 의학적 판단이 아닙니다.</p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+</body>
+</html>
