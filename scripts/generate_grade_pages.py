@@ -146,7 +146,38 @@ def verify_against_level_js() -> None:
     if parsed != TIER_BOUNDS:
         sys.exit(f"[grade pages] TIER_BOUNDS 불일치: level.js={parsed}")
 
+    verify_against_grade_model()
     print("[grade pages] level.js 상수 대조 통과")
+
+
+def verify_against_grade_model() -> None:
+    """grade-model.js(계산기·기록증 페이지가 공유하는 모델)도 같은 상수인지 본다.
+
+    같은 기록에 서로 다른 등급이 나오는 것이 이 프로젝트에서 실제로 났던
+    문제라, 모델 사본이 생길 때마다 여기서 함께 대조한다."""
+    path = ROOT / "grade-model.js"
+    if not path.exists():
+        return
+    src = path.read_text(encoding="utf-8")
+
+    anchors = [(int(a), float(f)) for a, f in
+               re.findall(r"\[\s*(\d+)\s*,\s*(\d*\.?\d+)\s*\]", src)[:len(AGE_ANCHORS)]]
+    if anchors != AGE_ANCHORS:
+        sys.exit(f"[grade pages] grade-model.js AGE_ANCHORS 불일치: {anchors}")
+
+    gm = re.search(r"GENDER_FACTOR\s*=\s*\{\s*male:\s*([\d.]+)\s*,\s*female:\s*([\d.]+)", src)
+    if not gm or (float(gm.group(1)), float(gm.group(2))) != (GENDER_FACTOR["male"], GENDER_FACTOR["female"]):
+        sys.exit("[grade pages] grade-model.js GENDER_FACTOR 불일치")
+
+    rm = re.search(r"RIEGEL\s*=\s*([\d.]+)", src)
+    if not rm or float(rm.group(1)) != RIEGEL:
+        sys.exit("[grade pages] grade-model.js Riegel 지수 불일치")
+
+    bounds = [(int(b), lab) for b, lab in re.findall(r"\[\s*(\d+)\s*,\s*\"([^\"]+)\"\s*\]", src)]
+    if bounds != TIER_BOUNDS:
+        sys.exit(f"[grade pages] grade-model.js TIER_BOUNDS 불일치: {bounds}")
+
+    print("[grade pages] grade-model.js 상수 대조 통과")
 
 
 # ---------------------------------------------------------------------------
@@ -570,6 +601,10 @@ def main():
     hub_slug, hub_html = build_hub()
     (ROOT / hub_slug).write_text(hub_html, encoding="utf-8")
     slugs.append(hub_slug)
+
+    # 기록증 업로드 페이지는 손으로 관리하지만 사이트맵에는 여기서 함께 넣는다
+    if (ROOT / "cert.html").exists():
+        slugs.append("cert.html")
 
     added = update_sitemap(slugs)
     print(f"[grade pages] {len(slugs)}개 페이지 생성, 사이트맵 추가 {added}개")
