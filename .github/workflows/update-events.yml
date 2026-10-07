@@ -41,6 +41,6 @@ jobs:
         run: |
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
-          git add events.json sitemap-events.xml feed.ics
+          git add events.json sitemap-events.xml feed.ics feed-*.ics
           git add e/ aquathlon.html
           git diff --quiet --cached || (git commit -m "chore: update events.json" && git push)
