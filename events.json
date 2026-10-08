@@ -17533,7 +17533,7 @@
     ],
     "organizer": "청양군육상연맹",
     "organizerPhone": "010-4401-2829",
-    "regDeadline": "2026-10-15",
+    "regDeadline": "2026-10-25",
     "regClosed": null,
     "lat": null,
     "lng": null,
@@ -19038,6 +19038,33 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://youngrace.kr"
+  },
+  {
+    "id": "rr-2026-연수구청장배-송도-walk-run-2026-11-15",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 연수구청장배 송도 WALK & RUN",
+    "date": "2026-11-15",
+    "time": "미확인",
+    "location": "국립인천대학교 송도캠퍼스 정문",
+    "region": "인천",
+    "distances": [
+      "하프",
+      "10km",
+      "5km",
+      "WALK 5km",
+      "WALK 10km"
+    ],
+    "organizer": "인천광역시연수구걷기협회",
+    "organizerPhone": "070-4098-1114",
+    "regDeadline": "2026-11-08",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://walknrun.kr"
   },
   {
     "id": "rr-give-run-2026-부산-2026-11-21",
