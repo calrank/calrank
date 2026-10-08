@@ -107,8 +107,78 @@ def fetch_jeju_mbc(race_year: int) -> list[dict]:
     return records
 
 
+# ---- 소스 2: JTBC 서울마라톤 역대 기록 ----
+#
+# https://marathon.jtbc.com/51 에 1999년부터의 역대 수상자가 한 페이지에 있다.
+# robots.txt 는 로그인·관리자 경로만 막고 나머지는 Allow 다(2026-10-08 확인).
+#
+# 엘리트부가 아니라 "마스터즈"만 가져온다. 엘리트는 실업팀·국가대표 선수라
+# 동호인 기록과 같은 표에 섞으면 랭킹이 왜곡된다. calrank 는 동호인 서비스다.
+#
+# 표 구조:
+#   [0] 마스터즈 남/녀            <- 구분 제목이 표 안 첫 행에 있다
+#   [1] 순위 | 남자 | 여자
+#   [2] 성명 | 기록 | 성명 | 기록
+#   [3] 1 | 홍길동 | 2:24:02 | 김아무 | 2:47:36     <- 5칸
+JTBC_URL = "https://marathon.jtbc.com/51"
+JTBC_RACE_NAME = "JTBC서울마라톤"
+_YEAR_RE = re.compile(r"^(\d{4})\s*제\s*\d+\s*회")
+
+
+def fetch_jtbc_seoul() -> list[dict]:
+    resp = requests.get(JTBC_URL, timeout=20, headers=HEADERS)
+    resp.raise_for_status()
+    resp.encoding = resp.apparent_encoding
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    records: list[dict] = []
+    year: int | None = None
+
+    # 연도 제목과 표가 형제로 흩어져 있어, 문서 순서대로 훑으며 현재 연도를 기억한다.
+    for node in soup.find_all(True):
+        if node.name == "table":
+            rows = [
+                [c.get_text(strip=True) for c in tr.find_all(["td", "th"])]
+                for tr in node.find_all("tr")
+            ]
+            if not rows or "마스터즈" not in " ".join(rows[0]):
+                continue
+            if year is None:
+                continue
+            for cells in rows[1:]:
+                # 데이터 행만: 순위 | 남자이름 | 남자기록 | 여자이름 | 여자기록
+                if len(cells) != 5 or not cells[0].isdigit():
+                    continue
+                for name, record in ((cells[1], cells[2]), (cells[3], cells[4])):
+                    seconds = time_to_seconds(record)
+                    if not name or not seconds:
+                        continue
+                    records.append({
+                        "sport": "marathon",
+                        "distance_category": "full",   # JTBC 서울마라톤은 풀코스
+                        "race_name": JTBC_RACE_NAME,
+                        "race_year": year,
+                        "athlete_name": name,
+                        "finish_time_seconds": seconds,
+                        "region": "서울",
+                        "source_name": "JTBC서울마라톤 역대기록",
+                        "source_url": JTBC_URL,
+                    })
+            continue
+
+        # 표가 아니면 연도 제목인지 본다. 자식이 많은 컨테이너는 건너뛴다.
+        if len(node.find_all(True, recursive=False)) > 2:
+            continue
+        m = _YEAR_RE.match(node.get_text(strip=True))
+        if m:
+            year = int(m.group(1))
+
+    return records
+
+
 SOURCES = [
     ("jejumbc.com", lambda: fetch_jeju_mbc(race_year=2026)),
+    ("marathon.jtbc.com", fetch_jtbc_seoul),
 ]
 
 
@@ -169,6 +239,9 @@ def upsert_records(records: list[dict]) -> int:
     return len(fresh)
 
 
+DRY_RUN = os.environ.get("DRY_RUN") == "1"
+
+
 def main():
     all_records = []
     for source_name, fetch_fn in SOURCES:
@@ -181,6 +254,18 @@ def main():
 
     if not all_records:
         print("수집된 기록이 없습니다.")
+        return
+
+    if DRY_RUN:
+        # 새 소스를 처음 붙일 때는 저장 전에 무엇이 들어갈지 눈으로 본다.
+        from collections import Counter
+        by_src = Counter(r["race_name"] for r in all_records)
+        print(f"[DRY_RUN] 저장하지 않습니다. 수집 {len(all_records)}건")
+        for k, v in by_src.items():
+            print(f"[DRY_RUN]   {k}: {v}건")
+        for r in all_records[:6]:
+            print(f"[DRY_RUN]   예시 {r['race_year']} {r['distance_category']} "
+                  f"{r['athlete_name']} {r['finish_time_seconds']}초")
         return
 
     try:
