@@ -1,0 +1,36 @@
+name: Generate science column
+
+# scripts/science_columns.json 에 쌓아 둔 근거 기반 칼럼을 한 번에 한 편씩 발행합니다.
+# 한꺼번에 올리면 하루 반짝하고 끝나지만, 하나씩 내보내면 색인이 꾸준히 늘고
+# 칼럼 목록도 계속 갱신됩니다. 대기 중인 글이 없으면 아무것도 하지 않습니다.
+#
+# 글을 추가하려면 scripts/science_columns.json 의 articles 배열에 항목을 넣으면 됩니다.
+# 본문의 신체 관련 주장에는 references 에 정의된 PubMed 논문을 각주로 달아야 합니다.
+
+on:
+  schedule:
+    - cron: "0 22 * * 2,5" # 화·금 07:00 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate science column
+        run: python scripts/generate_science_column.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add column-running-*.html column.html sitemap.xml scripts/science_column_state.json
+          git diff --quiet --cached || (git commit -m "chore: publish science column" && git push)
