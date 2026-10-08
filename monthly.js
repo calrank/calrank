@@ -143,14 +143,18 @@ async function init() {
   let filtered;
   if (targetKeyword) {
     document.getElementById("pageTitle").textContent = `${pageLabel} 대회 일정 총정리`;
-    document.title = `${pageLabel} 대회 일정 총정리 — calrank`;
+    document.title = `${pageLabel} 대회 일정 총정리 | 접수 중인 대회 한눈에 - calrank`;
     filtered = allEvents
       .filter(ev => (ev.distances || []).some(d => d.includes(targetKeyword)))
       .filter(ev => new Date(ev.date) >= new Date(new Date().toDateString()))
       .sort((a, b) => new Date(a.date) - new Date(b.date));
   } else {
-    document.getElementById("pageTitle").textContent = `${y}년 ${m}월 주말 ${pageLabel} 대회 총정리`;
-    document.title = `${y}년 ${m}월 주말 ${pageLabel} 대회 총정리 — calrank`;
+    // 제목에 "대회 일정"을 반드시 남긴다. 사람들은 "10월 마라톤 대회 일정"으로
+    // 검색하지, "주말 마라톤 대회 총정리"로 검색하지 않는다.
+    document.getElementById("pageTitle").textContent =
+      `${y}년 ${m}월 ${pageLabel} 대회 일정 — 주말 대회 총정리`;
+    document.title =
+      `${y}년 ${m}월 ${pageLabel} 대회 일정 | 주말 ${pageLabel} 대회 총정리 - calrank`;
     filtered = allEvents
       .filter(ev => ev.sport === targetSport)
       .filter(ev => {
