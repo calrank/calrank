@@ -391,6 +391,116 @@ def render_page(template: str, ev: dict) -> str:
     return out
 
 
+INDEX_PATH = ROOT / "events-index.html"
+SPORT_ORDER = ["marathon", "trail", "cycling", "triathlon", "inline"]
+
+
+def write_event_index(wanted: dict) -> None:
+    """대회 상세 페이지 전체를 평범한 <a href> 로 엮은 목록 페이지를 만든다.
+
+    이 페이지가 없는 동안 e/<id>.html 은 사이트맵에만 존재하는 외톨이였다.
+    홈 화면의 대회 목록은 자바스크립트가 그리고, 그마저도 링크가 아니라
+    클릭 이벤트였다. 검색엔진은 주소를 "발견"만 하고 크롤링하지 않았다
+    (구글 색인 보고서: 발견됨 - 현재 색인이 생성되지 않음 493개).
+
+    그래서 이 목록은 자바스크립트 없이 그대로 읽히도록 서버에서 미리 만든다.
+    """
+    today = date.today()
+    by_month: dict[str, list[dict]] = {}
+    for fname, ev in wanted.items():
+        d = parse_date(ev.get("date"))
+        if not d or d < today:
+            continue  # 지난 대회는 사이트맵에만 남긴다
+        by_month.setdefault(f"{d.year}-{d.month:02d}", []).append(ev)
+
+    total = sum(len(v) for v in by_month.values())
+    sections = []
+    for key in sorted(by_month):
+        year, month = key.split("-")
+        rows = sorted(by_month[key], key=lambda e: (e.get("date") or "", e.get("name") or ""))
+        items = []
+        for ev in rows:
+            d = parse_date(ev["date"])
+            bits = [b for b in (ev.get("region"), ev.get("location")) if b and b != "미정"]
+            dist = " · ".join(str(x) for x in (ev.get("distances") or [])[:4] if x)
+            if dist:
+                bits.append(dist)
+            items.append(
+                f'<li><a href="e/{esc(quote(str(ev["id"])))}.html">'
+                f'<b>{esc(ev.get("name") or "대회")}</b></a> '
+                f'<span>{d.month}월 {d.day}일'
+                + (f' · {esc(" · ".join(bits))}' if bits else "")
+                + "</span></li>"
+            )
+        sections.append(
+            f'<section class="ei-month">\n'
+            f'<h2>{year}년 {int(month)}월 대회 일정 ({len(rows)}개)</h2>\n'
+            f'<ul class="ei-list">\n' + "\n".join(items) + "\n</ul>\n</section>"
+        )
+
+    desc = (f"국내 마라톤·트레일러닝·자전거·철인3종·인라인 대회 {total}개의 "
+            "일정을 월별로 모은 전체 목록입니다. 대회마다 코스 거리, 접수 "
+            "마감일, 신청 링크를 확인할 수 있습니다.")
+    html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전국 마라톤 대회 일정 전체 목록 | 월별 대회 {total}개 - calrank</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{SITE}/events-index.html">
+<meta property="og:title" content="전국 마라톤 대회 일정 전체 목록 - calrank">
+<meta property="og:description" content="{esc(desc)}">
+<link rel="stylesheet" href="style.css">
+<style>
+  .ei-wrap{{max-width:860px;margin:0 auto;padding:32px 18px 80px;}}
+  .ei-lead{{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}}
+  .ei-month{{margin:0 0 34px;}}
+  .ei-month h2{{font-size:16px;margin:0 0 12px;padding-bottom:8px;
+    border-bottom:1px solid var(--line,#222);}}
+  .ei-list{{list-style:none;margin:0;padding:0;}}
+  .ei-list li{{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:13.5px;line-height:1.6;}}
+  .ei-list a{{color:inherit;text-decoration:none;}}
+  .ei-list a:hover b{{text-decoration:underline;}}
+  .ei-list span{{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="grade.html" class="nav-link">등급표</a>
+</nav>
+</div>
+</header>
+
+<main class="ei-wrap">
+<h1>전국 마라톤 대회 일정 전체 목록</h1>
+<p class="ei-lead">{esc(desc)} 월별로 묶어 두었고, 대회 이름을 누르면
+상세 페이지로 갑니다. 종목·지역·거리로 걸러 보려면
+<a href="index.html">대회 캘린더</a>를 쓰세요.</p>
+{"".join(chr(10) + s for s in sections)}
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+</body>
+</html>
+"""
+    if not INDEX_PATH.exists() or INDEX_PATH.read_text(encoding="utf-8") != html:
+        INDEX_PATH.write_text(html, encoding="utf-8")
+    print(f"[events-index] 예정 대회 {total}개를 {len(by_month)}개 달로 묶어 링크")
+
+
 def main():
     events = json.loads((ROOT / "events.json").read_text(encoding="utf-8"))
     template = (ROOT / "event.html").read_text(encoding="utf-8")
@@ -418,6 +528,8 @@ def main():
             p.unlink()
             removed += 1
     print(f"[event pages] 대상 {len(wanted)}개, 갱신 {written}개, 정리 {removed}개")
+
+    write_event_index(wanted)
 
 
 if __name__ == "__main__":
