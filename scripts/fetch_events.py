@@ -1071,6 +1071,59 @@ def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
                    f"calrank.vercel.app — {label} 대회 일정과 접수 마감 알림", subset)
         print(f"[feed-{sport}.ics] {len(subset)}개 {label} 대회")
 
+# 첫 화면의 제목·설명은 검색에서 가장 큰 자리다. 경쟁 사이트들은 전부
+# "마라톤 대회 일정"이라는 말을 제목에 그대로 넣는데, 예전 제목은
+# "calrank — 전종목 대회 캘린더"여서 사람들이 치는 말이 하나도 없었다.
+# 연도와 대회 수가 들어가므로 매일 갱신해 준다(안 그러면 해가 바뀌어도 그대로다).
+HOME_PATH = "index.html"
+
+
+def refresh_home_meta(events: list[dict]) -> None:
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), HOME_PATH)
+    if not os.path.exists(path):
+        return
+    today = datetime.now().date()
+    today_iso = today.isoformat()
+    upcoming = [e for e in events if (e.get("date") or "") >= today_iso]
+    opening = [e for e in upcoming
+               if e.get("regDeadline") and str(e["regDeadline"]) >= today_iso]
+    year = today.year
+
+    title = (f"{year} 마라톤 대회 일정 | 전국 마라톤·트레일러닝·자전거 접수 캘린더 - calrank")
+    desc = (f"{year} 전국 마라톤 대회 일정을 월별·지역별·거리(5km·10km·하프·풀코스)로 "
+            f"정리했습니다. 예정 대회 {len(upcoming)}개, 접수 진행 중 {len(opening)}개. "
+            f"접수 마감일과 신청 링크를 한눈에 보고, 캘린더에 추가하면 마감 전에 알림을 받습니다.")
+    og_desc = (f"{year} 전국 마라톤·트레일러닝·자전거 대회 일정과 접수 마감일을 한곳에서. "
+               f"예정 대회 {len(upcoming)}개.")
+    h1 = f"{year} 마라톤 대회 일정 — 전국 마라톤·자전거·트레일러닝·철인3종·인라인 캘린더"
+
+    with open(path, encoding="utf-8") as f:
+        html = f.read()
+    before = html
+
+    def swap(pattern: str, replacement: str) -> None:
+        nonlocal html
+        html = re.sub(pattern, lambda _m: replacement, html, count=1)
+
+    swap(r"<title>[^<]*</title>", f"<title>{title}</title>")
+    swap(r'<meta name="description" content="[^"]*">',
+         f'<meta name="description" content="{desc}">')
+    swap(r'<meta property="og:title" content="[^"]*">',
+         f'<meta property="og:title" content="{title}">')
+    swap(r'<meta property="og:description" content="[^"]*">',
+         f'<meta property="og:description" content="{og_desc}">')
+    swap(r'<meta name="twitter:title" content="[^"]*">',
+         f'<meta name="twitter:title" content="{title}">')
+    swap(r'<meta name="twitter:description" content="[^"]*">',
+         f'<meta name="twitter:description" content="{og_desc}">')
+    swap(r"<h1>[^<]*</h1>", f"<h1>{h1}</h1>")
+
+    if html != before:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"[index.html] 제목·설명 갱신 (예정 {len(upcoming)}개, 접수중 {len(opening)}개)")
+
+
 def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.xml") -> None:
     """대회별 정적 상세 페이지(e/<id>.html) URL을 모은 sitemap을 자동 생성합니다.
     구글이 개별 대회 페이지를 빠르게 발견할 수 있도록, 매 크롤링마다 최신 상태로 갱신됩니다."""
@@ -1226,6 +1279,7 @@ def main():
 
     all_aliases = update_aliases(aliases, live_ids)
     generate_vercel_config(all_aliases)
+    refresh_home_meta(merged)
     generate_event_sitemap(merged)
     generate_ics_feed(merged)
 
