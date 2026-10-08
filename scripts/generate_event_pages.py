@@ -501,6 +501,121 @@ def write_event_index(wanted: dict) -> None:
     print(f"[events-index] 예정 대회 {total}개를 {len(by_month)}개 달로 묶어 링크")
 
 
+ARCHIVE_PATH = ROOT / "events-archive.html"
+
+
+def write_event_archive(wanted: dict) -> None:
+    """이미 열린 대회의 상세 페이지를 월별로 엮은 아카이브.
+
+    events-index.html 은 예정 대회만 담는다. 지난 대회 페이지는 3년간
+    남겨 두는데, 그쪽도 링크가 없으면 똑같이 외톨이가 된다.
+    "○○마라톤 기록", "2026 ○○마라톤 결과" 는 대회가 끝난 뒤에 검색되므로
+    페이지를 남겨 둔 의미가 있으려면 닿을 수 있어야 한다.
+    """
+    today = date.today()
+    by_month: dict[str, list[dict]] = {}
+    for fname, ev in wanted.items():
+        d = parse_date(ev.get("date"))
+        if not d or d >= today:
+            continue
+        by_month.setdefault(f"{d.year}-{d.month:02d}", []).append(ev)
+
+    total = sum(len(v) for v in by_month.values())
+    if not total:
+        if ARCHIVE_PATH.exists():
+            ARCHIVE_PATH.unlink()
+        print("[events-archive] 지난 대회 없음")
+        return
+
+    sections = []
+    for key in sorted(by_month, reverse=True):      # 최근 달이 위로
+        year, month = key.split("-")
+        rows = sorted(by_month[key], key=lambda e: (e.get("date") or ""), reverse=True)
+        items = []
+        for ev in rows:
+            d = parse_date(ev["date"])
+            bits = [b for b in (ev.get("region"), ev.get("location")) if b and b != "미정"]
+            dist = " · ".join(str(x) for x in (ev.get("distances") or [])[:4] if x)
+            if dist:
+                bits.append(dist)
+            items.append(
+                f'<li><a href="e/{esc(quote(str(ev["id"])))}.html">'
+                f'<b>{esc(ev.get("name") or "대회")}</b></a> '
+                f'<span>{d.month}월 {d.day}일'
+                + (f' · {esc(" · ".join(bits))}' if bits else "")
+                + "</span></li>"
+            )
+        sections.append(
+            f'<section class="ei-month">\n'
+            f'<h2>{year}년 {int(month)}월에 열린 대회 ({len(rows)}개)</h2>\n'
+            f'<ul class="ei-list">\n' + "\n".join(items) + "\n</ul>\n</section>"
+        )
+
+    desc = (f"이미 열린 국내 마라톤·트레일러닝·자전거·철인3종 대회 {total}개를 "
+            "월별로 모은 기록 보관소입니다. 대회별 코스 거리, 장소, 개최일을 "
+            "확인할 수 있습니다.")
+    html_out = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지난 마라톤 대회 기록 {total}개 | 월별 대회 결과 보관소 - calrank</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{SITE}/events-archive.html">
+<meta property="og:title" content="지난 마라톤 대회 기록 보관소 - calrank">
+<meta property="og:description" content="{esc(desc)}">
+<link rel="stylesheet" href="style.css">
+<style>
+  .ei-wrap{{max-width:860px;margin:0 auto;padding:32px 18px 80px;}}
+  .ei-lead{{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}}
+  .ei-month{{margin:0 0 34px;}}
+  .ei-month h2{{font-size:16px;margin:0 0 12px;padding-bottom:8px;
+    border-bottom:1px solid var(--line,#222);}}
+  .ei-list{{list-style:none;margin:0;padding:0;}}
+  .ei-list li{{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:13.5px;line-height:1.6;}}
+  .ei-list a{{color:inherit;text-decoration:none;}}
+  .ei-list a:hover b{{text-decoration:underline;}}
+  .ei-list span{{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="grade.html" class="nav-link">등급표</a>
+</nav>
+</div>
+</header>
+
+<main class="ei-wrap">
+<h1>지난 마라톤 대회 기록 보관소</h1>
+<p class="ei-lead">{esc(desc)} 앞으로 열릴 대회를 찾으신다면
+<a href="events-index.html">전국 대회 일정 전체 목록</a>을 보세요.
+종목별 완주 기록 순위는 <a href="ranking.html">대회랭킹</a>에 있습니다.</p>
+{"".join(chr(10) + s for s in sections)}
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p class="footer-links"><a href="events-index.html">전국 대회 일정 전체 목록</a> ·
+<a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> ·
+<a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+</body>
+</html>
+"""
+    if not ARCHIVE_PATH.exists() or ARCHIVE_PATH.read_text(encoding="utf-8") != html_out:
+        ARCHIVE_PATH.write_text(html_out, encoding="utf-8")
+    print(f"[events-archive] 지난 대회 {total}개를 {len(by_month)}개 달로 묶어 링크")
+
+
 def main():
     events = json.loads((ROOT / "events.json").read_text(encoding="utf-8"))
     template = (ROOT / "event.html").read_text(encoding="utf-8")
@@ -530,6 +645,7 @@ def main():
     print(f"[event pages] 대상 {len(wanted)}개, 갱신 {written}개, 정리 {removed}개")
 
     write_event_index(wanted)
+    write_event_archive(wanted)
 
 
 if __name__ == "__main__":
