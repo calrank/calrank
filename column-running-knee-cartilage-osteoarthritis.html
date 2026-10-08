@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>달리기하면 무릎 연골이 닳을까 — 메타분석이 실제로 말한 것 — calrank</title>
+<meta name="description" content="달리기가 무릎 관절염을 일으키는지 메타분석 2편의 수치를 그대로 정리했습니다. 러너와 비러너의 유병률 차이, 주당 거리별 결과, 그리고 연구자들이 왜 &#x27;아직 단정할 수 없다&#x27;고 결론 내렸는지까지.">
+<meta name="keywords" content="달리기 무릎, 러닝 무릎 연골, 달리기 관절염, 마라톤 무릎, 러닝 무릎 통증, 달리기 연골">
+<link rel="canonical" href="https://calrank.vercel.app/column-running-knee-cartilage-osteoarthritis.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="달리기하면 무릎 연골이 닳을까 — 메타분석이 실제로 말한 것">
+<meta property="og:description" content="달리기가 무릎 관절염을 일으키는지 메타분석 2편의 수치를 그대로 정리했습니다. 러너와 비러너의 유병률 차이, 주당 거리별 결과, 그리고 연구자들이 왜 &#x27;아직 단정할 수 없다&#x27;고 결론 내렸는지까지.">
+<meta property="og:url" content="https://calrank.vercel.app/column-running-knee-cartilage-osteoarthritis.html">
+<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"달리기하면 무릎 연골이 닳을까 — 메타분석이 실제로 말한 것","description":"달리기가 무릎 관절염을 일으키는지 메타분석 2편의 수치를 그대로 정리했습니다. 러너와 비러너의 유병률 차이, 주당 거리별 결과, 그리고 연구자들이 왜 '아직 단정할 수 없다'고 결론 내렸는지까지.","inLanguage":"ko-KR","datePublished":"2026-10-08","dateModified":"2026-10-08","mainEntityOfPage":{"@type":"WebPage","@id":"https://calrank.vercel.app/column-running-knee-cartilage-osteoarthritis.html"},"author":{"@type":"Organization","name":"calrank"},"publisher":{"@type":"Organization","name":"calrank","url":"https://calrank.vercel.app/"},"keywords":"달리기 무릎, 러닝 무릎 연골, 달리기 관절염, 마라톤 무릎, 러닝 무릎 통증, 달리기 연골"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"달리기를 많이 하면 무릎 관절염이 더 잘 생기나요?","acceptedAnswer":{"@type":"Answer","text":"2023년 메타분석에서는 주당 48km를 넘겨 달리는 집단에서도 대조군 대비 유병률이 높아지지 않았습니다(오즈비 0.62, 95% 신뢰구간 0.35–1.10). 다만 포함된 연구들의 비뚤림 위험이 높아, 연구자들은 결론을 유보했습니다."}},{"@type":"Question","name":"달리기가 무릎에 좋다는 뜻인가요?","acceptedAnswer":{"@type":"Answer","text":"그렇게 읽기는 어렵습니다. 관절염 수술이 러너에게 더 적었다는 결과는 있지만, 무릎이 건강한 사람이 달리기를 계속하는 경향 때문일 수 있습니다. 두 메타분석 모두 인과관계를 단정할 수 없다고 밝혔습니다."}},{"@type":"Question","name":"달린 뒤 무릎이 뻐근한데 연골이 닳은 건가요?","acceptedAnswer":{"@type":"Answer","text":"달린 직후 연골이 일시적으로 얇아지는 변화는 영상 연구에서 관찰되며 보통 회복됩니다. 다만 통증이 반복되거나 2주 이상 지속된다면 다른 원인이 있을 수 있으므로 진료를 받는 편이 안전합니다."}}]}</script>
+<style>
+  .column-wrap { max-width: 720px; margin: 0 auto; padding: 44px 20px 80px; }
+  .column-meta { font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }
+  .column-title { font-family: var(--font-display); font-size: clamp(25px, 4vw, 36px); line-height: 1.32; margin-bottom: 20px; }
+  .column-body { font-size: 16px; line-height: 1.95; color: #E8E4E1; }
+  .column-body h2 { font-size: 21px; margin: 44px 0 14px; color: #fff; line-height: 1.4; }
+  .column-body p { margin-bottom: 18px; }
+  .column-body strong { color: #fff; }
+  .col-lead { font-size: 17px; line-height: 1.9; color: #C9C3BF; padding: 18px 20px; background: var(--surface,#141414); border-left: 3px solid var(--accent); border-radius: 2px; }
+  .col-ul { padding-left: 20px; margin: 0 0 18px; }
+  .col-ul li { margin-bottom: 9px; }
+  .col-note { font-size: 13.5px; line-height: 1.8; color: #9A9A9A; padding: 13px 15px; background: rgba(255,255,255,.03); border: 1px solid var(--border,#2A2A2A); border-radius: 2px; }
+  .col-q { font-weight: 700; color: #fff; margin-bottom: 7px; }
+  .col-a { color: #C9C3BF; }
+  .col-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+  .col-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 460px; }
+  .col-table th, .col-table td { padding: 10px 12px; border-bottom: 1px solid var(--border,#2A2A2A); text-align: left; vertical-align: top; }
+  .col-table th { color: #fff; background: rgba(255,255,255,.03); white-space: nowrap; }
+  .ref-note { font-size: 13px; color: #8E8884; }
+  .ref-list { padding-left: 20px; font-size: 13.5px; line-height: 1.85; color: #A9A29E; }
+  .ref-list li { margin-bottom: 11px; }
+  .ref-list a { color: #C9C3BF; }
+  .ref-n { color: var(--accent); font-weight: 700; margin-right: 4px; }
+  .col-evidence { margin: 26px 0 0; padding: 14px 16px; border: 1px solid var(--border,#2A2A2A); border-radius: 2px; font-size: 13px; line-height: 1.8; color: #9A9A9A; }
+  sup a { color: var(--accent); text-decoration: none; }
+  @media (max-width:600px) {
+    .column-wrap { padding: 32px 16px 64px; }
+    .column-body { font-size: 15.5px; }
+    .col-lead { font-size: 15.5px; padding: 15px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link active">칼럼</a>
+<a href="grade.html" class="nav-link">등급표</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<main class="column-wrap">
+<p class="column-meta">🔬 근거 기반 칼럼 · 2026년 10월 8일</p>
+<h1 class="column-title">달리기하면 무릎 연골이 닳을까 — 메타분석이 실제로 말한 것</h1>
+
+<div class="column-body">
+<p class="col-lead">달리기를 시작하면 거의 모두가 한 번은 듣습니다. "무릎 나간다." 이 질문에 답한 메타분석이 실제로 있습니다. 결론부터 말하면 <strong>현재 근거로는 달리기가 무릎 관절염을 늘린다고 말할 수 없고, 동시에 무릎에 좋다고 단정할 수도 없습니다.</strong> 왜 그런지, 숫자를 그대로 보겠습니다.</p>
+<h2>러너와 비러너의 무릎 관절염 유병률은 차이가 없었다</h2>
+<p>2023년 <em>Physical Therapy in Sport</em>에 실린 체계적 문헌고찰·메타분석은 9개 관찰연구, 참가자 <strong>12,273명(이 중 러너 1,272명)</strong>을 모아 분석했습니다<sup><a href="#ref1">[1]</a></sup>.</p>
+<p>주당 8km 미만을 달리는 대조군과 비교했을 때, 러너의 무릎 관절염 유병률은 <strong>차이가 없었습니다(오즈비 0.97, 95% 신뢰구간 0.56–1.68)</strong>. 신뢰구간이 1을 넉넉히 포함하므로 "차이 없음"이 통계적으로도 분명합니다.</p>
+<div class="col-table-wrap"><table class="col-table">
+<tr><th>주당 달린 거리</th><th>대조군 대비 오즈비</th><th>95% 신뢰구간</th></tr>
+<tr><td>8 – 32.1 km</td><td>1.17</td><td>0.77 – 1.80</td></tr>
+<tr><td>32.2 – 48 km</td><td>1.04</td><td>0.48 – 2.31</td></tr>
+<tr><td>48 km 초과</td><td>0.62</td><td>0.35 – 1.10</td></tr>
+</table></div>
+<p class="col-note">많이 달릴수록 관절염이 늘어나는 경향은 보이지 않았습니다. 다만 모든 구간에서 신뢰구간이 1을 포함하므로, "많이 달리면 오히려 낫다"고 읽는 것도 근거를 넘어서는 해석입니다.</p>
+<h2>관절염 수술은 오히려 적었다 — 그러나 해석은 조심해야 한다</h2>
+<p>2017년 <em>American Journal of Sports Medicine</em>의 메타분석은 15개 연구를 검토했습니다<sup><a href="#ref2">[2]</a></sup>. 여기서 가장 눈에 띄는 결과는 <strong>관절염으로 인한 무릎 수술이 러너에게서 더 적었다는 것</strong>입니다(오즈비 0.46, 95% 신뢰구간 0.30–0.71). 연구 간 이질성도 0%로 일관됐습니다.</p>
+<p>그런데 이걸 "달리기가 무릎을 지켜준다"로 읽으면 안 됩니다. 애초에 무릎이 아픈 사람은 달리기를 하지 않거나 그만둡니다. 그래서 러너 집단에는 무릎이 멀쩡한 사람이 더 많이 남습니다. 이 현상을 역인과(reverse causation) 또는 건강한 참가자 효과라고 하며, 관찰연구에서는 걸러내기가 매우 어렵습니다.</p>
+<h2>연구자들이 내린 결론은 &quot;아직 모른다&quot;였다</h2>
+<p>두 메타분석 모두 결론이 같은 방향입니다. 2023년 연구는 <strong>"주당 달린 거리가 무릎 관절염과 관련이 있는지 불분명하다"</strong>고 적고, 대규모 전향적 연구가 필요하다고 덧붙였습니다<sup><a href="#ref1">[1]</a></sup>. 2017년 연구도 <strong>"이 근거로는 달리기의 역할을 판단할 수 없다"</strong>고 명시했습니다<sup><a href="#ref2">[2]</a></sup>.</p>
+<p>이유는 근거의 질입니다. 2023년 분석에 포함된 9개 연구 중 5개가 비뚤림 위험이 높거나 매우 높은 것으로 평가됐습니다. 또 모두 관찰연구라, 달리기가 원인인지 결과인지 구분할 설계가 아닙니다.</p>
+<p class="col-note">"근거가 없다"와 "효과가 없다"는 다릅니다. 지금 상태는 앞쪽입니다. 달리기가 평균적인 무릎 관절염 위험을 뚜렷하게 올린다는 신호는 관찰되지 않았지만, 그것이 안전을 보장한다는 뜻은 아닙니다.</p>
+<h2>연골은 달린 직후 잠깐 얇아진다 — 그리고 돌아온다</h2>
+<p>MRI로 연골을 본 연구들을 모은 메타분석도 있습니다<sup><a href="#ref3">[3]</a></sup><sup><a href="#ref4">[4]</a></sup>. 달리기 직후 무릎 연골의 두께나 부피가 일시적으로 줄어드는 변화가 관찰되는데, 이는 연골 속 수분이 눌려 빠져나가는 현상으로 이해됩니다. 휴식 후 대체로 회복됩니다.</p>
+<p>즉 달린 직후 촬영한 영상 하나로 "연골이 닳았다"고 판단할 수 없습니다. 이 분야의 연구들은 아직 측정 방법과 추적 기간이 제각각이라, 장기적으로 연골이 어떻게 되는지에 대한 합의는 형성되지 않았습니다.</p>
+<h2>그래서 실제로 무엇을 조심해야 하나</h2>
+<p>연구가 말해주지 않는 영역은 <strong>개인차</strong>입니다. 평균적으로 위험이 올라가지 않는다는 것과, 내 무릎이 지금 괜찮다는 것은 다른 이야기입니다.</p>
+<ul class='col-ul'>
+<li>무릎에 <strong>통증이 있는 상태로 거리를 늘리는 것</strong>은 어떤 연구도 권하지 않습니다.</li>
+<li>거리를 갑자기 크게 늘리는 것은 관절염과 별개로 과사용 손상의 흔한 원인입니다.</li>
+<li>이전에 무릎 부상이나 수술을 겪었다면 위 통계가 그대로 적용되지 않습니다. 부상은 관절염의 확립된 위험 요인입니다.</li>
+<li>통증이 2주 이상 지속되거나 붓는다면 거리를 조절하고 전문의 진료를 받으십시오.</li>
+</ul>
+<p class="col-note">이 글은 일반적인 연구 결과를 정리한 것이며 진단이나 처방이 아닙니다.</p>
+<h2>자주 묻는 질문</h2>
+<p class="col-q">달리기를 많이 하면 무릎 관절염이 더 잘 생기나요?</p>
+<p class="col-a">2023년 메타분석에서는 주당 48km를 넘겨 달리는 집단에서도 대조군 대비 유병률이 높아지지 않았습니다(오즈비 0.62, 95% 신뢰구간 0.35–1.10). 다만 포함된 연구들의 비뚤림 위험이 높아, 연구자들은 결론을 유보했습니다.</p>
+<p class="col-q">달리기가 무릎에 좋다는 뜻인가요?</p>
+<p class="col-a">그렇게 읽기는 어렵습니다. 관절염 수술이 러너에게 더 적었다는 결과는 있지만, 무릎이 건강한 사람이 달리기를 계속하는 경향 때문일 수 있습니다. 두 메타분석 모두 인과관계를 단정할 수 없다고 밝혔습니다.</p>
+<p class="col-q">달린 뒤 무릎이 뻐근한데 연골이 닳은 건가요?</p>
+<p class="col-a">달린 직후 연골이 일시적으로 얇아지는 변화는 영상 연구에서 관찰되며 보통 회복됩니다. 다만 통증이 반복되거나 2주 이상 지속된다면 다른 원인이 있을 수 있으므로 진료를 받는 편이 안전합니다.</p>
+<h2 id="refs">참고문헌</h2>
+<p class="ref-note">아래 논문은 모두 PubMed 에서 원문 정보를 확인할 수 있습니다. 번호를 본문의 <sup>[n]</sup> 표시와 맞춰 두었습니다.</p>
+<ol class="ref-list">
+<li id="ref1"><span class="ref-n">[1]</span> Burfield M, Sayers M, Buhmann R (2023). The association between running volume and knee osteoarthritis prevalence: A systematic review and meta-analysis. <em>Physical Therapy in Sport</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/36809693/" target="_blank" rel="noopener nofollow">PMID 36809693</a></li>
+<li id="ref2"><span class="ref-n">[2]</span> Timmins KA, Leech RD, Batt ME, Edwards KL (2017). Running and Knee Osteoarthritis: A Systematic Review and Meta-analysis. <em>The American Journal of Sports Medicine</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/27519678/" target="_blank" rel="noopener nofollow">PMID 27519678</a></li>
+<li id="ref3"><span class="ref-n">[3]</span> Khan MCM, et al. (2022). The Influence of Running on Lower Limb Cartilage: A Systematic Review and Meta-analysis. <em>Sports Medicine</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/34478109/" target="_blank" rel="noopener nofollow">PMID 34478109</a></li>
+<li id="ref4"><span class="ref-n">[4]</span> Coburn SL, et al. (2023). Is running good or bad for your knees? A systematic review and meta-analysis of cartilage morphology and composition changes in the tibiofemoral and patellofemoral joints. <em>Osteoarthritis and Cartilage</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/36402349/" target="_blank" rel="noopener nofollow">PMID 36402349</a></li>
+</ol>
+
+<p class="col-evidence">이 글의 신체 변화에 관한 서술은 위 참고문헌의 체계적 문헌고찰·메타분석에 근거합니다.
+다만 운동에 대한 몸의 반응은 주행거리·강도·나이·성별·기존 체력·식사·수면·유전에 따라 크게 다르며,
+특정 거리나 기간이 특정 변화를 보장하지 않습니다. 이 글은 의학적 진단이나 처방이 아니며,
+통증이나 지병이 있다면 전문의와 상의하세요.</p>
+
+<div style="margin-top:30px;">
+<a href="cert.html" class="cert-cta" style="margin-top:0;">
+<span class="cc-ico">📷</span>
+<span class="cc-txt"><b>기록증 사진 한 장으로 내 러닝 등급 확인</b><span>완주 시간을 읽어 나이·성별을 보정한 등급과 다음 목표까지 남은 시간을 알려드립니다. 로그인도 타이핑도 필요 없습니다.</span></span>
+<span class="cc-go">바로 확인 →</span>
+</a>
+<a href="grade.html" class="cert-cta">
+<span class="cc-ico">📊</span>
+<span class="cc-txt"><b>거리별 러닝 등급표 — 5km · 10km · 하프 · 풀</b><span>나이별·성별로 내 기록이 어느 칸인지 표에서 바로 찾을 수 있습니다.</span></span>
+<span class="cc-go">등급표 →</span>
+</a>
+</div>
+
+<div class="column-tags">
+<a href="column.html" class="column-tag">#달리기무릎</a>
+<a href="column.html" class="column-tag">#러닝무릎연골</a>
+<a href="column.html" class="column-tag">#달리기관절염</a>
+<a href="column.html" class="column-tag">#마라톤무릎</a>
+<a href="column.html" class="column-tag">#러닝무릎통증</a>
+<a href="column.html" class="column-tag">#달리기연골</a>
+</div>
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼은 공개된 학술 문헌을 바탕으로 작성했으며 의학적 조언이 아닙니다.</p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
