@@ -795,8 +795,16 @@ def normalize_name(name: str) -> str:
     s = str(name or "")
     s = re.sub(r"^\s*20\d{2}\s*년?\s*", "", s)   # 앞머리 연도
     s = re.sub(r"제?\s*\d+\s*회", "", s)          # 제N회
+    s = re.sub(r"\s*20\d{2}\s*$", "", s)          # 뒤쪽 연도
+    # 소스에 따라 이름 끝에 거리가 붙어 온다 ("마블런 20265km10km2.")
+    s = re.sub(r"(\d+(\.\d+)?\s*k?m?\s*)+\d*\.?$", "", s)
     s = re.sub(r"[^0-9A-Za-z가-힣]", "", s)        # 공백·기호
+    s = re.sub(r"대회$", "", s)                     # 끝에 붙은 "대회"
     return s.lower()
+
+# 주의: "… in 올림픽공원" 처럼 장소가 이름에 붙는 경우는 지우지 않는다.
+# "사우나런 in 올림픽공원" 과 "사우나런 in 석촌호수" 는 같은 날 열리는
+# 서로 다른 대회라서, 지웠다가는 하나를 잘못 지운다.
 
 
 def _meaningful(v) -> bool:
