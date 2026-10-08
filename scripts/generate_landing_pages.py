@@ -104,6 +104,17 @@ def build_page(region, sport, events):
         f'</a>'
         for e in events_sorted[:40]
     )
+    if not rows:
+        # 예정 대회가 하나도 없는 경우. 예전에는 이 페이지를 아예 갱신하지
+        # 않아서, 이미 끝난 대회가 예정인 것처럼 남아 있었다. 틀린 정보를
+        # 띄우느니 없다고 말하고 갈 곳을 알려주는 쪽이 낫다.
+        rows = ('<p class="landing-empty">지금 등록된 '
+                f'{region} {sport_label} 대회가 없습니다. '
+                '새 대회가 등록되면 이 페이지에 자동으로 올라옵니다.<br>'
+                '그동안 <a href="events-index.html">전국 대회 일정 전체 목록</a>이나 '
+                f'<a href="index.html?sport={sport}">{sport_label} 전체 캘린더</a>를 '
+                '둘러보세요.</p>')
+
     slug = slugify(region, sport)
     canonical_url = f"https://calrank.vercel.app/{slug}"
     collection_ld = json.dumps({
@@ -158,6 +169,8 @@ def build_page(region, sport, events):
   .landing-row {{ display: flex; gap: 16px; padding: 12px 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 6px; text-decoration: none; color: #E8E4E1; font-size: 14px; }}
   .landing-row:hover {{ border-color: var(--accent); }}
   .landing-date {{ color: var(--accent); font-weight: 700; flex-shrink: 0; width: 82px; }}
+  .landing-empty {{ padding: 20px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; font-size: 14.5px; line-height: 1.9; color: #B8B0AC; }}
+  .landing-empty a {{ color: var(--accent); font-weight: 700; }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
 </style>
@@ -309,11 +322,27 @@ def main():
             continue
         combos.setdefault((region, sport), []).append(e)
 
+    # 예정 대회가 0개로 떨어진 조합도 돌려야 한다. combos 에는 대회가 있는
+    # 조합만 들어 있으므로, 이미 만들어진 페이지 목록을 보고 빈 조합을 채운다.
+    inv_region = {v: k for k, v in REGION_SLUG.items()}
+    for path in ROOT.glob("landing-*.html"):
+        parts = path.stem.split("-")          # landing-<region>-<sport>
+        if len(parts) != 3:
+            continue                           # landing-dist-* 는 다른 스크립트 담당
+        region_name = inv_region.get(parts[1])
+        if region_name and parts[2] in SPORT_LABEL:
+            combos.setdefault((region_name, parts[2]), [])
+
     pages = []
     slugs = []
     for (region, sport), evs in combos.items():
         min_events = MIN_EVENTS_BY_SPORT.get(sport, MIN_EVENTS)
-        if len(evs) < min_events:
+        slug_now = slugify(region, sport)
+        # 기준 미달이면 "새로 만들지는" 않는다. 하지만 이미 있는 페이지는
+        # 계속 갱신한다. 예전에 기준을 넘겨 만들어진 뒤 대회 수가 줄면,
+        # 갱신이 멈춘 채 파일만 남아 지난 대회가 예정인 것처럼 떠 있었다.
+        # (2026-10-08 기준 그런 페이지가 6개 있었다.)
+        if len(evs) < min_events and not (ROOT / slug_now).exists():
             continue
         html, title, desc, slug = build_page(region, sport, evs)
         (ROOT / slug).write_text(html, encoding="utf-8")
