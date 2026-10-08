@@ -237,6 +237,9 @@ def render(upcoming, entries, events, today) -> str:
   .aq-table a {{ color: #E8E4E1; }}
   .aq-next {{ padding: 16px 18px; background: var(--surface, #141414); border-radius: 10px; margin-top: 12px; line-height: 1.9; font-size: 14.5px; }}
   .aq-next a {{ color: var(--accent); font-weight: 700; }}
+  .aq-tools {{ margin: 34px 0 10px; }}
+  .aq-tools-lead {{ font-size: 13.5px; line-height: 1.8; color: #B8B0AC; margin: 0 0 14px; }}
+  .aq-tools-lead strong {{ color: #fff; }}
   .aq-disclaimer {{ font-size: 12.5px !important; color: #8E8884 !important; margin-top: 32px; }}
 </style>
 </head>
@@ -268,6 +271,25 @@ def render(upcoming, entries, events, today) -> str:
 </div>
 <h2>자주 묻는 질문</h2>
 {faq_html}
+<div class="aq-tools">
+<p class="aq-tools-lead">아쿠아슬론·철인3종은 수영 뒤 달리기라 <strong>달리기 구간 기록</strong>이 순위를 가릅니다. 내 러닝 수준부터 확인해 보세요.</p>
+<a href="cert.html" class="cert-cta" style="margin-top:0;">
+<span class="cc-ico">📷</span>
+<span class="cc-txt"><b>기록증 사진 한 장으로 내 러닝 등급 확인</b><span>완주 시간을 읽어 나이·성별을 보정한 등급과 다음 목표까지 남은 시간을 알려드립니다. 로그인도 타이핑도 필요 없습니다.</span></span>
+<span class="cc-go">바로 확인 →</span>
+</a>
+<a href="grade.html" class="cert-cta">
+<span class="cc-ico">📊</span>
+<span class="cc-txt"><b>거리별 러닝 등급표 — 5km · 10km · 하프 · 풀</b><span>나이별·성별로 내 기록이 어느 칸인지 표에서 바로 찾을 수 있습니다.</span></span>
+<span class="cc-go">등급표 →</span>
+</a>
+<a href="level.html" class="cert-cta">
+<span class="cc-ico">🧮</span>
+<span class="cc-txt"><b>기록을 직접 넣어 계산하기</b><span>Riegel 공식으로 거리를 환산해 다른 거리 기록까지 같은 잣대로 비교합니다.</span></span>
+<span class="cc-go">계산하기 →</span>
+</a>
+</div>
+
 <p class="aq-disclaimer">이 페이지는 대한철인3종협회 공개 일정과 언론 보도를 바탕으로 정리했으며, 일정과 접수 조건은 변경될 수 있습니다. 참가 전 반드시 공식 안내를 다시 확인해주세요. 마지막 갱신 기준일: {esc(today_ko)}</p>
 </main>
 <footer class="site-footer">

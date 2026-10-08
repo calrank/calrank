@@ -59,7 +59,39 @@ def build_page(region, sport, events):
     events_sorted = sorted(events, key=lambda e: e.get("date") or "9999")
     total = len(events_sorted)
     title = f"{region} {sport_label} 대회 일정 — {total}개 대회 총정리"
-    desc = f"calrank에 등록된 {region} 지역 {sport_label} 대회 {total}개를 날짜순으로 정리했습니다."
+
+    # 설명은 검색 결과에서 "눌러볼 이유"가 된다. 전에는 "N개를 날짜순으로
+    # 정리했습니다" 뿐이라 안에 뭐가 있는지 알 수 없었고, 노출 대비 클릭이
+    # 거의 없었다. 가장 가까운 대회와 접수 현황을 실제로 적어 준다.
+    # 다만 검색결과는 150자 안팎에서 잘리므로 길이를 지킨다.
+    DESC_LIMIT = 150
+    OTHER_REGIONS = [r for r in REGION_SLUG if r != region] if "REGION_SLUG" in globals() else []
+
+    today_iso = date.today().isoformat()
+    upcoming = [e for e in events_sorted if (e.get("date") or "") >= today_iso]
+
+    desc = f"{region} {sport_label} 대회 {total}개를 날짜순으로 모았습니다."
+
+    if upcoming:
+        nxt = upcoming[0]
+        # 지역 분류가 틀린 데이터가 섞여 있다(장소는 충남인데 region이 경기인 식).
+        # 설명에 엉뚱한 지역 대회를 대표로 적으면 검색결과에서 바로 들통나므로,
+        # 장소 문구가 다른 지역을 가리키면 이름을 쓰지 않는다.
+        loc = str(nxt.get("location") or "")
+        conflicted = any(o and o in loc for o in OTHER_REGIONS)
+        nd = (nxt.get("date") or "").replace("-", ".")[5:]
+        if nd and not conflicted and nxt.get("name"):
+            desc += f" 가장 가까운 대회는 {nd} {nxt['name']}."
+        deadline_soon = [e for e in upcoming
+                         if e.get("regDeadline") and str(e["regDeadline"]) >= today_iso]
+        if deadline_soon:
+            desc += f" 접수 진행 중인 대회 {len(deadline_soon)}개."
+
+    tail = " 접수 마감일과 신청 링크를 한 번에 확인하세요."
+    if len(desc) + len(tail) <= DESC_LIMIT:
+        desc += tail
+    if len(desc) > DESC_LIMIT:
+        desc = desc[:DESC_LIMIT - 1].rstrip() + "…"
 
     rows = "\n".join(
         f'<a href="e/{quote(e.get("id",""))}.html" class="landing-row">'  # 검색엔진이 읽을 수 있는 정적 상세페이지로 링크

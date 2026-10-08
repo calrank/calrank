@@ -853,6 +853,12 @@ def dedupe_across_sources(
                           "sourceUrl", "time", "region"):
                 if not _meaningful(merged.get(field)) and _meaningful(other.get(field)):
                     merged[field] = other[field]
+            # "전국"은 소스가 지역을 안 적었을 때 들어가는 기본값이다. 다른 소스가
+            # 실제 지역을 알고 있으면 그쪽을 쓴다. 안 그러면 지역별 페이지에서
+            # 그 대회가 통째로 빠진다(현재 전체의 22%가 "전국"으로 묶여 있다).
+            if merged.get("region") == "전국" and _meaningful(other.get("region")) \
+               and other["region"] != "전국":
+                merged["region"] = other["region"]
             if not (merged.get("lat") and merged.get("lng")) and other.get("lat") and other.get("lng"):
                 merged["lat"], merged["lng"] = other["lat"], other["lng"]
             # 지역명뿐이면 구체적인 장소로 바꾼다
