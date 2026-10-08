@@ -7,7 +7,12 @@ name: Update official records
 on:
   schedule:
     - cron: "0 21 * * 0"  # 매주 일요일 06:00 KST
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "저장하지 않고 수집 결과만 출력"
+        type: boolean
+        default: false
 
 jobs:
   update:
@@ -25,4 +30,5 @@ jobs:
       - name: Fetch official records
         env:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
         run: python scripts/fetch_official_records.py
