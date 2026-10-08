@@ -13,9 +13,13 @@ events.json에서 "지역 x 종목" 조합별 실제 대회 수를 계산해, �
   python scripts/generate_landing_pages.py
 """
 import json
+import sys
 from datetime import date
 from pathlib import Path
 from urllib.parse import quote
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from sport_emblems import EMBLEM_CSS, emblem_svg  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -115,6 +119,8 @@ def build_page(region, sport, events):
         ],
     }, ensure_ascii=False)
 
+    emblem = emblem_svg(sport, 44)
+
     return f'''<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -125,7 +131,7 @@ def build_page(region, sport, events):
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:image" content="https://calrank.vercel.app/og-{sport}.png">
 <meta property="og:url" content="https://calrank.vercel.app/{slug}">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,6 +147,11 @@ def build_page(region, sport, events):
 <script type="application/ld+json">{breadcrumb_ld}</script>
 <style>
   .landing-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
+  .landing-head {{ display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }}
+  .emblem{{display:block;flex:0 0 auto;}}
+  .emblem-lockup{{display:inline-flex;align-items:center;gap:10px;}}
+  .emblem-lockup b{{font-family:var(--font-display);font-weight:900;
+    font-size:15px;letter-spacing:.5px;}}
   .landing-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }}
   .landing-sub {{ font-size: 15px; color: #B8B0AC; margin-bottom: 24px; }}
   .landing-list {{ display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }}
@@ -166,7 +177,7 @@ def build_page(region, sport, events):
 </div>
 </header>
 <main class="landing-wrap">
-<h1 class="landing-title">{title}</h1>
+<div class="landing-head">{emblem}<h1 class="landing-title">{title}</h1></div>
 <p class="landing-sub">{desc}</p>
 <div class="landing-list">
 {rows}
