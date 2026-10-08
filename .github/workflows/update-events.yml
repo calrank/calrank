@@ -32,6 +32,11 @@ jobs:
         # 검색엔진이 자바스크립트 없이도 대회 정보를 읽을 수 있게 하기 위함.
         run: python scripts/generate_event_pages.py
 
+      - name: Generate topic pages
+        # 울트라마라톤·야간런·걷기·어린이 마라톤·접수중 — 경쟁이 적은 검색어의
+        # 도착 페이지를 events.json 기준으로 다시 만든다.
+        run: python scripts/generate_topic_pages.py
+
       - name: Generate aquathlon page
         # 아쿠아슬론 시즌 정리 페이지(aquathlon.html)를 최신 events.json 기준으로 다시 만든다.
         # 새 대회가 등록되면 예정 대회 표에 자동으로 올라간다.
@@ -45,7 +50,9 @@ jobs:
           git add event_aliases.json vercel.json
           git add index.html
           git add e/ aquathlon.html
-          git add events-index.html sitemap.xml
+          git add events-index.html events-archive.html sitemap.xml
+          git add open-registration.html ultra-marathon.html night-run.html
+          git add walking-events.html kids-marathon.html
           git diff --quiet --cached && echo "변경 없음" && exit 0
           git commit -m "chore: update events.json"
           # 같은 시각에 사람이 커밋하면 push 가 "fetch first" 로 거절된다.
