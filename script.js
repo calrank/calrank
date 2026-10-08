@@ -310,11 +310,15 @@ function renderCard(ev) {
     ? `<span class="ev-scale-badge" title="calrank 규모·인지도 지수(참고용)">${TIER_ICON[rating.tier] || ""} ${rating.tier} ${rating.indexScore}</span>`
     : "";
 
-  const card = document.createElement("article");
+  // 진짜 <a href> 로 만든다. 예전에는 <article role="button"> 에 클릭 이벤트만
+  // 달아 두어서, 대회 상세 페이지(e/<id>.html)로 가는 링크가 사이트 어디에도
+  // 없었다. 검색엔진은 사이트맵으로 주소를 "발견"만 하고 크롤링하지 않았다
+  // (구글 색인 보고서: 발견됨 - 현재 색인이 생성되지 않음 493개).
+  // 사람에게도 이득이다 — 가운데 클릭·새 탭으로 열기가 이제 동작한다.
+  const card = document.createElement("a");
   card.className = "event-card";
+  card.href = "e/" + encodeURIComponent(ev.id) + ".html";
   card.setAttribute("data-id", ev.id);
-  card.setAttribute("role", "button");
-  card.setAttribute("tabindex", "0");
   card.style.setProperty("--sport-color", meta.color);
 
   const savedInitial = isEventSaved(ev.id);
@@ -367,10 +371,11 @@ function render() {
   filtered.forEach(ev => grid.appendChild(renderCard(ev)));
 
   grid.querySelectorAll(".event-card").forEach(card => {
-    const open = () => openDetail(card.getAttribute("data-id"));
-    card.addEventListener("click", open);
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+    card.addEventListener("click", (e) => {
+      // 새 탭으로 열려는 조작(ctrl/cmd/shift/가운데 버튼)은 그대로 둔다.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      openDetail(card.getAttribute("data-id"));
     });
   });
 

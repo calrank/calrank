@@ -161,6 +161,7 @@ body{
   padding:18px 4px;
   display:flex;align-items:center;gap:16px;
   cursor:pointer;
+  color:inherit;text-decoration:none;
 }
 .event-card:hover{background:#111111;}
 
