@@ -327,7 +327,121 @@ def build_related_links(ev: dict) -> str:
     return " · ".join(links)
 
 
-def render_page(template: str, ev: dict) -> str:
+# ──────────────────────────────────────────────────────────────
+# 대회마다 다른 내용. 상세 페이지 857개의 본문이 평균 860자인데 대부분이
+# 모든 페이지에 똑같이 들어가는 머리말·꼬리말이었다. 고유한 문장은 두세 개뿐.
+# 구글이 "발견됨 - 현재 색인이 생성되지 않음" 으로 묶은 이유다.
+# 아래 세 블록은 events.json 에 실제로 있는 값만 써서 만든다. 지어내지 않는다.
+# ──────────────────────────────────────────────────────────────
+
+_PACE_MIN = [4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0]   # km당 분
+
+
+def _hms(total_sec: int) -> str:
+    h, rem = divmod(int(round(total_sec)), 3600)
+    m, sec = divmod(rem, 60)
+    return f"{h}:{m:02d}:{sec:02d}" if h else f"{m}:{sec:02d}"
+
+
+def build_pace_table(ev: dict) -> str:
+    """이 대회 거리를 km당 페이스로 환산한 표. 단순 곱셈이라 틀릴 일이 없다."""
+    kms = _parse_km(ev.get("distances"))
+    if not kms:
+        return ""
+    km = kms[-1]                      # 가장 긴 거리 하나만. 표가 여럿이면 지저분하다
+    rows = []
+    for pace in _PACE_MIN:
+        pm, ps = int(pace), int(round((pace - int(pace)) * 60))
+        rows.append(
+            f"<tr><td>{pm}분 {ps:02d}초</td><td>{_hms(km * pace * 60)}</td></tr>"
+        )
+    label = _km_label(km)
+    # "10km(10km)" 처럼 겹쳐 쓰지 않는다. 하프·풀코스일 때만 km 를 덧붙인다.
+    shown = label if label.endswith("km") else f"{label}({km:g}km)"
+    return (
+        f'<h2 class="ev-h2">{esc(label)} 페이스별 완주 시간</h2>'
+        f'<p class="ev-p">이 대회 {esc(shown)}를 km당 몇 분으로 달리면 '
+        f"몇 시간에 들어오는지입니다. 목표 시간을 정할 때 쓰세요.</p>"
+        '<table class="ev-pace"><thead><tr><th>km당 페이스</th>'
+        f"<th>{esc(label)} 완주 시간</th></tr></thead><tbody>"
+        + "".join(rows) + "</tbody></table>"
+    )
+
+
+def _norm_name(name: str) -> str:
+    s = re.sub(r"^\s*20\d{2}\s*년?\s*", "", str(name or ""))
+    s = re.sub(r"제?\s*\d+\s*회", "", s)
+    s = re.sub(r"\s*20\d{2}\s*$", "", s)
+    return re.sub(r"[^0-9A-Za-z가-힣]", "", s).lower()
+
+
+def _ev_link(ev: dict) -> str:
+    d = parse_date(ev.get("date"))
+    when = f"{d.year}.{d.month:02d}.{d.day:02d}" if d else ""
+    bits = [b for b in (ev.get("region"), ev.get("location")) if b and b != "미정"]
+    return (f'<li><a href="e/{esc(quote(str(ev["id"])))}.html">'
+            f'<b>{esc(ev.get("name") or "대회")}</b></a> '
+            f'<span>{esc(when)}{" · " + esc(bits[0]) if bits else ""}</span></li>')
+
+
+def build_nearby(ev: dict, ctx: dict) -> str:
+    """같은 종목·같은 지역에서 비슷한 시기에 열리는 다른 대회."""
+    d = parse_date(ev.get("date"))
+    if not d:
+        return ""
+    sport, region = ev.get("sport"), ev.get("region")
+    pool = [o for o in ctx["by_sport"].get(sport, [])
+            if o.get("id") != ev.get("id") and parse_date(o.get("date"))]
+    near = [o for o in pool
+            if o.get("region") == region
+            and abs((parse_date(o["date"]) - d).days) <= 45]
+    scope = f"{region} " if region and region != "전국" else ""
+    if len(near) < 3:                      # 지역에 몇 개 없으면 전국에서 가까운 날짜로
+        near = [o for o in pool if abs((parse_date(o["date"]) - d).days) <= 14]
+        scope = ""
+    if not near:
+        return ""
+    near.sort(key=lambda o: abs((parse_date(o["date"]) - d).days))
+    picked = sorted(near[:6], key=lambda o: o["date"])
+    label = SPORT_LABEL.get(sport, "대회")
+    return (f'<h2 class="ev-h2">비슷한 시기에 열리는 {esc(scope)}{esc(label)} 대회</h2>'
+            f'<ul class="ev-list">{"".join(_ev_link(o) for o in picked)}</ul>')
+
+
+def build_other_editions(ev: dict, ctx: dict) -> str:
+    """같은 대회의 다른 회차. '○○마라톤 기록' 은 대회가 끝난 뒤에 검색된다."""
+    key = _norm_name(ev.get("name"))
+    if not key:
+        return ""
+    others = [o for o in ctx["by_norm"].get(key, [])
+              if o.get("id") != ev.get("id") and parse_date(o.get("date"))]
+    if not others:
+        return ""
+    others.sort(key=lambda o: o["date"], reverse=True)
+    return ('<h2 class="ev-h2">같은 대회의 다른 회차</h2>'
+            f'<ul class="ev-list">{"".join(_ev_link(o) for o in others[:4])}</ul>')
+
+
+EXTRA_CSS = """
+<style>
+  .ev-extra{margin-top:40px;}
+  .ev-h2{font-size:17px;margin:32px 0 10px;}
+  .ev-p{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:0 0 12px;}
+  .ev-pace{width:100%;max-width:420px;border-collapse:collapse;font-size:14px;}
+  .ev-pace th,.ev-pace td{padding:8px 10px;text-align:left;
+    border-bottom:1px solid rgba(255,255,255,.08);}
+  .ev-pace th{color:#fff;background:rgba(255,255,255,.03);}
+  .ev-pace td:first-child{color:var(--ink-soft);}
+  .ev-list{list-style:none;margin:0;padding:0;}
+  .ev-list li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:14px;line-height:1.6;}
+  .ev-list a{color:inherit;text-decoration:none;}
+  .ev-list a:hover b{text-decoration:underline;}
+  .ev-list span{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}
+</style>"""
+
+
+def render_page(template: str, ev: dict, ctx: dict) -> str:
     url = page_url_for(ev["id"])
     title = build_title(ev)
     desc = build_meta_description(ev)
@@ -353,6 +467,7 @@ def render_page(template: str, ev: dict) -> str:
 
     head_extra = "\n".join([
         f'<link rel="canonical" href="{esc(url)}">',
+        EXTRA_CSS,
         ld_script("eventLd", build_event_jsonld(ev, url, desc)),
         ld_script("breadcrumbLd", build_breadcrumb_jsonld(ev)),
     ])
@@ -388,6 +503,17 @@ def render_page(template: str, ev: dict) -> str:
     if marker not in out:
         raise RuntimeError("템플릿에서 saveWidget 자리를 찾지 못했습니다")
     out = out.replace(marker, summary_block + marker, 1)
+
+    extra = "".join(filter(None, [
+        build_pace_table(ev),
+        build_other_editions(ev, ctx),
+        build_nearby(ev, ctx),
+    ]))
+    if extra:
+        tail = '<footer class="site-footer"'
+        if tail not in out:
+            raise RuntimeError("템플릿에서 꼬리말 자리를 찾지 못했습니다")
+        out = out.replace(tail, f'<section class="ev-extra">{extra}</section>\n' + tail, 1)
     return out
 
 
@@ -629,9 +755,17 @@ def main():
             continue
         wanted[f"{ev['id']}.html"] = ev
 
+    # 관련 대회를 찾으려면 전체 목록이 필요하다. 한 번만 만들어 돌려 쓴다.
+    ctx = {"by_sport": {}, "by_norm": {}}
+    for e in wanted.values():
+        ctx["by_sport"].setdefault(e.get("sport"), []).append(e)
+        key = _norm_name(e.get("name"))
+        if key:
+            ctx["by_norm"].setdefault(key, []).append(e)
+
     written = 0
     for fname, ev in wanted.items():
-        content = render_page(template, ev)
+        content = render_page(template, ev, ctx)
         p = OUT_DIR / fname
         if not p.exists() or p.read_text(encoding="utf-8") != content:
             p.write_text(content, encoding="utf-8")
