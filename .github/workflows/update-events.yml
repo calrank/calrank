@@ -45,6 +45,7 @@ jobs:
           git add event_aliases.json vercel.json
           git add index.html
           git add e/ aquathlon.html
+          git add events-index.html sitemap.xml
           git diff --quiet --cached && echo "변경 없음" && exit 0
           git commit -m "chore: update events.json"
           # 같은 시각에 사람이 커밋하면 push 가 "fetch first" 로 거절된다.
