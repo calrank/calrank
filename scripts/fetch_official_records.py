@@ -112,23 +112,61 @@ SOURCES = [
 ]
 
 
-def upsert_records(records: list[dict]) -> int:
-    if not SERVICE_KEY:
-        print("SUPABASE_SERVICE_ROLE_KEY가 없어 저장을 건너뜁니다 (조회만 테스트).")
-        return 0
-
-    headers = {
+def _auth_headers() -> dict:
+    return {
         "apikey": SERVICE_KEY,
         "Authorization": f"Bearer {SERVICE_KEY}",
         "Content-Type": "application/json",
-        "Prefer": "return=minimal",
     }
-    resp = requests.post(
-        f"{SUPABASE_URL}/rest/v1/official_records",
-        headers=headers, json=records, timeout=30,
+
+
+def fetch_existing_keys() -> set:
+    """이미 저장된 기록의 식별 키를 읽어 온다.
+
+    official_records 에는 유니크 제약이 없어서, 매주 같은 수상자 명단을 다시
+    POST 하면 같은 행이 계속 쌓인다. 테이블에 제약을 거는 쪽이 더 깔끔하지만
+    기존 데이터를 건드리지 않고 고칠 수 있는 범위에서 여기서 걸러 낸다.
+    """
+    resp = requests.get(
+        f"{SUPABASE_URL}/rest/v1/official_records"
+        "?select=race_name,race_year,distance_category,athlete_name,finish_time_seconds",
+        headers=_auth_headers(), timeout=30,
     )
     resp.raise_for_status()
-    return len(records)
+    return {
+        (r.get("race_name"), r.get("race_year"), r.get("distance_category"),
+         r.get("athlete_name"), r.get("finish_time_seconds"))
+        for r in resp.json()
+    }
+
+
+def record_key(r: dict):
+    return (r["race_name"], r["race_year"], r["distance_category"],
+            r["athlete_name"], r["finish_time_seconds"])
+
+
+def upsert_records(records: list[dict]) -> int:
+    if not SERVICE_KEY:
+        print("SUPABASE_SERVICE_ROLE_KEY가 없어 저장을 건너뜁니다 (수집만 확인).")
+        return 0
+
+    existing = fetch_existing_keys()
+    fresh = [r for r in records if record_key(r) not in existing]
+    print(f"기존 {len(existing)}건 / 새 기록 {len(fresh)}건")
+    if not fresh:
+        return 0
+
+    resp = requests.post(
+        f"{SUPABASE_URL}/rest/v1/official_records",
+        headers={**_auth_headers(), "Prefer": "return=minimal"},
+        json=fresh, timeout=30,
+    )
+    if resp.status_code >= 400:
+        # 그동안 이 단계에서 조용히 죽어 왔다. 응답 본문을 남겨 원인을 보이게 한다.
+        raise RuntimeError(
+            f"저장 실패 HTTP {resp.status_code}: {resp.text[:400]}"
+        )
+    return len(fresh)
 
 
 def main():
@@ -145,7 +183,12 @@ def main():
         print("수집된 기록이 없습니다.")
         return
 
-    saved = upsert_records(all_records)
+    try:
+        saved = upsert_records(all_records)
+    except Exception as e:
+        # 수집은 됐는데 저장만 실패한 경우를 구분해서 보여 준다.
+        print(f"수집 {len(all_records)}건 성공했으나 저장 단계에서 실패: {e}")
+        raise
     print(f"총 {len(all_records)}건 수집, {saved}건 저장 완료")
 
 
