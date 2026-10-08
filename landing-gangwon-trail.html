@@ -3,26 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강원 트레일러닝 대회 일정 — 7개 대회 총정리 — calrank</title>
-<meta name="description" content="calrank에 등록된 강원 지역 트레일러닝 대회 7개를 날짜순으로 정리했습니다.">
+<title>강원 트레일러닝 대회 일정 — 1개 대회 총정리 — calrank</title>
+<meta name="description" content="강원 트레일러닝 대회 1개를 날짜순으로 모았습니다. 가장 가까운 대회는 10.24 불닭 버닝 트레일런. 접수 마감일과 신청 링크를 한 번에 확인하세요.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="강원 트레일러닝 대회 일정 — 7개 대회 총정리">
-<meta property="og:description" content="calrank에 등록된 강원 지역 트레일러닝 대회 7개를 날짜순으로 정리했습니다.">
-<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:title" content="강원 트레일러닝 대회 일정 — 1개 대회 총정리">
+<meta property="og:description" content="강원 트레일러닝 대회 1개를 날짜순으로 모았습니다. 가장 가까운 대회는 10.24 불닭 버닝 트레일런. 접수 마감일과 신청 링크를 한 번에 확인하세요.">
+<meta property="og:image" content="https://calrank.vercel.app/og-trail.png">
 <meta property="og:url" content="https://calrank.vercel.app/landing-gangwon-trail.html">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://calrank.vercel.app/landing-gangwon-trail.html">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "강원 트레일러닝 대회 일정 — 1개 대회 총정리", "description": "강원 트레일러닝 대회 1개를 날짜순으로 모았습니다. 가장 가까운 대회는 10.24 불닭 버닝 트레일런. 접수 마감일과 신청 링크를 한 번에 확인하세요.", "url": "https://calrank.vercel.app/landing-gangwon-trail.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"}, {"@type": "ListItem", "position": 2, "name": "지역별", "item": "https://calrank.vercel.app/regions.html"}, {"@type": "ListItem", "position": 3, "name": "강원 트레일러닝 대회 일정 — 1개 대회 총정리"}]}</script>
 <style>
   .landing-wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+  .landing-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .emblem{display:block;flex:0 0 auto;}
+  .emblem-lockup{display:inline-flex;align-items:center;gap:10px;}
+  .emblem-lockup b{font-family:var(--font-display);font-weight:900;
+    font-size:15px;letter-spacing:.5px;}
   .landing-title { font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }
   .landing-sub { font-size: 15px; color: #B8B0AC; margin-bottom: 24px; }
   .landing-list { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
   .landing-row { display: flex; gap: 16px; padding: 12px 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 6px; text-decoration: none; color: #E8E4E1; font-size: 14px; }
   .landing-row:hover { border-color: var(--accent); }
   .landing-date { color: var(--accent); font-weight: 700; flex-shrink: 0; width: 82px; }
+  .landing-empty { padding: 20px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; font-size: 14.5px; line-height: 1.9; color: #B8B0AC; }
+  .landing-empty a { color: var(--accent); font-weight: 700; }
   .landing-cta { margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }
   .landing-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
 </style>
@@ -42,16 +56,11 @@
 </div>
 </header>
 <main class="landing-wrap">
-<h1 class="landing-title">강원 트레일러닝 대회 일정 — 7개 대회 총정리</h1>
-<p class="landing-sub">calrank에 등록된 강원 지역 트레일러닝 대회 7개를 날짜순으로 정리했습니다.</p>
+<div class="landing-head"><svg class="emblem emblem-trail" width="44" height="44" viewBox="0 0 64 64" role="img" aria-label="트레일 대회" style="color:#4CAF7D"><circle cx="32" cy="32" r="29" fill="none" stroke="#4CAF7D" stroke-opacity=".32" stroke-width="1.6"/><g fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 45 L23 27 L31 37 L40 20 L52 45"/>
+    <circle cx="40" cy="20" r="2.6" fill="currentColor" stroke="none"/></g></svg><h1 class="landing-title">강원 트레일러닝 대회 일정 — 1개 대회 총정리</h1></div>
+<p class="landing-sub">강원 트레일러닝 대회 1개를 날짜순으로 모았습니다. 가장 가까운 대회는 10.24 불닭 버닝 트레일런. 접수 마감일과 신청 링크를 한 번에 확인하세요.</p>
 <div class="landing-list">
-<a href="e/rm-%EC%A0%9C2%ED%9A%8C-%ED%99%8D%EC%B2%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-04-26.html" class="landing-row"><span class="landing-date">2026-04-26</span><span class="landing-name">제2회 홍천트레일런</span></a>
-<a href="e/rm-2026-%EC%98%A5%EC%8A%A4%ED%8C%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EC%9B%8C%EC%BB%A4-2026-05-16.html" class="landing-row"><span class="landing-date">2026-05-16</span><span class="landing-name">2026 옥스팜 트레일워커</span></a>
-<a href="e/rm-2026-%EB%8F%84%EC%8B%9C%EA%B0%80%EC%8A%A4-%ED%8A%B8%EB%A0%88%EC%9D%BC-%EC%98%A8-%EB%9F%B0-%EA%B0%95%EC%9B%90-2026-06-06.html" class="landing-row"><span class="landing-date">2026-06-06</span><span class="landing-name">) 2026 도시가스 트레일 온 런 강원</span></a>
-<a href="e/rm-%EC%A0%9C3%ED%9A%8C-go%EB%8C%80%EA%B4%80%EB%A0%B9-%EA%B5%AD%EC%A0%9C-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-08-30.html" class="landing-row"><span class="landing-date">2026-08-30</span><span class="landing-name">제3회 GO대관령 국제 트레일런</span></a>
-<a href="e/rm-t-u-2026-%EB%8B%A4%EC%9D%B4%EB%82%98%ED%95%8F-%ED%83%9C%EB%B0%B1-%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-09-05.html" class="landing-row"><span class="landing-date">2026-09-05</span><span class="landing-name">-T -U 2026 다이나핏 태백 트레일</span></a>
-<a href="e/rm-%EC%A0%9C14%ED%9A%8C-%EC%84%A4%EC%95%85%EC%82%B0%EA%B3%B5%EB%A3%A1%EB%8A%A5%EC%84%A0-utmb-climbathon-2026-09-13.html" class="landing-row"><span class="landing-date">2026-09-13</span><span class="landing-name">제14회 설악산공룡능선 UTMB CLIMBATHON</span></a>
-<a href="e/rw-%EC%A0%9C14%ED%9A%8C-%EC%84%A4%EC%95%85%EC%82%B0-%EA%B3%B5%EB%A3%A1%EB%8A%A5%EC%84%A0-utmb-2026-09-13.html" class="landing-row"><span class="landing-date">2026-09-13</span><span class="landing-name">제14회 설악산 공룡능선 UTMB</span></a>
+<a href="e/rr-%EB%B6%88%EB%8B%AD-%EB%B2%84%EB%8B%9D-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html" class="landing-row"><span class="landing-date">2026-10-24</span><span class="landing-name">불닭 버닝 트레일런</span></a>
 </div>
 <div class="landing-cta">
 <p>지도로 보거나 다른 조건으로 더 찾아보고 싶다면?</p>
