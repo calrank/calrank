@@ -45,4 +45,15 @@ jobs:
           git add event_aliases.json vercel.json
           git add index.html
           git add e/ aquathlon.html
-          git diff --quiet --cached || (git commit -m "chore: update events.json" && git push)
+          git diff --quiet --cached && echo "변경 없음" && exit 0
+          git commit -m "chore: update events.json"
+          # 같은 시각에 사람이 커밋하면 push 가 "fetch first" 로 거절된다.
+          # 거기서 그냥 멈추면 그날 수집한 대회 데이터가 조용히 버려진다
+          # (2026-10-08 예약 실행이 실제로 이렇게 실패했다).
+          # 원격 변경 위로 다시 쌓아 올려 세 번까지 재시도한다.
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "push 거절됨 ($i/3) — 원격 변경을 받아 다시 올립니다"
+            git pull --rebase --autostash origin main || exit 1
+          done
+          git push
