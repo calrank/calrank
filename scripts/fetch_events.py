@@ -1077,6 +1077,41 @@ def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
 # 연도와 대회 수가 들어가므로 매일 갱신해 준다(안 그러면 해가 바뀌어도 그대로다).
 HOME_PATH = "index.html"
 
+# 네이버 연관검색어·자동완성에서 실제로 쓰이는 대회 이름들.
+# 소개 문단에 이름을 넣되, "지금 일정에 올라와 있는 대회"만 넣는다.
+# 없는 대회 이름을 적어 두면 그 검색어로 들어온 사람이 빈손으로 나가고,
+# 그 이탈이 오히려 검색 순위를 깎는다. 그래서 매번 events.json 과 대조한다.
+FAMOUS_RACES = [
+    ("춘천마라톤", ("춘천마라톤",)),
+    ("JTBC 서울마라톤", ("jtbc",)),
+    ("경주국제마라톤", ("경주국제마라톤", "경주마라톤")),
+    ("부산바다마라톤", ("부산바다마라톤",)),
+    ("서울레이스", ("서울레이스",)),
+    ("울산마라톤", ("울산마라톤",)),
+    ("진주마라톤", ("진주마라톤",)),
+    ("공주백제마라톤", ("공주백제",)),
+    ("군산새만금마라톤", ("새만금",)),
+    ("대구국제마라톤", ("대구국제마라톤",)),
+]
+
+
+def _famous_upcoming(events: list[dict], today_iso: str, limit: int = 3) -> list[str]:
+    """일정에 올라와 있는 유명 대회 이름을 날짜순으로 고른다."""
+    picked = []
+    for label, needles in FAMOUS_RACES:
+        for ev in events:
+            if ev.get("sport") != "marathon":
+                continue
+            if (ev.get("date") or "") < today_iso:
+                continue
+            name = str(ev.get("name") or "").lower().replace(" ", "")
+            if any(n.replace(" ", "") in name for n in needles):
+                picked.append((ev["date"], label))
+                break
+    # 날짜순이 아니라 FAMOUS_RACES 에 적은 순서(= 검색량이 많은 순서)를 따른다.
+    # "춘천마라톤"이 "서울레이스"보다 훨씬 많이 검색되므로 그쪽을 먼저 보여 준다.
+    return [label for _d, label in picked][:limit]
+
 
 def refresh_home_meta(events: list[dict]) -> None:
     path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), HOME_PATH)
@@ -1103,7 +1138,7 @@ def refresh_home_meta(events: list[dict]) -> None:
 
     def swap(pattern: str, replacement: str) -> None:
         nonlocal html
-        html = re.sub(pattern, lambda _m: replacement, html, count=1)
+        html = re.sub(pattern, lambda _m: replacement, html, count=1, flags=re.S)
 
     swap(r"<title>[^<]*</title>", f"<title>{title}</title>")
     swap(r'<meta name="description" content="[^"]*">',
@@ -1117,6 +1152,20 @@ def refresh_home_meta(events: list[dict]) -> None:
     swap(r'<meta name="twitter:description" content="[^"]*">',
          f'<meta name="twitter:description" content="{og_desc}">')
     swap(r"<h1>[^<]*</h1>", f"<h1>{h1}</h1>")
+
+    # 히어로 소개 문단. 사람들이 실제로 검색하는 말("전국 마라톤 대회 일정",
+    # "10km 하프 풀코스", "마라톤 접수")을 본문에 글로 남긴다.
+    names = _famous_upcoming(events, today_iso)
+    lead = ("전국 <b>마라톤 대회 일정</b>을 월별·지역별로 모았습니다. "
+            "10km·하프마라톤·풀코스 거리로 골라 보고, 접수 시작일과 마감일을 "
+            "확인해 바로 신청하세요. ")
+    if names:
+        lead += (f"{' · '.join(names)} 등 국내 예정 대회 {len(upcoming)}개와 "
+                 "트레일러닝·자전거·철인3종·인라인 대회 일정을 함께 담았습니다.")
+    else:
+        lead += (f"국내 예정 대회 {len(upcoming)}개와 트레일러닝·자전거·철인3종·"
+                 "인라인 대회 일정을 함께 담았습니다.")
+    swap(r'<p class="hero-lead"[^>]*>.*?</p>', f'<p class="hero-lead">{lead}</p>')
 
     if html != before:
         with open(path, "w", encoding="utf-8") as f:
