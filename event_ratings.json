@@ -12480,9 +12480,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-제2회-무등산-더블하트-국제-트레일런-2026-04-19": {
-    "indexScore": 47,
+    "indexScore": 42,
     "tier": "실버",
-    "score": 49,
+    "score": 44,
     "maxScore": 105,
     "criteria": [
       {
@@ -12537,7 +12537,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -35880,9 +35880,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rw-2026-손기정하천마라톤-2026-08-29": {
-    "indexScore": 13,
+    "indexScore": 9,
     "tier": "일반",
-    "score": 14,
+    "score": 9,
     "maxScore": 105,
     "criteria": [
       {
@@ -35937,111 +35937,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
         "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-손기정하천마라톤-2026-2026-08-29": {
-    "indexScore": 13,
-    "tier": "일반",
-    "score": 14,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
         "weight": 5
       },
       {
@@ -36192,9 +36088,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제16회-성북구청장배육상대회-2026-08-30": {
-    "indexScore": 27,
+    "indexScore": 31,
     "tier": "브론즈",
-    "score": 28,
+    "score": 33,
     "maxScore": 105,
     "criteria": [
       {
@@ -36264,7 +36160,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -37752,9 +37648,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-제20회-순천만울트라마라톤대회-2026-09-05": {
-    "indexScore": 24,
-    "tier": "브론즈",
-    "score": 25,
+    "indexScore": 19,
+    "tier": "일반",
+    "score": 20,
     "maxScore": 105,
     "criteria": [
       {
@@ -37809,7 +37705,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -38375,215 +38271,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제20회-순천만울트라마라톤대회-2026-2026-09-05": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-제2회-vrun-2026-2026-09-05": {
-    "indexScore": 13,
-    "tier": "일반",
-    "score": 14,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rw-제2회-vrun-2026-09-05": {
     "indexScore": 13,
     "tier": "일반",
     "score": 14,
@@ -39002,7 +38690,7 @@
   "rm-제9회-인천-서구청장배-단축마라톤-2026-09-06": {
     "indexScore": 30,
     "tier": "브론즈",
-    "score": 32,
+    "score": 31,
     "maxScore": 105,
     "criteria": [
       {
@@ -39017,7 +38705,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": false,
+        "achieved": true,
         "weight": 4
       },
       {
@@ -39057,7 +38745,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -39520,9 +39208,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제24회-청광종주trailrunning-2026-09-06": {
-    "indexScore": 24,
+    "indexScore": 29,
     "tier": "브론즈",
-    "score": 25,
+    "score": 30,
     "maxScore": 105,
     "criteria": [
       {
@@ -39592,7 +39280,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -39624,9 +39312,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-희망드림-제23회-새벽강변-국제마라톤-2026-09-06": {
-    "indexScore": 40,
+    "indexScore": 45,
     "tier": "실버",
-    "score": 42,
+    "score": 47,
     "maxScore": 105,
     "criteria": [
       {
@@ -39696,7 +39384,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -39786,110 +39474,6 @@
       {
         "label": "연속 개최 이력 확인",
         "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제9회-인천-서구청장배-단축마라톤-2026-2026-09-06": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": true,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
         "weight": 5
       },
       {
@@ -40352,9 +39936,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-서울올림픽기념-88run-2026-09-12": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -40424,7 +40008,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -40768,9 +40352,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제2회-화이트런-생리대-기부마라톤-2026-09-12": {
-    "indexScore": 32,
+    "indexScore": 37,
     "tier": "브론즈",
-    "score": 34,
+    "score": 39,
     "maxScore": 105,
     "criteria": [
       {
@@ -40840,7 +40424,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -40872,9 +40456,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제2회-초록우산-런웨이-마라톤-2026-09-12": {
-    "indexScore": 28,
+    "indexScore": 23,
     "tier": "브론즈",
-    "score": 29,
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -40929,7 +40513,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -41599,110 +41183,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제2회-초록우산-런웨이-마라톤-2026-2026-09-12": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-2026-장수-레드푸드레이스-트레일런-2026-09-12": {
     "indexScore": 4,
     "tier": "일반",
@@ -42120,9 +41600,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-히어로레이스-2026-09-13": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -42192,7 +41672,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -42432,9 +41912,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-제26회-강화해변마라톤대회-2026-09-13": {
-    "indexScore": 53,
+    "indexScore": 49,
     "tier": "실버",
-    "score": 56,
+    "score": 51,
     "maxScore": 105,
     "criteria": [
       {
@@ -42489,7 +41969,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -42536,9 +42016,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제16회-스마일-런-페스티벌-2026-09-13": {
-    "indexScore": 34,
+    "indexScore": 30,
     "tier": "브론즈",
-    "score": 36,
+    "score": 31,
     "maxScore": 105,
     "criteria": [
       {
@@ -42593,7 +42073,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -43263,7 +42743,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-울진-금강송배-전국마라톤-2026-2026-09-13": {
+  "rw-2026-울진-금강송배-전국마라톤-2026-09-13": {
     "indexScore": 9,
     "tier": "일반",
     "score": 9,
@@ -43276,7 +42756,7 @@
       },
       {
         "label": "하프코스(21km) 운영",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -43321,7 +42801,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -43337,214 +42817,6 @@
       {
         "label": "수도권·광역시 개최",
         "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제16회-스마일-런-페스티벌-2026-2026-09-13": {
-    "indexScore": 20,
-    "tier": "브론즈",
-    "score": 21,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": true,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제26회-강화해변마라톤대회-2026-2026-09-13": {
-    "indexScore": 28,
-    "tier": "브론즈",
-    "score": 29,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
         "weight": 5
       },
       {
@@ -43649,110 +42921,6 @@
       {
         "label": "수도권·광역시 개최",
         "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rw-2026-울진-금강송배-전국마라톤-2026-09-13": {
-    "indexScore": 13,
-    "tier": "일반",
-    "score": 14,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
         "weight": 5
       },
       {
@@ -44304,9 +43472,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-시포레-run-fit-with-디스커버리-2026-09-19": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -44376,7 +43544,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -47631,110 +46799,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제20회-선사마라톤-축제-2026-2026-09-20": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-7080-띠별-온라인-마라톤-대회-2026-09-29": {
     "indexScore": 9,
     "tier": "일반",
@@ -48256,9 +47320,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-마스터즈-하프-마라톤-2026-10-03": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -48328,7 +47392,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -49711,110 +48775,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-2026-춘천연합마라톤-대회-2026-10-03": {
-    "indexScore": 9,
-    "tier": "일반",
-    "score": 9,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-2026-rok-army-트레일러닝-대회-2026-10-03": {
     "indexScore": 4,
     "tier": "일반",
@@ -50440,9 +49400,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제14회-광명시장배건강달리기-2026-10-04": {
-    "indexScore": 30,
+    "indexScore": 35,
     "tier": "브론즈",
-    "score": 32,
+    "score": 37,
     "maxScore": 105,
     "criteria": [
       {
@@ -50512,7 +49472,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -50544,9 +49504,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-run-your-way-seoul-10k-2026-10-04": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -50616,7 +49576,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -50648,9 +49608,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-s-oil과-함께하는-감동의-마라톤-2026-10-04": {
-    "indexScore": 23,
+    "indexScore": 28,
     "tier": "브론즈",
-    "score": 24,
+    "score": 29,
     "maxScore": 105,
     "criteria": [
       {
@@ -50720,7 +49680,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -50856,9 +49816,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-파주북시티마라톤-2026-10-04": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -50928,7 +49888,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -52312,9 +51272,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제23회-강남국제평화마라톤-2026-10-05": {
-    "indexScore": 43,
+    "indexScore": 48,
     "tier": "실버",
-    "score": 45,
+    "score": 50,
     "maxScore": 105,
     "criteria": [
       {
@@ -52384,7 +51344,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -52473,7 +51433,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -52488,7 +51448,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -52520,9 +51480,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-양주-천일홍-가을-페스타-마라톤-2026-10-05": {
-    "indexScore": 29,
+    "indexScore": 33,
     "tier": "브론즈",
-    "score": 30,
+    "score": 35,
     "maxScore": 105,
     "criteria": [
       {
@@ -52592,7 +51552,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -52624,9 +51584,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-런센스-2026-2026-10-05": {
-    "indexScore": 32,
+    "indexScore": 37,
     "tier": "브론즈",
-    "score": 34,
+    "score": 39,
     "maxScore": 105,
     "criteria": [
       {
@@ -52696,7 +51656,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -53039,110 +51999,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제12회-시흥시-전국하프마라톤-2026-2026-10-05": {
-    "indexScore": 25,
-    "tier": "브론즈",
-    "score": 26,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": true,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "cy-2026-양평-그란폰도-2026-10-05": {
     "indexScore": 13,
     "tier": "일반",
@@ -53456,9 +52312,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-wyd와-함께하는-생명사랑-마라톤-걷기-대회-2026-10-09": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -53528,7 +52384,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -53560,9 +52416,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제26회-홍성마라톤-2026-10-09": {
-    "indexScore": 42,
-    "tier": "실버",
-    "score": 44,
+    "indexScore": 37,
+    "tier": "브론즈",
+    "score": 39,
     "maxScore": 105,
     "criteria": [
       {
@@ -53617,7 +52473,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -54079,110 +52935,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제26회-홍성마라톤-2026-2026-10-09": {
-    "indexScore": 28,
-    "tier": "브론즈",
-    "score": 29,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "rr-2026-고흥우주항공배-마라톤-2026-10-09": {
     "indexScore": 23,
     "tier": "브론즈",
@@ -54288,9 +53040,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제3회서울트레일런-대회-2026-10-10": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -54360,7 +53112,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -54704,9 +53456,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제3회-성동구연맹회장기-마라톤-2026-10-10": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -54776,7 +53528,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -55120,9 +53872,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-카카오프렌즈런-2026-2026-10-10": {
-    "indexScore": 17,
-    "tier": "일반",
-    "score": 18,
+    "indexScore": 22,
+    "tier": "브론즈",
+    "score": 23,
     "maxScore": 105,
     "criteria": [
       {
@@ -55192,7 +53944,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -55328,9 +54080,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-제9회-거제시장배-섬꽃-전국-마라톤-2026-10-10": {
-    "indexScore": 34,
+    "indexScore": 30,
     "tier": "브론즈",
-    "score": 36,
+    "score": 31,
     "maxScore": 105,
     "criteria": [
       {
@@ -55385,7 +54137,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -55639,114 +54391,10 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제9회-거제시장배-섬꽃-전국-마라톤-2026-2026-10-10": {
-    "indexScore": 17,
-    "tier": "일반",
-    "score": 18,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-제4회-강서허준런-2026-2026-10-10": {
-    "indexScore": 13,
+    "indexScore": 9,
     "tier": "일반",
-    "score": 14,
+    "score": 9,
     "maxScore": 105,
     "criteria": [
       {
@@ -55801,7 +54449,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -55848,9 +54496,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-하트런-2026-10-10": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -55920,7 +54568,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -56337,110 +54985,6 @@
       {
         "label": "수도권·광역시 개최",
         "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rw-제4회-강서허준런-2026-10-10": {
-    "indexScore": 13,
-    "tier": "일반",
-    "score": 14,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
         "weight": 5
       },
       {
@@ -56888,9 +55432,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제6회-영등포구청장배-육상대회-2026-10-11": {
-    "indexScore": 28,
+    "indexScore": 32,
     "tier": "브론즈",
-    "score": 29,
+    "score": 34,
     "maxScore": 105,
     "criteria": [
       {
@@ -56960,7 +55504,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -57200,9 +55744,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-핑크런-2026-10-11": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -57272,7 +55816,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -57512,9 +56056,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-평택항마라톤-마감-2026-10-11": {
-    "indexScore": 48,
+    "indexScore": 52,
     "tier": "실버",
-    "score": 50,
+    "score": 55,
     "maxScore": 105,
     "criteria": [
       {
@@ -57584,7 +56128,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -57616,14 +56160,14 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제10회-가을철-산불조심마라톤-2026-10-11": {
-    "indexScore": 30,
-    "tier": "브론즈",
-    "score": 31,
+    "indexScore": 42,
+    "tier": "실버",
+    "score": 44,
     "maxScore": 105,
     "criteria": [
       {
         "label": "풀코스(42.195km) 운영",
-        "achieved": false,
+        "achieved": true,
         "weight": 8
       },
       {
@@ -57688,7 +56232,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -57907,110 +56451,6 @@
       {
         "label": "대회 정보 완전성(장소·주최·거리)",
         "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-2026-mbn-전국-나주-마라톤-2026-10-11": {
-    "indexScore": 9,
-    "tier": "일반",
-    "score": 9,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
         "weight": 3
       },
       {
@@ -58552,9 +56992,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-함께런-러닝-페스티벌-2026-10-11": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -58624,110 +57064,6 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제10회-가을철-산불조심마라톤5km10km-2026-10-11": {
-    "indexScore": 39,
-    "tier": "브론즈",
-    "score": 41,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": true,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": true,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
         "achieved": true,
         "weight": 5
       },
@@ -58743,7 +57079,7 @@
       },
       {
         "label": "주최측 연락처 공개",
-        "achieved": false,
+        "achieved": true,
         "weight": 3
       },
       {
@@ -59592,9 +57928,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-의정부시-물길마라톤-2026-10-17": {
-    "indexScore": 23,
+    "indexScore": 28,
     "tier": "브론즈",
-    "score": 24,
+    "score": 29,
     "maxScore": 105,
     "criteria": [
       {
@@ -59664,7 +58000,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -60528,9 +58864,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-대전-dtrail-레이스-2026-10-17": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -60600,7 +58936,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -61256,9 +59592,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-억새노을마라톤대회-2026-10-17": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -61328,7 +59664,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -61344,110 +59680,6 @@
       {
         "label": "주최측 연락처 공개",
         "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-u-119-메모리얼런5km11-2026-10-17": {
-    "indexScore": 7,
-    "tier": "일반",
-    "score": 7,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
         "weight": 3
       },
       {
@@ -61464,113 +59696,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-굿네이버스-레이스-광주-2026-10-17": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-억새노을마라톤-2026-10-17": {
-    "indexScore": 9,
-    "tier": "일반",
-    "score": 9,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -61650,12 +59778,12 @@
       },
       {
         "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
+        "achieved": true,
         "weight": 3
       },
       {
         "label": "주최측 연락처 공개",
-        "achieved": false,
+        "achieved": true,
         "weight": 3
       },
       {
@@ -61776,9 +59904,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제19회-중랑구청장배-장미-마라톤-2026-10-18": {
-    "indexScore": 35,
-    "tier": "브론즈",
-    "score": 37,
+    "indexScore": 40,
+    "tier": "실버",
+    "score": 42,
     "maxScore": 105,
     "criteria": [
       {
@@ -61848,7 +59976,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -61984,9 +60112,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제25회-대청호마라톤-2026-10-18": {
-    "indexScore": 28,
+    "indexScore": 32,
     "tier": "브론즈",
-    "score": 29,
+    "score": 34,
     "maxScore": 105,
     "criteria": [
       {
@@ -62056,7 +60184,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -62088,9 +60216,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제22회-대구-북구사랑-마라톤-2026-10-18": {
-    "indexScore": 28,
+    "indexScore": 32,
     "tier": "브론즈",
-    "score": 29,
+    "score": 34,
     "maxScore": 105,
     "criteria": [
       {
@@ -62160,7 +60288,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -62296,9 +60424,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-아시아-오픈-마라톤-2026-10-18": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -62368,7 +60496,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -62400,9 +60528,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제23회-여주-세종대왕-마라톤-2026-10-18": {
-    "indexScore": 48,
+    "indexScore": 43,
     "tier": "실버",
-    "score": 50,
+    "score": 45,
     "maxScore": 105,
     "criteria": [
       {
@@ -62457,7 +60585,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -62919,214 +61047,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제25회-대청호마라톤대회-2026-2026-10-18": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제23회-여주-세종대왕-마라톤-2026-2026-10-18": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-제19회-중랑구청장배-마라톤-8월5일-접수시작-2026-10-18": {
     "indexScore": 21,
     "tier": "브론즈",
@@ -63232,9 +61152,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-하남시-시장기-당정마라톤-2026-10-18": {
-    "indexScore": 24,
+    "indexScore": 29,
     "tier": "브론즈",
-    "score": 25,
+    "score": 30,
     "maxScore": 105,
     "criteria": [
       {
@@ -63304,7 +61224,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -63440,9 +61360,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-뉴시스-바다마라톤-2026-10-24": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -63512,7 +61432,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -63856,9 +61776,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-경기옛길-함께run-2026-10-24": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -63928,7 +61848,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -64064,9 +61984,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-제3회-감성런-2026-10-24": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -64136,7 +62056,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -65000,9 +62920,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-서울-대모-구룡산트레일런-2026-10-24": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -65072,7 +62992,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -66144,9 +64064,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-광명평화마라톤-2026-10-25": {
-    "indexScore": 29,
+    "indexScore": 33,
     "tier": "브론즈",
-    "score": 30,
+    "score": 35,
     "maxScore": 105,
     "criteria": [
       {
@@ -66216,7 +64136,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -66352,9 +64272,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제19회-청도반시-전국마라톤-2026-10-25": {
-    "indexScore": 53,
+    "indexScore": 49,
     "tier": "실버",
-    "score": 56,
+    "score": 51,
     "maxScore": 105,
     "criteria": [
       {
@@ -66409,7 +64329,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -67079,214 +64999,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-부산바다마라톤5km10km1-2026-10-25": {
-    "indexScore": 30,
-    "tier": "브론즈",
-    "score": 32,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": true,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제19회-청도반시-전국마라톤-2026-2026-10-25": {
-    "indexScore": 20,
-    "tier": "브론즈",
-    "score": 21,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": true,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "rm-2026-just-run10-포천-2026-10-31": {
     "indexScore": 23,
     "tier": "브론즈",
@@ -67392,9 +65104,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제7회-중소기업-인-기살리기-마라톤-대회-2026-10-31": {
-    "indexScore": 22,
+    "indexScore": 27,
     "tier": "브론즈",
-    "score": 23,
+    "score": 28,
     "maxScore": 105,
     "criteria": [
       {
@@ -67464,7 +65176,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -67704,9 +65416,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-오티즘-레이스-2026-10-31": {
-    "indexScore": 23,
+    "indexScore": 28,
     "tier": "브론즈",
-    "score": 24,
+    "score": 29,
     "maxScore": 105,
     "criteria": [
       {
@@ -67776,7 +65488,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -68432,9 +66144,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-마블런-2026-10-31": {
-    "indexScore": 18,
+    "indexScore": 13,
     "tier": "일반",
-    "score": 19,
+    "score": 14,
     "maxScore": 105,
     "criteria": [
       {
@@ -68489,111 +66201,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
         "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rr-마블런-2026-2026-10-31": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
         "weight": 5
       },
       {
@@ -68640,9 +66248,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-런텐-12차-레이스-just-run10-포천-2026-10-31": {
-    "indexScore": 14,
+    "indexScore": 19,
     "tier": "일반",
-    "score": 15,
+    "score": 20,
     "maxScore": 105,
     "criteria": [
       {
@@ -68712,7 +66320,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -68951,111 +66559,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-마블런-20265km10km2-2026-10-31": {
-    "indexScore": 4,
-    "tier": "일반",
-    "score": 4,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rr-26서울동행마라톤대회-2026-11-01": {
+  "rm-26서울동행마라톤-2026-11-01": {
     "indexScore": 23,
     "tier": "브론즈",
     "score": 24,
@@ -69472,9 +66976,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제21회-울산인권마라톤-2026-11-01": {
-    "indexScore": 28,
+    "indexScore": 32,
     "tier": "브론즈",
-    "score": 29,
+    "score": 34,
     "maxScore": 105,
     "criteria": [
       {
@@ -69544,7 +67048,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -69576,9 +67080,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-jtbc-마라톤-2026-11-01": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -69648,7 +67152,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -70184,110 +67688,6 @@
       {
         "label": "주최측 연락처 공개",
         "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-26서울동행마라톤-2026-11-01": {
-    "indexScore": 20,
-    "tier": "브론즈",
-    "score": 21,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
         "weight": 3
       },
       {
@@ -71239,110 +68639,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-2026-영천댐-마라톤-대회-2026-11-07": {
-    "indexScore": 9,
-    "tier": "일반",
-    "score": 9,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-넥슨과-함께하는-2026-미라클365-푸르메런-2026-11-07": {
     "indexScore": 9,
     "tier": "일반",
@@ -71448,9 +68744,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-saverace-2026-2026-11-07": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -71520,7 +68816,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -71656,9 +68952,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-넥슨과-함께하는-2026-푸르메런-2026-11-07": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -71728,7 +69024,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -71760,9 +69056,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-남한산성트레일-2026-11-07": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -71832,7 +69128,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -72072,9 +69368,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-런텐-13차-레이스-just-run10-대전-2026-11-07": {
-    "indexScore": 14,
+    "indexScore": 19,
     "tier": "일반",
-    "score": 15,
+    "score": 20,
     "maxScore": 105,
     "criteria": [
       {
@@ -72144,7 +69440,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -72799,119 +70095,15 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-넥슨과-함께하는-2026-푸르메런10km3km-2026-11-07": {
-    "indexScore": 11,
-    "tier": "일반",
-    "score": 12,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rr-2026-해남땅끝-전국마라톤대회-2026-11-08": {
-    "indexScore": 23,
+  "rm-해남땅끝-전국마라톤-2026-11-08": {
+    "indexScore": 30,
     "tier": "브론즈",
-    "score": 24,
+    "score": 32,
     "maxScore": 105,
     "criteria": [
       {
         "label": "풀코스(42.195km) 운영",
-        "achieved": false,
+        "achieved": true,
         "weight": 8
       },
       {
@@ -73215,7 +70407,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rr-경주시육상연맹회장배-마라톤대회-2026-11-08": {
+  "rm-경주시육상연맹회장배-마라톤-2026-11-08": {
     "indexScore": 29,
     "tier": "브론즈",
     "score": 30,
@@ -73320,9 +70512,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08": {
-    "indexScore": 28,
+    "indexScore": 32,
     "tier": "브론즈",
-    "score": 29,
+    "score": 34,
     "maxScore": 105,
     "criteria": [
       {
@@ -73392,7 +70584,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -73632,9 +70824,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-과천마라톤-2026-11-08": {
-    "indexScore": 29,
+    "indexScore": 33,
     "tier": "브론즈",
-    "score": 30,
+    "score": 35,
     "maxScore": 105,
     "criteria": [
       {
@@ -73704,7 +70896,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -73840,9 +71032,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제11회-송파구청장배-마라톤-2026-11-08": {
-    "indexScore": 30,
+    "indexScore": 35,
     "tier": "브론즈",
-    "score": 32,
+    "score": 37,
     "maxScore": 105,
     "criteria": [
       {
@@ -73912,7 +71104,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -74567,7 +71759,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rr-제24회-전국-나주-금성산숲길마라톤-2026-11-08": {
+  "rm-제24회-전국-나주-금성산숲길마라톤6km11km-2026-11-08": {
     "indexScore": 38,
     "tier": "브론즈",
     "score": 40,
@@ -75816,9 +73008,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-안성맞춤-전국-마라톤-2026-11-08": {
-    "indexScore": 33,
+    "indexScore": 38,
     "tier": "브론즈",
-    "score": 35,
+    "score": 40,
     "maxScore": 105,
     "criteria": [
       {
@@ -75888,110 +73080,6 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제3회-자유민주-마라톤-2026-11-08": {
-    "indexScore": 11,
-    "tier": "일반",
-    "score": 12,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
         "achieved": true,
         "weight": 5
       },
@@ -76007,111 +73095,7 @@
       },
       {
         "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-경주시육상연맹회장배-마라톤-2026-11-08": {
-    "indexScore": 26,
-    "tier": "브론즈",
-    "score": 27,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
         "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": true,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
         "weight": 3
       },
       {
@@ -76231,319 +73215,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-청양군-칠갑마라톤14km7km-2026-11-08": {
-    "indexScore": 16,
-    "tier": "일반",
-    "score": 17,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제24회-전국-나주-금성산숲길마라톤6km11km-2026-11-08": {
-    "indexScore": 35,
-    "tier": "브론즈",
-    "score": 37,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": true,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제3회-자유민주-마라톤10km6-2026-11-08": {
-    "indexScore": 11,
-    "tier": "일반",
-    "score": 12,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-해남땅끝-전국마라톤-2026-11-08": {
+  "rr-제2회-안양천-단풍길-마라톤-2026-11-14": {
     "indexScore": 28,
     "tier": "브론즈",
     "score": 29,
@@ -76551,110 +73223,6 @@
     "criteria": [
       {
         "label": "풀코스(42.195km) 운영",
-        "achieved": true,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rr-제2회-안양천-단풍길-마라톤-2026-11-14": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
         "achieved": false,
         "weight": 8
       },
@@ -76720,7 +73288,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -76751,15 +73319,15 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rr-제26회-순천-남승룡마라톤대회-2026-11-14": {
-    "indexScore": 43,
+  "rm-제26회-순천-남승룡마라톤-2026-11-14": {
+    "indexScore": 46,
     "tier": "실버",
-    "score": 45,
+    "score": 48,
     "maxScore": 105,
     "criteria": [
       {
         "label": "풀코스(42.195km) 운영",
-        "achieved": false,
+        "achieved": true,
         "weight": 8
       },
       {
@@ -76824,7 +73392,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -76960,9 +73528,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제2회-한강-브릿지-런-2026-11-14": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -77032,7 +73600,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -77168,9 +73736,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-통큰런-2026-11-14": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -77240,7 +73808,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -77583,214 +74151,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-통큰런5km10km3km-2026-11-14": {
-    "indexScore": 11,
-    "tier": "일반",
-    "score": 12,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제26회-순천-남승룡마라톤-2026-11-14": {
-    "indexScore": 43,
-    "tier": "실버",
-    "score": 45,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": true,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": true,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "rr-서울-빵빵런-2026-2026-11-14": {
     "indexScore": 10,
     "tier": "일반",
@@ -77999,7 +74359,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rr-제28회-부산국제마라톤-2026-11-15": {
+  "rm-제28회-부산국제마라톤대회-2026-11-15": {
     "indexScore": 59,
     "tier": "실버",
     "score": 62,
@@ -78312,9 +74672,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-가민런-코리아-2026-11-15": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -78384,7 +74744,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -78416,9 +74776,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-mbn-서울마라톤-2026-11-15": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -78488,7 +74848,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -78577,7 +74937,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -78592,7 +74952,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -78624,9 +74984,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제4회-영남알프스-전국-하프마라톤-2026-11-15": {
-    "indexScore": 23,
+    "indexScore": 28,
     "tier": "브론즈",
-    "score": 24,
+    "score": 29,
     "maxScore": 105,
     "criteria": [
       {
@@ -78696,7 +75056,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -78728,9 +75088,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제24회-상주-곶감-마라톤-대회-2026-11-15": {
-    "indexScore": 45,
+    "indexScore": 40,
     "tier": "실버",
-    "score": 47,
+    "score": 42,
     "maxScore": 105,
     "criteria": [
       {
@@ -78785,7 +75145,7 @@
       },
       {
         "label": "연속 개최 이력 확인",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -79144,9 +75504,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제24회-대모산-구룡산-트레일런-2026-11-15": {
-    "indexScore": 24,
+    "indexScore": 29,
     "tier": "브론즈",
-    "score": 25,
+    "score": 30,
     "maxScore": 105,
     "criteria": [
       {
@@ -79216,7 +75576,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -79559,110 +75919,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-제28회-부산국제마라톤대회-2026-11-15": {
-    "indexScore": 56,
-    "tier": "실버",
-    "score": 59,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": true,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": true,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "ro-jtbc-서울마라톤-2026-11-15": {
     "indexScore": 40,
     "tier": "실버",
@@ -79767,426 +76023,10 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "ro-제3회-무등산더블하트국제트레일런-2026-2026-11-15": {
-    "indexScore": 16,
-    "tier": "일반",
-    "score": 17,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": true,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제24회-대모산-구룡산-트레일런-2026-2026-11-15": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제24회-상주-곶감-마라톤대회-2026-2026-11-15": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": true,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "ro-제17회-행복트레일런-축제-2026-2026-11-15": {
-    "indexScore": 20,
-    "tier": "브론즈",
-    "score": 21,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": true,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "rr-2026-나눔레이스-인-용인-2026-11-15": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -80256,7 +76096,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -80392,9 +76232,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-fila-run-espresso-2026-11-15": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -80464,7 +76304,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -80496,9 +76336,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-손기정평화마라톤-2026-11-15": {
-    "indexScore": 26,
+    "indexScore": 30,
     "tier": "브론즈",
-    "score": 27,
+    "score": 32,
     "maxScore": 105,
     "criteria": [
       {
@@ -80568,7 +76408,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -80808,110 +76648,6 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-가족코스-건강코스-제16회-대전서구청장배-마라톤대회-2026-11-15": {
-    "indexScore": 29,
-    "tier": "브론즈",
-    "score": 30,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": true,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": true,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제16회-대전서구청장배-마라톤-2026-11-15": {
     "indexScore": 29,
     "tier": "브론즈",
     "score": 30,
@@ -81297,6 +77033,214 @@
       {
         "label": "수도권·광역시 개최",
         "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
+  "rr-2026-청춘레이스-2026-11-15": {
+    "indexScore": 18,
+    "tier": "일반",
+    "score": 19,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": true,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": false,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "온라인 신청 채널 운영",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "대회 정보 완전성(장소·주최·거리)",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "주최측 연락처 공개",
+        "achieved": true,
+        "weight": 3
+      },
+      {
+        "label": "울트라/100km 이상 코스 보유",
+        "achieved": false,
+        "weight": 3
+      },
+      {
+        "label": "대기업·브랜드 후원 표기",
+        "achieved": false,
+        "weight": 4
+      }
+    ],
+    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
+  },
+  "rr-2026-연수구청장배-송도-walk-run-2026-11-15": {
+    "indexScore": 33,
+    "tier": "브론즈",
+    "score": 35,
+    "maxScore": 105,
+    "criteria": [
+      {
+        "label": "풀코스(42.195km) 운영",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "하프코스(21km) 운영",
+        "achieved": true,
+        "weight": 5
+      },
+      {
+        "label": "코스 3종 이상 다양성",
+        "achieved": true,
+        "weight": 4
+      },
+      {
+        "label": "국제 대회 표방",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "언론사 주최·후원",
+        "achieved": false,
+        "weight": 20
+      },
+      {
+        "label": "지자체 주최",
+        "achieved": true,
+        "weight": 6
+      },
+      {
+        "label": "육상연맹·협회 주최",
+        "achieved": true,
+        "weight": 5
+      },
+      {
+        "label": "대회 역사 20회 이상",
+        "achieved": false,
+        "weight": 10
+      },
+      {
+        "label": "대회 역사 10~19회",
+        "achieved": false,
+        "weight": 7
+      },
+      {
+        "label": "대회 역사 5~9회",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "연속 개최 이력 확인",
+        "achieved": false,
+        "weight": 5
+      },
+      {
+        "label": "calrank 찜(관심) 10개 이상",
+        "achieved": false,
+        "weight": 8
+      },
+      {
+        "label": "calrank 찜(관심) 3~9개",
+        "achieved": false,
+        "weight": 4
+      },
+      {
+        "label": "수도권·광역시 개최",
+        "achieved": true,
         "weight": 5
       },
       {
@@ -82056,9 +78000,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-아식스-서울신문-고프리런-2026-11-21": {
-    "indexScore": 33,
+    "indexScore": 38,
     "tier": "브론즈",
-    "score": 35,
+    "score": 40,
     "maxScore": 105,
     "criteria": [
       {
@@ -82128,7 +78072,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -82160,9 +78104,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-런텐-14차-레이스-just-run10-대구-2026-11-21": {
-    "indexScore": 14,
+    "indexScore": 19,
     "tier": "일반",
-    "score": 15,
+    "score": 20,
     "maxScore": 105,
     "criteria": [
       {
@@ -82232,7 +78176,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -82887,10 +78831,10 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rr-2026-김대중마라톤대회-2026-11-22": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
+  "rm-김대중마라톤-2026-11-22": {
+    "indexScore": 18,
+    "tier": "일반",
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -82960,7 +78904,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": true,
+        "achieved": false,
         "weight": 5
       },
       {
@@ -83095,15 +79039,15 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-2026-서울-억새-마라톤대회-2026-11-22": {
-    "indexScore": 25,
+  "rm-서울-억새-마라톤-2026-11-22": {
+    "indexScore": 32,
     "tier": "브론즈",
-    "score": 26,
+    "score": 34,
     "maxScore": 105,
     "criteria": [
       {
         "label": "풀코스(42.195km) 운영",
-        "achieved": false,
+        "achieved": true,
         "weight": 8
       },
       {
@@ -83408,113 +79352,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제6회-고용노동부장관배-직장인마라톤대회-2026-11-22": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-제6회-고용노동부장관배-직장인마라톤-2026-11-22": {
-    "indexScore": 12,
-    "tier": "일반",
-    "score": 13,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -83594,220 +79434,12 @@
       },
       {
         "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-서울-억새-마라톤-2026-11-22": {
-    "indexScore": 32,
-    "tier": "브론즈",
-    "score": 34,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": true,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
         "achieved": true,
         "weight": 3
       },
       {
         "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-김대중마라톤-2026-11-22": {
-    "indexScore": 15,
-    "tier": "일반",
-    "score": 16,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
         "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
         "weight": 3
       },
       {
@@ -84240,9 +79872,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-목욕런-2026-2026-11-28": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -84312,7 +79944,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -84447,7 +80079,7 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rr-가야왕도-김해-전국어울림-마라톤대회-2026-11-29": {
+  "rm-가야왕도-김해-전국어울림-마라톤-2026-11-29": {
     "indexScore": 23,
     "tier": "브론즈",
     "score": 24,
@@ -84552,9 +80184,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제14회-안중근-평화-마라톤-2026-11-29": {
-    "indexScore": 16,
-    "tier": "일반",
-    "score": 17,
+    "indexScore": 21,
+    "tier": "브론즈",
+    "score": 22,
     "maxScore": 105,
     "criteria": [
       {
@@ -84624,7 +80256,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -85487,214 +81119,6 @@
     ],
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
-  "rm-천안-희망나눔-마라톤5km10km3-2026-11-29": {
-    "indexScore": 7,
-    "tier": "일반",
-    "score": 7,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
-  "rm-가야왕도-김해-전국어울림-마라톤-2026-11-29": {
-    "indexScore": 20,
-    "tier": "브론즈",
-    "score": 21,
-    "maxScore": 105,
-    "criteria": [
-      {
-        "label": "풀코스(42.195km) 운영",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "하프코스(21km) 운영",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "코스 3종 이상 다양성",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "국제 대회 표방",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "언론사 주최·후원",
-        "achieved": false,
-        "weight": 20
-      },
-      {
-        "label": "지자체 주최",
-        "achieved": false,
-        "weight": 6
-      },
-      {
-        "label": "육상연맹·협회 주최",
-        "achieved": true,
-        "weight": 5
-      },
-      {
-        "label": "대회 역사 20회 이상",
-        "achieved": false,
-        "weight": 10
-      },
-      {
-        "label": "대회 역사 10~19회",
-        "achieved": false,
-        "weight": 7
-      },
-      {
-        "label": "대회 역사 5~9회",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "연속 개최 이력 확인",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "calrank 찜(관심) 10개 이상",
-        "achieved": false,
-        "weight": 8
-      },
-      {
-        "label": "calrank 찜(관심) 3~9개",
-        "achieved": false,
-        "weight": 4
-      },
-      {
-        "label": "수도권·광역시 개최",
-        "achieved": false,
-        "weight": 5
-      },
-      {
-        "label": "온라인 신청 채널 운영",
-        "achieved": true,
-        "weight": 4
-      },
-      {
-        "label": "대회 정보 완전성(장소·주최·거리)",
-        "achieved": true,
-        "weight": 3
-      },
-      {
-        "label": "주최측 연락처 공개",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "울트라/100km 이상 코스 보유",
-        "achieved": false,
-        "weight": 3
-      },
-      {
-        "label": "대기업·브랜드 후원 표기",
-        "achieved": false,
-        "weight": 4
-      }
-    ],
-    "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
-  },
   "rr-제9회-광진구청장배-육상대회-2026-11-29": {
     "indexScore": 24,
     "tier": "브론즈",
@@ -86008,9 +81432,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제23회-한강시민마라톤-2026-12-05": {
-    "indexScore": 32,
+    "indexScore": 37,
     "tier": "브론즈",
-    "score": 34,
+    "score": 39,
     "maxScore": 105,
     "criteria": [
       {
@@ -86080,7 +81504,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -87152,9 +82576,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-청춘런-2026-12-06": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -87224,7 +82648,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -87464,9 +82888,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-소년소녀-가장-돕기-기부런-2026-12-12": {
-    "indexScore": 13,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 14,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -87536,7 +82960,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -87568,9 +82992,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제3회-긍정의힘-마라톤-2026-12-12": {
-    "indexScore": 42,
+    "indexScore": 47,
     "tier": "실버",
-    "score": 44,
+    "score": 49,
     "maxScore": 105,
     "criteria": [
       {
@@ -87640,7 +83064,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -87672,9 +83096,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-one-more-run-2026-12-12": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -87744,7 +83168,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -87880,9 +83304,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제5회-밤섬-마라톤-2026-12-13": {
-    "indexScore": 31,
+    "indexScore": 36,
     "tier": "브론즈",
-    "score": 33,
+    "score": 38,
     "maxScore": 105,
     "criteria": [
       {
@@ -87952,7 +83376,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -88088,9 +83512,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제2회-청춘-릴레이-마라톤-2026-12-19": {
-    "indexScore": 18,
-    "tier": "일반",
-    "score": 19,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -88160,7 +83584,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
