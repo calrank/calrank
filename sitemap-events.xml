@@ -2512,43 +2512,43 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-2026-%ED%95%9C%EA%B8%80%EB%9F%B0-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-wyd%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%98%EB%8A%94-%EC%83%9D%EB%AA%85%EC%82%AC%EB%9E%91-%EB%A7%88%EB%9D%BC%ED%86%A4-%EA%B1%B7%EA%B8%B0-%EB%8C%80%ED%9A%8C-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C26%ED%9A%8C-%ED%99%8D%EC%84%B1%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/cy-2026-%EB%B9%99%EA%B7%B8%EB%A0%88%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rm-10-9-%EA%B8%88-%EC%A0%91%EC%88%98-%EB%8C%80%EA%B8%B0%EC%A0%9C26%ED%9A%8C-%ED%99%8D%EC%84%B1%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rm-%EB%8B%A8%EC%B2%B4%EB%9F%B0-5%EC%9D%B8-%EC%A0%9C26%ED%9A%8C-%ED%99%8D%EC%84%B1%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rm-%EB%AF%B8%EC%A0%95-2026-%ED%95%9C%EA%B8%80%EB%9F%B0-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-2026-%EA%B3%A0%ED%9D%A5%EC%9A%B0%EC%A3%BC%ED%95%AD%EA%B3%B5%EB%B0%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-09.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C%EC%84%9C%EC%9A%B8%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html</loc>
@@ -2877,6 +2877,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-2026-%EC%9B%90%EC%A3%BC-%EB%B0%94%EB%9E%8C%EA%B8%B8%EC%88%B2-%EA%B8%B0%EB%B6%80%EB%9F%B0-2026-10-17.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/e/cy-2026-%ED%86%B5%EC%98%81-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-17.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -3951,6 +3956,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/e/rr-2026-%ED%97%88%EA%B7%B8%EB%9F%B0-hug-run-2026-12-05.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/e/rm-%ED%99%A9%EC%98%81%EC%A1%B0-%EB%A1%9C%EB%93%9C%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-06.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -4017,6 +4027,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C36%ED%9A%8C-%EC%A7%84%EC%A3%BC%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-13.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
