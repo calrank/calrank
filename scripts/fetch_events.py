@@ -65,6 +65,21 @@ REGION_FULL_NAME = {
     "경상북도": "경북", "경상남도": "경남",
     "제주도": "제주", "제주특별자치도": "제주",
 }
+# 장소 이름에 흔히 붙는 꼬리말. 지역 약칭과 글자가 겹쳐 오판을 만든다.
+#   "창원종합경기장"  -> "경기"장 을 경기도로 (실제로 32건이 이렇게 잘못 들어가 있었다)
+#   "공원주차장"      -> 공"원주"차장 을 원주(강원)로
+# 그래서 지역을 찾기 전에 이 말들을 먼저 지운다.
+# 대학 이름에 지역 약칭이 들어 있는데 실제 소재지가 다른 곳들.
+# "전남대 대운동장"은 광주에 있다. 약칭보다 먼저 본다.
+CAMPUS_TO_REGION = {"전남대": "광주", "경북대": "대구", "충남대": "대전"}
+
+VENUE_NOISE = re.compile(
+    r"종합경기장|보조경기장|국제경기장|조정경기장|월드컵경기장|주경기장|경기장|"
+    r"종합운동장|공설운동장|시민운동장|대운동장|운동장|"
+    r"스포츠파크|스포츠타운|체육공원|생활체육|근린공원|시민공원|체육관|"
+    r"공원|주차장|축구장|야구장|육상트랙|둔치|고수부지"
+)
+
 CITY_TO_REGION = {
     "영월": "강원", "원주": "강원", "홍천": "강원", "춘천": "강원", "삼척": "강원",
     "가평": "경기", "여주": "경기", "양평": "경기",
@@ -74,18 +89,33 @@ CITY_TO_REGION = {
     "여수": "전남", "나주": "전남",
     "제천": "충북", "영동": "충북", "충주": "충북",
     "공주": "충남", "부여": "충남",
+    # 아래는 "종합경기장" 오판을 고치면서 '전국'으로 떨어지게 된 곳들.
+    # 실제 데이터에서 확인한 것만 넣는다.
+    "장수": "전북", "군산": "전북",
+    "창원": "경남",
+    "정선": "강원", "화천": "강원",
+    "홍주": "충남", "홍성": "충남",
 }
 
 
 def guess_region(location: str) -> str:
+    text = str(location or "")
+    # 정식 명칭("경상남도")은 꼬리말과 글자가 겹칠 일이 없으니 먼저 본다.
     for full, short in REGION_FULL_NAME.items():
-        if full in location:
+        if full in text:
             return short
+    # 약칭("경기")은 "경기장" 같은 꼬리말과 겹치므로 그걸 지우고 본다.
+    for campus, region in CAMPUS_TO_REGION.items():
+        if campus in text:
+            return region
+    cleaned = VENUE_NOISE.sub(" ", text)
     for r in REGIONS:
-        if r in location:
+        if r in cleaned:
             return r
+    # 시·군 이름은 다른 낱말 한가운데 박혀 있으면 지명이 아니다.
+    # 설"익산"한계령, 우"이천" 다목적광장 같은 것을 걸러낸다.
     for city, region in CITY_TO_REGION.items():
-        if city in location:
+        if re.search(r"(?<![가-힣])" + re.escape(city), cleaned):
             return region
     return "전국"
 
