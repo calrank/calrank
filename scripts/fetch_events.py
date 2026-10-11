@@ -91,10 +91,14 @@ CITY_TO_REGION = {
     "공주": "충남", "부여": "충남",
     # 아래는 "종합경기장" 오판을 고치면서 '전국'으로 떨어지게 된 곳들.
     # 실제 데이터에서 확인한 것만 넣는다.
-    "장수": "전북", "군산": "전북",
-    "창원": "경남",
-    "정선": "강원", "화천": "강원",
+    "장수": "전북", "군산": "전북", "정읍": "전북",
+    "창원": "경남", "양산": "경남",
+    "정선": "강원", "화천": "강원", "평창": "강원", "태백": "강원", "가평": "경기",
     "홍주": "충남", "홍성": "충남",
+    "울진": "경북",
+    "담양": "전남",
+    # 서울에서 대회가 자주 열리는 장소 이름
+    "상암": "서울", "여의도": "서울", "뚝섬": "서울", "잠실": "서울", "반포": "서울",
 }
 
 
@@ -115,7 +119,10 @@ def guess_region(location: str) -> str:
     # 시·군 이름은 다른 낱말 한가운데 박혀 있으면 지명이 아니다.
     # 설"익산"한계령, 우"이천" 다목적광장 같은 것을 걸러낸다.
     for city, region in CITY_TO_REGION.items():
-        if re.search(r"(?<![가-힣])" + re.escape(city), cleaned):
+        c = re.escape(city)
+        # 낱말 맨 앞에 오거나, 뒤에 행정 단위가 붙으면 지명으로 본다.
+        # 설"익산"한계령, 우"이천" 은 둘 다 아니라서 걸러진다.
+        if re.search(rf"(?<![가-힣]){c}", cleaned) or re.search(rf"{c}[시군읍면동구]", cleaned):
             return region
     return "전국"
 
@@ -640,7 +647,11 @@ def fetch_runningmap() -> list[dict]:
         date_iso = str(date_iso)[:10]
 
         location = row.get("location") or "장소 미확인"
-        region = row.get("region") or guess_region(location)
+        # 소스가 지역을 "전국"으로 주는 경우가 많은데, 장소에 "경상남도 양산시"
+        # 처럼 또렷한 지명이 들어 있으면 그쪽이 더 정확하다. 전국은 "모름"으로 본다.
+        region = row.get("region") or ""
+        if region in ("", "전국"):
+            region = guess_region(location) or "전국"
         reg_deadline = row.get("reg_end")
         apply_url = row.get("apply_url") or row.get("homepage_url")
         organizer = row.get("organizer")
