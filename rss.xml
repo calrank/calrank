@@ -4,9 +4,18 @@
   <link>https://calrank.vercel.app/index.html</link>
   <description>마라톤·자전거·트레일러닝·철인3종·인라인 대회 일정과 새 칼럼을 알려드립니다.</description>
   <language>ko</language>
-  <lastBuildDate>Sat, 10 Oct 2026 00:29:36 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 10 Oct 2026 01:32:35 +0000</lastBuildDate>
   <atom:link href="https://calrank.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
   <generator>calrank</generator>
+  <item>
+    <title>러닝 몸 변화, 안에서 먼저 시작된다 — 거울보다 빠른 적응 — calrank</title>
+    <link>https://calrank.vercel.app/column-running-body-adaptation-timeline.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/column-running-body-adaptation-timeline.html</guid>
+    <pubDate>Sat, 10 Oct 2026 01:32:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>칼럼</category>
+    <description>달리기를 시작하고 몇 달이 지나도 겉모습이 그대로라 포기하는 분이 많습니다. 미토콘드리아·모세혈관, 발 근육과 뼈, 러닝 경제성에 관한 체계적 문헌고찰로 '안에서 먼저 일어나는 변화'를 정리했습니다.</description>
+  </item>
   <item>
     <title>2026 통영 그란폰도 — 2026.10.17 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/cy-2026-%ED%86%B5%EC%98%81-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-17.html</link>
@@ -179,24 +188,6 @@
     <description>철인3종은 계절이 바뀔 때마다 대회 일정도 함께 바뀝니다. calrank에 등록된 실제 데이터를 기준으로, 2026년 10월 한 달간 열리는 철인3종 대회를 지역별·거리별로 정리했습니다.</description>
   </item>
   <item>
-    <title>JUST RUN 10 대구 — 2026.10.10 대구 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rw-just-run-10-%EB%8C%80%EA%B5%AC-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rw-just-run-10-%EB%8C%80%EA%B5%AC-2026-10-10.html</guid>
-    <pubDate>Sat, 03 Oct 2026 00:09:10 +0000</pubDate>
-    <author>calrank</author>
-    <category>마라톤</category>
-    <description>JUST RUN 10 대구 — 2026.10.10 대구 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
-    <title>2026 제5회 무등산권 지오마라톤 — 2026.10.10 전남 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rw-2026-%EC%A0%9C5%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EA%B6%8C-%EC%A7%80%EC%98%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rw-2026-%EC%A0%9C5%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EA%B6%8C-%EC%A7%80%EC%98%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-10.html</guid>
-    <pubDate>Sat, 03 Oct 2026 00:09:10 +0000</pubDate>
-    <author>calrank</author>
-    <category>마라톤</category>
-    <description>2026 제5회 무등산권 지오마라톤 — 2026.10.10 전남 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
     <title>2026 평택항마라톤 — 2026.10.11 경기 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rw-2026-%ED%8F%89%ED%83%9D%ED%95%AD%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-11.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/e/rw-2026-%ED%8F%89%ED%83%9D%ED%95%AD%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-11.html</guid>
@@ -305,67 +296,85 @@
     <description>제9회 광진구청장배 육상대회 — 2026.11.29 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>제3회서울트레일런 대회 — 2026.10.10 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C%EC%84%9C%EC%9A%B8%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C%EC%84%9C%EC%9A%B8%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-%EB%8C%80%ED%9A%8C-2026-10-10.html</guid>
-    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
-    <author>calrank</author>
-    <category>트레일</category>
-    <description>제3회서울트레일런 대회 — 2026.10.10 서울 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
-    <title>제주풍차런 — 2026.10.10 제주 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C%EC%A3%BC%ED%92%8D%EC%B0%A8%EB%9F%B0-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C%EC%A3%BC%ED%92%8D%EC%B0%A8%EB%9F%B0-2026-10-10.html</guid>
+    <title>2026 인천로봇랜드 퓨처런 — 2026.10.11 인천 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%EC%9D%B8%EC%B2%9C%EB%A1%9C%EB%B4%87%EB%9E%9C%EB%93%9C-%ED%93%A8%EC%B2%98%EB%9F%B0-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%9D%B8%EC%B2%9C%EB%A1%9C%EB%B4%87%EB%9E%9C%EB%93%9C-%ED%93%A8%EC%B2%98%EB%9F%B0-2026-10-11.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>제주풍차런 — 2026.10.10 제주 대회 일정·접수 | calrank</description>
+    <description>2026 인천로봇랜드 퓨처런 — 2026.10.11 인천 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>충주 앙성 비내길 마라톤 대회 — 2026.10.10 충북 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%B6%A9%EC%A3%BC-%EC%95%99%EC%84%B1-%EB%B9%84%EB%82%B4%EA%B8%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%B6%A9%EC%A3%BC-%EC%95%99%EC%84%B1-%EB%B9%84%EB%82%B4%EA%B8%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-10-10.html</guid>
+    <title>2026 대학생RUN — 2026.10.11 서울 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rm-2026-%EB%8C%80%ED%95%99%EC%83%9Drun-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-2026-%EB%8C%80%ED%95%99%EC%83%9Drun-2026-10-11.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>충주 앙성 비내길 마라톤 대회 — 2026.10.10 충북 대회 일정·접수 | calrank</description>
+    <description>2026 대학생RUN — 2026.10.11 서울 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>제4회 강서허준런(RUN) — 2026.10.10 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C4%ED%9A%8C-%EA%B0%95%EC%84%9C%ED%97%88%EC%A4%80%EB%9F%B0-run-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C4%ED%9A%8C-%EA%B0%95%EC%84%9C%ED%97%88%EC%A4%80%EB%9F%B0-run-2026-10-10.html</guid>
+    <title>진안고원 포레스티벌 Run &amp; Heal — 2026.10.11 전북 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A7%84%EC%95%88%EA%B3%A0%EC%9B%90-%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8B%B0%EB%B2%8C-run-heal-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A7%84%EC%95%88%EA%B3%A0%EC%9B%90-%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8B%B0%EB%B2%8C-run-heal-2026-10-11.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>제4회 강서허준런(RUN) — 2026.10.10 서울 대회 일정·접수 | calrank</description>
+    <description>진안고원 포레스티벌 Run &amp; Heal — 2026.10.11 전북 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>제3회 성동구연맹회장기 마라톤 — 2026.10.10 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EC%84%B1%EB%8F%99%EA%B5%AC%EC%97%B0%EB%A7%B9%ED%9A%8C%EC%9E%A5%EA%B8%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EC%84%B1%EB%8F%99%EA%B5%AC%EC%97%B0%EB%A7%B9%ED%9A%8C%EC%9E%A5%EA%B8%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-10.html</guid>
+    <title>2026 천안 이봉주 마라톤 — 2026.10.11 충남 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%EC%B2%9C%EC%95%88-%EC%9D%B4%EB%B4%89%EC%A3%BC-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%B2%9C%EC%95%88-%EC%9D%B4%EB%B4%89%EC%A3%BC-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-11.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>제3회 성동구연맹회장기 마라톤 — 2026.10.10 서울 대회 일정·접수 | calrank</description>
+    <description>2026 천안 이봉주 마라톤 — 2026.10.11 충남 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>제5회 구미시장배 금오산트레일 레이스 — 2026.10.10 경북 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EA%B5%AC%EB%AF%B8%EC%8B%9C%EC%9E%A5%EB%B0%B0-%EA%B8%88%EC%98%A4%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EA%B5%AC%EB%AF%B8%EC%8B%9C%EC%9E%A5%EB%B0%B0-%EA%B8%88%EC%98%A4%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-10.html</guid>
-    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
-    <author>calrank</author>
-    <category>트레일</category>
-    <description>제5회 구미시장배 금오산트레일 레이스 — 2026.10.10 경북 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
-    <title>제5회 무등산지오마라톤 — 2026.10.10 전남 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EC%A7%80%EC%98%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-10.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EC%A7%80%EC%98%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-10.html</guid>
+    <title>제6회 영등포구청장배 육상대회 — 2026.10.11 서울 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C6%ED%9A%8C-%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C6%ED%9A%8C-%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-10-11.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>제5회 무등산지오마라톤 — 2026.10.10 전남 대회 일정·접수 | calrank</description>
+    <description>제6회 영등포구청장배 육상대회 — 2026.10.11 서울 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>2026 울산마라톤대회 — 2026.10.11 울산 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%EC%9A%B8%EC%82%B0%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%9A%B8%EC%82%B0%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-10-11.html</guid>
+    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>2026 울산마라톤대회 — 2026.10.11 울산 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>2026 문경 오미자 하프마라톤 — 2026.10.11 경북 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%EB%AC%B8%EA%B2%BD-%EC%98%A4%EB%AF%B8%EC%9E%90-%ED%95%98%ED%94%84%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EB%AC%B8%EA%B2%BD-%EC%98%A4%EB%AF%B8%EC%9E%90-%ED%95%98%ED%94%84%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-11.html</guid>
+    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>2026 문경 오미자 하프마라톤 — 2026.10.11 경북 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>2026 핑크런 — 2026.10.11 서울 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%ED%95%91%ED%81%AC%EB%9F%B0-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%95%91%ED%81%AC%EB%9F%B0-2026-10-11.html</guid>
+    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>2026 핑크런 — 2026.10.11 서울 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>2026 서울레이스 — 2026.10.11 서울 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%EC%84%9C%EC%9A%B8%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-11.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%84%9C%EC%9A%B8%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-11.html</guid>
+    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>2026 서울레이스 — 2026.10.11 서울 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>러닝화, 어떤 걸 사야 할지 모르겠어요 — 마라톤 노하우 총정리 — calrank</title>
@@ -447,14 +456,5 @@
     <author>calrank</author>
     <category>칼럼</category>
     <description>마라톤 대회 중 배탈·컨디션 난조가 걱정돼요 실제 출처(의학·전문가, 공식 자료, 언론 보도)를 밝힌 노하우 정리.</description>
-  </item>
-  <item>
-    <title>서울마라톤 vs JTBC마라톤 코스 비교 — 어느 대회가 나에게 맞을까 — calrank</title>
-    <link>https://calrank.vercel.app/column-seoul-vs-jtbc-marathon-comparison.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-seoul-vs-jtbc-marathon-comparison.html</guid>
-    <pubDate>Tue, 15 Sep 2026 10:54:15 +0900</pubDate>
-    <author>calrank</author>
-    <category>칼럼</category>
-    <description>서울마라톤(동아마라톤)과 JTBC 서울마라톤의 코스 고저차·접수방식·목표별 추천을 실제 출처 기반으로 비교했습니다.</description>
   </item>
 </channel></rss>
