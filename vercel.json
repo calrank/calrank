@@ -407,6 +407,11 @@
       "permanent": true
     },
     {
+      "source": "/e/rm-freedom-walk-run-2026-10-24.html",
+      "destination": "/e/rr-freedom-walk-run-2026-10-24.html",
+      "permanent": true
+    },
+    {
       "source": "/e/rm-give-run-2026-%EB%B6%80%EC%82%B0-2026-11-21.html",
       "destination": "/e/rr-give-run-2026-%EB%B6%80%EC%82%B0-2026-11-21.html",
       "permanent": true
@@ -532,6 +537,11 @@
       "permanent": true
     },
     {
+      "source": "/e/rm-%EB%B6%88%EB%8B%AD-%EB%B2%84%EB%8B%9D-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html",
+      "destination": "/e/rr-%EB%B6%88%EB%8B%AD-%EB%B2%84%EB%8B%9D-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html",
+      "permanent": true
+    },
+    {
       "source": "/e/rm-%EC%84%9C%EC%9A%B8-%EB%8C%80%EB%AA%A8-%EA%B5%AC%EB%A3%A1%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html",
       "destination": "/e/rr-%EC%84%9C%EC%9A%B8-%EB%8C%80%EB%AA%A8-%EA%B5%AC%EB%A3%A1%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-10-24.html",
       "permanent": true
@@ -599,6 +609,11 @@
     {
       "source": "/e/rm-%EC%9B%90%EC%A3%BC-%EC%B9%98%EC%95%85%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29.html",
       "destination": "/e/rr-2026-%EC%9B%90%EC%A3%BC-%EC%B9%98%EC%95%85%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29.html",
+      "permanent": true
+    },
+    {
+      "source": "/e/rm-%EC%A0%84%EA%B5%AD%EC%82%AC%EC%83%81%EC%97%90%EC%BD%94%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html",
+      "destination": "/e/rr-2026-%EC%A0%84%EA%B5%AD%EC%82%AC%EC%83%81%EC%97%90%EC%BD%94%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html",
       "permanent": true
     },
     {
@@ -2339,6 +2354,11 @@
     {
       "source": "/e/rw-%EC%A0%9C11%ED%9A%8C-%EA%B9%80%EB%8C%80%EC%A4%91-%ED%8F%89%ED%99%94-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-09-06.html",
       "destination": "/e/rm-%EC%A0%9C11%ED%9A%8C-%EA%B9%80%EB%8C%80%EC%A4%91-%ED%8F%89%ED%99%94-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-09-06.html",
+      "permanent": true
+    },
+    {
+      "source": "/e/rw-%EC%A0%9C11%ED%9A%8C-%EC%88%98%ED%8D%BC%EB%B8%94%EB%A3%A8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-09.html",
+      "destination": "/e/rr-%EC%A0%9C11%ED%9A%8C-%EC%88%98%ED%8D%BC%EB%B8%94%EB%A3%A8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-09.html",
       "permanent": true
     },
     {

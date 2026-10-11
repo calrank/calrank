@@ -4391,7 +4391,7 @@
     "date": "2026-05-17",
     "time": "08:00",
     "location": "화천생활체육공원 주경기장",
-    "region": "경기",
+    "region": "강원",
     "distances": [
       "74.9km"
     ],
@@ -6729,7 +6729,7 @@
     "date": "2026-06-26",
     "time": "미확인",
     "location": "전북 익산시 익산국제철인3종경기장 일원",
-    "region": "경기",
+    "region": "전북",
     "distances": [
       "전문체육(엘리트/U23: 스프린트), 고등부 (스프린트), 중등부 (슈퍼스프린트), 초등부 (아쿠아슬론, 생활체육(스탠다드)"
     ],
@@ -6870,7 +6870,7 @@
     "date": "2026-06-28",
     "time": "07:00",
     "location": "정선종합경기장 제1주차장",
-    "region": "경기",
+    "region": "강원",
     "distances": [
       "92km",
       "46.7km"
@@ -10309,7 +10309,7 @@
     "date": "2026-09-19",
     "time": "미확인",
     "location": "충주시 탄금호 국제조정경기장 일원",
-    "region": "경기",
+    "region": "충북",
     "distances": [
       "스탠다드"
     ],
@@ -11546,7 +11546,7 @@
     "date": "2026-10-04",
     "time": "08:30 집결",
     "location": "창원종합운동장 보조경기장",
-    "region": "경기",
+    "region": "경남",
     "distances": [
       "10km",
       "3km",
@@ -12095,7 +12095,7 @@
     "date": "2026-10-05",
     "time": "07:00",
     "location": "물맑은양평종합운동장",
-    "region": "경기",
+    "region": "전국",
     "distances": [
       "93.9km"
     ],
@@ -12191,7 +12191,7 @@
     "date": "2026-10-09",
     "time": "미확인",
     "location": "홍주 종합경기장",
-    "region": "경기",
+    "region": "충남",
     "distances": [
       "하프",
       "10km",
@@ -12341,10 +12341,11 @@
     "date": "2026-10-09",
     "time": "미확인",
     "location": "상암동 평화의 광장",
-    "region": "전국",
+    "region": "서울",
     "distances": [
       "10km",
-      "5km"
+      "5km",
+      "10km · 5km"
     ],
     "organizer": "스페셜올림픽 조직위",
     "organizerPhone": "02-312-1998",
@@ -12859,8 +12860,7 @@
     "distances": [
       "10km",
       "5km",
-      "10km · 5km",
-      "5KM / 10KM"
+      "10km · 5km"
     ],
     "organizer": "대학문화유니온",
     "organizerPhone": null,
@@ -12910,8 +12910,7 @@
       "하프",
       "10km",
       "5km",
-      "하프 · 10km · 5km",
-      "하프,10km,5km"
+      "하프 · 10km · 5km"
     ],
     "organizer": "천안시체육회",
     "organizerPhone": "00-1600-3962",
@@ -12962,8 +12961,7 @@
       "하프",
       "10km",
       "5km",
-      "하프 · 10km · 5km",
-      "하프,10km,5km"
+      "하프 · 10km · 5km"
     ],
     "organizer": "울산광역시 육상연맹",
     "organizerPhone": "052-286-6605",
@@ -13014,8 +13012,7 @@
     "distances": [
       "10km",
       "5km",
-      "10km · 5km",
-      "10km,5km"
+      "10km · 5km"
     ],
     "organizer": "한국유방건강재단",
     "organizerPhone": "070-4633-1233",
@@ -13040,8 +13037,7 @@
     "distances": [
       "하프",
       "10km",
-      "하프 · 10km",
-      "하프,10km"
+      "하프 · 10km"
     ],
     "organizer": "동아일보",
     "organizerPhone": "02-312-1998",
@@ -13094,8 +13090,7 @@
     "distances": [
       "하프",
       "10km",
-      "5km",
-      "하프,10km,5km"
+      "5km"
     ],
     "organizer": "평택시체육회, 경인일보",
     "organizerPhone": "00-1600-3962",
@@ -13124,8 +13119,7 @@
       "5km",
       "31km",
       "풀 · 31km · 하프 · 10km · 5km",
-      "풀코스",
-      "풀 · 하프 · 10km · 5km · 31km"
+      "풀코스"
     ],
     "organizer": "한국트레일러너연맹",
     "organizerPhone": "02-424-2195",
@@ -13578,7 +13572,7 @@
     "date": "2026-10-17",
     "time": "미확인",
     "location": "여수진남경기장 주경기장",
-    "region": "경기",
+    "region": "전남",
     "distances": [
       "5km",
       "10.19",
@@ -14053,7 +14047,7 @@
     "date": "2026-10-18",
     "time": "09:00 집결",
     "location": "창원스포츠파크 보조경기장",
-    "region": "경기",
+    "region": "경남",
     "distances": [
       "6km"
     ],
@@ -14177,7 +14171,7 @@
     "sportLabel": "마라톤",
     "name": "제23회 여주 세종대왕 마라톤",
     "date": "2026-10-18",
-    "time": "오전 8시30분 집결",
+    "time": "미확인",
     "location": "여주 현암지구공원",
     "region": "경기",
     "distances": [
@@ -14191,8 +14185,8 @@
     "organizerPhone": "042-638-1080",
     "regDeadline": "2026-06-29",
     "regClosed": null,
-    "lat": 37.3064879557258,
-    "lng": 127.632946550306,
+    "lat": null,
+    "lng": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -14362,8 +14356,8 @@
     "organizerPhone": "031-575-7243",
     "regDeadline": "2026-10-07",
     "regClosed": null,
-    "lat": 37.5665,
-    "lng": 126.978,
+    "lat": null,
+    "lng": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -14683,14 +14677,14 @@
     ],
     "organizer": "(사)함께하는 사랑밭",
     "organizerPhone": null,
-    "regDeadline": "2026-09-30",
+    "regDeadline": "2026-10-07",
     "regClosed": null,
     "lat": 37.5650560057921,
     "lng": 126.896211243867,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://runwithgo.com/runwithgo/"
+    "applyUrl": "http://runwithgo.com/"
   },
   {
     "id": "rm-seoul-petlympic-run-with-go-2026-10-24",
@@ -14773,7 +14767,7 @@
     "sportLabel": "트레일",
     "name": "불닭 버닝 트레일런",
     "date": "2026-10-24",
-    "time": "미확인",
+    "time": "11:00 집결",
     "location": "대관령 삼양라운드힐",
     "region": "강원",
     "distances": [
@@ -14786,8 +14780,8 @@
     "organizerPhone": "070-8843-0320",
     "regDeadline": "2026-09-06",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.7242868085377,
+    "lng": 128.719733895659,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -14823,9 +14817,9 @@
     "sportLabel": "마라톤",
     "name": "Freedom Walk & Run",
     "date": "2026-10-24",
-    "time": "미확인",
+    "time": "14:00 집결",
     "location": "반포한강공원 세빛섬",
-    "region": "서",
+    "region": "서울",
     "distances": [
       "6km"
     ],
@@ -14833,8 +14827,8 @@
     "organizerPhone": "010-6518-1559",
     "regDeadline": "2026-10-20",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5123317747845,
+    "lng": 126.995888516017,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -14954,6 +14948,76 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
     "applyUrl": "https://runningwikii.com/entry/tour-5k-beach-plogging-mangsang-2026/"
+  },
+  {
+    "id": "rm-프리덤-워크-런-2026-2026-10-24",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "프리덤 워크 & 런 2026",
+    "date": "2026-10-24",
+    "time": "13:00",
+    "location": "반포한강공원 세빛섬 주변 한강변 보행로",
+    "region": "서울",
+    "distances": [
+      "6km"
+    ],
+    "organizer": "팜프라",
+    "organizerPhone": null,
+    "regDeadline": "2026-10-20",
+    "regClosed": null,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "https://fwr.libertyinnorthkorea.or.kr/2026"
+  },
+  {
+    "id": "rm-플로깅-tour-beach-ploggin망상-2026-10-24",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "플로깅 TOUR & Beach Ploggin망상",
+    "date": "2026-10-24",
+    "time": "08:00 집결",
+    "location": "동해시 망상해수욕장",
+    "region": "강원",
+    "distances": [
+      "5km"
+    ],
+    "organizer": "스포노베이션",
+    "organizerPhone": null,
+    "regDeadline": "2026-10-17",
+    "regClosed": null,
+    "lat": 37.5933739406532,
+    "lng": 129.090473530107,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://mypb.info/competition/666"
+  },
+  {
+    "id": "rm-2026-한강런-2026-10-24",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 한강런",
+    "date": "2026-10-24",
+    "time": "09:00 집결",
+    "location": "강남구 대치동 탄천공영주차장 p구역",
+    "region": "서울",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "(사)대한생활체육연맹",
+    "organizerPhone": null,
+    "regDeadline": "2026-09-21",
+    "regClosed": null,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://hgrun.kr/"
   },
   {
     "id": "rr-제14회-정서진아라뱃길-전국마라톤대회-2026-10-25",
@@ -15424,7 +15488,7 @@
     "date": "2026-10-31",
     "time": "미확인",
     "location": "울진군 후포면 요트경기장",
-    "region": "경기",
+    "region": "전국",
     "distances": [
       "종목 미확인"
     ],
@@ -15650,8 +15714,7 @@
     "region": "전남",
     "distances": [
       "5km",
-      "10km",
-      "10km,5km"
+      "10km"
     ],
     "organizer": "무안군체육회",
     "organizerPhone": "042-638-1080",
@@ -15676,8 +15739,7 @@
     "distances": [
       "5km",
       "10km",
-      "하프",
-      "하프,10km,5km"
+      "하프"
     ],
     "organizer": "김천시체육회, 매일신문사",
     "organizerPhone": "00-1600-3949",
@@ -15703,8 +15765,7 @@
       "하프",
       "10km",
       "5km",
-      "패밀리런",
-      "하프,10km,5km,패밀리런"
+      "패밀리런"
     ],
     "organizer": "대전시 중구 육상연맹",
     "organizerPhone": "042-255-7917",
@@ -15729,8 +15790,7 @@
     "distances": [
       "하프",
       "10km",
-      "5km",
-      "하프,10km,5km"
+      "5km"
     ],
     "organizer": "울산인권마라톤대회 조직위원회",
     "organizerPhone": "052-242-1119",
@@ -15751,11 +15811,10 @@
     "date": "2026-11-01",
     "time": "미확인",
     "location": "상암동 평화의 광장",
-    "region": "서울",
+    "region": "전국",
     "distances": [
       "풀",
-      "10km",
-      "풀,10km"
+      "10km"
     ],
     "organizer": "jtbc",
     "organizerPhone": "02-2031-1935",
@@ -15804,8 +15863,7 @@
     "region": "경기",
     "distances": [
       "하프",
-      "10km",
-      "하프 · 10km"
+      "10km"
     ],
     "organizer": "경기도",
     "organizerPhone": null,
@@ -16025,8 +16083,7 @@
       "하프",
       "10km",
       "5km",
-      "풀코스",
-      "풀 · 하프 · 10km · 5km"
+      "풀코스"
     ],
     "organizer": "부여군마라톤연합회",
     "organizerPhone": "042-638-1080",
@@ -16051,8 +16108,7 @@
     "distances": [
       "5km",
       "10km",
-      "하프",
-      "하프 · 10km · 5km"
+      "하프"
     ],
     "organizer": "영천시육상연맹, 채널경북",
     "organizerPhone": "054-331-6029",
@@ -16400,7 +16456,7 @@
     "date": "2026-11-07",
     "time": "미확인",
     "location": "담양추성경기장",
-    "region": "경기",
+    "region": "전국",
     "distances": [
       "5km",
       "8km"
@@ -16478,8 +16534,7 @@
     "distances": [
       "5km",
       "10km",
-      "하프",
-      "하프/10km/5km"
+      "하프"
     ],
     "organizer": "서린컴퍼니(주), 강원일보",
     "organizerPhone": "00-1551-3934",
@@ -16529,8 +16584,7 @@
     "distances": [
       "5km",
       "10km",
-      "하프",
-      "하프,10km,5km"
+      "하프"
     ],
     "organizer": "경주시육상연맹",
     "organizerPhone": "010-3522-6374",
@@ -16554,8 +16608,7 @@
     "region": "서울",
     "distances": [
       "10km",
-      "5km",
-      "10km,5km"
+      "5km"
     ],
     "organizer": "(사)대한생활체육마라톤협회",
     "organizerPhone": "00-1644-4219",
@@ -16576,7 +16629,7 @@
     "date": "2026-11-08",
     "time": "미확인",
     "location": "삼락생태공원 럭비구장",
-    "region": "전국",
+    "region": "부산",
     "distances": [
       "10km",
       "5km",
@@ -16586,8 +16639,8 @@
     "organizerPhone": "051-310-4128",
     "regDeadline": "2026-10-11",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1796,
+    "lng": 129.0756,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -16604,8 +16657,7 @@
     "region": "서울",
     "distances": [
       "트레일런 14km",
-      "트레일런 35km",
-      "14K · 35K"
+      "트레일런 35km"
     ],
     "organizer": "서울신문, 한국익스트림앤스포츠",
     "organizerPhone": "070-7719-5788",
@@ -16630,8 +16682,7 @@
     "distances": [
       "하프",
       "10km",
-      "5km",
-      "하프 · 10km · 5km"
+      "5km"
     ],
     "organizer": "과천시체육회",
     "organizerPhone": "031-575-7243",
@@ -16655,8 +16706,7 @@
     "region": "부산",
     "distances": [
       "5km",
-      "10km",
-      "10km / 5km"
+      "10km"
     ],
     "organizer": "아시아경제",
     "organizerPhone": "02-338-0344",
@@ -16680,8 +16730,7 @@
     "region": "서울",
     "distances": [
       "10km",
-      "5km",
-      "10km,5km"
+      "5km"
     ],
     "organizer": "송파구육상연맹",
     "organizerPhone": "010-5071-3432",
@@ -16705,8 +16754,7 @@
     "region": "경남",
     "distances": [
       "10km",
-      "5km",
-      "10km · 5km"
+      "5km"
     ],
     "organizer": "배내골 주민자치위원회",
     "organizerPhone": "070-7766-1238",
@@ -16730,8 +16778,7 @@
     "region": "경남",
     "distances": [
       "산악28km/17km",
-      "임도숲길 18km/10km",
-      "산악28km/17km,임도숲길 18km/10km"
+      "임도숲길 18km/10km"
     ],
     "organizer": "하청면체육회",
     "organizerPhone": "010-5636-5708",
@@ -17141,7 +17188,7 @@
     "date": "2026-11-08",
     "time": "미확인",
     "location": "안성맞춤랜드 일원",
-    "region": "경기",
+    "region": "전국",
     "distances": [
       "10km",
       "5km"
@@ -17150,8 +17197,8 @@
     "organizerPhone": "010-3482-6615",
     "regDeadline": "2026-09-31",
     "regClosed": null,
-    "lat": 37.275,
-    "lng": 127.0095,
+    "lat": null,
+    "lng": null,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -17220,8 +17267,7 @@
       "10km",
       "하프",
       "풀코스",
-      "풀",
-      "풀,하프,10km,5km"
+      "풀"
     ],
     "organizer": "순천시체육회",
     "organizerPhone": "061-745-5009",
@@ -17489,8 +17535,7 @@
       "10km",
       "하프",
       "풀코스",
-      "풀",
-      "풀 · 하프 · 10km"
+      "풀"
     ],
     "organizer": "한라일보",
     "organizerPhone": "064-750-2291",
@@ -17516,8 +17561,7 @@
       "10km",
       "5km",
       "학생부5km 초등부",
-      "학생부5km중.고등부",
-      "10km,5km,학생부5km 초등부,학생부5km중.고등부"
+      "학생부5km중.고등부"
     ],
     "organizer": "세종특별자치시육상연맹",
     "organizerPhone": "010-3448-0990",
@@ -17541,8 +17585,7 @@
     "region": "경기",
     "distances": [
       "하프",
-      "10km",
-      "하프 · 10km"
+      "10km"
     ],
     "organizer": "가민,러너블",
     "organizerPhone": "02-2031-1935",
@@ -17566,8 +17609,7 @@
     "region": "서울",
     "distances": [
       "하프",
-      "10km",
-      "하프,10km"
+      "10km"
     ],
     "organizer": "MBN, 매일경제",
     "organizerPhone": "070-7727-1751",
@@ -17592,8 +17634,7 @@
     "distances": [
       "20km",
       "10km",
-      "29km",
-      "29km · 9km"
+      "29km"
     ],
     "organizer": "{사}소아암환우돕기 조직위",
     "organizerPhone": "02-2647-4488",
@@ -17614,12 +17655,11 @@
     "date": "2026-11-15",
     "time": "미확인",
     "location": "울주군 영남알프스 일원",
-    "region": "울산",
+    "region": "전국",
     "distances": [
       "하프",
       "10km",
-      "5km",
-      "하프,10km,5km"
+      "5km"
     ],
     "organizer": "울산광역시 울주군육상연맹",
     "organizerPhone": "052-269-1001",
@@ -17646,8 +17686,7 @@
       "하프",
       "10km",
       "4.4km",
-      "풀코스",
-      "풀 · 하프 · 10km · 4.4km"
+      "풀코스"
     ],
     "organizer": "전국마라톤협회",
     "organizerPhone": "042-638-1080",
@@ -17671,8 +17710,7 @@
     "region": "서울",
     "distances": [
       "5km",
-      "10km",
-      "10km,5km"
+      "10km"
     ],
     "organizer": "서울자주통일평화연대",
     "organizerPhone": "010-3408-8150",
@@ -17697,8 +17735,7 @@
     "distances": [
       "하프",
       "10km",
-      "5km",
-      "하프,10km,5km"
+      "5km"
     ],
     "organizer": "고창군체육회",
     "organizerPhone": "063-561-5211",
@@ -17724,9 +17761,7 @@
       "16km",
       "36km",
       "16km/36km",
-      "51.8km",
-      "16km · 36km · 47km",
-      "16km/36km,51.8km"
+      "51.8km"
     ],
     "organizer": "한국백혈병소아암협회/시유케이컴",
     "organizerPhone": "00-1899-8610",
@@ -17823,8 +17858,7 @@
     "distances": [
       "하프",
       "10km",
-      "5km",
-      "하프,10km,5km"
+      "5km"
     ],
     "organizer": "국제신문",
     "organizerPhone": null,
@@ -17992,7 +18026,7 @@
     "date": "2026-11-15",
     "time": "9시집결 집결",
     "location": "창원종합운동장 보조경기장",
-    "region": "경기",
+    "region": "경남",
     "distances": [
       "5km"
     ],
@@ -18217,8 +18251,7 @@
       "10km",
       "5km",
       "10k 커플런",
-      "10k 단체전(5인1조)",
-      "10km,5km,10k 커플런,10k 단체전(5인1조)"
+      "10k 단체전(5인1조)"
     ],
     "organizer": "주식회사 세정",
     "organizerPhone": "010-8017-1833",
@@ -18762,8 +18795,7 @@
       "10km",
       "하프",
       "풀코스",
-      "풀",
-      "풀,하프,10km,5km"
+      "풀"
     ],
     "organizer": "남원시체육회",
     "organizerPhone": "042-638-1080",
@@ -18787,8 +18819,7 @@
     "region": "서울",
     "distances": [
       "10km",
-      "5km",
-      "10km · 5km"
+      "5km"
     ],
     "organizer": "사우나 민족",
     "organizerPhone": "070-4571-8805",
@@ -19180,8 +19211,7 @@
     "region": "충남",
     "distances": [
       "5km",
-      "12km",
-      "5km,12km"
+      "12km"
     ],
     "organizer": "전국마라톤협회",
     "organizerPhone": null,
