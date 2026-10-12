@@ -23,6 +23,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from site_nav import site_header  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 
 # ---------------------------------------------------------------------------
@@ -259,20 +262,7 @@ def faq_items(dist, gender):
 # ---------------------------------------------------------------------------
 # 페이지 생성
 # ---------------------------------------------------------------------------
-NAV = """<header class="site-header">
-<div class="wrap header-inner">
-<a href="index.html" class="wordmark">CALRANK</a>
-<nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
-<a href="ranking.html" class="nav-link">대회랭킹</a>
-<a href="news.html" class="nav-link">종목뉴스</a>
-<a href="column.html" class="nav-link">칼럼</a>
-<a href="grade.html" class="nav-link">등급표</a>
-<a href="myrank.html" class="nav-link">내 랭크</a>
-<a href="contact.html" class="nav-contact-link">제휴문의</a>
-</nav>
-</div>
-</header>"""
+NAV = site_header("grade")
 
 FOOTER = """<footer class="site-footer">
 <div class="wrap">
