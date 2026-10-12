@@ -122,7 +122,23 @@ def fetch_jeju_mbc(race_year: int) -> list[dict]:
 #   [3] 1 | 홍길동 | 2:24:02 | 김아무 | 2:47:36     <- 5칸
 JTBC_URL = "https://marathon.jtbc.com/51"
 JTBC_RACE_NAME = "JTBC서울마라톤"
-_YEAR_RE = re.compile(r"^(\d{4})\s*제\s*\d+\s*회")
+_YEAR_RE = re.compile(r"^(\d{4})\s*제\s*\d+\s*회(.*)")
+
+# 사람이 낼 수 있는 기록의 범위. 바깥이면 거리 분류가 잘못된 것이다.
+# 아래 한계는 세계기록보다 조금 아래로 잡았다
+# (마라톤 2:00:35, 하프 56:42, 10km 26:24, 5km 12:49 — 2026년 기준 도로 세계기록).
+PLAUSIBLE_SECONDS = {
+    "full": (7000, 36000),    # 1:56:40 ~ 10:00:00
+    "half": (3300, 18000),    # 0:55:00 ~ 5:00:00
+    "10km": (1500, 9000),     # 0:25:00 ~ 2:30:00
+    "5km": (720, 5400),       # 0:12:00 ~ 1:30:00
+}
+
+
+def implausible(distance: str, seconds: int) -> bool:
+    """거리에 비해 말이 안 되는 기록인가."""
+    lo, hi = PLAUSIBLE_SECONDS.get(distance, (0, 10 ** 9))
+    return not (lo <= seconds <= hi)
 
 
 def fetch_jtbc_seoul() -> list[dict]:
@@ -133,6 +149,7 @@ def fetch_jtbc_seoul() -> list[dict]:
 
     records: list[dict] = []
     year: int | None = None
+    distance = "full"
 
     # 연도 제목과 표가 형제로 흩어져 있어, 문서 순서대로 훑으며 현재 연도를 기억한다.
     for node in soup.find_all(True):
@@ -153,9 +170,13 @@ def fetch_jtbc_seoul() -> list[dict]:
                     seconds = time_to_seconds(record)
                     if not name or not seconds:
                         continue
+                    if implausible(distance, seconds):
+                        print(f"[JTBC] 버림: {year} {distance} {name} {record} "
+                              "— 거리에 비해 말이 안 되는 기록")
+                        continue
                     records.append({
                         "sport": "marathon",
-                        "distance_category": "full",   # JTBC 서울마라톤은 풀코스
+                        "distance_category": distance,
                         "race_name": JTBC_RACE_NAME,
                         "race_year": year,
                         "athlete_name": name,
@@ -172,6 +193,11 @@ def fetch_jtbc_seoul() -> list[dict]:
         m = _YEAR_RE.match(node.get_text(strip=True))
         if m:
             year = int(m.group(1))
+            # 이 대회는 1999~2001년에 "중앙일보 서울 하프마라톤" 이었고
+            # 2002년부터 풀코스가 됐다. 연도마다 제목을 읽어 거리를 정한다.
+            # (전에는 전부 풀코스로 넣어, 1:05:23 짜리 "풀코스 기록" 34건이
+            #  랭킹 맨 위에 올라가 있었다)
+            distance = "half" if "하프" in m.group(2) else "full"
 
     return records
 
@@ -219,6 +245,18 @@ def upsert_records(records: list[dict]) -> int:
     if not SERVICE_KEY:
         print("SUPABASE_SERVICE_ROLE_KEY가 없어 저장을 건너뜁니다 (수집만 확인).")
         return 0
+
+    # 어느 소스에서 왔든, 거리에 비해 말이 안 되는 기록은 저장하지 않는다.
+    # 한 번 들어가면 UPDATE 를 막는 트리거 때문에 손으로 고칠 수도 없다.
+    sane = []
+    for r in records:
+        if implausible(r.get("distance_category", ""), r.get("finish_time_seconds") or 0):
+            print(f"버림: {r.get('race_name')} {r.get('race_year')} "
+                  f"{r.get('distance_category')} {r.get('athlete_name')} "
+                  f"{r.get('finish_time_seconds')}초 — 거리에 비해 말이 안 됨")
+            continue
+        sane.append(r)
+    records = sane
 
     existing = fetch_existing_keys()
     fresh = [r for r in records if record_key(r) not in existing]
