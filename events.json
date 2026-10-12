@@ -13524,7 +13524,8 @@
       "하프",
       "10km",
       "5km",
-      "하프 · 10km · 5km"
+      "하프 · 10km · 5km",
+      "하프,10km,5km"
     ],
     "organizer": "의정부체육회",
     "organizerPhone": "031-850-5755",
@@ -13931,7 +13932,8 @@
     "region": "광주",
     "distances": [
       "10km",
-      "5km"
+      "5km",
+      "10km,5km"
     ],
     "organizer": "전남광주통합특별시 서구",
     "organizerPhone": "061-375-1201",
@@ -14014,6 +14016,29 @@
     "applyUrl": "https://www.tongyeongfondo.com/about/about"
   },
   {
+    "id": "ro-굿네이버스-레이스-with-띵크어스-광주-레이스-2026-10-17",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "굿네이버스 레이스 with 띵크어스 광주 레이스",
+    "date": "2026-10-17",
+    "time": "미확인",
+    "location": "황룡친수공원",
+    "region": "광주",
+    "distances": [
+      "5km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": "2026-09-21",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://www.runneron.com/marathon",
+    "applyUrl": "http://gnrace.kr/"
+  },
+  {
     "id": "rr-제19회-중랑구청장배-장미-마라톤-2026-10-18",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -14075,8 +14100,7 @@
       "하프",
       "10km",
       "5km",
-      "하프 · 10km · 5km",
-      "하프,10km,5km"
+      "하프 · 10km · 5km"
     ],
     "organizer": "대덕구",
     "organizerPhone": "042-934-8890",
@@ -14325,7 +14349,8 @@
     "distances": [
       "10km",
       "5km",
-      "10km · 5km"
+      "10km · 5km",
+      "10km,5km"
     ],
     "organizer": "하남시육상연맹",
     "organizerPhone": "02-515-9033",
@@ -14376,7 +14401,8 @@
       "하프",
       "10km",
       "5km",
-      "하프 · 10km · 5km"
+      "하프 · 10km · 5km",
+      "하프,10km,5km"
     ],
     "organizer": "뉴시스",
     "organizerPhone": "02-1566-1936",
@@ -14401,7 +14427,8 @@
     "distances": [
       "10km",
       "5km",
-      "10km · 5km"
+      "10km · 5km",
+      "10km,5km"
     ],
     "organizer": "청주충북환경운동연합",
     "organizerPhone": "043-222-2466",
@@ -14725,7 +14752,8 @@
       "9km",
       "29km · 9km",
       "10km",
-      "5km"
+      "5km",
+      "29km,9km"
     ],
     "organizer": "담양군",
     "organizerPhone": "070-5088-1180",
@@ -14774,7 +14802,8 @@
       "5km",
       "23K",
       "13K",
-      "23K · 13K · 5K"
+      "23K · 13K · 5K",
+      "5km,23K,13K"
     ],
     "organizer": "프립, 러너킹",
     "organizerPhone": "070-8843-0320",
@@ -14795,10 +14824,11 @@
     "date": "2026-10-24",
     "time": "미확인",
     "location": "동해시 망상해수욕장",
-    "region": "전국",
+    "region": "강원",
     "distances": [
       "5km",
-      "2K 플로깅"
+      "2K 플로깅",
+      "5km,2K 플로깅"
     ],
     "organizer": "스포노베이션",
     "organizerPhone": "02-0000-0000",
@@ -15057,8 +15087,7 @@
       "10km",
       "5km",
       "15km코스",
-      "15km · 10km · 5km",
-      "10km,5km,15km코스"
+      "15km · 10km · 5km"
     ],
     "organizer": "부산일보사",
     "organizerPhone": "051-461-4046",
@@ -15112,8 +15141,7 @@
       "하프",
       "10km",
       "5km",
-      "마니아",
-      "하프,10km,5km,마니아"
+      "마니아"
     ],
     "organizer": "K-RUN챌린지조직위",
     "organizerPhone": "02-3210-1666",
@@ -15165,8 +15193,7 @@
       "풀",
       "10km",
       "풀 · 10km",
-      "풀코스",
-      "풀코스 / 하프 / 10km"
+      "풀코스"
     ],
     "organizer": "조선일보",
     "organizerPhone": "02-724-6333",
@@ -16637,7 +16664,7 @@
     ],
     "organizer": "사상구청,사상구체육회",
     "organizerPhone": "051-310-4128",
-    "regDeadline": "2026-10-11",
+    "regDeadline": "2026-11-08",
     "regClosed": null,
     "lat": 35.1796,
     "lng": 129.0756,
@@ -17905,6 +17932,7 @@
     "region": "경기",
     "distances": [
       "10km",
+      "5km",
       "15km"
     ],
     "organizer": "나눔레이스조직위원회",
@@ -19191,7 +19219,7 @@
     ],
     "organizer": "(사)대한생활체육회",
     "organizerPhone": "00-1644-4219",
-    "regDeadline": "2026-11-10",
+    "regDeadline": "2026-11-16",
     "regClosed": null,
     "lat": 37.5249940540728,
     "lng": 126.9371736041,
