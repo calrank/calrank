@@ -43,8 +43,18 @@ KEY_RE = re.compile(r"^[A-Za-z0-9-]{8,128}$")
 KEY = "324bbff02cfb1892920af20f38ff7252"
 
 
-def changed_html(rev_range: str) -> list[str]:
-    """해당 커밋 범위에서 바뀐 .html 파일."""
+def changed_html(rev_range: str, use_git: bool = False) -> list[str]:
+    """바뀐 .html 파일 목록.
+
+    기본은 커밋 단계가 남겨 준 목록 파일을 읽는다. actions/checkout 은
+    기본값이 fetch-depth: 1 이라 HEAD~1 이 아예 없고, git diff 가 통하지
+    않는다. (이것 때문에 처음엔 매일 돌아도 아무것도 안 보냈다)
+    목록 파일이 없을 때만 git 에 물어본다.
+    """
+    listed = os.environ.get("CHANGED_FILES")
+    if not use_git and listed and Path(listed).exists():
+        lines = Path(listed).read_text(encoding="utf-8").split("\n")
+        return [p.strip() for p in lines if p.strip().endswith(".html")]
     try:
         out = subprocess.run(
             ["git", "diff", "--name-only", "--diff-filter=ACMR", rev_range],
@@ -96,8 +106,9 @@ def main() -> None:
         key_file.write_text(key + "\n", encoding="utf-8")
         print(f"[indexnow] 키 파일 생성: {key}.txt")
 
-    rev = (sys.argv[1].strip() if len(sys.argv) > 1 else "") or "HEAD~1..HEAD"
-    paths = changed_html(rev)
+    manual = sys.argv[1].strip() if len(sys.argv) > 1 else ""
+    rev = manual or "HEAD~1..HEAD"
+    paths = changed_html(rev, use_git=bool(manual))
     if not paths:
         print("[indexnow] 바뀐 페이지가 없어 보내지 않습니다")
         return
