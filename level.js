@@ -417,22 +417,39 @@ function iconCircle(ctx, cx, cy, r, kind) {
     ctx.beginPath(); ctx.moveTo(cx, cy + 2 * u); ctx.lineTo(cx, cy - 5 * u); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(cx, cy + 2 * u); ctx.lineTo(cx + 6 * u, cy + 4 * u); ctx.stroke();
     ctx.beginPath(); ctx.arc(cx, cy + 2 * u, 1.8 * u, 0, Math.PI * 2); ctx.fill();
-  } else if (kind === "gauge") {                // 속도계
-    ctx.lineWidth = 2.4 * u;
-    ctx.beginPath(); ctx.arc(cx, cy + 6 * u, 12 * u, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
-    ctx.lineWidth = 2 * u;
-    for (let i = 0; i <= 4; i++) {              // 눈금
-      const a = Math.PI * 1.05 + (Math.PI * 0.9) * (i / 4);
-      const x1 = cx + Math.cos(a) * 12 * u, y1 = cy + 6 * u + Math.sin(a) * 12 * u;
-      const x2 = cx + Math.cos(a) * 8.5 * u, y2 = cy + 6 * u + Math.sin(a) * 8.5 * u;
-      ctx.globalAlpha = 0.55;
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-    }
+  } else if (kind === "trend") {                // 상승 추세 — 지그재그 화살표
+    // 60px 안에 막대까지 넣으면 뭉친다. 기준선과 꺾은선, 화살촉만 남긴다.
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 2.5 * u;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();                            // 기준선
+    ctx.moveTo(cx - 13 * u, cy + 13 * u);
+    ctx.lineTo(cx + 13 * u, cy + 13 * u);
+    ctx.stroke();
     ctx.globalAlpha = 1;
-    ctx.lineWidth = 2.8 * u;
-    ctx.beginPath(); ctx.moveTo(cx, cy + 6 * u); ctx.lineTo(cx + 8 * u, cy - 3 * u); ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx, cy + 6 * u, 2.4 * u, 0, Math.PI * 2); ctx.fill();
-  } else {                                      // 사람
+
+    const ang = Math.atan2(-13, 9);             // 마지막 구간의 방향
+    const tipX = cx + 12 * u, tipY = cy - 12 * u;
+    const back = 7 * u;                         // 화살촉 길이만큼 선을 당겨 끝낸다
+    ctx.lineWidth = 3.2 * u;
+    ctx.beginPath();
+    ctx.moveTo(cx - 13 * u, cy + 5 * u);
+    ctx.lineTo(cx - 5 * u, cy - 6 * u);
+    ctx.lineTo(cx + 2 * u, cy + 4 * u);
+    ctx.lineTo(tipX - back * Math.cos(ang), tipY - back * Math.sin(ang));
+    ctx.stroke();
+
+    ctx.save();                                 // 화살촉
+    ctx.translate(tipX, tipY);
+    ctx.rotate(ang);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(-8.5 * u, -4.8 * u);
+    ctx.lineTo(-8.5 * u, 4.8 * u);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  } else {                                    // 사람
     ctx.lineWidth = 2.6 * u;
     ctx.beginPath(); ctx.arc(cx, cy - 7 * u, 5.5 * u, 0, Math.PI * 2); ctx.stroke();
     ctx.beginPath(); ctx.arc(cx, cy + 13 * u, 11 * u, Math.PI * 1.13, Math.PI * 1.87); ctx.stroke();
@@ -546,7 +563,7 @@ function drawCard(ctx, d) {
 
   const cells = [
     ["완주 기록", d.finish, d.distance, "clock"],
-    ["페이스", d.pace, "/km", "gauge"],
+    ["페이스", d.pace, "/km", "trend"],
     ["비교 기준", `${d.age}세`, d.genderLabel, "person"],
   ];
   const cw = (R - L) / 3;
@@ -560,14 +577,14 @@ function drawCard(ctx, d) {
     ctx.textAlign = "left";
     ctx.fillStyle = INK_FAINT;
     setFont(ctx, 400, 23);
-    ctx.fillText(label, x0 + 102, barY + 54);
+    ctx.fillText(label, x0 + 102, barY + 50);
     ctx.fillStyle = INK;
     const vPx = fitFont(ctx, value, 900, 44, cw - 190, 26);
-    ctx.fillText(value, x0 + 102, barY + 97);
+    ctx.fillText(value, x0 + 102, barY + 101);
     const vw = ctx.measureText(value).width;
     ctx.fillStyle = INK_SOFT;
     setFont(ctx, 400, 22);
-    ctx.fillText(unit, x0 + 108 + vw, barY + 97);
+    ctx.fillText(unit, x0 + 108 + vw, barY + 101);
   });
 
   // ── 왼쪽: 거리별 환산 ───────────────────────────────────
@@ -605,17 +622,17 @@ function drawCard(ctx, d) {
   const spY = rowY0 + d.equivalents.length * rowH + 18;
   ctx.fillStyle = "rgba(255,61,26,.08)";
   roundRect(ctx, L + 18, spY, pW - 36, 86, 12); ctx.fill();
-  iconCircle(ctx, L + 64, spY + 43, 26, "gauge");
+  iconCircle(ctx, L + 64, spY + 43, 26, "trend");
   ctx.fillStyle = INK_FAINT;
   setFont(ctx, 400, 21);
-  ctx.fillText("평균 속도", L + 106, spY + 36);
+  ctx.fillText("평균 속도", L + 106, spY + 33);
   ctx.fillStyle = INK;
   setFont(ctx, 900, 36);
-  ctx.fillText(d.speed, L + 106, spY + 72);
+  ctx.fillText(d.speed, L + 106, spY + 75);
   const spw = ctx.measureText(d.speed).width;
   ctx.fillStyle = INK_SOFT;
   setFont(ctx, 400, 20);
-  ctx.fillText("km/h", L + 112 + spw, spY + 72);
+  ctx.fillText("km/h", L + 112 + spw, spY + 75);
 
   ctx.fillStyle = INK_FAINT;
   setFont(ctx, 400, 18);
