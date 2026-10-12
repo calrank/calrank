@@ -498,6 +498,16 @@ def build_hub():
             for g in GENDERS
         )
         cards.append(f'<h2 class="gr-h2">{d["label"]}</h2>\n<div class="gr-switch">{items}</div>')
+
+    # 연령대별 페이지는 여기서만 링크된다. 사이트맵에만 있고 링크가 없으면
+    # 검색엔진이 "발견은 했지만 크롤링하지 않음" 으로 묶어 둔다.
+    for dec in DECADES:
+        items = "".join(
+            f'<a href="{age_slug_for(d["key"], dec)}">{run_name(d)}</a>' for d in DISTANCES
+        )
+        cards.append(f'<h2 class="gr-h2">{dec}대 기록 등급표</h2>\n'
+                     f'<div class="gr-switch">{items}</div>')
+
     cards_html = "\n".join(cards)
 
     # 허브에는 가장 수요가 큰 10km 남녀 40세 기준 요약표를 직접 싣는다.
@@ -562,6 +572,177 @@ def build_hub():
     return slug, head_block(title, desc, slug, [page_ld, crumb_ld]) + body
 
 
+
+# ──────────────────────────────────────────────────────────────
+# 연령대별 페이지
+#
+# 네이버 검색어에 "50대 10km마라톤 기록" 이 이미 들어오고 있다(클릭 5, 노출 72).
+# 거리·성별 표는 나이가 세로축이라 "50대" 로 검색한 사람이 자기 줄을 찾아야 한다.
+# 연령대를 제목으로 못박은 페이지를 따로 둔다. 아쿠아슬론 페이지가 통한 것과
+# 같은 이치다 — 좁고 구체적인 말에는 경쟁자가 거의 없다.
+#
+# 표는 한 살 단위다. 기존 거리별 표가 5년 단위라 "53세" 인 사람은 어림잡아야 했다.
+# ──────────────────────────────────────────────────────────────
+
+DECADES = [20, 30, 40, 50, 60, 70]
+
+
+def run_name(dist):
+    """연령대 페이지에서 쓸 이름. 반드시 "마라톤" 으로 끝나게 한다.
+
+    노리는 검색어가 "50대 10km마라톤 기록" 이라 "마라톤" 이 빠지면 안 된다.
+    끝을 "마라톤" 으로 통일해 두면 뒤에 붙는 조사도 '을' 하나로 맞는다
+    ("10km을" 처럼 틀리는 일이 없다).
+    """
+    name = dist["search"]
+    return name if name.endswith("마라톤") else f"{name} 마라톤"
+
+
+def age_slug_for(dist_key, decade):
+    return f"grade-{dist_key}-{decade}s.html"
+
+
+def decade_ages(decade):
+    # 75세까지만 계산한다 (AGE_ANCHORS 가 80세까지라 그 밖은 외삽이 커진다)
+    return [a for a in range(decade, decade + 10) if a <= 75]
+
+
+def build_age_table(dist, gender, decade):
+    km, gk = dist["km"], gender["key"]
+    head_cells = "".join(f"<th>{label}</th>" for _, label in TABLE_TIERS)
+    rows = []
+    for age in decade_ages(decade):
+        cells = "".join(
+            f"<td>{fmt_time(boundary_seconds(bound, age, gk, km))}</td>"
+            for bound, _ in TABLE_TIERS
+        )
+        rows.append(f"<tr><th>{age}세</th>{cells}<td>{LAST_TIER_LABEL}</td></tr>")
+    return (
+        '<div class="gr-tablebox"><table class="gr-table">\n'
+        f"<thead><tr><th>나이</th>{head_cells}<th>그 이상</th></tr></thead>\n<tbody>\n"
+        + "\n".join(rows) + "\n</tbody>\n</table></div>\n"
+        '<p class="gr-swipe">표를 좌우로 밀면 나머지 등급이 보입니다. 나이 칸은 고정됩니다.</p>'
+    )
+
+
+def build_age_switch(cur_dist, cur_decade):
+    dec = "".join(
+        '<a href="{}"{}>{}대</a>'.format(
+            age_slug_for(cur_dist, d), ON if d == cur_decade else "", d)
+        for d in DECADES
+    )
+    dists = "".join(
+        '<a href="{}"{}>{}</a>'.format(
+            age_slug_for(d["key"], cur_decade), ON if d["key"] == cur_dist else "", d["label"])
+        for d in DISTANCES
+    )
+    return f'<div class="gr-switch">{dec}</div>\n<div class="gr-switch">{dists}</div>'
+
+
+def build_age_page(dist, decade):
+    dk = dist["key"]
+    slug = age_slug_for(dk, decade)
+    ages = decade_ages(decade)
+    rname = run_name(dist)
+    title = f"{decade}대 {rname} 기록 — 남녀 나이별 등급표 | calrank"
+    desc = (
+        f"{ages[0]}세부터 {ages[-1]}세까지 {rname} 기록이 어느 수준인지 "
+        f"한 살 단위로 정리했습니다. 남녀 등급 기준 기록을 표에서 찾고, "
+        f"계산기로 내 기록을 바로 대입해 보세요."
+    )
+    h1 = f"{decade}대 {rname} 기록 등급표 — 남녀 한 살 단위"
+
+    # 본문에 쓸 실제 수치. 연령대 가운데 나이의 '평균 이상' 경계.
+    mid = ages[len(ages) // 2]
+    ref_m = fmt_time(boundary_seconds(390, mid, "male", dist["km"]))
+    ref_f = fmt_time(boundary_seconds(390, mid, "female", dist["km"]))
+
+    lead = (
+        f"{decade}대에 {rname}을 뛰고 나면 \"이 정도면 괜찮은 건가\" 싶어집니다. "
+        f"같은 기록이라도 20대와 {decade}대의 의미가 다르기 때문에, 또래 기준으로 봐야 "
+        f"내 위치가 보입니다. {mid}세 기준으로 {ref_m}(남성) · {ref_f}(여성) 안에 "
+        f"들어오면 '평균 이상' 구간입니다."
+    )
+
+    faqs = [
+        (f"{decade}대 {rname} 기록은 보통 어느 정도인가요?",
+         "이 표는 참가자 평균이 아니라 나이·성별을 보정한 등급 경계입니다. "
+         f"{mid}세 남성이라면 {ref_m}, 여성이라면 {ref_f} 가 '평균 이상' 구간에 들어가는 "
+         "기준선입니다. 실제 대회 참가자 분포와는 다를 수 있습니다."),
+        ("나이가 들면 기록이 얼마나 떨어지나요?",
+         "이 표가 쓰는 보정은 50세를 기준으로 20대가 약 10% 빠르고, 70세가 약 25% 느린 "
+         "정도로 잡습니다. 한 살 단위로 경계가 조금씩 움직이는 이유가 이것입니다."),
+        ("표에 없는 거리는 어떻게 보나요?",
+         "계산기에 기록을 넣으면 Riegel 환산식으로 다른 거리까지 같은 잣대로 비교해 줍니다. "
+         "결과를 이미지로 저장할 수도 있습니다."),
+    ]
+    faq_html = "\n".join(
+        f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in faqs)
+    faq_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs],
+    }, ensure_ascii=False)
+    page_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "WebPage",
+        "name": title, "description": desc, "url": f"{BASE}/{slug}", "inLanguage": "ko-KR",
+        "isPartOf": {"@type": "WebSite", "name": "calrank", "url": f"{BASE}/"},
+    }, ensure_ascii=False)
+    crumb_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "calrank", "item": f"{BASE}/index.html"},
+            {"@type": "ListItem", "position": 2, "name": "기록 등급표", "item": f"{BASE}/grade.html"},
+            {"@type": "ListItem", "position": 3, "name": h1},
+        ],
+    }, ensure_ascii=False)
+
+    tables = "\n".join(
+        f'<h2 class="gr-h2">{decade}대 {g["label"]} {dist["search"]} 등급표</h2>\n'
+        + build_age_table(dist, g, decade)
+        for g in GENDERS
+    )
+    links = "<br>".join(
+        [f'<a href="{slug_for(dk, g["key"])}">{rname} {g["label"]} 전체 나이 등급표</a>'
+         for g in GENDERS]
+        + [f'<a href="{age_slug_for(d["key"], decade)}">{decade}대 {run_name(d)} 등급표</a>'
+           for d in DISTANCES if d["key"] != dk]
+    )
+
+    body = f"""
+<main class="gr-wrap">
+<h1 class="gr-title">{h1}</h1>
+<p class="gr-lead">{lead}</p>
+{build_age_switch(dk, decade)}
+{tables}
+<p class="gr-note">{HOW_TO_READ}</p>
+
+<div class="gr-cta">
+<p>표에서 찾는 대신 기록을 넣으면 등급과 다음 등급까지 남은 시간이 바로 나옵니다. 결과는 이미지로 저장해 공유할 수 있습니다.</p>
+<a href="level.html">내 기록으로 등급 계산하기 →</a>
+</div>
+
+<h2 class="gr-h2">등급은 어떻게 계산했나</h2>
+<p class="gr-p">{METHOD}</p>
+
+<h2 class="gr-h2">자주 묻는 질문</h2>
+<div class="gr-faq">
+{faq_html}
+</div>
+
+<div class="gr-links">
+{links}<br>
+<a href="grade.html">전체 등급표 한눈에 보기</a><br>
+<a href="index.html">다가오는 대회 일정 보기</a>
+</div>
+</main>
+{FOOTER}
+</body>
+</html>
+"""
+    return slug, head_block(title, desc, slug, [page_ld, faq_ld, crumb_ld]) + body
+
+
 def update_sitemap(slugs):
     path = ROOT / "sitemap.xml"
     if not path.exists():
@@ -595,6 +776,12 @@ def main():
     for d in DISTANCES:
         for g in GENDERS:
             slug, html = build_page(d, g)
+            (ROOT / slug).write_text(html, encoding="utf-8")
+            slugs.append(slug)
+
+    for d in DISTANCES:
+        for dec in DECADES:
+            slug, html = build_age_page(d, dec)
             (ROOT / slug).write_text(html, encoding="utf-8")
             slugs.append(slug)
 
