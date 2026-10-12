@@ -8,6 +8,13 @@ on:
     - cron: "0 21 * * *"  # 매일 06:00 KST
   workflow_dispatch: {}
 
+# 두 실행이 겹치면 같은 생성 파일을 동시에 고쳐 병합 충돌이 난다.
+# (2026-10-12 에 실제로 feed-*.ics 에서 충돌이 나 그 실행이 통째로 버려졌다)
+# 한 번에 하나만 돌리고, 나머지는 기다리게 한다.
+concurrency:
+  group: update-events
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -69,6 +76,21 @@ jobs:
           for i in 1 2 3; do
             if git push; then exit 0; fi
             echo "push 거절됨 ($i/3) — 원격 변경을 받아 다시 올립니다"
-            git pull --rebase --autostash origin main || exit 1
+            if ! git pull --rebase --autostash origin main; then
+              # 생성 파일이 양쪽에서 바뀌면 충돌한다. 어설프게 합치면 깨진 파일이
+              # 올라가므로 되돌리고 실패로 끝낸다. 다음 실행이 처음부터 다시 만든다.
+              git rebase --abort || true
+              echo "원격 변경과 충돌했습니다. 이번 실행은 버리고 다음 실행에 맡깁니다."
+              exit 1
+            fi
           done
           git push
+
+      - name: Notify IndexNow
+        # 방금 커밋에서 바뀐 페이지를 네이버·Bing 에 알린다.
+        # 구글 서치콘솔의 수동 색인 요청은 하루 10여 건이 한도라 수백 개
+        # 페이지를 따라갈 수 없다. IndexNow 는 요청당 1만 건까지 받고
+        # 하루 횟수 제한이 없다. (구글은 IndexNow 를 지원하지 않는다)
+        # 실패해도 수집 결과를 버리지 않도록 continue-on-error 로 둔다.
+        continue-on-error: true
+        run: python scripts/ping_indexnow.py
