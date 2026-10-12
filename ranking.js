@@ -19,6 +19,28 @@ let currentSport = "marathon";
 let currentDistance = "10km";
 let currentUser = null;
 
+// 거리에 비해 사람이 낼 수 없는 기록은 보여 주지 않는다.
+// 한계는 세계기록보다 조금 아래로 잡았다
+// (마라톤 2:00:35, 하프 56:42, 10km 26:24, 5km 12:49 — 도로 세계기록).
+// 수집 단계에도 같은 검증이 있지만, 이미 저장된 잘못된 기록이 화면에
+// 올라오지 않도록 여기서 한 번 더 막는다. 실제로 1999~2001년 하프
+// 기록이 풀코스로 들어가 1:05:23 이 "풀코스 최고 기록"으로 떠 있었다.
+const PLAUSIBLE_SECONDS = {
+  "full": [7000, 36000],
+  "half": [3300, 18000],
+  "10km": [1500, 9000],
+  "5km": [720, 5400],
+};
+
+function isPlausible(row) {
+  const sec = Number(row && row.finish_time_seconds);
+  if (!Number.isFinite(sec) || sec <= 0) return false;
+  const bounds = PLAUSIBLE_SECONDS[currentDistance] ||
+                 PLAUSIBLE_SECONDS[row && row.distance_category];
+  if (!bounds) return true;
+  return sec >= bounds[0] && sec <= bounds[1];
+}
+
 function formatSeconds(sec) {
   if (sec == null) return "-";
   const h = Math.floor(sec / 3600);
@@ -85,7 +107,8 @@ async function loadRankings() {
     return;
   }
 
-  renderPodiumAndList(data || []);
+  const rows = (data || []).filter(isPlausible);
+  renderPodiumAndList(rows);
   await loadMyContext();
 }
 
@@ -185,10 +208,17 @@ async function loadChampions() {
   });
 
   const results = await Promise.all(targets.map(async (t) => {
+    // 말이 안 되는 기록이 섞여 있을 수 있으니 여유 있게 받아 걸러낸다
     const { data } = await sb.rpc("get_top_rankings", {
-      p_sport: t.sport, p_distance: t.distance, p_limit: 1,
+      p_sport: t.sport, p_distance: t.distance, p_limit: 20,
     });
-    return { ...t, top: (data && data[0]) || null };
+    const bounds = PLAUSIBLE_SECONDS[t.distance];
+    const ok = (data || []).filter(r => {
+      const sec = Number(r && r.finish_time_seconds);
+      if (!Number.isFinite(sec) || sec <= 0) return false;
+      return !bounds || (sec >= bounds[0] && sec <= bounds[1]);
+    });
+    return { ...t, top: ok[0] || null };
   }));
 
   grid.innerHTML = "";
