@@ -97,9 +97,10 @@ function renderResult(result, inputs) {
     </div>
     <p class="level-tier-table-title">체력 수준 구간 (${inputs.age}세 ${genderLabel} 기준, 10km 환산)</p>
     <div class="level-tier-table">
-      ${TIER_BOUNDS.slice().reverse().map(([bound, label]) => {
+      ${TIER_BOUNDS.slice().reverse().map(([bound, label], i) => {
         const isCurrent = label === tier.label;
-        return `<div class="level-tier-row${isCurrent ? " current" : ""}"><span>${label}</span></div>`;
+        return `<div class="level-tier-row${isCurrent ? " current" : ""}">` +
+               `<span class="level-tier-step">${i + 1}</span><span>${label}</span></div>`;
       }).join("")}
     </div>
     <button type="button" class="lv-share-btn" id="lvShareBtn">📷 이미지로 저장 · 공유하기</button>
@@ -634,20 +635,24 @@ function drawCard(ctx, d) {
   ctx.fillText(`${d.age}세 ${d.genderLabel} 기준 · 10km 환산`, qX + 30, pY + 82);
 
   const tY0 = pY + 104, tH = 44;
+  const chipX = qX + 30, chipW = 44;
   d.tiers.forEach((t, i) => {
-    const y = tY0 + i * tH;
-    if (t.current) {
-      ctx.fillStyle = ACCENT;
-      roundRect(ctx, qX + 18, y, pW - 36, tH - 7, 8); ctx.fill();
-      ctx.fillStyle = "#fff";
-      setFont(ctx, 900, 23);
-    } else {
-      ctx.fillStyle = "rgba(255,255,255,.035)";
-      roundRect(ctx, qX + 18, y, pW - 36, tH - 7, 8); ctx.fill();
-      ctx.fillStyle = INK_SOFT;
-      setFont(ctx, 400, 22);
-    }
-    ctx.fillText(t.label, qX + 38, y + 26);
+    const y = tY0 + i * tH, h = tH - 7;
+    ctx.fillStyle = t.current ? ACCENT : "rgba(255,255,255,.035)";
+    roundRect(ctx, qX + 18, y, pW - 36, h, 8); ctx.fill();
+
+    // 레벨 번호 — 배지의 숫자와 같은 축으로 읽히도록 왼쪽에 고정폭으로 둔다
+    ctx.fillStyle = t.current ? "rgba(255,255,255,.22)" : "rgba(255,255,255,.05)";
+    roundRect(ctx, chipX, y + 6, chipW, h - 12, 7); ctx.fill();
+    ctx.textAlign = "center";
+    ctx.fillStyle = t.current ? "#FFFFFF" : INK_FAINT;
+    setFont(ctx, 900, 19);
+    ctx.fillText(String(t.step), chipX + chipW / 2, y + 26);
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = t.current ? "#FFFFFF" : INK_SOFT;
+    setFont(ctx, t.current ? 900 : 400, 22);
+    ctx.fillText(t.label, chipX + chipW + 14, y + 26);
   });
 
   if (d.next) {
@@ -744,7 +749,7 @@ function cardData(result, inputs) {
                                                       : riegelTime(finishSec, distanceKm, km)),
       current: Math.abs(km - distanceKm) < 0.05,
     })),
-    tiers: slowFirst.map(([, label]) => ({ label, current: label === result.tier.label })),
+    tiers: slowFirst.map(([, label], i) => ({ label, step: i + 1, current: label === result.tier.label })),
     next,
   };
 }
