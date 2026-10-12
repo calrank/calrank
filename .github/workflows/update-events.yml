@@ -6,7 +6,12 @@ name: Update events data
 on:
   schedule:
     - cron: "0 21 * * *"  # 매일 06:00 KST
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      indexnow_range:
+        description: "IndexNow 로 다시 보낼 커밋 범위 (예: HEAD~30..HEAD). 비우면 이번 커밋만."
+        required: false
+        default: ""
 
 # 두 실행이 겹치면 같은 생성 파일을 동시에 고쳐 병합 충돌이 난다.
 # (2026-10-12 에 실제로 feed-*.ics 에서 충돌이 나 그 실행이 통째로 버려졌다)
@@ -93,4 +98,4 @@ jobs:
         # 하루 횟수 제한이 없다. (구글은 IndexNow 를 지원하지 않는다)
         # 실패해도 수집 결과를 버리지 않도록 continue-on-error 로 둔다.
         continue-on-error: true
-        run: python scripts/ping_indexnow.py
+        run: python scripts/ping_indexnow.py "${{ inputs.indexnow_range }}"
