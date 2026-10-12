@@ -96,7 +96,7 @@ def main() -> None:
         key_file.write_text(key + "\n", encoding="utf-8")
         print(f"[indexnow] 키 파일 생성: {key}.txt")
 
-    rev = sys.argv[1] if len(sys.argv) > 1 else "HEAD~1..HEAD"
+    rev = (sys.argv[1].strip() if len(sys.argv) > 1 else "") or "HEAD~1..HEAD"
     paths = changed_html(rev)
     if not paths:
         print("[indexnow] 바뀐 페이지가 없어 보내지 않습니다")
