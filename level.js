@@ -42,6 +42,16 @@ function getTier(paceSecPerKm) {
   return { label: last[1], desc: last[2], cardDesc: last[3] };
 }
 
+// 거리별로 현실적인 기록 범위. 랭킹 화면과 같은 경계를 쓴다.
+// 아래값은 세계기록보다 조금 느슨하게 잡아 정상 기록이 막히지 않게 한다.
+const PLAUSIBLE_SECONDS = [
+  [5, 720, 5400], [10, 1500, 9000], [21.0975, 3300, 18000], [42.195, 7000, 36000],
+];
+function plausibleRange(distanceKm) {
+  const row = PLAUSIBLE_SECONDS.find(([km]) => Math.abs(km - distanceKm) < 0.05);
+  return row ? [row[1], row[2]] : null;
+}
+
 function parseTimeToSeconds(text) {
   const parts = text.split(":").map(Number);
   if (parts.some(isNaN)) return null;
@@ -458,9 +468,10 @@ function drawCard(ctx, d) {
   ctx.textAlign = "center";
   ctx.fillText(d.tier, cxL, 202);
 
-  const lauH = 112;
-  laurel(ctx, cxL - tierW / 2 - 40, 178, lauH, 1);
-  laurel(ctx, cxL + tierW / 2 + 40, 178, lauH, -1);
+  // 짧은 제목에 큰 월계수를 붙이면 글자가 눌린다. 제목 폭에 맞춰 키운다.
+  const lauH = Math.max(80, Math.min(112, tierW * 0.4));
+  laurel(ctx, cxL - tierW / 2 - lauH * 0.36, 178, lauH, 1);
+  laurel(ctx, cxL + tierW / 2 + lauH * 0.36, 178, lauH, -1);
 
   ctx.fillStyle = INK_SOFT;
   setFont(ctx, 400, 25);
@@ -651,6 +662,20 @@ function drawCard(ctx, d) {
     ctx.textAlign = "right";
     ctx.fillText(`${fmtGap(d.next.diff)} 남음`, qX + pW - 38, nY + 46);
     ctx.textAlign = "left";
+  } else {
+    // 최상위 구간이면 '다음 구간' 상자가 비어 구멍이 생긴다. 그 자리를 채운다.
+    const nY = pY + pH - 92;
+    ctx.fillStyle = "rgba(255,61,26,.10)";
+    roundRect(ctx, qX + 22, nY, pW - 44, 70, 14); ctx.fill();
+    ctx.strokeStyle = "rgba(255,61,26,.3)"; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = ACCENT;
+    setFont(ctx, 900, 26);
+    ctx.fillText("최고 구간", qX + 38, nY + 44);
+    ctx.fillStyle = INK_SOFT;
+    setFont(ctx, 400, 20);
+    ctx.textAlign = "right";
+    ctx.fillText("더 올라갈 구간이 없습니다", qX + pW - 38, nY + 44);
+    ctx.textAlign = "left";
   }
 
   // ── 꼬리말 ────────────────────────────────────────────
@@ -819,6 +844,15 @@ function init() {
     const finishSec = parseTimeToSeconds(timeText);
     if (!finishSec) {
       alert("완주시간 형식을 확인해 주세요. 예: 58:00 또는 1:45:30");
+      return;
+    }
+
+    const range = plausibleRange(distanceKm);
+    if (range && (finishSec < range[0] || finishSec > range[1])) {
+      alert(
+        `입력하신 기록이 ${distLabel(distanceKm)} 기록으로 보기 어렵습니다.\n` +
+        `${fmtClock(range[0])} ~ ${fmtClock(range[1])} 사이로 다시 확인해 주세요.`
+      );
       return;
     }
 
