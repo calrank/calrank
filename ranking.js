@@ -208,9 +208,12 @@ async function loadChampions() {
   });
 
   const results = await Promise.all(targets.map(async (t) => {
-    // 말이 안 되는 기록이 섞여 있을 수 있으니 여유 있게 받아 걸러낸다
+    // 말이 안 되는 기록이 섞여 있을 수 있으니 넉넉히 받아 걸러낸다.
+    // 잘못된 기록일수록 "빠른" 쪽이라 상위를 통째로 차지한다.
+    // 실제로 1999~2001 하프 기록 34건이 풀코스 상위를 다 먹고 있어,
+    // 20건만 받았을 때는 풀코스 카드가 아예 사라졌다.
     const { data } = await sb.rpc("get_top_rankings", {
-      p_sport: t.sport, p_distance: t.distance, p_limit: 20,
+      p_sport: t.sport, p_distance: t.distance, p_limit: 100,
     });
     const bounds = PLAUSIBLE_SECONDS[t.distance];
     const ok = (data || []).filter(r => {
