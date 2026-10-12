@@ -232,14 +232,17 @@ body{
 .site-footer p{font-size:11px;color:var(--ink-faint);margin:0;}
 
 @media (max-width:600px){
-  /* 메뉴가 화면보다 넓으면 flex 항목이 줄어들고, 줄어든 폭 안에서 글자가
-     줄바꿈됐다. 항목을 줄이지 않고 가로로 스크롤되게 한다. */
-  .main-nav{gap:10px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
-  .main-nav::-webkit-scrollbar{display:none;}
-  .main-nav .nav-link,.main-nav .nav-contact-link{white-space:nowrap;flex:0 0 auto;}
-  .wordmark{flex:0 0 auto;margin-right:12px;}
-  .nav-text-full{display:none;}
-  .nav-link-saved{font-size:15px;}
+  /* 가로 스크롤로 두었더니 스크롤바를 숨긴 탓에 더 있다는 표시가 없어
+     등급표·내 랭크·찜한 대회·제휴문의 4개가 화면 밖에 묻혔다.
+     로고를 윗줄에 두고 메뉴를 아랫줄에 접어 전부 보이게 한다. */
+  .header-inner{flex-wrap:wrap;height:auto;padding:10px 0;row-gap:6px;}
+  .wordmark{flex:0 0 auto;}
+  .main-nav{width:100%;flex-wrap:wrap;gap:4px 16px;overflow:visible;}
+  .main-nav .nav-link,.main-nav .nav-contact-link{white-space:nowrap;flex:0 0 auto;padding:7px 0;}
+  .nav-link.active{padding-bottom:5px;}
+  /* 메뉴를 접고 나니 둘째 줄에 자리가 남는다. 하트만 있으면 뜻을
+     알 수 없으므로 글자를 되살린다. */
+  .nav-link-saved{font-size:12px;}
   .hero{padding:32px 0 12px;}
   .wrap{padding:0 16px;}
   .chip{padding:7px 13px;font-size:13px;}
