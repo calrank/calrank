@@ -25,9 +25,13 @@ jobs:
       - name: Generate distance landing pages
         run: python scripts/generate_distance_landing_pages.py
 
+      - name: Sync navigation
+        run: python scripts/sync_nav.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
           git add landing-dist-*.html distances.html sitemap.xml
+          git add -u
           git diff --quiet --cached || (git commit -m "chore: regenerate distance landing pages" && git push)

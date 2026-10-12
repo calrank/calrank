@@ -36,9 +36,13 @@ jobs:
             python scripts/generate_howto_column.py
           fi
 
+      - name: Sync navigation
+        run: python scripts/sync_nav.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
           git add column-howto-*.html column.html sitemap.xml scripts/howto_state.json
+          git add -u
           git diff --quiet --cached || (git commit -m "chore: auto-publish howto column" && git push)

@@ -28,9 +28,13 @@ jobs:
       - name: Generate column
         run: python scripts/generate_column.py
 
+      - name: Sync navigation
+        run: python scripts/sync_nav.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
           git add column-*.html column.html sitemap.xml scripts/column_state.json
+          git add -u
           git diff --quiet --cached || (git commit -m "chore: auto-generate column" && git push)
