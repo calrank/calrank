@@ -8,13 +8,13 @@ const GENDER_FACTOR = { male: 1.00, female: 1.11 };
 
 // 오름차순(빠른 순): bound = 해당 등급의 '느린 쪽' 경계 (초/km)
 const TIER_BOUNDS = [
-  [240, "상당한 러너", "동호인 최상위권입니다. 이 페이스를 꾸준히 유지하는 것 자체가 훈련이 잘 되어 있다는 뜻이에요."],
-  [270, "러닝 상급자", "동호인 사이에서도 확실히 빠른 편입니다. 대회에서 상위권을 노려볼 만한 수준이에요."],
-  [300, "매우 좋은 편", "평균을 크게 웃도는 체력입니다. 꾸준한 훈련이 실제 기록으로 잘 전환되고 있어요."],
-  [348, "상당히 좋은 편", "일반적인 동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이라고 볼 수 있어요."],
-  [390, "평균 이상", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달리고 계신 게 기록으로 드러나고 있어요."],
-  [450, "보통", "일반적인 체력 수준입니다. 지금의 페이스도 꾸준히 유지하면 좋은 기반이 됩니다."],
-  [540, "초보/기초체력", "이제 막 시작하는 단계이거나 기초체력을 다지는 중이에요. 완주 자체가 의미 있는 시작입니다."],
+  [240, "상당한 러너", "동호인 최상위권입니다. 이 페이스를 꾸준히 유지하는 것 자체가 훈련이 잘 되어 있다는 뜻이에요.", "동호인 최상위권입니다. 훈련이 잘 되어 있다는 뜻이에요."],
+  [270, "러닝 상급자", "동호인 사이에서도 확실히 빠른 편입니다. 대회에서 상위권을 노려볼 만한 수준이에요.", "동호인 사이에서도 확실히 빠른 편입니다. 대회 상위권을 노려볼 만해요."],
+  [300, "매우 좋은 편", "평균을 크게 웃도는 체력입니다. 꾸준한 훈련이 실제 기록으로 잘 전환되고 있어요.", "평균을 크게 웃도는 체력입니다. 훈련이 기록으로 잘 전환되고 있어요."],
+  [348, "상당히 좋은 편", "일반적인 동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이라고 볼 수 있어요.", "동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이에요."],
+  [390, "평균 이상", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달리고 계신 게 기록으로 드러나고 있어요.", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달린 게 드러나고 있어요."],
+  [450, "보통", "일반적인 체력 수준입니다. 지금의 페이스도 꾸준히 유지하면 좋은 기반이 됩니다.", "일반적인 체력 수준입니다. 지금 페이스를 유지하면 좋은 기반이 돼요."],
+  [540, "초보/기초체력", "이제 막 시작하는 단계이거나 기초체력을 다지는 중이에요. 완주 자체가 의미 있는 시작입니다.", "기초체력을 다지는 단계입니다. 완주 자체가 의미 있는 시작이에요."],
 ];
 
 function riegelTime(t1Sec, d1Km, d2Km) {
@@ -35,10 +35,11 @@ function ageFactor(age) {
 }
 
 function getTier(paceSecPerKm) {
-  for (const [bound, label, desc] of TIER_BOUNDS) {
-    if (paceSecPerKm <= bound) return { label, desc };
+  for (const [bound, label, desc, cardDesc] of TIER_BOUNDS) {
+    if (paceSecPerKm <= bound) return { label, desc, cardDesc };
   }
-  return { label: "초보/기초체력", desc: TIER_BOUNDS[TIER_BOUNDS.length - 1][2] };
+  const last = TIER_BOUNDS[TIER_BOUNDS.length - 1];
+  return { label: last[1], desc: last[2], cardDesc: last[3] };
 }
 
 function parseTimeToSeconds(text) {
@@ -117,6 +118,11 @@ function renderResult(result, inputs) {
 // ──────────────────────────────────────────────────────────────
 
 const CARD_W = 1200, CARD_H = 1200;
+
+// 늘 같은 주소를 가리키므로 QR 을 미리 만들어 둔다.
+// 런타임에 QR 라이브러리를 불러오지 않으려는 것 — 이 페이지는 유입 1위라
+// 외부 스크립트를 하나라도 덜 얹는 편이 낫다.
+const QR_PNG = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAFKCAAAAABeQknZAAADeElEQVR42u3dYW7CMAyA0Wbi/lfOLoA6GztRM973k4kNnhJpFm24LkmSJEmSJEmSJJ3SePfgXPar55ufRh/Lv76x9b39WE1doUSJEqVQokSJUh29PhiGbstPE+P2scpks/e9WZU2OEqUQokSJUqhPGnaif6nP4LPvZ9i8nNP5ROinvdmVdrgKFEKJUqUQony9Gmnp+jcE506KjOOVWmDoxRKlCiFEiVK005fozDF5GemvXOPVYkSJUqhRIkSpVCeOe30zAv5z3Zm+rXsuOfHqrTBUaIUSpQohRLl6dPObP5z+fts1l2rNq1KGxylUKJEKZQoUX7dtLP3fpfoNWg9ZwkMq9IGRymUKFEKJUqU39Ef37eTvyrs/lfP5mfkp5ie92FV2uAoUQolSpRCifL0aecKzj2VkwbyE0bPd492/12r0gZHiVIoUaJEKZTPn3aiRSeWnntves5pcyWbDY5SKFGiFEqUKL+kV3SKqXxnZ3TuuYI/rUxF696vVWmDo0QplChRohTKRxX+qCN/9dho+Wn3ZBOdxvKvxaq0wVGiFEqUKFEK5UnTzo5r1fLnELhvxwYXSpQoUSJAiRKlVkw7lTOhe65ay5+JcAXnsg+IrEobHCVKoUSJUihRHjntrJuFKrNL990/lU90rEobHCVKoUSJUihRnjTtdN8N0zNRVT4r6jmvwKq0wVGiFEqUKIUS5bdMOztOkc5PJz0c+TuRrEobHCVKoUSJEqVQPqpX/ikz+NgIPmO0zFbd5xWER0Or0gZHiVIoUaIUSpSHTzvrvsWmZ1KKzimVe35MOzY4SpRCiRKlUKL8j9NOfrLJT0BX+qeVU65n4RmuZLPBUaIUSpQohRLl4xs7/kj+1Of7l1r5FqDKrHaZdmxwlCiFEiVKoUR5+LQzl/3qdd84ev/c/JVs+YHQqrTBUaIUSpQoUQrlo3p9MAyl55TK9BSdSSrzUeX9WpU2OEqUQokSpVCiPHPaiU4T675bp3KCwCzMW/mTEKxKGxwlSqFEiRKlUJ457fQUnWKu4BSTv0en5zQD9+3Y4ChRCiVKlEKJ0rSTmToqn+NE78yZza/ZqrTBUaIUSpQohRLl6dNO5Vq1ynkAlc9xeq6Mm1alDY5SKFGiRCmUKE9sy5lsPff8VM6drsw47tuxwVEKJUqUKIUSpSRJkiRJkiRJkrS0X7asr1pj/piBAAAAAElFTkSuQmCC";
 const BG = "#0A0A0A", PANEL = "#141414", PANEL_2 = "#101010";
 const LINE = "rgba(255,255,255,.07)";
 const ACCENT = "#FF3D1A", ACCENT_DIM = "#8A2412";
@@ -176,6 +182,21 @@ function setFont(ctx, weight, px) {
   ctx.font = `${weight} ${px}px "Noto Sans KR", sans-serif`;
 }
 
+// 라틴 문자는 한글 폰트의 영문 글리프가 어색해 별도 스택을 쓴다.
+function setLatin(ctx, weight, px) {
+  ctx.font = `${weight} ${px}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+}
+
+// letterSpacing 을 준 글자를 가운데 맞출 때 쓴다.
+// 마지막 글자 뒤에도 간격이 붙어 그대로 재면 왼쪽으로 치우친다.
+function centerTracked(ctx, text, cx, y, track) {
+  ctx.textAlign = "left";
+  ctx.letterSpacing = `${track}px`;
+  const w = ctx.measureText(text).width - track;
+  ctx.fillText(text, cx - w / 2, y);
+  ctx.letterSpacing = "0px";
+}
+
 function fitFont(ctx, text, weight, startPx, maxWidth, minPx) {
   let px = startPx;
   for (;;) {
@@ -186,114 +207,224 @@ function fitFont(ctx, text, weight, startPx, maxWidth, minPx) {
   return px;
 }
 
-// 월계수 가지. 줄기에서 바깥쪽으로 잎을 하나씩 뻗는다.
-// 잎이 서로 겹치면 부채꼴 덩어리로 보이므로 간격과 길이를 맞춰 둔다.
-function laurel(ctx, x, y, h, dir) {
+// 월계수.
+// 잎을 한 점에서 방사형으로 뻗으면 부채처럼 보인다. 줄기의 접선을 구해
+// 그 방향을 기준으로 잎을 눕혀야 가지로 읽힌다.
+function laurel(ctx, x, y, h, dir, opts) {
+  const o = opts || {};
+  const color = o.color || ACCENT;
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(dir, 1);
-  ctx.strokeStyle = ACCENT;
-  ctx.lineWidth = Math.max(2, h * 0.022);
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(0, -h / 2);
-  ctx.quadraticCurveTo(-h * 0.20, 0, 0, h / 2);
-  ctx.stroke();
+  ctx.globalAlpha = o.alpha === undefined ? 1 : o.alpha;
 
-  ctx.fillStyle = ACCENT;
-  const n = 5;
-  const leafL = h * 0.105, leafW = h * 0.032;
-  for (let i = 0; i < n; i++) {
-    const t = (i + 0.5) / n;
-    const py = -h / 2 + t * h;
-    const stemX = -Math.sin(t * Math.PI) * h * 0.20;
-    // 줄기에 수직으로 가까운 방향. 위쪽 잎은 위로, 아래쪽 잎은 아래로 눕는다.
-    const ang = (t - 0.5) * 1.9;
-    ctx.save();
-    ctx.translate(stemX, py);
-    ctx.rotate(ang);
-    ctx.beginPath();
-    ctx.ellipse(-leafL, 0, leafL, leafW, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
+  // 줄기: 2차 베지에. 바깥쪽(-x)으로 휜다.
+  const P0 = [0, -h / 2], P1 = [-h * 0.34, 0], P2 = [0, h / 2];
+  const at = (t) => [
+    (1 - t) * (1 - t) * P0[0] + 2 * (1 - t) * t * P1[0] + t * t * P2[0],
+    (1 - t) * (1 - t) * P0[1] + 2 * (1 - t) * t * P1[1] + t * t * P2[1],
+  ];
+  const tangent = (t) => [
+    2 * (1 - t) * (P1[0] - P0[0]) + 2 * t * (P2[0] - P1[0]),
+    2 * (1 - t) * (P1[1] - P0[1]) + 2 * t * (P2[1] - P1[1]),
+  ];
+
+  ctx.strokeStyle = color;
+  ctx.lineWidth = Math.max(1.5, h * 0.016);
+  ctx.lineCap = "round";
+  ctx.globalAlpha *= 0.75;
+  ctx.beginPath();
+  ctx.moveTo(P0[0], P0[1]);
+  ctx.quadraticCurveTo(P1[0], P1[1], P2[0], P2[1]);
+  ctx.stroke();
+  ctx.globalAlpha = o.alpha === undefined ? 1 : o.alpha;
+
+  ctx.fillStyle = color;
+  const N = 7;
+  for (let i = 0; i < N; i++) {
+    const t = 0.08 + (i / (N - 1)) * 0.84;
+    const [px, py] = at(t);
+    const [tx, ty] = tangent(t);
+    const ang = Math.atan2(ty, tx);
+    const taper = 0.62 + 0.38 * Math.sin(t * Math.PI);
+    const len = h * 0.21 * taper, wid = h * 0.058 * taper;
+    [-1, 1].forEach((side) => {
+      const f = side < 0 ? 1 : 0.6;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(ang + Math.PI + side * 0.72);
+      ctx.beginPath();
+      ctx.ellipse(len * f * 0.5, 0, len * f * 0.5, wid * f, 0, 0, Math.PI * 2);
+      // 잎끼리 겹쳐 덩어리로 보이지 않도록 배경색으로 가장자리를 끊는다
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.strokeStyle = o.sep || "#0E0E10";
+      ctx.lineWidth = Math.max(1.4, h * 0.016);
+      ctx.stroke();
+      ctx.restore();
+    });
   }
   ctx.restore();
 }
 
-// style.css 의 마라톤 엠블럼과 같은 선. 로고 자리에 쓴다.
-// Path2D 에 기대지 않고 직접 긋는다 — 어떤 렌더러에서도 같은 그림이 나온다.
-const EMBLEM_LINES = [
-  [[12, 48], [20, 44], [26, 33], [36, 30]],   // 코스 선
-  [[41, 51], [41, 15]],                        // 결승 기둥
-  [[41, 16], [54, 20], [41, 24]],              // 깃발
-];
-
+// CalRank 마크. 상승하는 랭크 막대 + 러너를 감싸는 링.
+// Path2D는 구형 사파리에서 stroke가 비는 일이 있어 경로를 직접 그린다.
 function drawEmblem(ctx, x, y, size, color) {
+  const u = size / 64;
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(size / 64, size / 64);
-  ctx.strokeStyle = color;
+  ctx.scale(u, u);
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
-  ctx.globalAlpha = 0.32;
-  ctx.lineWidth = 1.8;
+  // 바깥 링 — 오른쪽 위를 틔워 트랙처럼 보이게
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.9;
+  ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.arc(32, 32, 29, 0, Math.PI * 2);
+  ctx.arc(32, 32, 29, -Math.PI * 0.26, Math.PI * 1.62);
   ctx.stroke();
-
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = 3.5;
-  EMBLEM_LINES.forEach((pts) => {
-    ctx.beginPath();
-    pts.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)));
-    ctx.stroke();
-  });
-
-  ctx.fillStyle = color;
+  ctx.globalAlpha = 0.28;
+  ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.arc(12, 48, 2.8, 0, Math.PI * 2);
+  ctx.arc(32, 32, 23, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // 올라가는 막대 3개
+  ctx.fillStyle = color;
+  const bars = [[18, 40, 7, 10], [28.5, 33, 7, 17], [39, 25, 7, 25]];
+  bars.forEach(([bx, by, bw, bh], i) => {
+    ctx.globalAlpha = 0.45 + i * 0.275;
+    roundRect(ctx, bx, by, bw, bh, 3);
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+
+  // 링 끝을 마무리하는 점
+  ctx.beginPath();
+  ctx.arc(32 + 29 * Math.cos(-Math.PI * 0.26), 32 + 29 * Math.sin(-Math.PI * 0.26), 4.2, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }
 
-function hexagon(ctx, cx, cy, r) {
+// 달리는 사람. 배지 안에 넣는다.
+function runner(ctx, cx, cy, size, color) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(size / 100, size / 100);
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  // 어깨(S)·앞어깨(Sf)·엉덩이(H). 뒷다리를 길게 뻗고 앞팔을 접은 스트라이드 자세.
+  const S = [-4, -31], Sf = [10, -20], H = [7, 1];
+  const seg = (pts, w) => {
+    ctx.lineWidth = w;
+    ctx.beginPath();
+    pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.stroke();
+  };
+  seg([S, [-23, -10]], 11);            // 뒤 팔
+  seg([H, [-7, 9], [-45, 12]], 14);    // 뒤 다리
+  seg([S, H], 19);                     // 몸통
+  seg([H, [19, 13], [7, 43]], 14);     // 앞 다리
+  seg([Sf, [30, -4], [45, -28]], 11);  // 앞 팔
+  ctx.beginPath(); ctx.arc(28, -39, 10.5, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+}
+
+// 작은 별. 배지 장식.
+function star(ctx, cx, cy, r, color, alpha) {
+  ctx.save();
+  ctx.globalAlpha = alpha === undefined ? 1 : alpha;
+  ctx.fillStyle = color;
   ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const a = -Math.PI / 2 + i * Math.PI / 3;
-    const px = cx + r * Math.cos(a), py = cy + r * Math.sin(a);
+  for (let i = 0; i < 10; i++) {
+    const rr = i % 2 ? r * 0.42 : r;
+    const a = -Math.PI / 2 + i * Math.PI / 5;
+    const px = cx + rr * Math.cos(a), py = cy + rr * Math.sin(a);
     i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+// 모서리가 둥근 육각형. flatTop 이면 위아래가 평평하고 좌우에 꼭짓점이 온다.
+function hexagon(ctx, cx, cy, r, corner) {
+  const rad = corner === undefined ? r * 0.14 : corner;
+  // 정육각형은 가로로 납작하다. 세로를 늘려 정사각에 가깝게 만든다.
+  const rx = r * 0.92, ry = r * 1.06;
+  const pts = [];
+  for (let i = 0; i < 6; i++) {
+    const a = i * Math.PI / 3;
+    pts.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]);
+  }
+  const mid = (p, q) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2];
+  ctx.beginPath();
+  ctx.moveTo.apply(ctx, mid(pts[5], pts[0]));
+  for (let i = 0; i < 6; i++) {
+    const cur = pts[i], nxt = pts[(i + 1) % 6], m = mid(cur, nxt);
+    ctx.arcTo(cur[0], cur[1], m[0], m[1], rad);
+    ctx.lineTo(m[0], m[1]);
   }
   ctx.closePath();
 }
 
 function iconCircle(ctx, cx, cy, r, kind) {
   ctx.save();
-  ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(255,61,26,.10)";
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,61,26,.45)";
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  // 가운데가 밝은 원. 납작한 원보다 깊이가 생긴다.
+  const g = ctx.createRadialGradient(cx, cy - r * 0.3, r * 0.1, cx, cy, r);
+  g.addColorStop(0, "rgba(255,61,26,.26)");
+  g.addColorStop(1, "rgba(255,61,26,.04)");
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = g; ctx.fill();
+  ctx.strokeStyle = "rgba(255,110,70,.55)"; ctx.lineWidth = 1.8; ctx.stroke();
 
-  ctx.strokeStyle = ACCENT;
-  ctx.fillStyle = ACCENT;
-  ctx.lineWidth = 2.4;
+  const u = r / 30;
+  ctx.strokeStyle = "#FF6A45";
+  ctx.fillStyle = "#FF6A45";
+  ctx.lineWidth = 2.4 * u;
   ctx.lineCap = "round";
-  const u = r / 30;                       // 30px 기준으로 그린 뒤 비례시킨다
-  if (kind === "clock") {                 // 스톱워치
-    ctx.beginPath(); ctx.arc(cx, cy + 2 * u, 12 * u, 0, Math.PI * 2); ctx.stroke();
+
+  if (kind === "clock") {                       // 스톱워치
+    ctx.beginPath(); ctx.arc(cx, cy + 2 * u, 11 * u, 0, Math.PI * 2); ctx.stroke();
+    ctx.lineWidth = 3 * u;
     ctx.beginPath(); ctx.moveTo(cx - 5 * u, cy - 13 * u); ctx.lineTo(cx + 5 * u, cy - 13 * u); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy - 13 * u); ctx.lineTo(cx, cy - 9 * u); ctx.stroke();
+    ctx.lineWidth = 2 * u;
+    for (let i = 0; i < 12; i++) {              // 눈금
+      const a = i * Math.PI / 6;
+      const x1 = cx + Math.cos(a) * 9 * u, y1 = cy + 2 * u + Math.sin(a) * 9 * u;
+      const x2 = cx + Math.cos(a) * 11 * u, y2 = cy + 2 * u + Math.sin(a) * 11 * u;
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = 2.6 * u;
     ctx.beginPath(); ctx.moveTo(cx, cy + 2 * u); ctx.lineTo(cx, cy - 5 * u); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(cx, cy + 2 * u); ctx.lineTo(cx + 6 * u, cy + 4 * u); ctx.stroke();
-  } else if (kind === "gauge") {          // 속도계
-    ctx.beginPath(); ctx.arc(cx, cy + 5 * u, 12 * u, Math.PI, 0); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx, cy + 5 * u); ctx.lineTo(cx + 8 * u, cy - 4 * u); ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx, cy + 5 * u, 2.2 * u, 0, Math.PI * 2); ctx.fill();
-  } else {                                // 사람
-    ctx.beginPath(); ctx.arc(cx, cy - 6 * u, 5.5 * u, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx, cy + 14 * u, 11 * u, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy + 2 * u, 1.8 * u, 0, Math.PI * 2); ctx.fill();
+  } else if (kind === "gauge") {                // 속도계
+    ctx.lineWidth = 2.4 * u;
+    ctx.beginPath(); ctx.arc(cx, cy + 6 * u, 12 * u, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
+    ctx.lineWidth = 2 * u;
+    for (let i = 0; i <= 4; i++) {              // 눈금
+      const a = Math.PI * 1.05 + (Math.PI * 0.9) * (i / 4);
+      const x1 = cx + Math.cos(a) * 12 * u, y1 = cy + 6 * u + Math.sin(a) * 12 * u;
+      const x2 = cx + Math.cos(a) * 8.5 * u, y2 = cy + 6 * u + Math.sin(a) * 8.5 * u;
+      ctx.globalAlpha = 0.55;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = 2.8 * u;
+    ctx.beginPath(); ctx.moveTo(cx, cy + 6 * u); ctx.lineTo(cx + 8 * u, cy - 3 * u); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy + 6 * u, 2.4 * u, 0, Math.PI * 2); ctx.fill();
+  } else {                                      // 사람
+    ctx.lineWidth = 2.6 * u;
+    ctx.beginPath(); ctx.arc(cx, cy - 7 * u, 5.5 * u, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy + 13 * u, 11 * u, Math.PI * 1.13, Math.PI * 1.87); ctx.stroke();
   }
   ctx.restore();
 }
@@ -312,51 +443,88 @@ function drawCard(ctx, d) {
   const L = 72, R = CARD_W - 72;
 
   // ── 머리: 등급 ──────────────────────────────────────────
-  ctx.textAlign = "left";
+  // 배지를 뺀 왼쪽 영역 한가운데를 기준으로 모든 줄을 맞춘다.
+  const bx = R - 156, by = 186, br = 126;
+  const colR = bx - br - 26;
+  const cxL = (L + colR) / 2;
+
   ctx.fillStyle = INK_FAINT;
-  setFont(ctx, 700, 23);
-  ctx.letterSpacing = "4px";
-  ctx.fillText("RUNNING PERFORMANCE GRADE", L + 56, 118);
-  ctx.letterSpacing = "0px";
+  setLatin(ctx, 700, 22);
+  centerTracked(ctx, "RUNNING PERFORMANCE GRADE", cxL, 116, 5);
 
-  const tierPx = fitFont(ctx, d.tier, 900, 86, 470, 46);
-  ctx.fillStyle = INK;
-  ctx.fillText(d.tier, L + 56, 200);
+  const tierPx = fitFont(ctx, d.tier, 900, 84, 430, 46);
   const tierW = ctx.measureText(d.tier).width;
+  ctx.fillStyle = INK;
+  ctx.textAlign = "center";
+  ctx.fillText(d.tier, cxL, 202);
 
-  laurel(ctx, L + 30, 178, 110, 1);
-  laurel(ctx, L + 56 + tierW + 34, 178, 110, -1);
+  const lauH = 112;
+  laurel(ctx, cxL - tierW / 2 - 40, 178, lauH, 1);
+  laurel(ctx, cxL + tierW / 2 + 40, 178, lauH, -1);
 
   ctx.fillStyle = INK_SOFT;
-  setFont(ctx, 400, 26);
-  d.desc.forEach((line, i) => ctx.fillText(line, L + 56, 250 + i * 38));
+  setFont(ctx, 400, 25);
+  d.desc.forEach((line, i) => ctx.fillText(line, cxL, 262 + i * 36));
+  ctx.textAlign = "left";
 
   // ── 머리: 단계 배지 ─────────────────────────────────────
-  const bx = R - 150, by = 190, br = 125;
-  const g = ctx.createLinearGradient(bx, by - br, bx, by + br);
-  g.addColorStop(0, "rgba(255,61,26,.30)");
-  g.addColorStop(1, "rgba(255,61,26,.06)");
-  hexagon(ctx, bx, by, br); ctx.fillStyle = g; ctx.fill();
-  ctx.strokeStyle = ACCENT; ctx.lineWidth = 4; ctx.stroke();
-  hexagon(ctx, bx, by, br - 14);
-  ctx.strokeStyle = "rgba(255,61,26,.35)"; ctx.lineWidth = 2; ctx.stroke();
 
-  drawEmblem(ctx, bx - 26, by - 100, 52, ACCENT);
+  // 뒤쪽 발광
+  const glow = ctx.createRadialGradient(bx, by, br * 0.2, bx, by, br * 1.75);
+  glow.addColorStop(0, "rgba(255,61,26,.22)");
+  glow.addColorStop(1, "rgba(255,61,26,0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath(); ctx.arc(bx, by, br * 1.75, 0, Math.PI * 2); ctx.fill();
+
+  // 배지 뒤 월계관 (은은하게)
+  laurel(ctx, bx - br * 0.88, by + 6, br * 1.34, 1, { color: "#C04C2B", alpha: 0.26, sep: "#141416" });
+  laurel(ctx, bx + br * 0.88, by + 6, br * 1.34, -1, { color: "#C04C2B", alpha: 0.26, sep: "#141416" });
+
+  // 바깥 육각 — 두꺼운 테두리
+  const gOuter = ctx.createLinearGradient(bx, by - br, bx, by + br);
+  gOuter.addColorStop(0, "rgba(255,96,60,.34)");
+  gOuter.addColorStop(1, "rgba(110,28,12,.26)");
+  hexagon(ctx, bx, by, br, br * 0.17); ctx.fillStyle = gOuter; ctx.fill();
+  ctx.strokeStyle = "#E8502A"; ctx.lineWidth = 7; ctx.stroke();
+
+  // 안쪽 면 — 깊은 적갈색
+  const gInner = ctx.createLinearGradient(bx, by - br, bx, by + br);
+  gInner.addColorStop(0, "rgba(74,20,11,.96)");
+  gInner.addColorStop(1, "rgba(30,9,5,.96)");
+  hexagon(ctx, bx, by, br - 17, (br - 17) * 0.17);
+  ctx.fillStyle = gInner; ctx.fill();
+
+  // 안쪽 가는 선
+  hexagon(ctx, bx, by, br - 27, (br - 27) * 0.17);
+  ctx.strokeStyle = "rgba(255,130,95,.5)"; ctx.lineWidth = 2; ctx.stroke();
+
+  runner(ctx, bx, by - 66, 56, "#FFE4DA");
+
+  // 별 — 러너 아래 양옆으로 3개씩, 바깥으로 갈수록 작아진다
+  [-1, 1].forEach((sgn) => {
+    [[40, 7, 1], [56, 5.4, 0.78], [70, 4, 0.5]].forEach(([dx, rr, al]) => {
+      star(ctx, bx + sgn * dx, by - 30, rr, "#FF9B78", al);
+    });
+  });
 
   ctx.textAlign = "center";
-  ctx.fillStyle = INK_SOFT;
-  setFont(ctx, 700, 20);
+  ctx.fillStyle = "#FFFFFF";
+  setFont(ctx, 900, 30);
   ctx.letterSpacing = "3px";
-  ctx.fillText("LEVEL", bx, by - 10);
+  ctx.fillText("LEVEL", bx, by + 10);
   ctx.letterSpacing = "0px";
-  ctx.fillStyle = ACCENT;
-  setFont(ctx, 900, 86);
-  ctx.fillText(String(d.step), bx - 14, by + 62);
-  const stepW = ctx.measureText(String(d.step)).width;
-  ctx.fillStyle = INK_FAINT;
-  setFont(ctx, 700, 32);
+
+  // 큰 숫자 — 강조색. 축이 흔들리지 않게 바깥 글자 없이 가운데 하나만 둔다.
+  // '7단계 중 몇 번째'는 아래 '체력 수준 구간' 목록이 그대로 보여준다.
+  const baseY = by + 94;
+  const gNum = ctx.createLinearGradient(0, baseY - 70, 0, baseY);
+  gNum.addColorStop(0, "#FF8A62");
+  gNum.addColorStop(1, "#EF3C16");
+  ctx.fillStyle = gNum;
+  setFont(ctx, 900, 92);
+  ctx.textAlign = "center";
+  ctx.fillText(String(d.step), bx, baseY);
   ctx.textAlign = "left";
-  ctx.fillText(`/${d.steps}`, bx - 14 + stepW / 2 + 8, by + 62);
 
   // ── 기록 줄 ────────────────────────────────────────────
   const barY = 330, barH = 128;
@@ -501,13 +669,26 @@ function drawCard(ctx, d) {
   ctx.fillText("calrank.vercel.app", L + 92, fY + 98);
 
   ctx.fillStyle = INK_FAINT;
-  setFont(ctx, 400, 18);
+  setFont(ctx, 400, 17);
   ctx.textAlign = "right";
   [
     "나이·성별 차이를 근사 반영한 참고용 추정치이며,",
     "공식 통계나 의학적 판단이 아닙니다.",
-  ].forEach((line, i) => ctx.fillText(line, R, fY + 58 + i * 26));
+  ].forEach((line, i) => ctx.fillText(line, R - 150, fY + 52 + i * 24));
+
+  ctx.fillStyle = INK_SOFT;
+  setFont(ctx, 700, 19);
+  ctx.fillText("내 기록도 확인하기", R - 150, fY + 102);
   ctx.textAlign = "left";
+
+  // QR — 카카오톡에 올린 그림을 보고 바로 들어올 수 있게
+  if (d.qr) {
+    const qs = 96;
+    ctx.fillStyle = "#FFFFFF";
+    roundRect(ctx, R - qs - 6, fY + 22, qs + 12, qs + 12, 8);
+    ctx.fill();
+    ctx.drawImage(d.qr, R - qs, fY + 28, qs, qs);
+  }
 }
 
 // ── 데이터 ──────────────────────────────────────────────────
@@ -523,7 +704,7 @@ function cardData(result, inputs) {
 
   return {
     tier: result.tier.label,
-    desc: clampLines(wrapKo(result.tier.desc, 25), 2),
+    desc: clampLines(wrapKo(result.tier.cardDesc || result.tier.desc, 25), 2),
     step: idx + 1,
     steps: slowFirst.length,
     distance: distLabel(distanceKm),
@@ -563,6 +744,17 @@ function wrapKo(text, perLine) {
   return lines;
 }
 
+function loadQr() {
+  return new Promise((resolve) => {
+    try {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);     // QR 이 없어도 카드는 나온다
+      img.src = QR_PNG;
+    } catch (_) { resolve(null); }
+  });
+}
+
 async function buildCardBlob(d) {
   // 한글이 네모로 찍히지 않도록 글꼴이 실제로 올라온 뒤에 그린다
   try {
@@ -573,6 +765,8 @@ async function buildCardBlob(d) {
     ]);
     await document.fonts.ready;
   } catch (_) { /* 글꼴을 못 받아도 기본 글꼴로 그린다 */ }
+
+  d.qr = await loadQr();
 
   const canvas = document.createElement("canvas");
   canvas.width = CARD_W; canvas.height = CARD_H;
