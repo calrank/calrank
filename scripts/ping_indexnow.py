@@ -34,9 +34,13 @@ SITE = "https://calrank.vercel.app"
 HOST = "calrank.vercel.app"
 
 # 네이버와 Bing. 한 곳에만 보내도 서로 공유된다고 하지만, 둘 다 보내 둔다.
+# indexnow.org FAQ 기준 공식 주소. 참여 엔진끼리 제출을 공유하므로
+# 한 곳만 보내도 되지만, 네이버가 주 타깃이라 네이버에도 직접 보낸다.
+# (처음에 api.searchadvisor.naver.com 으로 적었다가 그런 호스트가 없어
+#  DNS 조회부터 실패했다. api. 가 붙지 않는다.)
 ENDPOINTS = [
-    ("네이버", "https://api.searchadvisor.naver.com/indexnow"),
-    ("Bing", "https://api.indexnow.org/indexnow"),
+    ("네이버", "https://searchadvisor.naver.com/indexnow"),
+    ("IndexNow 공용", "https://api.indexnow.org/indexnow"),
 ]
 MAX_URLS = 10000
 KEY_RE = re.compile(r"^[A-Za-z0-9-]{8,128}$")
