@@ -110,14 +110,17 @@ function renderResult(result, inputs) {
 // 비교하기"(= 가입) 하나뿐이고, 방문자의 67%가 모바일이다.
 // 가입을 요구하는 순간 거기서 끊긴다.
 //
-// 그래서 로그인 없이 결과를 이미지로 만들어 준다. 안드로이드·아이폰은
-// 공유 시트로 바로 카카오톡에 올릴 수 있고, 데스크톱은 내려받는다.
+// 넣지 않은 것: 구간별 페이스(1km·2km…)와 네거티브 스플릿.
+// 이 계산기는 완주 시간 하나만 받으므로 구간 기록이 존재하지 않는다.
+// 그 자리에는 실제로 계산되는 거리별 환산 기록을 넣었다.
 // 모든 처리는 브라우저 안에서 끝난다 — 서버로 아무것도 보내지 않는다.
 // ──────────────────────────────────────────────────────────────
 
-const CARD_W = 1080, CARD_H = 1080;
-const BG = "#0B0B0B", ACCENT = "#FF3D1A";
-const INK = "#FFFFFF", INK_SOFT = "#B8B0AC", INK_FAINT = "#7A7470";
+const CARD_W = 1200, CARD_H = 1200;
+const BG = "#0A0A0A", PANEL = "#141414", PANEL_2 = "#101010";
+const LINE = "rgba(255,255,255,.07)";
+const ACCENT = "#FF3D1A", ACCENT_DIM = "#8A2412";
+const INK = "#FFFFFF", INK_SOFT = "#C9C2BE", INK_FAINT = "#7E7874";
 
 function fmtClock(sec) {
   const s = Math.max(0, Math.round(sec));
@@ -151,15 +154,14 @@ function gapToNextTier({ normalizedPace, finishSec, distanceKm, age, gender }) {
     if (TIER_BOUNDS[i][0] < normalizedPace) { nextBound = TIER_BOUNDS[i]; break; }
   }
   if (!nextBound) return null;                       // 이미 최상위 구간
-  const need10kPace = nextBound[0] * af * gf;        // 10km 환산 페이스(초/km)
-  const need10kTime = need10kPace * 10;
-  // riegelTime 의 역: t1 = t2 / (d2/d1)^1.06
-  const needFinish = need10kTime / Math.pow(10 / distanceKm, 1.06);
+  const need10kPace = nextBound[0] * af * gf;
+  const needFinish = (need10kPace * 10) / Math.pow(10 / distanceKm, 1.06);
   const diff = finishSec - needFinish;
   if (!(diff > 0)) return null;
   return { label: nextBound[1], diff };
 }
 
+// ── 그리기 도우미 ────────────────────────────────────────────
 function roundRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -170,88 +172,405 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-// 긴 등급 이름이 카드 밖으로 나가지 않도록 폭에 맞춰 글자 크기를 줄인다
-function fitFont(ctx, text, weight, startPx, maxWidth) {
+function setFont(ctx, weight, px) {
+  ctx.font = `${weight} ${px}px "Noto Sans KR", sans-serif`;
+}
+
+function fitFont(ctx, text, weight, startPx, maxWidth, minPx) {
   let px = startPx;
-  do {
-    ctx.font = `${weight} ${px}px "Noto Sans KR", sans-serif`;
-    if (ctx.measureText(text).width <= maxWidth) break;
-    px -= 4;
-  } while (px > 28);
+  for (;;) {
+    setFont(ctx, weight, px);
+    if (ctx.measureText(text).width <= maxWidth || px <= (minPx || 24)) break;
+    px -= 3;
+  }
   return px;
 }
 
+// 월계수 가지. 줄기에서 바깥쪽으로 잎을 하나씩 뻗는다.
+// 잎이 서로 겹치면 부채꼴 덩어리로 보이므로 간격과 길이를 맞춰 둔다.
+function laurel(ctx, x, y, h, dir) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(dir, 1);
+  ctx.strokeStyle = ACCENT;
+  ctx.lineWidth = Math.max(2, h * 0.022);
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(0, -h / 2);
+  ctx.quadraticCurveTo(-h * 0.20, 0, 0, h / 2);
+  ctx.stroke();
+
+  ctx.fillStyle = ACCENT;
+  const n = 5;
+  const leafL = h * 0.105, leafW = h * 0.032;
+  for (let i = 0; i < n; i++) {
+    const t = (i + 0.5) / n;
+    const py = -h / 2 + t * h;
+    const stemX = -Math.sin(t * Math.PI) * h * 0.20;
+    // 줄기에 수직으로 가까운 방향. 위쪽 잎은 위로, 아래쪽 잎은 아래로 눕는다.
+    const ang = (t - 0.5) * 1.9;
+    ctx.save();
+    ctx.translate(stemX, py);
+    ctx.rotate(ang);
+    ctx.beginPath();
+    ctx.ellipse(-leafL, 0, leafL, leafW, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+// style.css 의 마라톤 엠블럼과 같은 선. 로고 자리에 쓴다.
+// Path2D 에 기대지 않고 직접 긋는다 — 어떤 렌더러에서도 같은 그림이 나온다.
+const EMBLEM_LINES = [
+  [[12, 48], [20, 44], [26, 33], [36, 30]],   // 코스 선
+  [[41, 51], [41, 15]],                        // 결승 기둥
+  [[41, 16], [54, 20], [41, 24]],              // 깃발
+];
+
+function drawEmblem(ctx, x, y, size, color) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(size / 64, size / 64);
+  ctx.strokeStyle = color;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
+  ctx.globalAlpha = 0.32;
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.arc(32, 32, 29, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 3.5;
+  EMBLEM_LINES.forEach((pts) => {
+    ctx.beginPath();
+    pts.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)));
+    ctx.stroke();
+  });
+
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(12, 48, 2.8, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+function hexagon(ctx, cx, cy, r) {
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 3;
+    const px = cx + r * Math.cos(a), py = cy + r * Math.sin(a);
+    i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+  }
+  ctx.closePath();
+}
+
+function iconCircle(ctx, cx, cy, r, kind) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(255,61,26,.10)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,61,26,.45)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.strokeStyle = ACCENT;
+  ctx.fillStyle = ACCENT;
+  ctx.lineWidth = 2.4;
+  ctx.lineCap = "round";
+  const u = r / 30;                       // 30px 기준으로 그린 뒤 비례시킨다
+  if (kind === "clock") {                 // 스톱워치
+    ctx.beginPath(); ctx.arc(cx, cy + 2 * u, 12 * u, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx - 5 * u, cy - 13 * u); ctx.lineTo(cx + 5 * u, cy - 13 * u); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy + 2 * u); ctx.lineTo(cx, cy - 5 * u); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy + 2 * u); ctx.lineTo(cx + 6 * u, cy + 4 * u); ctx.stroke();
+  } else if (kind === "gauge") {          // 속도계
+    ctx.beginPath(); ctx.arc(cx, cy + 5 * u, 12 * u, Math.PI, 0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy + 5 * u); ctx.lineTo(cx + 8 * u, cy - 4 * u); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy + 5 * u, 2.2 * u, 0, Math.PI * 2); ctx.fill();
+  } else {                                // 사람
+    ctx.beginPath(); ctx.arc(cx, cy - 6 * u, 5.5 * u, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy + 14 * u, 11 * u, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+
+// ── 카드 본체 ────────────────────────────────────────────────
 function drawCard(ctx, d) {
   ctx.fillStyle = BG;
   ctx.fillRect(0, 0, CARD_W, CARD_H);
-  ctx.fillStyle = ACCENT;
-  ctx.fillRect(0, 0, CARD_W, 12);
+  const M = 28;
+  ctx.fillStyle = PANEL_2;
+  roundRect(ctx, M, M, CARD_W - M * 2, CARD_H - M * 2, 28);
+  ctx.fill();
+  ctx.strokeStyle = LINE; ctx.lineWidth = 2; ctx.stroke();
 
-  const cx = CARD_W / 2;
-  ctx.textAlign = "center";
+  const L = 72, R = CARD_W - 72;
 
-  // 거리 · 완주시간
-  ctx.fillStyle = INK_SOFT;
-  ctx.font = '700 40px "Noto Sans KR", sans-serif';
-  ctx.fillText(`${d.distance} 완주`, cx, 170);
-
-  ctx.fillStyle = INK;
-  ctx.font = '900 150px "Noto Sans KR", sans-serif';
-  ctx.fillText(d.finish, cx, 320);
-
-  // 등급
-  ctx.fillStyle = ACCENT;
-  fitFont(ctx, d.tier, 900, 96, CARD_W - 160);
-  ctx.fillText(d.tier, cx, 470);
-
+  // ── 머리: 등급 ──────────────────────────────────────────
+  ctx.textAlign = "left";
   ctx.fillStyle = INK_FAINT;
-  ctx.font = '400 34px "Noto Sans KR", sans-serif';
-  ctx.fillText(`${d.age}세 ${d.genderLabel} 기준`, cx, 530);
+  setFont(ctx, 700, 23);
+  ctx.letterSpacing = "4px";
+  ctx.fillText("RUNNING PERFORMANCE GRADE", L + 56, 118);
+  ctx.letterSpacing = "0px";
 
-  // 페이스 · 시속
-  const boxY = 600, boxH = 150, gap = 24, boxW = (CARD_W - 160 - gap) / 2;
-  [["페이스", d.pace], ["시속", d.speed]].forEach(([label, value], i) => {
-    const x = 80 + i * (boxW + gap);
-    ctx.fillStyle = "rgba(255,255,255,.05)";
-    roundRect(ctx, x, boxY, boxW, boxH, 16);
-    ctx.fill();
+  const tierPx = fitFont(ctx, d.tier, 900, 86, 470, 46);
+  ctx.fillStyle = INK;
+  ctx.fillText(d.tier, L + 56, 200);
+  const tierW = ctx.measureText(d.tier).width;
+
+  laurel(ctx, L + 30, 178, 110, 1);
+  laurel(ctx, L + 56 + tierW + 34, 178, 110, -1);
+
+  ctx.fillStyle = INK_SOFT;
+  setFont(ctx, 400, 26);
+  d.desc.forEach((line, i) => ctx.fillText(line, L + 56, 250 + i * 38));
+
+  // ── 머리: 단계 배지 ─────────────────────────────────────
+  const bx = R - 150, by = 190, br = 125;
+  const g = ctx.createLinearGradient(bx, by - br, bx, by + br);
+  g.addColorStop(0, "rgba(255,61,26,.30)");
+  g.addColorStop(1, "rgba(255,61,26,.06)");
+  hexagon(ctx, bx, by, br); ctx.fillStyle = g; ctx.fill();
+  ctx.strokeStyle = ACCENT; ctx.lineWidth = 4; ctx.stroke();
+  hexagon(ctx, bx, by, br - 14);
+  ctx.strokeStyle = "rgba(255,61,26,.35)"; ctx.lineWidth = 2; ctx.stroke();
+
+  drawEmblem(ctx, bx - 26, by - 100, 52, ACCENT);
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = INK_SOFT;
+  setFont(ctx, 700, 20);
+  ctx.letterSpacing = "3px";
+  ctx.fillText("LEVEL", bx, by - 10);
+  ctx.letterSpacing = "0px";
+  ctx.fillStyle = ACCENT;
+  setFont(ctx, 900, 86);
+  ctx.fillText(String(d.step), bx - 14, by + 62);
+  const stepW = ctx.measureText(String(d.step)).width;
+  ctx.fillStyle = INK_FAINT;
+  setFont(ctx, 700, 32);
+  ctx.textAlign = "left";
+  ctx.fillText(`/${d.steps}`, bx - 14 + stepW / 2 + 8, by + 62);
+
+  // ── 기록 줄 ────────────────────────────────────────────
+  const barY = 330, barH = 128;
+  ctx.fillStyle = PANEL;
+  roundRect(ctx, L, barY, R - L, barH, 18); ctx.fill();
+  ctx.strokeStyle = LINE; ctx.lineWidth = 1.5; ctx.stroke();
+
+  const cells = [
+    ["완주 기록", d.finish, d.distance, "clock"],
+    ["페이스", d.pace, "/km", "gauge"],
+    ["비교 기준", `${d.age}세`, d.genderLabel, "person"],
+  ];
+  const cw = (R - L) / 3;
+  cells.forEach(([label, value, unit, icon], i) => {
+    const x0 = L + i * cw;
+    if (i) {
+      ctx.strokeStyle = LINE; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x0, barY + 26); ctx.lineTo(x0, barY + barH - 26); ctx.stroke();
+    }
+    iconCircle(ctx, x0 + 58, barY + barH / 2, 30, icon);
+    ctx.textAlign = "left";
     ctx.fillStyle = INK_FAINT;
-    ctx.font = '400 30px "Noto Sans KR", sans-serif';
-    ctx.fillText(label, x + boxW / 2, boxY + 56);
+    setFont(ctx, 400, 23);
+    ctx.fillText(label, x0 + 102, barY + 54);
     ctx.fillStyle = INK;
-    ctx.font = '900 52px "Noto Sans KR", sans-serif';
-    ctx.fillText(value, x + boxW / 2, boxY + 118);
+    const vPx = fitFont(ctx, value, 900, 44, cw - 190, 26);
+    ctx.fillText(value, x0 + 102, barY + 97);
+    const vw = ctx.measureText(value).width;
+    ctx.fillStyle = INK_SOFT;
+    setFont(ctx, 400, 22);
+    ctx.fillText(unit, x0 + 108 + vw, barY + 97);
   });
 
-  // 다음 등급까지
+  // ── 왼쪽: 거리별 환산 ───────────────────────────────────
+  const pY = 492, pH = 520, pW = (R - L - 28) / 2;
+  ctx.fillStyle = PANEL;
+  roundRect(ctx, L, pY, pW, pH, 18); ctx.fill();
+  ctx.strokeStyle = LINE; ctx.lineWidth = 1.5; ctx.stroke();
+
+  ctx.textAlign = "left";
+  ctx.fillStyle = INK;
+  setFont(ctx, 900, 27);
+  ctx.fillText("거리별 환산 기록", L + 30, pY + 50);
+  ctx.fillStyle = INK_FAINT;
+  setFont(ctx, 400, 20);
+  ctx.fillText("같은 체력이라면 이 정도", L + 30, pY + 82);
+
+  const rowY0 = pY + 118, rowH = 62;
+  d.equivalents.forEach((e, i) => {
+    const y = rowY0 + i * rowH;
+    if (e.current) {
+      ctx.fillStyle = "rgba(255,61,26,.12)";
+      roundRect(ctx, L + 18, y - 22, pW - 36, rowH - 10, 10); ctx.fill();
+      ctx.strokeStyle = "rgba(255,61,26,.5)"; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+    ctx.fillStyle = e.current ? ACCENT : INK_SOFT;
+    setFont(ctx, e.current ? 900 : 400, 25);
+    ctx.fillText(e.label, L + 38, y + 10);
+    ctx.textAlign = "right";
+    ctx.fillStyle = e.current ? ACCENT : INK;
+    setFont(ctx, 900, 30);
+    ctx.fillText(e.time, L + pW - 38, y + 11);
+    ctx.textAlign = "left";
+  });
+
+  const spY = rowY0 + d.equivalents.length * rowH + 18;
+  ctx.fillStyle = "rgba(255,61,26,.08)";
+  roundRect(ctx, L + 18, spY, pW - 36, 86, 12); ctx.fill();
+  iconCircle(ctx, L + 64, spY + 43, 26, "gauge");
+  ctx.fillStyle = INK_FAINT;
+  setFont(ctx, 400, 21);
+  ctx.fillText("평균 속도", L + 106, spY + 36);
+  ctx.fillStyle = INK;
+  setFont(ctx, 900, 36);
+  ctx.fillText(d.speed, L + 106, spY + 72);
+  const spw = ctx.measureText(d.speed).width;
+  ctx.fillStyle = INK_SOFT;
+  setFont(ctx, 400, 20);
+  ctx.fillText("km/h", L + 112 + spw, spY + 72);
+
+  ctx.fillStyle = INK_FAINT;
+  setFont(ctx, 400, 18);
+  ctx.fillText("Riegel 환산식 기준 · 실제 기록과 다를 수 있습니다", L + 30, pY + pH - 26);
+
+  // ── 오른쪽: 체력 수준 구간 ──────────────────────────────
+  const qX = L + pW + 28;
+  ctx.fillStyle = PANEL;
+  roundRect(ctx, qX, pY, pW, pH, 18); ctx.fill();
+  ctx.strokeStyle = LINE; ctx.lineWidth = 1.5; ctx.stroke();
+
+  ctx.fillStyle = INK;
+  setFont(ctx, 900, 27);
+  ctx.fillText("체력 수준 구간", qX + 30, pY + 50);
+  ctx.fillStyle = INK_FAINT;
+  setFont(ctx, 400, 20);
+  ctx.fillText(`${d.age}세 ${d.genderLabel} 기준 · 10km 환산`, qX + 30, pY + 82);
+
+  const tY0 = pY + 104, tH = 44;
+  d.tiers.forEach((t, i) => {
+    const y = tY0 + i * tH;
+    if (t.current) {
+      ctx.fillStyle = ACCENT;
+      roundRect(ctx, qX + 18, y, pW - 36, tH - 7, 8); ctx.fill();
+      ctx.fillStyle = "#fff";
+      setFont(ctx, 900, 23);
+    } else {
+      ctx.fillStyle = "rgba(255,255,255,.035)";
+      roundRect(ctx, qX + 18, y, pW - 36, tH - 7, 8); ctx.fill();
+      ctx.fillStyle = INK_SOFT;
+      setFont(ctx, 400, 22);
+    }
+    ctx.fillText(t.label, qX + 38, y + 26);
+  });
+
   if (d.next) {
+    const nY = tY0 + d.tiers.length * tH + 16;
     ctx.fillStyle = "rgba(255,61,26,.10)";
-    roundRect(ctx, 80, 790, CARD_W - 160, 120, 16);
-    ctx.fill();
+    roundRect(ctx, qX + 18, nY, pW - 36, 64, 10); ctx.fill();
     ctx.fillStyle = INK_SOFT;
-    ctx.font = '400 32px "Noto Sans KR", sans-serif';
-    ctx.fillText(`'${d.next.label}'까지`, cx, 840);
+    setFont(ctx, 400, 20);
+    ctx.fillText(`'${d.next.label}'까지`, qX + 38, nY + 26);
     ctx.fillStyle = ACCENT;
-    ctx.font = '900 54px "Noto Sans KR", sans-serif';
-    ctx.fillText(`${fmtGap(d.next.diff)} 남음`, cx, 898);
+    setFont(ctx, 900, 28);
+    ctx.textAlign = "right";
+    ctx.fillText(`${fmtGap(d.next.diff)} 남음`, qX + pW - 38, nY + 46);
+    ctx.textAlign = "left";
   }
 
-  // 꼬리말
+  // ── 꼬리말 ────────────────────────────────────────────
+  const fY = 1020;
+  ctx.strokeStyle = LINE; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(L, fY); ctx.lineTo(R, fY); ctx.stroke();
+
+  drawEmblem(ctx, L, fY + 26, 74, ACCENT);
   ctx.fillStyle = INK;
-  ctx.font = '900 44px "Noto Sans KR", sans-serif';
-  ctx.letterSpacing = "6px";
-  ctx.fillText("CALRANK", cx, 1000);
+  setFont(ctx, 900, 38);
+  ctx.letterSpacing = "5px";
+  ctx.fillText("CALRANK", L + 92, fY + 70);
   ctx.letterSpacing = "0px";
+  ctx.fillStyle = ACCENT;
+  setFont(ctx, 700, 18);
+  ctx.fillText("calrank.vercel.app", L + 92, fY + 98);
+
   ctx.fillStyle = INK_FAINT;
-  ctx.font = '400 28px "Noto Sans KR", sans-serif';
-  ctx.fillText("calrank.vercel.app · 나이·성별 보정 러닝 등급", cx, 1042);
+  setFont(ctx, 400, 18);
+  ctx.textAlign = "right";
+  [
+    "나이·성별 차이를 근사 반영한 참고용 추정치이며,",
+    "공식 통계나 의학적 판단이 아닙니다.",
+  ].forEach((line, i) => ctx.fillText(line, R, fY + 58 + i * 26));
+  ctx.textAlign = "left";
+}
+
+// ── 데이터 ──────────────────────────────────────────────────
+const EQUIV_DISTANCES = [[5, "5km"], [10, "10km"], [21.0975, "하프"], [42.195, "풀코스"]];
+
+function cardData(result, inputs) {
+  const { finishSec, distanceKm, age, gender } = inputs;
+  const next = gapToNextTier({ normalizedPace: result.normalizedPace, finishSec, distanceKm, age, gender });
+
+  // TIER_BOUNDS 는 빠른 순서다. 카드에는 느린 쪽부터 쌓아 올린다.
+  const slowFirst = TIER_BOUNDS.slice().reverse();
+  const idx = slowFirst.findIndex(([, label]) => label === result.tier.label);
+
+  return {
+    tier: result.tier.label,
+    desc: clampLines(wrapKo(result.tier.desc, 25), 2),
+    step: idx + 1,
+    steps: slowFirst.length,
+    distance: distLabel(distanceKm),
+    finish: fmtClock(finishSec),
+    pace: formatPace(result.actualPaceSec).replace("/km", ""),
+    speed: result.speedKmh.toFixed(1),
+    age,
+    genderLabel: gender === "male" ? "남성" : "여성",
+    equivalents: EQUIV_DISTANCES.map(([km, label]) => ({
+      label,
+      time: fmtClock(Math.abs(km - distanceKm) < 0.05 ? finishSec
+                                                      : riegelTime(finishSec, distanceKm, km)),
+      current: Math.abs(km - distanceKm) < 0.05,
+    })),
+    tiers: slowFirst.map(([, label]) => ({ label, current: label === result.tier.label })),
+    next,
+  };
+}
+
+// 두 줄을 넘기면 문장이 "…볼" 처럼 어중간하게 끊긴다. 말줄임으로 끝맺는다.
+function clampLines(lines, max) {
+  if (lines.length <= max) return lines;
+  const kept = lines.slice(0, max);
+  kept[max - 1] = kept[max - 1].replace(/[\s.]+$/, "") + "…";
+  return kept;
+}
+
+// 설명 문장을 카드 폭에 맞춰 두 줄로 나눈다 (한글은 단어 단위로 끊는다)
+function wrapKo(text, perLine) {
+  const words = String(text || "").split(" ");
+  const lines = []; let cur = "";
+  for (const w of words) {
+    if ((cur + " " + w).trim().length > perLine && cur) { lines.push(cur.trim()); cur = w; }
+    else cur = (cur + " " + w).trim();
+  }
+  if (cur) lines.push(cur);
+  return lines;
 }
 
 async function buildCardBlob(d) {
   // 한글이 네모로 찍히지 않도록 글꼴이 실제로 올라온 뒤에 그린다
   try {
-    await document.fonts.load('900 150px "Noto Sans KR"');
-    await document.fonts.load('400 34px "Noto Sans KR"');
+    await Promise.all([
+      document.fonts.load('900 86px "Noto Sans KR"'),
+      document.fonts.load('700 23px "Noto Sans KR"'),
+      document.fonts.load('400 26px "Noto Sans KR"'),
+    ]);
     await document.fonts.ready;
   } catch (_) { /* 글꼴을 못 받아도 기본 글꼴로 그린다 */ }
 
@@ -259,26 +578,6 @@ async function buildCardBlob(d) {
   canvas.width = CARD_W; canvas.height = CARD_H;
   drawCard(canvas.getContext("2d"), d);
   return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
-}
-
-function cardData(result, inputs) {
-  const next = gapToNextTier({
-    normalizedPace: result.normalizedPace,
-    finishSec: inputs.finishSec,
-    distanceKm: inputs.distanceKm,
-    age: inputs.age,
-    gender: inputs.gender,
-  });
-  return {
-    distance: distLabel(inputs.distanceKm),
-    finish: fmtClock(inputs.finishSec),
-    tier: result.tier.label,
-    age: inputs.age,
-    genderLabel: inputs.gender === "male" ? "남성" : "여성",
-    pace: formatPace(result.actualPaceSec),
-    speed: `${result.speedKmh.toFixed(1)}km/h`,
-    next,
-  };
 }
 
 async function shareCard(result, inputs, btn) {
@@ -293,8 +592,7 @@ async function shareCard(result, inputs, btn) {
     // 모바일이 방문자의 3분의 2다. 공유 시트가 되면 그걸 먼저 쓴다.
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       await navigator.share({ files: [file], title: "내 러닝 등급" });
-      btn.textContent = original;
-      btn.disabled = false;
+      btn.textContent = original; btn.disabled = false;
       return;
     }
     const url = URL.createObjectURL(blob);
@@ -305,7 +603,6 @@ async function shareCard(result, inputs, btn) {
     btn.textContent = "✅ 저장했습니다";
     setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
   } catch (err) {
-    // 공유 시트에서 사용자가 취소한 경우는 오류가 아니다
     if (!(err && err.name === "AbortError")) {
       btn.textContent = "만들지 못했습니다";
       setTimeout(() => { btn.textContent = original; }, 2500);
