@@ -820,6 +820,11 @@ async function buildCardBlob(d) {
 const KAKAO_KEY = "cfdf627cdfe54e49450a13c8ca8109aa";   // 공개용 JavaScript 키
 const PAGE_URL = "https://calrank.vercel.app/level.html";
 const KAKAO_SDK = "https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js";
+// 카카오가 공개한 2.8.3 의 SRI 해시. 받은 파일이 이 해시와 다르면 브라우저가
+// 실행을 거부한다. CDN 이 뚫리거나 중간에서 바꿔치기돼도 남의 코드가 이
+// 페이지에서 돌지 않는다. SDK 버전을 올릴 때 이 값도 같이 바꿔야 한다.
+// 출처: https://developers.kakao.com/docs/latest/ko/javascript/download
+const KAKAO_SRI = "sha384-oroumrnFVE0xtgqyDZJARgERibXg2C28380uaUZz2kHDS5CR7tu20eGiOU6GkTpy";
 
 function loadKakao() {
   return withTimeout(new Promise((resolve, reject) => {
@@ -832,8 +837,10 @@ function loadKakao() {
     if (window.Kakao) { ready(); return; }
     const sc = document.createElement("script");
     sc.src = KAKAO_SDK;
-    sc.crossOrigin = "anonymous";
+    sc.integrity = KAKAO_SRI;
+    sc.crossOrigin = "anonymous";   // integrity 는 CORS 로 받은 파일에만 걸린다
     sc.onload = ready;
+    // 해시가 어긋나도 onerror 로 온다. 카카오 보내기만 막히고 저장·복사는 살아 있다.
     sc.onerror = () => reject(new Error("카카오 SDK 를 불러오지 못했습니다"));
     document.head.appendChild(sc);
   }), 9000, null);
