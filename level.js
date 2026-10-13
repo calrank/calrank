@@ -856,6 +856,45 @@ async function buildCardBlob(d) {
 // 못 본 채 보내게 되고, 데스크톱에서는 카카오톡이 "파일이 복사되었다"고만
 // 하고 실제로 붙여넣기가 안 되는 일이 있었다. 미리 보여주고 저장과 공유를
 // 고르게 하면, 안 되는 경로를 피해 저장 후 첨부로 갈 수 있다.
+// 카카오톡으로 바로 보내기.
+// 운영체제 공유 시트는 받는 앱이 무엇을 할지 우리가 통제할 수 없다.
+// 카카오 SDK 를 쓰면 받는 사람을 고르는 즉시 전달된다. 다만 카카오는
+// "메시지에 이미지를 넣으려면 카카오 서버에 올린 뒤 받은 URL 을 써야 한다"고
+// 규정하므로, 누르기 전에 반드시 알리고 동의를 받는다.
+//
+// 이 페이지는 유입이 가장 많다. SDK 를 늘 불러오면 쓰지 않는 사람까지
+// 값을 치르므로, 버튼을 누른 순간에만 내려받는다.
+const KAKAO_KEY = "cfdf627cdfe54e49450a13c8ca8109aa";   // 공개용 JavaScript 키
+const PAGE_URL = "https://calrank.vercel.app/level.html";
+const KAKAO_SDK = "https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js";
+
+function loadKakao() {
+  return withTimeout(new Promise((resolve, reject) => {
+    const ready = () => {
+      try {
+        if (!window.Kakao.isInitialized()) window.Kakao.init(KAKAO_KEY);
+        resolve(window.Kakao);
+      } catch (e) { reject(e); }
+    };
+    if (window.Kakao) { ready(); return; }
+    const sc = document.createElement("script");
+    sc.src = KAKAO_SDK;
+    sc.crossOrigin = "anonymous";
+    sc.onload = ready;
+    sc.onerror = () => reject(new Error("카카오 SDK 를 불러오지 못했습니다"));
+    document.head.appendChild(sc);
+  }), 9000, null);
+}
+
+// SDK 가 FileList 를 기대한다. File 하나를 FileList 로 감싼다.
+function asFileList(file) {
+  try {
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    return dt.files;
+  } catch (_) { return [file]; }
+}
+
 let cardOverlay = null;
 
 function closeCardPreview() {
@@ -889,6 +928,7 @@ function ensurePreviewStyle() {
   .lvp-save{background:var(--accent,#FF3D1A);color:#fff;}
   .lvp-share{background:#fff;color:#111;}
   .lvp-copy{background:#2A2A2A;color:#fff;}
+  .lvp-kakao{background:#FEE500;color:#191600;}
   .lvp-hint{font-size:12.5px;line-height:1.7;color:#B8B0AC;margin:14px 0 0;}
   .lvp-close{margin:12px 0 0;background:none;border:0;color:#9A9A9A;
     font-size:14px;cursor:pointer;font-family:inherit;padding:8px 14px;}
@@ -896,7 +936,7 @@ function ensurePreviewStyle() {
   document.head.appendChild(st);
 }
 
-function showCardPreview(blob, file) {
+function showCardPreview(blob, file, d) {
   ensurePreviewStyle();
   closeCardPreview();
   const url = URL.createObjectURL(blob);
@@ -918,6 +958,7 @@ function showCardPreview(blob, file) {
     (canCopy ? `<button type="button" class="lvp-copy">이미지 복사</button>` : "") +
     (canShare ? `<button type="button" class="lvp-share">공유하기</button>` : "") +
     `</div>` +
+    `<div class="lvp-row"><button type="button" class="lvp-kakao">카카오톡으로 보내기</button></div>` +
     `<p class="lvp-hint">${canShare
       ? "이미지를 길게 눌러 저장할 수도 있습니다."
       : "복사한 뒤 카카오톡 대화창에 붙여넣기(Ctrl+V)하면 바로 전송됩니다."}</p>` +
@@ -958,6 +999,48 @@ function showCardPreview(blob, file) {
     });
   }
 
+  const kakaoBtn = box.querySelector(".lvp-kakao");
+  if (kakaoBtn) {
+    kakaoBtn.addEventListener("click", async () => {
+      const ok = window.confirm(
+        "카카오톡으로 바로 보내려면 카드 이미지를 카카오 서버에 올려야 합니다.\n" +
+        "올린 이미지는 주소를 아는 사람이면 볼 수 있고, 카카오가 최대 100일 뒤 지웁니다.\n\n" +
+        "올리지 않고 보내려면 '이미지 저장'이나 '이미지 복사'를 쓰세요.\n\n" +
+        "계속할까요?");
+      if (!ok) return;
+
+      const label = kakaoBtn.textContent;
+      kakaoBtn.disabled = true;
+      kakaoBtn.textContent = "올리는 중…";
+      try {
+        const K = await loadKakao();
+        if (!K) throw new Error("카카오 SDK 를 불러오지 못했습니다");
+        const res = await K.Share.uploadImage({ file: asFileList(file) });
+        const infos = (res && (res.infos || res)) || {};
+        const imageUrl = infos.original && infos.original.url;
+        if (!imageUrl) throw new Error("이미지 주소를 받지 못했습니다");
+
+        const link = { webUrl: PAGE_URL, mobileWebUrl: PAGE_URL };
+        K.Share.sendDefault({
+          objectType: "feed",
+          content: {
+            title: `${d.tier} — 내 ${d.distance} 기록 등급`,
+            description: `${d.finish} · 페이스 ${d.pace}/km · ${d.age}세 ${d.genderLabel} 기준`,
+            imageUrl,
+            imageWidth: CARD_W,
+            imageHeight: CARD_H,
+            link,
+          },
+          buttons: [{ title: "내 등급 확인하기", link }],
+        });
+        kakaoBtn.textContent = "카카오톡을 확인하세요";
+      } catch (err) {
+        kakaoBtn.textContent = "보내지 못했습니다";
+      }
+      setTimeout(() => { kakaoBtn.textContent = label; kakaoBtn.disabled = false; }, 2600);
+    });
+  }
+
   box.querySelector(".lvp-close").addEventListener("click", closeCardPreview);
   back.addEventListener("click", (e) => { if (e.target === back) closeCardPreview(); });
   document.addEventListener("keydown", onPreviewKey);
@@ -977,14 +1060,15 @@ async function shareCard(result, inputs, btn) {
   btn.textContent = "카드 만드는 중…";
   try {
     // 단계마다 제한을 뒀지만, 그래도 안 끝나면 버튼은 돌려놓는다.
-    const blob = await withTimeout(buildCardBlob(cardData(result, inputs)), 12000, null);
+    const data = cardData(result, inputs);
+    const blob = await withTimeout(buildCardBlob(data), 12000, null);
     if (!blob) throw new Error("이미지를 만들지 못했습니다");
     // 운영체제 공유 시트로 넘기는 파일은 이름을 영문으로만 쓴다.
     // 윈도우에서 한글 이름 파일을 넘기면 받는 앱이 경로를 못 읽어
     // "복사했다"고만 하고 실제로는 아무것도 전달되지 않는 일이 있다.
     // 내려받을 때 쓰는 이름은 따로 둔다(그쪽은 한글이 문제되지 않는다).
     const file = new File([blob], "calrank-grade.png", { type: "image/png" });
-    showCardPreview(blob, file);
+    showCardPreview(blob, file, data);
     reset(original);
   } catch (err) {
     reset("다시 시도해 주세요", 2500);
