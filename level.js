@@ -883,11 +883,12 @@ function ensurePreviewStyle() {
   .lvp-box{width:100%;max-width:420px;margin:auto;text-align:center;}
   .lvp-img{width:100%;height:auto;max-height:62vh;object-fit:contain;
     border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.6);display:block;margin:0 auto;}
-  .lvp-row{display:flex;gap:10px;margin:16px 0 0;}
-  .lvp-row button{flex:1;padding:14px 10px;border:0;border-radius:10px;
+  .lvp-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0;}
+  .lvp-row button{flex:1 1 40%;padding:14px 10px;border:0;border-radius:10px;
     font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
   .lvp-save{background:var(--accent,#FF3D1A);color:#fff;}
   .lvp-share{background:#fff;color:#111;}
+  .lvp-copy{background:#2A2A2A;color:#fff;}
   .lvp-hint{font-size:12.5px;line-height:1.7;color:#B8B0AC;margin:14px 0 0;}
   .lvp-close{margin:12px 0 0;background:none;border:0;color:#9A9A9A;
     font-size:14px;cursor:pointer;font-family:inherit;padding:8px 14px;}
@@ -905,25 +906,42 @@ function showCardPreview(blob, file) {
   back.dataset.url = url;
 
   const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  // 클립보드에 그림을 직접 넣을 수 있으면 그 길을 연다. 카카오톡 대화창에
+  // Ctrl+V 로 바로 붙으므로, 운영체제 공유 시트를 거치지 않아도 된다.
+  const canCopy = !!(navigator.clipboard && window.ClipboardItem && navigator.clipboard.write);
   const box = document.createElement("div");
   box.className = "lvp-box";
   box.innerHTML =
     `<img class="lvp-img" alt="내 러닝 등급 카드" src="${url}">` +
     `<div class="lvp-row">` +
     `<button type="button" class="lvp-save">이미지 저장</button>` +
+    (canCopy ? `<button type="button" class="lvp-copy">이미지 복사</button>` : "") +
     (canShare ? `<button type="button" class="lvp-share">공유하기</button>` : "") +
     `</div>` +
     `<p class="lvp-hint">${canShare
       ? "이미지를 길게 눌러 저장할 수도 있습니다."
-      : "저장한 뒤 카카오톡·인스타그램 등에 첨부해 주세요."}</p>` +
+      : "복사한 뒤 카카오톡 대화창에 붙여넣기(Ctrl+V)하면 바로 전송됩니다."}</p>` +
     `<button type="button" class="lvp-close">닫기</button>`;
   back.appendChild(box);
 
   box.querySelector(".lvp-save").addEventListener("click", () => {
     const a = document.createElement("a");
-    a.href = url; a.download = file.name;
+    a.href = url; a.download = "calrank-내등급.png";
     document.body.appendChild(a); a.click(); a.remove();
   });
+
+  const copyBtn = box.querySelector(".lvp-copy");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        copyBtn.textContent = "복사했습니다";
+      } catch (_) {
+        copyBtn.textContent = "저장해 주세요";
+      }
+      setTimeout(() => { copyBtn.textContent = "이미지 복사"; }, 2200);
+    });
+  }
 
   const shareBtn = box.querySelector(".lvp-share");
   if (shareBtn) {
@@ -961,7 +979,11 @@ async function shareCard(result, inputs, btn) {
     // 단계마다 제한을 뒀지만, 그래도 안 끝나면 버튼은 돌려놓는다.
     const blob = await withTimeout(buildCardBlob(cardData(result, inputs)), 12000, null);
     if (!blob) throw new Error("이미지를 만들지 못했습니다");
-    const file = new File([blob], "calrank-내등급.png", { type: "image/png" });
+    // 운영체제 공유 시트로 넘기는 파일은 이름을 영문으로만 쓴다.
+    // 윈도우에서 한글 이름 파일을 넘기면 받는 앱이 경로를 못 읽어
+    // "복사했다"고만 하고 실제로는 아무것도 전달되지 않는 일이 있다.
+    // 내려받을 때 쓰는 이름은 따로 둔다(그쪽은 한글이 문제되지 않는다).
+    const file = new File([blob], "calrank-grade.png", { type: "image/png" });
     showCardPreview(blob, file);
     reset(original);
   } catch (err) {
