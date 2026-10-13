@@ -1,0 +1,60 @@
+name: Ping IndexNow
+
+# 손으로 돌리는 색인 알림.
+#
+# 왜 필요한가
+#   생성 워크플로에 IndexNow 알림을 붙이기 전에 만들어진 페이지들이 있다.
+#   (목표 시간 페이지, 거리별 등급 칼럼 등) 사이트맵에는 올라가 있지만
+#   네이버·Bing 에는 한 번도 알린 적이 없다. 그렇게 밀린 페이지를 한 번에
+#   보내기 위한 수동 레버다. 평소에는 각 생성 워크플로가 알아서 보낸다.
+#
+# 쓰는 법
+#   Actions 탭 → Ping IndexNow → Run workflow → paths 에 글로브를 넣는다.
+#   예) goal-*.html        목표 시간 페이지 전부
+#       grade*.html        등급표 전부
+#       column-*.html      칼럼 전부
+#   여러 개는 공백으로 띄워 넣는다. 한 요청에 10,000개까지 받는다.
+#
+# 주의
+#   구글은 IndexNow 를 지원하지 않는다. 네이버와 Bing 만 받는다.
+#   구글 쪽은 사이트맵과 내부 링크에 계속 기대야 한다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: "보낼 .html 글로브 (공백 구분). 예: goal-*.html grade*.html"
+        required: true
+        default: "goal-*.html"
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Collect pages
+        # 글로브는 env 를 거쳐 받는다. ${{ }} 를 셸 안에 그대로 펼치면
+        # 입력이 명령으로 실행될 수 있다.
+        env:
+          PATHS: ${{ inputs.paths }}
+        run: |
+          : > "$RUNNER_TEMP/changed_files.txt"
+          for g in $PATHS; do
+            ls -1 $g 2>/dev/null >> "$RUNNER_TEMP/changed_files.txt" || true
+          done
+          sort -u "$RUNNER_TEMP/changed_files.txt" -o "$RUNNER_TEMP/changed_files.txt"
+          echo "모은 페이지 $(wc -l < "$RUNNER_TEMP/changed_files.txt")개"
+          head -20 "$RUNNER_TEMP/changed_files.txt"
+
+      - name: Notify IndexNow
+        env:
+          CHANGED_FILES: ${{ runner.temp }}/changed_files.txt
+        run: python scripts/ping_indexnow.py
