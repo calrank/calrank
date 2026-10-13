@@ -876,7 +876,8 @@ function ensurePreviewStyle() {
   const st = document.createElement("style");
   st.id = "lvPreviewStyle";
   st.textContent = `
-  .lvp-back{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);
+  .lvp-back{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.93);
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
     display:flex;align-items:center;justify-content:center;padding:18px;
     overflow-y:auto;-webkit-overflow-scrolling:touch;}
   .lvp-box{width:100%;max-width:420px;margin:auto;text-align:center;}
