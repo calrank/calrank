@@ -299,7 +299,15 @@ async function init() {
   const pageDesc = window.EVENT_STATIC_DESC || (isFirstEdition
     ? `${ev.name} 대회 정보와 접수 일정을 확인하세요. 이번이 첫 회차라 아직 후기·평점이 없습니다 — 첫 대회평을 남겨보세요.`
     : `${ev.name} 대회 후기, 대회평, 참가자 별점과 총평을 확인하고 일정·접수 정보도 함께 보세요.`);
-  const pageUrl = window.EVENT_STATIC_URL || `https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}`;
+  // 같은 대회가 두 주소로 열린다. 정적 페이지(/e/<id>.html)와 쿼리 주소
+  // (event.html?id=...)다. 전에는 쿼리 주소가 자기 자신을 정본으로 가리켜,
+  // 구글이 둘을 중복으로 보고 양쪽 다 색인에서 떨어뜨렸다. (서치콘솔
+  // "크롤링됨 - 현재 색인이 생성되지 않음" 에 실제로 올라와 있었다)
+  // 어느 쪽으로 들어오든 정적 페이지를 정본으로 지정해 한쪽으로 모은다.
+  // 대회 id 에는 영문·숫자·한글·하이픈만 들어가므로 생성 스크립트의
+  // quote() 와 encodeURIComponent 의 결과가 같다.
+  const pageUrl = window.EVENT_STATIC_URL
+    || `https://calrank.vercel.app/e/${encodeURIComponent(ev.id)}.html`;
 
   document.title = pageTitle;
   document.getElementById("pageTitleTag").textContent = pageTitle;
