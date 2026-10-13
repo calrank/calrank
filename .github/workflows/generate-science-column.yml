@@ -31,6 +31,9 @@ jobs:
       - name: Sync navigation
         run: python scripts/sync_nav.py
 
+      - name: Sync favicon declarations
+        run: python scripts/sync_icons.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"

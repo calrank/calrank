@@ -66,6 +66,9 @@ jobs:
         # 따로 적어 두어 114개 페이지에 8종류가 돌아다녔다.
         run: python scripts/sync_nav.py
 
+      - name: Sync favicon declarations
+        run: python scripts/sync_icons.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"
