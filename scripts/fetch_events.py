@@ -1149,6 +1149,54 @@ def _top_regions(events: list[dict], today_iso: str, limit: int = 3) -> list[str
     return [name for name, _n in ranked[:limit]]
 
 
+# 홈 화면의 대회 목록은 script.js 가 events.json 을 받아 그린다. 그래서 서버가
+# 내려주는 index.html 에는 대회가 한 건도 없고, 목록 자리에 "대회를 불러오는 중…"
+# 만 남아 있었다. 자바스크립트를 돌리지 않는 크롤러에게 홈은 빈 페이지였다.
+# 제목은 "2026 마라톤 대회 일정"인데 정작 대회가 없으니, 그 검색어에 대한
+# 관련성이 생기지 않는다. (네이버 '마라톤 대회 일정' 노출 0회)
+#
+# 그래서 가까운 대회를 서버 HTML 로 미리 심는다. script.js 는 render() 에서
+# grid.innerHTML = "" 로 이 자리를 비우고 다시 그리므로, 사람이 보는 화면은
+# 그대로다. 자바스크립트가 늦거나 꺼져 있으면 이 목록이 그대로 보인다.
+HOME_PRERENDER_LIMIT = 60
+
+SPORT_TAG = {"marathon": "MAR", "cycling": "BIK", "trail": "TRL",
+             "triathlon": "TRI", "inline": "INL"}
+SPORT_VAR = {"marathon": "--marathon", "cycling": "--cycling", "trail": "--trail",
+             "triathlon": "--triathlon", "inline": "--inline"}
+
+
+def _h(value) -> str:
+    """HTML 특수문자를 막는다. 대회 이름은 주최측이 적은 글이라 그대로 믿지 않는다."""
+    return (str(value or "")
+            .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;"))
+
+
+def _home_cards(upcoming: list[dict]) -> str:
+    rows = sorted(upcoming, key=lambda e: str(e.get("date") or ""))[:HOME_PRERENDER_LIMIT]
+    out = []
+    for ev in rows:
+        try:
+            d = datetime.strptime(str(ev.get("date")), "%Y-%m-%d").date()
+            when = f"{d.month}월 {d.day}일"
+        except (TypeError, ValueError):
+            when = ""
+        sport = str(ev.get("sport") or "marathon")
+        meta = " · ".join(x for x in (_h(ev.get("location")), when,
+                                      _h(ev.get("organizer"))) if x)
+        out.append(
+            f'<a class="event-card" href="e/{quote(str(ev.get("id")))}.html"'
+            f' style="--sport-color:var({SPORT_VAR.get(sport, "--marathon")});">'
+            f'<span class="ev-tag">{SPORT_TAG.get(sport, "MAR")}</span>'
+            f'<div class="event-body"><div class="event-top">'
+            f'<span class="event-name">{_h(ev.get("name"))}</span></div>'
+            f'<p class="event-meta">{meta}</p></div>'
+            f'<span class="event-chevron">\u203a</span></a>'
+        )
+    return "\n".join(out)
+
+
 def refresh_home_meta(events: list[dict]) -> None:
     path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), HOME_PATH)
     if not os.path.exists(path):
@@ -1202,6 +1250,13 @@ def refresh_home_meta(events: list[dict]) -> None:
              "메디오폰도), 철인3종(트라이애슬론)·아쿠아슬론, 인라인 대회 일정을 "
              "함께 담았습니다.")
     swap(r'<p class="hero-lead"[^>]*>.*?</p>', f'<p class="hero-lead">{lead}</p>')
+
+    # 목록 자리에 가까운 대회를 미리 심는다 (위 HOME_PRERENDER_LIMIT 주석 참고).
+    swap(r'<p class="result-count" id="resultCount">.*?</p>',
+         f'<p class="result-count" id="resultCount">예정 대회 {len(upcoming)}개</p>')
+    swap(r'(<section class="event-list" id="eventGrid"[^>]*>).*?(</section>)',
+         f'<section class="event-list" id="eventGrid" aria-live="polite">\n'
+         f'{_home_cards(upcoming)}\n</section>')
 
     if html != before:
         with open(path, "w", encoding="utf-8") as f:
