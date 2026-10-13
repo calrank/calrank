@@ -95,7 +95,10 @@ def build_summary(ev: dict) -> str:
     else:
         parts.append(f"{name}{josa_eun_neun(name)} {when}에 {verb} {sport} 대회입니다.")
 
-    dist = [x for x in (ev.get("distances") or []) if x]
+    # 원본에 낱개와 합친 문자열이 섞여 들어온다. 목록 페이지에만 쓰던
+    # 손질을 여기에도 건다. 안 그러면 "26km, 18km, 10km, 26km,18km,10km"
+    # 처럼 같은 거리가 두 번 찍힌다. (822개 중 34개가 이 상태였다)
+    dist = dedupe_distances(ev.get("distances"))
     if dist:
         parts.append(f"종목은 {', '.join(dist)}입니다.")
 
@@ -308,7 +311,7 @@ def build_static_content(ev: dict) -> str:
         f'<div class="modal-fields" style="margin-top:24px;">'
         f'<div class="modal-field-row"><span class="k">일시</span><span class="v">{esc(when)}</span></div>'
         f'<div class="modal-field-row"><span class="k">장소</span><span class="v">{esc(ev.get("location") or "미확인")}</span></div>'
-        f'<div class="modal-field-row"><span class="k">종목/거리</span><span class="v">{esc(" / ".join(ev.get("distances") or []))}</span></div>'
+        f'<div class="modal-field-row"><span class="k">종목/거리</span><span class="v">{esc(" / ".join(dedupe_distances(ev.get("distances"))))}</span></div>'
         f'<div class="modal-field-row"><span class="k">주최</span><span class="v">{organizer}</span></div>'
         f'</div>'
         f'<a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" '
