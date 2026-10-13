@@ -103,8 +103,8 @@ function renderResult(result, inputs) {
                `<span class="level-tier-step">${i + 1}</span><span>${label}</span></div>`;
       }).join("")}
     </div>
-    <button type="button" class="lv-share-btn" id="lvShareBtn">📷 이미지로 저장 · 공유하기</button>
-    <p class="lv-share-hint">가입하지 않아도 됩니다. 이미지는 휴대폰 안에서 만들어지고 서버로 올라가지 않습니다.</p>
+    <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
+    <p class="lv-share-hint">카드를 먼저 보여드립니다. 확인하고 저장하거나 공유하세요. 가입하지 않아도 되고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
   `;
   el.style.display = "block";
   const shareBtn = document.getElementById("lvShareBtn");
@@ -850,6 +850,103 @@ async function buildCardBlob(d) {
 }
 
 
+// 만든 카드를 먼저 보여준다.
+//
+// 전에는 버튼을 누르면 곧바로 운영체제 공유 시트가 떴다. 자기가 뭘 보내는지
+// 못 본 채 보내게 되고, 데스크톱에서는 카카오톡이 "파일이 복사되었다"고만
+// 하고 실제로 붙여넣기가 안 되는 일이 있었다. 미리 보여주고 저장과 공유를
+// 고르게 하면, 안 되는 경로를 피해 저장 후 첨부로 갈 수 있다.
+let cardOverlay = null;
+
+function closeCardPreview() {
+  if (!cardOverlay) return;
+  if (cardOverlay.dataset.url) URL.revokeObjectURL(cardOverlay.dataset.url);
+  cardOverlay.remove();
+  cardOverlay = null;
+  document.removeEventListener("keydown", onPreviewKey);
+  document.body.style.overflow = "";
+}
+
+function onPreviewKey(e) {
+  if (e.key === "Escape") closeCardPreview();
+}
+
+function ensurePreviewStyle() {
+  if (document.getElementById("lvPreviewStyle")) return;
+  const st = document.createElement("style");
+  st.id = "lvPreviewStyle";
+  st.textContent = `
+  .lvp-back{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);
+    display:flex;align-items:center;justify-content:center;padding:18px;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .lvp-box{width:100%;max-width:420px;margin:auto;text-align:center;}
+  .lvp-img{width:100%;height:auto;max-height:62vh;object-fit:contain;
+    border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.6);display:block;margin:0 auto;}
+  .lvp-row{display:flex;gap:10px;margin:16px 0 0;}
+  .lvp-row button{flex:1;padding:14px 10px;border:0;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .lvp-save{background:var(--accent,#FF3D1A);color:#fff;}
+  .lvp-share{background:#fff;color:#111;}
+  .lvp-hint{font-size:12.5px;line-height:1.7;color:#B8B0AC;margin:14px 0 0;}
+  .lvp-close{margin:12px 0 0;background:none;border:0;color:#9A9A9A;
+    font-size:14px;cursor:pointer;font-family:inherit;padding:8px 14px;}
+  `;
+  document.head.appendChild(st);
+}
+
+function showCardPreview(blob, file) {
+  ensurePreviewStyle();
+  closeCardPreview();
+  const url = URL.createObjectURL(blob);
+
+  const back = document.createElement("div");
+  back.className = "lvp-back";
+  back.dataset.url = url;
+
+  const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  const box = document.createElement("div");
+  box.className = "lvp-box";
+  box.innerHTML =
+    `<img class="lvp-img" alt="내 러닝 등급 카드" src="${url}">` +
+    `<div class="lvp-row">` +
+    `<button type="button" class="lvp-save">이미지 저장</button>` +
+    (canShare ? `<button type="button" class="lvp-share">공유하기</button>` : "") +
+    `</div>` +
+    `<p class="lvp-hint">${canShare
+      ? "이미지를 길게 눌러 저장할 수도 있습니다."
+      : "저장한 뒤 카카오톡·인스타그램 등에 첨부해 주세요."}</p>` +
+    `<button type="button" class="lvp-close">닫기</button>`;
+  back.appendChild(box);
+
+  box.querySelector(".lvp-save").addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = url; a.download = file.name;
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  const shareBtn = box.querySelector(".lvp-share");
+  if (shareBtn) {
+    // 여기서 부르면 사용자가 방금 누른 동작이라 공유가 막히지 않는다.
+    shareBtn.addEventListener("click", async () => {
+      try {
+        await navigator.share({ files: [file], title: "내 러닝 등급" });
+      } catch (err) {
+        if (err && err.name !== "AbortError") {
+          shareBtn.textContent = "저장해 주세요";
+          setTimeout(() => { shareBtn.textContent = "공유하기"; }, 2000);
+        }
+      }
+    });
+  }
+
+  box.querySelector(".lvp-close").addEventListener("click", closeCardPreview);
+  back.addEventListener("click", (e) => { if (e.target === back) closeCardPreview(); });
+  document.addEventListener("keydown", onPreviewKey);
+  document.body.style.overflow = "hidden";
+  document.body.appendChild(back);
+  cardOverlay = back;
+}
+
 async function shareCard(result, inputs, btn) {
   const original = btn.textContent;
   const reset = (msg, wait) => {
@@ -864,24 +961,8 @@ async function shareCard(result, inputs, btn) {
     const blob = await withTimeout(buildCardBlob(cardData(result, inputs)), 12000, null);
     if (!blob) throw new Error("이미지를 만들지 못했습니다");
     const file = new File([blob], "calrank-내등급.png", { type: "image/png" });
-
-    // 모바일이 방문자의 3분의 2다. 공유 시트가 되면 그걸 먼저 쓴다.
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({ files: [file], title: "내 러닝 등급" });
-        reset(original);
-        return;
-      } catch (err) {
-        if (err && err.name === "AbortError") { reset(original); return; }
-        // 공유 시트가 거부되면(사용자 동작 시간 초과 등) 저장으로 넘어간다.
-      }
-    }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url; a.download = file.name;
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
-    reset("✅ 저장했습니다", 2500);
+    showCardPreview(blob, file);
+    reset(original);
   } catch (err) {
     reset("다시 시도해 주세요", 2500);
   }
