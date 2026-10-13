@@ -791,66 +791,112 @@ function wrapKo(text, perLine) {
   return lines;
 }
 
+// 약속이 끝나지 않으면 버튼이 "카드 만드는 중…" 에서 그대로 멈춘다.
+// 단계마다 시간 제한을 두고, 지나면 포기하고 다음으로 넘어간다.
+function withTimeout(p, ms, fallback) {
+  return Promise.race([
+    Promise.resolve(p).then((v) => v, () => fallback),
+    new Promise((r) => setTimeout(() => r(fallback), ms)),
+  ]);
+}
+
 function loadQr() {
-  return new Promise((resolve) => {
+  return withTimeout(new Promise((resolve) => {
     try {
       const img = new Image();
       img.onload = () => resolve(img);
       img.onerror = () => resolve(null);     // QR 이 없어도 카드는 나온다
       img.src = QR_PNG;
     } catch (_) { resolve(null); }
+  }), 3000, null);
+}
+
+// 한글 웹폰트는 유니코드 구간별로 수십 개 파일로 쪼개져 있다.
+// 쓸 글자를 넘겨 필요한 구간만 받게 한다. 넘기지 않으면 전부 받으려 들고,
+// 하나라도 안 끝나면 document.fonts.ready 가 영영 끝나지 않는다.
+function ensureFonts(d) {
+  if (!document.fonts || !document.fonts.load) return Promise.resolve(null);
+  const sample = [
+    d.tier, (d.desc || []).join(""), d.distance, d.genderLabel,
+    (d.tiers || []).map((t) => t.label).join(""),
+    (d.equivalents || []).map((e) => e.label).join(""),
+    d.next ? d.next.label : "",
+    "완주기록페이스비교기준거리별환산체력수준구간평균속도최고남음세남성여성초분시간",
+  ].join("");
+  return withTimeout(Promise.all([
+    document.fonts.load('900 86px "Noto Sans KR"', sample),
+    document.fonts.load('700 23px "Noto Sans KR"', sample),
+    document.fonts.load('400 26px "Noto Sans KR"', sample),
+  ]), 2500, null);
+}
+
+// toBlob 콜백을 끝내 부르지 않는 기기가 있다. 데이터 URL 로 우회한다.
+function canvasToBlob(canvas) {
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (b) => { if (!done) { done = true; resolve(b); } };
+    const timer = setTimeout(() => {
+      try {
+        const base64 = canvas.toDataURL("image/png").split(",")[1];
+        const bin = atob(base64);
+        const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        finish(new Blob([arr], { type: "image/png" }));
+      } catch (_) { finish(null); }
+    }, 4000);
+    try {
+      canvas.toBlob((b) => { clearTimeout(timer); finish(b); }, "image/png");
+    } catch (_) { clearTimeout(timer); finish(null); }
   });
 }
 
-async function buildCardBlob(d) {
-  // 한글이 네모로 찍히지 않도록 글꼴이 실제로 올라온 뒤에 그린다
-  try {
-    await Promise.all([
-      document.fonts.load('900 86px "Noto Sans KR"'),
-      document.fonts.load('700 23px "Noto Sans KR"'),
-      document.fonts.load('400 26px "Noto Sans KR"'),
-    ]);
-    await document.fonts.ready;
-  } catch (_) { /* 글꼴을 못 받아도 기본 글꼴로 그린다 */ }
 
+async function buildCardBlob(d) {
+  // 글꼴을 못 받아도 기본 글꼴로 그린다. 기다리다 멈추는 것보다 낫다.
+  await ensureFonts(d);
   d.qr = await loadQr();
 
   const canvas = document.createElement("canvas");
   canvas.width = CARD_W; canvas.height = CARD_H;
   drawCard(canvas.getContext("2d"), d);
-  return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+  return canvasToBlob(canvas);
 }
+
 
 async function shareCard(result, inputs, btn) {
   const original = btn.textContent;
+  const reset = (msg, wait) => {
+    btn.textContent = msg;
+    btn.disabled = false;
+    if (wait) setTimeout(() => { btn.textContent = original; }, wait);
+  };
   btn.disabled = true;
   btn.textContent = "카드 만드는 중…";
   try {
-    const blob = await buildCardBlob(cardData(result, inputs));
+    // 단계마다 제한을 뒀지만, 그래도 안 끝나면 버튼은 돌려놓는다.
+    const blob = await withTimeout(buildCardBlob(cardData(result, inputs)), 12000, null);
     if (!blob) throw new Error("이미지를 만들지 못했습니다");
     const file = new File([blob], "calrank-내등급.png", { type: "image/png" });
 
     // 모바일이 방문자의 3분의 2다. 공유 시트가 되면 그걸 먼저 쓴다.
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: "내 러닝 등급" });
-      btn.textContent = original; btn.disabled = false;
-      return;
+      try {
+        await navigator.share({ files: [file], title: "내 러닝 등급" });
+        reset(original);
+        return;
+      } catch (err) {
+        if (err && err.name === "AbortError") { reset(original); return; }
+        // 공유 시트가 거부되면(사용자 동작 시간 초과 등) 저장으로 넘어간다.
+      }
     }
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url; a.download = file.name;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 10000);
-    btn.textContent = "✅ 저장했습니다";
-    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
+    reset("✅ 저장했습니다", 2500);
   } catch (err) {
-    if (!(err && err.name === "AbortError")) {
-      btn.textContent = "만들지 못했습니다";
-      setTimeout(() => { btn.textContent = original; }, 2500);
-    } else {
-      btn.textContent = original;
-    }
-    btn.disabled = false;
+    reset("다시 시도해 주세요", 2500);
   }
 }
 
