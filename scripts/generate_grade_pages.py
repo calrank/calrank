@@ -390,9 +390,12 @@ def build_page(dist, gender):
     dk, gk = dist["key"], gender["key"]
     slug = slug_for(dk, gk)
     title = f"{dist['search']} 기록 등급표 ({gender['label']}·나이별) — 내 러닝 수준 확인 | calrank"
+    # 본문 ref_line 과 같은 40세 경계를 쓴다. 소개와 페이지가 어긋나면 안 된다.
+    ref40 = fmt_time(boundary_seconds(390, 40, gk, dist["km"]))
     desc = (
-        f"{dist['label']} 완주 기록이 어느 수준인지 나이별로 정리한 {gender['label']} 등급표입니다. "
-        f"20대부터 75세까지 연령별 기준 기록을 표로 확인하고, 계산기로 내 기록을 바로 대입해 보세요."
+        f"40세 {gender['label']} {dist['search']} '평균 이상' 경계는 {ref40}입니다. "
+        f"20세부터 75세까지 한 살 단위 {gender['label']} 등급 기준을 표에서 확인하고 "
+        f"내 기록을 바로 대입해 보세요."
     )
     h1 = f"{dist['search']} 기록 등급표 — {gender['label']}·나이별"
 
@@ -478,8 +481,11 @@ def build_page(dist, gender):
 def build_hub():
     slug = "grade.html"
     title = "러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank"
-    desc = ("5km·10km·하프·풀코스 완주 기록이 어느 수준인지 나이와 성별까지 반영해 정리한 "
-            "러닝 기록 등급표입니다. 거리와 성별을 골라 바로 확인하세요.")
+    # 같은 등급이라도 나이·성별에 따라 기록이 달라진다는 점을 숫자로 먼저 보인다.
+    hub_m = fmt_time(boundary_seconds(390, 40, "male", 10.0))
+    hub_f = fmt_time(boundary_seconds(390, 65, "female", 10.0))
+    desc = (f"40세 남성 10km {hub_m}, 65세 여성 {hub_f} — 둘 다 같은 '평균 이상' 등급입니다. "
+            f"5km·10km·하프·풀코스 완주 기록을 나이와 성별까지 반영해 정리했습니다.")
 
     cards = []
     for d in DISTANCES:
@@ -635,17 +641,19 @@ def build_age_page(dist, decade):
     ages = decade_ages(decade)
     rname = run_name(dist)
     title = f"{decade}대 {rname} 기록 — 남녀 나이별 등급표 | calrank"
-    desc = (
-        f"{ages[0]}세부터 {ages[-1]}세까지 {rname} 기록이 어느 수준인지 "
-        f"한 살 단위로 정리했습니다. 남녀 등급 기준 기록을 표에서 찾고, "
-        f"계산기로 내 기록을 바로 대입해 보세요."
-    )
     h1 = f"{decade}대 {rname} 기록 등급표 — 남녀 한 살 단위"
 
-    # 본문에 쓸 실제 수치. 연령대 가운데 나이의 '평균 이상' 경계.
+    # 본문과 소개에 쓸 실제 수치. 연령대 가운데 나이의 '평균 이상' 경계.
     mid = ages[len(ages) // 2]
     ref_m = fmt_time(boundary_seconds(390, mid, "male", dist["km"]))
     ref_f = fmt_time(boundary_seconds(390, mid, "female", dist["km"]))
+
+    # 검색 결과에서 보이는 두 줄이다. 범위를 설명하는 대신 숫자를 먼저 보여
+    # 준다. 클릭할지 말지는 "내 기록이 이 안쪽인가"로 갈리기 때문이다.
+    desc = (
+        f"{mid}세 기준 {ref_m}(남성) · {ref_f}(여성) 안에 들어오면 '평균 이상'입니다. "
+        f"{decade}대 {rname} 기록을 한 살 단위 표에서 확인하고 내 기록을 바로 대입해 보세요."
+    )
 
     lead = (
         f"{decade}대에 {rname}을 뛰고 나면 \"이 정도면 괜찮은 건가\" 싶어집니다. "
