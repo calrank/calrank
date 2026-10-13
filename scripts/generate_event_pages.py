@@ -17,8 +17,12 @@ import json
 import math
 import re
 from datetime import date, datetime, timedelta
+import sys
 from pathlib import Path
 from urllib.parse import quote
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from site_nav import site_header  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://calrank.vercel.app"
@@ -378,7 +382,12 @@ def _norm_name(name: str) -> str:
 def _ev_link(ev: dict) -> str:
     d = parse_date(ev.get("date"))
     when = f"{d.year}.{d.month:02d}.{d.day:02d}" if d else ""
-    bits = [b for b in (ev.get("region"), ev.get("location")) if b and b != "미정"]
+    # 장소가 지역명과 같을 때가 있다 ("경기 · 경기"). 같은 값은 한 번만 쓴다.
+    bits = []
+    for b in (ev.get("region"), ev.get("location")):
+        b = (b or "").strip()
+        if b and b != "미정" and b not in bits:
+            bits.append(b)
     return (f'<li><a href="e/{esc(quote(str(ev["id"])))}.html">'
             f'<b>{esc(ev.get("name") or "대회")}</b></a> '
             f'<span>{esc(when)}{" · " + esc(bits[0]) if bits else ""}</span></li>')
@@ -547,8 +556,13 @@ def write_event_index(wanted: dict) -> None:
         items = []
         for ev in rows:
             d = parse_date(ev["date"])
-            bits = [b for b in (ev.get("region"), ev.get("location")) if b and b != "미정"]
-            dist = " · ".join(str(x) for x in (ev.get("distances") or [])[:4] if x)
+            # 장소가 지역명과 같을 때가 있다 ("경기 · 경기"). 같은 값은 한 번만 쓴다.
+            bits = []
+            for b in (ev.get("region"), ev.get("location")):
+                b = (b or "").strip()
+                if b and b != "미정" and b not in bits:
+                    bits.append(b)
+            dist = " · ".join(dedupe_distances(ev.get("distances"))[:4])
             if dist:
                 bits.append(dist)
             items.append(
@@ -627,7 +641,226 @@ def write_event_index(wanted: dict) -> None:
     print(f"[events-index] 예정 대회 {total}개를 {len(by_month)}개 달로 묶어 링크")
 
 
+# ── 지난 대회 보관소 ──────────────────────────────────────────
 ARCHIVE_PATH = ROOT / "events-archive.html"
+
+# 이만큼 열린 달만 따로 페이지를 준다. 더 적은 달은 목차에 그대로 펼친다.
+# 대회 두세 개짜리 페이지를 만들어 봐야 읽을 것도, 검색될 것도 없다.
+ARCHIVE_MONTH_MIN = 20
+
+ARCHIVE_CSS = """
+  .ei-wrap{max-width:860px;margin:0 auto;padding:32px 18px 80px;}
+  .ei-lead{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}
+  .ei-lead a{color:var(--accent,#FF3D1A);text-decoration:none;border-bottom:1px solid rgba(255,61,26,.4);}
+  .ei-lead a:hover{border-bottom-color:var(--accent,#FF3D1A);}
+  .ei-month{margin:0 0 34px;}
+  .ei-month h2{font-size:16px;margin:0 0 12px;padding-bottom:8px;
+    border-bottom:1px solid var(--line,#222);}
+  .ei-list{list-style:none;margin:0;padding:0;}
+  .ei-list li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:13.5px;line-height:1.6;}
+  .ei-list a{color:inherit;text-decoration:none;}
+  .ei-list a:hover b{text-decoration:underline;}
+  .ei-list span{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}
+  .ar-months{list-style:none;margin:0 0 34px;padding:0;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+  .ar-months li{border:1px solid var(--line,#222);border-radius:10px;padding:14px 16px;}
+  .ar-months a{color:inherit;text-decoration:none;display:block;}
+  .ar-months a:hover strong{text-decoration:underline;}
+  .ar-months strong{display:block;font-size:14.5px;margin-bottom:4px;}
+  .ar-months em{font-style:normal;color:var(--ink-faint);font-size:12px;line-height:1.6;}
+  .ar-pager{display:flex;justify-content:space-between;gap:12px;margin:34px 0 0;
+    padding-top:18px;border-top:1px solid var(--line,#222);font-size:13px;}
+  .ar-pager a{color:var(--ink-soft);text-decoration:none;}
+  .ar-pager a:hover{text-decoration:underline;}
+"""
+
+
+def dedupe_distances(values) -> list[str]:
+    """거리 목록을 손질한다.
+
+    원본에 ['10km', '5km', '10km · 5km'] 처럼 낱개와 합친 문자열이 섞여 들어와
+    화면에 "10km · 5km · 10km · 5km" 로 찍혔다. 합친 것은 쪼개고 중복만 뺀다.
+    """
+    out, seen = [], set()
+    for v in (values or []):
+        for part in re.split(r"[·,/]|\s+및\s+", str(v)):
+            part = part.strip()
+            if part and part not in seen:
+                seen.add(part)
+                out.append(part)
+    return out
+
+
+def archive_slug(key: str) -> str:
+    return f"events-archive-{key}.html"
+
+
+def month_label(key: str) -> str:
+    year, month = key.split("-")
+    return f"{year}년 {int(month)}월"
+
+
+def archive_month_mix(rows: list[dict]) -> str:
+    """그 달의 지역·거리 분포를 한 문장으로. 대회 이름은 쓰지 않는다."""
+    regions: dict[str, int] = {}
+    dists: dict[str, int] = {}
+    for ev in rows:
+        r = (ev.get("region") or "").strip()
+        if r and r != "전국":
+            regions[r] = regions.get(r, 0) + 1
+        for d in (ev.get("distances") or []):
+            d = str(d).strip()
+            if d:
+                dists[d] = dists.get(d, 0) + 1
+    bits = []
+    top_r = sorted(regions.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
+    if top_r:
+        bits.append(" · ".join(f"{k} {n}개" for k, n in top_r))
+    top_d = sorted(dists.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
+    if top_d:
+        bits.append("거리는 " + "·".join(k for k, _ in top_d) + " 중심")
+    return ", ".join(bits)
+
+
+def archive_items(rows: list[dict]) -> str:
+    out = []
+    for ev in sorted(rows, key=lambda e: (e.get("date") or ""), reverse=True):
+        d = parse_date(ev["date"])
+        # 장소가 지역명과 같을 때가 있다 ("경기 · 경기"). 같은 값은 한 번만 쓴다.
+        bits = []
+        for b in (ev.get("region"), ev.get("location")):
+            b = (b or "").strip()
+            if b and b != "미정" and b not in bits:
+                bits.append(b)
+        dist = " · ".join(dedupe_distances(ev.get("distances"))[:4])
+        if dist:
+            bits.append(dist)
+        out.append(
+            f'<li><a href="e/{esc(quote(str(ev["id"])))}.html">'
+            f'<b>{esc(ev.get("name") or "대회")}</b></a> '
+            f'<span>{d.month}월 {d.day}일'
+            + (f' · {esc(" · ".join(bits))}' if bits else "")
+            + "</span></li>"
+        )
+    return "\n".join(out)
+
+
+def archive_shell(title: str, desc: str, canonical: str, body: str) -> str:
+    return f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{SITE}/{canonical}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<link rel="stylesheet" href="style.css">
+<style>{ARCHIVE_CSS}</style>
+</head>
+<body>
+{site_header("calendar")}
+
+<main class="ei-wrap">
+{body}
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p class="footer-links"><a href="events-index.html">전국 대회 일정 전체 목록</a> ·
+<a href="events-archive.html">지난 대회 기록</a> ·
+<a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> ·
+<a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+</body>
+</html>
+"""
+
+
+def build_archive_month(key, rows, prev_key, next_key) -> str:
+    label = month_label(key)
+    mix = archive_month_mix(rows)
+    desc = (f"{label}에 열린 국내 마라톤·트레일러닝·자전거·철인3종 대회 "
+            f"{len(rows)}개 목록입니다." + (f" {mix}." if mix else "")
+            + " 대회별 코스 거리, 장소, 개최일을 확인할 수 있습니다.")
+    pager = []
+    if next_key:
+        pager.append(f'<a href="{archive_slug(next_key)}">← {month_label(next_key)}</a>')
+    else:
+        pager.append("<span></span>")
+    if prev_key:
+        pager.append(f'<a href="{archive_slug(prev_key)}">{month_label(prev_key)} →</a>')
+    else:
+        pager.append("<span></span>")
+    body = (
+        f"<h1>{label}에 열린 마라톤 대회</h1>\n"
+        f'<p class="ei-lead">{esc(desc)} 앞으로 열릴 대회는 '
+        '<a href="events-index.html">전국 대회 일정 전체 목록</a>, '
+        '달별 전체 목록은 <a href="events-archive.html">지난 대회 기록 보관소</a>에 있습니다.</p>\n'
+        f'<section class="ei-month">\n<ul class="ei-list">\n{archive_items(rows)}\n</ul>\n</section>\n'
+        f'<nav class="ar-pager">{"".join(pager)}</nav>'
+    )
+    title = f"{label} 마라톤 대회 {len(rows)}개 — 지난 대회 기록 | calrank"
+    return archive_shell(title, desc, archive_slug(key), body)
+
+
+def build_archive_hub(by_month, keys, own_page, total) -> str:
+    desc = (f"이미 열린 국내 마라톤·트레일러닝·자전거·철인3종 대회 {total}개를 "
+            f"{len(keys)}개 달로 나눠 모은 기록 보관소입니다. "
+            "대회별 코스 거리, 장소, 개최일을 확인할 수 있습니다.")
+    cards, inline = [], []
+    for key in keys:
+        rows = by_month[key]
+        mix = archive_month_mix(rows)
+        if key in own_page:
+            cards.append(
+                f'<li><a href="{archive_slug(key)}">'
+                f"<strong>{month_label(key)} · {len(rows)}개</strong>"
+                + (f"<em>{esc(mix)}</em>" if mix else "")
+                + "</a></li>"
+            )
+        else:
+            inline.append(
+                f'<section class="ei-month">\n'
+                f"<h2>{month_label(key)}에 열린 대회 ({len(rows)}개)</h2>\n"
+                f'<ul class="ei-list">\n{archive_items(rows)}\n</ul>\n</section>'
+            )
+    body = (
+        "<h1>지난 마라톤 대회 기록 보관소</h1>\n"
+        f'<p class="ei-lead">{esc(desc)} 앞으로 열릴 대회를 찾으신다면 '
+        '<a href="events-index.html">전국 대회 일정 전체 목록</a>을 보세요. '
+        '종목별 완주 기록 순위는 <a href="ranking.html">대회랭킹</a>에 있습니다.</p>\n'
+        + (f'<ul class="ar-months">\n{chr(10).join(cards)}\n</ul>\n' if cards else "")
+        + ("".join(chr(10) + s for s in inline))
+    )
+    title = f"지난 마라톤 대회 기록 {total}개 | 월별 대회 결과 보관소 - calrank"
+    return archive_shell(title, desc, "events-archive.html", body)
+
+
+def update_sitemap(slugs) -> int:
+    path = ROOT / "sitemap.xml"
+    if not path.exists():
+        return 0
+    xml = path.read_text(encoding="utf-8")
+    marker = "</urlset>"
+    added, count = "", 0
+    for slug in slugs:
+        loc = f"{SITE}/{slug}"
+        if f"<loc>{loc}</loc>" in xml:
+            continue
+        added += ("  <url>\n"
+                  f"    <loc>{loc}</loc>\n"
+                  "    <changefreq>monthly</changefreq>\n"
+                  "    <priority>0.5</priority>\n"
+                  "  </url>\n")
+        count += 1
+    if added and marker in xml:
+        path.write_text(xml.replace(marker, added + marker), encoding="utf-8")
+    return count
+
 
 
 def write_event_archive(wanted: dict) -> None:
@@ -637,6 +870,11 @@ def write_event_archive(wanted: dict) -> None:
     남겨 두는데, 그쪽도 링크가 없으면 똑같이 외톨이가 된다.
     "○○마라톤 기록", "2026 ○○마라톤 결과" 는 대회가 끝난 뒤에 검색되므로
     페이지를 남겨 둔 의미가 있으려면 닿을 수 있어야 한다.
+
+    한 장에 555개를 전부 담았더니 151KB가 됐다. 방문자의 3분의 2가
+    휴대폰이라 그 무게를 그대로 내려받게 하는 건 낭비다. 달이 쌓일수록
+    더 나빠지기만 한다. 그래서 큰 달은 각자 페이지로 떼고, 남는 자리에는
+    달마다 지역·거리 분포를 적어 목차 자체가 읽을거리가 되게 한다.
     """
     today = date.today()
     by_month: dict[str, list[dict]] = {}
@@ -650,96 +888,38 @@ def write_event_archive(wanted: dict) -> None:
     if not total:
         if ARCHIVE_PATH.exists():
             ARCHIVE_PATH.unlink()
+        for old in ROOT.glob("events-archive-20*.html"):
+            old.unlink()
         print("[events-archive] 지난 대회 없음")
         return
 
-    sections = []
-    for key in sorted(by_month, reverse=True):      # 최근 달이 위로
-        year, month = key.split("-")
-        rows = sorted(by_month[key], key=lambda e: (e.get("date") or ""), reverse=True)
-        items = []
-        for ev in rows:
-            d = parse_date(ev["date"])
-            bits = [b for b in (ev.get("region"), ev.get("location")) if b and b != "미정"]
-            dist = " · ".join(str(x) for x in (ev.get("distances") or [])[:4] if x)
-            if dist:
-                bits.append(dist)
-            items.append(
-                f'<li><a href="e/{esc(quote(str(ev["id"])))}.html">'
-                f'<b>{esc(ev.get("name") or "대회")}</b></a> '
-                f'<span>{d.month}월 {d.day}일'
-                + (f' · {esc(" · ".join(bits))}' if bits else "")
-                + "</span></li>"
-            )
-        sections.append(
-            f'<section class="ei-month">\n'
-            f'<h2>{year}년 {int(month)}월에 열린 대회 ({len(rows)}개)</h2>\n'
-            f'<ul class="ei-list">\n' + "\n".join(items) + "\n</ul>\n</section>"
-        )
+    keys = sorted(by_month, reverse=True)           # 최근 달이 위로
+    own_page = [k for k in keys if len(by_month[k]) >= ARCHIVE_MONTH_MIN]
 
-    desc = (f"이미 열린 국내 마라톤·트레일러닝·자전거·철인3종 대회 {total}개를 "
-            "월별로 모은 기록 보관소입니다. 대회별 코스 거리, 장소, 개최일을 "
-            "확인할 수 있습니다.")
-    html_out = f"""<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>지난 마라톤 대회 기록 {total}개 | 월별 대회 결과 보관소 - calrank</title>
-<meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{SITE}/events-archive.html">
-<meta property="og:title" content="지난 마라톤 대회 기록 보관소 - calrank">
-<meta property="og:description" content="{esc(desc)}">
-<link rel="stylesheet" href="style.css">
-<style>
-  .ei-wrap{{max-width:860px;margin:0 auto;padding:32px 18px 80px;}}
-  .ei-lead{{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}}
-  .ei-month{{margin:0 0 34px;}}
-  .ei-month h2{{font-size:16px;margin:0 0 12px;padding-bottom:8px;
-    border-bottom:1px solid var(--line,#222);}}
-  .ei-list{{list-style:none;margin:0;padding:0;}}
-  .ei-list li{{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
-    font-size:13.5px;line-height:1.6;}}
-  .ei-list a{{color:inherit;text-decoration:none;}}
-  .ei-list a:hover b{{text-decoration:underline;}}
-  .ei-list span{{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}}
-</style>
-</head>
-<body>
-<header class="site-header">
-<div class="wrap header-inner">
-<a href="index.html" class="wordmark">CALRANK</a>
-<nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
-<a href="ranking.html" class="nav-link">대회랭킹</a>
-<a href="news.html" class="nav-link">종목뉴스</a>
-<a href="column.html" class="nav-link">칼럼</a>
-<a href="grade.html" class="nav-link">등급표</a>
-</nav>
-</div>
-</header>
+    written: list[str] = []
+    for i, key in enumerate(own_page):
+        prev_key = own_page[i + 1] if i + 1 < len(own_page) else None   # 더 과거
+        next_key = own_page[i - 1] if i > 0 else None                   # 더 최근
+        slug = archive_slug(key)
+        html = build_archive_month(key, by_month[key], prev_key, next_key)
+        path = ROOT / slug
+        if not path.exists() or path.read_text(encoding="utf-8") != html:
+            path.write_text(html, encoding="utf-8")
+        written.append(slug)
 
-<main class="ei-wrap">
-<h1>지난 마라톤 대회 기록 보관소</h1>
-<p class="ei-lead">{esc(desc)} 앞으로 열릴 대회를 찾으신다면
-<a href="events-index.html">전국 대회 일정 전체 목록</a>을 보세요.
-종목별 완주 기록 순위는 <a href="ranking.html">대회랭킹</a>에 있습니다.</p>
-{"".join(chr(10) + s for s in sections)}
-</main>
+    # 기준에 못 미치게 된 달의 페이지는 남겨 두면 외톨이가 된다.
+    for old in ROOT.glob("events-archive-20*.html"):
+        if old.name not in written:
+            old.unlink()
+            print(f"[events-archive] {old.name} 삭제 (대회 수가 기준 미만)")
 
-<footer class="site-footer">
-<div class="wrap">
-<p class="footer-links"><a href="events-index.html">전국 대회 일정 전체 목록</a> ·
-<a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> ·
-<a href="contact.html">제휴·광고 문의</a></p>
-</div>
-</footer>
-</body>
-</html>
-"""
-    if not ARCHIVE_PATH.exists() or ARCHIVE_PATH.read_text(encoding="utf-8") != html_out:
-        ARCHIVE_PATH.write_text(html_out, encoding="utf-8")
-    print(f"[events-archive] 지난 대회 {total}개를 {len(by_month)}개 달로 묶어 링크")
+    hub = build_archive_hub(by_month, keys, own_page, total)
+    if not ARCHIVE_PATH.exists() or ARCHIVE_PATH.read_text(encoding="utf-8") != hub:
+        ARCHIVE_PATH.write_text(hub, encoding="utf-8")
+
+    added = update_sitemap(["events-archive.html"] + written)
+    print(f"[events-archive] 지난 대회 {total}개 · 달 {len(keys)}개 "
+          f"(단독 페이지 {len(written)}개) · sitemap 추가 {added}개")
 
 
 def main():
