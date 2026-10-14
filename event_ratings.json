@@ -64376,9 +64376,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-2026-한강런-2026-10-24": {
-    "indexScore": 21,
+    "indexScore": 25,
     "tier": "브론즈",
-    "score": 22,
+    "score": 26,
     "maxScore": 105,
     "criteria": [
       {
@@ -64393,7 +64393,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": false,
+        "achieved": true,
         "weight": 4
       },
       {
