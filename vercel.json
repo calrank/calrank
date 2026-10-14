@@ -1242,6 +1242,11 @@
       "permanent": true
     },
     {
+      "source": "/e/ro-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-2026-10-24.html",
+      "destination": "/e/rm-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-2026-10-24.html",
+      "permanent": true
+    },
+    {
       "source": "/e/ro-2026-%ED%95%9C%EA%B8%80%EB%9F%B0-2026-10-09.html",
       "destination": "/e/rr-2026-%ED%95%9C%EA%B8%80%EB%9F%B0-2026-10-09.html",
       "permanent": true
@@ -1559,6 +1564,11 @@
     {
       "source": "/e/ro-%EC%B6%A9%EC%A3%BC-%EC%95%99%EC%84%B1-%EB%B9%84%EB%82%B4%EA%B8%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-10-10.html",
       "destination": "/e/rr-%EC%B6%A9%EC%A3%BC-%EC%95%99%EC%84%B1-%EB%B9%84%EB%82%B4%EA%B8%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%ED%9A%8C-2026-10-10.html",
+      "permanent": true
+    },
+    {
+      "source": "/e/ro-%ED%94%84%EB%A6%AC%EB%8D%A4-%EC%9B%8C%ED%81%AC-%EB%9F%B0-2026-2026-10-24.html",
+      "destination": "/e/rm-%ED%94%84%EB%A6%AC%EB%8D%A4-%EC%9B%8C%ED%81%AC-%EB%9F%B0-2026-2026-10-24.html",
       "permanent": true
     },
     {
