@@ -1,45 +1,36 @@
 // calrank 내 체력 등급 확인 — 로그인 없이 바로 계산 (전부 브라우저에서 처리)
 
-const AGE_ANCHORS = [
-  [20, 0.90], [30, 0.93], [40, 0.96], [50, 1.00], [60, 1.10], [70, 1.25], [80, 1.45],
-];
-
-const GENDER_FACTOR = { male: 1.00, female: 1.11 };
-
-// 오름차순(빠른 순): bound = 해당 등급의 '느린 쪽' 경계 (초/km)
+// 등급 기준축은 WMA(세계마스터즈육상연맹) 2025 도로 연령 기준표다.
+// 연령등급 % = 그 나이·성별의 기준기록 ÷ 내 기록 × 100. 100%가 세계기록 수준이고,
+// 어느 age-grading 계산기에 넣어도 같은 값이 나온다. 표와 출처는 wma-standards.js에.
+//
+// 내림차순(빠른 순). 값은 그 등급을 받기 위한 연령등급 % 하한.
 const TIER_BOUNDS = [
-  [240, "상당한 러너", "동호인 최상위권입니다. 이 페이스를 꾸준히 유지하는 것 자체가 훈련이 잘 되어 있다는 뜻이에요.", "동호인 최상위권입니다. 훈련이 잘 되어 있다는 뜻이에요."],
-  [270, "러닝 상급자", "동호인 사이에서도 확실히 빠른 편입니다. 대회에서 상위권을 노려볼 만한 수준이에요.", "동호인 사이에서도 확실히 빠른 편입니다. 대회 상위권을 노려볼 만해요."],
-  [300, "매우 좋은 편", "평균을 크게 웃도는 체력입니다. 꾸준한 훈련이 실제 기록으로 잘 전환되고 있어요.", "평균을 크게 웃도는 체력입니다. 훈련이 기록으로 잘 전환되고 있어요."],
-  [348, "상당히 좋은 편", "일반적인 동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이라고 볼 수 있어요.", "동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이에요."],
-  [390, "평균 이상", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달리고 계신 게 기록으로 드러나고 있어요.", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달린 게 드러나고 있어요."],
-  [450, "보통", "일반적인 체력 수준입니다. 지금의 페이스도 꾸준히 유지하면 좋은 기반이 됩니다.", "일반적인 체력 수준입니다. 지금 페이스를 유지하면 좋은 기반이 돼요."],
-  [540, "초보/기초체력", "이제 막 시작하는 단계이거나 기초체력을 다지는 중이에요. 완주 자체가 의미 있는 시작입니다.", "기초체력을 다지는 단계입니다. 완주 자체가 의미 있는 시작이에요."],
+  [72, "상당한 러너", "동호인 최상위권입니다. 이 페이스를 꾸준히 유지하는 것 자체가 훈련이 잘 되어 있다는 뜻이에요.", "동호인 최상위권입니다. 훈련이 잘 되어 있다는 뜻이에요."],
+  [65, "러닝 상급자", "동호인 사이에서도 확실히 빠른 편입니다. 대회에서 상위권을 노려볼 만한 수준이에요.", "동호인 사이에서도 확실히 빠른 편입니다. 대회 상위권을 노려볼 만해요."],
+  [59, "매우 좋은 편", "평균을 크게 웃도는 체력입니다. 꾸준한 훈련이 실제 기록으로 잘 전환되고 있어요.", "평균을 크게 웃도는 체력입니다. 훈련이 기록으로 잘 전환되고 있어요."],
+  [51, "상당히 좋은 편", "일반적인 동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이라고 볼 수 있어요.", "동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이에요."],
+  [45, "꾸준한 러너", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달리고 계신 게 기록으로 드러나고 있어요.", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달린 게 드러나고 있어요."],
+  [39, "보통", "일반적인 체력 수준입니다. 지금의 페이스도 꾸준히 유지하면 좋은 기반이 됩니다.", "일반적인 체력 수준입니다. 지금 페이스를 유지하면 좋은 기반이 돼요."],
+  [0, "이제 시작", "이제 막 시작하는 단계이거나 기초체력을 다지는 중이에요. 완주 자체가 의미 있는 시작입니다.", "기초체력을 다지는 단계입니다. 완주 자체가 의미 있는 시작이에요."],
 ];
 
-function riegelTime(t1Sec, d1Km, d2Km) {
-  return t1Sec * Math.pow(d2Km / d1Km, 1.06);
+// WMA가 보간 없이 직접 산출하는 네 거리.
+const DIST_KEY = [[5, "5km"], [10, "10km"], [21.0975, "half"], [42.195, "full"]];
+
+function distKey(km) {
+  for (const [v, k] of DIST_KEY) if (Math.abs(km - v) < 0.05) return k;
+  return null;
 }
 
-function ageFactor(age) {
-  if (age <= AGE_ANCHORS[0][0]) return AGE_ANCHORS[0][1];
-  if (age >= AGE_ANCHORS[AGE_ANCHORS.length - 1][0]) return AGE_ANCHORS[AGE_ANCHORS.length - 1][1];
-  for (let i = 0; i < AGE_ANCHORS.length - 1; i++) {
-    const [a0, f0] = AGE_ANCHORS[i];
-    const [a1, f1] = AGE_ANCHORS[i + 1];
-    if (age >= a0 && age <= a1) {
-      const ratio = (age - a0) / (a1 - a0);
-      return f0 + (f1 - f0) * ratio;
-    }
-  }
+function wmaStd(gender, km, age) {
+  const k = distKey(km);
+  return k ? wmaStandard(gender, k, age) : null;
 }
 
-function getTier(paceSecPerKm) {
-  for (const [bound, label, desc, cardDesc] of TIER_BOUNDS) {
-    if (paceSecPerKm <= bound) return { label, desc, cardDesc };
-  }
-  const last = TIER_BOUNDS[TIER_BOUNDS.length - 1];
-  return { label: last[1], desc: last[2], cardDesc: last[3] };
+function getTier(pct) {
+  const row = TIER_BOUNDS.find((r) => pct >= r[0]) || TIER_BOUNDS[TIER_BOUNDS.length - 1];
+  return { bound: row[0], label: row[1], desc: row[2], cardDesc: row[3] };
 }
 
 // 거리별로 현실적인 기록 범위. 랭킹 화면과 같은 경계를 쓴다.
@@ -70,16 +61,13 @@ function analyze({ finishSec, distanceKm, age, gender }) {
   const actualPaceSec = finishSec / distanceKm;
   const speedKmh = distanceKm / (finishSec / 3600);
 
-  const equiv10kTime = riegelTime(finishSec, distanceKm, 10);
-  const equiv10kPace = equiv10kTime / 10;
+  // 연령등급 % 하나가 등급을 정한다. 거리마다 WMA 기준기록이 따로 있어서
+  // 거리끼리 환산할 필요가 없다.
+  const std = wmaStd(gender, distanceKm, age);
+  const agePct = std ? (std / finishSec) * 100 : null;
+  const tier = agePct === null ? null : getTier(agePct);
 
-  const af = ageFactor(age);
-  const gf = GENDER_FACTOR[gender];
-  const normalizedPace = equiv10kPace / af / gf;
-
-  const tier = getTier(normalizedPace);
-
-  return { actualPaceSec, speedKmh, equiv10kPace, normalizedPace, tier };
+  return { actualPaceSec, speedKmh, agePct, tier };
 }
 
 function renderResult(result, inputs) {
@@ -95,7 +83,7 @@ function renderResult(result, inputs) {
       <div class="level-stat"><span class="level-stat-label">시속</span><span class="level-stat-value">${speedKmh.toFixed(1)}km/h</span></div>
       <div class="level-stat"><span class="level-stat-label">비교 기준</span><span class="level-stat-value">${inputs.age}세 ${genderLabel}</span></div>
     </div>
-    <p class="level-tier-table-title">체력 수준 구간 (${inputs.age}세 ${genderLabel} 기준, 10km 환산)</p>
+    <p class="level-tier-table-title">체력 수준 구간 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
     <div class="level-tier-table">
       ${TIER_BOUNDS.slice().reverse().map(([bound, label], i) => {
         const isCurrent = label === tier.label;
@@ -180,18 +168,18 @@ function distLabel(km) {
 
 // 다음(더 빠른) 등급까지 얼마나 줄여야 하는지. 이 페이지의 모델을
 // 그대로 거꾸로 푼 값이라 화면에 보이는 등급과 어긋나지 않는다.
-function gapToNextTier({ normalizedPace, finishSec, distanceKm, age, gender }) {
-  const af = ageFactor(age), gf = GENDER_FACTOR[gender];
-  let nextBound = null;
+function gapToNextTier({ agePct, finishSec, distanceKm, age, gender }) {
+  let next = null;
   for (let i = TIER_BOUNDS.length - 1; i >= 0; i--) {
-    if (TIER_BOUNDS[i][0] < normalizedPace) { nextBound = TIER_BOUNDS[i]; break; }
+    if (TIER_BOUNDS[i][0] > agePct) { next = TIER_BOUNDS[i]; break; }
   }
-  if (!nextBound) return null;                       // 이미 최상위 구간
-  const need10kPace = nextBound[0] * af * gf;
-  const needFinish = (need10kPace * 10) / Math.pow(10 / distanceKm, 1.06);
+  if (!next) return null;                       // 이미 최상위 구간
+  const std = wmaStd(gender, distanceKm, age);
+  if (!std) return null;
+  const needFinish = std / (next[0] / 100);     // 그 등급을 받는 가장 느린 기록
   const diff = finishSec - needFinish;
   if (!(diff > 0)) return null;
-  return { label: nextBound[1], diff };
+  return { label: next[1], diff };
 }
 
 // ── 그리기 도우미 ────────────────────────────────────────────
@@ -570,7 +558,7 @@ function drawCard(ctx, d) {
 
   ctx.fillStyle = INK_FAINT;
   setFont(ctx, 400, 18);
-  ctx.fillText("Riegel 환산식 기준 · 실제 기록과 다를 수 있습니다", L + 30, pY + pH - 26);
+  ctx.fillText("WMA 연령 기준표로 환산 · 실제 기록과 다를 수 있습니다", L + 30, pY + pH - 26);
 
   // ── 오른쪽: 체력 수준 구간 ──────────────────────────────
   const qX = L + pW + 28;
@@ -583,7 +571,7 @@ function drawCard(ctx, d) {
   ctx.fillText("체력 수준 구간", qX + 30, pY + 50);
   ctx.fillStyle = INK_FAINT;
   setFont(ctx, 400, 20);
-  ctx.fillText(`${d.age}세 ${d.genderLabel} 기준 · 10km 환산`, qX + 30, pY + 82);
+  ctx.fillText(`${d.age}세 ${d.genderLabel} ${d.distance} 기준`, qX + 30, pY + 82);
 
   const tY0 = pY + 104, tH = 44;
   const chipX = qX + 30, chipW = 44;
@@ -653,8 +641,8 @@ function drawCard(ctx, d) {
   setFont(ctx, 400, 17);
   ctx.textAlign = "right";
   [
-    "나이·성별 차이를 근사 반영한 참고용 추정치이며,",
-    "공식 통계나 의학적 판단이 아닙니다.",
+    `연령등급 ${d.agePct}% · WMA 2025 연령 기준표`,
+    "공인 기록이 아닌 참고용입니다.",
   ].forEach((line, i) => ctx.fillText(line, R - 150, fY + 52 + i * 24));
 
   ctx.fillStyle = INK_SOFT;
@@ -673,11 +661,20 @@ function drawCard(ctx, d) {
 }
 
 // ── 데이터 ──────────────────────────────────────────────────
+// 같은 연령등급을 다른 거리에서 내려면 몇 분이 걸리는지.
+// Riegel 환산식 대신 WMA 기준기록끼리의 비율을 쓴다. 네 거리 모두 WMA가
+// 직접 산출한 값이라, 경험식으로 메우는 것보다 실제 기록 분포에 가깝다.
+function equivTime(finishSec, fromKm, toKm, age, gender) {
+  const a = wmaStd(gender, fromKm, age), b = wmaStd(gender, toKm, age);
+  if (!a || !b) return finishSec * (toKm / fromKm);
+  return finishSec * (b / a);
+}
+
 const EQUIV_DISTANCES = [[5, "5km"], [10, "10km"], [21.0975, "하프"], [42.195, "풀코스"]];
 
 function cardData(result, inputs) {
   const { finishSec, distanceKm, age, gender } = inputs;
-  const next = gapToNextTier({ normalizedPace: result.normalizedPace, finishSec, distanceKm, age, gender });
+  const next = gapToNextTier({ agePct: result.agePct, finishSec, distanceKm, age, gender });
 
   // TIER_BOUNDS 는 빠른 순서다. 카드에는 느린 쪽부터 쌓아 올린다.
   const slowFirst = TIER_BOUNDS.slice().reverse();
@@ -687,6 +684,7 @@ function cardData(result, inputs) {
     tier: result.tier.label,
     desc: clampLines(wrapKo(result.tier.cardDesc || result.tier.desc, 25), 2),
     step: idx + 1,
+    agePct: result.agePct === null ? "–" : result.agePct.toFixed(1),
     steps: slowFirst.length,
     distance: distLabel(distanceKm),
     finish: fmtClock(finishSec),
@@ -697,7 +695,7 @@ function cardData(result, inputs) {
     equivalents: EQUIV_DISTANCES.map(([km, label]) => ({
       label,
       time: fmtClock(Math.abs(km - distanceKm) < 0.05 ? finishSec
-                                                      : riegelTime(finishSec, distanceKm, km)),
+                                                      : equivTime(finishSec, distanceKm, km, age, gender)),
       current: Math.abs(km - distanceKm) < 0.05,
     })),
     tiers: slowFirst.map(([, label], i) => ({ label, step: i + 1, current: label === result.tier.label })),

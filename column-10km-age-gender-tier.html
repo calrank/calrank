@@ -200,7 +200,7 @@ calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink
 
 <a href="level.html" class="cert-cta" style="margin-top:0;">
 <span class="cc-ico">🧮</span>
-<span class="cc-txt"><b>기록을 직접 넣어 계산하기</b><span>Riegel 공식으로 거리를 환산해 다른 거리 기록까지 같은 잣대로 비교합니다.</span></span>
+<span class="cc-txt"><b>기록을 직접 넣어 계산하기</b><span>WMA 연령 기준표로 5km·하프·풀코스까지 같은 잣대로 비교합니다.</span></span>
 <span class="cc-go">계산하기 →</span>
 </a>
 
@@ -222,31 +222,32 @@ calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink
 <p>성별 격차는 나이가 들수록 오히려 좁혀지는 경향이 있습니다. 20~30대에는 남녀 인터미디엇 기준 차이가 약 7~8분이지만, 60대에는 격차가 더 벌어지는 구간도 있어 일괄적이지 않습니다 — 정확한 수치는 위 표를 직접 비교해보시는 게 가장 정확합니다.</p>
 
 <h2>이 등급은 어떻게 나왔나 — 계산 과정 전부 공개</h2>
-<p>러닝 등급표는 많지만, <b>숫자가 어디서 나왔는지 직접 확인할 수 있는 곳은 드뭅니다.</b> 체감이나 커뮤니티 의견으로 구간을 나누면 보여줄 계산 과정이 없기 때문입니다. calrank은 두 가지 기준을 나란히 두고, 각각의 출처와 계산식을 모두 공개합니다.</p>
+<p>러닝 등급표는 많지만, <b>숫자가 어디서 나왔는지 직접 확인할 수 있는 곳은 드뭅니다.</b> 체감이나 커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문이에요. calrank는 두 가지 기준을 나란히 두고, 각각의 출처와 계산식을 전부 공개합니다.</p>
 
 <p><b>기준 ①  위 표 — Running Level 5단계</b><br>
 해외 공개 데이터베이스의 실제 레이스 기록 백분위입니다. 상위 95%·80%·50%·20%·5% 지점을 그대로 가져왔고, 가공하지 않았습니다. 출처는 이 글 맨 위에 적어 두었습니다.</p>
 
-<p><b>기준 ②  calrank 자체 7단계 — 계산식 공개</b><br>
-나이와 성별을 보정해 한 축으로 세운 뒤 구간을 나눕니다. 47세 남성이 10km를 52분 30초에 뛰었다면:</p>
+<p><b>기준 ②  calrank 7단계 — WMA 연령 기준표</b><br>
+세계마스터즈육상연맹(WMA)이 내는 2025년 도로 연령 기준표를 씁니다. 2025년 1월 미국육상연맹 마스터즈 장거리위원회가 승인했고, 퍼블릭 도메인(CC0)으로 공개돼 있어 누구나 받아볼 수 있어요. 나이 한 살마다, 남녀 각각 기준기록이 적혀 있습니다.</p>
+
+<p>계산은 나눗셈 하나가 전부입니다. 47세 남성이 10km를 52분 30초에 뛰었다면:</p>
 
 <div class="table-scroll">
 <table class="tier-data-table">
-<tr><th>단계</th><th>계산</th><th>결과</th></tr>
-<tr><td>완주 기록</td><td>입력값</td><td>52:30</td></tr>
-<tr><td>km당 페이스</td><td>거리 환산 (Riegel 지수 1.06)</td><td>5:15/km</td></tr>
-<tr><td>나이 보정</td><td>÷ 0.988 (47세)</td><td>&nbsp;</td></tr>
-<tr><td>성별 보정</td><td>÷ 1.00 (남성)</td><td>&nbsp;</td></tr>
-<tr><td>보정 페이스</td><td>비교용 한 축</td><td>5:19/km</td></tr>
-<tr><td>판정</td><td>348초/km 이내 구간</td><td><b>상당히 좋은 편</b></td></tr>
+<tr><th>항목</th><th>값</th><th>출처</th></tr>
+<tr><td>내 기록</td><td>52:30</td><td>입력</td></tr>
+<tr><td>47세 남성 10km 기준기록</td><td>28:59</td><td>WMA 2025 표</td></tr>
+<tr><td>연령등급</td><td><b>55.2%</b></td><td>28:59 ÷ 52:30</td></tr>
+<tr><td>판정</td><td><b>상당히 좋은 편</b></td><td>51% 이상 구간</td></tr>
 </table>
 </div>
 
-<p>나이 보정 계수는 20세 0.90 → 50세 1.00 → 70세 1.25 → 80세 1.45로 두고 사이는 직선으로 잇습니다. 성별 계수는 여성 1.11입니다. 거리 환산에 쓰는 Riegel 지수 1.06은 Pete Riegel이 1977년 <i>Runner's World</i>에 제시한 값으로, 지금도 가장 널리 쓰이는 환산식입니다.</p>
+<p>연령등급 100%는 그 나이·성별의 세계기록 수준을 뜻합니다. 10km 기준기록이 남자 26분 24초, 여자 28분 46초인데, 실제 세계기록과 같은 숫자예요. WMA 해석으로는 90% 이상이 World Class, 80% 이상 National, 70% 이상 Regional, 60% 이상 Local Class입니다.</p>
 
-<p><b>그래서 calrank 등급의 성격은 이렇습니다.</b> 공인 기록이 아니고, 대한육상연맹 같은 기관의 공식 등급도 아닙니다. 출처가 분명한 공개 데이터와 공개된 계산식으로 만든 <b>참고용 추정치</b>이며, 위 숫자를 그대로 따라 계산하면 누구나 같은 결과가 나옵니다. 그 점이 이 표의 유일한 보증입니다.</p>
+<p><b>그래서 calrank 등급의 성격은 이렇습니다.</b> 공인 기록은 아니고, 대한육상연맹 같은 기관이 발급하는 공식 등급도 아닙니다. 다만 나이·성별 기준만큼은 세계 각지 대회가 쓰는 표를 그대로 가져다 썼고, 계산도 나눗셈 한 번이라 <b>같은 숫자를 직접 따라 해 보실 수 있습니다.</b> 일곱 구간으로 나눈 자리는 calrank가 정한 것이고, 그 점도 숨기지 않습니다.</p>
 
 <p style="font-size:13.5px;line-height:1.9;color:var(--ink-soft,#9A9A9A);margin:28px 0 0;padding-top:18px;border-top:1px solid var(--border,#2A2A2A);">다른 거리의 등급표 · <a href="column-5km-age-gender-tier.html" style="color:var(--accent,#FF3D1A);">5km</a> · <strong style="color:var(--ink,#fff);">10km</strong> · <a href="column-half-age-gender-tier.html" style="color:var(--accent,#FF3D1A);">하프마라톤</a> · <a href="column-full-age-gender-tier.html" style="color:var(--accent,#FF3D1A);">풀코스</a></p>
+
 
 <div class="column-cta">
 <p>기록증 사진 한 장이면 등급이 바로 나옵니다. 가입도, 타이핑도 필요 없습니다.</p>

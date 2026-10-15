@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="myrank.css">
 <link rel="stylesheet" href="level.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"러닝 기록 등급 계산기","url":"https://calrank.vercel.app/level.html","applicationCategory":"HealthApplication","operatingSystem":"All","inLanguage":"ko-KR","description":"완주 기록에 나이와 성별 보정을 적용해 러닝 수준 등급을 계산하는 무료 도구입니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"isPartOf":{"@type":"WebSite","name":"calrank","url":"https://calrank.vercel.app/"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"10km를 몇 분에 뛰면 잘 달리는 편인가요?","acceptedAnswer":{"@type":"Answer","text":"나이에 따라 기준이 달라집니다. 40세 남성이라면 48분 안쪽이 '매우 좋은 편', 1시간 2분 24초 안쪽이면 '평균 이상'에 들어갑니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, 나이별 등급표에서 본인 연령대 줄을 확인하는 편이 정확합니다."}},{"@type":"Question","name":"나이와 성별은 어떻게 반영되나요?","acceptedAnswer":{"@type":"Answer","text":"50세를 기준(계수 1.00)으로 두고 연령별 보정 계수를 적용합니다. 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용됩니다. 성별은 여성에게 1.11의 보정 계수를 적용해 같은 조건에서 비교할 수 있게 했습니다."}},{"@type":"Question","name":"하프나 풀코스 기록으로도 등급을 확인할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"가능합니다. 모든 거리를 Riegel 환산식(지수 1.06)으로 10km 환산 페이스로 바꾼 뒤 같은 잣대로 비교하기 때문에, 5km·10km·하프·풀코스 어느 기록을 넣어도 동일한 기준으로 등급이 나옵니다."}},{"@type":"Question","name":"이 등급이 공식 기준인가요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 일반적으로 통용되는 동호인 페이스 구간을 참고해 만든 자체 기준이며, 대회 입상 기준이나 의학적 체력 평가와는 무관한 참고용 지표입니다."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"10km를 몇 분에 뛰면 잘 달리는 편인가요?","acceptedAnswer":{"@type":"Answer","text":"나이에 따라 기준이 달라집니다. 40세 남성이라면 46분 26초 안쪽이 '매우 좋은 편', 1시간 0분 53초 안쪽이면 '꾸준한 러너'에 들어갑니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, 나이별 등급표에서 본인 연령대 줄을 확인하는 편이 정확합니다."}},{"@type":"Question","name":"나이와 성별은 어떻게 반영되나요?","acceptedAnswer":{"@type":"Answer","text":"WMA 연령 기준표에는 나이 한 살마다, 그리고 남녀 각각 기준기록이 따로 적혀 있습니다. 그래서 보정 계수를 따로 곱하지 않고 내 나이·성별 줄의 기준기록과 바로 견줍니다. 남녀 격차도 고정값이 아니라 나이에 따라 달라지는데, 10km 기준으로 20대에는 약 9%, 80대에는 약 20%까지 벌어집니다."}},{"@type":"Question","name":"하프나 풀코스 기록으로도 등급을 확인할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"가능합니다. WMA가 5km·10km·하프·풀코스 각각에 기준기록을 따로 내기 때문에, 거리끼리 환산하지 않고 그 거리의 기준으로 바로 비교합니다. 어느 거리를 넣어도 같은 잣대입니다."}},{"@type":"Question","name":"이 등급이 공식 기준인가요?","acceptedAnswer":{"@type":"Answer","text":"공인 기록은 아닙니다. 다만 기준표 자체는 WMA가 내고 세계 각지 대회가 쓰는 것이고, 출처와 계산식이 모두 공개돼 있어 같은 숫자를 직접 확인해 보실 수 있습니다. 대회 입상 기준이나 의학적 평가와는 무관한 참고용입니다."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"calrank","item":"https://calrank.vercel.app/index.html"},{"@type":"ListItem","position":2,"name":"러닝 기록 등급 계산기"}]}</script>
 <style>
   .lv-intro { max-width: 640px; margin: 0 auto; font-size: 14.5px; line-height: 1.85; color: #C3BDB9; }
@@ -104,7 +104,7 @@
 
 <div id="levelResult" class="level-result" style="display:none;"></div>
 
-<p class="level-disclaimer">이 결과는 일반적으로 통용되는 동호인 페이스 데이터를 바탕으로 나이·성별 차이를 근사 반영한 참고용 추정치이며, 공식 통계나 의학적 판단이 아닙니다. 서로 다른 거리 기록 비교에는 Riegel 환산 공식(러닝 성과 환산에 흔히 쓰이는 방식)을 사용합니다.</p>
+<p class="level-disclaimer">나이·성별 기준은 WMA(세계마스터즈육상연맹) 2025년 연령 기준표를 그대로 씁니다. 출처와 계산식이 공개돼 있어 같은 숫자를 직접 확인해 보실 수 있어요. 다만 공인 기록이나 의학적 판단은 아니고, 코스와 날씨에 따라 체감이 달라지는 참고용입니다.</p>
 
 <section class="lv-sec">
 <h2>나이별 기록 등급표로 바로 보기</h2>
@@ -127,19 +127,16 @@
 
 <section class="lv-sec">
 <h2>등급은 어떻게 계산하나</h2>
-<p>등급 구분은 거리마다 따로 두지 않고 10km 환산 페이스 하나로 통일했습니다. 서로 다른 거리의 기록을 같은 잣대로 비교하기 위해
-러닝에서 널리 쓰이는 Riegel 환산식(지수 1.06)을 사용했고, 여기에 연령대별 기량 감소와 성별 차이를 보정 계수로 반영했습니다.
-50세를 기준(1.00)으로 두고 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용되는 구조입니다.
-등급은 빠른 순으로 상당한 러너 · 러닝 상급자 · 매우 좋은 편 · 상당히 좋은 편 · 평균 이상 · 보통 · 초보/기초체력 일곱 구간으로 나뉩니다.</p>
+<p>등급 기준은 WMA(세계마스터즈육상연맹)가 내는 연령 기준표를 그대로 가져다 씁니다. 나이와 성별마다 세계 최고 수준에 해당하는 기록이 정해져 있는데, 내 기록이 그 기준의 몇 %쯤 되는지를 연령등급이라고 해요. 100%면 세계기록 수준이고요. 이 숫자는 어느 age-grading 계산기에 넣어도 같은 값이 나오니까, 여기서 받은 등급이 맞는지 직접 확인해 보셔도 됩니다. 5km·10km·하프·풀코스는 WMA가 거리마다 기준을 따로 내기 때문에, 거리끼리 환산하지 않고 각 거리의 기준으로 바로 비교합니다. 등급은 빠른 순으로 상당한 러너 · 러닝 상급자 · 매우 좋은 편 · 상당히 좋은 편 · 꾸준한 러너 · 보통 · 이제 시작 일곱 구간으로 나뉩니다.</p>
 </section>
 
 <section class="lv-sec">
 <h2>자주 묻는 질문</h2>
 <div class="lv-faq">
-<details><summary>10km를 몇 분에 뛰면 잘 달리는 편인가요?</summary><p>나이에 따라 기준이 달라집니다. 40세 남성이라면 48분 안쪽이 '매우 좋은 편', 1시간 2분 24초 안쪽이면 '평균 이상'에 들어갑니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, <a href="grade-10km-male.html" style="color:var(--accent);">나이별 등급표</a>에서 본인 연령대 줄을 확인하는 편이 정확합니다.</p></details>
-<details><summary>나이와 성별은 어떻게 반영되나요?</summary><p>50세를 기준(계수 1.00)으로 두고 연령별 보정 계수를 적용합니다. 젊을수록 더 엄격한 기준이, 나이가 많을수록 완화된 기준이 적용됩니다. 성별은 여성에게 1.11의 보정 계수를 적용해 같은 조건에서 비교할 수 있게 했습니다.</p></details>
-<details><summary>하프나 풀코스 기록으로도 등급을 확인할 수 있나요?</summary><p>가능합니다. 모든 거리를 Riegel 환산식(지수 1.06)으로 10km 환산 페이스로 바꾼 뒤 같은 잣대로 비교하기 때문에, 5km·10km·하프·풀코스 어느 기록을 넣어도 동일한 기준으로 등급이 나옵니다.</p></details>
-<details><summary>이 등급이 공식 기준인가요?</summary><p>아닙니다. 일반적으로 통용되는 동호인 페이스 구간을 참고해 만든 자체 기준이며, 대회 입상 기준이나 의학적 체력 평가와는 무관한 참고용 지표입니다.</p></details>
+<details><summary>10km를 몇 분에 뛰면 잘 달리는 편인가요?</summary><p>나이에 따라 기준이 달라집니다. 40세 남성이라면 46분 26초 안쪽이 '매우 좋은 편', 1시간 0분 53초 안쪽이면 '꾸준한 러너'에 들어갑니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, <a href="grade-10km-male.html" style="color:var(--accent);">나이별 등급표</a>에서 본인 연령대 줄을 확인하는 편이 정확합니다.</p></details>
+<details><summary>나이와 성별은 어떻게 반영되나요?</summary><p>WMA 연령 기준표에는 나이 한 살마다, 그리고 남녀 각각 기준기록이 따로 적혀 있습니다. 그래서 보정 계수를 따로 곱하지 않고 내 나이·성별 줄의 기준기록과 바로 견줍니다. 남녀 격차도 고정값이 아니라 나이에 따라 달라지는데, 10km 기준으로 20대에는 약 9%, 80대에는 약 20%까지 벌어집니다.</p></details>
+<details><summary>하프나 풀코스 기록으로도 등급을 확인할 수 있나요?</summary><p>가능합니다. WMA가 5km·10km·하프·풀코스 각각에 기준기록을 따로 내기 때문에, 거리끼리 환산하지 않고 그 거리의 기준으로 바로 비교합니다. 어느 거리를 넣어도 같은 잣대입니다.</p></details>
+<details><summary>이 등급이 공식 기준인가요?</summary><p>공인 기록은 아닙니다. 다만 기준표 자체는 WMA가 내고 세계 각지 대회가 쓰는 것이고, 출처와 계산식이 모두 공개돼 있어 같은 숫자를 직접 확인해 보실 수 있습니다. 대회 입상 기준이나 의학적 평가와는 무관한 참고용입니다.</p></details>
 </div>
 </section>
 
@@ -159,6 +156,7 @@
 </div>
 </footer>
 
+<script src="wma-standards.js"></script>
 <script src="level.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>

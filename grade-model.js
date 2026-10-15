@@ -1,84 +1,85 @@
-// calrank 등급 모델 — level.js(계산기), 등급표, 기록증 페이지가 같은 기준을 쓰도록
+// calrank 등급 모델 — 계산기(level.js), 등급표, 기록증 페이지가 같은 기준을 쓰도록
 // 상수와 계산을 한 곳에 모아 둔다. 값이 갈라지면 같은 기록에 다른 등급이 나오므로,
-// scripts/generate_grade_pages.py가 매 실행마다 level.js와 이 파일을 함께 대조한다.
+// scripts/generate_grade_pages.py가 매 실행마다 이 파일과 level.js를 함께 대조한다.
 //
-// 근거 구분(중요):
-//  - 거리 환산은 Riegel 공식(Pete Riegel, 1981), 지수 1.06 — 공개된 경험식.
-//  - 나이·성별 보정 계수와 등급 구간은 calrank 자체 기준이며 공인 통계가 아니다.
+// 기준축은 WMA(세계마스터즈육상연맹) 2025 도로 연령 기준표다.
+// 연령등급 % = 그 나이·성별의 기준기록 ÷ 내 기록 × 100. 100%가 세계기록 수준이고,
+// 어느 age-grading 계산기에 넣어도 같은 값이 나온다. 표와 출처는 wma-standards.js에.
+//
+// 이 파일은 wma-standards.js가 먼저 실려 있어야 동작한다.
 (function (global) {
   "use strict";
 
-  var AGE_ANCHORS = [
-    [20, 0.90], [30, 0.93], [40, 0.96], [50, 1.00], [60, 1.10], [70, 1.25], [80, 1.45],
-  ];
-  var GENDER_FACTOR = { male: 1.00, female: 1.11 };
-  var RIEGEL = 1.06;
-
-  // 오름차순(빠른 순): bound = 해당 등급의 '느린 쪽' 경계 (초/km, 10km 환산 기준)
+  // 내림차순(빠른 순). 값은 그 등급을 받기 위한 연령등급 % 하한.
   var TIER_BOUNDS = [
-    [240, "상당한 러너"],
-    [270, "러닝 상급자"],
-    [300, "매우 좋은 편"],
-    [348, "상당히 좋은 편"],
-    [390, "평균 이상"],
-    [450, "보통"],
-    [540, "초보/기초체력"],
+    [72, "상당한 러너"],
+    [65, "러닝 상급자"],
+    [59, "매우 좋은 편"],
+    [51, "상당히 좋은 편"],
+    [45, "꾸준한 러너"],
+    [39, "보통"],
+    [0,  "이제 시작"],
   ];
 
-  function ageFactor(age) {
-    if (age <= AGE_ANCHORS[0][0]) return AGE_ANCHORS[0][1];
-    if (age >= AGE_ANCHORS[AGE_ANCHORS.length - 1][0]) return AGE_ANCHORS[AGE_ANCHORS.length - 1][1];
-    for (var i = 0; i < AGE_ANCHORS.length - 1; i++) {
-      var a0 = AGE_ANCHORS[i][0], f0 = AGE_ANCHORS[i][1];
-      var a1 = AGE_ANCHORS[i + 1][0], f1 = AGE_ANCHORS[i + 1][1];
-      if (age >= a0 && age <= a1) return f0 + (f1 - f0) * ((age - a0) / (a1 - a0));
+  // WMA가 보간 없이 직접 산출하는 네 거리.
+  var DIST_KEY = [[5, "5km"], [10, "10km"], [21.0975, "half"], [42.195, "full"]];
+
+  function distKey(km) {
+    for (var i = 0; i < DIST_KEY.length; i++) {
+      if (Math.abs(km - DIST_KEY[i][0]) < 0.05) return DIST_KEY[i][1];
     }
-    return 1.0;
+    return null;
   }
 
-  // level.js analyze()와 연산 순서까지 같게 맞춘다 (1초 차이로 등급이 갈리지 않도록)
-  function normalizedPace(finishSec, distanceKm, age, gender) {
-    var equiv10kTime = finishSec * Math.pow(10 / distanceKm, RIEGEL);
-    return equiv10kTime / 10 / ageFactor(age) / GENDER_FACTOR[gender];
+  function standard(gender, km, age) {
+    var key = distKey(km);
+    if (!key || typeof global.wmaStandard !== "function") return null;
+    return global.wmaStandard(gender, key, age);
+  }
+
+  // 연령등급 %. 이 숫자 하나가 등급을 정한다.
+  function ageGradePct(finishSec, distanceKm, age, gender) {
+    var std = standard(gender, distanceKm, age);
+    return std ? std / finishSec * 100 : null;
   }
 
   function tierOf(finishSec, distanceKm, age, gender) {
-    var p = normalizedPace(finishSec, distanceKm, age, gender);
+    var pct = ageGradePct(finishSec, distanceKm, age, gender);
+    if (pct === null) return null;
     for (var i = 0; i < TIER_BOUNDS.length; i++) {
-      if (p <= TIER_BOUNDS[i][0]) return TIER_BOUNDS[i][1];
+      if (pct >= TIER_BOUNDS[i][0]) return TIER_BOUNDS[i][1];
     }
     return TIER_BOUNDS[TIER_BOUNDS.length - 1][1];
   }
 
-  // 그 등급을 받기 위한 가장 느린 기록(초). 부동소수점 때문에 경계가 한 칸
-  // 어긋날 수 있어 실제 판정 함수로 양쪽을 조여 준다.
-  function boundarySeconds(bound, distanceKm, age, gender) {
-    var s = Math.floor(bound * ageFactor(age) * GENDER_FACTOR[gender] * 10 *
-                       Math.pow(distanceKm / 10, RIEGEL));
-    while (s > 0 && normalizedPace(s, distanceKm, age, gender) > bound) s--;
-    while (normalizedPace(s + 1, distanceKm, age, gender) <= bound) s++;
-    return s;
+  // 그 등급을 받을 수 있는 가장 느린 기록(초).
+  // 연령등급은 기록에 반비례하니 나눗셈 한 번이면 된다.
+  function boundarySeconds(boundPct, distanceKm, age, gender) {
+    var std = standard(gender, distanceKm, age);
+    if (!std) return null;
+    if (boundPct <= 0) return Infinity;
+    return Math.floor(std / (boundPct / 100));
   }
 
-  // "이 기록은 N세의 '평균 이상' 기준과 같다" — 나이보다 한참 젊게 나올 때만
-  // 보여줄 값이라 호출하는 쪽에서 판단한다. 빠른 기록은 20세에서 포화된다.
+  // "이 기록은 N세 기준으로 보면 꾸준한 러너입니다" — 같은 기록이 '꾸준한 러너'
+  // 경계에 딱 걸리는 나이를 찾는다. 나이가 많을수록 경계가 느슨해지므로
+  // 경계 시간은 나이에 대해 단조증가한다. 20세에서 이미 느슨하면 20을,
+  // 100세에서도 모자라면 100을 돌려준다.
   function runningAge(finishSec, distanceKm, gender) {
-    var lo = 20, hi = 80;
-    if (normalizedPace(finishSec, distanceKm, 20, gender) <= 390) return 20;
-    if (normalizedPace(finishSec, distanceKm, 80, gender) > 390) return 80;
-    for (var i = 0; i < 60; i++) {
-      var mid = (lo + hi) / 2;
-      if (normalizedPace(finishSec, distanceKm, mid, gender) > 390) lo = mid;
-      else hi = mid;
+    var REF = 45;  // '꾸준한 러너' 경계
+    if (!distKey(distanceKm) || typeof global.wmaStandard !== "function") return null;
+    if (boundarySeconds(REF, distanceKm, 20, gender) >= finishSec) return 20;
+    if (boundarySeconds(REF, distanceKm, 100, gender) < finishSec) return 100;
+    for (var age = 20; age <= 100; age++) {
+      if (boundarySeconds(REF, distanceKm, age, gender) >= finishSec) return age;
     }
-    return Math.round((lo + hi) / 2);
+    return 100;
   }
 
   // 다음 이정표(라운드 넘버)까지 남은 시간. 전 구간 사용자에게 작동한다.
   function nextMilestone(finishSec, distanceKm) {
     var step;
-    if (distanceKm <= 7) step = 300;            // 5분
-    else if (distanceKm <= 15) step = 300;
+    if (distanceKm <= 15) step = 300;           // 5분
     else if (distanceKm <= 30) step = 600;      // 10분
     else step = 900;                            // 15분
     var target = Math.floor((finishSec - 1) / step) * step;
@@ -103,12 +104,9 @@
   }
 
   global.CalrankGrade = {
-    AGE_ANCHORS: AGE_ANCHORS,
-    GENDER_FACTOR: GENDER_FACTOR,
-    RIEGEL: RIEGEL,
     TIER_BOUNDS: TIER_BOUNDS,
-    ageFactor: ageFactor,
-    normalizedPace: normalizedPace,
+    distKey: distKey,
+    ageGradePct: ageGradePct,
     tierOf: tierOf,
     boundarySeconds: boundarySeconds,
     runningAge: runningAge,
