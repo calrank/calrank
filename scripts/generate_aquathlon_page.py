@@ -285,7 +285,7 @@ def render(upcoming, entries, events, today) -> str:
 </a>
 <a href="level.html" class="cert-cta">
 <span class="cc-ico">🧮</span>
-<span class="cc-txt"><b>기록을 직접 넣어 계산하기</b><span>Riegel 공식으로 거리를 환산해 다른 거리 기록까지 같은 잣대로 비교합니다.</span></span>
+<span class="cc-txt"><b>기록을 직접 넣어 계산하기</b><span>WMA 연령 기준표로 5km·하프·풀코스까지 같은 잣대로 비교합니다.</span></span>
 <span class="cc-go">계산하기 →</span>
 </a>
 </div>

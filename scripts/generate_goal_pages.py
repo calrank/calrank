@@ -6,7 +6,7 @@
   · 필요한 페이스(분/km)와 평균 속도
   · 구간 통과 시간표 (풀·하프는 5km마다, 10km·5km는 1km마다)
   · 그 기록이 또래에서 어느 등급인지 (나이대·성별)
-  · 같은 체력이라면 다른 거리는 몇 분인지 (Riegel 환산)
+  · 같은 체력이라면 다른 거리는 몇 분인지 (WMA 기준표 환산)
 
 를 담는다. 등급 판정은 이미 쓰고 있는 Running Level 공개 데이터를 그대로
 쓰므로 거리별 등급표 칼럼과 어긋나지 않는다.
@@ -52,8 +52,31 @@ def pace_str(sec_per_km: float) -> str:
     return f"{s // 60}:{s % 60:02d}"
 
 
+# 거리 환산도 등급과 같은 WMA 2025 기준표를 쓴다. 전에는 Riegel 경험식이었는데,
+# 계산기가 WMA로 넘어가면서 같은 기록에 다른 환산값이 나오게 됐다.
+# WMA 비율은 나이에 따라 조금씩 달라지므로, 이 페이지는 나이를 묻지 않는 대신
+# 가운데 나이(40세)를 기준으로 삼는다. 하프 기준 나이별 차이는 1분 안쪽이다.
+EQUIV_REF_AGE = 40
+_EQUIV_KEY = {5.0: "5km", 10.0: "10km", 21.0975: "half", 42.195: "full"}
+
+
+def _key(km: float) -> str | None:
+    for value, key in _EQUIV_KEY.items():
+        if abs(km - value) < 0.05:
+            return key
+    return None
+
+
+import wma_standards as wma  # noqa: E402
+
+
 def riegel(t1: float, d1: float, d2: float) -> float:
-    return t1 * (d2 / d1) ** 1.06
+    """이름은 그대로 두되 속은 WMA 기준표 비율이다. 표 밖 거리는 단순 비례."""
+    a, b = _key(d1), _key(d2)
+    if not a or not b:
+        return t1 * (d2 / d1)
+    return t1 * (wma.standard("male", b, EQUIV_REF_AGE)
+                 / wma.standard("male", a, EQUIV_REF_AGE))
 
 
 def tier_for(dist: str, gender: str, dec_i: int, goal: int) -> str:
@@ -246,7 +269,7 @@ def build(dist: str, goal: int, frag: str, name: str, alias: str):
 거리별 전체 표는 <a href="{COLUMN_OF[dist]}" style="color:var(--accent,#FF3D1A);">{esc(dist_name)} 나이대별 등급표</a>에서 볼 수 있습니다.</p>
 
 <h2>같은 체력이라면 다른 거리는</h2>
-<p>Riegel 환산식으로 바꾼 값입니다. {esc(alias)}로 {esc(dist_name)}를 뛸 수 있다면
+<p>WMA 연령 기준표의 거리별 비율로 바꾼 값입니다. {esc(alias)}로 {esc(dist_name)}를 뛸 수 있다면
 다른 거리는 대략 이 정도가 나옵니다.</p>
 {equivalents(dist_km, goal)}
 <p class="g-note">※ 환산식은 훈련 경향을 반영하지 못합니다. 장거리 훈련을 많이 했다면

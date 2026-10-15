@@ -29,31 +29,93 @@ from site_nav import site_header  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 
 # ---------------------------------------------------------------------------
-# level.js와 동일한 모델 (아래 verify_against_level_js()가 매 실행마다 대조)
+# level.js와 동일한 모델 (아래 verify_models()가 매 실행마다 대조)
 # ---------------------------------------------------------------------------
-AGE_ANCHORS = [
-    (20, 0.90), (30, 0.93), (40, 0.96), (50, 1.00),
-    (60, 1.10), (70, 1.25), (80, 1.45),
-]
-GENDER_FACTOR = {"male": 1.00, "female": 1.11}
-RIEGEL = 1.06
+# ---------------------------------------------------------------------------
+# 등급 모델 — WMA 2025 연령 기준표를 기준축으로 쓴다.
+#
+# 전에는 나이·성별 보정 계수와 등급 구간을 자체적으로 정해 두고 있었다.
+# 출처를 댈 수 없는 숫자였고, 그 탓에 같은 '꾸준한 러너'이라도 나이·성별·거리에
+# 따라 실제 실력이 연령등급 41.9~49.1%까지 벌어져 있었다. WMA 기준표로
+# 옮기면서 그 흔들림이 사라졌다 — 등급이 곧 연령등급 %다.
+#
+# 연령등급 % = 그 나이·성별의 기준기록 ÷ 내 기록 × 100.
+# 100%가 세계기록 수준이고, 어느 age-grading 계산기에 넣어도 같은 값이 나온다.
+# 출처와 라이선스는 wma_standards.py 머리에 적어 두었다.
+# ---------------------------------------------------------------------------
+import wma_standards as wma  # noqa: E402
 
-# 오름차순(빠른 순): bound = 해당 등급의 '느린 쪽' 경계 (초/km, 10km 환산 기준)
+# 거리 키 — WMA가 보간 없이 직접 산출하는 네 거리.
+DIST_KEY = ((5.0, "5km"), (10.0, "10km"), (21.0975, "half"), (42.195, "full"))
+
+# 내림차순(빠른 순). 값은 그 등급을 받기 위한 연령등급 % 하한.
+#
+# 경계는 종전 난이도를 그대로 옮긴 것이다(전 구간 2.6만 개 지점을 대조해
+# 84.2%가 같은 등급을 유지한다). 바뀌는 쪽은 자체 계수가 WMA와 어긋나 있던
+# 구간 — 25~40세와 55세 이상 여성 — 이고, 그건 교정이다.
 TIER_BOUNDS = [
-    (240, "상당한 러너"),
-    (270, "러닝 상급자"),
-    (300, "매우 좋은 편"),
-    (348, "상당히 좋은 편"),
-    (390, "평균 이상"),
-    (450, "보통"),
-    (540, "초보/기초체력"),
+    (72, "상당한 러너"),
+    (65, "러닝 상급자"),
+    (59, "매우 좋은 편"),
+    (51, "상당히 좋은 편"),
+    (45, "꾸준한 러너"),
+    (39, "보통"),
+    (0,  "이제 시작"),
 ]
-# 마지막 구간(540)은 그 이상도 같은 등급이라 표에서는 열로 세우지 않고
-# "그 이상" 칸으로 합친다.
+# '꾸준한 러너'은 연령등급 45%에 걸려 있었는데 실제 중앙값은 57%였다.
+# 이름이 사실과 달라 '꾸준한 러너'로 바꿨다. '이제 시작'도 더 부드럽게.
+BOUND = {label: pct for pct, label in TIER_BOUNDS}
+
 TABLE_TIERS = TIER_BOUNDS[:-1]
 LAST_TIER_LABEL = TIER_BOUNDS[-1][1]
 
 AGES = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75]
+
+INTRO = {
+    "5km": (
+        "5km는 기록을 재는 거리 중에서는 가장 짧지만, 그만큼 변명이 통하지 않는 거리이기도 합니다. "
+        "페이스 조절로 숨길 수 있는 구간이 거의 없어서 현재 심폐 능력이 거의 그대로 드러나죠. "
+        "아래 표는 나이와 성별에 따른 보정을 거친 뒤, 같은 조건의 동호인 사이에서 내 5km 기록이 "
+        "어디쯤 놓이는지 가늠해 볼 수 있도록 정리한 것입니다."
+    ),
+    "10km": (
+        "10km는 국내 동호인 대회에서 가장 많이 열리고, 가장 많이 비교되는 거리입니다. "
+        "속도와 지구력이 반씩 섞여 있어서 '지금 내 수준'을 한 번에 보여 주는 거리이기도 하고요. "
+        "아래 표는 나이와 성별 차이를 보정한 뒤 같은 조건의 러너들 사이에서 내 10km 기록이 "
+        "어느 구간에 들어가는지 확인할 수 있게 만든 등급표입니다."
+    ),
+    "half": (
+        "하프마라톤부터는 '얼마나 빠른가'보다 '무너지지 않고 유지할 수 있는가'가 기록을 가릅니다. "
+        "그래서 10km는 꽤 빠른데 하프에서 뒤쪽 5km가 급격히 느려지는 경우가 흔하죠. "
+        "아래 표는 WMA 연령 기준표를 그대로 적용해, "
+        "하프 기록이 동호인 전체에서 어느 수준인지 비교할 수 있도록 정리했습니다."
+    ),
+    "full": (
+        "풀코스는 훈련량이 가장 정직하게 드러나는 거리입니다. "
+        "30km 이후를 어떻게 버텼는지가 최종 기록의 대부분을 결정하기 때문에, "
+        "같은 10km 기록을 가진 두 사람의 풀코스 기록이 30분 이상 벌어지기도 합니다. "
+        "아래 표는 나이와 성별을 보정한 뒤, 완주 기록이 동호인 전체에서 어느 구간에 "
+        "해당하는지 확인할 수 있게 만든 등급표입니다."
+    ),
+}
+
+HOW_TO_READ = (
+    "표의 숫자는 <strong>그 등급을 받기 위한 가장 느린 기록</strong>입니다. "
+    "예를 들어 어떤 칸에 1:02:24가 적혀 있다면, 그 시간까지는 해당 등급에 들어가고 "
+    "1초라도 더 걸리면 한 칸 아래 등급이 됩니다. 표에 없는 나이라면 가까운 두 줄 "
+    "사이 어딘가로 보시면 되고, 정확한 값은 계산기에서 바로 확인할 수 있습니다."
+)
+
+METHOD = (
+    "등급 기준은 WMA(세계마스터즈육상연맹)가 내는 연령 기준표를 그대로 가져다 씁니다. "
+    "나이와 성별마다 세계 최고 수준에 해당하는 기록이 정해져 있는데, 내 기록이 그 기준의 "
+    "몇 %쯤 되는지를 연령등급이라고 해요. 100%면 세계기록 수준이고요. "
+    "이 숫자는 어느 age-grading 계산기에 넣어도 같은 값이 나오니까, 여기서 받은 등급이 "
+    "맞는지 직접 확인해 보셔도 됩니다. "
+    "5km·10km·하프·풀코스는 WMA가 거리마다 기준을 따로 내기 때문에, 거리끼리 환산하지 "
+    "않고 각 거리의 기준으로 바로 비교합니다."
+)
+
 
 DISTANCES = [
     {"key": "5km", "km": 5.0, "label": "5km", "search": "5km"},
@@ -72,39 +134,41 @@ BASE = "https://calrank.vercel.app"
 # ---------------------------------------------------------------------------
 # 모델
 # ---------------------------------------------------------------------------
-def age_factor(age: float) -> float:
-    if age <= AGE_ANCHORS[0][0]:
-        return AGE_ANCHORS[0][1]
-    if age >= AGE_ANCHORS[-1][0]:
-        return AGE_ANCHORS[-1][1]
-    for i in range(len(AGE_ANCHORS) - 1):
-        a0, f0 = AGE_ANCHORS[i]
-        a1, f1 = AGE_ANCHORS[i + 1]
-        if a0 <= age <= a1:
-            ratio = (age - a0) / (a1 - a0)
-            return f0 + (f1 - f0) * ratio
-    raise ValueError(age)
+def dist_key(km: float) -> str | None:
+    """거리를 WMA 표의 키로. 표에 없는 거리는 None (등급을 매기지 않는다)."""
+    for value, key in DIST_KEY:
+        if abs(km - value) < 0.05:
+            return key
+    return None
 
 
-def normalized_pace(finish_sec: float, age: int, gender: str, km: float) -> float:
-    """level.js analyze()와 연산 순서까지 동일하게 맞춘 환산 페이스."""
-    equiv10k_time = finish_sec * (10.0 / km) ** RIEGEL
-    equiv10k_pace = equiv10k_time / 10.0
-    return equiv10k_pace / age_factor(age) / GENDER_FACTOR[gender]
+def age_grade(finish_sec: float, age: int, gender: str, km: float) -> float:
+    """연령등급 %. 그 나이·성별의 기준기록 ÷ 내 기록 × 100."""
+    key = dist_key(km)
+    if key is None:
+        raise ValueError(f"WMA 표에 없는 거리: {km}")
+    return wma.standard(gender, key, age) / float(finish_sec) * 100.0
 
 
-def boundary_seconds(bound: int, age: int, gender: str, km: float) -> int:
-    """환산 페이스가 bound 이하가 되는 가장 느린(큰) 완주 초를 정수로 구한다.
+def tier_of(finish_sec: float, age: int, gender: str, km: float) -> str:
+    pct = age_grade(finish_sec, age, gender, km)
+    return next(label for bound, label in TIER_BOUNDS if pct >= bound)
 
-    해석적으로 구한 값은 부동소수점 오차 때문에 계산기와 1초 차이로 등급이
-    갈릴 수 있어, 실제 판정 함수로 양쪽을 한 번 더 조여 준다.
+
+def boundary_seconds(bound_pct: int, age: int, gender: str, km: float) -> int:
+    """그 등급을 받을 수 있는 가장 느린 기록(초).
+
+    연령등급은 기록에 반비례하므로 경계는 나눗셈 한 번으로 바로 나온다.
+    내림으로 맞춰 표에 적힌 시간이 실제로 그 등급에 들어가게 한다.
+
+    math.floor(a / b) 로 적은 것은 일부러다. 파이썬의 a // b 는 결과가 정수에
+    아주 가까울 때 1초 어긋나는 경우가 있어서, 같은 식을 쓰는 자바스크립트
+    (grade-model.js, level.js)와 값이 갈린다. 96개 지점 중 10개가 그랬다.
     """
-    s = math.floor(bound * age_factor(age) * GENDER_FACTOR[gender] * 10.0 * (km / 10.0) ** RIEGEL)
-    while s > 0 and normalized_pace(s, age, gender, km) > bound:
-        s -= 1
-    while normalized_pace(s + 1, age, gender, km) <= bound:
-        s += 1
-    return s
+    key = dist_key(km)
+    if key is None:
+        raise ValueError(f"WMA 표에 없는 거리: {km}")
+    return math.floor(wma.standard(gender, key, age) / (bound_pct / 100.0))
 
 
 def fmt_time(sec: int) -> str:
@@ -126,108 +190,51 @@ def fmt_pace(sec_per_km: float) -> str:
 # ---------------------------------------------------------------------------
 # level.js 상수 대조 — 어긋나면 생성하지 않는다
 # ---------------------------------------------------------------------------
-def verify_against_level_js() -> None:
-    path = ROOT / "level.js"
-    if not path.exists():
-        sys.exit("[grade pages] level.js를 찾을 수 없어 중단합니다.")
-    src = path.read_text(encoding="utf-8")
-
-    anchors = [(int(a), float(f)) for a, f in re.findall(r"\[\s*(\d+)\s*,\s*(\d*\.?\d+)\s*\]", src)[:len(AGE_ANCHORS)]]
-    if anchors != AGE_ANCHORS:
-        sys.exit(f"[grade pages] AGE_ANCHORS 불일치: level.js={anchors} / 스크립트={AGE_ANCHORS}")
-
-    gm = re.search(r"GENDER_FACTOR\s*=\s*\{\s*male:\s*([\d.]+)\s*,\s*female:\s*([\d.]+)", src)
-    if not gm or (float(gm.group(1)), float(gm.group(2))) != (GENDER_FACTOR["male"], GENDER_FACTOR["female"]):
-        sys.exit("[grade pages] GENDER_FACTOR 불일치 — level.js를 확인하세요.")
-
-    rm = re.search(r"Math\.pow\(\s*d2Km\s*/\s*d1Km\s*,\s*([\d.]+)\s*\)", src)
-    if not rm or float(rm.group(1)) != RIEGEL:
-        sys.exit("[grade pages] Riegel 지수 불일치 — level.js를 확인하세요.")
-
-    bounds = re.findall(r"\[\s*(\d+)\s*,\s*\"([^\"]+)\"\s*,", src)
-    parsed = [(int(b), label) for b, label in bounds]
-    if parsed != TIER_BOUNDS:
-        sys.exit(f"[grade pages] TIER_BOUNDS 불일치: level.js={parsed}")
-
-    verify_against_grade_model()
-    print("[grade pages] level.js 상수 대조 통과")
+def _js_tier_bounds(src: str) -> list[tuple[int, str]]:
+    # level.js 는 설명 문구가 뒤에 더 붙고 grade-model.js 는 두 칸뿐이라,
+    # 라벨 뒤가 쉼표든 닫는 대괄호든 받아들인다.
+    return [(int(b), lab) for b, lab in
+            re.findall(r"\[\s*(\d+)\s*,\s*\"([^\"]+)\"\s*[,\]]", src)]
 
 
-def verify_against_grade_model() -> None:
-    """grade-model.js(계산기·기록증 페이지가 공유하는 모델)도 같은 상수인지 본다.
-
-    같은 기록에 서로 다른 등급이 나오는 것이 이 프로젝트에서 실제로 났던
-    문제라, 모델 사본이 생길 때마다 여기서 함께 대조한다."""
-    path = ROOT / "grade-model.js"
-    if not path.exists():
-        return
-    src = path.read_text(encoding="utf-8")
-
-    anchors = [(int(a), float(f)) for a, f in
-               re.findall(r"\[\s*(\d+)\s*,\s*(\d*\.?\d+)\s*\]", src)[:len(AGE_ANCHORS)]]
-    if anchors != AGE_ANCHORS:
-        sys.exit(f"[grade pages] grade-model.js AGE_ANCHORS 불일치: {anchors}")
-
-    gm = re.search(r"GENDER_FACTOR\s*=\s*\{\s*male:\s*([\d.]+)\s*,\s*female:\s*([\d.]+)", src)
-    if not gm or (float(gm.group(1)), float(gm.group(2))) != (GENDER_FACTOR["male"], GENDER_FACTOR["female"]):
-        sys.exit("[grade pages] grade-model.js GENDER_FACTOR 불일치")
-
-    rm = re.search(r"RIEGEL\s*=\s*([\d.]+)", src)
-    if not rm or float(rm.group(1)) != RIEGEL:
-        sys.exit("[grade pages] grade-model.js Riegel 지수 불일치")
-
-    bounds = [(int(b), lab) for b, lab in re.findall(r"\[\s*(\d+)\s*,\s*\"([^\"]+)\"\s*\]", src)]
-    if bounds != TIER_BOUNDS:
-        sys.exit(f"[grade pages] grade-model.js TIER_BOUNDS 불일치: {bounds}")
-
-    print("[grade pages] grade-model.js 상수 대조 통과")
+def _js_wma_table(src: str) -> dict:
+    """wma-standards.js 가 품은 기준기록 표를 읽어 온다."""
+    out = {}
+    for gender in ("male", "female"):
+        block = re.search(gender + r":\s*\{(.*?)\n  \}", src, re.S)
+        if not block:
+            sys.exit(f"[grade pages] wma-standards.js 에서 {gender} 표를 못 찾았습니다.")
+        rows = {}
+        for key, body in re.findall(r'"(\w+)":\s*\[([^\]]*)\]', block.group(1)):
+            rows[key] = [int(x) for x in body.split(",")]
+        out[gender] = rows
+    return out
 
 
-# ---------------------------------------------------------------------------
-# 본문 카피 (거리별로 결이 다르게)
-# ---------------------------------------------------------------------------
-INTRO = {
-    "5km": (
-        "5km는 기록을 재는 거리 중에서는 가장 짧지만, 그만큼 변명이 통하지 않는 거리이기도 합니다. "
-        "페이스 조절로 숨길 수 있는 구간이 거의 없어서 현재 심폐 능력이 거의 그대로 드러나죠. "
-        "아래 표는 나이와 성별에 따른 보정을 거친 뒤, 같은 조건의 동호인 사이에서 내 5km 기록이 "
-        "어디쯤 놓이는지 가늠해 볼 수 있도록 정리한 것입니다."
-    ),
-    "10km": (
-        "10km는 국내 동호인 대회에서 가장 많이 열리고, 가장 많이 비교되는 거리입니다. "
-        "속도와 지구력이 반씩 섞여 있어서 '지금 내 수준'을 한 번에 보여 주는 거리이기도 하고요. "
-        "아래 표는 나이와 성별 차이를 보정한 뒤 같은 조건의 러너들 사이에서 내 10km 기록이 "
-        "어느 구간에 들어가는지 확인할 수 있게 만든 등급표입니다."
-    ),
-    "half": (
-        "하프마라톤부터는 '얼마나 빠른가'보다 '무너지지 않고 유지할 수 있는가'가 기록을 가릅니다. "
-        "그래서 10km는 꽤 빠른데 하프에서 뒤쪽 5km가 급격히 느려지는 경우가 흔하죠. "
-        "아래 표는 Riegel 환산으로 거리 차이를 보정하고 나이·성별까지 반영해, "
-        "하프 기록이 동호인 전체에서 어느 수준인지 비교할 수 있도록 정리했습니다."
-    ),
-    "full": (
-        "풀코스는 훈련량이 가장 정직하게 드러나는 거리입니다. "
-        "30km 이후를 어떻게 버텼는지가 최종 기록의 대부분을 결정하기 때문에, "
-        "같은 10km 기록을 가진 두 사람의 풀코스 기록이 30분 이상 벌어지기도 합니다. "
-        "아래 표는 나이와 성별을 보정한 뒤, 완주 기록이 동호인 전체에서 어느 구간에 "
-        "해당하는지 확인할 수 있게 만든 등급표입니다."
-    ),
-}
+def verify_models() -> None:
+    """계산기·기록증·등급표가 같은 기준을 쓰는지 매 실행마다 확인한다.
 
-HOW_TO_READ = (
-    "표의 숫자는 <strong>그 등급을 받기 위한 가장 느린 기록</strong>입니다. "
-    "예를 들어 어떤 칸에 1:02:24가 적혀 있다면, 그 시간까지는 해당 등급에 들어가고 "
-    "1초라도 더 걸리면 한 칸 아래 등급이 됩니다. 표에 없는 나이라면 가까운 두 줄 "
-    "사이 어딘가로 보시면 되고, 정확한 값은 계산기에서 바로 확인할 수 있습니다."
-)
+    값이 갈라지면 같은 기록에 다른 등급이 나온다. 이 프로젝트에서 실제로
+    났던 사고라, 어긋나면 페이지를 만들지 않고 멈춘다.
+    """
+    for name in ("level.js", "grade-model.js"):
+        path = ROOT / name
+        if not path.exists():
+            sys.exit(f"[grade pages] {name} 을 찾을 수 없어 중단합니다.")
+        bounds = _js_tier_bounds(path.read_text(encoding="utf-8"))
+        if bounds[:len(TIER_BOUNDS)] != TIER_BOUNDS:
+            sys.exit(f"[grade pages] {name} TIER_BOUNDS 불일치: {bounds[:len(TIER_BOUNDS)]}")
 
-METHOD = (
-    "등급 구분은 거리마다 따로 두지 않고 10km 환산 페이스 하나로 통일했습니다. "
-    "서로 다른 거리의 기록을 같은 잣대로 비교하기 위해 러닝에서 널리 쓰이는 "
-    "Riegel 환산식(지수 1.06)을 사용했고, 여기에 연령대별 기량 감소와 성별 차이를 "
-    "보정 계수로 반영했습니다. 50세를 기준(1.00)으로 두고 젊을수록 더 엄격한 기준이, "
-    "나이가 많을수록 완화된 기준이 적용되는 구조입니다."
-)
+    js_path = ROOT / "wma-standards.js"
+    if not js_path.exists():
+        sys.exit("[grade pages] wma-standards.js 를 찾을 수 없어 중단합니다.")
+    js = _js_wma_table(js_path.read_text(encoding="utf-8"))
+    for gender in ("male", "female"):
+        for key in ("5km", "10km", "half", "full"):
+            if js[gender][key] != wma.STD[gender][key]:
+                sys.exit(f"[grade pages] wma-standards.js {gender}/{key} 기준표 불일치")
+
+    print("[grade pages] 등급 기준 대조 통과 (level.js · grade-model.js · WMA 표)")
 
 
 def faq_items(dist, gender):
@@ -237,13 +244,13 @@ def faq_items(dist, gender):
             f"{dist['search']} 기록이 몇 분이면 잘 뛰는 편인가요?",
             f"나이에 따라 기준이 꽤 달라집니다. 같은 기록이라도 20대와 60대의 평가가 다르기 때문에, "
             f"위 표에서 본인 나이대 줄을 먼저 찾은 뒤 기록이 어느 칸에 들어가는지 보시는 게 정확합니다. "
-            f"{g} 기준으로 '평균 이상' 칸 안쪽이면 또래 동호인 평균보다 좋은 편이라고 볼 수 있습니다.",
+            f"{g} 기준으로 '꾸준한 러너' 칸 안쪽이면 또래 동호인 평균보다 좋은 편이라고 볼 수 있습니다.",
         ),
         (
             "나이를 왜 보정하나요?",
             "같은 훈련을 해도 심폐 능력과 회복력은 연령에 따라 차이가 납니다. 보정 없이 절대 기록만 "
             "비교하면 나이가 많은 러너는 아무리 잘 달려도 늘 아래쪽에 머물게 되죠. "
-            "그래서 50세를 기준점으로 두고 연령별 계수를 적용해, '같은 조건이라면 어느 정도인가'를 "
+            "그래서 나이와 성별마다 기준기록이 따로 있는 WMA 표를 써서, '같은 조건이라면 어느 정도인가'를 "
             "볼 수 있게 했습니다.",
         ),
         (
@@ -266,7 +273,7 @@ NAV = site_header("grade")
 
 FOOTER = """<footer class="site-footer">
 <div class="wrap">
-<p>등급 기준은 일반적으로 통용되는 동호인 페이스 구간을 참고한 자체 지표이며, 공식 통계나 의학적 판단이 아닙니다.</p>
+<p>기준표는 WMA(세계마스터즈육상연맹) 2025년판이고, 출처와 계산식은 모두 공개돼 있습니다. 다만 공인 기록이나 의학적 판단은 아니고, 코스와 날씨에 따라 체감이 달라질 수 있는 참고용입니다.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>"""
@@ -391,9 +398,9 @@ def build_page(dist, gender):
     slug = slug_for(dk, gk)
     title = f"{dist['search']} 기록 등급표 ({gender['label']}·나이별) — 내 러닝 수준 확인 | calrank"
     # 본문 ref_line 과 같은 40세 경계를 쓴다. 소개와 페이지가 어긋나면 안 된다.
-    ref40 = fmt_time(boundary_seconds(390, 40, gk, dist["km"]))
+    ref40 = fmt_time(boundary_seconds(45, 40, gk, dist["km"]))
     desc = (
-        f"40세 {gender['label']} {dist['search']} '평균 이상' 경계는 {ref40}입니다. "
+        f"40세 {gender['label']} {dist['search']} '꾸준한 러너' 경계는 {ref40}입니다. "
         f"20세부터 75세까지 한 살 단위 {gender['label']} 등급 기준을 표에서 확인하고 "
         f"내 기록을 바로 대입해 보세요."
     )
@@ -435,12 +442,12 @@ def build_page(dist, gender):
                  f'{"여성" if gk == "male" else "남성"} 등급표</a>')
     links_html = "<br>".join(other)
 
-    # 표 아래에 쓸 실제 수치 한 줄 (40세 기준 '평균 이상' 경계)
+    # 표 아래에 쓸 실제 수치 한 줄 (40세 기준 '꾸준한 러너' 경계)
     ref_age = 40
-    ref = fmt_time(boundary_seconds(390, ref_age, gk, dist["km"]))
+    ref = fmt_time(boundary_seconds(45, ref_age, gk, dist["km"]))
     ref_line = (
         f"예를 들어 {ref_age}세 {gender['label']}이 {dist['label']}을 {ref} 안에 들어왔다면 "
-        f"'평균 이상' 구간에 들어갑니다."
+        f"'꾸준한 러너' 구간에 들어갑니다."
     )
 
     body = f'''
@@ -482,9 +489,9 @@ def build_hub():
     slug = "grade.html"
     title = "러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank"
     # 같은 등급이라도 나이·성별에 따라 기록이 달라진다는 점을 숫자로 먼저 보인다.
-    hub_m = fmt_time(boundary_seconds(390, 40, "male", 10.0))
-    hub_f = fmt_time(boundary_seconds(390, 65, "female", 10.0))
-    desc = (f"40세 남성 10km {hub_m}, 65세 여성 {hub_f} — 둘 다 같은 '평균 이상' 등급입니다. "
+    hub_m = fmt_time(boundary_seconds(45, 40, "male", 10.0))
+    hub_f = fmt_time(boundary_seconds(45, 65, "female", 10.0))
+    desc = (f"40세 남성 10km {hub_m}, 65세 여성 {hub_f} — 둘 다 같은 '꾸준한 러너' 등급입니다. "
             f"5km·10km·하프·풀코스 완주 기록을 나이와 성별까지 반영해 정리했습니다.")
 
     cards = []
@@ -510,14 +517,14 @@ def build_hub():
     summary_rows = []
     for d in DISTANCES:
         for g in GENDERS:
-            t = fmt_time(boundary_seconds(390, 40, g["key"], d["km"]))
-            u = fmt_time(boundary_seconds(300, 40, g["key"], d["km"]))
+            t = fmt_time(boundary_seconds(45, 40, g["key"], d["km"]))
+            u = fmt_time(boundary_seconds(59, 40, g["key"], d["km"]))
             summary_rows.append(
                 f'<tr><th>{d["label"]} {g["label"]}</th><td>{u}</td><td>{t}</td></tr>'
             )
     summary = (
         '<div class="gr-tablebox"><table class="gr-table">\n'
-        "<thead><tr><th>구분</th><th>매우 좋은 편</th><th>평균 이상</th></tr></thead>\n"
+        "<thead><tr><th>구분</th><th>매우 좋은 편</th><th>꾸준한 러너</th></tr></thead>\n"
         "<tbody>\n" + "\n".join(summary_rows) + "\n</tbody></table></div>"
     )
 
@@ -544,7 +551,7 @@ def build_hub():
 {cards_html}
 
 <h2 class="gr-h2">한눈에 보는 40세 기준</h2>
-<p class="gr-p">가장 많이 찾는 40세 기준으로, 각 거리에서 '매우 좋은 편'과 '평균 이상'에 들어가려면
+<p class="gr-p">가장 많이 찾는 40세 기준으로, 각 거리에서 '매우 좋은 편'과 '꾸준한 러너'에 들어가려면
 어느 정도 기록이 필요한지 추려 봤습니다. 다른 나이는 각 등급표에서 확인하세요.</p>
 {summary}
 
@@ -599,7 +606,8 @@ def age_slug_for(dist_key, decade):
 
 
 def decade_ages(decade):
-    # 75세까지만 계산한다 (AGE_ANCHORS 가 80세까지라 그 밖은 외삽이 커진다)
+    # 표는 75세까지만 세운다. WMA 기준표는 100세까지 있지만, 그 위는 표본이
+    # 얇아 한 줄씩 늘려 봐야 읽는 사람에게 도움이 되지 않는다. 계산기는 받는다.
     return [a for a in range(decade, decade + 10) if a <= 75]
 
 
@@ -643,15 +651,15 @@ def build_age_page(dist, decade):
     title = f"{decade}대 {rname} 기록 — 남녀 나이별 등급표 | calrank"
     h1 = f"{decade}대 {rname} 기록 등급표 — 남녀 한 살 단위"
 
-    # 본문과 소개에 쓸 실제 수치. 연령대 가운데 나이의 '평균 이상' 경계.
+    # 본문과 소개에 쓸 실제 수치. 연령대 가운데 나이의 '꾸준한 러너' 경계.
     mid = ages[len(ages) // 2]
-    ref_m = fmt_time(boundary_seconds(390, mid, "male", dist["km"]))
-    ref_f = fmt_time(boundary_seconds(390, mid, "female", dist["km"]))
+    ref_m = fmt_time(boundary_seconds(45, mid, "male", dist["km"]))
+    ref_f = fmt_time(boundary_seconds(45, mid, "female", dist["km"]))
 
     # 검색 결과에서 보이는 두 줄이다. 범위를 설명하는 대신 숫자를 먼저 보여
     # 준다. 클릭할지 말지는 "내 기록이 이 안쪽인가"로 갈리기 때문이다.
     desc = (
-        f"{mid}세 기준 {ref_m}(남성) · {ref_f}(여성) 안에 들어오면 '평균 이상'입니다. "
+        f"{mid}세 기준 {ref_m}(남성) · {ref_f}(여성) 안에 들어오면 '꾸준한 러너'입니다. "
         f"{decade}대 {rname} 기록을 한 살 단위 표에서 확인하고 내 기록을 바로 대입해 보세요."
     )
 
@@ -659,19 +667,19 @@ def build_age_page(dist, decade):
         f"{decade}대에 {rname}을 뛰고 나면 \"이 정도면 괜찮은 건가\" 싶어집니다. "
         f"같은 기록이라도 20대와 {decade}대의 의미가 다르기 때문에, 또래 기준으로 봐야 "
         f"내 위치가 보입니다. {mid}세 기준으로 {ref_m}(남성) · {ref_f}(여성) 안에 "
-        f"들어오면 '평균 이상' 구간입니다."
+        f"들어오면 '꾸준한 러너' 구간입니다."
     )
 
     faqs = [
         (f"{decade}대 {rname} 기록은 보통 어느 정도인가요?",
          "이 표는 참가자 평균이 아니라 나이·성별을 보정한 등급 경계입니다. "
-         f"{mid}세 남성이라면 {ref_m}, 여성이라면 {ref_f} 가 '평균 이상' 구간에 들어가는 "
+         f"{mid}세 남성이라면 {ref_m}, 여성이라면 {ref_f} 가 '꾸준한 러너' 구간에 들어가는 "
          "기준선입니다. 실제 대회 참가자 분포와는 다를 수 있습니다."),
         ("나이가 들면 기록이 얼마나 떨어지나요?",
-         "이 표가 쓰는 보정은 50세를 기준으로 20대가 약 10% 빠르고, 70세가 약 25% 느린 "
+         "WMA 표를 보면 10km 기준기록이 20대에서 가장 빠르고, 50세는 그보다 약 12%, 70세는 약 35% "
          "정도로 잡습니다. 한 살 단위로 경계가 조금씩 움직이는 이유가 이것입니다."),
         ("표에 없는 거리는 어떻게 보나요?",
-         "계산기에 기록을 넣으면 Riegel 환산식으로 다른 거리까지 같은 잣대로 비교해 줍니다. "
+         "계산기에 기록을 넣으면 5km·하프·풀코스까지 같은 잣대로 비교해 줍니다. "
          "결과를 이미지로 저장할 수도 있습니다."),
     ]
     faq_html = "\n".join(
@@ -768,7 +776,7 @@ def update_sitemap(slugs):
 
 
 def main():
-    verify_against_level_js()
+    verify_models()
 
     slugs = []
     for d in DISTANCES:

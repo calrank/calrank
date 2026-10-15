@@ -120,38 +120,33 @@ def build_summary(ev: dict) -> str:
 
 
 # --- 기록 수준 한 단락 (level.js / 등급표와 같은 모델) ---
-_AGE_ANCHORS = [(20, 0.90), (30, 0.93), (40, 0.96), (50, 1.00),
-                (60, 1.10), (70, 1.25), (80, 1.45)]
-_GENDER_FACTOR = {"male": 1.00, "female": 1.11}
-_RIEGEL = 1.06
-_GRADE_SLUG = {5.0: "5km", 10.0: "10km", 21.0975: "half", 42.195: "full"}
 _NAMED_DIST = {"하프": 21.0975, "풀코스": 42.195, "풀": 42.195}
 
+_GRADE_SLUG = {5.0: "5km", 10.0: "10km", 21.0975: "half", 42.195: "full"}
 
-def _age_factor(age):
-    if age <= 20:
-        return 0.90
-    if age >= 80:
-        return 1.45
-    for i in range(len(_AGE_ANCHORS) - 1):
-        a0, f0 = _AGE_ANCHORS[i]
-        a1, f1 = _AGE_ANCHORS[i + 1]
-        if a0 <= age <= a1:
-            return f0 + (f1 - f0) * (age - a0) / (a1 - a0)
-    return 1.0
+# 등급 기준은 등급표·계산기와 같은 WMA 2025 연령 기준표를 쓴다.
+# 여기서만 다른 모델을 쓰면 같은 기록에 다른 등급이 나온다.
+import wma_standards as wma  # noqa: E402
+
+TIER_BOUNDS = [(72, "상당한 러너"), (65, "러닝 상급자"), (59, "매우 좋은 편"),
+               (51, "상당히 좋은 편"), (45, "꾸준한 러너"), (39, "보통"), (0, "이제 시작")]
+BOUND = {label: pct for pct, label in TIER_BOUNDS}
+_DIST_KEY = ((5.0, "5km"), (10.0, "10km"), (21.0975, "half"), (42.195, "full"))
 
 
-def _norm_pace(sec, age, gender, km):
-    return (sec * (10.0 / km) ** _RIEGEL) / 10.0 / _age_factor(age) / _GENDER_FACTOR[gender]
+def _dist_key(km):
+    for value, key in _DIST_KEY:
+        if abs(km - value) < 0.05:
+            return key
+    return None
 
 
-def _boundary(bound, age, gender, km):
-    s = math.floor(bound * _age_factor(age) * _GENDER_FACTOR[gender] * 10.0 * (km / 10.0) ** _RIEGEL)
-    while s > 0 and _norm_pace(s, age, gender, km) > bound:
-        s -= 1
-    while _norm_pace(s + 1, age, gender, km) <= bound:
-        s += 1
-    return int(s)
+def _boundary(bound_pct, age, gender, km):
+    """그 등급을 받을 수 있는 가장 느린 기록(초). 표 밖 거리는 None."""
+    key = _dist_key(km)
+    if key is None:
+        return None
+    return math.floor(wma.standard(gender, key, age) / (bound_pct / 100.0))
 
 
 def _fmt_time(sec):
@@ -204,13 +199,15 @@ def build_record_standards(ev: dict) -> str:
             main = pref
             break
     if main is None:
-        main = kms[0]
+        # WMA가 기준을 내는 네 거리가 아니면 등급 문단을 쓰지 않는다.
+        # 억지로 환산해 붙이면 숫자의 근거가 사라진다. (822개 중 72개)
+        return ""
 
     lab = _km_label(main)
-    m_avg = _fmt_time(_boundary(390, 40, "male", main))
-    m_good = _fmt_time(_boundary(300, 40, "male", main))
-    f_avg = _fmt_time(_boundary(390, 40, "female", main))
-    f_good = _fmt_time(_boundary(300, 40, "female", main))
+    m_avg = _fmt_time(_boundary(BOUND["꾸준한 러너"], 40, "male", main))
+    m_good = _fmt_time(_boundary(BOUND["매우 좋은 편"], 40, "male", main))
+    f_avg = _fmt_time(_boundary(BOUND["꾸준한 러너"], 40, "female", main))
+    f_good = _fmt_time(_boundary(BOUND["매우 좋은 편"], 40, "female", main))
 
     slug = _GRADE_SLUG.get(main)
     link = ""
@@ -220,9 +217,9 @@ def build_record_standards(ev: dict) -> str:
                 f'<a href="/grade-{slug}-female.html">여성 등급표</a>에 있습니다.')
 
     return (
-        f"이 대회 {lab}를 기준으로 보면, 40대 남성은 {m_avg} 안에 들어오면 '평균 이상', "
+        f"이 대회 {lab}를 기준으로 보면, 40대 남성은 {m_avg} 안에 들어오면 '꾸준한 러너', "
         f"{m_good} 안쪽이면 '매우 좋은 편'에 해당합니다. 40대 여성은 각각 {f_avg}, {f_good}입니다. "
-        f"나이와 성별을 보정한 calrank 자체 기준이며 공인 통계는 아닙니다.{link}"
+        f"WMA(세계마스터즈육상연맹) 연령 기준표를 쓴 참고용 수치이고, 공인 기록은 아닙니다.{link}"
     )
 
 
