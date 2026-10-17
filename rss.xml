@@ -4,9 +4,27 @@
   <link>https://calrank.vercel.app/index.html</link>
   <description>마라톤·자전거·트레일러닝·철인3종·인라인 대회 일정과 새 칼럼을 알려드립니다.</description>
   <language>ko</language>
-  <lastBuildDate>Fri, 16 Oct 2026 23:13:19 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 17 Oct 2026 00:10:20 +0000</lastBuildDate>
   <atom:link href="https://calrank.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
   <generator>calrank</generator>
+  <item>
+    <title>달리기로 뱃살이 빠질까 — 내장지방과 코어는 다른 이야기 — calrank</title>
+    <link>https://calrank.vercel.app/column-running-visceral-fat-core.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/column-running-visceral-fat-core.html</guid>
+    <pubDate>Sat, 17 Oct 2026 00:10:20 +0000</pubDate>
+    <author>calrank</author>
+    <category>칼럼</category>
+    <description>84개 무작위대조시험을 모은 네트워크 메타분석이 운동 종류별 내장지방 감소 효과를 비교했습니다. 달리기가 내장지방에 하는 일과, '배가 들어가는 것'이 왜 코어 강화와 다른 문제인지 정리했습니다.</description>
+  </item>
+  <item>
+    <title>오픈워터 수영이 무섭고 서툴러요 — 철인3종 노하우 총정리 — calrank</title>
+    <link>https://calrank.vercel.app/column-howto-triathlon-open-water-fear.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/column-howto-triathlon-open-water-fear.html</guid>
+    <pubDate>Fri, 16 Oct 2026 23:59:29 +0000</pubDate>
+    <author>calrank</author>
+    <category>칼럼</category>
+    <description>철인3종 오픈워터 수영이 무섭고 서툴러요 실제 출처(의학·전문가, 공식 자료, 언론 보도)를 밝힌 노하우 정리.</description>
+  </item>
   <item>
     <title>제3회 무등산더블하트국제트레일런대회 추가접수 — 2026.11.15 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-%EC%B6%94%EA%B0%80%EC%A0%91%EC%88%98-2026-11-15.html</link>
@@ -107,15 +125,6 @@
     <description>20대 남성 1시간 43분과 60대 여성 2시간 34분은 같은 등급입니다. 나이와 성별을 빼놓고는 하프 기록이 어느 수준인지 알 수 없습니다. 나이대별·성별 5단계 기준표에서 내 자리를 바로 확인하세요.</description>
   </item>
   <item>
-    <title>굿네이버스 레이스 with 띵크어스 광주 레이스 — 2026.10.17 광주 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/ro-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EB%A0%88%EC%9D%B4%EC%8A%A4-with-%EB%9D%B5%ED%81%AC%EC%96%B4%EC%8A%A4-%EA%B4%91%EC%A3%BC-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-17.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/ro-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EB%A0%88%EC%9D%B4%EC%8A%A4-with-%EB%9D%B5%ED%81%AC%EC%96%B4%EC%8A%A4-%EA%B4%91%EC%A3%BC-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-10-17.html</guid>
-    <pubDate>Mon, 12 Oct 2026 12:18:01 +0000</pubDate>
-    <author>calrank</author>
-    <category>마라톤</category>
-    <description>굿네이버스 레이스 with 띵크어스 광주 레이스 — 2026.10.17 광주 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
     <title>프리덤 워크 &amp; 런 2026 — 2026.10.24 서울 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rm-%ED%94%84%EB%A6%AC%EB%8D%A4-%EC%9B%8C%ED%81%AC-%EB%9F%B0-2026-2026-10-24.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/e/rm-%ED%94%84%EB%A6%AC%EB%8D%A4-%EC%9B%8C%ED%81%AC-%EB%9F%B0-2026-2026-10-24.html</guid>
@@ -159,15 +168,6 @@
     <author>calrank</author>
     <category>칼럼</category>
     <description>달리기를 시작하고 몇 달이 지나도 겉모습이 그대로라 포기하는 분이 많습니다. 미토콘드리아·모세혈관, 발 근육과 뼈, 러닝 경제성에 관한 체계적 문헌고찰로 '안에서 먼저 일어나는 변화'를 정리했습니다.</description>
-  </item>
-  <item>
-    <title>2026 통영 그란폰도 — 2026.10.17 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/cy-2026-%ED%86%B5%EC%98%81-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-17.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/cy-2026-%ED%86%B5%EC%98%81-%EA%B7%B8%EB%9E%80%ED%8F%B0%EB%8F%84-2026-10-17.html</guid>
-    <pubDate>Sat, 10 Oct 2026 00:29:36 +0000</pubDate>
-    <author>calrank</author>
-    <category>자전거</category>
-    <description>2026 통영 그란폰도 — 2026.10.17 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>2026 허그런(HUG RUN) — 2026.12.05 서울 대회 일정·접수 | calrank</title>
@@ -413,22 +413,40 @@
     <description>제9회 광진구청장배 육상대회 — 2026.11.29 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>2026 의정부시 물길마라톤 — 2026.10.17 경기 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EC%9D%98%EC%A0%95%EB%B6%80%EC%8B%9C-%EB%AC%BC%EA%B8%B8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-17.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%9D%98%EC%A0%95%EB%B6%80%EC%8B%9C-%EB%AC%BC%EA%B8%B8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-17.html</guid>
+    <title>제19회 중랑구청장배 장미 마라톤 — 2026.10.18 서울 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C19%ED%9A%8C-%EC%A4%91%EB%9E%91%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%9E%A5%EB%AF%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-18.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C19%ED%9A%8C-%EC%A4%91%EB%9E%91%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%9E%A5%EB%AF%B8-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-18.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>2026 의정부시 물길마라톤 — 2026.10.17 경기 대회 일정·접수 | calrank</description>
+    <description>제19회 중랑구청장배 장미 마라톤 — 2026.10.18 서울 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>2026 전남광주통합특별시 남구청장배 마라톤 — 2026.10.17 광주 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EC%A0%84%EB%82%A8%EA%B4%91%EC%A3%BC%ED%86%B5%ED%95%A9%ED%8A%B9%EB%B3%84%EC%8B%9C-%EB%82%A8%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-17.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%A0%84%EB%82%A8%EA%B4%91%EC%A3%BC%ED%86%B5%ED%95%A9%ED%8A%B9%EB%B3%84%EC%8B%9C-%EB%82%A8%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-17.html</guid>
+    <title>제28회 창원 시민건강달리기 — 2026.10.18 경남 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C28%ED%9A%8C-%EC%B0%BD%EC%9B%90-%EC%8B%9C%EB%AF%BC%EA%B1%B4%EA%B0%95%EB%8B%AC%EB%A6%AC%EA%B8%B0-2026-10-18.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C28%ED%9A%8C-%EC%B0%BD%EC%9B%90-%EC%8B%9C%EB%AF%BC%EA%B1%B4%EA%B0%95%EB%8B%AC%EB%A6%AC%EA%B8%B0-2026-10-18.html</guid>
     <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>2026 전남광주통합특별시 남구청장배 마라톤 — 2026.10.17 광주 대회 일정·접수 | calrank</description>
+    <description>제28회 창원 시민건강달리기 — 2026.10.18 경남 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>제25회 대청호마라톤 — 2026.10.18 대전 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C25%ED%9A%8C-%EB%8C%80%EC%B2%AD%ED%98%B8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-18.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C25%ED%9A%8C-%EB%8C%80%EC%B2%AD%ED%98%B8%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-18.html</guid>
+    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>제25회 대청호마라톤 — 2026.10.18 대전 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>제22회 대구 북구사랑 마라톤 — 2026.10.18 대구 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C22%ED%9A%8C-%EB%8C%80%EA%B5%AC-%EB%B6%81%EA%B5%AC%EC%82%AC%EB%9E%91-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-18.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C22%ED%9A%8C-%EB%8C%80%EA%B5%AC-%EB%B6%81%EA%B5%AC%EC%82%AC%EB%9E%91-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-18.html</guid>
+    <pubDate>Mon, 28 Sep 2026 14:03:35 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>제22회 대구 북구사랑 마라톤 — 2026.10.18 대구 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>러닝화, 어떤 걸 사야 할지 모르겠어요 — 마라톤 노하우 총정리 — calrank</title>
@@ -438,23 +456,5 @@
     <author>calrank</author>
     <category>칼럼</category>
     <description>마라톤 러닝화, 어떤 걸 사야 할지 모르겠어요 실제 출처(의학·전문가, 공식 자료, 언론 보도)를 밝힌 노하우 정리.</description>
-  </item>
-  <item>
-    <title>여름 더위·겨울 추위 속 러닝, 어떻게 대처해야 할까요 — 마라톤 노하우 총정리 — calrank</title>
-    <link>https://calrank.vercel.app/column-howto-marathon-weather-heat.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-howto-marathon-weather-heat.html</guid>
-    <pubDate>Tue, 22 Sep 2026 23:52:27 +0000</pubDate>
-    <author>calrank</author>
-    <category>칼럼</category>
-    <description>마라톤 여름 더위·겨울 추위 속 러닝, 어떻게 대처해야 할까요 실제 출처(의학·전문가, 공식 자료, 언론 보도)를 밝힌 노하우 정리.</description>
-  </item>
-  <item>
-    <title>밤섬마라톤 완벽 가이드 — 완전 평탄 코스와 메달 각인 서비스까지 — calrank</title>
-    <link>https://calrank.vercel.app/column-bamseom-marathon-course-guide.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-bamseom-marathon-course-guide.html</guid>
-    <pubDate>Tue, 22 Sep 2026 21:05:46 +0900</pubDate>
-    <author>calrank</author>
-    <category>칼럼</category>
-    <description>여의도 밤섬마라톤의 완전 평탄 코스, 밤섬의 람사르 습지 스토리, 메달 각인 서비스, 초여름 더위 대비까지 실제 출처 기반으로 정리했습니다.</description>
   </item>
 </channel></rss>
