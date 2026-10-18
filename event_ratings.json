@@ -58968,9 +58968,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-대전-dtrail-레이스-2026-10-17": {
-    "indexScore": 23,
-    "tier": "브론즈",
-    "score": 24,
+    "indexScore": 19,
+    "tier": "일반",
+    "score": 20,
     "maxScore": 105,
     "criteria": [
       {
@@ -58985,7 +58985,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": true,
+        "achieved": false,
         "weight": 4
       },
       {
@@ -59696,9 +59696,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-억새노을마라톤대회-2026-10-17": {
-    "indexScore": 18,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 19,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -59713,7 +59713,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": true,
+        "achieved": false,
         "weight": 4
       },
       {
@@ -62816,9 +62816,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rm-네이버웍스와-함께하는-세종런-26-2026-10-24": {
-    "indexScore": 15,
+    "indexScore": 11,
     "tier": "일반",
-    "score": 16,
+    "score": 12,
     "maxScore": 105,
     "criteria": [
       {
@@ -62833,7 +62833,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": true,
+        "achieved": false,
         "weight": 4
       },
       {
@@ -64480,9 +64480,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제14회-정서진아라뱃길-전국마라톤대회-2026-10-25": {
-    "indexScore": 44,
+    "indexScore": 49,
     "tier": "실버",
-    "score": 46,
+    "score": 51,
     "maxScore": 105,
     "criteria": [
       {
@@ -64552,7 +64552,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -65000,9 +65000,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-춘천마라톤-2026-10-25": {
-    "indexScore": 40,
+    "indexScore": 45,
     "tier": "실버",
-    "score": 42,
+    "score": 47,
     "maxScore": 105,
     "criteria": [
       {
@@ -65012,7 +65012,7 @@
       },
       {
         "label": "하프코스(21km) 운영",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -66872,9 +66872,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-런텐-12차-레이스-just-run10-포천-2026-10-31": {
-    "indexScore": 19,
-    "tier": "일반",
-    "score": 20,
+    "indexScore": 23,
+    "tier": "브론즈",
+    "score": 24,
     "maxScore": 105,
     "criteria": [
       {
@@ -66889,7 +66889,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": false,
+        "achieved": true,
         "weight": 4
       },
       {
@@ -67080,9 +67080,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제2회-성남ymca-마라톤-2026-10-31": {
-    "indexScore": 10,
+    "indexScore": 18,
     "tier": "일반",
-    "score": 10,
+    "score": 19,
     "maxScore": 105,
     "criteria": [
       {
@@ -67097,7 +67097,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": false,
+        "achieved": true,
         "weight": 4
       },
       {
@@ -67152,7 +67152,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
