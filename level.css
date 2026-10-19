@@ -54,3 +54,55 @@
 }
 .lv-or::before{left:0;}
 .lv-or::after{right:0;}
+
+/* ── 연령등급 숫자와 다음 등급 ───────────────────────────── */
+.lv-grade{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;
+  margin:16px 0 20px;
+}
+.lv-grade-num{
+  flex:1 1 150px;display:flex;flex-direction:column;justify-content:center;
+  padding:16px 18px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(255,61,26,.14),rgba(255,61,26,.04));
+  border:1px solid rgba(255,61,26,.32);
+}
+.lv-grade-pct{font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;}
+.lv-grade-pct i{font-size:20px;font-style:normal;margin-left:2px;color:var(--accent,#FF3D1A);}
+.lv-grade-cap{font-size:11.5px;color:var(--ink-soft,#9A9A9A);margin-top:7px;line-height:1.5;}
+.lv-grade-next{
+  flex:1 1 170px;display:flex;flex-direction:column;justify-content:center;gap:4px;
+  padding:16px 18px;border-radius:10px;
+  background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);
+}
+.lv-next-l{font-size:12px;color:var(--ink-soft,#9A9A9A);}
+.lv-next-l b{color:#fff;}
+.lv-next-v{font-size:22px;font-weight:900;color:var(--accent,#FF3D1A);line-height:1.2;}
+.lv-next-t{font-size:12px;color:var(--ink-faint,#6A6A6A);}
+
+/* ── 줄이면 어떻게 바뀌나 ────────────────────────────────── */
+.lv-what{border:1px solid var(--border,#2A2A2A);border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.lv-what-row{
+  display:grid;grid-template-columns:1fr 1.3fr 1fr 1.6fr;gap:6px;
+  padding:11px 14px;font-size:13px;color:#D8D4D2;
+  border-bottom:1px solid var(--border,#2A2A2A);
+}
+.lv-what-row:last-child{border-bottom:none;}
+.lv-what-head{background:var(--surface,#141414);font-size:11.5px;font-weight:700;color:var(--ink-faint,#6A6A6A);}
+.lv-what-row.up{background:rgba(255,61,26,.07);}
+.lv-what-row.up span:last-child{color:var(--accent,#FF3D1A);font-weight:700;}
+
+/* ── 거리 환산 ───────────────────────────────────────────── */
+.lv-equiv{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px;margin-bottom:8px;}
+.lv-equiv-c{
+  display:flex;flex-direction:column;gap:4px;align-items:center;
+  padding:13px 8px;border-radius:9px;
+  background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);
+}
+.lv-equiv-d{font-size:11.5px;color:var(--ink-faint,#6A6A6A);}
+.lv-equiv-t{font-size:16px;font-weight:700;color:#fff;}
+.lv-equiv-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:0 0 20px;}
+
+@media (max-width:520px){
+  .lv-grade-pct{font-size:32px;}
+  .lv-what-row{grid-template-columns:.8fr 1.2fr .9fr 1.4fr;font-size:12px;padding:10px;}
+}

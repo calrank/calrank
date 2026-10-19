@@ -83,6 +83,93 @@ function renderResult(result, inputs) {
       <div class="level-stat"><span class="level-stat-label">시속</span><span class="level-stat-value">${speedKmh.toFixed(1)}km/h</span></div>
       <div class="level-stat"><span class="level-stat-label">비교 기준</span><span class="level-stat-value">${inputs.age}세 ${genderLabel}</span></div>
     </div>
+    ${(() => {
+      // ── 연령등급 숫자와 다음 등급까지 ──────────────────────────
+      // 이 페이지는 WMA 연령등급 위에 서 있는데, 정작 그 숫자가 화면에
+      // 없었다. 등급 이름만 보여 주면 "왜 그 등급인지" 알 수가 없다.
+      // 계산은 이미 하고 있었고 공유 카드에만 쓰이던 값이다.
+      const { agePct } = result;
+      if (agePct == null) return "";
+      const gap = gapToNextTier({ agePct, finishSec: inputs.finishSec,
+        distanceKm: inputs.distanceKm, age: inputs.age, gender: inputs.gender });
+      const target = gap ? inputs.finishSec - gap.diff : null;
+      return `
+      <div class="lv-grade">
+        <div class="lv-grade-num">
+          <span class="lv-grade-pct">${agePct.toFixed(1)}<i>%</i></span>
+          <span class="lv-grade-cap">연령등급 · 100%가 세계기록 수준</span>
+        </div>
+        ${gap ? `
+        <div class="lv-grade-next">
+          <span class="lv-next-l">다음 등급 <b>${gap.label}</b> 까지</span>
+          <span class="lv-next-v">${fmtGap(gap.diff)} 단축</span>
+          <span class="lv-next-t">목표 기록 ${fmtClock(target)}</span>
+        </div>` : `
+        <div class="lv-grade-next">
+          <span class="lv-next-l">가장 높은 구간입니다</span>
+        </div>`}
+      </div>`;
+    })()}
+
+    ${(() => {
+      // ── 얼마를 줄이면 어떻게 바뀌나 ───────────────────────────
+      // "더 열심히"는 측정이 안 된다. 1분을 줄이면 몇 %가 되는지
+      // 보여 주면 목표가 숫자가 된다. 전부 WMA 기준표에서 나오는 값이라
+      // 따로 추정하거나 지어내는 부분이 없다.
+      const { agePct } = result;
+      if (agePct == null) return "";
+      const rows = [60, 120, 180, 300].map((cut) => {
+        const t = inputs.finishSec - cut;
+        if (t < 300) return null;
+        const std = wmaStd(inputs.gender, inputs.distanceKm, inputs.age);
+        if (!std) return null;
+        const pct = (std / t) * 100;
+        const tr = getTier(pct);
+        return { cut, t, pct, label: tr.label, up: tr.label !== result.tier.label };
+      }).filter(Boolean);
+      if (!rows.length) return "";
+      return `
+      <p class="level-tier-table-title">기록을 줄이면 어떻게 바뀔까</p>
+      <div class="lv-what">
+        <div class="lv-what-row lv-what-head">
+          <span>단축</span><span>기록</span><span>연령등급</span><span>등급</span>
+        </div>
+        ${rows.map((r) => `
+        <div class="lv-what-row${r.up ? " up" : ""}">
+          <span>${r.cut / 60}분</span>
+          <span>${fmtClock(r.t)}</span>
+          <span>${r.pct.toFixed(1)}%</span>
+          <span>${r.label}${r.up ? " ↑" : ""}</span>
+        </div>`).join("")}
+      </div>`;
+    })()}
+
+    ${(() => {
+      // ── 다른 거리로 환산하면 ─────────────────────────────────
+      // 같은 연령등급을 받는 다른 거리의 기록이다. 예측이 아니라
+      // 같은 기준으로 환산한 값이라는 점을 문구로 분명히 해 둔다.
+      const others = [5, 10, 21.0975, 42.195].filter(
+        (k) => Math.abs(k - inputs.distanceKm) > 0.01);
+      const rows = others.map((k) => {
+        const t = equivTime(inputs.finishSec, inputs.distanceKm, k,
+                            inputs.age, inputs.gender);
+        return t ? { k, t } : null;
+      }).filter(Boolean);
+      if (!rows.length) return "";
+      return `
+      <p class="level-tier-table-title">같은 수준이라면 다른 거리에서는</p>
+      <div class="lv-equiv">
+        ${rows.map((r) => `
+        <div class="lv-equiv-c">
+          <span class="lv-equiv-d">${distLabel(r.k)}</span>
+          <span class="lv-equiv-t">${fmtClock(r.t)}</span>
+        </div>`).join("")}
+      </div>
+      <p class="lv-equiv-note">지금 기록과 같은 연령등급이 되는 기록입니다.
+      앞으로 그 거리를 뛰면 이 시간이 나온다는 뜻은 아닙니다 — 거리마다
+      필요한 훈련이 다릅니다.</p>`;
+    })()}
+
     <p class="level-tier-table-title">체력 수준 구간 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
     <div class="level-tier-table">
       ${TIER_BOUNDS.slice().reverse().map(([bound, label], i) => {
