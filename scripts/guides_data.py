@@ -14,6 +14,8 @@ generate_guides.py 가 생성을 중단합니다.
 STAGES = {
     "distance": {"label": "거리별 목표",        "short": "거리",
                  "blurb": "10km·하프·풀코스. 내 기록이 어느 수준인지부터 봅니다."},
+    "training": {"label": "훈련",              "short": "훈련",
+                 "blurb": "기록을 줄이려면 무엇을 바꿔야 하는지. 강도 분배와 훈련량."},
     "prep":     {"label": "D-90 ~ D-30 준비",  "short": "D-90",
                  "blurb": "몸을 만드는 기간입니다. 주당 훈련량과 장거리 적응을 다룹니다."},
     "gear":     {"label": "준비물",            "short": "준비물",
@@ -100,6 +102,14 @@ TAG_INFO = {
         "desc": "내 기록이 나이·성별 기준으로 어느 수준인지 알려 주는 글을 모았습니다. "
                 "세계마스터즈육상연맹(WMA) 2025 연령 기준표를 씁니다.",
         "keywords": ["달리기 등급", "마라톤 기록 수준", "연령등급", "나이별 기록"],
+    },
+    "훈련": {
+        "slug": "training",
+        "title": "훈련 가이드 — 기록을 줄이려면",
+        "desc": "강도를 어떻게 나누고 훈련량을 얼마나 늘릴지. "
+                "근거가 있는 것과 널리 퍼졌지만 근거가 없는 것을 구분해 적었습니다.",
+        "keywords": ["10km 기록 단축", "러닝 훈련 강도", "마라톤 훈련법",
+                     "10% 룰", "달리기 훈련량", "하프마라톤 훈련"],
     },
     "식단": {
         "slug": "nutrition",
@@ -1527,3 +1537,11 @@ GUIDES = [
 from guides_distance import GUIDES_DISTANCE  # noqa: E402
 
 GUIDES.extend(GUIDES_DISTANCE)
+
+
+# ---------------------------------------------------------------------------
+# 훈련 가이드도 표를 계산해서 넣기 때문에 별도 파일에 있습니다.
+# scripts/guides_training.py 를 보세요.
+from guides_training import GUIDES_TRAINING  # noqa: E402
+
+GUIDES.extend(GUIDES_TRAINING)

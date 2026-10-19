@@ -246,6 +246,69 @@ REFERENCES = {
             "주의를 분산시키는 방식의 기기 사용(음악 재생 등)은 실격 사유",
         ],
     },
+    # ------------------------------------------------------------------
+    "stoggl2015": {
+        "label": "Stöggl TL, Sperlich B (2015)",
+        "title": "The training intensity distribution among well-trained and "
+                 "elite endurance athletes",
+        "venue": "Frontiers in Physiology 6:295. doi:10.3389/fphys.2015.00295",
+        "org": "종설 논문 (Focused Review)",
+        "url": "https://www.frontiersin.org/articles/10.3389/fphys.2015.00295/full",
+        "verified": "2026-10-19",
+        "claims": [
+            "잘 훈련된 지구력 선수의 훈련은 대부분 낮은 강도에 몰려 있는 "
+            "피라미드형 분포. 낮은 강도(1구간) 비중이 대략 70~95%, "
+            "준비기에는 84~95% 에 이르기도 함",
+            "역치 구간(2구간) 약 2~22%, 높은 강도(3구간) 약 1~20% 이며 "
+            "대회가 가까워질수록 높은 강도 비중이 올라가는 경향",
+            "일부 종목·시기에서는 양극화(polarized) 분포. 예로 주니어 크로스컨트리 "
+            "스키 약 75% / 5~10% / 15~20%, 마라톤 그룹 약 78% / 4% / 18%",
+            "3구간 모델의 기준 — 1구간은 제1환기역치(VT1) 아래 또는 혈중 젖산 약 2 mM "
+            "이하, 최대심박수의 대략 54~83%. 2구간은 젖산 약 4 mM 또는 제2환기역치(VT2) "
+            "부근, 최대심박수의 대략 74~88%. 3구간은 젖산 4 mM 이상 또는 VT2 위, "
+            "최대심박수 약 90% 초과",
+            "무작위 배정 연구들에서는 양극화 훈련이 역치 위주 훈련이나 저강도 대량 훈련보다 "
+            "지구력 지표를 더 크게 향상시키는 경우가 많았음",
+            "다만 저자들은 모든 선수에게 맞는 단 하나의 최적 분포가 확인되지는 "
+            "않았다고 결론지음",
+        ],
+    },
+    # ------------------------------------------------------------------
+    "damsted2018": {
+        "label": "Damsted C, Glad S, Nielsen RO, Sørensen H, Malisoux L (2018)",
+        "title": "Is there evidence for an association between changes in training "
+                 "load and running-related injuries? A systematic review",
+        "venue": "International Journal of Sports Physical Therapy 13(6):931–942. "
+                 "doi:10.26603/ijspt20180931",
+        "org": "체계적 문헌고찰",
+        "url": "https://www.theinjuryclinic.com.au/wp-content/uploads/2022/03/IS-THERE-EVIDENCE-FOR-AN-ASSOCIATION-BETWEEN-CHANGES-IN-TRAINING-LOAD-AND-RUNNING-RELATED-INJURIES-A-SYSTEMATIC-REVIEW.pdf",
+        "verified": "2026-10-19",
+        "claims": [
+            "연구 4편을 종합한 결과, 훈련량의 변화(증가든 감소든)와 러닝 부상 발생을 "
+            "잇는 근거는 매우 제한적이라고 결론",
+            "위험한 급증의 경계가 몇 % 인지에 대한 기준은 아직 밝혀지지 않았음",
+            "주간 훈련량을 10% 넘게 올리지 말라는 이른바 '10% 룰' 을 뒷받침하는 "
+            "근거는 찾지 못했다고 명시",
+        ],
+    },
+    # ------------------------------------------------------------------
+    "fradkin2010": {
+        "label": "Fradkin AJ, Zazryn TR, Smoliga JM (2010)",
+        "title": "Effects of warming-up on physical performance: "
+                 "a systematic review with meta-analysis",
+        "venue": "Journal of Strength and Conditioning Research 24(1):140–148. "
+                 "doi:10.1519/JSC.0b013e3181c643a0",
+        "org": "체계적 문헌고찰 및 메타분석",
+        "url": "https://research.monash.edu/en/publications/effects-of-warming-up-on-physical-performance-a-systematic-review/",
+        "verified": "2026-10-19",
+        "claims": [
+            "스트레칭 외의 활동을 포함한 워밍업을 다룬 연구 32편을 종합. "
+            "모두 PEDro 척도에서 높은 품질(6.5~9점, 평균 7.6점)로 평가됨",
+            "워밍업이 운동수행을 향상시킨 지표가 79건",
+            "워밍업이 수행에 해롭다는 근거는 거의 없다고 저자들이 기술",
+            "다만 잘 설계된 무작위 대조 연구가 적어 추가 연구가 필요하다고 지적",
+        ],
+    },
 }
 
 
