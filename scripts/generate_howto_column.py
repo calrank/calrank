@@ -214,7 +214,7 @@ def regenerate_published():
         if sport not in bank:
             continue
         concern = next((c for c in bank[sport]["concerns"] if c["id"] == concern_id), None)
-        if not concern:
+        if not concern or concern.get("retired"):
             continue
         sport_label = bank[sport]["label"]
         html = build_page(sport_label, sport, concern, state["cycle"])
@@ -237,6 +237,11 @@ def main():
     all_combos = []
     for sport, v in bank.items():
         for concern in v["concerns"]:
+            # retired 항목은 새 가이드(guide-*.html)로 통합되어 리다이렉트된 주제다.
+            # 다시 발행하면 같은 검색어를 두고 우리 글끼리 경쟁하게 되므로 건너뛴다.
+            # 왜 내렸는지는 tips_bank.json 의 retired_to / retired_why 에 적어 두었다.
+            if concern.get("retired"):
+                continue
             all_combos.append((sport, concern["id"]))
 
     remaining = [c for c in all_combos if f"{c[0]}:{c[1]}" not in state["published"]]

@@ -38,7 +38,8 @@ def created_dates() -> dict:
     """파일 -> 저장소에 처음 추가된 시각. 얕은 복제(shallow)면 정확하지 않으므로 중단한다."""
     if git("rev-parse", "--is-shallow-repository").strip() == "true":
         raise RuntimeError("얕은 복제(shallow clone)입니다. 워크플로우에서 fetch-depth: 0 으로 체크아웃하세요.")
-    out = git("log", "--diff-filter=A", "--name-only", "--pretty=format:@@%aI", "--", "column-*.html", "e/*.html")
+    out = git("log", "--diff-filter=A", "--name-only", "--pretty=format:@@%aI", "--",
+              "column-*.html", "guide-*.html", "e/*.html")
     dates, cur = {}, None
     for line in out.splitlines():
         if line.startswith("@@"):
@@ -78,14 +79,20 @@ def main():
 
     items = []  # (datetime, xml)
 
+    # 칼럼과 대회 가이드를 함께 싣는다. 가이드는 구독자가 다시 들어오는
+    # 경로이기도 해서 피드에서 빠뜨리면 안 된다.
+    # guide-tag-*.html 은 목록 페이지라 제외한다.
     cols = []
-    for p in ROOT.glob("column-*.html"):
-        iso = dates.get(p.name)
-        if iso:
-            cols.append((datetime.fromisoformat(iso), p))
-    for dt, p in sorted(cols, key=lambda x: x[0], reverse=True)[:MAX_COLUMNS]:
+    for pat, cat in (("column-*.html", "칼럼"), ("guide-*.html", "대회 가이드")):
+        for p in ROOT.glob(pat):
+            if p.name.startswith("guide-tag-"):
+                continue
+            iso = dates.get(p.name)
+            if iso:
+                cols.append((datetime.fromisoformat(iso), p, cat))
+    for dt, p, cat in sorted(cols, key=lambda x: x[0], reverse=True)[:MAX_COLUMNS]:
         title, desc = page_meta(p)
-        items.append((dt, item_xml(title, f"{SITE}/{p.name}", desc, dt, "칼럼")))
+        items.append((dt, item_xml(title, f"{SITE}/{p.name}", desc, dt, cat)))
 
     evs = []
     for e in events:

@@ -1,21 +1,11 @@
 {
   "published": [
-    "marathon:goal-time",
     "marathon:injury",
-    "marathon:race-day-gi",
-    "marathon:first-timer",
-    "marathon:recovery",
     "marathon:women-runners",
     "marathon:weather-heat",
     "marathon:shoe-selection",
-    "trail:beginner-gear",
     "trail:injury-ankle-knee",
-    "trail:safety-nutrition",
-    "trail:poles-technique",
-    "cycling:knee-saddle-pain",
-    "cycling:granfondo-prep",
-    "cycling:group-ride-etiquette",
-    "triathlon:open-water-fear"
+    "trail:poles-technique"
   ],
   "cycle": 0
 }

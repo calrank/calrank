@@ -36,7 +36,10 @@
             "source": "runtalk, '초보자를 위한 마라톤·러닝 용어 가이드'",
             "confidence": "언론 보도"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-marathon-full.html",
+        "retired_why": "목표기록 → 등급표와 30km 이후 계획"
       },
       {
         "id": "injury",
@@ -108,7 +111,10 @@
             "source": "runtalk, '레이스 도중 배가 아프면 어떻게 해야 할까'",
             "confidence": "언론 보도"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-marathon-gel.html",
+        "retired_why": "보급 중 속 불편을 새 글이 다룸"
       },
       {
         "id": "first-timer",
@@ -139,7 +145,10 @@
             "source": "KorMarathon",
             "confidence": "커뮤니티 경험담"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-marathon-checklist.html",
+        "retired_why": "'마라톤 준비물' 검색어 중복"
       },
       {
         "id": "recovery",
@@ -170,7 +179,10 @@
             "source": "miniwebtool, '마라톤 페이스 계산기'",
             "confidence": "언론 보도"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-marathon-recovery.html",
+        "retired_why": "같은 주제 · 새 글은 메타분석 효과크기 수록"
       },
       {
         "id": "women-runners",
@@ -289,7 +301,10 @@
             "source": "nnormal, '트레일 러닝: 해야 할 일과 하지 말아야 할 일'",
             "confidence": "커뮤니티 경험담"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-trail-gear.html",
+        "retired_why": "'트레일러닝 준비물' 검색어 중복"
       },
       {
         "id": "injury-ankle-knee",
@@ -341,7 +356,10 @@
             "source": "Arduua",
             "confidence": "커뮤니티 경험담"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-trail-heat-fuel.html",
+        "retired_why": "보급·안전을 새 글이 계산까지 다룸"
       },
       {
         "id": "poles-technique",
@@ -413,7 +431,10 @@
             "source": "대한민국 정책브리핑, '관절 건강 지키는 라이딩 자세는?'",
             "confidence": "공식 자료"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-cycling-recovery.html",
+        "retired_why": "안장통·무릎을 새 글이 다룸"
       },
       {
         "id": "granfondo-prep",
@@ -444,7 +465,10 @@
             "source": "Elitewheels, '자전거 타기의 케이던스 가이드'",
             "confidence": "공식 자료"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-cycling-gear.html",
+        "retired_why": "'그란폰도 준비물' 검색어 중복"
       },
       {
         "id": "group-ride-etiquette",
@@ -522,7 +546,10 @@
             "source": "위키백과, '트라이애슬론'",
             "confidence": "언론 보도"
           }
-        ]
+        ],
+        "retired": true,
+        "retired_to": "guide-triathlon-gear.html",
+        "retired_why": "'철인3종 준비물' 검색어 중복 — 미발행 상태로 차단"
       },
       {
         "id": "transition-training",
