@@ -1951,3 +1951,10 @@ GUIDES.extend(GUIDES_DISTANCE)
 from guides_training import GUIDES_TRAINING  # noqa: E402
 
 GUIDES.extend(GUIDES_TRAINING)
+
+
+# ---------------------------------------------------------------------------
+# 자전거대회 가이드도 표를 계산해서 넣습니다. scripts/guides_cycling.py 를 보세요.
+from guides_cycling import GUIDES_CYCLING  # noqa: E402
+
+GUIDES.extend(GUIDES_CYCLING)

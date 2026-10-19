@@ -486,6 +486,11 @@ def build_guide_page(g, loops, today):
               f'<span class="g-pn-l">다음 →</span>'
               f'<span class="g-pn-t">{h(lp["next"]["short"])}</span></a></nav>')
 
+    refs_section = ("" if not order else
+        '<section class="g-refs">\n<h2 class="g-h2">근거</h2>\n'
+        '<p class="g-p">이 글에 적힌 수치는 아래 자료에서 그대로 가져온 것입니다. '
+        '각 항목의 원문을 직접 열어 확인한 날짜를 함께 적어 두었습니다.</p>\n'
+        '<ol class="g-reflist">\n' + render_refs(order) + '\n</ol>\n</section>')
     related = build_related(g, GUIDES, loops)
     share = build_share(g)
     _txt = re.sub(r"<[^>]+>", "", body)
@@ -541,13 +546,7 @@ def build_guide_page(g, loops, today):
 {body}
 </article>
 {faq_html}
-<section class="g-refs">
-<h2 class="g-h2">근거</h2>
-<p class="g-p">이 글에 적힌 수치는 아래 자료에서 그대로 가져온 것입니다. 각 항목의 원문을 직접 열어 확인한 날짜를 함께 적어 두었습니다.</p>
-<ol class="g-reflist">
-{render_refs(order)}
-</ol>
-</section>
+{refs_section}
 {related}
 {share}
 {sib}
