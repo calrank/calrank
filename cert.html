@@ -64,6 +64,28 @@
   .ct-links{margin-top:26px;font-size:13.5px;line-height:2;}
   .ct-links a{color:#D6D1CD;text-decoration:none;border-bottom:1px dashed #5E5A57;}
   .ct-links a:hover{color:var(--accent);border-color:var(--accent);}
+
+/* 기록증 — 통계 동의 */
+.ct-give{
+  margin:18px 0 0;padding:16px 18px;border-radius:10px;
+  background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);text-align:left;
+}
+.ct-give-t{font-size:14.5px;font-weight:700;color:#fff;margin:0 0 8px;}
+.ct-give-d{font-size:13px;line-height:1.8;color:var(--ink-soft,#9A9A9A);margin:0 0 12px;}
+.ct-give-l{margin:0 0 14px;padding-left:16px;}
+.ct-give-l li{font-size:12.5px;line-height:1.85;color:#C8C4C2;margin-bottom:4px;}
+.ct-give-l b{color:#fff;}
+.ct-give-ck{display:flex;gap:8px;align-items:flex-start;cursor:pointer;margin:0 0 12px;}
+.ct-give-ck input{margin-top:3px;flex:0 0 auto;}
+.ct-give-ck span{font-size:13px;line-height:1.6;color:#D8D4D2;}
+.ct-give-go{
+  width:100%;font-family:inherit;font-size:14px;font-weight:700;padding:11px;
+  border-radius:8px;border:1px solid var(--border,#2A2A2A);
+  background:transparent;color:#D8D4D2;cursor:pointer;
+}
+.ct-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent,#FF3D1A);}
+.ct-give-go:disabled{opacity:.45;cursor:default;}
+.ct-give-msg{font-size:12.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:10px 0 0;}
 </style>
 </head>
 <body>
@@ -137,6 +159,24 @@
     <button type="button" class="pri" id="ctShare">공유하기</button>
     <button type="button" id="ctSave">이미지 저장</button>
   </div>
+
+  <div class="ct-give" id="ctGive" hidden>
+    <p class="ct-give-t">이 기록을 통계에 보태 주시겠어요?</p>
+    <p class="ct-give-d">한국 러너의 기록 분포를 모으고 있습니다. 충분히 모이면
+    “같은 나이·성별 중 내 기록이 어디쯤인지”를 남의 나라 데이터가 아니라
+    우리 기록으로 답할 수 있어요. 지금은 그 데이터가 없어서 못 합니다.</p>
+    <ul class="ct-give-l">
+      <li><b>보내는 것</b> 대회명 · 대회일 · 거리 · 완주 시간 · 연령대(10년 단위) · 성별</li>
+      <li><b>보내지 않는 것</b> 이름 · 배번 · 기록증 사진 · 정확한 생년 · 대회 순위 · 계정</li>
+      <li><b>되돌릴 수 없어요</b> 누가 보냈는지 알 수 없게 담기 때문에, 나중에 그 줄만 찾아 지워 드릴 수가 없습니다</li>
+    </ul>
+    <label class="ct-give-ck">
+      <input type="checkbox" id="ctConsent">
+      <span>위 내용을 확인했고, 익명 통계에 보태는 데 동의합니다</span>
+    </label>
+    <button type="button" class="ct-give-go" id="ctGiveBtn" disabled>통계에 보태기</button>
+    <p class="ct-give-msg" id="ctGiveMsg"></p>
+  </div>
 </div>
 
 <section class="ct-sec">
@@ -174,6 +214,7 @@
 
 <script src="wma-standards.js"></script>
 <script src="grade-model.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="cert.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>

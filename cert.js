@@ -618,6 +618,9 @@
     if (!r) { say("완주기록과 출생연도를 확인해 주세요."); return; }
     say("");
     var go = function () { drawCard(r); cardWrap.classList.add("on");
+      // 카드를 본 다음에 통계 동의를 묻습니다. 자기 결과를 보고 납득한
+      // 뒤라야 무엇을 보태는 것인지 알고 고를 수 있습니다.
+      if (typeof refreshGive === "function") refreshGive();
       cardWrap.scrollIntoView({ behavior: "smooth", block: "nearest" }); };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
     else go();
@@ -648,4 +651,126 @@
       }
     });
   });
+
+  // ---------- 5. 동의받은 기록만 통계로 보내기 ----------
+  //
+  // 왜 이걸 모으는가
+  //   "내 기록이 상위 몇 %인가" 는 가장 많이 받는 질문인데, 한국 러너의
+  //   기록 분포가 없으면 답할 수 없습니다. 타이밍 업체가 공개한 결과는
+  //   실명·배번이 함께 있는 개인정보라 가져오지 않기로 했습니다.
+  //   남은 길은 본인이 직접 보태 주는 것뿐입니다.
+  //
+  // 무엇을 보내지 않는가
+  //   이름, 배번, 기록증 사진, 정확한 생년, 대회 순위, 계정 식별자.
+  //   사진은 브라우저 밖으로 나가지 않습니다. 여기서 보내는 것은
+  //   화면에 떠 있는 값, 즉 사용자가 눈으로 확인한 값뿐입니다.
+  //
+  //   계정 식별자를 일부러 빼서 누가 보냈는지 알 수 없게 했습니다.
+  //   그래서 개별 삭제가 불가능하고, 그 사실을 동의 화면에 먼저 적어
+  //   두었습니다. 알려 주고 받는 동의라야 동의입니다.
+
+  var SB_URL = "https://mlbzsqeoqlyvnyzeegeu.supabase.co";
+  var SB_KEY = "sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
+  var giveBox = document.getElementById("ctGive");
+  var consentCk = document.getElementById("ctConsent");
+  var giveBtn = document.getElementById("ctGiveBtn");
+  var giveMsg = document.getElementById("ctGiveMsg");
+
+  function ageBand(age) {
+    if (age >= 80) return "80대 이상";
+    if (age < 10) return null;                   // 통계 구간 밖
+    return (Math.floor(age / 10) * 10) + "대";
+  }
+
+  function distCategory(km) {
+    if (Math.abs(km - 5) < 0.3) return "5km";
+    if (Math.abs(km - 10) < 0.3) return "10km";
+    if (Math.abs(km - 21.0975) < 0.3) return "half";
+    if (Math.abs(km - 42.195) < 0.4) return "full";
+    return null;
+  }
+
+  // 같은 기록을 두 번 보내지 않도록 하는 가벼운 장치입니다.
+  // 브라우저를 바꾸면 뚫리지만, 실수로 두 번 누르는 것은 막아 줍니다.
+  function giveKey(row) {
+    return "crGave:" + [row.race_name, row.distance_category,
+                        row.finish_time_seconds, row.age_band, row.gender].join("|");
+  }
+
+  function buildRow() {
+    var d = buildResult();
+    if (!d) return null;
+    var cat = distCategory(d.km);
+    var band = ageBand(d.age);
+    if (!cat || !band) return null;
+    if (d.sec < 300 || d.sec > 54000) return null;     // 서버 제약과 같은 범위
+    var race = (raceInput.value || "").trim();
+    if (!race || race.length > 120) return null;
+    var row = {
+      race_name: race,
+      sport: "marathon",
+      distance_category: cat,
+      finish_time_seconds: Math.round(d.sec),
+      age_band: band,
+      gender: d.gender,
+      source: "cert"
+    };
+    // 대회를 목록에서 고른 경우에만 날짜를 함께 보냅니다.
+    // 직접 적은 이름은 어느 해 대회인지 알 수 없어 추측하지 않습니다.
+    if (raceMap) {
+      var ev = raceMap.get(race);
+      if (ev && ev.date) row.race_date = String(ev.date).slice(0, 10);
+    }
+    return row;
+  }
+
+  function refreshGive() {
+    if (!giveBox) return;
+    var row = buildRow();
+    if (!row) { giveBox.hidden = true; return; }
+    var done = false;
+    try { done = !!localStorage.getItem(giveKey(row)); } catch (e) {}
+    if (done) {
+      giveBox.hidden = false;
+      if (consentCk) { consentCk.checked = true; consentCk.disabled = true; }
+      if (giveBtn) { giveBtn.disabled = true; giveBtn.textContent = "보태 주셔서 고맙습니다"; }
+      if (giveMsg) giveMsg.textContent = "이 기록은 이미 통계에 들어갔습니다.";
+      return;
+    }
+    giveBox.hidden = false;
+  }
+
+  if (consentCk && giveBtn) {
+    consentCk.addEventListener("change", function () {
+      giveBtn.disabled = !consentCk.checked;
+    });
+
+    giveBtn.addEventListener("click", function () {
+      var row = buildRow();
+      if (!row) { giveMsg.textContent = "값을 다시 확인해 주세요."; return; }
+      if (!window.supabase) { giveMsg.textContent = "지금은 보낼 수 없습니다. 잠시 뒤 다시 시도해 주세요."; return; }
+      giveBtn.disabled = true;
+      giveBtn.textContent = "보내는 중…";
+      try {
+        var sb = window.supabase.createClient(SB_URL, SB_KEY);
+        sb.from("record_stats").insert(row).then(function (res) {
+          if (res && res.error) {
+            giveBtn.textContent = "통계에 보태기";
+            giveBtn.disabled = false;
+            giveMsg.textContent = "보내지 못했습니다. 잠시 뒤 다시 시도해 주세요.";
+            return;
+          }
+          try { localStorage.setItem(giveKey(row), "1"); } catch (e) {}
+          giveBtn.textContent = "보태 주셔서 고맙습니다";
+          consentCk.disabled = true;
+          giveMsg.textContent = "고맙습니다. 표본이 쌓이면 같은 나이·성별 안에서 내 위치를 보여 드릴 수 있습니다.";
+        });
+      } catch (e) {
+        giveBtn.textContent = "통계에 보태기";
+        giveBtn.disabled = false;
+        giveMsg.textContent = "보내지 못했습니다.";
+      }
+    });
+  }
+
 })();
