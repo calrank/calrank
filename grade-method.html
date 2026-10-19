@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>calrank 등급은 어떻게 매기나 — 기준표와 계산식 전부 공개 | calrank</title>
+<meta name="description" content="나이·성별 기준은 세계마스터즈육상연맹(WMA) 2025년 표를 그대로 씁니다. 연령등급 % 계산식과 출처, 일곱 구간을 나눈 자리까지 전부 적어 두었어요. 같은 숫자를 직접 따라 해 보실 수 있습니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="calrank 등급은 어떻게 매기나 — 기준표와 계산식 전부 공개 | calrank">
+<meta property="og:description" content="나이·성별 기준은 세계마스터즈육상연맹(WMA) 2025년 표를 그대로 씁니다. 연령등급 % 계산식과 출처, 일곱 구간을 나눈 자리까지 전부 적어 두었어요. 같은 숫자를 직접 따라 해 보실 수 있습니다.">
+<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
+<meta property="og:url" content="https://calrank.vercel.app/grade-method.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://calrank.vercel.app/grade-method.html">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "calrank 등급은 어떻게 매기나 — 기준표와 계산식 전부 공개 | calrank", "description": "나이·성별 기준은 세계마스터즈육상연맹(WMA) 2025년 표를 그대로 씁니다. 연령등급 % 계산식과 출처, 일곱 구간을 나눈 자리까지 전부 적어 두었어요. 같은 숫자를 직접 따라 해 보실 수 있습니다.", "url": "https://calrank.vercel.app/grade-method.html", "inLanguage": "ko-KR"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"}, {"@type": "ListItem", "position": 2, "name": "기록 등급표", "item": "https://calrank.vercel.app/grade.html"}, {"@type": "ListItem", "position": 3, "name": "등급 기준과 근거"}]}</script>
+<style>
+  .gr-wrap { max-width: 860px; margin: 0 auto; padding: 44px 20px 80px; }
+  .gr-title { font-family: var(--font-display); font-size: clamp(23px, 3.4vw, 33px); line-height: 1.3; margin-bottom: 12px; }
+  .gr-lead { font-size: 15px; line-height: 1.8; color: #C9C3BF; margin-bottom: 22px; }
+  .gr-switch { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 26px; }
+  .gr-switch a { font-size: 13px; padding: 7px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #D6D1CD; text-decoration: none; }
+  .gr-switch a:hover { border-color: var(--accent); }
+  .gr-switch a.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+  .gr-tablebox { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border, #2A2A2A); border-radius: 10px; }
+  table.gr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 13px; }
+  table.gr-table th, table.gr-table td { padding: 10px 8px; text-align: center; white-space: nowrap; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  table.gr-table thead th { background: #171514; color: #E8E4E1; font-weight: 700; font-size: 12px; line-height: 1.4; }
+  /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
+  table.gr-table tbody th { background: #121010; color: var(--accent); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid rgba(255,255,255,0.09); }
+  table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid rgba(255,255,255,0.09); }
+  table.gr-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .gr-swipe { display: none; font-size: 12px; color: #8E8884; margin: 8px 2px 0; }
+  @media (max-width: 680px) {
+    .gr-wrap { padding: 32px 14px 70px; }
+    table.gr-table { font-size: 12.5px; }
+    table.gr-table th, table.gr-table td { padding: 9px 7px; }
+    .gr-swipe { display: block; }
+  }
+  .gr-note { font-size: 13px; line-height: 1.8; color: #A9A29E; margin-top: 14px; }
+  .gr-h2 { font-size: 18px; margin: 38px 0 12px; }
+  .gr-p { font-size: 14.5px; line-height: 1.85; color: #C3BDB9; }
+  .gr-faq { margin-top: 10px; }
+  .gr-faq details { border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .gr-faq summary { cursor: pointer; font-size: 14px; font-weight: 700; color: #E8E4E1; }
+  .gr-faq p { margin-top: 9px; font-size: 14px; line-height: 1.8; color: #B5AFAB; }
+  .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; text-align: center; }
+  .gr-cta p { font-size: 14.5px; color: #C9C3BF; }
+  .gr-cta a { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
+  .gr-links { margin-top: 26px; font-size: 13.5px; line-height: 2; }
+  .gr-links a { color: #D6D1CD; text-decoration: none; border-bottom: 1px dashed #5E5A57; }
+  .gr-links a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark">CALRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="regions.html" class="nav-link">지역별</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="grade.html" class="nav-link active">등급표</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+<main class="gr-wrap">
+<h1 class="gr-title">calrank 등급은 어떻게 매기나</h1>
+<p class="gr-lead">러닝 등급표는 많은데, 그 숫자가 어디서 나왔는지 확인할 수 있는 곳은 드뭅니다.
+체감이나 커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문이에요.
+calrank가 쓰는 기준표와 계산식, 구간을 나눈 자리까지 여기 전부 적어 두었습니다.
+읽고 나면 같은 숫자를 직접 따라 해 보실 수 있습니다.</p>
+
+<h2>한 줄로 말하면</h2>
+<p>내 기록을 <b>그 나이·성별의 세계 최고 수준 기록</b>과 견줍니다. 그 비율이 <b>연령등급</b>이고,
+100%면 세계기록 수준이에요. 등급 이름은 이 숫자를 읽기 쉽게 일곱 칸으로 나눈 것뿐입니다.</p>
+
+<h2>나이·성별 기준 — WMA 2025 연령 기준표</h2>
+<ul class="gr-src">
+<li><b>누가</b> 세계마스터즈육상연맹(World Masters Athletics) 연령 기준표.
+Alan Jones · Rex Harvey · Tom Bernhard · Ken Young 작성.</li>
+<li><b>언제</b> 2025년판. 2025년 1월 10일 미국육상연맹(USATF) 마스터즈 장거리위원회 승인.</li>
+<li><b>어디서</b> <a href="https://github.com/AlanLyttonJones/Age-Grade-Tables" rel="nofollow noopener" target="_blank">github.com/AlanLyttonJones/Age-Grade-Tables</a> — 2025 Files 폴더.</li>
+<li><b>무엇을</b> 나이 한 살 단위(10~100세), 남녀 각각, 거리별 기준기록.</li>
+<li><b>라이선스</b> CC0 1.0 Universal — 퍼블릭 도메인. 누구나 받아서 써도 됩니다.</li>
+</ul>
+<p>calrank가 쓰는 네 거리(5km·하프·풀코스·10km)는 WMA가 다른 거리에서 끌어와 추정하지 않고
+직접 산출하는 거리입니다. 그래서 거리끼리 환산하는 공식을 끼워 넣을 필요가 없어요.
+각 거리의 기준을 그대로 씁니다.</p>
+
+<h2>계산은 나눗셈 하나입니다</h2>
+<p>47세 남성이 10km를 52:30에 뛰었다면:</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>항목</th><th>값</th><th>어디서</th></tr>
+<tr><td>내 기록</td><td>52:30</td><td>입력</td></tr>
+<tr><td>47세 남성 10km 기준기록</td><td>28:59</td><td>WMA 2025 표</td></tr>
+<tr><td>연령등급</td><td><b>55.2%</b></td><td>28:59 ÷ 52:30</td></tr>
+<tr><td>등급</td><td><b>상당히 좋은 편</b></td><td>51% 이상 구간</td></tr>
+</table>
+</div>
+
+<h2>100%는 세계기록 수준입니다</h2>
+<p>기준기록이 실제 세계기록과 같은 숫자예요. 표가 최신이라는 뜻이기도 합니다.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>거리</th><th>남성</th><th>여성</th></tr>
+<tr><td>5km</td><td>12:49</td><td>13:54</td></tr><tr><td>10km</td><td>26:24</td><td>28:46</td></tr><tr><td>하프(21.1km)</td><td>57:31</td><td>1:02:52</td></tr><tr><td>풀코스(42.195km)</td><td>2:00:35</td><td>2:09:56</td></tr>
+</table>
+</div>
+<p>WMA는 이 비율을 이렇게 읽습니다 — 90% 이상 World Class, 80% 이상 National,
+70% 이상 Regional, 60% 이상 Local Class. 동호인 대부분은 60% 아래에 모여 있어서,
+calrank는 그 아래 구간을 더 촘촘히 나눴습니다.</p>
+
+<h2>일곱 구간을 나눈 자리</h2>
+<p>여기는 calrank가 정했습니다. 숨길 이유가 없으니 그대로 적어 둡니다.
+오른쪽 두 칸은 40세 기준으로 그 등급을 받는 가장 느린 10km 기록이에요.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>등급</th><th>연령등급</th><th>40세 남성</th><th>40세 여성</th></tr>
+<tr><td><b>상당한 러너</b></td><td>72% 이상</td><td>38:03</td><td>41:31</td></tr><tr><td><b>러닝 상급자</b></td><td>65% 이상</td><td>42:09</td><td>46:00</td></tr><tr><td><b>매우 좋은 편</b></td><td>59% 이상</td><td>46:26</td><td>50:40</td></tr><tr><td><b>상당히 좋은 편</b></td><td>51% 이상</td><td>53:43</td><td>58:37</td></tr><tr><td><b>꾸준한 러너</b></td><td>45% 이상</td><td>1:00:53</td><td>1:06:26</td></tr><tr><td><b>보통</b></td><td>39% 이상</td><td>1:10:15</td><td>1:16:40</td></tr><tr><td><b>이제 시작</b></td><td>39% 미만</td><td>그보다 느림</td><td>그보다 느림</td></tr>
+</table>
+</div>
+
+<h2>다른 데이터로 맞춰 본 결과</h2>
+<p>해외 러닝 데이터베이스(Running Level)가 내놓은 백분위를 같은 방식으로 환산해 봤습니다.
+출처가 다른 두 자료가 비슷한 자리를 가리키면, 기준이 한쪽으로 치우치지 않았다는 뜻이 됩니다.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>Running Level 백분위</th><th>연령등급으로 환산하면</th></tr>
+<tr><td>상위 5%</td><td>약 72%</td></tr>
+<tr><td>상위 20%</td><td>약 64%</td></tr>
+<tr><td>상위 50% (중앙값)</td><td>약 57%</td></tr>
+<tr><td>상위 80%</td><td>약 49%</td></tr>
+<tr><td>상위 95%</td><td>약 41%</td></tr>
+</table>
+</div>
+
+<h2>직접 확인해 보시려면</h2>
+<p>연령등급은 calrank만 쓰는 셈법이 아닙니다. 'age grading calculator'로 검색해 나오는
+어느 계산기에 넣어도 같은 숫자가 나와요. 나이·성별·거리·기록만 넣으면 됩니다.
+혹시 값이 다르면 그쪽이 2020년이나 2015년판 표를 쓰고 있을 가능성이 큽니다.</p>
+
+<h2>이건 아닙니다</h2>
+<p>공인 기록이 아닙니다. 대한육상연맹을 비롯한 어떤 기관이 발급하는 공식 등급도 아니고요.
+대회 입상 기준이나 의학적 체력 평가와도 무관합니다. 코스 난이도·날씨·고도·GPS 오차에 따라
+같은 사람도 기록이 몇 분씩 달라지니, 숫자 한 자리에 너무 무게를 두지 않으셔도 됩니다.</p>
+<p>바꿔 말하면 이 등급이 보증하는 건 하나뿐이에요 —
+<b>출처가 분명한 공개 표와 공개된 계산식으로 만들었고, 같은 결과를 누구나 재현할 수 있다는 것.</b></p>
+
+<p class="gr-more"><a href="level.html">내 기록으로 바로 계산해 보기</a> ·
+<a href="grade.html">거리별 전체 등급표</a> ·
+<a href="cert.html">기록증 사진으로 확인하기</a></p>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<p>기준표는 WMA(세계마스터즈육상연맹) 2025년판이고, 출처와 계산식은 모두 공개돼 있습니다. 다만 공인 기록이나 의학적 판단은 아니고, 코스와 날씨에 따라 체감이 달라질 수 있는 참고용입니다.</p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+</div>
+</footer>
+</body>
+</html>

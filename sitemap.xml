@@ -798,22 +798,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://calrank.vercel.app/column-howto-cycling-group-ride-etiquette.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-running-thigh-calf-muscle.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-open-water-fear.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-running-visceral-fat-core.html</loc>
+    <loc>https://calrank.vercel.app/grade-method.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
