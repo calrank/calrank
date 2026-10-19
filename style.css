@@ -414,3 +414,17 @@ body{
   .ac-box{padding:13px 14px;}
   .ac-btn{flex:1 1 100%;}
 }
+
+/* 근거 원문 — 보고 싶은 사람만 펼치도록 */
+.gr-srcbox{
+  border:1px solid var(--border,#2A2A2A);border-radius:8px;
+  background:var(--surface,#141414);margin:14px 0 18px;
+}
+.gr-srcbox summary{
+  padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-soft,#9A9A9A);
+  cursor:pointer;list-style:none;
+}
+.gr-srcbox summary::-webkit-details-marker{display:none;}
+.gr-srcbox summary::before{content:"▸ ";color:var(--accent,#FF3D1A);}
+.gr-srcbox[open] summary::before{content:"▾ ";}
+.gr-srcbox .gr-src{margin:0;padding:0 16px 14px 34px;}

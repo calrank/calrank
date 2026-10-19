@@ -42,3 +42,15 @@
 @media (max-width:600px){
   .level-stats{flex-direction:column;gap:12px;}
 }
+
+/* 기록증 입구와 직접 입력 사이의 구분선 */
+.lv-or{
+  position:relative;text-align:center;font-size:12px;color:var(--ink-faint,#6A6A6A);
+  margin:16px 0 12px;
+}
+.lv-or::before,.lv-or::after{
+  content:"";position:absolute;top:50%;width:calc(50% - 56px);
+  height:1px;background:var(--border,#2A2A2A);
+}
+.lv-or::before{left:0;}
+.lv-or::after{right:0;}

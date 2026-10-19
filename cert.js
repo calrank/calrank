@@ -93,6 +93,39 @@
     return { gray: g, w: w, h: h };
   }
 
+  // 전체 읽기용 캔버스. 한글은 획이 많아서 작은 글씨에서 뭉개지므로
+  // 숫자 인식용(1100px)보다 크게 그리고, 이진화하지 않고 회색조로 둡니다.
+  // 획이 가는 글꼴은 이진화하면 끊어져서 오히려 더 못 읽습니다.
+  function fullCanvas(img, maxW) {
+    var scale = Math.min(1, maxW / img.width);
+    var w = Math.max(1, Math.round(img.width * scale));
+    var h = Math.max(1, Math.round(img.height * scale));
+    var c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    var ctx = c.getContext("2d");
+    ctx.drawImage(img, 0, 0, w, h);
+    var im = ctx.getImageData(0, 0, w, h);
+    var d = im.data;
+    // 명암을 살짝 벌려 줍니다 (하위 5% ~ 상위 95% 를 0~255 로)
+    var hist = new Uint32Array(256), i;
+    for (i = 0; i < d.length; i += 4) {
+      hist[(d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000 | 0]++;
+    }
+    var total = w * h, acc = 0, lo = 0, hi = 255;
+    for (i = 0; i < 256; i++) { acc += hist[i]; if (acc > total * 0.05) { lo = i; break; } }
+    acc = 0;
+    for (i = 255; i >= 0; i--) { acc += hist[i]; if (acc > total * 0.05) { hi = i; break; } }
+    var span = Math.max(1, hi - lo);
+    for (i = 0; i < d.length; i += 4) {
+      var g = (d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000;
+      var v = Math.max(0, Math.min(255, ((g - lo) / span) * 255));
+      d[i] = d[i + 1] = d[i + 2] = v;
+      d[i + 3] = 255;
+    }
+    ctx.putImageData(im, 0, 0);
+    return c;
+  }
+
   // 적분영상으로 지역 평균을 구해 적응형 이진화한다.
   // 기록증은 색 블록이 많아 전역 임계값으로는 글자가 뭉개진다.
   function adaptiveInk(gray, w, h, win, C) {
@@ -188,6 +221,21 @@
   }
 
   // ---------- 3. 글자 인식 ----------
+  //
+  // 기록증은 대회마다 생김새가 전부 다릅니다. 그래서 한 번만 읽어서는
+  // 완주 시간 말고는 거의 못 건집니다. 두 번 나눠 읽습니다.
+  //
+  //   A. 숫자만 읽기  — 가장 큰 글씨 줄부터 훑어 완주 시간을 찾습니다.
+  //                    글자 후보를 숫자와 콜론으로 좁혀서 빠르고 정확합니다.
+  //   B. 전체 읽기    — 한글과 영문을 같이 켜고 사진 전체를 읽습니다.
+  //                    대회명·날짜·거리·배번·순위·구간기록이 여기서 나옵니다.
+  //
+  // 그리고 대회명은 OCR 결과를 그대로 믿지 않습니다. 우리가 이미 822개
+  // 대회 목록을 들고 있으니, 읽어낸 글자와 그 목록을 대조해서 가장 가까운
+  // 대회를 고릅니다. 글자 몇 개가 틀려도 맞출 수 있습니다.
+  //
+  // 사진은 기기 밖으로 나가지 않습니다. 이름은 일부러 읽지 않습니다.
+
   function loadTesseract() {
     if (window.Tesseract) return Promise.resolve(window.Tesseract);
     return new Promise(function (res, rej) {
@@ -199,7 +247,141 @@
     });
   }
 
-  function readCertificate(img) {
+  // ---- 문자열 정규화: 비교할 때 방해가 되는 것들을 턴다
+  function norm(s) {
+    return String(s || "")
+      .replace(/제\s*\d+\s*회/g, "")      // '제24회'
+      .replace(/20\d\d\s*년?/g, "")        // 연도
+      .replace(/[\s·・\-_()[\]{}'"`.,~!?:;/\\|]/g, "")
+      .toLowerCase();
+  }
+
+  // ---- 두 글자씩 끊어 겹치는 비율 (한글에 잘 맞습니다)
+  function bigrams(s) {
+    var out = [];
+    for (var i = 0; i < s.length - 1; i++) out.push(s.slice(i, i + 2));
+    return out;
+  }
+
+  function similarity(a, b) {
+    if (!a || !b) return 0;
+    if (a.length < 2 || b.length < 2) return a === b ? 1 : 0;
+    var A = bigrams(a), B = bigrams(b);
+    var map = Object.create(null), hit = 0;
+    A.forEach(function (g) { map[g] = (map[g] || 0) + 1; });
+    B.forEach(function (g) { if (map[g] > 0) { map[g]--; hit++; } });
+    return (2 * hit) / (A.length + B.length);
+  }
+
+  // ---- 읽어낸 글자에서 가장 가까운 대회를 고른다
+  function matchRace(text, dateHint) {
+    if (!raceMap || !text) return null;
+    var flat = norm(text);
+    var best = null, bestScore = 0;
+    raceMap.forEach(function (ev, name) {
+      var n = norm(name);
+      if (n.length < 3) return;
+      var score;
+      if (flat.indexOf(n) >= 0) {
+        score = 1;                               // 이름이 통째로 들어 있으면 확실
+      } else {
+        // 대회명 길이만큼 창을 옮겨 가며 가장 닮은 구간을 찾는다
+        var win = Math.min(flat.length, n.length + 6);
+        var top = 0;
+        for (var i = 0; i + 2 <= flat.length; i += 2) {
+          var seg = flat.slice(i, i + win);
+          var sc = similarity(n, seg);
+          if (sc > top) top = sc;
+        }
+        score = top;
+      }
+      // 기록증의 날짜와 대회 날짜가 맞으면 점수를 올려 준다
+      if (dateHint && ev.date && ev.date.slice(0, 10) === dateHint) score += 0.25;
+      if (score > bestScore) { bestScore = score; best = { name: name, ev: ev, score: score }; }
+    });
+    return best && bestScore >= 0.45 ? best : null;
+  }
+
+  // ---- 읽어낸 글자 전체에서 쓸 수 있는 것을 전부 뽑는다
+  function parseFields(text) {
+    var t = String(text || "");
+    var flat = t.replace(/\s+/g, " ");
+    // OCR 이 숫자를 글자로 잘못 읽는 일이 잦습니다 (0→O, 1→I·l, 5→S, 8→B).
+    // 단위(km) 바로 앞에서는 숫자일 수밖에 없으니 그 자리만 되돌립니다.
+    flat = flat.replace(/([0-9OIlSB]{1,4})\s*(km|KM|Km|킬로)/g, function (_, d, u) {
+      return d.replace(/O/g, "0").replace(/[Il]/g, "1")
+              .replace(/S/g, "5").replace(/B/g, "8") + u;
+    });
+    var out = {};
+
+    // 시간: 1:23:45 / 01:23:45 / 23:45 (분:초만 있는 경우도 있습니다)
+    var times = [];
+    var re = /\b(\d{1,2}):([0-5]\d)(?::([0-5]\d))?\b/g, m;
+    while ((m = re.exec(flat))) {
+      var h, mi, se;
+      if (m[3] !== undefined) { h = +m[1]; mi = +m[2]; se = +m[3]; }
+      else { h = 0; mi = +m[1]; se = +m[2]; }
+      var sec = h * 3600 + mi * 60 + se;
+      if (sec < 60 || sec > 15 * 3600) continue;          // 터무니없는 값은 버립니다
+      times.push({ text: m[0], sec: sec, at: m.index });
+    }
+    out.times = times;
+
+    // 넷타임 / 그로스타임 — 가까이 있는 시간에 이름표를 붙입니다
+    times.forEach(function (x) {
+      var near = flat.slice(Math.max(0, x.at - 22), x.at + 22);
+      if (/net|넷|순기록|실기록/i.test(near)) x.kind = "net";
+      else if (/gross|그로스|총기록|총시간/i.test(near)) x.kind = "gross";
+      // 페이스는 분:초 단위라 15분을 넘지 않습니다. 길이로 먼저 거릅니다.
+      // (완주 시간 바로 뒤에 'PACE' 가 적힌 기록증이 많습니다)
+      else if (x.sec < 900 && /pace|페이스|\/\s*km/i.test(near)) x.kind = "pace";
+    });
+
+    // 날짜: 2026.10.19 / 2026-10-19 / 2026년 10월 19일
+    var d = flat.match(/\b(20\d\d)\s*[.\-/년]\s*(\d{1,2})\s*[.\-/월]\s*(\d{1,2})\b/);
+    if (d) {
+      out.date = d[1] + "-" + ("0" + d[2]).slice(-2) + "-" + ("0" + d[3]).slice(-2);
+    }
+
+    // 거리
+    // 'MARATHON' 은 거의 모든 대회 이름에 들어가므로 거리 판단에 쓰면 안 됩니다.
+    // (예: 'JTBC SEOUL MARATHON 2026 HALF' 가 풀코스로 잡혔습니다)
+    if (/42\.?195|풀\s*코스|풀\s*마라톤|full\s*course/i.test(flat)) out.km = "42.195";
+    else if (/21\.?0975|하프|half/i.test(flat)) out.km = "21.0975";
+    else {
+      var k = flat.match(/\b(\d{1,3}(?:\.\d+)?)\s*(?:km|KM|Km|k\b|킬로)/);
+      if (k) {
+        var v = parseFloat(k[1]);
+        if (v > 0 && v <= 100) out.km = String(v);
+      }
+    }
+
+    // 배번 (사진 찾을 때 쓰입니다)
+    var b = flat.match(/(?:배번|번호|bib|no\.?)\s*[:#]?\s*(\d{1,6})\b/i);
+    if (b) out.bib = b[1];
+
+    // 순위: '종합 123위' / '123 / 4,567'
+    // 순위도 천 단위 쉼표가 들어갑니다 ('종합 1,204위')
+    var r = flat.match(/(?:종합|전체|overall|rank)\s*[:#]?\s*([\d,]{1,9})\s*위?/i);
+    if (r) out.rank = r[1].replace(/,/g, "");
+    var rt = flat.match(/\b([\d,]{1,9})\s*\/\s*([\d,]{2,9})\b/);
+    if (rt) {
+      var mine = rt[1].replace(/,/g, ""), all = rt[2].replace(/,/g, "");
+      // 순위가 참가자 수보다 많을 수는 없습니다
+      if (+mine > 0 && +all > 0 && +mine <= +all) {
+        out.rank = out.rank || mine;
+        out.rankTotal = all;
+      }
+    }
+
+    // 성별 — 기록증에 부문이 적혀 있을 때만. 추측하지 않습니다.
+    if (/남자부|남성부|\bmale\b|\bM\s*부/i.test(flat) && !/여자부|female/i.test(flat)) out.gender = "male";
+    else if (/여자부|여성부|\bfemale\b/i.test(flat)) out.gender = "female";
+
+    return out;
+  }
+
+  function readCertificate(img, onStep) {
     var prep = toGray(img, 1100);
     var ink = adaptiveInk(prep.gray, prep.w, prep.h, 31, 10);
     var rows = textRows(ink, prep.w, prep.h);
@@ -207,41 +389,102 @@
     rows.sort(function (p, q) { return (q[1] - q[0]) - (p[1] - p[0]); });
 
     return loadTesseract().then(function (T) {
+      var result = { bigTime: null, fields: {}, race: null, raw: "" };
+
+      // --- A. 숫자만: 큰 글씨에서 완주 시간
+      onStep("완주 시간을 찾는 중…");
       return T.createWorker("eng").then(function (worker) {
-        var time = null, dist = null;
-
-        function pass(list, params, matcher, limit) {
-          return worker.setParameters(params).then(function () {
-            var i = 0;
-            function step() {
-              if (i >= Math.min(list.length, limit)) return Promise.resolve(null);
-              var rc = rowCanvas(prep.gray, prep.w, prep.h, list[i][0], list[i][1]);
-              i++;
-              return worker.recognize(rc).then(function (res) {
-                var hit = matcher(res.data.text || "");
-                return hit || step();
-              });
-            }
-            return step();
-          });
-        }
-
-        return pass(rows, { tessedit_pageseg_mode: "7", tessedit_char_whitelist: "0123456789:" },
-          function (t) { var m = t.match(/\b\d{1,2}:\d{2}:\d{2}\b/); return m ? m[0] : null; }, 8)
-          .then(function (t) {
-            time = t;
-            return pass(rows, { tessedit_pageseg_mode: "7", tessedit_char_whitelist: "" },
-              function (s) {
-                var m = s.match(/\b(\d{1,2})\s*[kK][mM]\b/);
-                if (m) return m[1];
-                if (/half|하프/i.test(s)) return "21.0975";
-                return null;
-              }, 12);
-          })
-          .then(function (d) { dist = d; return worker.terminate(); })
-          .then(function () { return { time: time, dist: dist }; });
+        return worker.setParameters({
+          tessedit_pageseg_mode: "7",
+          tessedit_char_whitelist: "0123456789:"
+        }).then(function () {
+          var i = 0;
+          function step() {
+            if (i >= Math.min(rows.length, 8)) return Promise.resolve(null);
+            var rc = rowCanvas(prep.gray, prep.w, prep.h, rows[i][0], rows[i][1]);
+            i++;
+            return worker.recognize(rc).then(function (res) {
+              var mm = (res.data.text || "").match(/\b\d{1,2}:[0-5]\d:[0-5]\d\b/);
+              return mm ? mm[0] : step();
+            });
+          }
+          return step();
+        }).then(function (t) {
+          result.bigTime = t;
+          return worker.terminate();
+        });
+      }).then(function () {
+        // --- B. 한글+영문 전체 읽기
+        onStep("대회명과 나머지 정보를 읽는 중… (처음 한 번은 한글 데이터를 내려받습니다)");
+        return T.createWorker("kor+eng").then(function (worker) {
+          return worker.setParameters({ tessedit_pageseg_mode: "3" })
+            .then(function () { return worker.recognize(fullCanvas(img, 1600)); })
+            .then(function (res) {
+              result.raw = (res.data && res.data.text) || "";
+              return worker.terminate();
+            });
+        }).catch(function () {
+          // 한글 데이터를 못 받아도 시간은 이미 찾았으니 계속 갑니다
+          return null;
+        });
+      }).then(function () {
+        result.fields = parseFields(result.raw);
+        result.race = matchRace(result.raw, result.fields.date);
+        return result;
       });
     });
+  }
+
+  // ---- 읽어낸 것을 폼에 채우고, 무엇을 읽었는지 보여 준다
+  function applyResult(r) {
+    var f = r.fields || {};
+    var got = [];
+
+    // 완주 시간: 큰 글씨에서 찾은 것 > 넷타임 > 가장 긴 시간
+    var time = r.bigTime;
+    if (!time) {
+      var net = (f.times || []).filter(function (x) { return x.kind === "net"; })[0];
+      if (net) time = net.text;
+    }
+    if (!time) {
+      var cands = (f.times || []).filter(function (x) { return x.kind !== "pace" && x.sec >= 600; });
+      cands.sort(function (a, b) { return b.sec - a.sec; });
+      if (cands[0]) time = cands[0].text;
+    }
+    if (time) {
+      if (/^\d{1,2}:\d{2}$/.test(time)) time = "0:" + time;
+      timeInput.value = time;
+      got.push("완주 시간 " + time);
+    }
+
+    // 대회명 — 목록과 대조해서 고른 것
+    if (r.race) {
+      raceInput.value = r.race.name;
+      got.push("대회 " + r.race.name);
+      if (typeof onRacePicked === "function") onRacePicked();
+    }
+
+    // 거리 — 기록증에서 읽은 것을 우선, 없으면 대회 정보에서
+    var km = f.km;
+    if (km) {
+      var opts = Array.prototype.map.call(distSel.options, function (o) { return o.value; });
+      var pick = opts.filter(function (v) {
+        return v && Math.abs(parseFloat(v) - parseFloat(km)) < 0.3;
+      })[0];
+      if (pick) { distSel.value = pick; got.push("거리 " + distLabel(parseFloat(pick))); }
+    }
+
+    // 성별 — 기록증에 부문이 적혀 있을 때만
+    if (f.gender && genderSel) {
+      genderSel.value = f.gender;
+      got.push("부문 " + (f.gender === "male" ? "남자" : "여자"));
+    }
+
+    if (f.date) got.push("대회일 " + f.date);
+    if (f.bib) got.push("배번 " + f.bib);
+    if (f.rank) got.push("순위 " + f.rank + (f.rankTotal ? " / " + f.rankTotal : "") + "위");
+
+    return got;
   }
 
   fileInput.addEventListener("change", function () {
@@ -250,18 +493,13 @@
     say("사진을 읽는 중…");
     var img = new Image();
     img.onload = function () {
-      say("기록을 찾는 중… (기기에서 처리됩니다)");
-      readCertificate(img).then(function (r) {
+      readCertificate(img, say).then(function (r) {
         showForm();
-        if (r.time) {
-          timeInput.value = r.time;
-          if (r.dist) {
-            var map = { "5": "5", "10": "10", "21.0975": "21.0975", "42": "42.195" };
-            if (map[r.dist]) distSel.value = map[r.dist];
-          }
-          say("완주 시간 " + r.time + " 을 찾았습니다. 대회와 나이만 채워 주세요.");
+        var got = applyResult(r);
+        if (got.length) {
+          say("읽었습니다 — " + got.join(" · ") + ". 비어 있는 칸만 채워 주세요.");
         } else {
-          say("시간을 자동으로 읽지 못했습니다. 아래에 직접 입력해 주세요.");
+          say("자동으로 읽지 못했습니다. 아래에 직접 입력해 주세요.");
         }
         URL.revokeObjectURL(img.src);
       }).catch(function (e) {
