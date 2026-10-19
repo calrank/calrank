@@ -113,7 +113,9 @@ METHOD = (
     "이 숫자는 어느 age-grading 계산기에 넣어도 같은 값이 나오니까, 여기서 받은 등급이 "
     "맞는지 직접 확인해 보셔도 됩니다. "
     "5km·10km·하프·풀코스는 WMA가 거리마다 기준을 따로 내기 때문에, 거리끼리 환산하지 "
-    "않고 각 거리의 기준으로 바로 비교합니다."
+    "않고 각 거리의 기준으로 바로 비교합니다. "
+    "기준표 출처와 계산식, 일곱 구간을 나눈 자리까지 "
+    "<a href=\"grade-method.html\">등급 기준과 근거</a>에 전부 적어 두었어요."
 )
 
 
@@ -485,6 +487,148 @@ def build_page(dist, gender):
     return slug, html
 
 
+def build_method_page():
+    """등급의 근거를 한곳에 모은 페이지.
+
+    등급표마다 출처를 조금씩 적어 두는 대신, 전부 여기로 모으고 각 페이지가
+    여기를 가리키게 한다. 경쟁 등급표를 여섯 개 살펴봤는데 숫자가 어디서
+    나왔는지 확인할 수 있는 곳이 하나도 없었다. 체감으로 구간을 나누면
+    보여 줄 계산 과정이 없기 때문이다. 그 자리가 비어 있어서 우리가 선다.
+    """
+    slug = "grade-method.html"
+    title = "calrank 등급은 어떻게 매기나 — 기준표와 계산식 전부 공개 | calrank"
+    desc = ("나이·성별 기준은 세계마스터즈육상연맹(WMA) 2025년 표를 그대로 씁니다. "
+            "연령등급 % 계산식과 출처, 일곱 구간을 나눈 자리까지 전부 적어 두었어요. "
+            "같은 숫자를 직접 따라 해 보실 수 있습니다.")
+
+    # 예시는 모델로 직접 뽑는다. 손으로 적으면 모델이 바뀔 때 어긋난다.
+    ex_age, ex_finish = 47, 52 * 60 + 30
+    ex_std = wma.standard("male", "10km", ex_age)
+    ex_pct = ex_std / ex_finish * 100
+    ex_bound, ex_tier = next((b, l) for b, l in TIER_BOUNDS if ex_pct >= b)
+
+    oc_rows = "".join(
+        f"<tr><td>{d['label']}</td><td>{fmt_time(int(wma.OC['male'][d['key']]))}</td>"
+        f"<td>{fmt_time(int(wma.OC['female'][d['key']]))}</td></tr>"
+        for d in DISTANCES)
+
+    tier_rows = "".join(
+        f"<tr><td><b>{label}</b></td><td>{pct}% 이상</td>"
+        f"<td>{fmt_time(boundary_seconds(pct, 40, 'male', 10.0))}</td>"
+        f"<td>{fmt_time(boundary_seconds(pct, 40, 'female', 10.0))}</td></tr>"
+        for pct, label in TIER_BOUNDS if pct > 0)
+    tier_rows += (f"<tr><td><b>{TIER_BOUNDS[-1][1]}</b></td><td>{TIER_BOUNDS[-2][0]}% 미만</td>"
+                  f"<td>그보다 느림</td><td>그보다 느림</td></tr>")
+
+    page_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "WebPage",
+        "name": title, "description": desc, "url": f"{BASE}/{slug}", "inLanguage": "ko-KR",
+    }, ensure_ascii=False)
+    crumb_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "calrank", "item": f"{BASE}/index.html"},
+            {"@type": "ListItem", "position": 2, "name": "기록 등급표", "item": f"{BASE}/grade.html"},
+            {"@type": "ListItem", "position": 3, "name": "등급 기준과 근거"},
+        ],
+    }, ensure_ascii=False)
+
+    body = f"""
+<main class="gr-wrap">
+<h1 class="gr-title">calrank 등급은 어떻게 매기나</h1>
+<p class="gr-lead">러닝 등급표는 많은데, 그 숫자가 어디서 나왔는지 확인할 수 있는 곳은 드뭅니다.
+체감이나 커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문이에요.
+calrank가 쓰는 기준표와 계산식, 구간을 나눈 자리까지 여기 전부 적어 두었습니다.
+읽고 나면 같은 숫자를 직접 따라 해 보실 수 있습니다.</p>
+
+<h2>한 줄로 말하면</h2>
+<p>내 기록을 <b>그 나이·성별의 세계 최고 수준 기록</b>과 견줍니다. 그 비율이 <b>연령등급</b>이고,
+100%면 세계기록 수준이에요. 등급 이름은 이 숫자를 읽기 쉽게 일곱 칸으로 나눈 것뿐입니다.</p>
+
+<h2>나이·성별 기준 — WMA 2025 연령 기준표</h2>
+<ul class="gr-src">
+<li><b>누가</b> 세계마스터즈육상연맹(World Masters Athletics) 연령 기준표.
+Alan Jones · Rex Harvey · Tom Bernhard · Ken Young 작성.</li>
+<li><b>언제</b> 2025년판. 2025년 1월 10일 미국육상연맹(USATF) 마스터즈 장거리위원회 승인.</li>
+<li><b>어디서</b> <a href="https://github.com/AlanLyttonJones/Age-Grade-Tables" rel="nofollow noopener" target="_blank">github.com/AlanLyttonJones/Age-Grade-Tables</a> — 2025 Files 폴더.</li>
+<li><b>무엇을</b> 나이 한 살 단위(10~100세), 남녀 각각, 거리별 기준기록.</li>
+<li><b>라이선스</b> CC0 1.0 Universal — 퍼블릭 도메인. 누구나 받아서 써도 됩니다.</li>
+</ul>
+<p>calrank가 쓰는 네 거리(5km·하프·풀코스·10km)는 WMA가 다른 거리에서 끌어와 추정하지 않고
+직접 산출하는 거리입니다. 그래서 거리끼리 환산하는 공식을 끼워 넣을 필요가 없어요.
+각 거리의 기준을 그대로 씁니다.</p>
+
+<h2>계산은 나눗셈 하나입니다</h2>
+<p>{ex_age}세 남성이 10km를 {fmt_time(ex_finish)}에 뛰었다면:</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>항목</th><th>값</th><th>어디서</th></tr>
+<tr><td>내 기록</td><td>{fmt_time(ex_finish)}</td><td>입력</td></tr>
+<tr><td>{ex_age}세 남성 10km 기준기록</td><td>{fmt_time(ex_std)}</td><td>WMA 2025 표</td></tr>
+<tr><td>연령등급</td><td><b>{ex_pct:.1f}%</b></td><td>{fmt_time(ex_std)} ÷ {fmt_time(ex_finish)}</td></tr>
+<tr><td>등급</td><td><b>{ex_tier}</b></td><td>{ex_bound}% 이상 구간</td></tr>
+</table>
+</div>
+
+<h2>100%는 세계기록 수준입니다</h2>
+<p>기준기록이 실제 세계기록과 같은 숫자예요. 표가 최신이라는 뜻이기도 합니다.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>거리</th><th>남성</th><th>여성</th></tr>
+{oc_rows}
+</table>
+</div>
+<p>WMA는 이 비율을 이렇게 읽습니다 — 90% 이상 World Class, 80% 이상 National,
+70% 이상 Regional, 60% 이상 Local Class. 동호인 대부분은 60% 아래에 모여 있어서,
+calrank는 그 아래 구간을 더 촘촘히 나눴습니다.</p>
+
+<h2>일곱 구간을 나눈 자리</h2>
+<p>여기는 calrank가 정했습니다. 숨길 이유가 없으니 그대로 적어 둡니다.
+오른쪽 두 칸은 40세 기준으로 그 등급을 받는 가장 느린 10km 기록이에요.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>등급</th><th>연령등급</th><th>40세 남성</th><th>40세 여성</th></tr>
+{tier_rows}
+</table>
+</div>
+
+<h2>다른 데이터로 맞춰 본 결과</h2>
+<p>해외 러닝 데이터베이스(Running Level)가 내놓은 백분위를 같은 방식으로 환산해 봤습니다.
+출처가 다른 두 자료가 비슷한 자리를 가리키면, 기준이 한쪽으로 치우치지 않았다는 뜻이 됩니다.</p>
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>Running Level 백분위</th><th>연령등급으로 환산하면</th></tr>
+<tr><td>상위 5%</td><td>약 72%</td></tr>
+<tr><td>상위 20%</td><td>약 64%</td></tr>
+<tr><td>상위 50% (중앙값)</td><td>약 57%</td></tr>
+<tr><td>상위 80%</td><td>약 49%</td></tr>
+<tr><td>상위 95%</td><td>약 41%</td></tr>
+</table>
+</div>
+
+<h2>직접 확인해 보시려면</h2>
+<p>연령등급은 calrank만 쓰는 셈법이 아닙니다. 'age grading calculator'로 검색해 나오는
+어느 계산기에 넣어도 같은 숫자가 나와요. 나이·성별·거리·기록만 넣으면 됩니다.
+혹시 값이 다르면 그쪽이 2020년이나 2015년판 표를 쓰고 있을 가능성이 큽니다.</p>
+
+<h2>이건 아닙니다</h2>
+<p>공인 기록이 아닙니다. 대한육상연맹을 비롯한 어떤 기관이 발급하는 공식 등급도 아니고요.
+대회 입상 기준이나 의학적 체력 평가와도 무관합니다. 코스 난이도·날씨·고도·GPS 오차에 따라
+같은 사람도 기록이 몇 분씩 달라지니, 숫자 한 자리에 너무 무게를 두지 않으셔도 됩니다.</p>
+<p>바꿔 말하면 이 등급이 보증하는 건 하나뿐이에요 —
+<b>출처가 분명한 공개 표와 공개된 계산식으로 만들었고, 같은 결과를 누구나 재현할 수 있다는 것.</b></p>
+
+<p class="gr-more"><a href="level.html">내 기록으로 바로 계산해 보기</a> ·
+<a href="grade.html">거리별 전체 등급표</a> ·
+<a href="cert.html">기록증 사진으로 확인하기</a></p>
+</main>
+{FOOTER}
+</body>
+</html>
+"""
+    return slug, head_block(title, desc, slug, [page_ld, crumb_ld]) + body
+
+
 def build_hub():
     slug = "grade.html"
     title = "러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank"
@@ -794,6 +938,10 @@ def main():
     hub_slug, hub_html = build_hub()
     (ROOT / hub_slug).write_text(hub_html, encoding="utf-8")
     slugs.append(hub_slug)
+
+    m_slug, m_html = build_method_page()
+    (ROOT / m_slug).write_text(m_html, encoding="utf-8")
+    slugs.append(m_slug)
 
     # 기록증 업로드 페이지는 손으로 관리하지만 사이트맵에는 여기서 함께 넣는다
     if (ROOT / "cert.html").exists():
