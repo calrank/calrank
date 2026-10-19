@@ -44,6 +44,25 @@ BASE = "https://calrank.vercel.app"
 
 CITE_RE = re.compile(r"\{\{([a-zA-Z0-9_]+)\}\}")
 
+# 본문 안에서 다른 글로 거는 링크. [[글id|앵커 텍스트]] 로 적습니다.
+# 앵커 텍스트가 검색어 역할을 하므로 "여기"나 "이 글" 같은 말 대신
+# 실제로 검색되는 표현을 씁니다. 대상 id 가 없으면 생성을 중단합니다.
+LINK_RE = re.compile(r"\[\[([a-z0-9-]+)\|([^\]]+)\]\]")
+
+
+def render_links(text):
+    def sub(m):
+        gid, label = m.group(1), m.group(2)
+        if gid not in _GUIDE_IDS:
+            raise ValueError(
+                f"본문 링크가 가리키는 글이 없습니다: [[{gid}|{label}]]. "
+                f"있는 id: {sorted(_GUIDE_IDS)}")
+        return f'<a class="g-ilink" href="guide-{gid}.html">{label}</a>'
+    return LINK_RE.sub(sub, text)
+
+
+_GUIDE_IDS = set()
+
 
 def h(s):
     return html.escape(str(s), quote=True)
@@ -100,15 +119,17 @@ def render_cites(text, order):
         ref = R.cite(k)
         return (f'<sup class="g-cite"><a href="#ref-{n}" '
                 f'title="{h(ref["label"])} — {h(ref["title"])}">[{n}]</a></sup>')
-    return CITE_RE.sub(sub, text)
+    return render_links(CITE_RE.sub(sub, text))
 
 
 # ---------------------------------------------------------------- 본문 블록
 
-def render_block(b, order):
+def render_block(b, order, toc_ids=None):
     out = []
     if b.get("h2"):
-        out.append(f'<h2 class="g-h2">{render_cites(b["h2"], order)}</h2>')
+        hid = (toc_ids or {}).get(b["h2"])
+        attr = f' id="{hid}"' if hid else ""
+        out.append(f'<h2 class="g-h2"{attr}>{render_cites(b["h2"], order)}</h2>')
     if b.get("h3"):
         out.append(f'<h3 class="g-h3">{render_cites(b["h3"], order)}</h3>')
     if b.get("warn"):
@@ -294,6 +315,112 @@ def head(title, desc, keywords, canonical, ld_blocks, robots=None):
 {NAV}"""
 
 
+SHARE_JS = """<script>
+(function(){
+  var K="cfdf627cdfe54e49450a13c8ca8109aa";
+  var SDK="https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js";
+  var SRI="sha384-oroumrnFVE0xtgqyDZJARgERibXg2C28380uaUZz2kHDS5CR7tu20eGiOU6GkTpy";
+  var url=location.href.split('#')[0];
+  function tell(b,t){var o=b.textContent;b.textContent=t;setTimeout(function(){b.textContent=o;},1800);}
+  var copy=document.querySelector('.g-sh-copy');
+  if(copy)copy.addEventListener('click',function(){
+    (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject())
+      .then(function(){tell(copy,'주소를 복사했어요');})
+      .catch(function(){tell(copy,'복사하지 못했어요');});
+  });
+  var nat=document.querySelector('.g-sh-native');
+  if(nat){ if(!navigator.share){nat.style.display='none';}
+    else nat.addEventListener('click',function(){
+      navigator.share({title:document.title,url:url}).catch(function(){});
+    });
+  }
+  var ka=document.querySelector('.g-sh-kakao');
+  if(ka)ka.addEventListener('click',function(){
+    function go(){
+      try{
+        if(!window.Kakao.isInitialized())window.Kakao.init(K);
+        var link={webUrl:url,mobileWebUrl:url};
+        window.Kakao.Share.sendDefault({objectType:'feed',
+          content:{title:document.title,
+            description:(document.querySelector('meta[name=description]')||{}).content||'',
+            imageUrl:'https://calrank.vercel.app/og-image.png',link:link},
+          buttons:[{title:'가이드 보기',link:link}]});
+      }catch(e){tell(ka,'보내지 못했어요');}
+    }
+    if(window.Kakao)return go();
+    var sc=document.createElement('script');
+    sc.src=SDK;sc.integrity=SRI;sc.crossOrigin='anonymous';
+    sc.onload=go;sc.onerror=function(){tell(ka,'보내지 못했어요');};
+    document.head.appendChild(sc);
+  });
+})();
+</script>"""
+
+
+def build_toc(g):
+    """소제목 목차. 긴 글에서 독자가 필요한 데로 바로 갈 수 있게."""
+    items = [b["h2"] for b in g["blocks"] if b.get("h2")]
+    if len(items) < 4:
+        return "", {}
+    ids = {}
+    out = []
+    for i, h in enumerate(items, 1):
+        hid = f"s{i}"
+        ids[h] = hid
+        plain = re.sub(r"\{\{[^}]+\}\}", "", h)
+        out.append(f'<li><a href="#{hid}">{h_esc(plain)}</a></li>')
+    return (f'<nav class="g-toc"><p class="g-toc-t">이 글에서 다루는 것</p>'
+            f'<ol class="g-toc-l">{"".join(out)}</ol></nav>'), ids
+
+
+def h_esc(x):
+    return html.escape(str(x), quote=True)
+
+
+def build_share(g):
+    return (
+        '<section class="g-share">'
+        '<p class="g-share-t">도움이 되었다면 같이 뛰는 분께도</p>'
+        '<div class="g-share-row">'
+        '<button type="button" class="g-sh-btn g-sh-kakao">카카오톡으로 보내기</button>'
+        '<button type="button" class="g-sh-btn g-sh-copy">링크 복사</button>'
+        '<button type="button" class="g-sh-btn g-sh-native">다른 앱으로 공유</button>'
+        '</div></section>')
+
+
+def build_related(g, guides, loops, limit=4):
+    """태그가 겹치는 글을 관련 글로. 이전/다음에 이미 나온 글은 뺀다.
+
+    앵커 텍스트에 글 제목을 그대로 써서 검색어가 링크에 실리게 한다.
+    """
+    lp = loops[g["id"]]
+    shown = {g["id"]}
+    for x in (lp["prev"], lp["next"]):
+        if x:
+            shown.add(x["id"])
+    mine = set(g["tags"])
+    scored = []
+    for x in guides:
+        if x["id"] in shown:
+            continue
+        overlap = len(mine & set(x["tags"]))
+        if not overlap:
+            continue
+        scored.append((overlap, x["sport"] == g["sport"], x))
+    scored.sort(key=lambda t: (-t[0], not t[1]))
+    picks = [x for _, _, x in scored[:limit]]
+    if not picks:
+        return ""
+    cards = "".join(
+        f'<a class="g-rel" href="{slug_of(x)}">'
+        f'<span class="g-rel-k" style="--c:{SPORTS[x["sport"]]["color"]}">'
+        f'{h_esc(SPORTS[x["sport"]]["label"])} · {h_esc(STAGES[x["stage"]]["label"])}</span>'
+        f'<span class="g-rel-t">{h_esc(x["title"])}</span></a>'
+        for x in picks)
+    return (f'<section class="g-rels"><h2 class="g-h2">이어서 읽으면 좋은 글</h2>'
+            f'<div class="g-relgrid">{cards}</div></section>')
+
+
 def build_guide_page(g, loops, today):
     order = validate(g)
     sp = SPORTS[g["sport"]]
@@ -301,7 +428,8 @@ def build_guide_page(g, loops, today):
     url = f"{BASE}/{slug_of(g)}"
     lp = loops[g["id"]]
 
-    body = "\n".join(render_block(b, order) for b in g["blocks"])
+    toc_html, toc_ids = build_toc(g)
+    body = "\n".join(render_block(b, order, toc_ids) for b in g["blocks"])
 
     faq_html = ""
     if g.get("faq"):
@@ -358,6 +486,10 @@ def build_guide_page(g, loops, today):
               f'<span class="g-pn-l">다음 →</span>'
               f'<span class="g-pn-t">{h(lp["next"]["short"])}</span></a></nav>')
 
+    related = build_related(g, GUIDES, loops)
+    share = build_share(g)
+    _txt = re.sub(r"<[^>]+>", "", body)
+    read_min = max(2, round(len(_txt) / 500))
     cta = (f'<div class="g-cta"><p class="g-cta-t">{h(g["cta"]["text"])}</p>'
            f'<a class="g-cta-b" href="{h(g["cta"]["href"])}">{h(g["cta"]["label"])} →</a></div>')
 
@@ -403,6 +535,7 @@ def build_guide_page(g, loops, today):
 <div class="g-tags">{tags}</div>
 <div class="g-answer"><p class="g-answer-l">먼저 결론부터</p>{render_cites(g['answer'], order)}</div>
 {who}
+{toc_html}
 {series_box}
 <article class="g-body">
 {body}
@@ -415,12 +548,15 @@ def build_guide_page(g, loops, today):
 {render_refs(order)}
 </ol>
 </section>
+{related}
+{share}
 {sib}
 {cta}
 {pn}
-<p class="g-updated">{today} 기준</p>
+<p class="g-updated">{today} 기준 · 읽는 데 약 {read_min}분</p>
 </main>
 {FOOT}
+{SHARE_JS}
 </body>
 </html>"""
 
@@ -598,6 +734,7 @@ def main():
             if t not in TAG_INFO:
                 raise ValueError(f"[{g['id']}] 등록되지 않은 태그: {t}")
 
+    _GUIDE_IDS.update(g["id"] for g in GUIDES)
     loops = build_loops(GUIDES)
     written = []
 
