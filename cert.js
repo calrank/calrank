@@ -182,6 +182,40 @@
   }
 
   // 띠에서 읽은 줄 가운데 대회 이름처럼 보이는 것을 고릅니다.
+  // 대회 이름은 기록증에서 가장 큰 글씨입니다. 띠에서 읽은 낱말 가운데
+  // 키가 가장 큰 줄을 골라 가로 순서로 이어 붙이면 제목이 나옵니다.
+  // 글자를 전부 이어 붙인 뒤 줄을 고르는 것보다 찌꺼기가 훨씬 적게 섞입니다.
+  function titleFromWords(words) {
+    var rows = wordRows(words);
+    if (!rows.length) return null;
+    var best = null, bestH = 0, i, j;
+    for (i = 0; i < rows.length; i++) {
+      for (j = 0; j < rows[i].ws.length; j++) {
+        var w = rows[i].ws[j];
+        if (!/[가-힣]/.test(w.t)) continue;          // 로고의 영문 장식은 거릅니다
+        if (w.h > bestH) { bestH = w.h; best = rows[i]; }
+      }
+    }
+    if (!best) return null;
+    var parts = [];
+    for (j = 0; j < best.ws.length; j++) {
+      var q = best.ws[j];
+      if (q.h < bestH * 0.5) continue;               // 같은 줄의 작은 글씨는 뺍니다
+      if (q.c < 30 && !/[가-힣]/.test(q.t)) continue;
+      parts.push(q.t);
+    }
+    // 한글끼리는 붙이고, 영문·숫자 사이에는 한 칸 둡니다
+    var out = "";
+    for (j = 0; j < parts.length; j++) {
+      if (!out) { out = parts[j]; continue; }
+      var joinTight = /[가-힣]$/.test(out) && /^[가-힣]/.test(parts[j]);
+      out += (joinTight ? "" : " ") + parts[j];
+    }
+    out = out.replace(/[|_~^`"'\\\/\[\]{}<>=+*#@]/g, " ").replace(/\s+/g, " ").trim();
+    var hangul = (out.match(/[가-힣]/g) || []).length;
+    return hangul >= 3 && out.length <= 60 ? out : null;
+  }
+
   function titleGuess(text) {
     var lines = String(text || "").split(/[\r\n]+/);
     var best = null, bestScore = 0;
@@ -795,6 +829,7 @@
               .then(function () { return worker.recognize(titleCanvas(img)); })
               .then(function (res) {
                 var txt = (res.data && res.data.text) || "";
+                result.titleWords = (res.data && res.data.words) || [];
                 return worker.terminate().then(function () { return txt; });
               });
           }).catch(function () { return ""; });
@@ -807,9 +842,15 @@
           var f6 = parseFields(t6);
           var tt = result.titleText || "";
           // 띠에서 읽은 글자로도 대회를 찾아 보고, 더 또렷한 쪽을 씁니다
+          var tw = titleFromWords(result.titleWords || []);
+          result.titleWordText = tw;
           var rT = matchRace(tt, f6.date);
           var r6 = matchRace(t6, f6.date);
           if (rT && (!r6 || rT.score > r6.score)) r6 = rT;
+          if (tw) {
+            var rW = matchRace(tw, f6.date);
+            if (rW && (!r6 || rW.score > r6.score)) r6 = rW;
+          }
           // 대회 이름은 꾸민 글씨나 로고로 박혀 있어 한 모드에서만 또렷하게
           // 읽히는 일이 많습니다. 비슷해 보이는 정도로만 걸렸으면 다른 모드로
           // 한 번 더 봅니다. (아예 안 걸렸으면 목록에 없는 대회이니 넘어갑니다)
@@ -861,7 +902,8 @@
         // 목록에 없는 대회 — 오래된 기록증이면 흔한 일입니다.
         // 그래도 칸을 비워 두지 않고, 읽은 글자를 그대로 넣어 줍니다.
         if (!result.race) {
-          var g = titleGuess(result.titleText) || titleGuess(result.raw);
+          var g = result.titleWordText ||
+                  titleGuess(result.titleText) || titleGuess(result.raw);
           if (g) result.raceText = g;
         }
         return result;
