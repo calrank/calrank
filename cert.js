@@ -303,6 +303,12 @@
   }
 
   // ---- 읽어낸 글자 전체에서 쓸 수 있는 것을 전부 뽑는다
+  // 초 → 'H:MM:SS' (한글 단위로 적힌 기록을 다른 시간과 같은 모양으로 맞춥니다)
+  function clock(sec) {
+    var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s2 = sec % 60;
+    return h + ":" + ("0" + m).slice(-2) + ":" + ("0" + s2).slice(-2);
+  }
+
   function parseFields(text) {
     var t = String(text || "");
     var flat = t.replace(/\s+/g, " ");
@@ -316,44 +322,111 @@
 
     // 시간: 1:23:45 / 01:23:45 / 23:45 (분:초만 있는 경우도 있습니다)
     var times = [];
-    var re = /\b(\d{1,2}):([0-5]\d)(?::([0-5]\d))?\b/g, m;
+    var re = /\b(\d{1,2}):([0-5]\d)(?::([0-5]\d))?(\.\d+)?/g, m;
     while ((m = re.exec(flat))) {
       var h, mi, se;
       if (m[3] !== undefined) { h = +m[1]; mi = +m[2]; se = +m[3]; }
       else { h = 0; mi = +m[1]; se = +m[2]; }
       var sec = h * 3600 + mi * 60 + se;
       if (sec < 60 || sec > 15 * 3600) continue;          // 터무니없는 값은 버립니다
-      times.push({ text: m[0], sec: sec, at: m.index });
+      times.push({
+        text: (m[3] !== undefined ? m[1] + ":" + m[2] + ":" + m[3] : m[1] + ":" + m[2]),
+        sec: sec, at: m.index, frac: !!m[4]
+      });
     }
+
+    // 한글 단위로 적힌 기록 — '00 시간 53 분 31 초' / '53분 31초'
+    // 오래된 기록증에 흔하고, OCR 이 '초' 를 엉뚱한 글자로 읽는 일이 잦아
+    // 초 단위는 없어도 되게 두었습니다.
+    var kre = /(?:(\d{1,2})\s*시\s*간?\s*)?(\d{1,3})\s*분\s*(\d{1,2})?(?!\s*\d)/g, km2;
+    while ((km2 = kre.exec(flat))) {
+      // '시간' 없이 분만 적혀 있는데 10분 미만이면 기록이 아니라 페이스입니다
+      // ('5분 09초/km'). 완주 기록이 10분 아래로 내려가는 경우는 없습니다.
+      if (km2[1] === undefined && (+km2[2] < 10 || +km2[2] > 180)) continue;
+      var ks = (+(km2[1] || 0)) * 3600 + (+km2[2]) * 60 + (+(km2[3] || 0));
+      if (ks < 60 || ks > 15 * 3600) continue;
+      times.push({ text: clock(ks), sec: ks, at: km2.index, korean: true });
+    }
+
+    times.sort(function (a, b) { return a.at - b.at; });
     out.times = times;
 
-    // 넷타임 / 그로스타임 — 가까이 있는 시간에 이름표를 붙입니다
+    // 이름표 붙이기.
+    // 한 줄에 여러 시간이 늘어서 있는 기록증이 많아서(GROSS 3:52:10 NET 3:50:22)
+    // 주변에 그 낱말이 '있는지' 가 아니라 '가장 가까운 이름표가 무엇인지' 로 고릅니다.
+    var LABELS = [
+      ["split", /지\s*점|구\s*간|중간|split|lap|랩|반환/gi],
+      ["net",   /순기록|실기록|net|넷/gi],
+      ["gross", /총기록|총시간|gross|그로스/gi],
+      ["pace",  /pace|페이스/gi],
+      ["record",/기\s*록|record/gi]
+    ];
     times.forEach(function (x) {
-      var near = flat.slice(Math.max(0, x.at - 22), x.at + 22);
-      if (/net|넷|순기록|실기록/i.test(near)) x.kind = "net";
-      else if (/gross|그로스|총기록|총시간/i.test(near)) x.kind = "gross";
-      // 페이스는 분:초 단위라 15분을 넘지 않습니다. 길이로 먼저 거릅니다.
-      // (완주 시간 바로 뒤에 'PACE' 가 적힌 기록증이 많습니다)
-      else if (x.sec < 900 && /pace|페이스|\/\s*km/i.test(near)) x.kind = "pace";
+      var before = flat.slice(Math.max(0, x.at - 30), x.at);
+
+      // 구간기록·랩기록은 완주 시간이 아닙니다.
+      // 소수점이 붙은 시간(00:25:30.03)이나 바로 앞에 거리가 적힌 시간이 그렇습니다.
+      if (x.frac || /\d(?:\.\d+)?\s*(?:km|k)\s*[^0-9]{0,6}$/i.test(before)) {
+        x.kind = "split";
+        return;
+      }
+
+      var best = null, j, mm, rx;
+      for (j = 0; j < LABELS.length; j++) {
+        rx = LABELS[j][1]; rx.lastIndex = 0;
+        while ((mm = rx.exec(before))) {
+          var end = mm.index + mm[0].length;
+          if (!best || end > best.end) best = { kind: LABELS[j][0], end: end };
+        }
+      }
+      if (!best) return;
+      if (best.kind === "record") { x.labelled = true; return; }
+      // 페이스는 분:초 단위라 15분을 넘지 않습니다. 길이로 한 번 더 거릅니다.
+      if (best.kind === "pace" && x.sec >= 900) return;
+      x.kind = best.kind;
     });
 
     // 날짜: 2026.10.19 / 2026-10-19 / 2026년 10월 19일
     var d = flat.match(/\b(20\d\d)\s*[.\-/년]\s*(\d{1,2})\s*[.\-/월]\s*(\d{1,2})\b/);
     if (d) {
       out.date = d[1] + "-" + ("0" + d[2]).slice(-2) + "-" + ("0" + d[3]).slice(-2);
+    } else {
+      // 'October 16, 2005' — 한글 년·월·일이 뭉개져도 영문 줄이 남아 있는 일이 많습니다.
+      var MON = ["january","february","march","april","may","june",
+                 "july","august","september","october","november","december"];
+      var e = flat.match(/\b([A-Za-z]{3,9})\.?\s+(\d{1,2})\s*,?\s*(20\d\d)\b/);
+      if (e) {
+        var mi2 = -1;
+        for (var q = 0; q < 12; q++) {
+          if (MON[q].indexOf(e[1].toLowerCase()) === 0 && e[1].length >= 3) { mi2 = q + 1; break; }
+        }
+        if (mi2 > 0 && +e[2] >= 1 && +e[2] <= 31) {
+          out.date = e[3] + "-" + ("0" + mi2).slice(-2) + "-" + ("0" + e[2]).slice(-2);
+        }
+      }
     }
 
     // 거리
     // 'MARATHON' 은 거의 모든 대회 이름에 들어가므로 거리 판단에 쓰면 안 됩니다.
     // (예: 'JTBC SEOUL MARATHON 2026 HALF' 가 풀코스로 잡혔습니다)
-    if (/42\.?195|풀\s*코스|풀\s*마라톤|full\s*course/i.test(flat)) out.km = "42.195";
+    // 'MARATHON' 과 달리 'FULL' 은 홀로 쓰여도 풀코스를 뜻합니다.
+    // 다만 'FULL NAME' 은 이름 칸이라 빼 둡니다.
+    if (/42\.?195|풀\s*코스|풀\s*마라톤|\bfull\b(?!\s*name)/i.test(flat)) out.km = "42.195";
     else if (/21\.?0975|하프|half/i.test(flat)) out.km = "21.0975";
     else {
-      var k = flat.match(/\b(\d{1,3}(?:\.\d+)?)\s*(?:km|KM|Km|k\b|킬로)/);
-      if (k) {
-        var v = parseFloat(k[1]);
-        if (v > 0 && v <= 100) out.km = String(v);
+      // '부문 (Division): 10km 코스' 처럼 이름표가 붙은 거리를 먼저 봅니다.
+      var kre2 = /(\d{1,3}(?:\.\d+)?)\s*(?:km|킬로|k(?![a-z]))/gi, km3, best = null;
+      while ((km3 = kre2.exec(flat))) {
+        var v = parseFloat(km3[1]);
+        if (!(v > 0 && v <= 100)) continue;
+        var pre = flat.slice(Math.max(0, km3.index - 30), km3.index);
+        var post = flat.slice(km3.index + km3[0].length, km3.index + km3[0].length + 8);
+        // 구간 거리(4.7km지점)는 종목이 아닙니다.
+        if (/지\s*점|구\s*간|중간|split|반환/.test(post)) continue;
+        var score = /부\s*문|종\s*목|코\s*스|course|division|event|구\s*분/i.test(pre) ? 2 : 1;
+        if (!best || score > best.score) best = { v: v, score: score };
       }
+      if (best) out.km = String(best.v);
     }
 
     // 배번 (사진 찾을 때 쓰입니다)
@@ -440,14 +513,29 @@
     var f = r.fields || {};
     var got = [];
 
-    // 완주 시간: 큰 글씨에서 찾은 것 > 넷타임 > 가장 긴 시간
-    var time = r.bigTime;
-    if (!time) {
-      var net = (f.times || []).filter(function (x) { return x.kind === "net"; })[0];
-      if (net) time = net.text;
+    // 완주 시간 고르는 순서:
+    //   '기록 (Record):' 이름표가 붙은 것 > 넷타임 > 큰 글씨 > 가장 긴 시간
+    // 큰 글씨를 맨 앞에 두었더니 '(4.7km지점 : 00:25:30.03)' 같은 구간기록을
+    // 완주 시간으로 집어 오는 일이 있었습니다. 이름표가 큰 글씨보다 믿을 만합니다.
+    var all = f.times || [];
+    var ok = all.filter(function (x) { return x.kind !== "split" && x.kind !== "pace"; });
+
+    // 큰 글씨로 읽은 값이 구간기록으로 판명났다면 쓰지 않습니다.
+    var big = r.bigTime;
+    if (big) {
+      var bigSec = (function (t) {
+        var q = String(t).split(":").map(Number);
+        return q.length === 3 ? q[0] * 3600 + q[1] * 60 + q[2] : q[0] * 60 + q[1];
+      })(big);
+      var bad = all.some(function (x) { return x.kind === "split" && x.sec === bigSec; });
+      if (bad) big = null;
     }
+
+    var time = (ok.filter(function (x) { return x.labelled; })[0] || {}).text ||
+               (ok.filter(function (x) { return x.kind === "net"; })[0] || {}).text ||
+               big || null;
     if (!time) {
-      var cands = (f.times || []).filter(function (x) { return x.kind !== "pace" && x.sec >= 600; });
+      var cands = ok.filter(function (x) { return x.sec >= 600; });
       cands.sort(function (a, b) { return b.sec - a.sec; });
       if (cands[0]) time = cands[0].text;
     }
