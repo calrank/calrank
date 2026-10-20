@@ -77,8 +77,18 @@
   raceInput.addEventListener("change", onRacePicked);
 
   // ---------- 2. 이미지 전처리 ----------
+  // 몇 배로 그릴지. 기록증을 화면 캡처로 저장하면 600px 남짓한 그림이 되는데,
+  // 그대로 읽으면 '종 목 · 하프' 같은 작은 글씨가 뭉개져 아예 안 읽힙니다.
+  // 작은 그림은 키워서 읽습니다 (너무 키우면 흐려지니 2.5배까지만).
+  function fitScale(img, targetW) {
+    var s = targetW / img.width;
+    if (s > 2.5) s = 2.5;
+    if (s < 0.15) s = 0.15;
+    return s;
+  }
+
   function toGray(img, maxW) {
-    var scale = Math.min(1, maxW / img.width);
+    var scale = fitScale(img, maxW);
     var w = Math.max(1, Math.round(img.width * scale));
     var h = Math.max(1, Math.round(img.height * scale));
     var c = document.createElement("canvas");
@@ -97,12 +107,14 @@
   // 숫자 인식용(1100px)보다 크게 그리고, 이진화하지 않고 회색조로 둡니다.
   // 획이 가는 글꼴은 이진화하면 끊어져서 오히려 더 못 읽습니다.
   function fullCanvas(img, maxW) {
-    var scale = Math.min(1, maxW / img.width);
+    var scale = fitScale(img, maxW);
     var w = Math.max(1, Math.round(img.width * scale));
     var h = Math.max(1, Math.round(img.height * scale));
     var c = document.createElement("canvas");
     c.width = w; c.height = h;
     var ctx = c.getContext("2d");
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.drawImage(img, 0, 0, w, h);
     var im = ctx.getImageData(0, 0, w, h);
     var d = im.data;
@@ -436,8 +448,9 @@
     // (예: 'JTBC SEOUL MARATHON 2026 HALF' 가 풀코스로 잡혔습니다)
     // 'MARATHON' 과 달리 'FULL' 은 홀로 쓰여도 풀코스를 뜻합니다.
     // 다만 'FULL NAME' 은 이름 칸이라 빼 둡니다.
-    if (/42\.?195|풀\s*코스|풀\s*마라톤|\bfull\b(?!\s*name)/i.test(flat)) out.km = "42.195";
-    else if (/21\.?0975|하프|half/i.test(flat)) out.km = "21.0975";
+    // 기록증은 '종 목 · 하 프' 처럼 글자 사이를 벌려 놓는 일이 흔합니다.
+    if (/42\.?195|풀\s*코\s*스|풀\s*마\s*라\s*톤|\bfull\b(?!\s*name)/i.test(flat)) out.km = "42.195";
+    else if (/21\.?0975|하\s*프|half/i.test(flat)) out.km = "21.0975";
     else {
       // '부문 (Division): 10km 코스' 처럼 이름표가 붙은 거리를 먼저 봅니다.
       var kre2 = /(\d{1,3}(?:\.\d+)?)\s*(?:km|킬로|k(?![a-z]))/gi, km3, best = null;
