@@ -1,0 +1,45 @@
+name: Fetch race forecast
+
+# 사흘 안에 열리는 대회에 기상청 단기예보를 붙인다.
+# 예보는 금세 묵으니 하루 두 번 받고, 지난 대회와 사흘 너머 대회에서는 지운다.
+
+on:
+  schedule:
+    - cron: "10 21 * * *" # 매일 06:10 KST (05시 발표 반영)
+    - cron: "10 9 * * *"  # 매일 18:10 KST (17시 발표 반영)
+  workflow_dispatch:
+    inputs:
+      selftest:
+        description: "격자 변환과 키만 확인 (events.json 은 그대로)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch forecast
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: |
+          if [ "${{ inputs.selftest }}" = "true" ]; then
+            python scripts/fetch_race_forecast.py --selftest
+          else
+            python scripts/fetch_race_forecast.py
+          fi
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add events.json
+          git diff --quiet --cached || (git commit -m "chore: fetch race forecast" && git push)
