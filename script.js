@@ -17,6 +17,9 @@ const state = {
   region: "all",
   status: "all",
   distBucket: "all",
+  // 달력인데 이미 끝난 대회부터 보여 주고 있었다. 10월에 들어온 사람이
+  // 3월 대회 '접수 마감' 카드를 다섯 장 넘겨야 신청할 수 있는 대회가 나왔다.
+  when: "upcoming",
 };
 
 function daysUntil(dateStr) {
@@ -84,8 +87,12 @@ function monthKey(dateStr) {
 }
 
 function monthLabel(key) {
-  const [, m] = key.split("-");
-  return `${parseInt(m, 10)}월`;
+  const [y, m] = key.split("-");
+  // 2026년 3월과 2027년 3월이 똑같이 '3월'로 보이던 걸 고친다.
+  // 올해가 아니면 연도를 붙인다.
+  const thisYear = String(new Date().getFullYear());
+  return y === thisYear ? `${parseInt(m, 10)}월`
+                        : `${y.slice(2)}년 ${parseInt(m, 10)}월`;
 }
 
 function setupSportChips() {
@@ -169,27 +176,60 @@ function setupDistBucketChips() {
   });
 }
 
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function inWhen(ev) {
+  if (state.when === "all") return true;
+  const past = monthKey(ev.date) < todayKey() ||
+               (ev.date && ev.date < new Date().toISOString().slice(0, 10));
+  return state.when === "past" ? past : !past;
+}
+
+// 달 칩과 '지난 대회' 를 한 줄에 둔다. 줄을 따로 두었더니 첫 카드가
+// 화면 한 장 아래로 밀려났다 — 달력에서 대회가 안 보이면 아무 소용이 없다.
 function setupMonthTabs() {
   const wrap = document.getElementById("monthTabs");
-  const months = [...new Set(state.events.map(ev => monthKey(ev.date)))].sort();
+  wrap.innerHTML = "";
+  const months = [...new Set(
+    state.events.filter(inWhen).map(ev => monthKey(ev.date))
+  )].sort();
 
   const all = document.createElement("button");
-  all.className = "chip active";
-  all.textContent = "전체 기간";
+  all.className = state.month === "all" ? "chip active" : "chip";
+  all.textContent = state.when === "past" ? "지난 대회 전체" : "전체 기간";
   all.dataset.month = "all";
   wrap.appendChild(all);
 
   months.forEach(key => {
     const chip = document.createElement("button");
-    chip.className = "chip";
+    chip.className = state.month === key ? "chip active" : "chip";
     chip.textContent = monthLabel(key);
     chip.dataset.month = key;
     wrap.appendChild(chip);
   });
 
+  const flip = document.createElement("button");
+  flip.className = "chip chip-flip";
+  flip.textContent = state.when === "past" ? "← 다가오는 대회" : "지난 대회 →";
+  flip.dataset.flip = "1";
+  wrap.appendChild(flip);
+
+  if (wrap.dataset.bound) return;
+  wrap.dataset.bound = "1";
   wrap.addEventListener("click", (e) => {
     const btn = e.target.closest(".chip");
     if (!btn) return;
+    if (btn.dataset.flip) {
+      state.when = state.when === "past" ? "upcoming" : "past";
+      state.month = "all";
+      setupMonthTabs();
+      wrap.scrollLeft = 0;
+      render();
+      return;
+    }
     wrap.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     btn.classList.add("active");
     state.month = btn.dataset.month;
@@ -409,7 +449,7 @@ function renderCard(ev) {
         ${scaleBadgeHtml}
         <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span>
       </div>
-      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}${reviewBadgeHtml}${weatherChip(ev)}</p>
+      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}${reviewBadgeHtml}${weatherChip(ev) ? " " + weatherChip(ev) : ""}</p>
     </div>
     <span class="event-chevron">›</span>
   `;
@@ -429,6 +469,7 @@ function render() {
   grid.innerHTML = "";
 
   const filtered = state.events
+    .filter(inWhen)
     .filter(ev => state.sport === "all" || ev.sport === state.sport)
     .filter(ev => state.month === "all" || monthKey(ev.date) === state.month)
     .filter(ev => state.region === "all" || (ev.region || "전국") === state.region)
@@ -723,9 +764,23 @@ async function init() {
 
     const urlParams = new URLSearchParams(location.search);
     const urlSport = urlParams.get("sport");
-    if (urlSport && SPORT_META[urlSport]) state.sport = urlSport;
+    if (urlSport && SPORT_META[urlSport]) {
+      state.sport = urlSport;
+      // 주소로 들어온 조건이 칩에 안 보였다. 공유받은 사람 눈에는 '전체'가
+      // 눌려 있는데 마라톤만 나오니, 눌러도 아무 일이 없는 것처럼 보였다.
+      // 칩은 아직 안 만들어졌을 수 있다. 만들어진 뒤에 맞춘다.
+      setTimeout(() => {
+        document.querySelectorAll("#sportChips .chip").forEach((c) => {
+          c.classList.toggle("active", c.dataset.sport === urlSport);
+        });
+      }, 0);
+    }
     const urlRegion = urlParams.get("region");
-    if (urlRegion) state.region = urlRegion;
+    if (urlRegion) {
+      state.region = urlRegion;
+      const sel = document.getElementById("regionSelect");
+      if (sel) sel.value = urlRegion;
+    }
   } catch (err) {
     document.getElementById("resultCount").textContent =
       "대회 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해 주세요.";

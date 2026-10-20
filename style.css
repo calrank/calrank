@@ -299,6 +299,8 @@ body{
 
 .ev-review-badge{margin-left:6px;color:#d4af37;font-weight:600;}
 /* 대회 카드의 날씨 조각 — 예보는 또렷하게, 지난 기온은 한 걸음 뒤로 */
+.chip-flip{opacity:.72;font-style:normal;}
+.chip-flip:hover{opacity:1;}
 .ev-wx{margin-left:6px;font-weight:600;white-space:nowrap;}
 .ev-wx-fcst{color:#7FB3D5;}
 .ev-wx-past{color:#6A6A6A;font-weight:500;}
