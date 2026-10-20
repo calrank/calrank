@@ -5,7 +5,8 @@
     "marathon:weather-heat",
     "marathon:shoe-selection",
     "trail:injury-ankle-knee",
-    "trail:poles-technique"
+    "trail:poles-technique",
+    "cycling:group-ride-etiquette"
   ],
   "cycle": 0
 }
