@@ -112,6 +112,69 @@ function renderResult(result, inputs) {
     })()}
 
     ${(() => {
+      // ── 이 기록 하나가 말해 주는 폭 ──────────────────────────
+      // 등급을 소수점 한 자리로 딱 찍어 주면 그만큼 정확해 보인다.
+      // 실제로는 같은 사람이 같은 몸으로 뛰어도 대회마다 기록이 흔들린다.
+      // 그 폭을 같이 보여 주는 쪽이 정직하고, 무엇보다 쓸모가 있다 —
+      // 내 등급이 구간 한가운데인지 가장자리인지를 알 수 있다.
+      const b = gradeBand(inputs.finishSec, inputs.distanceKm,
+                          inputs.age, inputs.gender);
+      if (!b) return "";
+      const pct = (v) => Math.max(DP_MIN, Math.min(DP_MAX, v));
+      const l = dpPos(b.pctLo), r = dpPos(b.pctHi);
+      const marks = TIER_BOUNDS.map((t) => t[0])
+        .filter((v) => v > DP_MIN && v < DP_MAX);
+      return `
+      <details class="lv-band">
+        <summary>이 기록 하나로 어디까지 말할 수 있나</summary>
+        <div class="lv-band-in">
+          <p class="lv-band-lead">같은 몸 상태로 뛰어도 대회마다 기록은 흔들립니다.
+          ${inputs.distanceKm >= 21 ? "하프·풀" : "10km 안팎 도로 경주"}에서
+          보고된 흔들림 폭은 <b>±${(b.cv * 100).toFixed(1)}%</b>입니다.
+          지금 기록으로 보면 이 범위가 됩니다.</p>
+
+          <div class="lv-band-plot">
+            <div class="lv-band-grid">${marks.map((v) => {
+              // 띠가 걸쳐 있는 등급 경계는 또렷하게 — 그게 이 그림의 요점이다
+              const on = v > b.pctLo && v < b.pctHi;
+              return `<i class="lv-band-g${on ? " cross" : ""}" style="left:${dpPos(v).toFixed(2)}%"></i>`;
+            }).join("")}</div>
+            <span class="lv-band-bar" style="left:${l.toFixed(2)}%;width:${(r - l).toFixed(2)}%"></span>
+            <i class="lv-band-dot" style="left:${dpPos(result.agePct).toFixed(2)}%"></i>
+          </div>
+          <div class="lv-band-axis">${[39, 51, 65].map((v) =>
+            `<span class="lv-band-t" style="left:${dpPos(v).toFixed(2)}%">${v}%</span>`).join("")}</div>
+
+          <div class="lv-band-rows">
+            <div class="lv-band-row">
+              <span>잘 풀린 날</span>
+              <b>${fmtClock(Math.round(b.fast))}</b>
+              <em>${b.pctHi.toFixed(1)}% · ${b.tierHi.label}</em>
+            </div>
+            <div class="lv-band-row">
+              <span>잘 안 풀린 날</span>
+              <b>${fmtClock(Math.round(b.slow))}</b>
+              <em>${b.pctLo.toFixed(1)}% · ${b.tierLo.label}</em>
+            </div>
+          </div>
+
+          <p class="lv-band-verdict ${b.crosses ? "edge" : "solid"}">${b.crosses
+            ? `지금은 <b>${b.tierLo.label}</b>과 <b>${b.tierHi.label}</b>의 경계에 있습니다.
+               다음 대회에서 등급이 바뀔 수 있는 자리예요.`
+            : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다.
+               이 등급은 운이 아니라 실력으로 보셔도 됩니다.`}</p>
+
+          <p class="lv-band-src">흔들림 폭은 같은 주자가 여러 대회에서 낸 기록을 분석한
+          연구에서 가져왔습니다 (도로·크로스컨트리 1.2~1.9%, 하프 2.7~4.2%, 풀 2.6%).
+          같은 연구가 느린 주자는 빠른 주자보다 1.0~2.3배 더 흔들린다고 보고했으니,
+          실제 폭은 위보다 넓을 수 있습니다.
+          <a href="https://pubmed.ncbi.nlm.nih.gov/11528349/" target="_blank" rel="noopener">
+          Hopkins &amp; Hewson, Med Sci Sports Exerc 2001</a></p>
+        </div>
+      </details>`;
+    })()}
+
+    ${(() => {
       // ── 얼마를 줄이면 어떻게 바뀌나 ───────────────────────────
       // "더 열심히"는 측정이 안 된다. 1분을 줄이면 몇 %가 되는지
       // 보여 주면 목표가 숫자가 된다. 전부 WMA 기준표에서 나오는 값이라
@@ -464,6 +527,48 @@ function dotPlot(rows) {
       <div class="lv-dp-axis">${ticks}</div>
     </div>
   </div>`;
+}
+
+
+// ── 한 번의 기록이 말해 주는 폭 ────────────────────────────────
+// 같은 몸 상태로 뛰어도 대회마다 기록은 흔들린다. Hopkins & Hewson 이
+// 같은 주자가 여러 대회에서 낸 기록의 변동계수를 거리별로 보고했다
+// (도로·크로스컨트리 1.2~1.9%, 하프 2.7~4.2%, 풀 2.6%. 빠른 네 분위 기준).
+// 같은 논문이 느린 주자의 변동계수는 빠른 주자의 1.0~2.3배라고 보고하므로,
+// 동호인의 실제 폭은 아래 값보다 넓을 수 있다. 지어낸 값을 쓰지 않으려고
+// 논문에 적힌 숫자를 그대로 쓰고, 넓어질 수 있다는 사실은 글로 적는다.
+// Hopkins WG, Hewson DJ. Variability of competitive performance of distance
+// runners. Med Sci Sports Exerc. 2001;33(9):1588-92. PMID 11528349
+const RACE_CV = [
+  [5, 0.019],
+  [10, 0.019],
+  [21.0975, 0.027],
+  [42.195, 0.026],
+];
+
+function raceCv(km) {
+  let best = RACE_CV[0];
+  for (const row of RACE_CV) {
+    if (Math.abs(row[0] - km) < Math.abs(best[0] - km)) best = row;
+  }
+  return best[1];
+}
+
+// 기록의 폭 → 연령등급의 폭. 빨라지면 % 가 올라가므로 위아래가 뒤집힌다.
+function gradeBand(finishSec, km, age, gender) {
+  const std = wmaStd(gender, km, age);
+  if (!std) return null;
+  const cv = raceCv(km);
+  const fast = finishSec * (1 - cv);
+  const slow = finishSec * (1 + cv);
+  const pctHi = (std / fast) * 100;
+  const pctLo = (std / slow) * 100;
+  const tierHi = getTier(pctHi), tierLo = getTier(pctLo);
+  return {
+    cv, fast, slow, pctLo, pctHi,
+    tierLo, tierHi,
+    crosses: tierLo.label !== tierHi.label,
+  };
 }
 
 // ── 그리기 도우미 ────────────────────────────────────────────

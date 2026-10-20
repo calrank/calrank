@@ -221,3 +221,76 @@
   .lv-dp{--lbl:42px;--time:52px;--val:46px;--gap:7px;}
   .lv-dp-lbl,.lv-dp-time{font-size:11.5px;}
 }
+
+/* ── 이 기록 하나가 말해 주는 폭 ───────────────────────────
+   점 그래프와 같은 30~80% 자를 씁니다. 등급 경계 위에 띠를 얹어
+   내 등급이 구간 한가운데인지 가장자리인지가 바로 보이게 했습니다.
+   ─────────────────────────────────────────────────────────── */
+.lv-band{
+  border:1px solid var(--border,#2A2A2A);border-radius:10px;
+  margin:14px 0 0;background:var(--surface,#141414);
+}
+.lv-band>summary{
+  list-style:none;cursor:pointer;padding:13px 15px;
+  font-size:13px;color:var(--ink-soft,#9A9A9A);
+}
+.lv-band>summary::-webkit-details-marker{display:none;}
+.lv-band>summary::after{content:"＋";float:right;color:var(--ink-faint,#6A6A6A);}
+.lv-band[open]>summary::after{content:"－";}
+.lv-band>summary:hover{color:#E8E4E1;}
+.lv-band-in{padding:0 15px 16px;text-align:left;}
+.lv-band-lead{font-size:12.5px;line-height:1.85;color:#C8C4C2;margin:0 0 18px;text-align:left;}
+.lv-band-lead b{color:#fff;}
+
+.lv-band-plot{position:relative;height:34px;}
+.lv-band-grid{position:absolute;inset:0;pointer-events:none;}
+.lv-band-g{position:absolute;top:0;bottom:0;width:1px;background:var(--border,#2A2A2A);transform:translateX(-.5px);}
+.lv-band-g.cross{background:var(--accent,#FF3D1A);width:1px;opacity:.9;}
+/* 폭 자체가 메시지입니다. 띠를 또렷하게 그리고, 지금 기록은 띠 안의
+   가는 선으로 표시합니다. 점을 크게 찍었더니 띠를 덮어 버렸습니다. */
+.lv-band-bar{
+  position:absolute;top:50%;height:16px;transform:translateY(-50%);
+  border-radius:3px;background:rgba(255,61,26,.30);
+  border:1px solid rgba(255,61,26,.75);
+  min-width:3px;box-sizing:border-box;
+}
+.lv-band-bar::before,.lv-band-bar::after{
+  content:"";position:absolute;top:-4px;bottom:-4px;width:1px;
+  background:var(--accent,#FF3D1A);
+}
+.lv-band-bar::before{left:-1px;}
+.lv-band-bar::after{right:-1px;}
+.lv-band-dot{
+  position:absolute;top:50%;width:2px;height:22px;
+  background:#fff;transform:translate(-50%,-50%);border-radius:1px;
+}
+.lv-band-axis{position:relative;height:22px;border-top:1px solid var(--border,#2A2A2A);margin-top:2px;}
+.lv-band-t{
+  position:absolute;top:5px;transform:translateX(-50%);white-space:nowrap;
+  font-size:10px;font-weight:700;color:var(--ink-faint,#6A6A6A);
+  font-variant-numeric:tabular-nums;
+}
+
+.lv-band-rows{margin:14px 0 0;}
+.lv-band-row{
+  display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:baseline;
+  padding:9px 0;border-top:1px solid var(--border,#2A2A2A);
+}
+.lv-band-row span{font-size:12px;color:var(--ink-soft,#9A9A9A);}
+.lv-band-row b{font-size:13.5px;color:#fff;font-variant-numeric:tabular-nums;}
+.lv-band-row em{font-size:11.5px;font-style:normal;color:var(--ink-faint,#6A6A6A);min-width:104px;text-align:right;}
+
+.lv-band-verdict{
+  font-size:12.5px;line-height:1.85;margin:14px 0 0;
+  padding:11px 13px;border-radius:8px;text-align:left;
+}
+.lv-band-verdict b{color:#fff;}
+.lv-band-verdict.edge{background:rgba(255,61,26,.08);border:1px solid rgba(255,61,26,.3);color:#C8C4C2;}
+.lv-band-verdict.solid{background:rgba(255,255,255,.03);border:1px solid var(--border,#2A2A2A);color:#C8C4C2;}
+.lv-band-src{font-size:11px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:12px 0 0;text-align:left;}
+.lv-band-src a{color:var(--ink-soft,#9A9A9A);text-decoration:underline;text-underline-offset:2px;}
+
+@media (max-width:520px){
+  .lv-band-row{grid-template-columns:1fr auto;row-gap:3px;}
+  .lv-band-row em{grid-column:2;text-align:right;}
+}
