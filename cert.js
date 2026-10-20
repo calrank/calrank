@@ -823,6 +823,9 @@
   fileInput.addEventListener("change", function () {
     var f = fileInput.files && fileInput.files[0];
     if (!f) return;
+    // 기록증을 새로 올렸으면 앞 사진에서 읽은 이름은 지웁니다.
+    // (다른 사람의 기록증일 수도 있는데 앞 이름이 남아 있으면 안 됩니다)
+    if (nameInput) nameInput.value = "";
     say("사진을 읽는 중…");
     var img = new Image();
     img.onload = function () {
