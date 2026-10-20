@@ -236,23 +236,12 @@ function renderResult(result, inputs) {
         out.innerHTML = `<p class="lv-dna-msg">거리를 하나 더 넣어 주세요. 두 거리가 있어야 견줄 수 있습니다.</p>`;
         return;
       }
-      const top = Math.max(prof.hi, 1);
       out.innerHTML = `
         <div class="lv-dna-verdict">
           <p class="lv-dna-v">${prof.verdict}</p>
           <p class="lv-dna-d">${prof.detail}</p>
         </div>
-        <div class="lv-dna-bars">
-          ${prof.rows.map((r) => `
-          <div class="lv-dna-bar">
-            <span class="lv-dna-bd">${distLabel(r.km)}</span>
-            <span class="lv-dna-bt">${fmtClock(r.finishSec)}</span>
-            <span class="lv-dna-bw">
-              <i style="width:${Math.max(6, (r.pct / top) * 100).toFixed(1)}%"></i>
-            </span>
-            <span class="lv-dna-bp">${r.pct.toFixed(1)}%</span>
-          </div>`).join("")}
-        </div>
+        ${dotPlot(prof.rows)}
         <p class="lv-dna-note">연령등급은 거리·나이·성별을 이미 맞춰 놓은 값이라
         거리끼리 견줄 수 있습니다. 다만 기록 시점이 많이 다르면 거리 차이가 아니라
         그동안의 변화를 보는 것이 됩니다. 그리고 이건 기록에서 보이는 패턴이지
@@ -413,6 +402,68 @@ function distProfile(entries, age, gender) {
              `짧은 거리와 긴 거리를 하나씩 더 넣으면 경향이 더 분명해집니다.`;
   }
   return { rows, spread, hi, lo, verdict, detail };
+}
+
+
+// ──────────────────────────────────────────────────────────────
+// 거리별 연령등급 점 그래프
+//
+// 막대로 그리면 안 된다. 막대는 0 에서 시작해야 길이가 뜻을 갖는데,
+// 0~80% 자에 53%와 58%를 올리면 둘이 구분되지 않는다. 그렇다고
+// 최댓값에 맞춰 늘리면 길이가 아무것도 뜻하지 않게 된다.
+//
+// 그래서 위치로 읽는 점 그래프로 간다. 자는 30~80% 로 고정하고,
+// 등급 경계를 세로선으로 깔아 둔다. 점이 어느 칸에 있는지가
+// 곧 등급이므로, 숫자를 다시 읽지 않아도 뜻이 보인다.
+// 자가 고정이라 다른 날 다시 봐도 같은 자리를 뜻한다.
+// ──────────────────────────────────────────────────────────────
+
+const DP_MIN = 30, DP_MAX = 80;
+
+function dpPos(pct) {
+  const c = Math.max(DP_MIN, Math.min(DP_MAX, pct));
+  return ((c - DP_MIN) / (DP_MAX - DP_MIN)) * 100;
+}
+
+// 그래프 칸은 좁다. "하프마라톤"은 두 줄로 접히니 짧게 쓴다.
+const DP_LABEL = { 5: "5km", 10: "10km", 21.0975: "하프", 42.195: "풀코스" };
+
+function dpLabel(km) {
+  return DP_LABEL[km] || distLabel(km);
+}
+
+function dotPlot(rows) {
+  // 등급 경계. 맨 아래 칸(0)은 자 밖이라 긋지 않는다.
+  const marks = TIER_BOUNDS.map((b) => b[0]).filter((v) => v > DP_MIN && v < DP_MAX);
+  const grid = marks.map((v) =>
+    `<i class="lv-dp-g" style="left:${dpPos(v).toFixed(2)}%"></i>`).join("");
+
+  // 등급 이름까지 달면 글자가 서로 겹친다. 숫자만 세 군데 두고
+  // 선이 무엇인지는 설명 한 줄로 풀었다.
+  const ticks = [39, 51, 65].map((v) =>
+    `<span class="lv-dp-t" style="left:${dpPos(v).toFixed(2)}%">${v}%</span>`).join("");
+
+  const best = Math.max(...rows.map((r) => r.pct));
+
+  return `
+  <div class="lv-dp">
+    <p class="lv-dp-cap">거리별 연령등급<span>세로선은 등급 경계</span></p>
+    <div class="lv-dp-plot">
+      <div class="lv-dp-gridwrap">${grid}</div>
+      ${rows.map((r) => `
+      <div class="lv-dp-row">
+        <span class="lv-dp-lbl">${dpLabel(r.km)}</span>
+        <span class="lv-dp-time">${fmtClock(r.finishSec)}</span>
+        <span class="lv-dp-track">
+          <i class="lv-dp-dot${r.pct === best ? " top" : ""}"
+             style="left:${dpPos(r.pct).toFixed(2)}%"
+             title="${distLabel(r.km)} ${fmtClock(r.finishSec)} · 연령등급 ${r.pct.toFixed(1)}%"></i>
+        </span>
+        <span class="lv-dp-val">${r.pct.toFixed(1)}%</span>
+      </div>`).join("")}
+      <div class="lv-dp-axis">${ticks}</div>
+    </div>
+  </div>`;
 }
 
 // ── 그리기 도우미 ────────────────────────────────────────────

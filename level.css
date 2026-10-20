@@ -141,16 +141,83 @@
   border:1px solid rgba(255,61,26,.3);}
 .lv-dna-v{font-size:15px;font-weight:900;color:#fff;margin:0 0 6px;}
 .lv-dna-d{font-size:12.5px;line-height:1.8;color:#C8C4C2;margin:0;}
-.lv-dna-bars{display:flex;flex-direction:column;gap:7px;}
-.lv-dna-bar{display:grid;grid-template-columns:64px 62px 1fr 48px;gap:8px;align-items:center;}
-.lv-dna-bd{font-size:11.5px;color:var(--ink-faint,#6A6A6A);}
-.lv-dna-bt{font-size:12px;color:var(--ink-soft,#9A9A9A);}
-.lv-dna-bw{height:9px;border-radius:5px;background:rgba(255,255,255,.06);overflow:hidden;}
-.lv-dna-bw i{display:block;height:100%;border-radius:5px;background:var(--accent,#FF3D1A);}
-.lv-dna-bp{font-size:12.5px;font-weight:700;color:#fff;text-align:right;}
 .lv-dna-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:12px 0 0;}
 
 @media (max-width:520px){
-  .lv-dna-bar{grid-template-columns:54px 56px 1fr 44px;gap:6px;}
   .lv-dna-row label{flex:0 0 70px;}
+}
+
+/* ── 거리별 연령등급 점 그래프 ──────────────────────────────
+   막대가 아니라 점으로 그린다. 막대는 0 에서 시작해야 길이가
+   뜻을 갖는데, 0~80% 자에서는 53%와 58%가 구분되지 않는다.
+   자를 30~80% 로 고정하고 등급 경계를 세로선으로 깔면
+   점의 위치 자체가 등급을 뜻하게 된다.
+   ─────────────────────────────────────────────────────────── */
+.lv-dp{
+  --lbl:48px;            /* 거리 이름 칸 */
+  --time:58px;           /* 기록 칸 */
+  --val:50px;            /* 연령등급 칸 */
+  --gap:10px;
+  margin:4px 0 0;
+}
+.lv-dp-cap{
+  font-size:11.5px;color:var(--ink-faint,#6A6A6A);margin:0 0 10px;letter-spacing:.2px;
+  display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;
+}
+.lv-dp-cap span{opacity:.75;}
+.lv-dp-cap span::before{content:"·";margin-right:6px;}
+.lv-dp-plot{position:relative;}
+
+/* 등급 경계 — 실선 헤어라인, 눈에 띄지 않게 */
+.lv-dp-gridwrap{
+  position:absolute;
+  left:calc(var(--lbl) + var(--time) + var(--gap) * 2);
+  right:calc(var(--val) + var(--gap));
+  top:0;bottom:24px;pointer-events:none;
+}
+.lv-dp-g{
+  position:absolute;top:0;bottom:0;width:1px;
+  background:var(--border,#2A2A2A);transform:translateX(-.5px);
+}
+
+.lv-dp-row{
+  display:grid;
+  grid-template-columns:var(--lbl) var(--time) 1fr var(--val);
+  gap:var(--gap);align-items:center;
+  height:30px;
+}
+.lv-dp-lbl{font-size:12px;color:var(--ink-soft,#9A9A9A);white-space:nowrap;}
+.lv-dp-time{font-size:12px;white-space:nowrap;color:var(--ink-faint,#6A6A6A);font-variant-numeric:tabular-nums;}
+.lv-dp-track{position:relative;height:100%;}
+.lv-dp-dot{
+  position:absolute;top:50%;width:9px;height:9px;border-radius:50%;
+  background:var(--ink-soft,#9A9A9A);
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 0 2px var(--surface,#141414);   /* 격자선 위를 지날 때 끊어 보이게 */
+}
+.lv-dp-dot.top{
+  background:var(--accent,#FF3D1A);
+  width:11px;height:11px;
+}
+.lv-dp-val{
+  font-size:12.5px;font-weight:700;color:#fff;text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+
+/* 축 — 경계가 무엇을 뜻하는지 */
+.lv-dp-axis{
+  position:relative;height:24px;
+  margin-left:calc(var(--lbl) + var(--time) + var(--gap) * 2);
+  margin-right:calc(var(--val) + var(--gap));
+  border-top:1px solid var(--border,#2A2A2A);
+}
+.lv-dp-t{
+  position:absolute;top:6px;transform:translateX(-50%);white-space:nowrap;
+  font-size:10px;font-weight:700;color:var(--ink-faint,#6A6A6A);
+  font-variant-numeric:tabular-nums;
+}
+
+@media (max-width:520px){
+  .lv-dp{--lbl:42px;--time:52px;--val:46px;--gap:7px;}
+  .lv-dp-lbl,.lv-dp-time{font-size:11.5px;}
 }
