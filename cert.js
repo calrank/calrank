@@ -213,7 +213,8 @@
     }
     out = out.replace(/[|_~^`"'\\\/\[\]{}<>=+*#@]/g, " ").replace(/\s+/g, " ").trim();
     var hangul = (out.match(/[가-힣]/g) || []).length;
-    return hangul >= 3 && out.length <= 60 ? out : null;
+    if (hangul < 3) return null;
+    return cleanTitle(out);
   }
 
   function titleGuess(text) {
@@ -233,6 +234,11 @@
       if (sc > bestScore) { bestScore = sc; best = t; }
     }
     if (!best) return null;
+    return cleanTitle(best);
+  }
+
+  // 제목 다듬기 — 낱말로 만든 것과 글자로 만든 것 모두 여기를 거칩니다.
+  function cleanTitle(best) {
     // 양끝에 남은 찌꺼기를 떼어 냅니다. 앞에 홀로 붙은 짧은 숫자나 알파벳은
     // 로고 조각이 숫자로 읽힌 것이라 떼어 냅니다 (연도 네 자리는 남깁니다).
     best = best.replace(/^[^가-힣0-9A-Za-z]+/, "").replace(/[^가-힣0-9A-Za-z)]+$/, "");
@@ -257,6 +263,8 @@
     }
     return best.length >= 4 && best.length <= 60 ? best : null;
   }
+
+
 
   // 적분영상으로 지역 평균을 구해 적응형 이진화한다.
   // 기록증은 색 블록이 많아 전역 임계값으로는 글자가 뭉개진다.
@@ -902,8 +910,18 @@
         // 목록에 없는 대회 — 오래된 기록증이면 흔한 일입니다.
         // 그래도 칸을 비워 두지 않고, 읽은 글자를 그대로 넣어 줍니다.
         if (!result.race) {
-          var g = result.titleWordText ||
-                  titleGuess(result.titleText) || titleGuess(result.raw);
+          // 낱말로 만든 것과 글자로 만든 것 중 한글이 더 많이 살아남은 쪽을 씁니다
+          var cands = [result.titleWordText,
+                       titleGuess(result.titleText),
+                       titleGuess(result.raw)];
+          var g = null, gh = 0;
+          for (var ci = 0; ci < cands.length; ci++) {
+            if (!cands[ci]) continue;
+            var hn = (cands[ci].match(/[가-힣]/g) || []).length;
+            if (hn > gh || (hn === gh && g && cands[ci].length > g.length)) {
+              gh = hn; g = cands[ci];
+            }
+          }
           if (g) result.raceText = g;
         }
         return result;
