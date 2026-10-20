@@ -170,6 +170,32 @@ function renderResult(result, inputs) {
       필요한 훈련이 다릅니다.</p>`;
     })()}
 
+    ${(() => {
+      // ── 거리별 강점 입력 ─────────────────────────────────────
+      // 실제로 뛴 다른 거리 기록을 넣으면 거리끼리 견줄 수 있다.
+      // 연령등급이 이미 거리·나이·성별을 정규화한 값이라 가능한 비교다.
+      const others = [5, 10, 21.0975, 42.195].filter(
+        (k) => Math.abs(k - inputs.distanceKm) > 0.01);
+      return `
+      <details class="lv-dna">
+        <summary>다른 거리 기록도 있으신가요 — 거리별 강점 보기</summary>
+        <div class="lv-dna-in">
+          <p class="lv-dna-help">실제로 뛴 기록만 넣어 주세요. 하나만 넣어도 됩니다.
+          비어 있는 칸은 건너뜁니다.</p>
+          ${others.map((k) => `
+          <div class="lv-dna-row">
+            <label for="dna-${String(k).replace(".", "_")}">${distLabel(k)}</label>
+            <input type="text" id="dna-${String(k).replace(".", "_")}"
+                   data-km="${k}" class="lv-dna-time"
+                   placeholder="예: ${k < 11 ? "52:38" : "1:58:20"}"
+                   inputmode="numeric" autocomplete="off">
+          </div>`).join("")}
+          <button type="button" class="lv-dna-go" id="lvDnaGo">거리별로 견줘 보기</button>
+          <div class="lv-dna-out" id="lvDnaOut"></div>
+        </div>
+      </details>`;
+    })()}
+
     <p class="level-tier-table-title">체력 수준 구간 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
     <div class="level-tier-table">
       ${TIER_BOUNDS.slice().reverse().map(([bound, label], i) => {
@@ -185,6 +211,53 @@ function renderResult(result, inputs) {
   const shareBtn = document.getElementById("lvShareBtn");
   if (shareBtn) {
     shareBtn.addEventListener("click", () => shareCard(result, inputs, shareBtn));
+  }
+
+  const dnaGo = document.getElementById("lvDnaGo");
+  if (dnaGo) {
+    dnaGo.addEventListener("click", () => {
+      const out = document.getElementById("lvDnaOut");
+      const entries = [{ km: inputs.distanceKm, finishSec: inputs.finishSec }];
+      let bad = false;
+      document.querySelectorAll(".lv-dna-time").forEach((inp) => {
+        const t = (inp.value || "").trim();
+        if (!t) return;
+        const sec = parseTimeToSeconds(t);
+        if (!sec) { bad = true; inp.classList.add("err"); return; }
+        inp.classList.remove("err");
+        entries.push({ km: parseFloat(inp.dataset.km), finishSec: sec });
+      });
+      if (bad) {
+        out.innerHTML = `<p class="lv-dna-msg">시간 형식을 확인해 주세요. 52:38 또는 1:58:20 처럼 적어 주세요.</p>`;
+        return;
+      }
+      const prof = distProfile(entries, inputs.age, inputs.gender);
+      if (!prof) {
+        out.innerHTML = `<p class="lv-dna-msg">거리를 하나 더 넣어 주세요. 두 거리가 있어야 견줄 수 있습니다.</p>`;
+        return;
+      }
+      const top = Math.max(prof.hi, 1);
+      out.innerHTML = `
+        <div class="lv-dna-verdict">
+          <p class="lv-dna-v">${prof.verdict}</p>
+          <p class="lv-dna-d">${prof.detail}</p>
+        </div>
+        <div class="lv-dna-bars">
+          ${prof.rows.map((r) => `
+          <div class="lv-dna-bar">
+            <span class="lv-dna-bd">${distLabel(r.km)}</span>
+            <span class="lv-dna-bt">${fmtClock(r.finishSec)}</span>
+            <span class="lv-dna-bw">
+              <i style="width:${Math.max(6, (r.pct / top) * 100).toFixed(1)}%"></i>
+            </span>
+            <span class="lv-dna-bp">${r.pct.toFixed(1)}%</span>
+          </div>`).join("")}
+        </div>
+        <p class="lv-dna-note">연령등급은 거리·나이·성별을 이미 맞춰 놓은 값이라
+        거리끼리 견줄 수 있습니다. 다만 기록 시점이 많이 다르면 거리 차이가 아니라
+        그동안의 변화를 보는 것이 됩니다. 그리고 이건 기록에서 보이는 패턴이지
+        몸의 특성을 확정하는 것이 아닙니다.</p>`;
+    });
   }
   el.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
@@ -267,6 +340,79 @@ function gapToNextTier({ agePct, finishSec, distanceKm, age, gender }) {
   const diff = finishSec - needFinish;
   if (!(diff > 0)) return null;
   return { label: next[1], diff };
+}
+
+
+// ──────────────────────────────────────────────────────────────
+// 거리별 강점 — 연령등급을 거리끼리 견주기
+//
+// 원시 기록으로는 "10km 55분과 하프 2시간 중 뭐가 더 잘한 건가" 를
+// 비교할 수 없다. 그런데 연령등급은 거리·나이·성별을 이미 정규화한
+// 값이라, 같은 사람의 거리별 연령등급은 서로 견줄 수 있다.
+// 이 비교가 성립한다는 것이 연령등급 방식 자체의 성질이다.
+//
+// 다만 두 가지를 조심해야 한다.
+//   1) 작은 차이는 뜻이 없다. 컨디션과 코스만으로도 1~2%p 는 흔들린다.
+//      그래서 SPREAD_MIN 을 넘을 때만 한쪽이 강하다고 말한다.
+//   2) 기록 시점이 다르면 비교가 아니다. 3년 전 5km 와 지난달 하프를
+//      나란히 놓으면 거리 차이가 아니라 시간 차이를 보는 것이다.
+//      이 점은 화면에 적어 둔다.
+//
+// 생리학적 특성을 단정하지 않는다. 기록에서 보이는 패턴일 뿐이다.
+// ──────────────────────────────────────────────────────────────
+
+const DNA_SHORT = [5, 10];          // 짧은 쪽
+const DNA_LONG = [21.0975, 42.195]; // 긴 쪽
+const SPREAD_MIN = 2.0;             // 이 아래 차이는 말하지 않는다 (%p)
+
+function distProfile(entries, age, gender) {
+  // entries: [{ km, finishSec }]
+  const rows = entries.map((e) => {
+    const std = wmaStd(gender, e.km, age);
+    if (!std || !e.finishSec) return null;
+    const pct = (std / e.finishSec) * 100;
+    return { km: e.km, finishSec: e.finishSec, pct, tier: getTier(pct) };
+  }).filter(Boolean);
+  if (rows.length < 2) return null;
+
+  rows.sort((a, b) => a.km - b.km);
+  const pcts = rows.map((r) => r.pct);
+  const hi = Math.max(...pcts), lo = Math.min(...pcts);
+  const spread = hi - lo;
+
+  const shortRows = rows.filter((r) => DNA_SHORT.some((k) => Math.abs(k - r.km) < 0.3));
+  const longRows = rows.filter((r) => DNA_LONG.some((k) => Math.abs(k - r.km) < 0.4));
+  const avg = (a) => a.reduce((s, r) => s + r.pct, 0) / a.length;
+
+  let verdict, detail;
+  if (spread < SPREAD_MIN) {
+    verdict = "거리별로 고른 편";
+    detail = `가장 높은 거리와 낮은 거리의 차이가 ${spread.toFixed(1)}%p 입니다. ` +
+             `이 정도는 그날 컨디션이나 코스 차이로도 생기는 폭이라, ` +
+             `특별히 어느 쪽이 강하다고 보기는 어렵습니다.`;
+  } else if (shortRows.length && longRows.length) {
+    const ds = avg(shortRows) - avg(longRows);
+    if (Math.abs(ds) < SPREAD_MIN) {
+      verdict = "거리별로 고른 편";
+      detail = `짧은 거리 평균과 긴 거리 평균의 차이가 ${Math.abs(ds).toFixed(1)}%p 로 크지 않습니다.`;
+    } else if (ds > 0) {
+      verdict = "짧은 거리가 상대적으로 강한 편";
+      detail = `짧은 거리의 연령등급이 긴 거리보다 평균 ${ds.toFixed(1)}%p 높습니다. ` +
+               `스피드가 받쳐 주는 쪽이라고 읽을 수 있고, 긴 거리에서는 ` +
+               `지구력과 보급이 기록을 더 좌우합니다.`;
+    } else {
+      verdict = "긴 거리가 상대적으로 강한 편";
+      detail = `긴 거리의 연령등급이 짧은 거리보다 평균 ${(-ds).toFixed(1)}%p 높습니다. ` +
+               `꾸준히 버티는 쪽이 강점이고, 짧은 거리에서는 ` +
+               `속도 훈련으로 더 끌어올릴 여지가 있습니다.`;
+    }
+  } else {
+    const best = rows.find((r) => r.pct === hi);
+    verdict = `${distLabel(best.km)} 가 가장 높게 나왔습니다`;
+    detail = `거리 사이 차이가 ${spread.toFixed(1)}%p 입니다. ` +
+             `짧은 거리와 긴 거리를 하나씩 더 넣으면 경향이 더 분명해집니다.`;
+  }
+  return { rows, spread, hi, lo, verdict, detail };
 }
 
 // ── 그리기 도우미 ────────────────────────────────────────────
