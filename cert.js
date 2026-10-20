@@ -454,6 +454,109 @@
     return null;
   }
 
+  // ── 낱말 상자로 칸 읽기 ──────────────────────────────────
+  // 글자를 전부 이어 붙인 뒤에 정규식으로 찾으면, 왼쪽 사진 자리에서 나온
+  // 찌꺼기가 칸 사이에 끼어들어 값을 가립니다. Tesseract 가 돌려주는 낱말
+  // 상자에는 좌표가 들어 있으니, 이름표 오른쪽에 같은 줄로 놓인 낱말만
+  // 모으면 그 칸의 값이 그대로 나옵니다.
+  var WORD_LABELS = [
+    ["name",   /^(성\s*명|이\s*름|성|명|name|참가자)$/i],
+    ["course", /^(종\s*목|부\s*문|구\s*분|목|course|division)$/i],
+    ["record", /^(완\s*주\s*기\s*록|기\s*록|record)$/i],
+    ["bib",    /^(참\s*가\s*번\s*호|배\s*번|번호|bib|no\.?)$/i]
+  ];
+
+  function wordRows(words) {
+    var W = [];
+    for (var i = 0; i < (words || []).length; i++) {
+      var w = words[i];
+      if (!w || !w.bbox || !w.text) continue;
+      var t = String(w.text).trim();
+      if (!t) continue;
+      var h = w.bbox.y1 - w.bbox.y0;
+      if (h < 5) continue;
+      W.push({ t: t, x0: w.bbox.x0, x1: w.bbox.x1, y0: w.bbox.y0, y1: w.bbox.y1,
+               cy: (w.bbox.y0 + w.bbox.y1) / 2, h: h,
+               c: typeof w.confidence === "number" ? w.confidence : 0 });
+    }
+    W.sort(function (a, b) { return a.cy - b.cy || a.x0 - b.x0; });
+    var rows = [];
+    for (i = 0; i < W.length; i++) {
+      var r = rows[rows.length - 1];
+      if (r && Math.abs(W[i].cy - r.cy) < Math.max(W[i].h, r.h) * 0.6) {
+        r.ws.push(W[i]);
+        r.cy = (r.cy * r.n + W[i].cy) / (r.n + 1);
+        r.n++;
+        r.h = Math.max(r.h, W[i].h);
+      } else {
+        rows.push({ cy: W[i].cy, h: W[i].h, n: 1, ws: [W[i]] });
+      }
+    }
+    for (i = 0; i < rows.length; i++) {
+      rows[i].ws.sort(function (a, b) { return a.x0 - b.x0; });
+    }
+    return rows;
+  }
+
+  function isLabel(t) {
+    for (var i = 0; i < WORD_LABELS.length; i++) {
+      if (WORD_LABELS[i][1].test(t)) return true;
+    }
+    return false;
+  }
+
+  function fieldsFromWords(words) {
+    var rows = wordRows(words), out = {};
+    for (var i = 0; i < rows.length; i++) {
+      var ws = rows[i].ws;
+      for (var j = 0; j < ws.length; j++) {
+        for (var k = 0; k < WORD_LABELS.length; k++) {
+          var key = WORD_LABELS[k][0];
+          if (out[key] || !WORD_LABELS[k][1].test(ws[j].t)) continue;
+          var vals = [], conf = 0, n = 0;
+          for (var m = j + 1; m < ws.length; m++) {
+            if (isLabel(ws[m].t)) break;
+            vals.push(ws[m].t);
+            conf += ws[m].c; n++;
+          }
+          var v = vals.join(" ").trim();
+          if (v) out[key] = { text: v, conf: n ? conf / n : 0 };
+        }
+      }
+    }
+    return out;
+  }
+
+  // 'NAME : 양한규' 에서 이름만. 한글이 이어진 가장 긴 토막을 씁니다.
+  function nameFromValue(v) {
+    // 기록증은 이름도 글자 사이를 벌려 놓는 일이 많고, 낱말 상자도 글자별로
+    // 쪼개져 나옵니다 ('왔 한 규'). 한글끼리는 먼저 붙여 놓고 봅니다.
+    var t = String(v || "").replace(/([가-힣])[\s.·]+(?=[가-힣])/g, "$1");
+    var runs = t.match(/[가-힣]{2,6}/g);
+    if (!runs) return null;
+    runs.sort(function (a, b) { return b.length - a.length; });
+    var n = runs[0];
+    // '성명'·'이름' 같은 이름표가 값 쪽으로 넘어온 경우는 버립니다
+    if (/^(성명|이름|참가자|선수명)$/.test(n)) return null;
+    return n.length >= 2 && n.length <= 5 ? n : null;
+  }
+
+  // OCR 이 가운뎃점을 자주 흘립니다 ('0348:56.24' → '03:48:56').
+  function repairClock(v) {
+    var t = String(v || "").replace(/[^0-9:.]/g, " ");
+    var m = t.match(/\b(\d{1,2}):([0-5]\d):([0-5]\d)\b/);
+    if (m) return m[1] + ":" + m[2] + ":" + m[3];
+    m = t.match(/\b(\d{2})(\d{2}):([0-5]\d)\b/);          // 0348:56
+    if (m && +m[2] < 60) return m[1] + ":" + m[2] + ":" + m[3];
+    m = t.match(/\b(\d{1,2}):([0-5]\d)(\d{2})\b/);         // 3:4856
+    if (m && +m[3] < 60) return m[1] + ":" + m[2] + ":" + m[3];
+    m = t.match(/\b(\d{2})(\d{2})(\d{2})\b/);              // 034856
+    if (m && +m[2] < 60 && +m[3] < 60) return m[1] + ":" + m[2] + ":" + m[3];
+    m = t.match(/\b(\d{1,2}):([0-5]\d)\b/);
+    if (m) return m[1] + ":" + m[2];
+    return null;
+  }
+
   function parseFields(text) {
     var t = String(text || "");
     var flat = t.replace(/\s+/g, " ");
@@ -668,12 +771,14 @@
         // (너무 커지지 않게 fitScale 이 넓이 상한을 걸어 둡니다)
         var canvas = fullCanvas(img, 2400);
 
+        var wordsOf = {};
         function readFull(psm) {
           return T.createWorker("kor+eng").then(function (worker) {
             return worker.setParameters({ tessedit_pageseg_mode: psm })
               .then(function () { return worker.recognize(canvas); })
               .then(function (res) {
                 var txt = (res.data && res.data.text) || "";
+                wordsOf[psm] = (res.data && res.data.words) || [];
                 return worker.terminate().then(function () { return txt; });
               });
           });
@@ -710,19 +815,19 @@
           // 한 번 더 봅니다. (아예 안 걸렸으면 목록에 없는 대회이니 넘어갑니다)
           var thin = !hasFinish(f6) || !f6.km || (r6 && !r6.exact);
           if (!thin) {
-            result.raw = t6; result.fields = f6;
+            result.raw = t6; result.fields = f6; result.words = wordsOf["6"];
             result.race = r6; result.raceDone = true; return null;
           }
           return readFull("3").then(function (t3) {
             var f3 = parseFields(t3);
             var r3 = matchRace(t3, f3.date);
-            if (score(f3) > score(f6)) { result.raw = t3; result.fields = f3; }
-            else { result.raw = t6; result.fields = f6; }
+            if (score(f3) > score(f6)) { result.raw = t3; result.fields = f3; result.words = wordsOf["3"]; }
+            else { result.raw = t6; result.fields = f6; result.words = wordsOf["6"]; }
             // 대회는 따로 고릅니다 — 더 또렷하게 걸린 쪽
             result.race = (r3 && (!r6 || r3.score > r6.score)) ? r3 : r6;
             result.raceDone = true;
           }).catch(function () {
-            result.raw = t6; result.fields = f6;
+            result.raw = t6; result.fields = f6; result.words = wordsOf["6"];
             result.race = r6; result.raceDone = true;
           });
         });
@@ -731,6 +836,27 @@
         return null;
       }).then(function () {
         if (!result.fields || !result.fields.times) result.fields = parseFields(result.raw);
+
+        // 낱말 상자로 읽은 칸 값이 있으면 그쪽을 믿습니다.
+        // 이름표 바로 옆에 놓인 값이라 글자를 이어 붙여 찾은 것보다 확실합니다.
+        var fw = fieldsFromWords(result.words || []);
+        var F = result.fields;
+        if (fw.course) {
+          var km = courseOf(fw.course.text);
+          if (km) { F.km = km; F.kmSure = true; }
+        }
+        if (fw.record) {
+          var rc = repairClock(fw.record.text);
+          if (rc) { F.boxTime = rc; F.boxTimeConf = fw.record.conf; }
+        }
+        if (fw.name) {
+          var nm2 = nameFromValue(fw.name.text);
+          if (nm2) { F.name = nm2; F.nameSure = fw.name.conf >= 55; }
+        }
+        if (fw.bib) {
+          var bb = (fw.bib.text.match(/\d{1,6}/) || [])[0];
+          if (bb) F.bib = bb;
+        }
         if (!result.raceDone) result.race = matchRace(result.raw, result.fields.date);
         // 목록에 없는 대회 — 오래된 기록증이면 흔한 일입니다.
         // 그래도 칸을 비워 두지 않고, 읽은 글자를 그대로 넣어 줍니다.
@@ -766,7 +892,10 @@
       if (bad) big = null;
     }
 
-    var time = (ok.filter(function (x) { return x.labelled; })[0] || {}).text ||
+    // 이름표 바로 옆 상자에서 읽은 값 > 글자 속에서 이름표가 붙은 값 >
+    // 넷타임 > 큰 글씨 > 가장 긴 시간
+    var time = f.boxTime ||
+               (ok.filter(function (x) { return x.labelled; })[0] || {}).text ||
                (ok.filter(function (x) { return x.kind === "net"; })[0] || {}).text ||
                big || null;
     if (!time) {
@@ -794,7 +923,7 @@
     // 이름 — 읽어서 칸만 채웁니다. 어디로도 보내지 않습니다.
     if (f.name && nameInput && !nameInput.value) {
       nameInput.value = f.name;
-      got.push("이름 " + f.name);
+      got.push("이름 " + f.name + (f.nameSure === false ? " (흐릿해요 — 봐 주세요)" : ""));
     }
 
     // 거리 — 기록증에서 읽은 것을 우선, 없으면 대회 정보에서
