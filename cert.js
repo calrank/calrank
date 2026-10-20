@@ -910,17 +910,28 @@
         // 목록에 없는 대회 — 오래된 기록증이면 흔한 일입니다.
         // 그래도 칸을 비워 두지 않고, 읽은 글자를 그대로 넣어 줍니다.
         if (!result.race) {
-          // 낱말로 만든 것과 글자로 만든 것 중 한글이 더 많이 살아남은 쪽을 씁니다
+          // 낱말로 만든 것과 글자로 만든 것 중 더 대회 이름다운 쪽을 씁니다.
+          // 한글 수만 보고 골랐더니 로고에 적힌 '경찰60년' 까지 끌고 와서
+          // '경찰 60 년 경찰청차인권마라톤' 이 되었습니다.
           var cands = [result.titleWordText,
                        titleGuess(result.titleText),
                        titleGuess(result.raw)];
-          var g = null, gh = 0;
+          var g = null, gs = 0;
           for (var ci = 0; ci < cands.length; ci++) {
-            if (!cands[ci]) continue;
-            var hn = (cands[ci].match(/[가-힣]/g) || []).length;
-            if (hn > gh || (hn === gh && g && cands[ci].length > g.length)) {
-              gh = hn; g = cands[ci];
-            }
+            var cand = cands[ci];
+            if (!cand || cand.length < 5) continue;
+            // 대회 이름이라면 '마라톤'·'대회' 같은 말이 들어 있습니다.
+            // 없으면 제목이 아니라 떨어져 나온 글자 조각입니다.
+            if (!/마\s*라\s*톤|대\s*회|러\s*닝|마\s*라\s*손|run|marathon/i.test(cand)) continue;
+            var hn = (cand.match(/[가-힣]/g) || []).length;
+            // 글자 대부분이 한글일수록 제목답습니다
+            var sc2 = hn / cand.length + Math.min(cand.length, 20) / 100;
+            // 가운데 끼어든 숫자는 로고 조각일 때가 많습니다 (앞머리 연도는 봐 줍니다)
+            var mid = cand.slice(2).match(/\d+/g) || [];
+            sc2 -= mid.length * 0.15;
+            // '…마라톤' · '…대회' 로 끝나면 제목일 가능성이 큽니다
+            if (/(마\s*라\s*톤|대\s*회|런|run)$/i.test(cand)) sc2 += 0.15;
+            if (sc2 > gs) { gs = sc2; g = cand; }
           }
           if (g) result.raceText = g;
         }
