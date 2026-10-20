@@ -62,6 +62,64 @@
   }).catch(function () { /* 자동완성이 없어도 직접 입력은 된다 */ });
 
   // 대회를 고르면 거리 후보를 맞춰 준다
+  // ── 대회 당일 날씨 ────────────────────────────────────────
+  // 같은 53분이라도 8℃에서 뛴 것과 22℃에서 뛴 것은 다른 기록입니다.
+  // 다만 등급 숫자는 건드리지 않습니다. 보정 계수를 곱해 '선선한 날이었다면
+  // 몇 분' 까지 말하려면 한국 대회에서 검증한 값이 있어야 하는데, 지금 가진
+  // 근거는 해외 풀코스 대회 자료입니다. 그래서 사실만 적고 판단은 맡깁니다.
+  //
+  // 기온 구간은 El Helou 등(2012)이 6개 대회 1,791,972건에서 찾은
+  // 최적 기온 3.8~9.9℃를 가운데 두고 나눴습니다.
+  var TEMP_BANDS = [
+    [-99, 0,  "추운 날이었습니다", "몸이 덥혀지는 데 시간이 걸리고 근육도 덜 풀립니다."],
+    [0, 4,    "쌀쌀한 날이었습니다", "기록이 나오기 좋은 기온보다 조금 낮은 편입니다."],
+    [4, 10,   "기록이 나오기 좋은 기온이었습니다", "연구에서 가장 빠른 기록이 나온 구간(3.8~9.9℃)에 들어갑니다."],
+    [10, 15,  "조금 따뜻한 편이었습니다", "달리기에 나쁘지 않지만 가장 좋은 구간보다는 높습니다."],
+    [15, 20,  "다소 더운 편이었습니다", "같은 힘으로 뛰어도 기록이 조금 밀릴 수 있는 기온입니다."],
+    [20, 25,  "더운 날이었습니다", "체온을 식히는 데 힘이 들어가 기록이 밀리기 쉽습니다."],
+    [25, 99,  "많이 더운 날이었습니다", "완주 자체가 쉽지 않은 기온입니다. 기록보다 무사 완주가 먼저인 날입니다."],
+  ];
+
+  function tempBand(t) {
+    for (var i = 0; i < TEMP_BANDS.length; i++) {
+      if (t >= TEMP_BANDS[i][0] && t < TEMP_BANDS[i][1]) return TEMP_BANDS[i];
+    }
+    return null;
+  }
+
+  function weatherNote(ev) {
+    var w = ev && ev.weather;
+    if (!w) return "";
+    var t = w.avgTa;
+    if (t === null || t === undefined) t = w.maxTa;
+    if (t === null || t === undefined) return "";
+    var band = tempBand(t);
+    if (!band) return "";
+
+    var bits = [];
+    if (w.minTa !== null && w.minTa !== undefined &&
+        w.maxTa !== null && w.maxTa !== undefined) {
+      bits.push("최저 " + w.minTa + "℃ · 최고 " + w.maxTa + "℃");
+    }
+    if (w.rhm !== null && w.rhm !== undefined) bits.push("습도 " + Math.round(w.rhm) + "%");
+    if (w.rn) bits.push("비 " + w.rn + "mm");
+
+    var where = w.station + " 관측" +
+      (w.awayKm !== null && w.awayKm !== undefined ? " · 대회장에서 약 " + w.awayKm + "km" : "");
+
+    return '<div class="ct-wx">' +
+      '<p class="ct-wx-top"><b>' + t + '℃</b><span>대회 당일 평균기온</span></p>' +
+      (bits.length ? '<p class="ct-wx-sub">' + bits.join(" · ") + "</p>" : "") +
+      '<p class="ct-wx-say">' + band[2] + " " + band[3] + "</p>" +
+      '<p class="ct-wx-src">' + where +
+      " · 기상청 종관기상관측(ASOS) 일자료. 기온 구간은 마라톤 대회 " +
+      "1,791,972건을 분석해 가장 빠른 기록이 나온 기온(3.8~9.9℃)을 찾은 연구를 " +
+      '따랐습니다. <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0037407"' +
+      ' target="_blank" rel="noopener">El Helou 외, PLoS ONE 2012</a>' +
+      "<br>등급 숫자는 날씨로 고치지 않습니다 — 참고로만 보여 드려요.</p>" +
+      "</div>";
+  }
+
   function onRacePicked() {
     if (!raceMap) return;
     var e = raceMap.get((raceInput.value || "").trim());
@@ -73,8 +131,24 @@
     if (!want && /5\s*km/i.test(raw)) want = "5";
     if (!want && /(풀|42)/.test(raw)) want = "42.195";
     if (want) distSel.value = want;
+    showWeather(e);
   }
-  raceInput.addEventListener("input", onRacePicked);
+
+  function showWeather(ev) {
+    var box = document.getElementById("ctWeather");
+    if (!box) return;
+    var html = weatherNote(ev);
+    box.innerHTML = html;
+    box.hidden = !html;
+  }
+  raceInput.addEventListener("input", function () {
+    if (!(raceInput.value || "").trim()) {
+      var b = document.getElementById("ctWeather");
+      if (b) { b.innerHTML = ""; b.hidden = true; }
+      return;
+    }
+    onRacePicked();
+  });
   raceInput.addEventListener("change", onRacePicked);
 
   // ---------- 2. 이미지 전처리 ----------

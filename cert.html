@@ -87,6 +87,14 @@
 .ct-give-go:disabled{opacity:.45;cursor:default;}
 .ct-give-msg{font-size:12.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:10px 0 0;}
 .ct-hint{font-size:11.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:6px 0 0;}
+.ct-wx{margin:10px 0 0;padding:12px 13px;border:1px solid var(--border,#2A2A2A);border-radius:9px;background:rgba(255,255,255,.02);}
+.ct-wx-top{display:flex;align-items:baseline;gap:8px;margin:0;}
+.ct-wx-top b{font-size:20px;color:#fff;font-variant-numeric:tabular-nums;}
+.ct-wx-top span{font-size:11.5px;color:#8E8884;}
+.ct-wx-sub{font-size:11.5px;color:#8E8884;margin:5px 0 0;}
+.ct-wx-say{font-size:12.5px;line-height:1.8;color:#C8C4C2;margin:9px 0 0;}
+.ct-wx-src{font-size:10.5px;line-height:1.7;color:#6A6A6A;margin:9px 0 0;}
+.ct-wx-src a{color:#8E8884;text-decoration:underline;text-underline-offset:2px;}
 </style>
 </head>
 <body>
@@ -125,6 +133,7 @@
     <label for="ctRace">대회 (한두 글자만 쳐도 목록에서 고를 수 있어요)</label>
     <input type="text" id="ctRace" list="ctRaceList" autocomplete="off" placeholder="예: 한경서울마라톤">
     <datalist id="ctRaceList"></datalist>
+    <div class="ct-wx-wrap" id="ctWeather" hidden></div>
   </div>
   <div class="ct-row">
     <label for="ctName">이름 (기록증 카드에만 쓰여요)</label>
