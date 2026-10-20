@@ -20,6 +20,7 @@ const state = {
   // 달력인데 이미 끝난 대회부터 보여 주고 있었다. 10월에 들어온 사람이
   // 3월 대회 '접수 마감' 카드를 다섯 장 넘겨야 신청할 수 있는 대회가 나왔다.
   when: "upcoming",
+  q: "",
 };
 
 function daysUntil(dateStr) {
@@ -190,6 +191,50 @@ function inWhen(ev) {
 
 // 달 칩과 '지난 대회' 를 한 줄에 둔다. 줄을 따로 두었더니 첫 카드가
 // 화면 한 장 아래로 밀려났다 — 달력에서 대회가 안 보이면 아무 소용이 없다.
+// 이름을 아는 사람에게는 칩을 줄줄이 누르는 것보다 한 줄 치는 게 빠르다.
+// 띄어쓰기와 기호는 무시한다 — '서울 마라톤' 과 '서울마라톤' 이 같아야 한다.
+function searchNorm(v) {
+  return String(v || "").replace(/[\s·:,.()\-_/]/g, "").toLowerCase();
+}
+
+function matchesQuery(ev) {
+  if (!state.q) return true;
+  const hay = searchNorm(
+    [ev.name, ev.location, ev.region, ev.organizer].filter(Boolean).join(" "));
+  return hay.includes(state.q);
+}
+
+function setupSearch() {
+  const el = document.getElementById("eventSearch");
+  if (!el) return;
+  let timer = null;
+  el.addEventListener("input", () => {
+    clearTimeout(timer);
+    // 한 글자마다 800개를 다시 그리면 손가락이 걸린다
+    timer = setTimeout(() => {
+      state.q = searchNorm(el.value);
+      render();
+    }, 160);
+  });
+}
+
+// 히어로 설명문은 검색엔진이 읽어야 하니 지우지 않는다.
+// 화면에서만 두 줄로 접고, 누르면 펼친다.
+function setupHeroLead() {
+  const lead = document.getElementById("heroLead");
+  const btn = document.getElementById("heroMore");
+  if (!lead || !btn) return;
+  // 접었을 때와 펼쳤을 때 높이가 같으면 버튼이 필요 없다
+  lead.classList.add("clamped");
+  if (lead.scrollHeight - lead.clientHeight < 8) return;
+  btn.hidden = false;
+  btn.addEventListener("click", () => {
+    const open = lead.classList.toggle("clamped") === false;
+    btn.textContent = open ? "접기" : "더보기";
+    btn.setAttribute("aria-expanded", String(open));
+  });
+}
+
 function setupMonthTabs() {
   const wrap = document.getElementById("monthTabs");
   wrap.innerHTML = "";
@@ -470,6 +515,7 @@ function render() {
 
   const filtered = state.events
     .filter(inWhen)
+    .filter(matchesQuery)
     .filter(ev => state.sport === "all" || ev.sport === state.sport)
     .filter(ev => state.month === "all" || monthKey(ev.date) === state.month)
     .filter(ev => state.region === "all" || (ev.region || "전국") === state.region)
@@ -728,14 +774,17 @@ function animateCount(el, target, duration) {
 function renderHeroStats() {
   const wrap = document.getElementById("heroStats");
   if (!wrap) return;
-  const totalCount = state.events.length;
+  // '진행중' 이라면서 이미 끝난 대회까지 세고 있었다 (832개 중 485개가 지난 대회).
+  // 화면에 보이는 것과 숫자가 어긋나면 그 숫자를 믿을 수 없게 된다.
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const totalCount = state.events.filter(ev => (ev.date || "") >= todayStr).length;
   const sportCount = new Set(state.events.map(ev => ev.sport)).size;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const urgentCount = state.events.filter(ev => getRegStatus(ev) === "urgent").length;
 
   wrap.innerHTML = `
-    <span class="hero-stat"><b id="statTotal">0</b>개 대회 진행중</span>
+    <span class="hero-stat"><b id="statTotal">0</b>개 대회 예정</span>
     <span class="hero-stat"><b id="statSport">0</b>개 종목</span>
     <span class="hero-stat"><b id="statUrgent">0</b>개 접수마감임박</span>
   `;
@@ -792,6 +841,8 @@ async function init() {
   setupDistBucketChips();
   setupMonthTabs();
   setupRegionSelect();
+  setupSearch();
+  setupHeroLead();
   render();
   renderHeroStats();
 

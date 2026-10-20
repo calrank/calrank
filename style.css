@@ -299,6 +299,30 @@ body{
 
 .ev-review-badge{margin-left:6px;color:#d4af37;font-weight:600;}
 /* 대회 카드의 날씨 조각 — 예보는 또렷하게, 지난 기온은 한 걸음 뒤로 */
+/* 히어로 설명문 — 글은 그대로 두고 화면에서만 두 줄로 접는다 */
+.hero-lead.clamped{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+  overflow:hidden;
+}
+.hero-more{
+  display:block;margin:6px auto 0;background:none;border:0;cursor:pointer;
+  font-family:inherit;font-size:12px;color:var(--ink-soft,#9A9A9A);
+  text-decoration:underline;text-underline-offset:3px;padding:4px 8px;
+}
+.hero-more:hover{color:#E8E4E1;}
+
+/* 찾기 줄 — 검색칸과 지역 선택을 한 줄에 */
+.filter-row-find{display:flex;gap:8px;align-items:center;flex-wrap:nowrap;}
+.event-search{
+  flex:1 1 auto;min-width:0;padding:9px 12px;font-family:inherit;font-size:14px;
+  color:#E8E4E1;background:var(--bg,#0B0B0B);
+  border:1px solid var(--border,#2A2A2A);border-radius:8px;
+}
+.event-search::placeholder{color:#6A6A6A;}
+.event-search:focus{outline:none;border-color:var(--accent,#FF3D1A);}
+.filter-row-find .region-select{flex:0 0 auto;width:auto;}
+@media (min-width:720px){ .hero-lead.clamped{-webkit-line-clamp:3;} }
+
 .chip-flip{opacity:.72;font-style:normal;}
 .chip-flip:hover{opacity:1;}
 .ev-wx{margin-left:6px;font-weight:600;white-space:nowrap;}

@@ -77,7 +77,8 @@
 <h1>2026 마라톤 대회 일정 — 전국 마라톤·자전거·트레일러닝·철인3종·인라인 캘린더</h1>
 <div class="hero-speedlines"><span></span><span></span><span></span></div>
 <p class="hero-sub">너의 다음 출발선, 바로 여기야!</p>
-<p class="hero-lead">전국 <b>마라톤 대회 일정</b>을 월별·지역별로 모았습니다. 10월·11월 대회부터 10km·하프마라톤·풀코스 거리로 골라 보고, 접수 시작일과 마감일을 확인해 바로 신청하세요. 서울·경기·경북 등 지역별로 국내 예정 대회 267개와 트레일러닝, 자전거(그란폰도·메디오폰도), 철인3종(트라이애슬론)·아쿠아슬론, 인라인 대회 일정을 함께 담았습니다.</p>
+<p class="hero-lead" id="heroLead">전국 <b>마라톤 대회 일정</b>을 월별·지역별로 모았습니다. 10월·11월 대회부터 10km·하프마라톤·풀코스 거리로 골라 보고, 접수 시작일과 마감일을 확인해 바로 신청하세요. 서울·경기·경북 등 지역별로 국내 예정 대회 267개와 트레일러닝, 자전거(그란폰도·메디오폰도), 철인3종(트라이애슬론)·아쿠아슬론, 인라인 대회 일정을 함께 담았습니다.</p>
+<button type="button" class="hero-more" id="heroMore" hidden aria-expanded="false">더보기</button>
 <div class="hero-stats" id="heroStats"></div>
 <button id="subscribeBtn" class="chip" style="margin-top:12px;">🔔 대회·접수마감 알림 받기 (내 캘린더로)</button>
 <div id="subscribeInfo" class="sub-panel" style="display:none;">
@@ -111,9 +112,12 @@
 <section class="filter-row">
 <div class="filter-group" id="distBucketChips"></div>
 </section>
-<section class="filter-row">
+<section class="filter-row filter-row-find">
+<input type="search" id="eventSearch" class="event-search"
+       placeholder="대회 이름·장소로 찾기" autocomplete="off"
+       aria-label="대회 이름이나 장소로 찾기">
 <select id="regionSelect" class="region-select"></select>
-<button id="mapToggleBtn" class="chip" style="margin-left:8px;">🗺️ 지도로 보기</button>
+<button id="mapToggleBtn" class="chip">🗺️ 지도</button>
 </section>
 
 <p class="result-count" id="resultCount">예정 대회 267개</p>
