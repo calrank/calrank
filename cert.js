@@ -208,7 +208,19 @@
       best = m2[2].trim();
     }
     // 글자 사이에 낀 한 자리 숫자도 OCR 찌꺼기입니다 ('손7 정펑하' → '손정펑하')
-    best = best.replace(/([가-힣])\s*\d\s*([가-힣])/g, "$1$2").replace(/\s+/g, " ").trim();
+    best = best.replace(/([가-힣])\s*\d\s*([가-힣])/g, "$1$2")
+               .replace(/[。、·．,]+/g, " ")
+               .replace(/\s+/g, " ").trim();
+
+    // 제목 뒤에 딸려 온 찌꺼기를 떼어 냅니다 ('… 마라톤 대회。 세 g' → '… 마라톤 대회').
+    // '대회'·'마라톤' 뒤에 남은 토막이 제대로 된 말이 아니면 버립니다.
+    var kw = /(대\s*회|마\s*라\s*톤|러\s*닝|마\s*라\s*손|run|marathon)/gi, last = null, km4;
+    while ((km4 = kw.exec(best))) last = km4.index + km4[0].length;
+    if (last !== null && last < best.length) {
+      var tail = best.slice(last).trim();
+      var tailOk = /^[가-힣]{2,}/.test(tail) && !/[^가-힣0-9A-Za-z\s()]/.test(tail);
+      if (!tailOk) best = best.slice(0, last).trim();
+    }
     return best.length >= 4 && best.length <= 60 ? best : null;
   }
 
