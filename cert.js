@@ -185,6 +185,24 @@
   // 대회 이름은 기록증에서 가장 큰 글씨입니다. 띠에서 읽은 낱말 가운데
   // 키가 가장 큰 줄을 골라 가로 순서로 이어 붙이면 제목이 나옵니다.
   // 글자를 전부 이어 붙인 뒤 줄을 고르는 것보다 찌꺼기가 훨씬 적게 섞입니다.
+  // 캔버스의 한 조각을 키워 다시 그립니다 (칸 하나만 크게 들여다볼 때)
+  function cropZoom(src, box, zoom) {
+    var padX = Math.round((box.y1 - box.y0) * 0.5);
+    var padY = Math.round((box.y1 - box.y0) * 0.5);
+    var x0 = Math.max(0, box.x0 - padX), y0 = Math.max(0, box.y0 - padY);
+    var x1 = Math.min(src.width, box.x1 + padX), y1 = Math.min(src.height, box.y1 + padY);
+    var w = Math.max(1, x1 - x0), h = Math.max(1, y1 - y0);
+    var c = document.createElement("canvas");
+    c.width = Math.round(w * zoom); c.height = Math.round(h * zoom);
+    var ctx = c.getContext("2d");
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(src, x0, y0, w, h, 0, 0, c.width, c.height);
+    return c;
+  }
+
   function titleFromWords(words) {
     var rows = wordRows(words);
     if (!rows.length) return null;
@@ -562,7 +580,17 @@
             conf += ws[m].c; n++;
           }
           var v = vals.join(" ").trim();
-          if (v) out[key] = { text: v, conf: n ? conf / n : 0 };
+          if (v) {
+            var bx = { x0: 1e9, y0: 1e9, x1: -1e9, y1: -1e9 };
+            for (var q = 0; q < vals.length; q++) { /* 자리만 맞춥니다 */ }
+            for (q = j + 1; q < ws.length; q++) {
+              if (isLabel(ws[q].t)) break;
+              bx.x0 = Math.min(bx.x0, ws[q].x0); bx.y0 = Math.min(bx.y0, ws[q].y0);
+              bx.x1 = Math.max(bx.x1, ws[q].x1); bx.y1 = Math.max(bx.y1, ws[q].y1);
+            }
+            out[key] = { text: v, conf: n ? conf / n : 0,
+                         box: bx.x1 > bx.x0 ? bx : null };
+          }
         }
       }
     }
@@ -812,6 +840,7 @@
         // 기록증 칸의 글씨는 작습니다. 키워 놓아야 '종 목 : 풀' 같은 줄이 읽힙니다.
         // (너무 커지지 않게 fitScale 이 넓이 상한을 걸어 둡니다)
         var canvas = fullCanvas(img, 2400);
+        result.canvas = canvas;
 
         var wordsOf = {};
         function readFull(psm) {
@@ -902,6 +931,8 @@
           var nm2 = nameFromValue(fw.name.text);
           if (nm2) { F.name = nm2; F.nameSure = fw.name.conf >= 55; }
         }
+        result.nameBox = fw.name && fw.name.box;
+        result.nameConf = fw.name ? fw.name.conf : 0;
         if (fw.bib) {
           var bb = (fw.bib.text.match(/\d{1,6}/) || [])[0];
           if (bb) F.bib = bb;
@@ -935,9 +966,33 @@
           }
           if (g) result.raceText = g;
         }
-        return result;
+        return refineName(T, result).then(function () { return result; });
       });
     });
+  }
+
+  // 이름은 획이 비슷한 글자가 많습니다 (동/통, 희/의). 한 번에 다 읽은 그림에서는
+  // 글자가 작아 갈리지 않으니, 이름 칸 자리만 세 배로 키워 한 번 더 봅니다.
+  // 좌표를 이미 알고 있어서 잘라 읽는 데 0.2초쯤 듭니다.
+  function refineName(T, result) {
+    if (!result.nameBox || !result.canvas || !nameInput) return Promise.resolve();
+    var c = cropZoom(result.canvas, result.nameBox, 3);
+    return T.createWorker("kor").then(function (worker) {
+      return worker.setParameters({ tessedit_pageseg_mode: "7" })
+        .then(function () { return worker.recognize(c); })
+        .then(function (res) {
+          var txt = (res.data && res.data.text) || "";
+          var cf = (res.data && res.data.confidence) || 0;
+          return worker.terminate().then(function () {
+            var nm = nameFromValue(txt);
+            // 더 또렷하게 읽혔을 때만 바꿉니다
+            if (nm && cf > result.nameConf) {
+              result.fields.name = nm;
+              result.fields.nameSure = cf >= 60;
+            }
+          });
+        });
+    }).catch(function () { /* 못 읽어도 앞서 읽은 이름을 씁니다 */ });
   }
 
   // ---- 읽어낸 것을 폼에 채우고, 무엇을 읽었는지 보여 준다
