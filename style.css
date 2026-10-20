@@ -298,6 +298,10 @@ body{
 .rr-review-link:hover{text-decoration:underline;}
 
 .ev-review-badge{margin-left:6px;color:#d4af37;font-weight:600;}
+/* 대회 카드의 날씨 조각 — 예보는 또렷하게, 지난 기온은 한 걸음 뒤로 */
+.ev-wx{margin-left:6px;font-weight:600;white-space:nowrap;}
+.ev-wx-fcst{color:#7FB3D5;}
+.ev-wx-past{color:#6A6A6A;font-weight:500;}
 
 /* ===== calrank 규모·인지도 지수 (유저 후기 ⭐와 시각적으로 구분) ===== */
 .ev-scale-badge{margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;}

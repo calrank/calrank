@@ -296,6 +296,84 @@ function toggleSavedEvent(id) {
   return idx < 0;
 }
 
+// 같은 대회의 지난 회차를 찾기 위한 이름 다듬기.
+// '제19회 중랑구청장배 장미 마라톤' 과 '제20회 중랑구청장배 장미 마라톤' 은
+// 같은 대회다. 회차와 연도를 떼면 붙는다.
+function raceKey(name) {
+  return String(name || "")
+    .replace(/제?\s*\d+\s*회/g, " ")
+    .replace(/20\d\d/g, " ")
+    .replace(/[^가-힣A-Za-z0-9]/g, "")
+    .toLowerCase();
+}
+
+function dayOfYear(d) {
+  const x = new Date(d + "T00:00:00");
+  return Math.floor((x - new Date(x.getFullYear(), 0, 0)) / 86400000);
+}
+
+let pastWeatherIndex = null;
+function pastWeatherFor(ev) {
+  if (pastWeatherIndex === null) {
+    pastWeatherIndex = new Map();
+    for (const e of state.events) {
+      if (!e.weather || e.weather.avgTa == null || !e.date) continue;
+      const k = raceKey(e.name);
+      if (!k) continue;
+      if (!pastWeatherIndex.has(k)) pastWeatherIndex.set(k, []);
+      pastWeatherIndex.get(k).push(e);
+    }
+  }
+  const list = pastWeatherIndex.get(raceKey(ev.name));
+  if (!list || !ev.date) return null;
+  // 같은 대회라도 봄 대회와 가을 대회를 섞으면 안 된다. 같은 시기(±14일)만 쓴다.
+  // 한 시리즈가 여러 계절에 열리는 일이 많아서, 이걸 빼면 10월 대회에
+  // 5월 기온이 붙는다.
+  const target = dayOfYear(ev.date);
+  let best = null, bestGap = 99;
+  for (const e of list) {
+    if (e.id === ev.id || e.date >= ev.date) continue;
+    let gap = Math.abs(dayOfYear(e.date) - target);
+    gap = Math.min(gap, 365 - gap);
+    if (gap <= 14 && gap < bestGap) { bestGap = gap; best = e; }
+  }
+  return best;
+}
+
+// 대회 카드에 붙는 날씨 한 조각.
+// 사흘 안이면 기상청 단기예보, 그보다 멀면 지난 대회 날 실제 기온을 보여 준다.
+// 예보가 없는 자리를 비워 두면 고장난 줄 알기 쉬워서, 대신 들려줄 말을 둔다.
+function weatherChip(ev) {
+  const f = ev.forecast;
+  if (f) {
+    const t = f.morningTa != null ? f.morningTa
+            : (f.tmx != null ? f.tmx : f.tmn);
+    if (t != null) {
+      const bits = [];
+      if (f.sky) bits.push(f.sky);
+      if (f.pop != null && f.pop >= 30) bits.push("강수 " + f.pop + "%");
+      return '<span class="ev-wx ev-wx-fcst" title="기상청 단기예보 · ' +
+        (f.asOf || "") + ' 기준">' + t + "℃" +
+        (bits.length ? " " + bits.join(" ") : "") + "</span>";
+    }
+  }
+  const w = ev.weather;
+  if (w && w.avgTa != null) {
+    return '<span class="ev-wx ev-wx-past" title="' + (w.station || "") +
+      ' 관측 · 기상청 ASOS">그날 ' + w.avgTa + "℃</span>";
+  }
+  // 아직 예보가 안 나오는 대회에는 같은 대회 지난 회차의 기온을 들려준다.
+  // 예보가 아니라 지난 기록이라는 걸 글자로 분명히 해 둔다.
+  const past = pastWeatherFor(ev);
+  if (past) {
+    const y = String(past.date || "").slice(0, 4);
+    return '<span class="ev-wx ev-wx-past" title="' + y + "년 대회 당일 " +
+      (past.weather.station || "") + ' 관측 · 기상청 ASOS">' +
+      y + "년 " + past.weather.avgTa + "℃</span>";
+  }
+  return "";
+}
+
 function renderCard(ev) {
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);
@@ -331,7 +409,7 @@ function renderCard(ev) {
         ${scaleBadgeHtml}
         <span class="dday-badge ${dday.urgent ? "dday-urgent" : ""}">${dday.label}</span>
       </div>
-      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}${reviewBadgeHtml}</p>
+      <p class="event-meta">${ev.location} · ${formatDate(ev.date, ev.time)}${ev.organizer ? " · " + ev.organizer : ""}${reviewBadgeHtml}${weatherChip(ev)}</p>
     </div>
     <span class="event-chevron">›</span>
   `;
