@@ -976,6 +976,11 @@
   // 좌표를 이미 알고 있어서 잘라 읽는 데 0.2초쯤 듭니다.
   function refineName(T, result) {
     if (!result.nameBox || !result.canvas || !nameInput) return Promise.resolve();
+    // 처음 읽기가 이미 또렷했으면 키워 봐야 소용이 없습니다. 재 봤더니 '김통현'
+    // 을 93점으로 읽어 놓고, 키워 읽으면 오히려 더 엉뚱한 글자가 나왔습니다.
+    // 원본이 617px 짜리라 키운다고 없던 획이 생기지는 않습니다.
+    // 처음 읽기가 흔들렸을 때만 한 번 더 봅니다.
+    if (result.nameConf >= 70) return Promise.resolve();
     var c = cropZoom(result.canvas, result.nameBox, 3);
     return T.createWorker("kor").then(function (worker) {
       return worker.setParameters({ tessedit_pageseg_mode: "7" })
@@ -1049,7 +1054,9 @@
     // 이름 — 읽어서 칸만 채웁니다. 어디로도 보내지 않습니다.
     if (f.name && nameInput && !nameInput.value) {
       nameInput.value = f.name;
-      got.push("이름 " + f.name + (f.nameSure === false ? " (흐릿해요 — 봐 주세요)" : ""));
+      // 이름은 획 하나로 갈리는 글자가 많습니다 (동/통, 희/의).
+      // 맞게 읽혔는지 기계가 알 길이 없으니 한 번 봐 달라고 말합니다.
+      got.push("이름 " + f.name + " (한 글자씩 봐 주세요)");
     }
 
     // 거리 — 기록증에서 읽은 것을 우선, 없으면 대회 정보에서
