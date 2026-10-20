@@ -199,8 +199,16 @@
       if (sc > bestScore) { bestScore = sc; best = t; }
     }
     if (!best) return null;
-    // 양끝에 남은 찌꺼기를 떼어 냅니다
+    // 양끝에 남은 찌꺼기를 떼어 냅니다. 앞에 홀로 붙은 짧은 숫자나 알파벳은
+    // 로고 조각이 숫자로 읽힌 것이라 떼어 냅니다 (연도 네 자리는 남깁니다).
     best = best.replace(/^[^가-힣0-9A-Za-z]+/, "").replace(/[^가-힣0-9A-Za-z)]+$/, "");
+    for (var k = 0; k < 3; k++) {
+      var m2 = best.match(/^(\d{1,3}|[A-Za-z]{1,2})\s+(.*)$/);
+      if (!m2 || !/[가-힣]/.test(m2[2])) break;
+      best = m2[2].trim();
+    }
+    // 글자 사이에 낀 한 자리 숫자도 OCR 찌꺼기입니다 ('손7 정펑하' → '손정펑하')
+    best = best.replace(/([가-힣])\s*\d\s*([가-힣])/g, "$1$2").replace(/\s+/g, " ").trim();
     return best.length >= 4 && best.length <= 60 ? best : null;
   }
 
@@ -644,7 +652,9 @@
       }).then(function () {
         // --- B. 한글+영문 전체 읽기
         onStep("대회명과 나머지 정보를 읽는 중… (처음 한 번은 한글 데이터를 내려받습니다)");
-        var canvas = fullCanvas(img, 1600);
+        // 기록증 칸의 글씨는 작습니다. 키워 놓아야 '종 목 : 풀' 같은 줄이 읽힙니다.
+        // (너무 커지지 않게 fitScale 이 넓이 상한을 걸어 둡니다)
+        var canvas = fullCanvas(img, 2400);
 
         function readFull(psm) {
           return T.createWorker("kor+eng").then(function (worker) {
