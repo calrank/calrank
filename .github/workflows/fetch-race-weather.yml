@@ -1,0 +1,49 @@
+name: Fetch race weather
+
+# scripts/fetch_race_weather.py 가 기상청 ASOS 일자료에서 대회 당일 기온을 받아
+# events.json 에 채운다. 지난 날씨는 바뀌지 않으니 한 번 채운 대회는 건너뛴다.
+#
+# selftest 로 돌리면 키와 지점표만 확인하고 events.json 은 건드리지 않는다.
+
+on:
+  schedule:
+    - cron: "40 21 * * 1" # 매주 월요일 06:40 KST
+  workflow_dispatch:
+    inputs:
+      selftest:
+        description: "키와 지점표만 확인 (events.json 은 그대로)"
+        type: boolean
+        default: true
+      limit:
+        description: "한 번에 채울 대회 수"
+        default: "120"
+
+permissions:
+  contents: write
+
+jobs:
+  weather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch weather
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: |
+          if [ "${{ inputs.selftest }}" = "true" ]; then
+            python scripts/fetch_race_weather.py --selftest
+          else
+            python scripts/fetch_race_weather.py --limit "${{ inputs.limit || 120 }}"
+          fi
+
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add events.json
+          git diff --quiet --cached || (git commit -m "chore: fetch race weather" && git push)
