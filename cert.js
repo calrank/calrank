@@ -454,6 +454,20 @@
     return out;
   }
 
+  // 완주 시간을 건졌는지 — 구간기록·페이스는 빼고 봅니다
+  function hasFinish(f) {
+    return (f.times || []).some(function (x) {
+      return x.kind !== "split" && x.kind !== "pace" &&
+             (x.labelled || x.kind === "net" || x.sec >= 600);
+    });
+  }
+
+  // 어느 쪽이 더 많이 읽혔는지 견주는 점수
+  function score(f) {
+    return (hasFinish(f) ? 4 : 0) + (f.km ? 2 : 0) + (f.date ? 1 : 0) +
+           ((f.times || []).length ? 1 : 0);
+  }
+
   function readCertificate(img, onStep) {
     var prep = toGray(img, 1100);
     var ink = adaptiveInk(prep.gray, prep.w, prep.h, 31, 10);
@@ -489,19 +503,41 @@
       }).then(function () {
         // --- B. 한글+영문 전체 읽기
         onStep("대회명과 나머지 정보를 읽는 중… (처음 한 번은 한글 데이터를 내려받습니다)");
-        return T.createWorker("kor+eng").then(function (worker) {
-          return worker.setParameters({ tessedit_pageseg_mode: "3" })
-            .then(function () { return worker.recognize(fullCanvas(img, 1600)); })
-            .then(function (res) {
-              result.raw = (res.data && res.data.text) || "";
-              return worker.terminate();
-            });
-        }).catch(function () {
-          // 한글 데이터를 못 받아도 시간은 이미 찾았으니 계속 갑니다
-          return null;
+        var canvas = fullCanvas(img, 1600);
+
+        function readFull(psm) {
+          return T.createWorker("kor+eng").then(function (worker) {
+            return worker.setParameters({ tessedit_pageseg_mode: psm })
+              .then(function () { return worker.recognize(canvas); })
+              .then(function (res) {
+                var txt = (res.data && res.data.text) || "";
+                return worker.terminate().then(function () { return txt; });
+              });
+          });
+        }
+
+        // 기록증은 테두리와 도장, 워터마크가 많습니다. 단을 나눠 읽는 모드(3)가
+        // 이걸 단 경계로 잘못 보고 '기록 (Record): 00 시간 53 분 31 초' 줄을
+        // 통째로 흘리는 일이 있었습니다. 한 덩어리로 읽는 모드(6)를 먼저 씁니다.
+        return readFull("6").then(function (t6) {
+          var f6 = parseFields(t6);
+          if (hasFinish(f6) && f6.km) {
+            result.raw = t6; result.fields = f6; return null;
+          }
+          // 덜 읽혔으면 다른 모드로 한 번 더 보고, 더 많이 읽은 쪽을 씁니다.
+          return readFull("3").then(function (t3) {
+            var f3 = parseFields(t3);
+            if (score(f3) > score(f6)) { result.raw = t3; result.fields = f3; }
+            else { result.raw = t6; result.fields = f6; }
+          }).catch(function () {
+            result.raw = t6; result.fields = f6;
+          });
         });
+      }).catch(function () {
+        // 한글 데이터를 못 받아도 시간은 이미 찾았으니 계속 갑니다
+        return null;
       }).then(function () {
-        result.fields = parseFields(result.raw);
+        if (!result.fields || !result.fields.times) result.fields = parseFields(result.raw);
         result.race = matchRace(result.raw, result.fields.date);
         return result;
       });
