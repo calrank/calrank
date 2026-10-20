@@ -277,29 +277,48 @@
   function matchRace(text, dateHint) {
     if (!raceMap || !text) return null;
     var flat = norm(text);
+
+    // 글자를 전부 이어 붙여 놓고 창을 옮겨 가며 맞춰 봤더니, 맨 아래 서명 줄
+    // ('중랑구육상연맹 회장 김 석')이 옆 글자들과 뭉쳐 엉뚱한 '○○육상연맹
+    // 회장배' 대회로 이어졌습니다. 그래서 줄 단위로 견줍니다. 제목이 두 줄로
+    // 나뉘어 읽히는 일이 있어 이웃한 두 줄을 붙인 것도 함께 봅니다.
+    var lines = String(text).split(/[\r\n]+/).map(function (x) { return x.trim(); })
+                 .filter(function (x) { return x.length >= 2; });
+    var head = Math.max(3, Math.ceil(lines.length * 0.4));
+    var cands = [];
+    lines.forEach(function (ln, i) {
+      cands.push({ s: norm(ln), top: i < head });
+      if (i + 1 < lines.length) {
+        cands.push({ s: norm(ln + " " + lines[i + 1]), top: i < head });
+      }
+    });
+    cands = cands.filter(function (c) { return c.s.length >= 3; });
+    if (!cands.length) return null;
+
     var best = null, bestScore = 0;
     raceMap.forEach(function (ev, name) {
       var n = norm(name);
       if (n.length < 3) return;
-      var score;
+      var score = 0;
       if (flat.indexOf(n) >= 0) {
         score = 1;                               // 이름이 통째로 들어 있으면 확실
       } else {
-        // 대회명 길이만큼 창을 옮겨 가며 가장 닮은 구간을 찾는다
-        var win = Math.min(flat.length, n.length + 6);
-        var top = 0;
-        for (var i = 0; i + 2 <= flat.length; i += 2) {
-          var seg = flat.slice(i, i + win);
-          var sc = similarity(n, seg);
-          if (sc > top) top = sc;
+        for (var i = 0; i < cands.length; i++) {
+          var sc = similarity(n, cands[i].s);
+          // 대회 이름은 거의 언제나 기록증 위쪽에 있습니다
+          if (cands[i].top) sc += 0.05;
+          if (sc > score) score = sc;
         }
-        score = top;
       }
       // 기록증의 날짜와 대회 날짜가 맞으면 점수를 올려 준다
       if (dateHint && ev.date && ev.date.slice(0, 10) === dateHint) score += 0.25;
       if (score > bestScore) { bestScore = score; best = { name: name, ev: ev, score: score }; }
     });
-    return best && bestScore >= 0.45 ? best : null;
+    if (!best || bestScore < 0.45) return null;
+    // 이름이 통째로 들어 있었던 경우만 '확실'로 봅니다. 나머지는 비슷해 보이는
+    // 것을 고른 것뿐이라, 채워는 두되 확인해 달라고 말합니다.
+    best.exact = bestScore >= 0.95;
+    return best;
   }
 
   // ---- 읽어낸 글자 전체에서 쓸 수 있는 것을 전부 뽑는다
@@ -476,7 +495,7 @@
     rows.sort(function (p, q) { return (q[1] - q[0]) - (p[1] - p[0]); });
 
     return loadTesseract().then(function (T) {
-      var result = { bigTime: null, fields: {}, race: null, raw: "" };
+      var result = { bigTime: null, fields: {}, race: null, raw: "", raceDone: false };
 
       // --- A. 숫자만: 큰 글씨에서 완주 시간
       onStep("완주 시간을 찾는 중…");
@@ -521,16 +540,26 @@
         // 통째로 흘리는 일이 있었습니다. 한 덩어리로 읽는 모드(6)를 먼저 씁니다.
         return readFull("6").then(function (t6) {
           var f6 = parseFields(t6);
-          if (hasFinish(f6) && f6.km) {
-            result.raw = t6; result.fields = f6; return null;
+          var r6 = matchRace(t6, f6.date);
+          // 대회 이름은 꾸민 글씨나 로고로 박혀 있어 한 모드에서만 또렷하게
+          // 읽히는 일이 많습니다. 비슷해 보이는 정도로만 걸렸으면 다른 모드로
+          // 한 번 더 봅니다. (아예 안 걸렸으면 목록에 없는 대회이니 넘어갑니다)
+          var thin = !hasFinish(f6) || !f6.km || (r6 && !r6.exact);
+          if (!thin) {
+            result.raw = t6; result.fields = f6;
+            result.race = r6; result.raceDone = true; return null;
           }
-          // 덜 읽혔으면 다른 모드로 한 번 더 보고, 더 많이 읽은 쪽을 씁니다.
           return readFull("3").then(function (t3) {
             var f3 = parseFields(t3);
+            var r3 = matchRace(t3, f3.date);
             if (score(f3) > score(f6)) { result.raw = t3; result.fields = f3; }
             else { result.raw = t6; result.fields = f6; }
+            // 대회는 따로 고릅니다 — 더 또렷하게 걸린 쪽
+            result.race = (r3 && (!r6 || r3.score > r6.score)) ? r3 : r6;
+            result.raceDone = true;
           }).catch(function () {
             result.raw = t6; result.fields = f6;
+            result.race = r6; result.raceDone = true;
           });
         });
       }).catch(function () {
@@ -538,7 +567,7 @@
         return null;
       }).then(function () {
         if (!result.fields || !result.fields.times) result.fields = parseFields(result.raw);
-        result.race = matchRace(result.raw, result.fields.date);
+        if (!result.raceDone) result.race = matchRace(result.raw, result.fields.date);
         return result;
       });
     });
@@ -584,7 +613,7 @@
     // 대회명 — 목록과 대조해서 고른 것
     if (r.race) {
       raceInput.value = r.race.name;
-      got.push("대회 " + r.race.name);
+      got.push("대회 " + r.race.name + (r.race.exact ? "" : " (맞는지 봐 주세요)"));
       if (typeof onRacePicked === "function") onRacePicked();
     }
 
