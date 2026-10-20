@@ -318,6 +318,12 @@
     // 이름이 통째로 들어 있었던 경우만 '확실'로 봅니다. 나머지는 비슷해 보이는
     // 것을 고른 것뿐이라, 채워는 두되 확인해 달라고 말합니다.
     best.exact = bestScore >= 0.95;
+    // 2005년 기록증이 '인권마라톤' 이라는 겹치는 말만으로 올해 대회에 걸린 적이
+    // 있습니다. 연도가 다르면 비슷해 보이는 것만으로는 받아들이지 않습니다.
+    if (!best.exact && dateHint && best.ev && best.ev.date &&
+        best.ev.date.slice(0, 4) !== dateHint.slice(0, 4)) {
+      return null;
+    }
     return best;
   }
 
