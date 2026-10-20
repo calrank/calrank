@@ -32,6 +32,7 @@
   function showForm() { formEl.classList.add("on"); }
 
   // ---------- 1. 대회 자동완성 ----------
+  var nameInput = document.getElementById("ctName");
   var raceMap = null;
   fetch("events.json").then(function (r) { return r.json(); }).then(function (events) {
     var today = new Date().toISOString().slice(0, 10);
@@ -80,10 +81,14 @@
   // 몇 배로 그릴지. 기록증을 화면 캡처로 저장하면 600px 남짓한 그림이 되는데,
   // 그대로 읽으면 '종 목 · 하프' 같은 작은 글씨가 뭉개져 아예 안 읽힙니다.
   // 작은 그림은 키워서 읽습니다 (너무 키우면 흐려지니 2.5배까지만).
+  var MAX_PX = 4.2e6;   // 이보다 크게 그리면 휴대폰에서 읽는 데 너무 오래 걸립니다
+
   function fitScale(img, targetW) {
     var s = targetW / img.width;
-    if (s > 2.5) s = 2.5;
+    if (s > 4) s = 4;
     if (s < 0.15) s = 0.15;
+    var px = img.width * img.height * s * s;
+    if (px > MAX_PX) s = Math.sqrt(MAX_PX / (img.width * img.height));
     return s;
   }
 
@@ -136,6 +141,67 @@
     }
     ctx.putImageData(im, 0, 0);
     return c;
+  }
+
+  // 대회 이름만 따로 읽기 위한 캔버스.
+  // 대회 이름은 로고처럼 꾸민 글씨라 전체를 한 번에 읽으면 거의 뭉개집니다.
+  // 위쪽 띠만 잘라 크게 그리면 제법 읽힙니다. 잘라 놓으니 넓이도 얼마 안 듭니다.
+  function titleCanvas(img) {
+    var sh = Math.max(1, Math.round(img.height * 0.42));
+    var s = 1800 / img.width;
+    if (s > 4) s = 4;
+    if (s < 0.3) s = 0.3;
+    var px = img.width * sh * s * s;
+    if (px > MAX_PX) s = Math.sqrt(MAX_PX / (img.width * sh));
+    var w = Math.max(1, Math.round(img.width * s));
+    var h = Math.max(1, Math.round(sh * s));
+    var c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    var ctx = c.getContext("2d");
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, 0, 0, img.width, sh, 0, 0, w, h);
+    var im = ctx.getImageData(0, 0, w, h), d = im.data;
+    var hist = new Uint32Array(256), i;
+    for (i = 0; i < d.length; i += 4) {
+      hist[(d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000 | 0]++;
+    }
+    var total = w * h, acc = 0, lo = 0, hi = 255;
+    for (i = 0; i < 256; i++) { acc += hist[i]; if (acc > total * 0.03) { lo = i; break; } }
+    acc = 0;
+    for (i = 255; i >= 0; i--) { acc += hist[i]; if (acc > total * 0.03) { hi = i; break; } }
+    var span = Math.max(1, hi - lo);
+    for (i = 0; i < d.length; i += 4) {
+      var g = (d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000;
+      var v = Math.max(0, Math.min(255, ((g - lo) / span) * 255));
+      d[i] = d[i + 1] = d[i + 2] = v;
+      d[i + 3] = 255;
+    }
+    ctx.putImageData(im, 0, 0);
+    return c;
+  }
+
+  // 띠에서 읽은 줄 가운데 대회 이름처럼 보이는 것을 고릅니다.
+  function titleGuess(text) {
+    var lines = String(text || "").split(/[\r\n]+/);
+    var best = null, bestScore = 0;
+    for (var i = 0; i < lines.length; i++) {
+      var raw = lines[i].trim();
+      if (raw.length < 4) continue;
+      // 글자 사이에 낀 기호와 홀로 선 알파벳은 OCR 찌꺼기입니다
+      var t = raw.replace(/[|_~^`"'\\\/\[\]{}<>=+*#@]/g, " ")
+                 .replace(/\s+/g, " ").trim();
+      if (!/마\s*라\s*톤|대\s*회|러\s*닝|마\s*라\s*손|\brun\b|\bmarathon\b/i.test(t)) continue;
+      var hangul = (t.match(/[가-힣]/g) || []).length;
+      if (hangul < 3) continue;
+      // 한글 비중이 높고 적당히 긴 줄이 제목일 가능성이 큽니다
+      var sc = hangul / t.length + Math.min(t.length, 24) / 60;
+      if (sc > bestScore) { bestScore = sc; best = t; }
+    }
+    if (!best) return null;
+    // 양끝에 남은 찌꺼기를 떼어 냅니다
+    best = best.replace(/^[^가-힣0-9A-Za-z]+/, "").replace(/[^가-힣0-9A-Za-z)]+$/, "");
+    return best.length >= 4 && best.length <= 60 ? best : null;
   }
 
   // 적분영상으로 지역 평균을 구해 적응형 이진화한다.
@@ -346,6 +412,28 @@
     return h + ":" + ("0" + m).slice(-2) + ":" + ("0" + s2).slice(-2);
   }
 
+  // 한 토막에서 종목을 읽습니다. 풀과 하프가 같이 있으면 그건 그 대회의
+  // 종목 목록이지 내가 뛴 종목이 아니므로 아무것도 고르지 않습니다.
+  function courseOf(v) {
+    if (!v) return null;
+    // 구간 표시가 섞인 토막은 종목이 아닙니다 ('5km지점', '하프지점')
+    v = String(v).replace(/[^\s]{0,6}\s*(?:지\s*점|구\s*간)/g, " ");
+    var full = /42\.?195|풀(?!\s*이)|\bfull\b(?!\s*name)/i.test(v);
+    var half = /21\.?0975|하\s*프|\bhalf\b/i.test(v);
+    if (full && half) return null;
+    if (full) return "42.195";
+    if (half) return "21.0975";
+    var k = String(v).match(/(\d{1,3}(?:\.\d+)?)\s*(?:km|킬로|k(?![a-z]))/i);
+    if (k) {
+      var n = parseFloat(k[1]);
+      // 5km 와 10km 가 함께 적혀 있으면 그것도 목록입니다
+      var all = String(v).match(/\d{1,3}(?:\.\d+)?\s*(?:km|킬로|k(?![a-z]))/gi) || [];
+      if (all.length > 1) return null;
+      if (n > 0 && n <= 100) return String(n);
+    }
+    return null;
+  }
+
   function parseFields(text) {
     var t = String(text || "");
     var flat = t.replace(/\s+/g, " ");
@@ -452,10 +540,15 @@
     // (예: 'JTBC SEOUL MARATHON 2026 HALF' 가 풀코스로 잡혔습니다)
     // 'MARATHON' 과 달리 'FULL' 은 홀로 쓰여도 풀코스를 뜻합니다.
     // 다만 'FULL NAME' 은 이름 칸이라 빼 둡니다.
-    // 기록증은 '종 목 · 하 프' 처럼 글자 사이를 벌려 놓는 일이 흔합니다.
-    if (/42\.?195|풀\s*코\s*스|풀\s*마\s*라\s*톤|\bfull\b(?!\s*name)/i.test(flat)) out.km = "42.195";
-    else if (/21\.?0975|하\s*프|half/i.test(flat)) out.km = "21.0975";
-    else {
+    // 기록증 아래쪽에 그 대회의 전 종목을 늘어놓는 일이 많습니다
+    // ('종목 : 풀코스, 하프코스, 10km코스, 5km코스'). 아무 데나 적힌 '하프'를
+    // 집으면 10km 를 뛴 사람이 하프로 잡히니, 이름표가 붙은 '값' 을 먼저 봅니다.
+    // 이름표가 여러 번 나오면(칸 하나 + 아래쪽 안내 줄) 쓸 만한 첫 값을 씁니다
+    var lre = /(?:종\s*목|부\s*문|구\s*분|course|division)\s*(?:\([^)]{0,14}\))?\s*[:：.·\-]?\s*([^\n]{0,16})/gi;
+    var lm, picked = null;
+    while (!picked && (lm = lre.exec(flat))) picked = courseOf(lm[1]);
+    out.km = picked || courseOf(flat) || undefined;
+    if (out.km === undefined) {
       // '부문 (Division): 10km 코스' 처럼 이름표가 붙은 거리를 먼저 봅니다.
       var kre2 = /(\d{1,3}(?:\.\d+)?)\s*(?:km|킬로|k(?![a-z]))/gi, km3, best = null;
       while ((km3 = kre2.exec(flat))) {
@@ -470,6 +563,12 @@
       }
       if (best) out.km = String(best.v);
     }
+    if (!out.km) delete out.km;
+
+    // 이름 — 폼을 대신 채워 주려고 읽습니다. 어디로도 보내지 않습니다.
+    var nm = flat.match(
+      /(?:성\s*명|이\s*름|참\s*가\s*자|\bname\b)\s*(?:\([^)]{0,10}\))?\s*[:：.·]?\s*([가-힣]{2,5})(?![가-힣])/i);
+    if (nm) out.name = nm[1];
 
     // 배번 (사진 찾을 때 쓰입니다)
     var b = flat.match(/(?:배번|번호|bib|no\.?)\s*[:#]?\s*(\d{1,6})\b/i);
@@ -561,9 +660,29 @@
         // 기록증은 테두리와 도장, 워터마크가 많습니다. 단을 나눠 읽는 모드(3)가
         // 이걸 단 경계로 잘못 보고 '기록 (Record): 00 시간 53 분 31 초' 줄을
         // 통째로 흘리는 일이 있었습니다. 한 덩어리로 읽는 모드(6)를 먼저 씁니다.
-        return readFull("6").then(function (t6) {
+        // 대회 이름은 꾸민 글씨라 전체 읽기로는 거의 안 잡힙니다.
+        // 위쪽 띠만 크게 잘라 한 번 더 읽습니다 (1초 남짓).
+        function readTitle() {
+          return T.createWorker("kor+eng").then(function (worker) {
+            return worker.setParameters({ tessedit_pageseg_mode: "6" })
+              .then(function () { return worker.recognize(titleCanvas(img)); })
+              .then(function (res) {
+                var txt = (res.data && res.data.text) || "";
+                return worker.terminate().then(function () { return txt; });
+              });
+          }).catch(function () { return ""; });
+        }
+
+        return readTitle().then(function (tt) {
+          result.titleText = tt;
+          return readFull("6");
+        }).then(function (t6) {
           var f6 = parseFields(t6);
+          var tt = result.titleText || "";
+          // 띠에서 읽은 글자로도 대회를 찾아 보고, 더 또렷한 쪽을 씁니다
+          var rT = matchRace(tt, f6.date);
           var r6 = matchRace(t6, f6.date);
+          if (rT && (!r6 || rT.score > r6.score)) r6 = rT;
           // 대회 이름은 꾸민 글씨나 로고로 박혀 있어 한 모드에서만 또렷하게
           // 읽히는 일이 많습니다. 비슷해 보이는 정도로만 걸렸으면 다른 모드로
           // 한 번 더 봅니다. (아예 안 걸렸으면 목록에 없는 대회이니 넘어갑니다)
@@ -591,6 +710,12 @@
       }).then(function () {
         if (!result.fields || !result.fields.times) result.fields = parseFields(result.raw);
         if (!result.raceDone) result.race = matchRace(result.raw, result.fields.date);
+        // 목록에 없는 대회 — 오래된 기록증이면 흔한 일입니다.
+        // 그래도 칸을 비워 두지 않고, 읽은 글자를 그대로 넣어 줍니다.
+        if (!result.race) {
+          var g = titleGuess(result.titleText) || titleGuess(result.raw);
+          if (g) result.raceText = g;
+        }
         return result;
       });
     });
@@ -638,6 +763,16 @@
       raceInput.value = r.race.name;
       got.push("대회 " + r.race.name + (r.race.exact ? "" : " (맞는지 봐 주세요)"));
       if (typeof onRacePicked === "function") onRacePicked();
+    } else if (r.raceText) {
+      // 목록에 없는 대회입니다. 읽은 그대로 넣어 두었으니 고쳐 쓰시면 됩니다.
+      raceInput.value = r.raceText;
+      got.push("대회 " + r.raceText + " (읽은 그대로예요 — 고쳐 주세요)");
+    }
+
+    // 이름 — 읽어서 칸만 채웁니다. 어디로도 보내지 않습니다.
+    if (f.name && nameInput && !nameInput.value) {
+      nameInput.value = f.name;
+      got.push("이름 " + f.name);
     }
 
     // 거리 — 기록증에서 읽은 것을 우선, 없으면 대회 정보에서

@@ -86,6 +86,7 @@
 .ct-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent,#FF3D1A);}
 .ct-give-go:disabled{opacity:.45;cursor:default;}
 .ct-give-msg{font-size:12.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:10px 0 0;}
+.ct-hint{font-size:11.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:6px 0 0;}
 </style>
 </head>
 <body>
@@ -124,6 +125,12 @@
     <label for="ctRace">대회 (한두 글자만 쳐도 목록에서 고를 수 있어요)</label>
     <input type="text" id="ctRace" list="ctRaceList" autocomplete="off" placeholder="예: 한경서울마라톤">
     <datalist id="ctRaceList"></datalist>
+  </div>
+  <div class="ct-row">
+    <label for="ctName">이름 (기록증 카드에만 쓰여요)</label>
+    <input type="text" id="ctName" autocomplete="off" maxlength="20" placeholder="예: 홍길동">
+    <p class="ct-hint">이 이름은 이 브라우저 안에서만 쓰이고, 어디에도 저장되거나
+    보내지지 않습니다. 비워 두셔도 됩니다.</p>
   </div>
   <div class="ct-row ct-two">
     <div>
