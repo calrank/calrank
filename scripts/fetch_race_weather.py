@@ -34,7 +34,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EVENTS = ROOT / "events.json"
 
-API = "https://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList"
+# 공공데이터포털은 같은 서비스를 http/https 두 주소로 내보내는데, 한쪽이
+# 응답 없이 멈추는 일이 잦다. 되는 쪽을 찾아 쓰고 어느 쪽이 됐는지 남긴다.
+API_HOSTS = [
+    "https://apis.data.go.kr",
+    "http://apis.data.go.kr",
+]
+API_PATH = "/1360000/AsosDalyInfoService/getWthrDataList"
+API = None          # 시험 호출에서 정해진다
 
 # 기상청 종관기상관측(ASOS) 주요 지점. (지점번호, 지점명, 위도, 경도)
 # 지점명은 확인용이다 — API 가 돌려준 이름과 다르면 그 지점은 쓰지 않는다.
@@ -111,16 +118,16 @@ REGION_FALLBACK = {
 }
 
 
-def http_get(url, tries=3):
+def http_get(url, tries=3, timeout=15):
     last = None
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "calrank/1.0"})
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
                 return r.read().decode("utf-8", "replace")
         except Exception as e:          # noqa: BLE001
             last = e
-            time.sleep(1.5 * (i + 1))
+            time.sleep(1.0 * (i + 1))
     raise RuntimeError("요청 실패: %s" % last)
 
 
@@ -137,7 +144,7 @@ def call_asos(key, stn, ymd):
         "numOfRows": "10",
         "pageNo": "1",
     })
-    raw = http_get(API + "?" + q)
+    raw = http_get(API + "?" + q)   # API 는 pick_host() 가 정한다
     if raw.lstrip().startswith("<"):
         # 공공데이터포털은 키가 틀리면 JSON 요청에도 XML 오류를 돌려준다
         for tag in ("returnAuthMsg", "errMsg", "returnReasonCode"):
@@ -157,6 +164,28 @@ def call_asos(key, stn, ymd):
     items = (d.get("response", {}).get("body", {})
               .get("items", {}) or {}).get("item", [])
     return (items[0] if items else None), None
+
+
+def pick_host(key, probe_date):
+    """되는 주소를 고른다. 어느 쪽이 되고 안 되는지 그대로 남긴다."""
+    global API
+    for host in API_HOSTS:
+        API = host + API_PATH
+        try:
+            item, err = call_asos(key, 108, probe_date)
+        except Exception as e:          # noqa: BLE001
+            print("[weather] %s — %s" % (host, e))
+            continue
+        if err:
+            print("[weather] %s — 응답은 왔지만 오류: %s" % (host, err))
+            # 키 문제면 주소를 바꿔도 같으니 그 오류를 들고 나간다
+            return host, err
+        if item:
+            print("[weather] %s — 됩니다" % host)
+            return host, None
+        print("[weather] %s — 응답은 왔지만 자료가 비었습니다" % host)
+    API = None
+    return None, "어느 주소로도 닿지 않았습니다"
 
 
 def verify_stations(key, probe_date):
@@ -203,13 +232,14 @@ def main():
         print("[weather] 키에 %가 있어 디코딩해서 씁니다 (Encoding 키로 보입니다)")
 
     probe = "20240501"
-    item, err = call_asos(key, 108, probe)
-    if err:
+    host, err = pick_host(key, probe)
+    if err or not host:
         print("[weather] 시험 호출 실패: %s" % err, file=sys.stderr)
-        print("[weather] 공공데이터포털에서 '지상(종관) 일자료' 활용신청이 "
-              "승인됐는지, 키를 Decoding 쪽으로 넣었는지 확인해 주세요.",
-              file=sys.stderr)
+        print("[weather] 확인할 것 — ① 공공데이터포털에서 '기상청_지상(종관)일자료' "
+              "활용신청이 승인됐는지 ② 승인 직후면 한 시간쯤 기다려야 할 수 있습니다 "
+              "③ 해외에서 오는 요청을 막아 두었는지", file=sys.stderr)
         return 2
+    item, _ = call_asos(key, 108, probe)
     print("[weather] 키 확인 — 서울 %s 평균기온 %s℃" % (probe, item.get("avgTa")))
 
     good, bad = verify_stations(key, probe)
