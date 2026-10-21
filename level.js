@@ -112,6 +112,22 @@ function renderResult(result, inputs) {
     })()}
 
     ${(() => {
+      // 이 한 줄이 다른 계산기에 없는 것이다. 접어 두면 아무도 못 본다.
+      // 자세한 그림은 아래에 그대로 두고, 결론만 등급 옆으로 올린다.
+      const b = gradeBand(inputs.finishSec, inputs.distanceKm,
+                          inputs.age, inputs.gender);
+      if (!b) return "";
+      return `
+      <p class="lv-verdict ${b.crosses ? "edge" : "solid"}">
+        ${b.crosses
+          ? `<b>${b.tierLo.label}</b>과 <b>${b.tierHi.label}</b>의 경계에 있습니다 —
+             다음 대회에서 바뀔 수 있어요`
+          : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다 —
+             운이 아니라 실력입니다`}
+      </p>`;
+    })()}
+
+    ${(() => {
       // ── 이 기록 하나가 말해 주는 폭 ──────────────────────────
       // 등급을 소수점 한 자리로 딱 찍어 주면 그만큼 정확해 보인다.
       // 실제로는 같은 사람이 같은 몸으로 뛰어도 대회마다 기록이 흔들린다.
@@ -126,7 +142,7 @@ function renderResult(result, inputs) {
         .filter((v) => v > DP_MIN && v < DP_MAX);
       return `
       <details class="lv-band">
-        <summary>이 기록 하나로 어디까지 말할 수 있나</summary>
+        <summary>왜 그렇게 말할 수 있나 — 기록의 흔들림 폭</summary>
         <div class="lv-band-in">
           <p class="lv-band-lead">같은 몸 상태로 뛰어도 대회마다 기록은 흔들립니다.
           ${inputs.distanceKm >= 21 ? "하프·풀" : "10km 안팎 도로 경주"}에서

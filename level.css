@@ -370,3 +370,22 @@
   .lv-twocol .level-form-card{margin:0;max-width:none;}
   .lv-preview{margin:0;max-width:none;}
 }
+
+/* 등급 바로 아래 한 줄 — 다른 계산기에 없는 말.
+   접어 두면 아무도 못 본다. */
+.lv-verdict{
+  font-size:13px;line-height:1.75;margin:12px 0 0;
+  padding:11px 14px;border-radius:9px;text-align:left;
+}
+.lv-verdict b{color:#fff;font-weight:700;}
+.lv-verdict.edge{
+  background:rgba(255,61,26,.09);border:1px solid rgba(255,61,26,.32);color:#C8C4C2;
+}
+.lv-verdict.solid{
+  background:rgba(255,255,255,.035);border:1px solid var(--border,#2A2A2A);color:#C8C4C2;
+}
+
+/* 결과로 옮겨 갈 때 고정 헤더가 등급 뱃지를 가리고 있었다.
+   헤더는 데스크톱 69px, 모바일은 메뉴가 두 줄로 접혀 113px 이다. */
+#levelResult{scroll-margin-top:85px;}
+@media (max-width:760px){ #levelResult{scroll-margin-top:128px;} }
