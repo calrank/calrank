@@ -407,3 +407,31 @@
   display:block;
 }
 @media (min-width:720px){ .lv-photo img{height:230px;} }
+
+/* 등급 바로 아래의 짧은 부탁. 결과를 막 받은 자리라 조용해야 한다 —
+   배너처럼 보이면 광고로 읽혀서 오히려 안 누른다. */
+.lv-gm{
+  margin:14px 0 4px;padding:13px 15px;
+  background:var(--tint-1);
+  border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:8px;text-align:left;
+}
+.lv-gm-ask{font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 8px;line-height:1.6;}
+.lv-gm-ck{display:flex;gap:9px;align-items:flex-start;cursor:pointer;margin:0 0 10px;}
+.lv-gm-ck input{margin:2px 0 0;width:16px;height:16px;flex:none;accent-color:var(--accent);}
+.lv-gm-ck span{font-size:12px;line-height:1.7;color:var(--ink-soft);}
+.lv-gm-ck b{color:var(--ink);font-weight:700;}
+.lv-gm-more{color:var(--accent-ink);text-decoration:underline;white-space:nowrap;}
+.lv-gm-go{
+  padding:8px 16px;border-radius:999px;
+  background:transparent;border:1px solid var(--border);
+  color:var(--ink-soft);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;
+}
+.lv-gm-go:enabled{border-color:var(--accent);color:var(--accent-ink);}
+.lv-gm-go:enabled:hover{background:var(--accent);color:var(--on-accent);}
+.lv-gm-go:disabled{opacity:.55;cursor:default;}
+.lv-gm-msg{font-size:12px;line-height:1.65;color:var(--ink-soft);margin:9px 0 0;}
+.lv-gm-done{
+  margin:14px 0 4px;padding:11px 15px;font-size:12.5px;color:var(--ink-soft);
+  background:var(--tint-1);border:1px solid var(--border);border-radius:8px;text-align:left;
+}

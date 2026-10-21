@@ -124,7 +124,8 @@ function renderResult(result, inputs) {
              다음 대회에서 바뀔 수 있어요`
           : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다 —
              운이 아니라 실력입니다`}
-      </p>`;
+      </p>
+      ${giveMini(inputs)}`;
     })()}
 
     ${(() => {
@@ -695,6 +696,31 @@ function buildStatRow(inputs) {
   };
 }
 
+// 결과를 막 받은 자리에서 한 번 묻는다. 긴 설명은 아래 블록에 그대로 두되,
+// 동의에 필요한 세 가지(보내는 것 · 안 보내는 것 · 되돌릴 수 없음)는 여기에도 적는다.
+// 아래로 1.7화면을 더 내려가야 부탁이 나오던 구조라, 사실상 아무도 못 보고 있었다.
+function giveMini(inputs) {
+  const row = buildStatRow(inputs);
+  if (!row) return "";
+  let done = false;
+  try { done = !!localStorage.getItem(statKey(row)); } catch (e) {}
+  if (done) {
+    return `<p class="lv-gm-done" data-done="1">이 기록은 통계에 보태 주셨습니다. 고맙습니다.</p>`;
+  }
+  return `
+  <div class="lv-gm" id="lvGiveMini">
+    <p class="lv-gm-ask">같은 또래가 보통 몇 분에 들어오는지는 아직 못 보여 드립니다 — 그 자료가 없어서요.</p>
+    <label class="lv-gm-ck">
+      <input type="checkbox" id="lvConsentMini">
+      <span><b>거리 · 완주 시간 · 연령대 · 성별</b>만 익명으로 보탭니다.
+      이름 · 대회 · 생년 · 계정은 보내지 않고, 누구 기록인지 저희도 알 수 없어
+      나중에 지워 드릴 수 없습니다. <a href="#lvGive" class="lv-gm-more">자세히</a></span>
+    </label>
+    <button type="button" class="lv-gm-go" id="lvGiveBtnMini" disabled>통계에 보태기</button>
+    <p class="lv-gm-msg" id="lvGiveMsgMini"></p>
+  </div>`;
+}
+
 function giveBlock(inputs) {
   const row = buildStatRow(inputs);
   if (!row) return "";
@@ -725,38 +751,54 @@ function giveBlock(inputs) {
 }
 
 function wireGive(inputs) {
-  const ck = document.getElementById("lvConsent");
-  const btn = document.getElementById("lvGiveBtn");
-  const msg = document.getElementById("lvGiveMsg");
+  // 부탁이 두 군데 있다 — 등급 바로 아래의 짧은 것과, 설명이 붙은 아래 것.
+  // 어느 쪽으로 보내든 양쪽이 같이 "보냈음"으로 바뀌어야 두 번 묻지 않는다.
+  wireGiveOne(inputs, "lvConsent", "lvGiveBtn", "lvGiveMsg");
+  wireGiveOne(inputs, "lvConsentMini", "lvGiveBtnMini", "lvGiveMsgMini");
+}
+
+function giveDone() {
+  // 양쪽 모두 잠그고, 보낸 자리에는 인사를 남긴다.
+  [["lvConsent", "lvGiveBtn", "lvGiveMsg"],
+   ["lvConsentMini", "lvGiveBtnMini", "lvGiveMsgMini"]].forEach(([c, b, m]) => {
+    const ck = document.getElementById(c);
+    const btn = document.getElementById(b);
+    const msg = document.getElementById(m);
+    if (ck) ck.disabled = true;
+    if (btn) { btn.disabled = true; btn.textContent = "보태 주셔서 고맙습니다"; }
+    if (msg) msg.textContent = "고맙습니다. 표본이 쌓이면 같은 나이·성별 안에서 내 자리를 보여 드릴 수 있습니다.";
+  });
+}
+
+function wireGiveOne(inputs, ckId, btnId, msgId) {
+  const ck = document.getElementById(ckId);
+  const btn = document.getElementById(btnId);
+  const msg = document.getElementById(msgId);
   if (!ck || !btn) return;
   ck.addEventListener("change", () => { btn.disabled = !ck.checked; });
   btn.addEventListener("click", () => {
     const row = buildStatRow(inputs);
-    if (!row) { msg.textContent = "값을 다시 확인해 주세요."; return; }
+    if (!row) { if (msg) msg.textContent = "값을 다시 확인해 주세요."; return; }
     if (!window.supabase) {
-      msg.textContent = "지금은 보낼 수 없습니다. 잠시 뒤 다시 시도해 주세요.";
+      if (msg) msg.textContent = "지금은 보낼 수 없습니다. 잠시 뒤 다시 시도해 주세요.";
       return;
     }
     btn.disabled = true;
     btn.textContent = "보내는 중…";
+    const fail = (why) => {
+      btn.textContent = "통계에 보태기";
+      btn.disabled = false;
+      if (msg) msg.textContent = why;
+    };
     try {
       const sb = window.supabase.createClient(SB_URL, SB_KEY);
       sb.from("record_stats").insert(row).then((res) => {
-        if (res && res.error) {
-          btn.textContent = "통계에 보태기";
-          btn.disabled = false;
-          msg.textContent = "보내지 못했습니다. 잠시 뒤 다시 시도해 주세요.";
-          return;
-        }
+        if (res && res.error) { fail("보내지 못했습니다. 잠시 뒤 다시 시도해 주세요."); return; }
         try { localStorage.setItem(statKey(row), "1"); } catch (e) {}
-        btn.textContent = "보태 주셔서 고맙습니다";
-        ck.disabled = true;
-        msg.textContent = "고맙습니다. 표본이 쌓이면 같은 나이·성별 안에서 내 자리를 보여 드릴 수 있습니다.";
+        giveDone();
       });
     } catch (e) {
-      btn.textContent = "통계에 보태기";
-      btn.disabled = false;
-      msg.textContent = "보내지 못했습니다.";
+      fail("보내지 못했습니다.");
     }
   });
 }
