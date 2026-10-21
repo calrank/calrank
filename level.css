@@ -389,3 +389,21 @@
    헤더는 데스크톱 69px, 모바일은 메뉴가 두 줄로 접혀 113px 이다. */
 #levelResult{scroll-margin-top:85px;}
 @media (max-width:760px){ #levelResult{scroll-margin-top:128px;} }
+
+/* ── 머리 사진 ─────────────────────────────────────────────
+   검색 결과 썸네일은 og:image 만으로 안 잡힐 때가 있다. 네이버는
+   본문 이미지도 보고 고르기 때문에 실제로 한 장 박아 둔다.
+   다만 오늘 첫 화면 높이를 줄여 놓은 참이라 넓고 낮게 자른다.
+   파일은 1200x630 그대로 쓰고 보이는 높이만 줄인다 (요청은 한 번).
+   ─────────────────────────────────────────────────────────── */
+.lv-photo{
+  margin:14px auto 0;max-width:760px;
+  border-radius:12px;overflow:hidden;
+  border:1px solid var(--border,#2A2A2A);
+  line-height:0;
+}
+.lv-photo img{
+  width:100%;height:170px;object-fit:cover;object-position:50% 22%;
+  display:block;
+}
+@media (min-width:720px){ .lv-photo img{height:230px;} }
