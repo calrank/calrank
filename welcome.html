@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="style.css">
 <style>
   .welcome-hero { position: relative; width: 100%; height: min(86vh, 760px); min-height: 520px; overflow: hidden; }
-  .bg-slide { position: absolute; inset: 0; background-size: 120% auto; background-position: center 30%; opacity: 0; transform: scale(1.08); animation: welcomeSlide 28s infinite; }
+  .bg-slide { position: absolute; inset: 0; background-size: 120% auto; background-position: center 30%; opacity: 0; transform: scale(1.08); animation: welcomeSlide 32s infinite; }
   .bg-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(11,11,11,0.96) 0%, rgba(11,11,11,0.78) 32%, rgba(11,11,11,0.2) 58%, rgba(11,11,11,0.4) 100%); }
   .bg-slide:nth-child(1) { background-image: url('duo1.jpg'); animation-delay: 0s; background-size: cover; background-position: 68% 35%; }
   .bg-slide:nth-child(2) { background-image: url('duo2.jpg'); animation-delay: 4s; background-position: 0% 22%; }
@@ -24,11 +24,12 @@
   .bg-slide:nth-child(5) { background-image: url('duo5.jpg'); animation-delay: 16s; background-size: 105% auto; background-position: 0% 35%; }
   .bg-slide:nth-child(6) { background-image: url('duo6.jpg'); animation-delay: 20s; background-position: 15% 18%; }
   .bg-slide:nth-child(7) { background-image: url('duo7.jpg'); animation-delay: 24s; background-size: cover; background-position: 72% 45%; }
+    .bg-slide:nth-child(8) { background-image: url('duo8.jpg'); animation-delay: 28s; background-size: cover; background-position: 72% 12%; }
   @keyframes welcomeSlide {
     0% { opacity: 0; transform: scale(1.08); }
-    1.8% { opacity: 1; transform: scale(1.08); }
-    12% { opacity: 1; transform: scale(1.14); }
-    15% { opacity: 0; transform: scale(1.14); }
+    1.6% { opacity: 1; transform: scale(1.08); }
+    10.5% { opacity: 1; transform: scale(1.14); }
+    13.1% { opacity: 0; transform: scale(1.14); }
     100% { opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce) { .bg-slide { animation: none; opacity: 0; } .bg-slide:nth-child(1) { opacity: 1; } }
@@ -102,8 +103,8 @@
   <div class="bg-slide"></div>
   <div class="bg-slide"></div>
   <div class="bg-slide"></div>
-
-  <div class="welcome-diag"></div>
+<div class="bg-slide"></div>
+<div class="welcome-diag"></div>
 
   <div class="welcome-content">
     <div class="welcome-wordmark">CALRANK</div>
