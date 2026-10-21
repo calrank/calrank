@@ -58,6 +58,49 @@ def slugify(region, sport):
     return f"landing-{r}-{sport}.html"
 
 
+def build_stats(region, sport_label, evs, upcoming):
+    """그 지역·종목이 실제로 어떤 모습인지. 숫자는 events.json 에서만 뽑는다."""
+    import collections as _c
+    if len(evs) < 4:
+        return ""                      # 표본이 적으면 통계랍시고 적지 않는다
+
+    # 몇 월에 몰리나
+    months = _c.Counter(int((e.get("date") or "0000-00")[5:7]) for e in evs
+                        if (e.get("date") or "")[5:7].isdigit())
+    months.pop(0, None)
+    top_m = months.most_common(3)
+
+    # 어떤 거리가 많나 — distances 는 자유 문자열이라 눈에 띄는 것만 센다
+    KEY = [("풀코스", ("42.195", "42.1", "풀")), ("하프", ("21.0975", "21.1", "하프")),
+           ("10km", ("10km", "10K")), ("5km", ("5km", "5K"))]
+    dist = _c.Counter()
+    for e in evs:
+        blob = " ".join(str(x) for x in (e.get("distances") or []))
+        for label, pats in KEY:
+            if any(p in blob for p in pats):
+                dist[label] += 1
+
+    out = [f'<h2 class="landing-h2">{region} {sport_label} 대회, 이런 모습입니다</h2>',
+           '<ul class="landing-facts">']
+    if top_m:
+        txt = " · ".join(f"{m}월 {n}개" for m, n in top_m)
+        out.append(f'<li>대회가 가장 많은 달은 {txt} 입니다. 올해 {len(evs)}개 기준입니다.</li>')
+    if dist:
+        txt = " · ".join(f"{k} {v}개" for k, v in dist.most_common())
+        out.append(f'<li>거리는 {txt} 로 열렸습니다. 한 대회가 여러 거리를 함께 여는 경우가 많습니다.</li>')
+    if upcoming:
+        nd = (upcoming[0].get("date") or "")[:10]
+        out.append(f'<li>다음 대회는 {nd} {upcoming[0].get("name","")} 입니다.</li>')
+    opens = [e for e in upcoming if e.get("regDeadline")]
+    if opens:
+        out.append(f'<li>지금 접수 마감일이 공개된 대회가 {len(opens)}개 있습니다. '
+                   f'마감일은 대회마다 다르니 상세에서 확인하세요.</li>')
+    out.append('</ul>')
+    out.append(f'<p class="landing-note">숫자는 저희가 모은 {region} {sport_label} 대회 '
+               f'{len(evs)}개를 센 것입니다. 주최측이 공개하지 않은 대회는 빠져 있을 수 있습니다.</p>')
+    return "\n".join(out)
+
+
 def build_page(region, sport, events):
     sport_label = SPORT_LABEL[sport]
     events_sorted = sorted(events, key=lambda e: e.get("date") or "9999")
@@ -97,13 +140,29 @@ def build_page(region, sport, events):
     if len(desc) > DESC_LIMIT:
         desc = desc[:DESC_LIMIT - 1].rstrip() + "…"
 
-    rows = "\n".join(
-        f'<a href="e/{quote(e.get("id",""))}.html" class="landing-row">'  # 검색엔진이 읽을 수 있는 정적 상세페이지로 링크
-        f'<span class="landing-date">{(e.get("date") or "")[:10]}</span>'
-        f'<span class="landing-name">{e.get("name","")}</span>'
-        f'</a>'
-        for e in events_sorted[:40]
-    )
+    def _rows(items):
+        return "\n".join(
+            f'<a href="e/{quote(e.get("id",""))}.html" class="landing-row">'
+            f'<span class="landing-date">{(e.get("date") or "")[:10]}</span>'
+            f'<span class="landing-name">{e.get("name","")}</span>'
+            f'</a>'
+            for e in items
+        )
+
+    done = [e for e in events_sorted if (e.get("date") or "") < today_iso]
+    rows = ""
+    if upcoming:
+        rows += (f'<h2 class="landing-h2">다가오는 {region} {sport_label} 대회 '
+                 f'{len(upcoming)}개</h2>\n<div class="landing-list">\n'
+                 + _rows(upcoming[:40]) + "\n</div>")
+    if done:
+        # 최근에 치러진 것부터. 오래된 대회를 먼저 보여 줄 이유가 없다.
+        rows += (f'\n<h2 class="landing-h2">올해 치러진 {region} {sport_label} 대회 '
+                 f'{len(done)}개</h2>\n'
+                 f'<p class="landing-note">이미 끝난 대회입니다. 다음 회차 시기를 가늠하거나 '
+                 f'코스·거리를 미리 볼 때 참고하세요.</p>\n<div class="landing-list">\n'
+                 + _rows(list(reversed(done))[:60]) + "\n</div>")
+    rows += build_stats(region, sport_label, events_sorted, upcoming)
     if not rows:
         # 예정 대회가 하나도 없는 경우. 예전에는 이 페이지를 아예 갱신하지
         # 않아서, 이미 끝난 대회가 예정인 것처럼 남아 있었다. 틀린 정보를
@@ -173,6 +232,10 @@ def build_page(region, sport, events):
   .landing-date {{ color: var(--accent); font-weight: 700; flex-shrink: 0; width: 82px; }}
   .landing-empty {{ padding: 20px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; font-size: 14.5px; line-height: 1.9; color: #B8B0AC; }}
   .landing-empty a {{ color: var(--accent); font-weight: 700; }}
+  .landing-h2 {{ font-size: 17px; margin: 34px 0 10px; }}
+  .landing-note {{ font-size: 12.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
+  .landing-facts {{ margin: 0 0 6px; padding-left: 18px; }}
+  .landing-facts li {{ font-size: 13.5px; line-height: 1.9; color: var(--ink-soft); }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
 </style>
@@ -194,9 +257,7 @@ def build_page(region, sport, events):
 <main class="landing-wrap">
 <div class="landing-head">{emblem}<h1 class="landing-title">{title}</h1></div>
 <p class="landing-sub">{desc}</p>
-<div class="landing-list">
 {rows}
-</div>
 <div class="landing-cta">
 <p>지도로 보거나 다른 조건으로 더 찾아보고 싶다면?</p>
 <a href="index.html?region={region}&sport={sport}">캘린더에서 필터링해서 보기 →</a>
@@ -320,10 +381,10 @@ def main():
         region, sport = e.get("region"), e.get("sport")
         if not sport or region in EXCLUDE_REGIONS or sport not in SPORT_LABEL:
             continue
-        # 지난 대회는 정적 상세페이지(e/<id>.html)가 삭제되어 링크가 깨지므로,
-        # 랜딩에는 앞으로 열리는 대회만 싣는다.
-        if (e.get("date") or "") < today_iso:
-            continue
+        # 지난 대회도 싣는다. 예전에는 상세페이지가 지워져서 링크가 깨졌지만
+        # 지금은 592개 전부 남아 있다(확인함). 예정 대회만 싣던 탓에
+        # 랜딩 40장이 평균 481자로 비어 있었다 — 광주 마라톤은 0개였다.
+        # 치러진 대회도 "작년 그 대회 언제 열렸나"를 찾는 사람에게는 정보다.
         combos.setdefault((region, sport), []).append(e)
 
     # 예정 대회가 0개로 떨어진 조합도 돌려야 한다. combos 에는 대회가 있는

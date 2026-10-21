@@ -61,6 +61,32 @@ def slugify(sport, dist_label):
     return f"landing-dist-{sport}-{d}.html"
 
 
+def build_dist_stats(dist_label, sport_label, evs, upcoming):
+    """그 거리 대회가 언제·어디서 열리는지. events.json 값만 쓴다."""
+    import collections as _c
+    if len(evs) < 4:
+        return ""
+    months = _c.Counter(int((e.get("date") or "0000-00")[5:7]) for e in evs
+                        if (e.get("date") or "")[5:7].isdigit())
+    months.pop(0, None)
+    regions = _c.Counter(e.get("region") for e in evs if e.get("region"))
+    out = [f'<h2 class="landing-h2">{dist_label} {sport_label} 대회, 이런 모습입니다</h2>',
+           '<ul class="landing-facts">']
+    if months:
+        txt = " · ".join(f"{m}월 {n}개" for m, n in months.most_common(3))
+        out.append(f'<li>가장 많이 열리는 달은 {txt} 입니다. 올해 {len(evs)}개 기준입니다.</li>')
+    if regions:
+        txt = " · ".join(f"{r} {n}개" for r, n in regions.most_common(4))
+        out.append(f'<li>지역으로는 {txt} 순으로 많습니다.</li>')
+    if upcoming:
+        out.append(f'<li>다음 대회는 {(upcoming[0].get("date") or "")[:10]} '
+                   f'{upcoming[0].get("name","")} 입니다.</li>')
+    out.append('</ul>')
+    out.append(f'<p class="landing-note">저희가 모은 {dist_label} {sport_label} 대회 '
+               f'{len(evs)}개를 센 숫자입니다. 공개되지 않은 대회는 빠져 있을 수 있습니다.</p>')
+    return "\n".join(out)
+
+
 def build_page(sport, dist_label, events):
     sport_label = SPORT_LABEL[sport]
     events_sorted = sorted(events, key=lambda e: e.get("date") or "9999")
@@ -68,14 +94,33 @@ def build_page(sport, dist_label, events):
     title = f"{dist_label} {sport_label} 대회 일정 — {total}개 총정리"
     desc = f"calrank에 등록된 {dist_label} {sport_label} 대회 {total}개를 날짜순으로 정리했습니다."
 
-    rows = "\n".join(
-        f'<a href="e/{quote(e.get("id",""))}.html" class="landing-row">'  # 검색엔진이 읽을 수 있는 정적 상세페이지로 링크
-        f'<span class="landing-date">{(e.get("date") or "")[:10]}</span>'
-        f'<span class="landing-name">{e.get("name","")}</span>'
-        f'<span class="landing-region">{e.get("region") or ""}</span>'
-        f'</a>'
-        for e in events_sorted[:60]
-    )
+    today_iso = date.today().isoformat()
+
+    def _rows(items):
+        return "\n".join(
+            f'<a href="e/{quote(e.get("id",""))}.html" class="landing-row">'
+            f'<span class="landing-date">{(e.get("date") or "")[:10]}</span>'
+            f'<span class="landing-name">{e.get("name","")}</span>'
+            f'<span class="landing-region">{e.get("region") or ""}</span>'
+            f'</a>'
+            for e in items
+        )
+
+    upcoming = [e for e in events_sorted if (e.get("date") or "") >= today_iso]
+    done = [e for e in events_sorted if (e.get("date") or "") < today_iso]
+
+    rows = ""
+    if upcoming:
+        rows += (f'<h2 class="landing-h2">다가오는 {dist_label} {sport_label} 대회 '
+                 f'{len(upcoming)}개</h2>\n<div class="landing-list">\n'
+                 + _rows(upcoming[:60]) + "\n</div>")
+    if done:
+        rows += (f'\n<h2 class="landing-h2">올해 치러진 {dist_label} {sport_label} 대회 '
+                 f'{len(done)}개</h2>\n'
+                 f'<p class="landing-note">이미 끝난 대회입니다. 다음 회차 시기를 가늠할 때 '
+                 f'참고하세요.</p>\n<div class="landing-list">\n'
+                 + _rows(list(reversed(done))[:60]) + "\n</div>")
+    rows += build_dist_stats(dist_label, sport_label, events_sorted, upcoming)
     slug = slugify(sport, dist_label)
     canonical_url = f"https://calrank.vercel.app/{slug}"
     collection_ld = json.dumps({
@@ -127,6 +172,10 @@ def build_page(sport, dist_label, events):
   .landing-date {{ color: var(--accent); font-weight: 700; flex-shrink: 0; width: 80px; }}
   .landing-name {{ flex: 1; }}
   .landing-region {{ color: var(--ink-faint, #8E8E8E); font-size: 12px; flex-shrink: 0; }}
+  .landing-h2 {{ font-size: 17px; margin: 34px 0 10px; }}
+  .landing-note {{ font-size: 12.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
+  .landing-facts {{ margin: 0 0 6px; padding-left: 18px; }}
+  .landing-facts li {{ font-size: 13.5px; line-height: 1.9; color: var(--ink-soft); }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
 </style>
@@ -148,9 +197,7 @@ def build_page(sport, dist_label, events):
 <main class="landing-wrap">
 <h1 class="landing-title">{title}</h1>
 <p class="landing-sub">{desc}</p>
-<div class="landing-list">
 {rows}
-</div>
 <div class="landing-cta">
 <p>다른 거리·지역 조건으로도 찾아보고 싶다면?</p>
 <a href="index.html?sport={sport}">캘린더에서 필터링해서 보기 →</a>
@@ -275,10 +322,8 @@ def main():
         sport = e.get("sport")
         if sport not in SPORT_LABEL:
             continue
-        # 지난 대회는 정적 상세페이지(e/<id>.html)가 삭제되어 링크가 깨지므로,
-        # 랜딩에는 앞으로 열리는 대회만 싣는다.
-        if (e.get("date") or "") < today_iso:
-            continue
+        # 지난 대회도 싣는다. 상세페이지가 지워진다는 전제가 지금은 안 맞는다
+        # (592개 전부 남아 있다). 예정만 싣던 탓에 거리 랜딩 5장이 600자 아래였다.
         seen_for_event = set()
         for raw in (e.get("distances") or []):
             norm = normalize_distance(raw)
