@@ -324,3 +324,49 @@
 .lv-give-go:disabled{opacity:.45;cursor:default;}
 .lv-give-msg{font-size:12px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:10px 0 0;}
 .lv-give-thanks{font-size:12.5px;line-height:1.75;color:var(--ink-soft,#9A9A9A);margin:0;}
+
+/* ── 등급 사다리 ───────────────────────────────────────────
+   구간 이름만 1~7로 늘어놓고 시간을 안 적어 놨었다.
+   등급표를 보러 온 사람에게 등급표를 안 보여 준 셈이다.
+   ─────────────────────────────────────────────────────────── */
+.lv-ladder{border:1px solid var(--border,#2A2A2A);border-radius:10px;overflow:hidden;}
+.lv-ladder-row{
+  display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;
+  padding:11px 13px;border-bottom:1px solid var(--border,#2A2A2A);
+}
+.lv-ladder-row:last-child{border-bottom:0;}
+.lv-ladder-step{
+  font-size:11px;color:var(--ink-faint,#6A6A6A);text-align:center;
+  font-variant-numeric:tabular-nums;
+}
+.lv-ladder-label{font-size:13px;color:#C8C4C2;}
+.lv-ladder-cut{
+  font-size:13px;font-weight:700;color:#fff;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.lv-ladder-row.current{background:rgba(255,61,26,.10);}
+.lv-ladder-row.current .lv-ladder-label{color:var(--accent,#FF3D1A);font-weight:700;}
+.lv-ladder-row.current .lv-ladder-step{color:var(--accent,#FF3D1A);}
+.lv-ladder-note{font-size:11.5px;color:var(--ink-faint,#6A6A6A);margin:9px 0 0;}
+
+/* ── 폼 옆 미리보기 ────────────────────────────────────────
+   넓은 화면에서 폼 오른쪽이 텅 비어 있었다. 검색해서 들어온 사람이
+   아무것도 안 눌러도 표가 보이게, 그 자리에 사다리를 둔다.
+   ─────────────────────────────────────────────────────────── */
+.lv-twocol{display:block;}
+.lv-preview{
+  margin:18px auto 0;max-width:420px;text-align:left;
+  padding:15px;border:1px solid var(--border,#2A2A2A);border-radius:12px;
+  background:var(--surface,#141414);
+}
+.lv-pv-title{font-size:12.5px;color:var(--ink-soft,#9A9A9A);margin:0 0 11px;}
+.lv-pv-note{font-size:11.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:9px 0 0;}
+
+@media (min-width:860px){
+  .lv-twocol{
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:20px;align-items:start;max-width:900px;margin:0 auto;
+  }
+  .lv-twocol .level-form-card{margin:0;max-width:none;}
+  .lv-preview{margin:0;max-width:none;}
+}

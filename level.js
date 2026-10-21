@@ -259,14 +259,9 @@ function renderResult(result, inputs) {
       </details>`;
     })()}
 
-    <p class="level-tier-table-title">체력 수준 구간 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
-    <div class="level-tier-table">
-      ${TIER_BOUNDS.slice().reverse().map(([bound, label], i) => {
-        const isCurrent = label === tier.label;
-        return `<div class="level-tier-row${isCurrent ? " current" : ""}">` +
-               `<span class="level-tier-step">${i + 1}</span><span>${label}</span></div>`;
-      }).join("")}
-    </div>
+    <p class="level-tier-table-title">등급 사다리 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
+    ${tierLadder(inputs.distanceKm, inputs.age, inputs.gender, tier.label)}
+    <p class="lv-ladder-note">적힌 시간은 그 등급을 받는 가장 느린 기록입니다.</p>
     <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
     <p class="lv-share-hint">카드를 먼저 보여드립니다. 확인하고 저장하거나 공유하세요. 가입하지 않아도 되고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
     ${giveBlock(inputs)}
@@ -571,6 +566,70 @@ function gradeBand(finishSec, km, age, gender) {
     tierLo, tierHi,
     crosses: tierLo.label !== tierHi.label,
   };
+}
+
+
+// ── 등급 사다리 ───────────────────────────────────────────────
+// '마라톤 등급'을 검색해서 들어오는 사람이 가장 보고 싶어 하는 건
+// "몇 분이면 어느 등급인가" 하는 표다. 그런데 구간 이름만 1~7로
+// 늘어놓고 시간을 안 적어 놨다. 등급표를 보러 온 사람에게 등급표를
+// 안 보여 준 셈이다. 경계 시간을 같이 적는다.
+//
+// 경계 시간 = 기준기록 ÷ (경계 % / 100). 계산기와 같은 WMA 표에서 나온다.
+function tierLadder(km, age, gender, currentLabel) {
+  const std = wmaStd(gender, km, age);
+  if (!std) return "";
+  const rows = TIER_BOUNDS.slice().reverse().map(([bound, label], i) => {
+    const cut = bound > 0 ? std / (bound / 100) : null;
+    const isCurrent = currentLabel && label === currentLabel;
+    return `
+      <div class="lv-ladder-row${isCurrent ? " current" : ""}">
+        <span class="lv-ladder-step">${i + 1}</span>
+        <span class="lv-ladder-label">${label}</span>
+        <span class="lv-ladder-cut">${cut ? fmtClock(Math.round(cut)) + " 이내" : "—"}</span>
+      </div>`;
+  }).join("");
+  return `<div class="lv-ladder">${rows}</div>`;
+}
+
+
+// 제출하기 전에도 사다리를 보여 준다.
+// 검색해서 들어온 사람은 표를 보러 온 건데, 지금은 폼을 다 채우고
+// 눌러야만 아무거나 보인다. 성별·거리·나이를 고르는 순간순간
+// 사다리가 따라 움직이면, 내 기록을 넣기 전에 이미 답을 얻는다.
+const PREVIEW_DEFAULT_AGE = 40;
+
+function renderPreview() {
+  const box = document.getElementById("lvPreview");
+  if (!box) return;
+  const gender = (document.getElementById("lvGender") || {}).value || "male";
+  const km = parseFloat((document.getElementById("lvDistance") || {}).value || "10");
+  const yearRaw = parseInt((document.getElementById("lvBirthYear") || {}).value, 10);
+  let age = new Date().getFullYear() - yearRaw;
+  let guessed = false;
+  if (!yearRaw || !(age >= 5 && age <= 100)) { age = PREVIEW_DEFAULT_AGE; guessed = true; }
+
+  const ladder = tierLadder(km, age, gender, null);
+  if (!ladder) { box.hidden = true; return; }
+  const who = `${age}세 ${gender === "male" ? "남성" : "여성"} ${distLabel(km)}`;
+  box.hidden = false;
+  box.innerHTML = `
+    <p class="lv-pv-title">${who} 기준 등급 사다리</p>
+    ${ladder}
+    <p class="lv-pv-note">${guessed
+      ? "출생연도를 넣으면 내 나이 기준으로 바뀝니다."
+      : "적힌 시간은 그 등급을 받는 가장 느린 기록입니다."}</p>`;
+}
+
+function wirePreview() {
+  ["lvGender", "lvDistance", "lvBirthYear"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", renderPreview);
+      el.addEventListener("change", renderPreview);
+    }
+  });
+  renderPreview();
 }
 
 
@@ -1539,6 +1598,7 @@ async function shareCard(result, inputs, btn) {
 }
 
 function init() {
+  wirePreview();
   document.getElementById("levelForm").addEventListener("submit", (e) => {
     e.preventDefault();
 
