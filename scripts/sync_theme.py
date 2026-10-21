@@ -98,6 +98,31 @@ def convert(css: str) -> str:
     return css
 
 
+# style="…" 속성 안에도 색이 박혀 있다. <style> 블록만 고치면 이 자리가 남아서
+# 밝은 바탕에 흰 글자 같은 안 보이는 조합이 생긴다.
+ATTR = re.compile(r'style="([^"]*)"')
+# 종목색은 뜻이 분명하니 종목 토큰으로 보낸다. 밝은 바탕에서는 어두운 쪽으로 바뀐다.
+SPORT = {
+    "#ff3d1a": "var(--marathon)", "#4caf7d": "var(--trail)",
+    "#5b8def": "var(--cycling)", "#b37fea": "var(--triathlon)",
+    "#00c2a8": "var(--inline)", "#f2c230": "var(--hyrox)",
+}
+# var(--x, #fallback) 안의 값은 실제로 쓰이지 않으니 건드리지 않는다.
+VARFALL = re.compile(r"var\(--[\w-]+\s*,\s*#[0-9A-Fa-f]{3,6}\s*\)")
+
+
+def convert_attr(body: str) -> str:
+    keep = []
+    body = VARFALL.sub(lambda m: (keep.append(m.group(0)), f"\x00{len(keep)-1}\x00")[1], body)
+    for hx, tok in SPORT.items():
+        body = re.sub(re.escape(hx) + r"\b", tok, body, flags=re.I)
+    body = _decl(body)
+    for hx in sorted(PLAIN, key=len, reverse=True):
+        body = re.sub(re.escape(hx) + r"\b", PLAIN[hx], body, flags=re.I)
+    body = WHITE_FILM.sub(_film, body)
+    return re.sub(r"\x00(\d+)\x00", lambda m: keep[int(m.group(1))], body)
+
+
 STYLE = re.compile(r"(<style>)(.*?)(</style>)", re.S)
 
 # 로고에 쓰는 Archivo Black 을 이미 있는 폰트 주소에 얹는다. @import 로 따로 받으면
@@ -119,6 +144,7 @@ TC_NEW = ('<meta name="theme-color" content="#F5F2EF" media="(prefers-color-sche
 def do_html(path: Path) -> bool:
     h = path.read_text(encoding="utf-8")
     new = STYLE.sub(lambda m: m.group(1) + convert(m.group(2)) + m.group(3), h)
+    new = ATTR.sub(lambda m: 'style="' + convert_attr(m.group(1)) + '"', new)
     new = TC_OLD.sub(TC_NEW, new, count=1)
     new = new.replace(FONT_OLD, FONT_NEW)
     new = new.replace(SITE_NAME_OLD, SITE_NAME_NEW)
