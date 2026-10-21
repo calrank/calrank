@@ -269,8 +269,10 @@ function renderResult(result, inputs) {
     </div>
     <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
     <p class="lv-share-hint">카드를 먼저 보여드립니다. 확인하고 저장하거나 공유하세요. 가입하지 않아도 되고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
+    ${giveBlock(inputs)}
   `;
   el.style.display = "block";
+  wireGive(inputs);
   const shareBtn = document.getElementById("lvShareBtn");
   if (shareBtn) {
     shareBtn.addEventListener("click", () => shareCard(result, inputs, shareBtn));
@@ -570,6 +572,120 @@ function gradeBand(finishSec, km, age, gender) {
     crosses: tierLo.label !== tierHi.label,
   };
 }
+
+
+// ── 통계에 보태기 ─────────────────────────────────────────────
+// 동의를 묻는 자리가 기록증 화면에만 있었다. 거기까지 가려면 사진을 올리고
+// 카드를 만들고 동의하고 버튼을 눌러야 한다 — 네 단계다. 정작 사람들이 많이
+// 오는 곳은 이 화면인데 물을 자리가 없었고, 그래서 몇 달 동안 0건이었다.
+//
+// 자기 등급을 보고 납득한 다음에 묻는다. 무엇을 보태는지 알고 고를 수 있어야 한다.
+const SB_URL = "https://mlbzsqeoqlyvnyzeegeu.supabase.co";
+const SB_KEY = "sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
+
+function statAgeBand(age) {
+  if (age >= 80) return "80대 이상";
+  const d = Math.floor(age / 10) * 10;
+  return d < 10 ? "10대" : d + "대";
+}
+
+function statDistCategory(km) {
+  if (Math.abs(km - 5) < 0.3) return "5km";
+  if (Math.abs(km - 10) < 0.3) return "10km";
+  if (Math.abs(km - 21.0975) < 0.5) return "half";
+  if (Math.abs(km - 42.195) < 0.8) return "full";
+  return null;
+}
+
+// 같은 기록을 두 번 보내지 않게. 계정이 없으니 이 기기 안에서만 막는다.
+function statKey(row) {
+  return "calrank:gave:" + [row.distance_category, row.finish_time_seconds,
+    row.age_band, row.gender].join("|");
+}
+
+function buildStatRow(inputs) {
+  const cat = statDistCategory(inputs.distanceKm);
+  const band = statAgeBand(inputs.age);
+  if (!cat || !band) return null;
+  const sec = Math.round(inputs.finishSec);
+  if (sec < 300 || sec > 54000) return null;      // 서버 제약과 같은 범위
+  return {
+    race_name: null,            // 이 화면에서는 대회를 묻지 않는다
+    sport: "marathon",
+    distance_category: cat,
+    finish_time_seconds: sec,
+    age_band: band,
+    gender: inputs.gender,
+    source: "level",
+  };
+}
+
+function giveBlock(inputs) {
+  const row = buildStatRow(inputs);
+  if (!row) return "";
+  let done = false;
+  try { done = !!localStorage.getItem(statKey(row)); } catch (e) {}
+  if (done) {
+    return `
+    <div class="lv-give" data-done="1">
+      <p class="lv-give-thanks">이 기록은 이미 통계에 보태 주셨습니다. 고맙습니다.</p>
+    </div>`;
+  }
+  return `
+  <div class="lv-give" id="lvGive">
+    <p class="lv-give-head">같은 또래는 보통 몇 분에 뛸까요</p>
+    <p class="lv-give-body">아직 답해 드릴 수 없습니다. 한국 동호인의 기록 분포 자료가
+    없어서요. 타이밍 업체가 올린 결과에는 이름과 배번이 같이 적혀 있어 가져오지
+    않기로 했습니다. 남은 방법은 하나입니다 — 뛰신 분이 직접 보태 주는 것.</p>
+    <p class="lv-give-what"><b>보내는 것</b> 거리 · 완주 시간 · 연령대(10년 단위) · 성별, 이 넷뿐입니다.<br>
+    <b>보내지 않는 것</b> 이름, 대회, 정확한 생년, 계정. 누구 기록인지 저희도 알 수 없습니다.<br>
+    바꿔 말하면 나중에 "내 것만 지워 달라"는 요청은 들어드릴 수 없습니다. 그래서 미리 말씀드립니다.</p>
+    <label class="lv-give-ck">
+      <input type="checkbox" id="lvConsent">
+      <span>위 내용을 읽었고, 제 기록을 통계에 보태는 데 동의합니다</span>
+    </label>
+    <button type="button" class="lv-give-go" id="lvGiveBtn" disabled>통계에 보태기</button>
+    <p class="lv-give-msg" id="lvGiveMsg"></p>
+  </div>`;
+}
+
+function wireGive(inputs) {
+  const ck = document.getElementById("lvConsent");
+  const btn = document.getElementById("lvGiveBtn");
+  const msg = document.getElementById("lvGiveMsg");
+  if (!ck || !btn) return;
+  ck.addEventListener("change", () => { btn.disabled = !ck.checked; });
+  btn.addEventListener("click", () => {
+    const row = buildStatRow(inputs);
+    if (!row) { msg.textContent = "값을 다시 확인해 주세요."; return; }
+    if (!window.supabase) {
+      msg.textContent = "지금은 보낼 수 없습니다. 잠시 뒤 다시 시도해 주세요.";
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = "보내는 중…";
+    try {
+      const sb = window.supabase.createClient(SB_URL, SB_KEY);
+      sb.from("record_stats").insert(row).then((res) => {
+        if (res && res.error) {
+          btn.textContent = "통계에 보태기";
+          btn.disabled = false;
+          msg.textContent = "보내지 못했습니다. 잠시 뒤 다시 시도해 주세요.";
+          return;
+        }
+        try { localStorage.setItem(statKey(row), "1"); } catch (e) {}
+        btn.textContent = "보태 주셔서 고맙습니다";
+        ck.disabled = true;
+        msg.textContent = "고맙습니다. 표본이 쌓이면 같은 나이·성별 안에서 내 자리를 보여 드릴 수 있습니다.";
+      });
+    } catch (e) {
+      btn.textContent = "통계에 보태기";
+      btn.disabled = false;
+      msg.textContent = "보내지 못했습니다.";
+    }
+  });
+}
+
 
 // ── 그리기 도우미 ────────────────────────────────────────────
 function roundRect(ctx, x, y, w, h, r) {
