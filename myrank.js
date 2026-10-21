@@ -816,7 +816,7 @@ function renderPaceTrendChart() {
   if (!note) {
     note = document.createElement("p");
     note.id = "trendFutureNote";
-    note.style.cssText = "font-size:12px;color:var(--ink-faint,#6A6A6A);margin:8px 2px 0;";
+    note.style.cssText = "font-size:12px;color:var(--ink-faint,#8E8E8E);margin:8px 2px 0;";
     card.appendChild(note);
   }
   note.textContent = excludedFuture
@@ -923,7 +923,7 @@ function drawTrendChart(canvas, records) {
   });
 
   if (!multiYear && records.length) {
-    ctx.fillStyle = "#6A6A6A";
+    ctx.fillStyle = "#8E8E8E";
     ctx.font = "10px 'Noto Sans KR'";
     ctx.textAlign = "right";
     ctx.fillText(String(records[0].race_date || "").slice(0, 4) + "년", W - pad, H - pad + 30);
@@ -949,11 +949,11 @@ function renderBadges() {
   grid.innerHTML = BADGE_DEFS.map(b => {
     const unlocked = b.check(recs);
     const prog = (!unlocked && b.prog) ? b.prog(recs) : null;
-    const progText = prog ? `<div style="font-size:10px; color:var(--ink-faint,#6A6A6A); margin-top:2px;">${prog[0]}/${prog[1]}</div>` : "";
+    const progText = prog ? `<div style="font-size:10px; color:var(--ink-faint,#8E8E8E); margin-top:2px;">${prog[0]}/${prog[1]}</div>` : "";
     const bg = unlocked ? "rgba(255,61,26,0.12)" : "var(--surface,#141414)";
     const border = unlocked ? "var(--accent,#FF3D1A)" : "var(--border,#2A2A2A)";
     const iconStyle = unlocked ? "" : "filter:grayscale(1);opacity:0.35;";
-    const textColor = unlocked ? "#FFFFFF" : "var(--ink-faint,#6A6A6A)";
+    const textColor = unlocked ? "#FFFFFF" : "var(--ink-faint,#8E8E8E)";
     return `<div style="text-align:center;padding:12px 4px;border-radius:8px;background:${bg};border:1px solid ${border};">
       <div style="font-size:28px;${iconStyle}">${b.icon}</div>
       <div style="font-size:11px;margin-top:4px;color:${textColor};">${b.name}</div>
@@ -1596,7 +1596,7 @@ ctx.font = "40px 'Black Han Sans'";
 ctx.textBaseline = "alphabetic";
 ctx.fillText("CALRANK", 48, 92);
 
-ctx.fillStyle = "#6A6A6A";
+ctx.fillStyle = "#8E8E8E";
 ctx.font = "13px 'Noto Sans KR'";
 ctx.fillText("calrank.vercel.app", 48, 114);
 
@@ -1615,7 +1615,7 @@ const rows = buildShareRows();
 let y = 236;
 
 if (rows.length === 0) {
-ctx.fillStyle = "#6A6A6A";
+ctx.fillStyle = "#8E8E8E";
 ctx.font = "15px 'Noto Sans KR'";
 ctx.fillText("아직 등록된 기록이 없습니다.", 48, y);
 }
@@ -1651,7 +1651,7 @@ ctx.fillText(badgeText, badgeX + 12, badgeY);
 y += 108;
 });
 
-ctx.fillStyle = "#6A6A6A";
+ctx.fillStyle = "#8E8E8E";
 ctx.font = "12px 'Noto Sans KR'";
 ctx.fillText("나만의 페이스, 나만의 랭크 — calrank", 48, H - 40);
 }

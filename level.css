@@ -17,7 +17,7 @@
 }
 .level-tier-badge{
   display:inline-block;font-family:var(--font-display);font-size:24px;
-  color:var(--accent);border:2px solid var(--accent);border-radius:2px;
+  color:var(--accent-ink);border:2px solid var(--accent);border-radius:2px;
   padding:8px 20px;margin-bottom:12px;
 }
 .level-tier-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;margin:0 0 20px;}
@@ -31,8 +31,8 @@
 .level-tier-table{display:flex;flex-direction:column;gap:1px;background:var(--line);text-align:left;}
 .level-tier-row{background:var(--bg);padding:9px 12px;font-size:12.5px;color:var(--ink-faint);}
 .level-tier-step{display:inline-block;min-width:18px;margin-right:9px;font-weight:900;color:var(--ink-faint);text-align:center;}
-.level-tier-row.current .level-tier-step{color:var(--accent);}
-.level-tier-row.current{background:var(--surface);color:var(--accent);font-weight:900;border-left:3px solid var(--accent);padding-left:9px;}
+.level-tier-row.current .level-tier-step{color:var(--accent-ink);}
+.level-tier-row.current{background:var(--surface);color:var(--accent-ink);font-weight:900;border-left:3px solid var(--accent);padding-left:9px;}
 
 .level-disclaimer{
   max-width:420px;margin:16px auto 0;font-size:10.5px;color:var(--ink-faint);
@@ -45,12 +45,12 @@
 
 /* 기록증 입구와 직접 입력 사이의 구분선 */
 .lv-or{
-  position:relative;text-align:center;font-size:12px;color:var(--ink-faint,#6A6A6A);
+  position:relative;text-align:center;font-size:12px;color:var(--ink-faint,var(--ink-faint));
   margin:16px 0 12px;
 }
 .lv-or::before,.lv-or::after{
   content:"";position:absolute;top:50%;width:calc(50% - 56px);
-  height:1px;background:var(--border,#2A2A2A);
+  height:1px;background:var(--border,var(--border));
 }
 .lv-or::before{left:0;}
 .lv-or::after{right:0;}
@@ -66,41 +66,41 @@
   background:linear-gradient(135deg,rgba(255,61,26,.14),rgba(255,61,26,.04));
   border:1px solid rgba(255,61,26,.32);
 }
-.lv-grade-pct{font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;}
-.lv-grade-pct i{font-size:20px;font-style:normal;margin-left:2px;color:var(--accent,#FF3D1A);}
-.lv-grade-cap{font-size:11.5px;color:var(--ink-soft,#9A9A9A);margin-top:7px;line-height:1.5;}
+.lv-grade-pct{font-size:38px;font-weight:900;color:var(--ink);line-height:1;letter-spacing:-1px;}
+.lv-grade-pct i{font-size:20px;font-style:normal;margin-left:2px;color:var(--accent-ink);}
+.lv-grade-cap{font-size:11.5px;color:var(--ink-soft,var(--ink-faint));margin-top:7px;line-height:1.5;}
 .lv-grade-next{
   flex:1 1 170px;display:flex;flex-direction:column;justify-content:center;gap:4px;
   padding:16px 18px;border-radius:10px;
-  background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);
+  background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));
 }
-.lv-next-l{font-size:12px;color:var(--ink-soft,#9A9A9A);}
-.lv-next-l b{color:#fff;}
-.lv-next-v{font-size:22px;font-weight:900;color:var(--accent,#FF3D1A);line-height:1.2;}
-.lv-next-t{font-size:12px;color:var(--ink-faint,#6A6A6A);}
+.lv-next-l{font-size:12px;color:var(--ink-soft,var(--ink-faint));}
+.lv-next-l b{color:var(--ink);}
+.lv-next-v{font-size:22px;font-weight:900;color:var(--accent-ink);line-height:1.2;}
+.lv-next-t{font-size:12px;color:var(--ink-faint,var(--ink-faint));}
 
 /* ── 줄이면 어떻게 바뀌나 ────────────────────────────────── */
-.lv-what{border:1px solid var(--border,#2A2A2A);border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.lv-what{border:1px solid var(--border,var(--border));border-radius:10px;overflow:hidden;margin-bottom:20px;}
 .lv-what-row{
   display:grid;grid-template-columns:1fr 1.3fr 1fr 1.6fr;gap:6px;
-  padding:11px 14px;font-size:13px;color:#D8D4D2;
-  border-bottom:1px solid var(--border,#2A2A2A);
+  padding:11px 14px;font-size:13px;color:var(--ink);
+  border-bottom:1px solid var(--border,var(--border));
 }
 .lv-what-row:last-child{border-bottom:none;}
-.lv-what-head{background:var(--surface,#141414);font-size:11.5px;font-weight:700;color:var(--ink-faint,#6A6A6A);}
+.lv-what-head{background:var(--surface,var(--surface));font-size:11.5px;font-weight:700;color:var(--ink-faint,var(--ink-faint));}
 .lv-what-row.up{background:rgba(255,61,26,.07);}
-.lv-what-row.up span:last-child{color:var(--accent,#FF3D1A);font-weight:700;}
+.lv-what-row.up span:last-child{color:var(--accent-ink);font-weight:700;}
 
 /* ── 거리 환산 ───────────────────────────────────────────── */
 .lv-equiv{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px;margin-bottom:8px;}
 .lv-equiv-c{
   display:flex;flex-direction:column;gap:4px;align-items:center;
   padding:13px 8px;border-radius:9px;
-  background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);
+  background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));
 }
-.lv-equiv-d{font-size:11.5px;color:var(--ink-faint,#6A6A6A);}
-.lv-equiv-t{font-size:16px;font-weight:700;color:#fff;}
-.lv-equiv-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:0 0 20px;}
+.lv-equiv-d{font-size:11.5px;color:var(--ink-faint,var(--ink-faint));}
+.lv-equiv-t{font-size:16px;font-weight:700;color:var(--ink);}
+.lv-equiv-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:0 0 20px;}
 
 @media (max-width:520px){
   .lv-grade-pct{font-size:32px;}
@@ -109,39 +109,39 @@
 
 /* ── 거리별 강점 ─────────────────────────────────────────── */
 .lv-dna{
-  border:1px solid var(--border,#2A2A2A);border-radius:10px;
-  background:var(--surface,#141414);margin:0 0 20px;
+  border:1px solid var(--border,var(--border));border-radius:10px;
+  background:var(--surface,var(--surface));margin:0 0 20px;
 }
 .lv-dna summary{
-  padding:14px 16px;font-size:13.5px;font-weight:700;color:#D8D4D2;
+  padding:14px 16px;font-size:13.5px;font-weight:700;color:var(--ink);
   cursor:pointer;list-style:none;
 }
 .lv-dna summary::-webkit-details-marker{display:none;}
-.lv-dna summary::before{content:"▸ ";color:var(--accent,#FF3D1A);}
+.lv-dna summary::before{content:"▸ ";color:var(--accent-ink);}
 .lv-dna[open] summary::before{content:"▾ ";}
 .lv-dna-in{padding:0 16px 16px;}
-.lv-dna-help{font-size:12px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:0 0 12px;}
+.lv-dna-help{font-size:12px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:0 0 12px;}
 .lv-dna-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.lv-dna-row label{flex:0 0 86px;font-size:12.5px;color:var(--ink-soft,#9A9A9A);}
+.lv-dna-row label{flex:0 0 86px;font-size:12.5px;color:var(--ink-soft,var(--ink-faint));}
 .lv-dna-row input{
   flex:1 1 auto;min-width:0;padding:9px 11px;border-radius:7px;
-  background:var(--bg,#0B0B0B);border:1px solid var(--border,#2A2A2A);
-  color:#fff;font-family:inherit;font-size:13.5px;
+  background:var(--bg,var(--bg));border:1px solid var(--border,var(--border));
+  color:var(--ink);font-family:inherit;font-size:13.5px;
 }
 .lv-dna-row input.err{border-color:var(--accent,#FF3D1A);}
 .lv-dna-go{
   width:100%;margin-top:6px;font-family:inherit;font-size:13.5px;font-weight:700;
-  padding:11px;border-radius:8px;border:1px solid var(--border,#2A2A2A);
-  background:transparent;color:#D8D4D2;cursor:pointer;
+  padding:11px;border-radius:8px;border:1px solid var(--border,var(--border));
+  background:transparent;color:var(--ink);cursor:pointer;
 }
-.lv-dna-go:hover{border-color:var(--accent,#FF3D1A);color:var(--accent,#FF3D1A);}
-.lv-dna-msg{font-size:12.5px;color:var(--accent,#FF3D1A);margin:12px 0 0;line-height:1.7;}
+.lv-dna-go:hover{border-color:var(--accent,#FF3D1A);color:var(--accent-ink);}
+.lv-dna-msg{font-size:12.5px;color:var(--accent-ink);margin:12px 0 0;line-height:1.7;}
 .lv-dna-verdict{margin:16px 0 12px;padding:14px 16px;border-radius:9px;
   background:linear-gradient(135deg,rgba(255,61,26,.12),rgba(255,61,26,.03));
   border:1px solid rgba(255,61,26,.3);}
-.lv-dna-v{font-size:15px;font-weight:900;color:#fff;margin:0 0 6px;}
-.lv-dna-d{font-size:12.5px;line-height:1.8;color:#C8C4C2;margin:0;}
-.lv-dna-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:12px 0 0;}
+.lv-dna-v{font-size:15px;font-weight:900;color:var(--ink);margin:0 0 6px;}
+.lv-dna-d{font-size:12.5px;line-height:1.8;color:var(--ink-soft);margin:0;}
+.lv-dna-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;}
 
 @media (max-width:520px){
   .lv-dna-row label{flex:0 0 70px;}
@@ -161,7 +161,7 @@
   margin:4px 0 0;
 }
 .lv-dp-cap{
-  font-size:11.5px;color:var(--ink-faint,#6A6A6A);margin:0 0 10px;letter-spacing:.2px;
+  font-size:11.5px;color:var(--ink-faint,var(--ink-faint));margin:0 0 10px;letter-spacing:.2px;
   display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;
 }
 .lv-dp-cap span{opacity:.75;}
@@ -177,7 +177,7 @@
 }
 .lv-dp-g{
   position:absolute;top:0;bottom:0;width:1px;
-  background:var(--border,#2A2A2A);transform:translateX(-.5px);
+  background:var(--border,var(--border));transform:translateX(-.5px);
 }
 
 .lv-dp-row{
@@ -186,21 +186,21 @@
   gap:var(--gap);align-items:center;
   height:30px;
 }
-.lv-dp-lbl{font-size:12px;color:var(--ink-soft,#9A9A9A);white-space:nowrap;}
-.lv-dp-time{font-size:12px;white-space:nowrap;color:var(--ink-faint,#6A6A6A);font-variant-numeric:tabular-nums;}
+.lv-dp-lbl{font-size:12px;color:var(--ink-soft,var(--ink-faint));white-space:nowrap;}
+.lv-dp-time{font-size:12px;white-space:nowrap;color:var(--ink-faint,var(--ink-faint));font-variant-numeric:tabular-nums;}
 .lv-dp-track{position:relative;height:100%;}
 .lv-dp-dot{
   position:absolute;top:50%;width:9px;height:9px;border-radius:50%;
-  background:var(--ink-soft,#9A9A9A);
+  background:var(--ink-soft,var(--ink-faint));
   transform:translate(-50%,-50%);
-  box-shadow:0 0 0 2px var(--surface,#141414);   /* 격자선 위를 지날 때 끊어 보이게 */
+  box-shadow:0 0 0 2px var(--surface,var(--surface));   /* 격자선 위를 지날 때 끊어 보이게 */
 }
 .lv-dp-dot.top{
   background:var(--accent,#FF3D1A);
   width:11px;height:11px;
 }
 .lv-dp-val{
-  font-size:12.5px;font-weight:700;color:#fff;text-align:right;
+  font-size:12.5px;font-weight:700;color:var(--ink);text-align:right;
   font-variant-numeric:tabular-nums;
 }
 
@@ -209,11 +209,11 @@
   position:relative;height:24px;
   margin-left:calc(var(--lbl) + var(--time) + var(--gap) * 2);
   margin-right:calc(var(--val) + var(--gap));
-  border-top:1px solid var(--border,#2A2A2A);
+  border-top:1px solid var(--border,var(--border));
 }
 .lv-dp-t{
   position:absolute;top:6px;transform:translateX(-50%);white-space:nowrap;
-  font-size:10px;font-weight:700;color:var(--ink-faint,#6A6A6A);
+  font-size:10px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
   font-variant-numeric:tabular-nums;
 }
 
@@ -227,24 +227,24 @@
    내 등급이 구간 한가운데인지 가장자리인지가 바로 보이게 했습니다.
    ─────────────────────────────────────────────────────────── */
 .lv-band{
-  border:1px solid var(--border,#2A2A2A);border-radius:10px;
-  margin:14px 0 0;background:var(--surface,#141414);
+  border:1px solid var(--border,var(--border));border-radius:10px;
+  margin:14px 0 0;background:var(--surface,var(--surface));
 }
 .lv-band>summary{
   list-style:none;cursor:pointer;padding:13px 15px;
-  font-size:13px;color:var(--ink-soft,#9A9A9A);
+  font-size:13px;color:var(--ink-soft,var(--ink-faint));
 }
 .lv-band>summary::-webkit-details-marker{display:none;}
-.lv-band>summary::after{content:"＋";float:right;color:var(--ink-faint,#6A6A6A);}
+.lv-band>summary::after{content:"＋";float:right;color:var(--ink-faint,var(--ink-faint));}
 .lv-band[open]>summary::after{content:"－";}
-.lv-band>summary:hover{color:#E8E4E1;}
+.lv-band>summary:hover{color:var(--ink);}
 .lv-band-in{padding:0 15px 16px;text-align:left;}
-.lv-band-lead{font-size:12.5px;line-height:1.85;color:#C8C4C2;margin:0 0 18px;text-align:left;}
-.lv-band-lead b{color:#fff;}
+.lv-band-lead{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 18px;text-align:left;}
+.lv-band-lead b{color:var(--ink);}
 
 .lv-band-plot{position:relative;height:34px;}
 .lv-band-grid{position:absolute;inset:0;pointer-events:none;}
-.lv-band-g{position:absolute;top:0;bottom:0;width:1px;background:var(--border,#2A2A2A);transform:translateX(-.5px);}
+.lv-band-g{position:absolute;top:0;bottom:0;width:1px;background:var(--border,var(--border));transform:translateX(-.5px);}
 .lv-band-g.cross{background:var(--accent,#FF3D1A);width:1px;opacity:.9;}
 /* 폭 자체가 메시지입니다. 띠를 또렷하게 그리고, 지금 기록은 띠 안의
    가는 선으로 표시합니다. 점을 크게 찍었더니 띠를 덮어 버렸습니다. */
@@ -262,33 +262,33 @@
 .lv-band-bar::after{right:-1px;}
 .lv-band-dot{
   position:absolute;top:50%;width:2px;height:22px;
-  background:#fff;transform:translate(-50%,-50%);border-radius:1px;
+  background:var(--surface);transform:translate(-50%,-50%);border-radius:1px;
 }
-.lv-band-axis{position:relative;height:22px;border-top:1px solid var(--border,#2A2A2A);margin-top:2px;}
+.lv-band-axis{position:relative;height:22px;border-top:1px solid var(--border,var(--border));margin-top:2px;}
 .lv-band-t{
   position:absolute;top:5px;transform:translateX(-50%);white-space:nowrap;
-  font-size:10px;font-weight:700;color:var(--ink-faint,#6A6A6A);
+  font-size:10px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
   font-variant-numeric:tabular-nums;
 }
 
 .lv-band-rows{margin:14px 0 0;}
 .lv-band-row{
   display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:baseline;
-  padding:9px 0;border-top:1px solid var(--border,#2A2A2A);
+  padding:9px 0;border-top:1px solid var(--border,var(--border));
 }
-.lv-band-row span{font-size:12px;color:var(--ink-soft,#9A9A9A);}
-.lv-band-row b{font-size:13.5px;color:#fff;font-variant-numeric:tabular-nums;}
-.lv-band-row em{font-size:11.5px;font-style:normal;color:var(--ink-faint,#6A6A6A);min-width:104px;text-align:right;}
+.lv-band-row span{font-size:12px;color:var(--ink-soft,var(--ink-faint));}
+.lv-band-row b{font-size:13.5px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.lv-band-row em{font-size:11.5px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
 
 .lv-band-verdict{
   font-size:12.5px;line-height:1.85;margin:14px 0 0;
   padding:11px 13px;border-radius:8px;text-align:left;
 }
-.lv-band-verdict b{color:#fff;}
-.lv-band-verdict.edge{background:rgba(255,61,26,.08);border:1px solid rgba(255,61,26,.3);color:#C8C4C2;}
-.lv-band-verdict.solid{background:rgba(255,255,255,.03);border:1px solid var(--border,#2A2A2A);color:#C8C4C2;}
-.lv-band-src{font-size:11px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:12px 0 0;text-align:left;}
-.lv-band-src a{color:var(--ink-soft,#9A9A9A);text-decoration:underline;text-underline-offset:2px;}
+.lv-band-verdict b{color:var(--ink);}
+.lv-band-verdict.edge{background:rgba(255,61,26,.08);border:1px solid rgba(255,61,26,.3);color:var(--ink-soft);}
+.lv-band-verdict.solid{background:var(--tint-1);border:1px solid var(--border,var(--border));color:var(--ink-soft);}
+.lv-band-src{font-size:11px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;text-align:left;}
+.lv-band-src a{color:var(--ink-soft,var(--ink-faint));text-decoration:underline;text-underline-offset:2px;}
 
 @media (max-width:520px){
   .lv-band-row{grid-template-columns:1fr auto;row-gap:3px;}
@@ -301,53 +301,53 @@
    ─────────────────────────────────────────────────────────── */
 .lv-give{
   margin:18px 0 0;padding:15px;text-align:left;
-  border:1px solid var(--border,#2A2A2A);border-radius:10px;
-  background:rgba(255,255,255,.02);
+  border:1px solid var(--border,var(--border));border-radius:10px;
+  background:var(--tint-1);
 }
-.lv-give-head{font-size:13.5px;font-weight:700;color:#fff;margin:0 0 8px;}
-.lv-give-body{font-size:12.5px;line-height:1.85;color:#C8C4C2;margin:0 0 12px;}
+.lv-give-head{font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px;}
+.lv-give-body{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
 .lv-give-what{
-  font-size:11.5px;line-height:1.9;color:var(--ink-soft,#9A9A9A);margin:0 0 14px;
-  padding:11px 12px;border-radius:8px;background:rgba(255,255,255,.03);
+  font-size:11.5px;line-height:1.9;color:var(--ink-soft,var(--ink-faint));margin:0 0 14px;
+  padding:11px 12px;border-radius:8px;background:var(--tint-1);
 }
-.lv-give-what b{color:#E8E4E1;}
+.lv-give-what b{color:var(--ink);}
 .lv-give-ck{display:flex;gap:9px;align-items:flex-start;cursor:pointer;margin:0 0 12px;}
 .lv-give-ck input{margin-top:2px;flex:0 0 auto;width:16px;height:16px;accent-color:var(--accent,#FF3D1A);}
-.lv-give-ck span{font-size:12.5px;line-height:1.7;color:#C8C4C2;}
+.lv-give-ck span{font-size:12.5px;line-height:1.7;color:var(--ink-soft);}
 .lv-give-go{
   width:100%;padding:11px;border-radius:8px;cursor:pointer;
   font-family:inherit;font-size:13.5px;font-weight:700;
-  color:#E8E4E1;background:var(--bg,#0B0B0B);
-  border:1px solid var(--border,#2A2A2A);
+  color:var(--ink);background:var(--bg,var(--bg));
+  border:1px solid var(--border,var(--border));
 }
-.lv-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent,#FF3D1A);}
+.lv-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent-ink);}
 .lv-give-go:disabled{opacity:.45;cursor:default;}
-.lv-give-msg{font-size:12px;line-height:1.75;color:var(--ink-faint,#6A6A6A);margin:10px 0 0;}
-.lv-give-thanks{font-size:12.5px;line-height:1.75;color:var(--ink-soft,#9A9A9A);margin:0;}
+.lv-give-msg{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:10px 0 0;}
+.lv-give-thanks{font-size:12.5px;line-height:1.75;color:var(--ink-soft,var(--ink-faint));margin:0;}
 
 /* ── 등급 사다리 ───────────────────────────────────────────
    구간 이름만 1~7로 늘어놓고 시간을 안 적어 놨었다.
    등급표를 보러 온 사람에게 등급표를 안 보여 준 셈이다.
    ─────────────────────────────────────────────────────────── */
-.lv-ladder{border:1px solid var(--border,#2A2A2A);border-radius:10px;overflow:hidden;}
+.lv-ladder{border:1px solid var(--border,var(--border));border-radius:10px;overflow:hidden;}
 .lv-ladder-row{
   display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;
-  padding:11px 13px;border-bottom:1px solid var(--border,#2A2A2A);
+  padding:11px 13px;border-bottom:1px solid var(--border,var(--border));
 }
 .lv-ladder-row:last-child{border-bottom:0;}
 .lv-ladder-step{
-  font-size:11px;color:var(--ink-faint,#6A6A6A);text-align:center;
+  font-size:11px;color:var(--ink-faint,var(--ink-faint));text-align:center;
   font-variant-numeric:tabular-nums;
 }
-.lv-ladder-label{font-size:13px;color:#C8C4C2;}
+.lv-ladder-label{font-size:13px;color:var(--ink-soft);}
 .lv-ladder-cut{
-  font-size:13px;font-weight:700;color:#fff;white-space:nowrap;
+  font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;
   font-variant-numeric:tabular-nums;
 }
 .lv-ladder-row.current{background:rgba(255,61,26,.10);}
-.lv-ladder-row.current .lv-ladder-label{color:var(--accent,#FF3D1A);font-weight:700;}
-.lv-ladder-row.current .lv-ladder-step{color:var(--accent,#FF3D1A);}
-.lv-ladder-note{font-size:11.5px;color:var(--ink-faint,#6A6A6A);margin:9px 0 0;}
+.lv-ladder-row.current .lv-ladder-label{color:var(--accent-ink);font-weight:700;}
+.lv-ladder-row.current .lv-ladder-step{color:var(--accent-ink);}
+.lv-ladder-note{font-size:11.5px;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
 
 /* ── 폼 옆 미리보기 ────────────────────────────────────────
    넓은 화면에서 폼 오른쪽이 텅 비어 있었다. 검색해서 들어온 사람이
@@ -356,11 +356,11 @@
 .lv-twocol{display:block;}
 .lv-preview{
   margin:18px auto 0;max-width:420px;text-align:left;
-  padding:15px;border:1px solid var(--border,#2A2A2A);border-radius:12px;
-  background:var(--surface,#141414);
+  padding:15px;border:1px solid var(--border,var(--border));border-radius:12px;
+  background:var(--surface,var(--surface));
 }
-.lv-pv-title{font-size:12.5px;color:var(--ink-soft,#9A9A9A);margin:0 0 11px;}
-.lv-pv-note{font-size:11.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:9px 0 0;}
+.lv-pv-title{font-size:12.5px;color:var(--ink-soft,var(--ink-faint));margin:0 0 11px;}
+.lv-pv-note{font-size:11.5px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
 
 @media (min-width:860px){
   .lv-twocol{
@@ -377,12 +377,12 @@
   font-size:13px;line-height:1.75;margin:12px 0 0;
   padding:11px 14px;border-radius:9px;text-align:left;
 }
-.lv-verdict b{color:#fff;font-weight:700;}
+.lv-verdict b{color:var(--ink);font-weight:700;}
 .lv-verdict.edge{
-  background:rgba(255,61,26,.09);border:1px solid rgba(255,61,26,.32);color:#C8C4C2;
+  background:rgba(255,61,26,.09);border:1px solid rgba(255,61,26,.32);color:var(--ink-soft);
 }
 .lv-verdict.solid{
-  background:rgba(255,255,255,.035);border:1px solid var(--border,#2A2A2A);color:#C8C4C2;
+  background:var(--tint-1);border:1px solid var(--border,var(--border));color:var(--ink-soft);
 }
 
 /* 결과로 옮겨 갈 때 고정 헤더가 등급 뱃지를 가리고 있었다.
@@ -399,7 +399,7 @@
 .lv-photo{
   margin:14px auto 0;max-width:760px;
   border-radius:12px;overflow:hidden;
-  border:1px solid var(--border,#2A2A2A);
+  border:1px solid var(--border,var(--border));
   line-height:0;
 }
 .lv-photo img{

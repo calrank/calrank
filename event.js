@@ -484,7 +484,7 @@ async function renderWeatherWidget(ev) {
       <div style="margin-top:16px; padding:14px; border-radius:10px; background:var(--surface,#141414); border:1px solid var(--border,#2A2A2A); display:flex; align-items:center; gap:12px;">
         <div style="font-size:32px;">${icon}</div>
         <div>
-          <p style="margin:0; font-size:13px; color:var(--ink-faint,#6A6A6A);">대회 당일 예상 날씨</p>
+          <p style="margin:0; font-size:13px; color:var(--ink-faint,#8E8E8E);">대회 당일 예상 날씨</p>
           <p style="margin:2px 0 0; font-size:16px; font-weight:700;">${tMin}° / ${tMax}°C · 강수확률 ${rain}%</p>
         </div>
       </div>

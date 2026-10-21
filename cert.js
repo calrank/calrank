@@ -1276,7 +1276,7 @@
       ctx.fillText("1km당 " + r.milestone.perKmSeconds.toFixed(1) + "초만 줄이면 됩니다", pad, y + 198);
     }
 
-    ctx.fillStyle = "#6A6A6A";
+    ctx.fillStyle = "#8E8E8E";
     ctx.font = "400 32px 'Noto Sans KR', sans-serif";
     ctx.fillText("나이·성별 보정 기준 · calrank 자체 지표", pad, H - 110);
     ctx.fillStyle = "#FF3D1A";

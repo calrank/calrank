@@ -864,42 +864,26 @@ function laurel(ctx, x, y, h, dir, opts) {
 
 // CalRank 마크. 상승하는 랭크 막대 + 러너를 감싸는 링.
 // Path2D는 구형 사파리에서 stroke가 비는 일이 있어 경로를 직접 그린다.
+// 로고. A 자리를 시상대 계단으로 바꾼 그 모양을 그대로 그린다.
+// 머리줄 SVG 와 같은 좌표(34x30 틀)라 두 곳이 어긋날 일이 없다.
 function drawEmblem(ctx, x, y, size, color) {
-  const u = size / 64;
+  const u = size / 30;                    // 세로 30 을 기준으로 맞춘다
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(u, u);
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
 
-  // 바깥 링 — 오른쪽 위를 틔워 트랙처럼 보이게
-  ctx.strokeStyle = color;
-  ctx.globalAlpha = 0.9;
-  ctx.lineWidth = 4;
+  // 계단 실루엣 — 바깥 테두리
   ctx.beginPath();
-  ctx.arc(32, 32, 29, -Math.PI * 0.26, Math.PI * 1.62);
-  ctx.stroke();
-  ctx.globalAlpha = 0.28;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(32, 32, 23, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-
-  // 올라가는 막대 3개
+  ctx.moveTo(0, 30); ctx.lineTo(0, 21); ctx.lineTo(6, 21); ctx.lineTo(6, 11);
+  ctx.lineTo(11.5, 11); ctx.lineTo(11.5, 0); ctx.lineTo(22.5, 0); ctx.lineTo(22.5, 11);
+  ctx.lineTo(28, 11); ctx.lineTo(28, 21); ctx.lineTo(34, 21); ctx.lineTo(34, 30);
+  ctx.closePath();
+  // A 의 속구멍 — 반대 방향으로 그려야 뚫린다
+  ctx.moveTo(12.4, 22.6); ctx.lineTo(14.6, 11.4); ctx.lineTo(19.4, 11.4); ctx.lineTo(21.6, 22.6);
+  ctx.closePath();
   ctx.fillStyle = color;
-  const bars = [[18, 40, 7, 10], [28.5, 33, 7, 17], [39, 25, 7, 25]];
-  bars.forEach(([bx, by, bw, bh], i) => {
-    ctx.globalAlpha = 0.45 + i * 0.275;
-    roundRect(ctx, bx, by, bw, bh, 3);
-    ctx.fill();
-  });
-  ctx.globalAlpha = 1;
+  ctx.fill("evenodd");
 
-  // 링 끝을 마무리하는 점
-  ctx.beginPath();
-  ctx.arc(32 + 29 * Math.cos(-Math.PI * 0.26), 32 + 29 * Math.sin(-Math.PI * 0.26), 4.2, 0, Math.PI * 2);
-  ctx.fill();
   ctx.restore();
 }
 
@@ -1216,7 +1200,12 @@ function drawCard(ctx, d) {
   ctx.strokeStyle = LINE; ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(L, fY); ctx.lineTo(R, fY); ctx.stroke();
 
-  drawEmblem(ctx, L, fY + 26, 74, ACCENT);
+  drawEmblem(ctx, L, fY + 26, 74, INK);
+  // 맨 윗단(1등 자리)만 주황 — 머리줄 로고와 같은 규칙
+  ctx.save();
+  ctx.translate(L, fY + 26); ctx.scale(74 / 30, 74 / 30);
+  ctx.fillStyle = ACCENT; ctx.fillRect(11.5, 0, 11, 4.4);
+  ctx.restore();
   ctx.fillStyle = INK;
   setFont(ctx, 900, 38);
   ctx.letterSpacing = "5px";

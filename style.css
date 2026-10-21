@@ -1,23 +1,74 @@
+/* 색은 전부 여기서 정한다. 기본은 밝은 바탕 — 모바일 야외에서 검은 바탕 회색 글자가
+   잘 안 보인다는 이야기가 많아 바꿨다. 기기를 어두운 모드로 둔 사람에게는
+   아래 prefers-color-scheme 블록이 예전 어두운 바탕을 그대로 돌려준다.
+   대비는 WCAG 2.2 AA(본문 4.5:1)를 기준으로 맞췄다.
+   https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html */
 :root{
-  --bg:#0B0B0B;
-  --surface:#141414;
-      --line:#2E2E2E;
-  --border:#2A2A2A;
-  --ink:#FFFFFF;
-  --ink-soft:#9A9A9A;
-  --ink-faint:#6A6A6A;
-  --accent:#FF3D1A;
-  --accent-ink:#FF3D1A;
+  color-scheme:light;
+  --bg:#F5F2EF;
+  --surface:#FFFFFF;
+  --line:#E3DED8;
+  --border:#D9D3CC;
+  --ink:#15110F;        /* 바탕 대비 16.8:1 */
+  --ink-soft:#4A4542;   /* 8.5:1 */
+  --ink-faint:#6B6460;  /* 5.2:1 — 작은 글자도 통과 */
+  --accent:#FF3D1A;     /* 채우기·테두리 전용 */
+  --accent-ink:#C42808; /* 주황 글자용 5.2:1 */
+  --on-accent:#FFFFFF;  /* 주황 위에 얹는 글자 */
+  --gold:#8A6A00;
+  --elite-line:#7B45B8;
+  --silver-line:#8C837B;
+  --tint-1:rgba(21,17,15,.035);
+  --tint-2:rgba(21,17,15,.055);
+  --tint-3:rgba(21,17,15,.09);
+  --hero-glow:rgba(255,61,26,0.10);
+  --drop:rgba(21,17,15,0.16);
+  --forecast:#2A6A9E;
+  --warn-ink:#8A5A00;
 
-  --marathon:#FF3D1A;
-  --cycling:#5B8DEF;
-  --trail:#4CAF7D;
-  --hyrox:#F2C230;
-  --triathlon:#B37FEA;
-  --inline:#00C2A8;
+  --marathon:#C42808;
+  --cycling:#2F5FBF;
+  --trail:#2A7A50;
+  --hyrox:#8A6A00;
+  --triathlon:#7B45B8;
+  --inline:#00726A;
 
   --font-display:'Noto Sans KR',sans-serif;
   --font-body:'Noto Sans KR',sans-serif;
+  --font-brand:'Archivo Black','Noto Sans KR',sans-serif;
+}
+
+@media (prefers-color-scheme:dark){
+  :root{
+    color-scheme:dark;
+    --bg:#0B0B0B;
+    --surface:#141414;
+    --line:#2E2E2E;
+    --border:#2A2A2A;
+    --ink:#FFFFFF;
+    --ink-soft:#C8C4C2;
+    --ink-faint:#8E8E8E;
+    --accent:#FF3D1A;
+    --accent-ink:#FF3D1A;
+    --on-accent:#FFFFFF;
+    --gold:#D4AF37;
+    --elite-line:#B892FF;
+    --silver-line:#9EA6AD;
+    --tint-1:rgba(255,255,255,.03);
+    --tint-2:rgba(255,255,255,.06);
+    --tint-3:rgba(255,255,255,.10);
+    --hero-glow:rgba(255,61,26,0.16);
+    --drop:rgba(0,0,0,0.4);
+    --forecast:#7FB3D5;
+    --warn-ink:#F2C230;
+
+    --marathon:#FF3D1A;
+    --cycling:#5B8DEF;
+    --trail:#4CAF7D;
+    --hyrox:#F2C230;
+    --triathlon:#B37FEA;
+    --inline:#00C2A8;
+  }
 }
 
 *{box-sizing:border-box;}
@@ -38,7 +89,20 @@ body{
   position:sticky;top:0;z-index:10;
 }
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:68px;}
-.wordmark{font-family:var(--font-display);font-weight:900;font-size:22px;color:var(--ink);letter-spacing:1px;text-decoration:none;}
+/* 로고. A 자리가 시상대 계단이고, 맨 윗단만 주황이다.
+   글자는 진짜 글자라 복사·검색·읽어주기가 다 된다(aria-label 로 A 를 메운다). */
+.wordmark{
+  font-family:var(--font-brand);font-weight:900;font-size:23px;
+  /* Archivo Black 은 굵기가 하나뿐이라 900 을 주면 브라우저가 가짜 볼드를 덧씌운다.
+     그래서 합성을 끈다. 폰트를 못 받은 페이지에서는 Noto Sans KR 900 이 받아 준다. */
+  font-synthesis-weight:none;
+  color:var(--ink);letter-spacing:0.5px;text-decoration:none;
+  display:inline-flex;align-items:baseline;line-height:1;
+}
+.wm-a{height:0.72em;width:auto;margin:0 0.03em 0 0.02em;flex:none;}
+.wm-a path{fill:currentColor;}
+.wm-a .wm-top{fill:var(--accent);}
+.wordmark:hover .wm-a .wm-top{fill:var(--accent);opacity:.82;}
 .main-nav{display:flex;gap:22px;}
 .nav-link{font-size:12px;font-weight:700;color:var(--ink-faint);text-decoration:none;position:relative;padding:4px 0;letter-spacing:0.2px;}
 .nav-link.active{color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:4px;}
@@ -82,7 +146,7 @@ body{
 .footer-topics a{color:var(--ink-soft);text-decoration:none;}
 .footer-topics a:hover{text-decoration:underline;}
 .lv-share-btn{display:block;width:100%;margin:22px 0 8px;padding:16px 18px;
-  background:var(--accent);color:#fff;border:0;border-radius:4px;cursor:pointer;
+  background:var(--accent);color:var(--on-accent);border:0;border-radius:4px;cursor:pointer;
   font-family:var(--font-display);font-weight:900;font-size:15.5px;letter-spacing:.3px;}
 .lv-share-btn:hover{filter:brightness(1.08);}
 .lv-share-btn:disabled{opacity:.6;cursor:default;}
@@ -102,7 +166,7 @@ body{
   color:var(--ink-faint);
 }
 .hero-stat b{
-  color:var(--accent);
+  color:var(--accent-ink);
   font-family:var(--font-display);
   font-size:16px;
   font-weight:900;
@@ -140,7 +204,7 @@ body{
 .filter-row{position:relative;}
 .filter-group{display:flex;gap:6px;overflow-x:auto;padding:4px 2px;scrollbar-width:none;-ms-overflow-style:none;}
 .filter-group::-webkit-scrollbar{display:none;}
-.filter-row::after{content:"";position:absolute;top:0;right:0;bottom:0;width:24px;background:linear-gradient(to right, transparent, var(--bg,#0d0d0d));pointer-events:none;}
+.filter-row::after{content:"";position:absolute;top:0;right:0;bottom:0;width:24px;background:linear-gradient(to right, transparent, var(--bg,var(--bg)));pointer-events:none;}
 .chip{
   flex-shrink:0;font-family:var(--font-body);font-size:11px;font-weight:700;
   padding:8px 16px;border:1px solid var(--border);
@@ -172,7 +236,7 @@ body{
   cursor:pointer;
   color:inherit;text-decoration:none;
 }
-.event-card:hover{background:#111111;}
+.event-card:hover{background:var(--tint-1);}
 
 .ev-tag{
   font-family:var(--font-body);font-size:10px;font-weight:900;
@@ -189,7 +253,7 @@ body{
 }
 .dday-urgent{background:var(--sport-color,var(--accent));color:var(--bg);border-color:var(--sport-color,var(--accent));}
 .event-meta{font-size:11.5px;color:var(--ink-faint);margin:0;letter-spacing:0.1px;}
-.event-chevron{font-size:16px;color:#3A3A3A;flex-shrink:0;}
+.event-chevron{font-size:16px;color:var(--ink-faint);flex-shrink:0;}
 
 .empty-state{padding:48px 0;text-align:center;color:var(--ink-faint);font-size:14px;}
 
@@ -214,10 +278,10 @@ body{
 .modal-fields{display:flex;flex-direction:column;gap:9px;margin:0 0 20px;}
 .modal-field-row{display:flex;justify-content:space-between;font-size:12.5px;gap:12px;}
 .modal-field-row .k{color:var(--ink-faint);flex-shrink:0;}
-.modal-field-row .v{color:#DADADA;text-align:right;}
+.modal-field-row .v{color:var(--ink);text-align:right;}
 .modal-apply-btn{
   width:100%;padding:15px;border:none;border-radius:2px;
-  background:var(--sport-color,var(--accent));color:#fff;
+  background:var(--sport-color,var(--accent));color:var(--on-accent);
   font-family:var(--font-body);font-size:14px;font-weight:900;letter-spacing:0.3px;
   cursor:pointer;margin-bottom:8px;
 }
@@ -265,39 +329,39 @@ body{
 .tier-card{position:relative;padding:18px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--line);text-align:center;overflow:hidden;}
 .tier-sport{font-size:12px;color:var(--ink-faint);margin-bottom:2px;}
 .tier-dist{font-size:13px;color:var(--ink-soft);margin-bottom:8px;}
-.tier-time{font-family:var(--font-display);font-size:20px;color:#fff;margin-bottom:10px;}
-.tier-badge{display:inline-block;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:700;background:rgba(255,255,255,0.08);color:var(--ink-soft);}
-.tier-badge-plain{background:rgba(255,255,255,0.06);color:var(--ink-faint);}
+.tier-time{font-family:var(--font-display);font-size:20px;color:var(--ink);margin-bottom:10px;}
+.tier-badge{display:inline-block;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:700;background:var(--tint-2);color:var(--ink-soft);}
+.tier-badge-plain{background:var(--tint-2);color:var(--ink-faint);}
 .tier-empty{color:var(--ink-faint);font-size:14px;padding:20px 0;}
 
 /* 등급별 색상 — 희소성이 높을수록 화려하게 */
 .tier-card.tier-finisher{border-color:var(--line);}
 .tier-card.tier-bronze{border-color:#8a5a3c;}
-.tier-card.tier-bronze .tier-badge{background:linear-gradient(135deg,#a86a44,#7a4a2c);color:#fff;}
-.tier-card.tier-silver{border-color:#9ea6ad;}
-.tier-card.tier-silver .tier-badge{background:linear-gradient(135deg,#d4d9dd,#9ea6ad);color:#141414;}
-.tier-card.tier-gold{border-color:#d4af37;}
-.tier-card.tier-gold .tier-badge{background:linear-gradient(135deg,#f3d074,#c69a2e);color:#141414;}
+.tier-card.tier-bronze .tier-badge{background:linear-gradient(135deg,#a86a44,#7a4a2c);color:var(--on-accent);}
+.tier-card.tier-silver{border-color:var(--silver-line);}
+.tier-card.tier-silver .tier-badge{background:linear-gradient(135deg,#d4d9dd,var(--silver-line));color:var(--surface);}
+.tier-card.tier-gold{border-color:var(--gold);}
+.tier-card.tier-gold .tier-badge{background:linear-gradient(135deg,#f3d074,#c69a2e);color:var(--surface);}
 .tier-card.tier-gold{box-shadow:0 0 0 1px rgba(212,175,55,0.25);}
 .tier-card.tier-top{border-color:var(--accent);}
-.tier-card.tier-top .tier-badge{background:var(--accent);color:#fff;}
+.tier-card.tier-top .tier-badge{background:var(--accent);color:var(--on-accent);}
 .tier-card.tier-top{box-shadow:0 0 20px rgba(255,61,26,0.2);}
-.tier-card.tier-elite{border-color:#b892ff;background:linear-gradient(160deg, var(--surface) 0%, rgba(120,80,220,0.12) 100%);}
-.tier-card.tier-elite .tier-badge{background:linear-gradient(135deg,#c9a6ff,#8a5cf5);color:#fff;}
+.tier-card.tier-elite{border-color:var(--elite-line);background:linear-gradient(160deg, var(--surface) 0%, rgba(120,80,220,0.12) 100%);}
+.tier-card.tier-elite .tier-badge{background:linear-gradient(135deg,var(--elite-line),#8a5cf5);color:var(--on-accent);}
 .tier-card.tier-elite{box-shadow:0 0 24px rgba(140,90,240,0.3);}
-.tier-card.tier-elite::before{content:"★";position:absolute;top:8px;right:10px;font-size:14px;color:#c9a6ff;opacity:0.7;}
+.tier-card.tier-elite::before{content:"★";position:absolute;top:8px;right:10px;font-size:14px;color:var(--elite-line);opacity:0.7;}
 
-.tier-next{font-size:11px;color:var(--accent);margin-top:8px;font-weight:600;}
-.tier-next-max{color:#d4af37;}
+.tier-next{font-size:11px;color:var(--accent-ink);margin-top:8px;font-weight:600;}
+.tier-next-max{color:var(--gold);}
 .tier-rank{font-size:11px;color:var(--ink-faint);margin-top:4px;}
 
 .view-full-ranking-link{display:inline-block;margin:12px 0 24px;font-size:13px;color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--ink-faint);}
-.view-full-ranking-link:hover{color:var(--accent);border-color:var(--accent);}
+.view-full-ranking-link:hover{color:var(--accent-ink);border-color:var(--accent);}
 
-.rr-review-link{display:none;margin-top:4px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:600;}
+.rr-review-link{display:none;margin-top:4px;font-size:12px;color:var(--accent-ink);text-decoration:none;font-weight:600;}
 .rr-review-link:hover{text-decoration:underline;}
 
-.ev-review-badge{margin-left:6px;color:#d4af37;font-weight:600;}
+.ev-review-badge{margin-left:6px;color:var(--gold);font-weight:600;}
 /* 대회 카드의 날씨 조각 — 예보는 또렷하게, 지난 기온은 한 걸음 뒤로 */
 /* 히어로 설명문 — 글은 그대로 두고 화면에서만 두 줄로 접는다 */
 .hero-lead.clamped{
@@ -306,19 +370,19 @@ body{
 }
 .hero-more{
   display:block;margin:6px auto 0;background:none;border:0;cursor:pointer;
-  font-family:inherit;font-size:12px;color:var(--ink-soft,#9A9A9A);
+  font-family:inherit;font-size:12px;color:var(--ink-soft,var(--ink-faint));
   text-decoration:underline;text-underline-offset:3px;padding:4px 8px;
 }
-.hero-more:hover{color:#E8E4E1;}
+.hero-more:hover{color:var(--ink);}
 
 /* 찾기 줄 — 검색칸과 지역 선택을 한 줄에 */
 .filter-row-find{display:flex;gap:8px;align-items:center;flex-wrap:nowrap;}
 .event-search{
   flex:1 1 auto;min-width:0;padding:9px 12px;font-family:inherit;font-size:14px;
-  color:#E8E4E1;background:var(--bg,#0B0B0B);
-  border:1px solid var(--border,#2A2A2A);border-radius:8px;
+  color:var(--ink);background:var(--bg,var(--bg));
+  border:1px solid var(--border,var(--border));border-radius:8px;
 }
-.event-search::placeholder{color:#6A6A6A;}
+.event-search::placeholder{color:var(--ink-faint);}
 .event-search:focus{outline:none;border-color:var(--accent,#FF3D1A);}
 .filter-row-find .region-select{flex:0 0 auto;width:auto;}
 @media (min-width:720px){ .hero-lead.clamped{-webkit-line-clamp:3;} }
@@ -326,38 +390,38 @@ body{
 .chip-flip{opacity:.72;font-style:normal;}
 .chip-flip:hover{opacity:1;}
 .ev-wx{margin-left:6px;font-weight:600;white-space:nowrap;}
-.ev-wx-fcst{color:#7FB3D5;}
-.ev-wx-past{color:#6A6A6A;font-weight:500;}
+.ev-wx-fcst{color:var(--forecast);}
+.ev-wx-past{color:var(--ink-faint);font-weight:500;}
 
 /* ===== calrank 규모·인지도 지수 (유저 후기 ⭐와 시각적으로 구분) ===== */
-.ev-scale-badge{margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;}
+.ev-scale-badge{margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--tint-2);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;}
 .scale-index-box{margin-top:16px;padding:14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);}
-.scale-index-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:10px;}
+.scale-index-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px;}
 .scale-index-table{width:100%;border-collapse:collapse;font-size:12px;}
-.scale-index-table td{padding:5px 4px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.scale-index-table td{padding:5px 4px;border-bottom:1px solid var(--tint-2);}
 .scale-idx-label{color:var(--ink-soft);}
-.scale-idx-check{width:24px;text-align:center;color:var(--accent);font-weight:700;}
+.scale-idx-check{width:24px;text-align:center;color:var(--accent-ink);font-weight:700;}
 .scale-index-disclaimer{margin-top:10px;font-size:11px;color:var(--ink-faint);line-height:1.5;}
 
-.global-compare-box{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,0.1);}
-.global-compare-btn{background:none;border:1px solid var(--border,#2A2A2A);color:var(--ink-soft,#B8B0AC);font-size:11px;padding:5px 10px;border-radius:999px;cursor:pointer;}
-.global-compare-btn:hover{border-color:var(--accent);color:#fff;}
+.global-compare-box{margin-top:10px;padding-top:10px;border-top:1px dashed var(--tint-3);}
+.global-compare-btn{background:none;border:1px solid var(--border,var(--border));color:var(--ink-soft,var(--ink-soft));font-size:11px;padding:5px 10px;border-radius:999px;cursor:pointer;}
+.global-compare-btn:hover{border-color:var(--accent);color:var(--ink);}
 .global-compare-form{display:none;gap:6px;margin-top:8px;flex-wrap:wrap;}
-.global-compare-form select{background:var(--bg,#0d0d0d);color:#fff;border:1px solid var(--border,#2A2A2A);border-radius:6px;font-size:12px;padding:4px 6px;}
-.global-compare-submit{background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;}
-.global-compare-result{font-size:12px;color:#fff;font-weight:700;margin-top:8px;}
-.global-compare-source{font-size:10px;color:var(--ink-faint,#6A6A6A);margin-top:4px;}
+.global-compare-form select{background:var(--bg,var(--bg));color:var(--ink);border:1px solid var(--border,var(--border));border-radius:6px;font-size:12px;padding:4px 6px;}
+.global-compare-submit{background:var(--accent);color:var(--on-accent);border:none;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;}
+.global-compare-result{font-size:12px;color:var(--ink);font-weight:700;margin-top:8px;}
+.global-compare-source{font-size:10px;color:var(--ink-faint,var(--ink-faint));margin-top:4px;}
 
 .tier-medal-wrap{margin:8px 0 4px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.4));}
 
-.tier-guide-toggle{display:block;width:100%;margin:18px 0 0;padding:12px;background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);border-radius:10px;color:#B8B0AC;font-size:13.5px;font-weight:700;cursor:pointer;}
-.tier-guide-toggle:hover{border-color:var(--accent);color:#fff;}
+.tier-guide-toggle{display:block;width:100%;margin:18px 0 0;padding:12px;background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));border-radius:10px;color:var(--ink-soft);font-size:13.5px;font-weight:700;cursor:pointer;}
+.tier-guide-toggle:hover{border-color:var(--accent);color:var(--ink);}
 .tier-guide-panel{display:none;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
 .tier-guide-panel.show{display:grid;}
 @media (max-width:520px){.tier-guide-panel{grid-template-columns:repeat(2,1fr);}}
-.tier-guide-item{text-align:center;background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);border-radius:12px;padding:16px 10px;}
-.tier-guide-name{font-size:13px;font-weight:800;color:#fff;margin:8px 0 4px;}
-.tier-guide-desc{font-size:11px;color:var(--ink-faint,#6A6A6A);line-height:1.5;}
+.tier-guide-item{text-align:center;background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));border-radius:12px;padding:16px 10px;}
+.tier-guide-name{font-size:13px;font-weight:800;color:var(--ink);margin:8px 0 4px;}
+.tier-guide-desc{font-size:11px;color:var(--ink-faint,var(--ink-faint));line-height:1.5;}
 
 .ev-save-btn{flex-shrink:0;background:none;border:none;font-size:17px;cursor:pointer;padding:10px;margin:-10px;line-height:1;opacity:0.6;transition:opacity 0.15s ease, transform 0.15s ease;min-width:24px;min-height:24px;display:flex;align-items:center;justify-content:center;}
 .ev-save-btn:hover{opacity:1;transform:scale(1.12);}
@@ -377,7 +441,7 @@ body{
 .cert-cta .cc-txt{flex:1 1 auto;min-width:0;}
 .cert-cta .cc-txt b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px;}
 .cert-cta .cc-txt span{display:block;color:var(--ink-soft);font-size:12.5px;line-height:1.6;}
-.cert-cta .cc-go{flex:0 0 auto;color:var(--accent);font-weight:900;font-size:13px;white-space:nowrap;}
+.cert-cta .cc-go{flex:0 0 auto;color:var(--accent-ink);font-weight:900;font-size:13px;white-space:nowrap;}
 @media (max-width:600px){
   .cert-cta{padding:14px;gap:11px;}
   .cert-cta .cc-ico{font-size:22px;}
@@ -402,7 +466,7 @@ body{
 .sub-sport.on{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 .sub-go{
   display:block;text-align:center;padding:13px;border-radius:2px;
-  background:var(--accent);color:#fff;font-weight:900;font-size:14px;text-decoration:none;
+  background:var(--accent);color:var(--on-accent);font-weight:900;font-size:14px;text-decoration:none;
 }
 .sub-manual{margin:14px 0 7px;font-size:11.5px;line-height:1.7;color:var(--ink-faint);}
 .sub-urlrow{display:flex;gap:6px;align-items:stretch;}
@@ -415,7 +479,7 @@ body{
   flex:0 0 auto;padding:0 15px;border:1px solid var(--border);border-radius:2px;
   background:none;color:var(--ink);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
 }
-.sub-urlrow button:hover{border-color:var(--accent);color:var(--accent);}
+.sub-urlrow button:hover{border-color:var(--accent);color:var(--accent-ink);}
 @media (max-width:600px){
   .sub-panel{padding:14px;}
   .sub-lead{font-size:12.5px;}
@@ -436,9 +500,9 @@ body{
   background:none;color:var(--ink);font-family:inherit;font-size:13.5px;font-weight:700;
   text-align:center;text-decoration:none;cursor:pointer;line-height:1.3;
 }
-.ac-btn:hover{border-color:var(--accent);color:var(--accent);}
-.ac-btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;}
-.ac-btn.pri:hover{color:#fff;opacity:.9;}
+.ac-btn:hover{border-color:var(--accent);color:var(--accent-ink);}
+.ac-btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
+.ac-btn.pri:hover{color:var(--ink);opacity:.9;}
 .ac-note{display:block;margin-top:10px;font-size:11.5px;line-height:1.65;color:var(--ink-faint);}
 @media (max-width:600px){
   .ac-box{padding:13px 14px;}
@@ -447,14 +511,14 @@ body{
 
 /* 근거 원문 — 보고 싶은 사람만 펼치도록 */
 .gr-srcbox{
-  border:1px solid var(--border,#2A2A2A);border-radius:8px;
-  background:var(--surface,#141414);margin:14px 0 18px;
+  border:1px solid var(--border,var(--border));border-radius:8px;
+  background:var(--surface,var(--surface));margin:14px 0 18px;
 }
 .gr-srcbox summary{
-  padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-soft,#9A9A9A);
+  padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-soft,var(--ink-faint));
   cursor:pointer;list-style:none;
 }
 .gr-srcbox summary::-webkit-details-marker{display:none;}
-.gr-srcbox summary::before{content:"▸ ";color:var(--accent,#FF3D1A);}
+.gr-srcbox summary::before{content:"▸ ";color:var(--accent-ink);}
 .gr-srcbox[open] summary::before{content:"▾ ";}
 .gr-srcbox .gr-src{margin:0;padding:0 16px 14px 34px;}

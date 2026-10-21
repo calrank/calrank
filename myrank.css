@@ -24,7 +24,7 @@
 }
 .auth-submit-btn{
   margin-top:8px;padding:14px;border:none;border-radius:2px;
-  background:var(--accent);color:#fff;font-family:var(--font-body);
+  background:var(--accent);color:var(--on-accent);font-family:var(--font-body);
   font-size:14px;font-weight:900;cursor:pointer;
 }
 .auth-msg{font-size:12px;color:var(--ink-faint);margin:6px 0 0;min-height:16px;}
@@ -33,7 +33,7 @@
 .auth-note{font-size:12.5px;line-height:1.7;color:var(--ink-soft);margin:0 0 6px;}
 .auth-alt{margin:14px 0 0;text-align:center;font-size:12.5px;}
 .auth-alt a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--border);padding-bottom:1px;}
-.auth-alt a:hover{color:var(--accent);border-color:var(--accent);}
+.auth-alt a:hover{color:var(--accent-ink);border-color:var(--accent);}
 
 .dash-section{margin-top:24px;}
 .dash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
@@ -89,7 +89,7 @@
 .record-form input#rfName,.record-form input#rfNotes{grid-column:1/-1;}
 .record-submit-btn{
   grid-column:1/-1;padding:13px;border:none;border-radius:2px;
-  background:var(--accent);color:#fff;font-family:var(--font-body);
+  background:var(--accent);color:var(--on-accent);font-family:var(--font-body);
   font-size:13px;font-weight:900;cursor:pointer;margin-top:4px;
 }
 .record-msg{font-size:12px;color:var(--ink-faint);margin:10px 0 0;grid-column:1/-1;}
@@ -115,10 +115,10 @@
 .dash-top-actions{display:flex;align-items:center;gap:8px;}
 .share-btn{
 padding:8px 14px;border:1px solid var(--accent);border-radius:2px;
-background:none;color:var(--accent);font-size:12px;font-weight:700;
+background:none;color:var(--accent-ink);font-size:12px;font-weight:700;
 font-family:var(--font-body);cursor:pointer;
 }
-.share-btn:hover{background:var(--accent);color:#fff;}
+.share-btn:hover{background:var(--accent);color:var(--on-accent);}
 
 .share-modal-card{max-width:420px;}
 .share-canvas{width:100%;height:auto;display:block;border-radius:2px;margin-bottom:16px;background:var(--bg);}

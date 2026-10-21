@@ -12,20 +12,21 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="기록증 사진 한 장이면 내 등급이 나옵니다 — calrank">
-<meta property="og:site_name" content="calrank">
+<meta property="og:site_name" content="칼랭크(CALRANK)">
 <meta property="og:url" content="https://calrank.vercel.app/cert.html">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://calrank.vercel.app/og-cert.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#0B0B0B">
+<meta name="theme-color" content="#F5F2EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://calrank.vercel.app/cert.html">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"기록증 등급 확인","url":"https://calrank.vercel.app/cert.html","applicationCategory":"HealthApplication","operatingSystem":"All","inLanguage":"ko-KR","description":"대회 기록증 사진에서 완주 기록을 읽어 나이·성별 보정 등급을 계산하는 무료 도구입니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"isPartOf":{"@type":"WebSite","name":"calrank","url":"https://calrank.vercel.app/"}}</script>
@@ -33,75 +34,75 @@
 <style>
   .ct-wrap{max-width:560px;margin:0 auto;padding:40px 18px 80px;}
   .ct-h1{font-family:var(--font-display);font-size:clamp(23px,4vw,31px);line-height:1.32;margin-bottom:10px;}
-  .ct-lead{font-size:15px;line-height:1.8;color:#C3BDB9;margin-bottom:24px;}
-  .ct-drop{display:block;width:100%;border:2px dashed var(--border,#2A2A2A);border-radius:14px;padding:30px 20px;text-align:center;cursor:pointer;background:rgba(255,255,255,.015);}
+  .ct-lead{font-size:15px;line-height:1.8;color:var(--ink-soft);margin-bottom:24px;}
+  .ct-drop{display:block;width:100%;border:2px dashed var(--border,var(--border));border-radius:14px;padding:30px 20px;text-align:center;cursor:pointer;background:var(--tint-1);}
   .ct-drop:hover{border-color:var(--accent);}
-  .ct-drop b{display:block;font-size:17px;color:#fff;margin-bottom:6px;}
-  .ct-drop span{font-size:13px;color:#8E8884;}
+  .ct-drop b{display:block;font-size:17px;color:var(--ink);margin-bottom:6px;}
+  .ct-drop span{font-size:13px;color:var(--ink-faint);}
   /* display:none 인 파일 input은 일부 모바일 브라우저에서 선택창이 열리지 않는다.
      화면에서만 감추고 요소는 살려 둔다. */
   .ct-drop input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-  .ct-status{font-size:13.5px;color:#C3BDB9;margin-top:12px;min-height:20px;text-align:center;}
+  .ct-status{font-size:13.5px;color:var(--ink-soft);margin-top:12px;min-height:20px;text-align:center;}
   .ct-form{margin-top:22px;display:none;}
   .ct-form.on{display:block;}
   .ct-row{margin-bottom:12px;}
-  .ct-row label{display:block;font-size:12px;color:#8E8884;margin-bottom:5px;}
-  .ct-row input,.ct-row select{width:100%;padding:11px 12px;border:1px solid var(--border,#2A2A2A);border-radius:8px;background:var(--bg,#0B0B0B);color:#E8E4E1;font-size:15px;font-family:inherit;}
+  .ct-row label{display:block;font-size:12px;color:var(--ink-faint);margin-bottom:5px;}
+  .ct-row input,.ct-row select{width:100%;padding:11px 12px;border:1px solid var(--border,var(--border));border-radius:8px;background:var(--bg,var(--bg));color:var(--ink);font-size:15px;font-family:inherit;}
   .ct-two{display:flex;gap:8px;}
   .ct-two>*{flex:1;}
-  .ct-go{width:100%;margin-top:6px;background:var(--accent);color:#fff;font-weight:700;font-size:16px;padding:14px;border:0;border-radius:8px;cursor:pointer;font-family:inherit;}
+  .ct-go{width:100%;margin-top:6px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:16px;padding:14px;border:0;border-radius:8px;cursor:pointer;font-family:inherit;}
   .ct-card{margin-top:26px;display:none;}
   .ct-card.on{display:block;}
   .ct-card canvas{width:100%;border-radius:14px;display:block;}
   .ct-acts{display:flex;gap:8px;margin-top:12px;}
-  .ct-acts button{flex:1;padding:12px;border-radius:8px;border:1px solid var(--border,#2A2A2A);background:transparent;color:#E8E4E1;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
-  .ct-acts button.pri{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .ct-acts button{flex:1;padding:12px;border-radius:8px;border:1px solid var(--border,var(--border));background:transparent;color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .ct-acts button.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
   .ct-sec{margin-top:34px;}
   .ct-sec h2{font-size:17px;margin-bottom:8px;}
-  .ct-sec p,.ct-sec li{font-size:13.5px;line-height:1.85;color:#A9A29E;}
+  .ct-sec p,.ct-sec li{font-size:13.5px;line-height:1.85;color:var(--ink-soft);}
   .ct-sec ul{padding-left:18px;margin:0;}
-  .ct-sec a{color:#C9C3BF;}
+  .ct-sec a{color:var(--ink-soft);}
   .ct-links{margin-top:26px;font-size:13.5px;line-height:2;}
-  .ct-links a{color:#D6D1CD;text-decoration:none;border-bottom:1px dashed #5E5A57;}
-  .ct-links a:hover{color:var(--accent);border-color:var(--accent);}
+  .ct-links a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--ink-faint);}
+  .ct-links a:hover{color:var(--accent-ink);border-color:var(--accent);}
 
 /* 기록증 — 통계 동의 */
 .ct-give{
   margin:18px 0 0;padding:16px 18px;border-radius:10px;
-  background:var(--surface,#141414);border:1px solid var(--border,#2A2A2A);text-align:left;
+  background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));text-align:left;
 }
-.ct-give-t{font-size:14.5px;font-weight:700;color:#fff;margin:0 0 8px;}
-.ct-give-d{font-size:13px;line-height:1.8;color:var(--ink-soft,#9A9A9A);margin:0 0 12px;}
+.ct-give-t{font-size:14.5px;font-weight:700;color:var(--ink);margin:0 0 8px;}
+.ct-give-d{font-size:13px;line-height:1.8;color:var(--ink-soft,var(--ink-faint));margin:0 0 12px;}
 .ct-give-l{margin:0 0 14px;padding-left:16px;}
-.ct-give-l li{font-size:12.5px;line-height:1.85;color:#C8C4C2;margin-bottom:4px;}
-.ct-give-l b{color:#fff;}
+.ct-give-l li{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin-bottom:4px;}
+.ct-give-l b{color:var(--ink);}
 .ct-give-ck{display:flex;gap:8px;align-items:flex-start;cursor:pointer;margin:0 0 12px;}
 .ct-give-ck input{margin-top:3px;flex:0 0 auto;}
-.ct-give-ck span{font-size:13px;line-height:1.6;color:#D8D4D2;}
+.ct-give-ck span{font-size:13px;line-height:1.6;color:var(--ink);}
 .ct-give-go{
   width:100%;font-family:inherit;font-size:14px;font-weight:700;padding:11px;
-  border-radius:8px;border:1px solid var(--border,#2A2A2A);
-  background:transparent;color:#D8D4D2;cursor:pointer;
+  border-radius:8px;border:1px solid var(--border,var(--border));
+  background:transparent;color:var(--ink);cursor:pointer;
 }
-.ct-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent,#FF3D1A);}
+.ct-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent-ink);}
 .ct-give-go:disabled{opacity:.45;cursor:default;}
-.ct-give-msg{font-size:12.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:10px 0 0;}
-.ct-hint{font-size:11.5px;line-height:1.7;color:var(--ink-faint,#6A6A6A);margin:6px 0 0;}
-.ct-wx{margin:10px 0 0;padding:12px 13px;border:1px solid var(--border,#2A2A2A);border-radius:9px;background:rgba(255,255,255,.02);}
+.ct-give-msg{font-size:12.5px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:10px 0 0;}
+.ct-hint{font-size:11.5px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:6px 0 0;}
+.ct-wx{margin:10px 0 0;padding:12px 13px;border:1px solid var(--border,var(--border));border-radius:9px;background:var(--tint-1);}
 .ct-wx-top{display:flex;align-items:baseline;gap:8px;margin:0;}
-.ct-wx-top b{font-size:20px;color:#fff;font-variant-numeric:tabular-nums;}
-.ct-wx-top span{font-size:11.5px;color:#8E8884;}
-.ct-wx-sub{font-size:11.5px;color:#8E8884;margin:5px 0 0;}
-.ct-wx-say{font-size:12.5px;line-height:1.8;color:#C8C4C2;margin:9px 0 0;}
-.ct-wx-src{font-size:10.5px;line-height:1.7;color:#6A6A6A;margin:9px 0 0;}
-.ct-wx-src a{color:#8E8884;text-decoration:underline;text-underline-offset:2px;}
+.ct-wx-top b{font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.ct-wx-top span{font-size:11.5px;color:var(--ink-faint);}
+.ct-wx-sub{font-size:11.5px;color:var(--ink-faint);margin:5px 0 0;}
+.ct-wx-say{font-size:12.5px;line-height:1.8;color:var(--ink-soft);margin:9px 0 0;}
+.ct-wx-src{font-size:10.5px;line-height:1.7;color:var(--ink-faint);margin:9px 0 0;}
+.ct-wx-src a{color:var(--ink-faint);text-decoration:underline;text-underline-offset:2px;}
 </style>
 </head>
 <body>
 
 <header class="site-header">
 <div class="wrap header-inner">
-<a href="index.html" class="wordmark">CALRANK</a>
+<a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
 <a href="index.html" class="nav-link">캘린더</a>
 <a href="regions.html" class="nav-link">지역별</a>
@@ -118,7 +119,7 @@
 
 <main class="ct-wrap">
 <h1 class="ct-h1">기록증 사진 한 장이면 끝</h1>
-<p class="ct-lead">대회에서 받은 기록증을 올리면 완주 시간을 읽어, 나이와 성별을 보정한 내 등급과
+<p class="ct-lead">대회에서 받은 기록증을 칼랭크(CALRANK)에 올리면 완주 시간을 읽어, 나이와 성별을 보정한 내 등급과
 다음 목표까지 남은 시간을 알려드립니다. 로그인도, 타이핑도 필요 없습니다.</p>
 
 <label class="ct-drop" for="certFile">

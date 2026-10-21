@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="12" fill="#0B0B0B"/>
-  <path d="M10 10 L54 10 L40 32 L54 54 L10 54 L24 32 Z" fill="#FF3D1A"/>
-  <line x1="15" y1="22" x2="49" y2="22" stroke="#0B0B0B" stroke-width="3"/>
-  <line x1="19" y1="32" x2="45" y2="32" stroke="#0B0B0B" stroke-width="3"/>
-  <line x1="23" y1="42" x2="41" y2="42" stroke="#0B0B0B" stroke-width="3"/>
+  <!-- 로고와 같은 계단 — 파비콘은 16px 까지 줄어드니 단을 둘로 줄이고 속구멍을 키웠다 -->
+  <path fill-rule="evenodd" fill="#FFFFFF"
+        d="M8,56 L8,38 L19,38 L19,12 L45,12 L45,38 L56,38 L56,56 Z
+           M25,44 L39,44 L35.5,22 L28.5,22 Z"/>
+  <rect x="19" y="12" width="26" height="7" fill="#FF3D1A"/>
 </svg>
