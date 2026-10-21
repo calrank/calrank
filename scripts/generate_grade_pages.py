@@ -283,6 +283,14 @@ FOOTER = """<footer class="site-footer">
 PAGE_CSS = """  .gr-wrap { max-width: 860px; margin: 0 auto; padding: 44px 20px 80px; }
   .gr-title { font-family: var(--font-display); font-size: clamp(23px, 3.4vw, 33px); line-height: 1.3; margin-bottom: 12px; }
   .gr-lead { font-size: 15px; line-height: 1.8; color: #C9C3BF; margin-bottom: 22px; }
+  /* 검색 결과 썸네일은 og:image 만으로 안 잡힐 때가 있다. 네이버는 본문
+     이미지도 보고 고르기 때문에 실제로 한 장 박아 둔다. 표가 주인공인
+     화면이라 넓고 낮게 두어 표가 밀려나지 않게 한다. */
+  .gr-photo { margin: 0 0 18px; border-radius: 12px; overflow: hidden;
+              border: 1px solid #2A2A2A; line-height: 0; }
+  .gr-photo img { width: 100%; height: 150px; object-fit: cover;
+                  object-position: 50% 22%; display: block; }
+  @media (min-width: 720px) { .gr-photo img { height: 210px; } }
   .gr-switch { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 26px; }
   .gr-switch a { font-size: 13px; padding: 7px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #D6D1CD; text-decoration: none; }
   .gr-switch a:hover { border-color: var(--accent); }
@@ -329,7 +337,11 @@ def head_block(title, desc, slug, ld_blocks):
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{BASE}/og-image.png">
+<meta property="og:image" content="{BASE}/og-level.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너">
+<meta name="twitter:image" content="{BASE}/og-level.jpg">
 <meta property="og:url" content="{BASE}/{slug}">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
@@ -457,6 +469,7 @@ def build_page(dist, gender):
     body = f'''
 <main class="gr-wrap">
 <h1 class="gr-title">{h1}</h1>
+<figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">{INTRO[dk]}</p>
 {build_switch(dk, gk)}
 {build_table(dist, gender)}
@@ -538,6 +551,7 @@ def build_method_page():
     body = f"""
 <main class="gr-wrap">
 <h1 class="gr-title">calrank 등급은 어떻게 매기나</h1>
+<figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">러닝 등급표는 많은데, 그 숫자가 어디서 나왔는지 확인할 수 있는 곳은 드뭅니다.
 체감이나 커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문이에요.
 calrank가 쓰는 기준표와 계산식, 구간을 나눈 자리까지 여기 전부 적어 두었습니다.
@@ -723,6 +737,7 @@ def build_hub():
     body = f'''
 <main class="gr-wrap">
 <h1 class="gr-title">러닝 기록 등급표</h1>
+<figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">같은 1시간이라도 25세 남성이 뛴 10km와 62세 여성이 뛴 10km는 전혀 다른 의미를 가집니다.
 그래서 절대 기록만 늘어놓은 표는 실제로 내 수준을 알려 주지 못합니다. calrank의 등급표는 나이와 성별 차이를
 먼저 보정한 뒤 같은 조건의 동호인 사이에서 내 기록이 어디쯤인지 보여 줍니다. 거리와 성별을 고르면
@@ -898,6 +913,7 @@ def build_age_page(dist, decade):
     body = f"""
 <main class="gr-wrap">
 <h1 class="gr-title">{h1}</h1>
+<figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">{lead}</p>
 {build_age_switch(dk, decade)}
 {tables}
