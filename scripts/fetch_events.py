@@ -1208,8 +1208,8 @@ def refresh_home_meta(events: list[dict]) -> None:
                if e.get("regDeadline") and str(e["regDeadline"]) >= today_iso]
     year = today.year
 
-    title = (f"{year} 마라톤 대회 일정 | 전국 마라톤·트레일러닝·자전거 접수 캘린더 - calrank")
-    desc = (f"{year} 전국 마라톤 대회 일정을 월별·지역별·거리(5km·10km·하프·풀코스)로 "
+    title = (f"{year} 마라톤 대회 일정 | 전국 마라톤·트레일러닝·자전거 접수 캘린더 | 칼랭크 CALRANK")
+    desc = (f"칼랭크(CALRANK)가 {year} 전국 마라톤 대회 일정을 월별·지역별·거리(5km·10km·하프·풀코스)로 "
             f"정리했습니다. 예정 대회 {len(upcoming)}개, 접수 진행 중 {len(opening)}개. "
             f"접수 마감일과 신청 링크를 한눈에 보고, 캘린더에 추가하면 마감 전에 알림을 받습니다.")
     og_desc = (f"{year} 전국 마라톤·트레일러닝·자전거 대회 일정과 접수 마감일을 한곳에서. "

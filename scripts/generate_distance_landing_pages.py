@@ -126,7 +126,7 @@ def build_page(sport, dist_label, events):
   .landing-row:hover {{ border-color: var(--accent); }}
   .landing-date {{ color: var(--accent); font-weight: 700; flex-shrink: 0; width: 80px; }}
   .landing-name {{ flex: 1; }}
-  .landing-region {{ color: var(--ink-faint, #6A6A6A); font-size: 12px; flex-shrink: 0; }}
+  .landing-region {{ color: var(--ink-faint, #8E8E8E); font-size: 12px; flex-shrink: 0; }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
 </style>
@@ -159,7 +159,7 @@ def build_page(sport, dist_label, events):
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
+<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
 </div>
 </footer>
 </body>
@@ -258,7 +258,7 @@ def build_index(pages):
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
+<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
 </div>
 </footer>
 </body>

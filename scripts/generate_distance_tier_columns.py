@@ -105,7 +105,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <link rel="stylesheet" href="style.css">
 <style>
   .column-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
-  .column-meta {{ font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }}
+  .column-meta {{ font-size: 13px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.8vw, 36px); line-height: 1.3; margin-bottom: 20px; }}
   .column-body {{ font-size: 16px; line-height: 1.9; color: #E8E4E1; }}
   .column-body h2 {{ font-size: 20px; margin: 36px 0 12px; color: #fff; }}
@@ -174,8 +174,8 @@ def build(dist: str) -> tuple[str, str, str, str]:
 
 <h2>여성 {esc(c['label'])} 기록 등급표 (나이대별)</h2>
 {tier_table(dist, "female")}
-<p style="font-size:13px; color:var(--ink-faint,#6A6A6A);">※ 10대는 아직 성장기라 성인 기준 등급을 그대로 적용하기는 조심스럽습니다. 참고용으로만 봐주세요. 데이터는 5세 단위로 제공되어, 각 나이대의 대표 구간 값을 사용했습니다.</p>
-<p style="font-size:13px; color:var(--ink-faint,#6A6A6A);">※ {esc(c['note'])}</p>
+<p style="font-size:13px; color:var(--ink-faint,#8E8E8E);">※ 10대는 아직 성장기라 성인 기준 등급을 그대로 적용하기는 조심스럽습니다. 참고용으로만 봐주세요. 데이터는 5세 단위로 제공되어, 각 나이대의 대표 구간 값을 사용했습니다.</p>
+<p style="font-size:13px; color:var(--ink-faint,#8E8E8E);">※ {esc(c['note'])}</p>
 
 <div style="margin:30px 0 34px;">
 <p style="font-size:13.5px; line-height:1.8; color:var(--ink-soft,#9A9A9A); margin:0 0 14px;">
@@ -217,7 +217,7 @@ calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink
 
 <footer class="site-footer">
 <div class="wrap">
-<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼의 등급표는 외부 공개 데이터(Running Level, 2024)를 바탕으로 하며, 실제 신체 조건·훈련 상태에 따라 개인차가 있을 수 있습니다.</p>
+<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼의 등급표는 외부 공개 데이터(Running Level, 2024)를 바탕으로 하며, 실제 신체 조건·훈련 상태에 따라 개인차가 있을 수 있습니다.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>

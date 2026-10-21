@@ -112,18 +112,18 @@ def build_page(sport_label, sport, concern, cycle_count):
 <script type="application/ld+json">{breadcrumb_ld}</script>
 <style>
   .column-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
-  .column-meta {{ font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }}
+  .column-meta {{ font-size: 13px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(22px, 3.6vw, 32px); line-height: 1.35; margin-bottom: 20px; }}
   .howto-refresh-note {{ font-size: 12px; color: var(--accent); margin-bottom: 20px; }}
   .howto-tip {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }}
   .howto-tip-text {{ font-size: 15px; line-height: 1.8; color: #E8E4E1; margin-bottom: 10px; }}
-  .howto-tip-source {{ font-size: 12px; color: var(--ink-faint, #6A6A6A); }}
+  .howto-tip-source {{ font-size: 12px; color: var(--ink-faint, #8E8E8E); }}
   .conf-badge {{ display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; margin-right:6px; font-weight:700; }}
   .conf-medical {{ background:rgba(120,190,255,0.15); color:#78beff; }}
   .conf-official {{ background:rgba(180,140,255,0.15); color:#c9a6ff; }}
   .conf-press {{ background:rgba(255,255,255,0.08); color:#B8B0AC; }}
   .conf-community {{ background:rgba(255,170,80,0.15); color:#ffaa50; }}
-  .source-legend {{ font-size:12px; color:var(--ink-faint,#6A6A6A); margin:16px 0 28px; line-height:1.8; }}
+  .source-legend {{ font-size:12px; color:var(--ink-faint,#8E8E8E); margin:16px 0 28px; line-height:1.8; }}
   .column-cta {{ margin-top: 32px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .column-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }}
 </style>

@@ -204,7 +204,7 @@ def build_page(region, sport, events):
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
+<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>
@@ -278,12 +278,12 @@ def build_index(pages):
 <main class="landing-wrap">
 <h1>지역별 대회 일정</h1>
 <p>지역과 종목을 선택해서 해당 대회 목록을 바로 확인하세요.</p>
-<a href="distances.html" style="display:inline-block;margin-top:6px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #6A6A6A);">거리별로 찾아보기 →</a>
+<a href="distances.html" style="display:inline-block;margin-top:6px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
 {body}
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
+<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
 </div>
 </footer>
 </body>

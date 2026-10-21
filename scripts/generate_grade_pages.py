@@ -412,7 +412,7 @@ def build_table(dist, gender):
 def build_page(dist, gender):
     dk, gk = dist["key"], gender["key"]
     slug = slug_for(dk, gk)
-    title = f"{dist['search']} 기록 등급표 ({gender['label']}·나이별) — 내 러닝 수준 확인 | calrank"
+    title = f"{dist['search']} 기록 등급표 ({gender['label']}·나이별) — 내 러닝 수준 확인 | 칼랭크 CALRANK"
     # 본문 ref_line 과 같은 40세 경계를 쓴다. 소개와 페이지가 어긋나면 안 된다.
     ref40 = fmt_time(boundary_seconds(45, 40, gk, dist["km"]))
     desc = (
@@ -435,12 +435,12 @@ def build_page(dist, gender):
         "@context": "https://schema.org", "@type": "WebPage",
         "name": title, "description": desc, "url": f"{BASE}/{slug}",
         "inLanguage": "ko-KR",
-        "isPartOf": {"@type": "WebSite", "name": "calrank", "url": f"{BASE}/"},
+        "isPartOf": {"@type": "WebSite", "name": "칼랭크(CALRANK)", "url": f"{BASE}/"},
     }, ensure_ascii=False)
     crumb_ld = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "calrank", "item": f"{BASE}/index.html"},
+            {"@type": "ListItem", "position": 1, "name": "칼랭크(CALRANK)", "item": f"{BASE}/index.html"},
             {"@type": "ListItem", "position": 2, "name": "기록 등급표", "item": f"{BASE}/grade.html"},
             {"@type": "ListItem", "position": 3, "name": h1},
         ],
@@ -511,7 +511,7 @@ def build_method_page():
     보여 줄 계산 과정이 없기 때문이다. 그 자리가 비어 있어서 우리가 선다.
     """
     slug = "grade-method.html"
-    title = "calrank 등급은 어떻게 매기나 — 기준표와 계산식 전부 공개 | calrank"
+    title = "칼랭크(CALRANK) 등급은 어떻게 매기나 — 기준표와 계산식 전부 공개 | 칼랭크 CALRANK"
     desc = ("나이·성별 기준은 세계마스터즈육상연맹(WMA) 2025년 표를 그대로 씁니다. "
             "연령등급 % 계산식과 출처, 일곱 구간을 나눈 자리까지 전부 적어 두었어요. "
             "같은 숫자를 직접 따라 해 보실 수 있습니다.")
@@ -542,7 +542,7 @@ def build_method_page():
     crumb_ld = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "calrank", "item": f"{BASE}/index.html"},
+            {"@type": "ListItem", "position": 1, "name": "칼랭크(CALRANK)", "item": f"{BASE}/index.html"},
             {"@type": "ListItem", "position": 2, "name": "기록 등급표", "item": f"{BASE}/grade.html"},
             {"@type": "ListItem", "position": 3, "name": "등급 기준과 근거"},
         ],
@@ -550,11 +550,11 @@ def build_method_page():
 
     body = f"""
 <main class="gr-wrap">
-<h1 class="gr-title">calrank 등급은 어떻게 매기나</h1>
+<h1 class="gr-title">칼랭크(CALRANK) 등급은 어떻게 매기나</h1>
 <figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">러닝 등급표는 많은데, 그 숫자가 어디서 나왔는지 확인할 수 있는 곳은 드뭅니다.
 체감이나 커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문이에요.
-calrank가 쓰는 기준표와 계산식, 구간을 나눈 자리까지 여기 전부 적어 두었습니다.
+칼랭크가 쓰는 기준표와 계산식, 구간을 나눈 자리까지 여기 전부 적어 두었습니다.
 읽고 나면 같은 숫자를 직접 따라 해 보실 수 있습니다.</p>
 
 <h2>한 줄로 말하면</h2>
@@ -562,7 +562,7 @@ calrank가 쓰는 기준표와 계산식, 구간을 나눈 자리까지 여기 �
 100%면 세계기록 수준이에요. 등급 이름은 이 숫자를 읽기 쉽게 일곱 칸으로 나눈 것뿐입니다.</p>
 
 <h2>나이·성별 기준 — WMA 2025 연령 기준표</h2>
-<p>calrank가 쓰는 기준표는 저희가 만든 것이 아닙니다. <b>세계마스터즈육상연맹(World Masters
+<p>칼랭크가 쓰는 기준표는 저희가 만든 것이 아닙니다. <b>세계마스터즈육상연맹(World Masters
 Athletics)</b> 의 연령 기준표로, 전 세계 마스터즈 대회가 연령대별 성적을 매길 때 쓰는 바로 그
 표입니다. 2025년판은 2025년 1월 10일 <b>미국육상연맹(USATF) 마스터즈 장거리위원회</b> 의 승인을
 거쳤고, 나이 한 살 단위(10~100세)로 남녀 각각의 기준기록이 거리별로 적혀 있습니다.</p>
@@ -681,7 +681,7 @@ calrank는 지어낸 숫자를 쓰지 않으려고 논문에 적힌 값을 그�
 
 def build_hub():
     slug = "grade.html"
-    title = "러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | calrank"
+    title = "러닝 기록 등급표 — 거리별·나이별·성별 전체 정리 | 칼랭크 CALRANK"
     # 같은 등급이라도 나이·성별에 따라 기록이 달라진다는 점을 숫자로 먼저 보인다.
     hub_m = fmt_time(boundary_seconds(45, 40, "male", 10.0))
     hub_f = fmt_time(boundary_seconds(45, 65, "female", 10.0))
@@ -729,7 +729,7 @@ def build_hub():
     crumb_ld = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "calrank", "item": f"{BASE}/index.html"},
+            {"@type": "ListItem", "position": 1, "name": "칼랭크(CALRANK)", "item": f"{BASE}/index.html"},
             {"@type": "ListItem", "position": 2, "name": "기록 등급표"},
         ],
     }, ensure_ascii=False)
@@ -739,7 +739,7 @@ def build_hub():
 <h1 class="gr-title">러닝 기록 등급표</h1>
 <figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">같은 1시간이라도 25세 남성이 뛴 10km와 62세 여성이 뛴 10km는 전혀 다른 의미를 가집니다.
-그래서 절대 기록만 늘어놓은 표는 실제로 내 수준을 알려 주지 못합니다. calrank의 등급표는 나이와 성별 차이를
+그래서 절대 기록만 늘어놓은 표는 실제로 내 수준을 알려 주지 못합니다. 칼랭크(CALRANK)의 등급표는 나이와 성별 차이를
 먼저 보정한 뒤 같은 조건의 동호인 사이에서 내 기록이 어디쯤인지 보여 줍니다. 거리와 성별을 고르면
 20대부터 75세까지 연령별 기준 기록이 표로 나옵니다.</p>
 
@@ -843,7 +843,7 @@ def build_age_page(dist, decade):
     slug = age_slug_for(dk, decade)
     ages = decade_ages(decade)
     rname = run_name(dist)
-    title = f"{decade}대 {rname} 기록 — 남녀 나이별 등급표 | calrank"
+    title = f"{decade}대 {rname} 기록 — 남녀 나이별 등급표 | 칼랭크 CALRANK"
     h1 = f"{decade}대 {rname} 기록 등급표 — 남녀 한 살 단위"
 
     # 본문과 소개에 쓸 실제 수치. 연령대 가운데 나이의 '꾸준한 러너' 경계.
@@ -887,12 +887,12 @@ def build_age_page(dist, decade):
     page_ld = json.dumps({
         "@context": "https://schema.org", "@type": "WebPage",
         "name": title, "description": desc, "url": f"{BASE}/{slug}", "inLanguage": "ko-KR",
-        "isPartOf": {"@type": "WebSite", "name": "calrank", "url": f"{BASE}/"},
+        "isPartOf": {"@type": "WebSite", "name": "칼랭크(CALRANK)", "url": f"{BASE}/"},
     }, ensure_ascii=False)
     crumb_ld = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "calrank", "item": f"{BASE}/index.html"},
+            {"@type": "ListItem", "position": 1, "name": "칼랭크(CALRANK)", "item": f"{BASE}/index.html"},
             {"@type": "ListItem", "position": 2, "name": "기록 등급표", "item": f"{BASE}/grade.html"},
             {"@type": "ListItem", "position": 3, "name": h1},
         ],

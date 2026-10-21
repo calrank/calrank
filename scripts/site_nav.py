@@ -53,6 +53,17 @@ ACTIVE_BY_PREFIX = [
 ]
 
 
+# 로고 — A 자리가 시상대다. 계단 모양 실루엣이라 13px 에서도 형태가 남고,
+# 맨 윗단(1등 자리)만 주황으로 둔다. 글자는 그대로 "CALRANK" 라 검색에도 걸린다.
+WORDMARK = (
+    '<a href="index.html" class="wordmark" aria-label="CALRANK">C'
+    '<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false">'
+    '<path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 '
+    'L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/>'
+    '<rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/>'
+    '</svg>LRANK</a>'
+)
+
 def active_for(filename: str) -> str:
     """파일 이름으로 어느 메뉴를 켤지 고른다. 못 찾으면 아무것도 켜지 않는다."""
     name = str(filename or "").rsplit("/", 1)[-1]
@@ -79,6 +90,6 @@ def site_header(active: str = "") -> str:
     """헤더 전체."""
     return ('<header class="site-header">\n'
             '<div class="wrap header-inner">\n'
-            '<a href="index.html" class="wordmark">CALRANK</a>\n'
+            + WORDMARK + "\n"
             + nav_html(active) + "\n"
             "</div>\n</header>")

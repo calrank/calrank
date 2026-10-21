@@ -158,7 +158,7 @@ PAGE = """<!DOCTYPE html>
 {jsonld}
 <style>
   .column-wrap {{ max-width: 720px; margin: 0 auto; padding: 44px 20px 80px; }}
-  .column-meta {{ font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }}
+  .column-meta {{ font-size: 13px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(25px, 4vw, 36px); line-height: 1.32; margin-bottom: 20px; }}
   .column-body {{ font-size: 16px; line-height: 1.95; color: #E8E4E1; }}
   .column-body h2 {{ font-size: 21px; margin: 44px 0 14px; color: #fff; line-height: 1.4; }}
@@ -238,7 +238,7 @@ PAGE = """<!DOCTYPE html>
 
 <footer class="site-footer">
 <div class="wrap">
-<p>calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼은 공개된 학술 문헌을 바탕으로 작성했으며 의학적 조언이 아닙니다.</p>
+<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼은 공개된 학술 문헌을 바탕으로 작성했으며 의학적 조언이 아닙니다.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>

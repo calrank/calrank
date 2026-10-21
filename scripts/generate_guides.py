@@ -289,7 +289,7 @@ def head(title, desc, keywords, canonical, ld_blocks, robots=None):
 <meta name="keywords" content="{h(kw)}">
 <meta name="author" content="calrank">{robots_tag}
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="calrank">
+<meta property="og:site_name" content="칼랭크(CALRANK)">
 <meta property="og:title" content="{h(title)}">
 <meta property="og:description" content="{h(desc)}">
 <meta property="og:image" content="{BASE}/og-image.png">

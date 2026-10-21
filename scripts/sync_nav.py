@@ -12,10 +12,17 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_nav import active_for, nav_html  # noqa: E402
+from site_nav import WORDMARK, active_for, nav_html  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 NAV_RE = re.compile(r'<nav class="main-nav">.*?</nav>', re.S)
+# 로고도 같이 맞춘다. 손으로 만든 페이지에 옛 글자 로고가 남으면 머리줄만 다른 사이트가 된다.
+MARK_RE = re.compile(r'<a href="index\.html" class="wordmark"[^>]*>.*?</a>', re.S)
+
+# 꼬리말 한 줄은 모든 페이지에 깔린다. 이름을 한글로도 적어 둬야 사람들이
+# "칼랭크"로 기억하고 그렇게 검색도 한다. 영문만 쓰면 읽는 법이 안 남는다.
+BRAND_OLD = "calrank는 대회 주최측이"
+BRAND_NEW = "칼랭크(CALRANK)는 대회 주최측이"
 
 # 목차가 없는 게 맞는 페이지들
 SKIP = {"widget.html", "greeting.html"}
@@ -31,6 +38,8 @@ def sync(path: Path) -> bool:
     active = "calendar" if path.parent.name == "e" else active_for(path.name)
     want = nav_html(active)
     new = NAV_RE.sub(lambda _m: want, html, count=1)
+    new = MARK_RE.sub(lambda _m: WORDMARK, new, count=1)
+    new = new.replace(BRAND_OLD, BRAND_NEW)
     if new == html:
         return False
     path.write_text(new, encoding="utf-8")
@@ -45,7 +54,7 @@ def main() -> None:
     for path in sorted((ROOT / "e").glob("*.html")):
         if sync(path):
             changed.append("e/" + path.name)
-    print(f"[nav] 목차를 맞춘 페이지 {len(changed)}개")
+    print(f"[nav] 목차·로고를 맞춘 페이지 {len(changed)}개")
     if changed:
         head = [c for c in changed if not c.startswith("e/")]
         print("      " + ", ".join(head[:10]) + (" …" if len(head) > 10 else ""))
