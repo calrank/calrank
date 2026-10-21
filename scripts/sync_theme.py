@@ -135,6 +135,18 @@ SITE_NAME_NEW = 'og:site_name" content="\uce7c\ub7ad\ud06c(CALRANK)"'
 FONT_OLD = "css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
 FONT_NEW = "css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap"
 
+# 방문 측정. Vercel Web Analytics 는 쿠키를 쓰지 않고 개인을 식별하지 않아
+# 동의 배너 없이 쓸 수 있다. 스크립트는 배포본이 알아서 내주므로 키가 필요 없다.
+# 붙이는 자리는 </head> 바로 앞. defer 라 그리는 일을 막지 않는다.
+ANALYTICS = '<script defer src="/_vercel/insights/script.js"></script>'
+
+
+def _with_analytics(html: str) -> str:
+    if "_vercel/insights" in html or "</head>" not in html:
+        return html
+    return html.replace("</head>", ANALYTICS + "\n</head>", 1)
+
+
 # 주소창 색. 한 줄짜리 고정값이면 바탕 두 벌에 맞춰 두 줄로 바꾼다.
 TC_OLD = re.compile(r'[ \t]*<meta name="theme-color" content="#0B0B0B"\s*/?>\n?', re.I)
 TC_NEW = ('<meta name="theme-color" content="#F5F2EF" media="(prefers-color-scheme: light)">\n'
@@ -148,6 +160,7 @@ def do_html(path: Path) -> bool:
     new = TC_OLD.sub(TC_NEW, new, count=1)
     new = new.replace(FONT_OLD, FONT_NEW)
     new = new.replace(SITE_NAME_OLD, SITE_NAME_NEW)
+    new = _with_analytics(new)
     if new == h:
         return False
     path.write_text(new, encoding="utf-8")
