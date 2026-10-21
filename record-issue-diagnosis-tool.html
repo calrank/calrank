@@ -13,7 +13,7 @@
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
@@ -21,43 +21,43 @@
 <link rel="stylesheet" href="style.css">
 <style>
   .column-wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 90px; }
-  .column-meta { font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; letter-spacing: 0.02em; }
+  .column-meta { font-size: 13px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 12px; letter-spacing: 0.02em; }
   .column-title { font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.32; margin-bottom: 12px; }
-  .tool-sub { font-size: 15px; color: #B8B0AC; margin-bottom: 32px; line-height: 1.6; }
-  .source-box { background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 14px 18px; margin: 0 0 32px; font-size: 12px; line-height: 1.7; color: #B8B0AC; }
+  .tool-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 32px; line-height: 1.6; }
+  .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 14px 18px; margin: 0 0 32px; font-size: 12px; line-height: 1.7; color: var(--ink-soft); }
 
   .situation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
   @media (max-width: 520px) { .situation-grid { grid-template-columns: 1fr; } }
 
-  .situation-card { position: relative; text-align: left; background: var(--surface, #141414); border: 1.5px solid var(--border, #2A2A2A); border-radius: 14px; padding: 20px 18px; cursor: pointer; transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease; }
+  .situation-card { position: relative; text-align: left; background: var(--surface, var(--surface)); border: 1.5px solid var(--border, var(--border)); border-radius: 14px; padding: 20px 18px; cursor: pointer; transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease; }
   .situation-card:hover { border-color: rgba(255,107,74,0.5); transform: translateY(-2px); }
   .situation-card.active { border-color: var(--accent); background: linear-gradient(160deg, rgba(255,107,74,0.10), rgba(255,107,74,0.02)); }
   .situation-icon { font-size: 26px; margin-bottom: 10px; display: block; }
-  .situation-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-  .situation-desc { font-size: 12.5px; color: var(--ink-faint, #6A6A6A); line-height: 1.5; }
+  .situation-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .situation-desc { font-size: 12.5px; color: var(--ink-faint, var(--ink-faint)); line-height: 1.5; }
 
-  .diagnosis-panel { margin-top: 24px; padding: 26px 24px; background: var(--surface, #141414); border: 1px solid var(--accent); border-radius: 14px; display: none; animation: fadeIn 0.35s ease; }
+  .diagnosis-panel { margin-top: 24px; padding: 26px 24px; background: var(--surface, var(--surface)); border: 1px solid var(--accent); border-radius: 14px; display: none; animation: fadeIn 0.35s ease; }
   .diagnosis-panel.show { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  .diagnosis-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .diagnosis-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--tint-2); }
   .diagnosis-head-icon { font-size: 24px; }
-  .diagnosis-head-title { font-size: 17px; font-weight: 700; color: #fff; }
+  .diagnosis-head-title { font-size: 17px; font-weight: 700; color: var(--ink); }
 
   .step-list { counter-reset: step; }
   .step-item { position: relative; padding: 4px 0 20px 34px; }
   .step-item:last-child { padding-bottom: 4px; }
-  .step-item::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-  .step-item::after { content: ""; position: absolute; left: 11px; top: 28px; bottom: 0; width: 1px; background: rgba(255,255,255,0.1); }
+  .step-item::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .step-item::after { content: ""; position: absolute; left: 11px; top: 28px; bottom: 0; width: 1px; background: var(--tint-3); }
   .step-item:last-child::after { display: none; }
-  .step-title { font-size: 14.5px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-  .step-desc { font-size: 13.5px; color: #B8B0AC; line-height: 1.7; }
+  .step-title { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .step-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
 
-  .sport-note { margin-top: 18px; padding: 12px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 12.5px; color: var(--ink-faint, #6A6A6A); line-height: 1.6; }
-  .diagnosis-source { margin-top: 16px; font-size: 11.5px; color: var(--ink-faint, #6A6A6A); }
+  .sport-note { margin-top: 18px; padding: 12px 14px; background: var(--tint-1); border-radius: 8px; font-size: 12.5px; color: var(--ink-faint, var(--ink-faint)); line-height: 1.6; }
+  .diagnosis-source { margin-top: 16px; font-size: 11.5px; color: var(--ink-faint, var(--ink-faint)); }
 
-  .reset-link { display: inline-block; margin-top: 14px; font-size: 12.5px; color: var(--ink-soft, #B8B0AC); text-decoration: none; border-bottom: 1px dashed var(--ink-faint, #6A6A6A); cursor: pointer; }
-  .column-cta { margin-top: 36px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }
-  .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
+  .reset-link { display: inline-block; margin-top: 14px; font-size: 12.5px; color: var(--ink-soft, var(--ink-soft)); text-decoration: none; border-bottom: 1px dashed var(--ink-faint, var(--ink-faint)); cursor: pointer; }
+  .column-cta { margin-top: 36px; padding: 22px; background: var(--surface, var(--surface)); border-radius: 10px; text-align: center; }
+  .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
 </style>
 </head>
 <body>

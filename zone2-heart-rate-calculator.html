@@ -13,7 +13,7 @@
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
@@ -21,43 +21,43 @@
 <link rel="stylesheet" href="style.css">
 <style>
   .zw { max-width: 720px; margin: 0 auto; padding: 48px 20px 90px; }
-  .zmeta { font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }
+  .zmeta { font-size: 13px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 12px; }
   .ztitle { font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 3.6vw, 32px); line-height: 1.35; margin-bottom: 14px; }
-  .zsub { font-size: 15px; color: #B8B0AC; line-height: 1.7; margin-bottom: 18px; }
+  .zsub { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 18px; }
   .ztags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
-  .ztags a { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }
-  .ztags a:hover { border-color: var(--accent); color: #fff; }
-  .zsource { background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 14px 18px; margin: 0 0 28px; font-size: 12.5px; line-height: 1.8; color: #B8B0AC; }
+  .ztags a { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink-soft); text-decoration: none; }
+  .ztags a:hover { border-color: var(--accent); color: var(--ink); }
+  .zsource { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 14px 18px; margin: 0 0 28px; font-size: 12.5px; line-height: 1.8; color: var(--ink-soft); }
 
-  .zcalc-box { background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 14px; padding: 24px; margin-bottom: 32px; }
-  .zcalc-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 16px; }
+  .zcalc-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 14px; padding: 24px; margin-bottom: 32px; }
+  .zcalc-title { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 16px; }
   .zfield { margin-bottom: 14px; }
-  .zfield label { display: block; font-size: 13px; color: #B8B0AC; margin-bottom: 6px; }
-  .zfield input { width: 100%; box-sizing: border-box; background: var(--bg, #0d0d0d); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 11px 12px; color: #fff; font-size: 15px; }
-  .zfield-hint { font-size: 11.5px; color: var(--ink-faint, #6A6A6A); margin-top: 4px; }
-  .zcalc-btn { width: 100%; background: var(--accent); color: #fff; font-weight: 800; padding: 13px; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin-top: 6px; }
+  .zfield label { display: block; font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; }
+  .zfield input { width: 100%; box-sizing: border-box; background: var(--bg, var(--bg)); border: 1px solid var(--border, var(--border)); border-radius: 8px; padding: 11px 12px; color: var(--ink); font-size: 15px; }
+  .zfield-hint { font-size: 11.5px; color: var(--ink-faint, var(--ink-faint)); margin-top: 4px; }
+  .zcalc-btn { width: 100%; background: var(--accent); color: var(--on-accent); font-weight: 800; padding: 13px; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin-top: 6px; }
 
   .zresult { display: none; margin-top: 26px; }
   .zresult.show { display: block; animation: zfade 0.35s ease; }
   @keyframes zfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .zmaxhr { text-align: center; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 10px; margin-bottom: 16px; }
-  .zmaxhr-label { font-size: 12.5px; color: var(--ink-faint, #6A6A6A); margin-bottom: 4px; }
-  .zmaxhr-value { font-size: 32px; font-weight: 900; color: #fff; }
+  .zmaxhr { text-align: center; padding: 16px; background: var(--tint-1); border-radius: 10px; margin-bottom: 16px; }
+  .zmaxhr-label { font-size: 12.5px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 4px; }
+  .zmaxhr-value { font-size: 32px; font-weight: 900; color: var(--ink); }
 
-  .zone-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; background: rgba(255,255,255,0.02); border: 1px solid var(--border, #2A2A2A); }
+  .zone-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; background: var(--tint-1); border: 1px solid var(--border, var(--border)); }
   .zone-row.zone2-highlight { background: linear-gradient(120deg, rgba(255,61,26,0.14), rgba(255,61,26,0.02)); border: 1.5px solid var(--accent); padding: 16px 14px; }
-  .zone-badge { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; color: #fff; }
+  .zone-badge { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; color: var(--ink); }
   .zone-info { flex: 1; }
-  .zone-name { font-size: 13.5px; font-weight: 700; color: #fff; }
-  .zone-desc { font-size: 11.5px; color: var(--ink-faint, #6A6A6A); }
-  .zone-bpm { font-size: 15px; font-weight: 800; color: #fff; white-space: nowrap; }
-  .zone2-highlight .zone-bpm { color: var(--accent); font-size: 18px; }
+  .zone-name { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .zone-desc { font-size: 11.5px; color: var(--ink-faint, var(--ink-faint)); }
+  .zone-bpm { font-size: 15px; font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .zone2-highlight .zone-bpm { color:var(--accent-ink); font-size: 18px; }
 
-  .zw h2 { font-size: 19px; font-weight: 800; color: #fff; margin: 36px 0 12px; }
-  .zw p.zbody { font-size: 15.5px; line-height: 1.85; color: #E8E4E1; margin-bottom: 14px; }
-  .zcheck-box { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 16px 18px; margin: 16px 0; font-size: 14px; line-height: 1.8; color: #B8B0AC; }
-  .zcta { margin-top: 32px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }
-  .zcta a { display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
+  .zw h2 { font-size: 19px; font-weight: 800; color: var(--ink); margin: 36px 0 12px; }
+  .zw p.zbody { font-size: 15.5px; line-height: 1.85; color: var(--ink); margin-bottom: 14px; }
+  .zcheck-box { background: var(--tint-1); border-radius: 10px; padding: 16px 18px; margin: 16px 0; font-size: 14px; line-height: 1.8; color: var(--ink-soft); }
+  .zcta { margin-top: 32px; padding: 22px; background: var(--surface, var(--surface)); border-radius: 10px; text-align: center; }
+  .zcta a { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
 </style>
 </head>
 <body>

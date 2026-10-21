@@ -20,25 +20,25 @@
 <link rel="stylesheet" href="style.css">
 <style>
   .column-wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
-  .column-meta { font-size: 13px; color: var(--ink-faint, #6A6A6A); margin-bottom: 12px; }
+  .column-meta { font-size: 13px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 12px; }
   .column-title { font-family: var(--font-display); font-size: clamp(24px, 3.8vw, 36px); line-height: 1.3; margin-bottom: 20px; }
-  .column-body { font-size: 16px; line-height: 1.9; color: #E8E4E1; }
-  .column-body h2 { font-size: 20px; margin: 36px 0 12px; color: #fff; }
-  .column-body h3 { font-size: 16px; margin: 24px 0 8px; color: #fff; }
+  .column-body { font-size: 16px; line-height: 1.9; color: var(--ink); }
+  .column-body h2 { font-size: 20px; margin: 36px 0 12px; color: var(--ink); }
+  .column-body h3 { font-size: 16px; margin: 24px 0 8px; color: var(--ink); }
   .column-body p { margin-bottom: 16px; }
   .column-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
-  .column-tag { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }
-  .column-tag:hover { border-color: var(--accent); color: #fff; }
-  .source-box { background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 18px 20px; margin: 20px 0 28px; font-size: 13px; line-height: 1.8; color: #B8B0AC; }
-  .source-box strong { color: #fff; }
+  .column-tag { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink-soft); text-decoration: none; }
+  .column-tag:hover { border-color: var(--accent); color: var(--ink); }
+  .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 18px 20px; margin: 20px 0 28px; font-size: 13px; line-height: 1.8; color: var(--ink-soft); }
+  .source-box strong { color: var(--ink); }
   .tier-data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0 28px; }
-  .tier-data-table th, .tier-data-table td { padding: 8px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .tier-data-table th { color: #fff; font-weight: 700; background: rgba(255,255,255,0.03); }
-  .tier-data-table td:first-child, .tier-data-table th:first-child { text-align: left; color: #fff; font-weight: 600; }
-  .tier-data-table .tc-elite { color: #c9a6ff; font-weight: 700; }
+  .tier-data-table th, .tier-data-table td { padding: 8px 6px; text-align: center; border-bottom: 1px solid var(--tint-2); }
+  .tier-data-table th { color: var(--ink); font-weight: 700; background: var(--tint-1); }
+  .tier-data-table td:first-child, .tier-data-table th:first-child { text-align: left; color: var(--ink); font-weight: 600; }
+  .tier-data-table .tc-elite { color: var(--elite-line); font-weight: 700; }
   .table-scroll { overflow-x: auto; }
-  .column-cta { margin-top: 32px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }
-  .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
+  .column-cta { margin-top: 32px; padding: 22px; background: var(--surface, var(--surface)); border-radius: 10px; text-align: center; }
+  .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
 </style>
 </head>
 <body>

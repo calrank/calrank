@@ -7,13 +7,14 @@
 <meta name="description" content="5km, 10km, 하프, 풀코스, 울트라 등 거리별 동호인 스포츠 대회 일정을 한눈에 확인하세요.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#0B0B0B">
+<meta name="theme-color" content="#F5F2EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://calrank.vercel.app/distances.html">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "거리별 대회 일정", "url": "https://calrank.vercel.app/distances.html"}</script>
@@ -21,8 +22,8 @@
   .landing-wrap { max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }
   .landing-wrap h2 { margin-top: 32px; font-size: 18px; }
   .landing-index-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .landing-index-item { font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #E8E4E1; text-decoration: none; }
-  .landing-index-item span { color: var(--accent); margin-left: 4px; }
+  .landing-index-item { font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink); text-decoration: none; }
+  .landing-index-item span { color:var(--accent-ink); margin-left: 4px; }
   .landing-index-item:hover { border-color: var(--accent); }
   .cross-link { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--ink-soft); text-decoration: none; border-bottom: 1px dashed var(--ink-faint); }
 </style>

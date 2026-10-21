@@ -8,15 +8,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0B0B0B;
+    --bg: var(--bg);
     --panel: #141110;
     --accent: #FF3D1A;
-    --ink-soft: #B8B0AC;
+    --ink-soft: var(--ink-soft);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     background: var(--bg);
-    color: #fff;
+    color: var(--ink);
     font-family: 'Noto Sans KR', sans-serif;
     overflow-x: hidden;
   }
@@ -62,7 +62,7 @@
     position: absolute;
     inset: 0;
     clip-path: polygon(0 0, 62% 0, 38% 100%, 0 100%);
-    background: linear-gradient(160deg, #0B0B0B 0%, #161311 100%);
+    background: linear-gradient(160deg, var(--bg) 0%, var(--surface) 100%);
   }
 
   .content {
@@ -80,7 +80,7 @@
     font-family: 'Black Han Sans', sans-serif;
     font-size: clamp(28px, 3.4vw, 40px);
     letter-spacing: 1px;
-    color: var(--accent);
+    color:var(--accent-ink);
     margin-bottom: 28px;
   }
 
@@ -88,9 +88,9 @@
     font-family: 'Black Han Sans', sans-serif;
     font-size: clamp(40px, 6.2vw, 76px);
     line-height: 1.08;
-    color: #fff;
+    color: var(--ink);
   }
-  .headline .em { color: var(--accent); }
+  .headline .em { color:var(--accent-ink); }
 
   .sub {
     margin-top: 22px;
@@ -109,9 +109,9 @@
   .sport-chip {
     font-size: 13px;
     padding: 7px 16px;
-    border: 1px solid rgba(255,255,255,0.18);
+    border: 1px solid var(--tint-3);
     border-radius: 999px;
-    color: #E8E4E1;
+    color: var(--ink);
   }
 
   .cta {
@@ -121,7 +121,7 @@
     gap: 10px;
     width: fit-content;
     background: var(--accent);
-    color: #fff;
+    color: var(--on-accent);
     font-weight: 700;
     font-size: 16px;
     padding: 16px 30px;
@@ -140,7 +140,7 @@
   .progress-dots span {
     width: 26px;
     height: 3px;
-    background: rgba(255,255,255,0.22);
+    background: var(--tint-3);
     overflow: hidden;
     position: relative;
   }

@@ -13,13 +13,14 @@
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#0B0B0B">
+<meta name="theme-color" content="#F5F2EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -27,11 +28,11 @@
 <link rel="stylesheet" href="style.css">
 <style>
   .column-list-wrap { max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }
-  .column-card { display: block; padding: 24px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; margin-bottom: 16px; text-decoration: none; transition: border-color 0.15s ease; }
+  .column-card { display: block; padding: 24px; background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; margin-bottom: 16px; text-decoration: none; transition: border-color 0.15s ease; }
   .column-card:hover { border-color: var(--accent); }
-  .column-card-meta { font-size: 12px; color: var(--ink-faint, #6A6A6A); margin-bottom: 8px; }
-  .column-card-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-  .column-card-desc { font-size: 14px; color: #B8B0AC; line-height: 1.6; }
+  .column-card-meta { font-size: 12px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 8px; }
+  .column-card-title { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .column-card-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -352,10 +353,10 @@
 
 <style>
 .column-toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 4px;}
-.column-toc a{font-size:13px;padding:7px 16px;border:1px solid var(--border,#2A2A2A);border-radius:999px;color:var(--ink-soft,#B8B0AC);text-decoration:none;font-weight:600;}
-.column-toc a:hover{border-color:var(--accent);color:#fff;}
-.column-section-title{font-size:18px;font-weight:800;color:#fff;margin:40px 0 14px;padding-top:8px;scroll-margin-top:90px;display:flex;align-items:center;gap:8px;}
-.column-section-count{font-size:12px;font-weight:600;color:var(--ink-faint,#6A6A6A);background:rgba(255,255,255,0.06);padding:2px 9px;border-radius:999px;}
+.column-toc a{font-size:13px;padding:7px 16px;border:1px solid var(--border,var(--border));border-radius:999px;color:var(--ink-soft,var(--ink-soft));text-decoration:none;font-weight:600;}
+.column-toc a:hover{border-color:var(--accent);color:var(--ink);}
+.column-section-title{font-size:18px;font-weight:800;color:var(--ink);margin:40px 0 14px;padding-top:8px;scroll-margin-top:90px;display:flex;align-items:center;gap:8px;}
+.column-section-count{font-size:12px;font-weight:600;color:var(--ink-faint,var(--ink-faint));background:var(--tint-2);padding:2px 9px;border-radius:999px;}
 </style>
 <script>
 (function() {
