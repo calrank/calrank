@@ -4096,6 +4096,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C5%ED%9A%8C-%EB%B0%A4%EC%84%AC-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-13.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -4107,6 +4112,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/e/rr-2026-%EC%8B%9C%EC%A6%8C%EB%A7%88%EA%B0%90%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-12-13.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
