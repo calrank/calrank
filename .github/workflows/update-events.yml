@@ -66,6 +66,11 @@ jobs:
         # 따로 적어 두어 114개 페이지에 8종류가 돌아다녔다.
         run: python scripts/sync_nav.py
 
+      - name: Sync theme tokens
+        # 페이지 <style> 안에 박힌 색을 style.css 토큰으로 바꾼다. 밝은 바탕/어두운
+        # 바탕 두 벌이 한 곳에서만 정해지도록 하려는 것. 이미 토큰이면 건너뛴다.
+        run: python scripts/sync_theme.py
+
       - name: Sync favicon declarations
         run: python scripts/sync_icons.py
 

@@ -31,6 +31,11 @@ jobs:
       - name: Sync navigation
         run: python scripts/sync_nav.py
 
+      - name: Sync theme tokens
+        # 페이지 <style> 안에 박힌 색을 style.css 토큰으로 바꾼다. 밝은 바탕/어두운
+        # 바탕 두 벌이 한 곳에서만 정해지도록 하려는 것. 이미 토큰이면 건너뛴다.
+        run: python scripts/sync_theme.py
+
       - name: Sync favicon declarations
         run: python scripts/sync_icons.py
 
@@ -40,20 +45,4 @@ jobs:
           git config user.email "bot@calrank.local"
           git add column-running-*.html column.html sitemap.xml scripts/science_column_state.json
           git add -u
-          git diff --quiet --cached && echo "변경 없음" && exit 0
-          # 바뀐 파일 목록을 남겨 IndexNow 단계가 읽게 한다.
-          # checkout 이 커밋 1개만 받아와서 git diff HEAD~1 은 쓸 수 없다.
-          git diff --name-only --cached > "$RUNNER_TEMP/changed_files.txt"
-          git commit -m "chore: publish science column" && git push
-
-      - name: Notify IndexNow
-        # 이 워크플로가 방금 바꾼 페이지를 네이버·Bing 에 알린다.
-        # 그동안 update-events.yml 만 알리고 있었다. 여기서 만드는
-        # 등급표·칼럼·랜딩 페이지는 사이트맵에만 올라가고 아무에게도
-        # 알리지 않아, 색인이 늦거나 아예 안 되는 채로 남아 있었다.
-        # 구글은 IndexNow 를 지원하지 않으므로 구글 쪽은 사이트맵에 기댄다.
-        # 실패해도 생성 결과를 버리지 않도록 continue-on-error 로 둔다.
-        continue-on-error: true
-        env:
-          CHANGED_FILES: ${{ runner.temp }}/changed_files.txt
-        run: python scripts/ping_indexnow.py
+          git diff --quiet --cached || (git commit -m "chore: publish science column" && git push)
