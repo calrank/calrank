@@ -125,6 +125,11 @@ function renderResult(result, inputs) {
           : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다 —
              운이 아니라 실력입니다`}
       </p>
+      <div class="lv-share-now">
+        <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
+        <p class="lv-share-hint">카드를 먼저 보여 드립니다. 보고 나서 저장하거나 공유하세요.
+        가입은 필요 없고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
+      </div>
       ${giveMini(inputs)}`;
     })()}
 
@@ -279,8 +284,6 @@ function renderResult(result, inputs) {
     <p class="level-tier-table-title">등급 사다리 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
     ${tierLadder(inputs.distanceKm, inputs.age, inputs.gender, tier.label)}
     <p class="lv-ladder-note">적힌 시간은 그 등급을 받는 가장 느린 기록입니다.</p>
-    <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
-    <p class="lv-share-hint">카드를 먼저 보여드립니다. 확인하고 저장하거나 공유하세요. 가입하지 않아도 되고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
     ${giveBlock(inputs)}
   `;
   el.style.display = "block";
@@ -1265,9 +1268,10 @@ function drawCard(ctx, d) {
     "공인 기록이 아닌 참고용입니다.",
   ].forEach((line, i) => ctx.fillText(line, R - 150, fY + 52 + i * 24));
 
-  ctx.fillStyle = INK_SOFT;
-  setFont(ctx, 700, 19);
-  ctx.fillText("내 기록도 확인하기", R - 150, fY + 102);
+  // 카드를 받아 본 사람이 들어올 이유. 전에는 흐린 색이라 눈에 안 들어왔다.
+  ctx.fillStyle = INK;
+  setFont(ctx, 900, 21);
+  ctx.fillText("내 기록은 몇 등급일까", R - 150, fY + 100);
   ctx.textAlign = "left";
 
   // QR — 카카오톡에 올린 그림을 보고 바로 들어올 수 있게
