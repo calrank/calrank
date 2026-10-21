@@ -1172,6 +1172,15 @@ function drawCard(ctx, d) {
     ctx.fillStyle = t.current ? "#FFFFFF" : INK_SOFT;
     setFont(ctx, t.current ? 900 : 400, 22);
     ctx.fillText(t.label, chipX + chipW + 14, y + 26);
+
+    // 경계 시간은 오른쪽에. 이름만 있으면 받아 본 사람이 견줄 수가 없다.
+    if (t.cut) {
+      ctx.textAlign = "right";
+      ctx.fillStyle = t.current ? "#FFFFFF" : INK_FAINT;
+      setFont(ctx, t.current ? 900 : 400, 20);
+      ctx.fillText(t.cut, qX + pW - 32, y + 26);
+      ctx.textAlign = "left";
+    }
   });
 
   if (d.next) {
@@ -1278,7 +1287,13 @@ function cardData(result, inputs) {
                                                       : equivTime(finishSec, distanceKm, km, age, gender)),
       current: Math.abs(km - distanceKm) < 0.05,
     })),
-    tiers: slowFirst.map(([, label], i) => ({ label, step: i + 1, current: label === result.tier.label })),
+    // 카드에도 경계 시간을 싣는다. 받아 본 사람이 "나는 어디쯤이지" 하려면
+    // 이름만으로는 알 수 없다. 숫자가 있어야 자기 기록과 견줘 본다.
+    tiers: slowFirst.map(([bound, label], i) => {
+      const std = wmaStd(gender, distanceKm, age);
+      const cut = std && bound > 0 ? fmtClock(Math.round(std / (bound / 100))) : "";
+      return { label, step: i + 1, cut, current: label === result.tier.label };
+    }),
     next,
   };
 }
