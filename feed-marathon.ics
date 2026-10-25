@@ -10,603 +10,18 @@ X-WR-TIMEZONE:Asia/Seoul
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
-UID:rr-2026-서울-펫림픽-런-위드-고-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 서울 펫림픽 & 런 위드 고
-LOCATION:서울 월드컵경기장 평화광장
-DESCRIPTION:종목: 10km\, 5km\, 10km · 5km\n장소: 서울 월드컵경
- 기장 평화광장\n접수 마감: 2026-10-07\n주최: (사)함께하는 
- 사랑밭\n신청: http://runwithgo.com\nhttps://calrank.vercel.app/e/rr-2
- 026-%EC%84%9C%EC%9A%B8-%ED%8E%AB%EB%A6%BC%ED%94%BD-%EB%9F%B0-%EC%9C%84%EB%
- 93%9C-%EA%B3%A0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%84%9C%EC%9A%B8-%ED%8E%AB%EB%A6
- %BC%ED%94%BD-%EB%9F%B0-%EC%9C%84%EB%93%9C-%EA%B3%A0-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 서울 펫림픽 & 런 위드 고 D-7 — 준비물과 교
- 통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 서울 펫림픽 & 런 위드 고 내일입니다 — 배
- 번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-뉴시스-바다마라톤-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 뉴시스 바다마라톤
-LOCATION:영종도 씨사이드파크 하늘구름광
-DESCRIPTION:종목: 하프\, 10km\, 5km\, 하프 · 10km · 5km\n시간: 09
- :00 집결\n장소: 영종도 씨사이드파크 하늘구름광\n접수 
- 마감: 2026-09-18\n주최: 뉴시스\n신청: http://marathon.newsis.com\
- nhttps://calrank.vercel.app/e/rr-2026-%EB%89%B4%EC%8B%9C%EC%8A%A4-%EB%B0%9
- 4%EB%8B%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%89%B4%EC%8B%9C%EC%8A%A4-%EB%B0
- %94%EB%8B%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 뉴시스 바다마라톤 D-7 — 준비물과 교통편
- 을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 뉴시스 바다마라톤 내일입니다 — 배번과 
- 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-무쓰런-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 무쓰런
-LOCATION:무심천체육공원
-DESCRIPTION:종목: 10km\, 5km\, 10km · 5km\n시간: 8시 집결\n장소: 
- 무심천체육공원\n접수 마감: 2026-09-22\n주최: 청주충북환
- 경운동연합\n신청: http://forms.gle/ga7gKHnRJB7pfLFY6\nhttps://calra
- nk.vercel.app/e/rr-2026-%EB%AC%B4%EC%93%B0%EB%9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-2026-%EB%AC%B4%EC%93%B0%EB%9F%B0-2026-1
- 0-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 무쓰런 D-7 — 준비물과 교통편을 확인하세
- 요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 무쓰런 내일입니다 — 배번과 출발 시간을 
- 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-run-music-festival-in-안동-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:RUN&MUSIC FESTIVAL in 안동
-LOCATION:안동시민운동장
-DESCRIPTION:종목: 하프\, 10km\n시간: 08:30 집결\n장소: 안동시
- 민운동장\n접수 마감: 2026-09-19\n주최: SBS\, 런코리아\n신
- 청: http://runmusicfestival.localvibehub.com/\nhttps://calrank.vercel.app
- /e/rr-run-music-festival-in-%EC%95%88%EB%8F%99-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-run-music-festival-in-%EC%95%88%EB%8F%9
- 9-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:RUN&MUSIC FESTIVAL in 안동 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:RUN&MUSIC FESTIVAL in 안동 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-네이버웍스와-함께하는-sejong-run-26-2026-10-24@calrank.ver
- cel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:네이버웍스와 함께하는 SEJONG RUN 26
-LOCATION:세종중앙공원 도시축제마당
-DESCRIPTION:종목: 10km\, 5km\, 10km · 5km\n장소: 세종중앙공원 
- 도시축제마당\n접수 마감: 2026-09-24\n주최: 세종특별자치
- 시육상연맹\n신청: http://sejongrun26.com\nhttps://calrank.vercel.ap
- p/e/rr-%EB%84%A4%EC%9D%B4%EB%B2%84%EC%9B%8D%EC%8A%A4%EC%99%80-%ED%95%A8%EA
- %BB%98%ED%95%98%EB%8A%94-sejong-run-26-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-%EB%84%A4%EC%9D%B4%EB%B2%84%EC%9B%8D%EC
- %8A%A4%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%98%EB%8A%94-sejong-run-26-2026-10
- -24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:네이버웍스와 함께하는 SEJONG RUN 26 D-7 — 준비물
- 과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:네이버웍스와 함께하는 SEJONG RUN 26 내일입니다 
- — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-경기옛길-함께run-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 경기옛길 함께RUN
-LOCATION:도농체육공원
-DESCRIPTION:종목: 10km\, 5km\, 10km · 5km\n시간: 9시 집결\n장소: 
- 도농체육공원\n접수 마감: 2026-08-08\n주최: 경기도\n신청: 
- http://ggcrun.kr/\nhttps://calrank.vercel.app/e/rr-2026-%EA%B2%BD%EA%B8%B0
- %EC%98%9B%EA%B8%B8-%ED%95%A8%EA%BB%98run-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-2026-%EA%B2%BD%EA%B8%B0%EC%98%9B%EA%B8%
- B8-%ED%95%A8%EA%BB%98run-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 경기옛길 함께RUN D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 경기옛길 함께RUN 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-익산-기부런-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 익산 기부런
-LOCATION:익산시종합운동장
-DESCRIPTION:종목: 10km\, 6.4km\, 10km · 6.4km\n시간: 09:00 집결\n장
- 소: 익산시종합운동장\n접수 마감: 2026-08-31\n주최: (사)크
- 레파스\n신청: http://iksangiverun.or.kr\nhttps://calrank.vercel.app/e
- /rr-2026-%EC%9D%B5%EC%82%B0-%EA%B8%B0%EB%B6%80%EB%9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%9D%B5%EC%82%B0-%EA%B8%B0%EB%B6
- %80%EB%9F%B0-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 익산 기부런 D-7 — 준비물과 교통편을 확인
- 하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 익산 기부런 내일입니다 — 배번과 출발 시
- 간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-2026-제3회-감성런-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 제3회 감성런
-LOCATION:신정교하부육상트랙구장
-DESCRIPTION:종목: 10km\, 5km\n시간: 09:00 집결\n장소: 신정교하
- 부육상트랙구장\n접수 마감: 2026-10-08\n주최: (사)대한생
- 활체육마라톤협회\n신청: http://xn--439a68tboh.kr/index.asp\nhttp
- s://calrank.vercel.app/e/rr-2026-%EC%A0%9C3%ED%9A%8C-%EA%B0%90%EC%84%B1%EB
- %9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-2026-%EC%A0%9C3%ED%9A%8C-%EA%B0%90%EC%8
- 4%B1%EB%9F%B0-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 제3회 감성런 D-7 — 준비물과 교통편을 확인
- 하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 제3회 감성런 내일입니다 — 배번과 출발 시
- 간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-2026-하남-어텀-패밀리-마라톤-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 하남 어텀 패밀리 마라톤
-LOCATION:하남 미사 경정 공원
-DESCRIPTION:종목: 10km\, 5km\, 10km · 5km\n시간: 09:00 집결\n장소:
-  하남 미사 경정 공원\n접수 마감: 2026-10-14\n주최: 청운의
- 꿈(주)\n신청: http://hnrun.kr/\nhttps://calrank.vercel.app/e/rm-2026-%
- ED%95%98%EB%82%A8-%EC%96%B4%ED%85%80-%ED%8C%A8%EB%B0%80%EB%A6%AC-%EB%A7%88
- %EB%9D%BC%ED%86%A4-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-2026-%ED%95%98%EB%82%A8-%EC%96%B4%ED%85
- %80-%ED%8C%A8%EB%B0%80%EB%A6%AC-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-24.htm
- l
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 하남 어텀 패밀리 마라톤 D-7 — 준비물과 교
- 통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 하남 어텀 패밀리 마라톤 내일입니다 — 배
- 번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-네이버웍스와-함께하는-세종런-26-2026-10-24@calrank.verc
- el.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:네이버웍스와 함께하는 세종런 26
-LOCATION:세종중앙공원 도시축제마당 일원
-DESCRIPTION:종목: 10km\, 5km\n장소: 세종중앙공원 도시축제마
- 당 일원\n접수 마감: 2026-08-30\n주최: 세종시 육상연맹\n신
- 청: https://sejongrun26.com/\nhttps://calrank.vercel.app/e/rm-%EB%84%A4%E
- C%9D%B4%EB%B2%84%EC%9B%8D%EC%8A%A4%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%98%EB
- %8A%94-%EC%84%B8%EC%A2%85%EB%9F%B0-26-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-%EB%84%A4%EC%9D%B4%EB%B2%84%EC%9B%8D%EC
- %8A%A4%EC%99%80-%ED%95%A8%EA%BB%98%ED%95%98%EB%8A%94-%EC%84%B8%EC%A2%85%EB
- %9F%B0-26-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:네이버웍스와 함께하는 세종런 26 D-7 — 준비물
- 과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:네이버웍스와 함께하는 세종런 26 내일입니다 
- — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-2026-서울-펫림픽-런-위드-고-seoul-petlympic-run-with-go-202
- 6-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 서울 펫림픽 & 런 위드 고 (SEOUL PETLYMPIC & RUN WITH 
- GO)
-LOCATION:서울 월드컵경기장 평화광장
-DESCRIPTION:종목: 10km\, 5km\n시간: 07:00 집결\n장소: 서울 월드
- 컵경기장 평화광장\n접수 마감: 2026-10-07\n주최: (사)함께
- 하는 사랑밭\n신청: http://runwithgo.com/\nhttps://calrank.vercel.ap
- p/e/rm-2026-%EC%84%9C%EC%9A%B8-%ED%8E%AB%EB%A6%BC%ED%94%BD-%EB%9F%B0-%EC%9
- C%84%EB%93%9C-%EA%B3%A0-seoul-petlympic-run-with-go-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-2026-%EC%84%9C%EC%9A%B8-%ED%8E%AB%EB%A6
- %BC%ED%94%BD-%EB%9F%B0-%EC%9C%84%EB%93%9C-%EA%B3%A0-seoul-petlympic-run-wi
- th-go-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 서울 펫림픽 & 런 위드 고 (SEOUL PETLYMPIC & RUN W
- ITH GO) D-7 — 준비물과 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 서울 펫림픽 & 런 위드 고 (SEOUL PETLYMPIC & RUN W
- ITH GO) 내일입니다 — 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-seoul-petlympic-run-with-go-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:SEOUL PETLYMPIC & RUN WITH GO
-LOCATION:서울 월드컵경기장 평화광장
-DESCRIPTION:종목: 5km\, 10km\, 5KM\, 10KM\n시간: 07:00 집결\n장소: 
- 서울 월드컵경기장 평화광장\n접수 마감: 2026-09-30\n주최:
-  (사)함께하는 사랑밭\n신청: https://runwithgo.com/runwithgo/\nht
- tps://calrank.vercel.app/e/rm-seoul-petlympic-run-with-go-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-seoul-petlympic-run-with-go-2026-10-24.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:SEOUL PETLYMPIC & RUN WITH GO D-7 — 준비물과 교통편을
-  확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:SEOUL PETLYMPIC & RUN WITH GO 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-tour-5k-beach-ploggin망상-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:TOUR 5K & Beach Ploggin망상
-LOCATION:동해시 망상해수욕장
-DESCRIPTION:종목: 5km\, 2K 플로깅\n장소: 동해시 망상해수욕
- 장\n접수 마감: 2026-10-17\n주최: 스포노베이션\n신청: http:/
- /mypb.info/competition/666\nhttps://calrank.vercel.app/e/rr-tour-5k-beach-
- ploggin%EB%A7%9D%EC%83%81-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-tour-5k-beach-ploggin%EB%A7%9D%EC%83%81
- -2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:TOUR 5K & Beach Ploggin망상 D-7 — 준비물과 교통편을
-  확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:TOUR 5K & Beach Ploggin망상 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rr-freedom-walk-run-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:Freedom Walk & Run
-LOCATION:반포한강공원 세빛섬
-DESCRIPTION:종목: 6km\n시간: 14:00 집결\n장소: 반포한강공원 
- 세빛섬\n접수 마감: 2026-10-20\n주최: 링크\n신청: http://fwr.l
- ibertyinnorthkorea.or.kr/2026/#join\nhttps://calrank.vercel.app/e/rr-freed
- om-walk-run-2026-10-24.html
-URL:https://calrank.vercel.app/e/rr-freedom-walk-run-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:Freedom Walk & Run D-7 — 준비물과 교통편을 확인하
- 세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:Freedom Walk & Run 내일입니다 — 배번과 출발 시간
- 을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-tour-beach-ploggin망상5km2km-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:TOUR & Beach Ploggin망상5km2km
-LOCATION:장소 미확인
-DESCRIPTION:종목: 5km\n신청: http://mypb.info/competition/666\nhttps://
- calrank.vercel.app/e/rm-tour-beach-ploggin%EB%A7%9D%EC%83%815km2km-2026-10
- -24.html
-URL:https://calrank.vercel.app/e/rm-tour-beach-ploggin%EB%A7%9D%EC%83%815km
- 2km-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:TOUR & Beach Ploggin망상5km2km D-7 — 준비물과 교통편
- 을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:TOUR & Beach Ploggin망상5km2km 내일입니다 — 배번과 
- 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rw-just-run-10-남양주-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:JUST RUN 10 남양주
-LOCATION:경기
-DESCRIPTION:종목: 10km · 5km\n장소: 경기\n접수 마감: 2026-10-14\
- n신청: https://runten.co.kr/competitions\nhttps://calrank.vercel.app/e/r
- w-just-run-10-%EB%82%A8%EC%96%91%EC%A3%BC-2026-10-24.html
-URL:https://calrank.vercel.app/e/rw-just-run-10-%EB%82%A8%EC%96%91%EC%A3%BC
- -2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:JUST RUN 10 남양주 D-7 — 준비물과 교통편을 확인
- 하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:JUST RUN 10 남양주 내일입니다 — 배번과 출발 시
- 간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rw-한국국제걷기대회-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:한국국제걷기대회
-LOCATION:서울
-DESCRIPTION:종목: 42km · 25km · 10km · 5km\n장소: 서울\n접수 마
- 감: 2026-10-18\n신청: https://www.walking.or.kr/02_04/\nhttps://calrank
- .vercel.app/e/rw-%ED%95%9C%EA%B5%AD%EA%B5%AD%EC%A0%9C%EA%B1%B7%EA%B8%B0%EB
- %8C%80%ED%9A%8C-2026-10-24.html
-URL:https://calrank.vercel.app/e/rw-%ED%95%9C%EA%B5%AD%EA%B5%AD%EC%A0%9C%EA
- %B1%B7%EA%B8%B0%EB%8C%80%ED%9A%8C-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:한국국제걷기대회 D-7 — 준비물과 교통편을 확
- 인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:한국국제걷기대회 내일입니다 — 배번과 출발 
- 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rw-2026-sbs-run-music-festival-in-안동-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 SBS RUN&MUSIC FESTIVAL in 안동
-LOCATION:경북
-DESCRIPTION:종목: 하프 · 10km\n장소: 경북\n접수 마감: 2026-09-
- 19\n신청: https://runningwikii.com/entry/run-and-music-festival-andong/\
- nhttps://calrank.vercel.app/e/rw-2026-sbs-run-music-festival-in-%EC%95%88%
- EB%8F%99-2026-10-24.html
-URL:https://calrank.vercel.app/e/rw-2026-sbs-run-music-festival-in-%EC%95%8
- 8%EB%8F%99-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 SBS RUN&MUSIC FESTIVAL in 안동 D-7 — 준비물과 교
- 통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 SBS RUN&MUSIC FESTIVAL in 안동 내일입니다 — 배
- 번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rw-tour-5k-비치-플로깅-망상-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:TOUR 5K & 비치 플로깅 망상
-LOCATION:강원
-DESCRIPTION:종목: 5km · 2K 플로깅\n장소: 강원\n접수 마감: 202
- 6-10-17\n신청: https://runningwikii.com/entry/tour-5k-beach-plogging-man
- gsang-2026/\nhttps://calrank.vercel.app/e/rw-tour-5k-%EB%B9%84%EC%B9%98-%E
- D%94%8C%EB%A1%9C%EA%B9%85-%EB%A7%9D%EC%83%81-2026-10-24.html
-URL:https://calrank.vercel.app/e/rw-tour-5k-%EB%B9%84%EC%B9%98-%ED%94%8C%EB
- %A1%9C%EA%B9%85-%EB%A7%9D%EC%83%81-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:TOUR 5K & 비치 플로깅 망상 D-7 — 준비물과 교통
- 편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:TOUR 5K & 비치 플로깅 망상 내일입니다 — 배번과
-  출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-프리덤-워크-런-2026-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:프리덤 워크 & 런 2026
-LOCATION:반포한강공원 세빛섬 주변 한강변 보행로
-DESCRIPTION:종목: 6km\n시간: 13:00\n장소: 반포한강공원 세빛
- 섬 주변 한강변 보행로\n접수 마감: 2026-10-20\n주최: 팜프
- 라\n신청: https://fwr.libertyinnorthkorea.or.kr/2026\nhttps://calrank.v
- ercel.app/e/rm-%ED%94%84%EB%A6%AC%EB%8D%A4-%EC%9B%8C%ED%81%AC-%EB%9F%B0-20
- 26-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-%ED%94%84%EB%A6%AC%EB%8D%A4-%EC%9B%8C%E
- D%81%AC-%EB%9F%B0-2026-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:프리덤 워크 & 런 2026 D-7 — 준비물과 교통편을 
- 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:프리덤 워크 & 런 2026 내일입니다 — 배번과 출
- 발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-플로깅-tour-beach-ploggin망상-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:플로깅 TOUR & Beach Ploggin망상
-LOCATION:동해시 망상해수욕장
-DESCRIPTION:종목: 5km\n시간: 08:00 집결\n장소: 동해시 망상해
- 수욕장\n접수 마감: 2026-10-17\n주최: 스포노베이션\n신청: 
- http://mypb.info/competition/666\nhttps://calrank.vercel.app/e/rm-%ED%94%8
- C%EB%A1%9C%EA%B9%85-tour-beach-ploggin%EB%A7%9D%EC%83%81-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-%ED%94%8C%EB%A1%9C%EA%B9%85-tour-beach-
- ploggin%EB%A7%9D%EC%83%81-2026-10-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:플로깅 TOUR & Beach Ploggin망상 D-7 — 준비물과 교
- 통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:플로깅 TOUR & Beach Ploggin망상 내일입니다 — 배번
- 과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:rm-2026-한강런-2026-10-24@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:2026 한강런
-LOCATION:강남구 대치동 탄천공영주차장 p구역
-DESCRIPTION:종목: 10km\, 5km\n시간: 09:00 집결\n장소: 강남구 대
- 치동 탄천공영주차장 p구역\n접수 마감: 2026-09-21\n주최: (
- 사)대한생활체육연맹\n신청: http://hgrun.kr/\nhttps://calrank.ve
- rcel.app/e/rm-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-2026-10-24.html
-URL:https://calrank.vercel.app/e/rm-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-2026-1
- 0-24.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:2026 한강런 D-7 — 준비물과 교통편을 확인하세
- 요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026 한강런 내일입니다 — 배번과 출발 시간을 
- 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-제14회-정서진아라뱃길-전국마라톤대회-2026-10-25@calr
  ank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:제14회 정서진아라뱃길 전국마라톤대회
 LOCATION:정서진 아라타워
-DESCRIPTION:종목: 하프\, 10km\, 5km\, 하프\,10km\,5km\n장소: 정서
- 진 아라타워\n접수 마감: 2026-09-08\n주최: 인천일보\,인천
- 마라톤조직위원회\n신청: http://www.jeongseojin.co.kr\nhttps://ca
- lrank.vercel.app/e/rr-%EC%A0%9C14%ED%9A%8C-%EC%A0%95%EC%84%9C%EC%A7%84%EC%
- 95%84%EB%9D%BC%EB%B1%83%EA%B8%B8-%EC%A0%84%EA%B5%AD%EB%A7%88%EB%9D%BC%ED%8
- 6%A4%EB%8C%80%ED%9A%8C-2026-10-25.html
+DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 정서진 아라타워\n
+ 접수 마감: 2026-09-08\n주최: 인천일보\,인천마라톤조직위
+ 원회\n신청: http://www.jeongseojin.co.kr\nhttps://calrank.vercel.app/e
+ /rr-%EC%A0%9C14%ED%9A%8C-%EC%A0%95%EC%84%9C%EC%A7%84%EC%95%84%EB%9D%BC%EB%
+ B1%83%EA%B8%B8-%EC%A0%84%EA%B5%AD%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9
+ A%8C-2026-10-25.html
 URL:https://calrank.vercel.app/e/rr-%EC%A0%9C14%ED%9A%8C-%EC%A0%95%EC%84%9C
  %EC%A7%84%EC%95%84%EB%9D%BC%EB%B1%83%EA%B8%B8-%EC%A0%84%EA%B5%AD%EB%A7%88%
  EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-10-25.html
@@ -626,15 +41,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-부산바다마라톤-2026-10-25@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:2026 부산바다마라톤
 LOCATION:부산 벡스코 일원
-DESCRIPTION:종목: 10km\, 5km\, 15km코스\, 15km · 10km · 5km\, 10km\,5
- km\,15km코스\n시간: 오전 8시 20분 집결\n장소: 부산 벡스코
-  일원\n접수 마감: 2026-08-18\n주최: 부산일보사\n신청: http:
- //marathon.busan.com\nhttps://calrank.vercel.app/e/rr-2026-%EB%B6%80%EC%82
- %B0%EB%B0%94%EB%8B%A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-25.html
+DESCRIPTION:종목: 10km\, 5km\, 15km코스\, 15km · 10km · 5km\n시간: 
+ 오전 8시 20분 집결\n장소: 부산 벡스코 일원\n접수 마감: 
+ 2026-08-18\n주최: 부산일보사\n신청: http://marathon.busan.com\nht
+ tps://calrank.vercel.app/e/rr-2026-%EB%B6%80%EC%82%B0%EB%B0%94%EB%8B%A4%EB
+ %A7%88%EB%9D%BC%ED%86%A4-2026-10-25.html
 URL:https://calrank.vercel.app/e/rr-2026-%EB%B6%80%EC%82%B0%EB%B0%94%EB%8B%
  A4%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-25.html
 TRANSP:TRANSPARENT
@@ -653,16 +68,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-광명평화마라톤-2026-10-25@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:2026 광명평화마라톤
 LOCATION:광명역 일원
 DESCRIPTION:종목: 하프\, 10km\, 5km\, 가족런 2~5인\, 5km 커플런\
- , 하프 · 10km · 5km · 가족런 2~5인 · 5km 커플런\, 하프\,10k
- m\,5km\,가족런 2~5인\,5km 커플런\n장소: 광명역 일원\n접수 
- 마감: 2026-07-13\n주최: 광명시체육회\n신청: http://gmrun.kr\nh
- ttps://calrank.vercel.app/e/rr-2026-%EA%B4%91%EB%AA%85%ED%8F%89%ED%99%94%E
- B%A7%88%EB%9D%BC%ED%86%A4-2026-10-25.html
+ , 하프 · 10km · 5km · 가족런 2~5인 · 5km 커플런\n장소: 광
+ 명역 일원\n접수 마감: 2026-07-13\n주최: 광명시체육회\n신
+ 청: http://gmrun.kr\nhttps://calrank.vercel.app/e/rr-2026-%EA%B4%91%EB%AA
+ %85%ED%8F%89%ED%99%94%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-25.html
 URL:https://calrank.vercel.app/e/rr-2026-%EA%B4%91%EB%AA%85%ED%8F%89%ED%99%
  94%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-25.html
 TRANSP:TRANSPARENT
@@ -681,15 +95,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-k-run-챌린지-2026-10-25@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:K-RUN 챌린지
 LOCATION:서울 뚝섬한강공원 수변광장
-DESCRIPTION:종목: 하프\, 10km\, 5km\, 마니아\, 하프\,10km\,5km\,
- 마니아\n시간: AM 09:00 집결\n장소: 서울 뚝섬한강공원 수
- 변광장\n접수 마감: 2026-09-30\n주최: K-RUN챌린지조직위\n신
- 청: http://www.irunman.kr\nhttps://calrank.vercel.app/e/rr-k-run-%EC%B1%8
- C%EB%A6%B0%EC%A7%80-2026-10-25.html
+DESCRIPTION:종목: 하프\, 10km\, 5km\, 마니아\n시간: AM 09:00 집
+ 결\n장소: 서울 뚝섬한강공원 수변광장\n접수 마감: 2026-0
+ 9-30\n주최: K-RUN챌린지조직위\n신청: http://www.irunman.kr\nhttp
+ s://calrank.vercel.app/e/rr-k-run-%EC%B1%8C%EB%A6%B0%EC%A7%80-2026-10-25.h
+ tml
 URL:https://calrank.vercel.app/e/rr-k-run-%EC%B1%8C%EB%A6%B0%EC%A7%80-2026-
  10-25.html
 TRANSP:TRANSPARENT
@@ -708,7 +122,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제19회-청도반시-전국마라톤-2026-10-25@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:제19회 청도반시 전국마라톤
 LOCATION:청도공설운동장
@@ -737,15 +151,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-춘천마라톤-2026-10-25@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:2026 춘천마라톤
 LOCATION:춘천 공지천공원
-DESCRIPTION:종목: 풀\, 10km\, 풀 · 10km\, 풀코스\, 풀코스 / 하
- 프 / 10km\n시간: 09:00 집결\n장소: 춘천 공지천공원\n접수 
- 마감: 2026-07-23\n주최: 조선일보\n신청: http://www.chuncheonmara
- thon.com\nhttps://calrank.vercel.app/e/rr-2026-%EC%B6%98%EC%B2%9C%EB%A7%88
- %EB%9D%BC%ED%86%A4-2026-10-25.html
+DESCRIPTION:종목: 풀\, 10km\, 풀 · 10km\, 풀코스\n시간: 09:00 집
+ 결\n장소: 춘천 공지천공원\n접수 마감: 2026-07-23\n주최: 
+ 조선일보\n신청: http://www.chuncheonmarathon.com\nhttps://calrank.ve
+ rcel.app/e/rr-2026-%EC%B6%98%EC%B2%9C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-10-2
+ 5.html
 URL:https://calrank.vercel.app/e/rr-2026-%EC%B6%98%EC%B2%9C%EB%A7%88%EB%9D%
  BC%ED%86%A4-2026-10-25.html
 TRANSP:TRANSPARENT
@@ -764,15 +178,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-울산런페스타-u-run-2026-10-25@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:2026 울산런페스타 U-RUN
 LOCATION:울산 문수국제양궁장
-DESCRIPTION:종목: 하프\, 10km\, 5km\, 하프 · 10km · 5km\, 하프\,1
- 0km\,5km\n시간: 07:00 집결\n장소: 울산 문수국제양궁장\n접
- 수 마감: 2026-09-20\n주최: 울산 MBC\n신청: https://www.ulsanrunfe
- sta.com/\nhttps://calrank.vercel.app/e/rm-2026-%EC%9A%B8%EC%82%B0%EB%9F%B0
- %ED%8E%98%EC%8A%A4%ED%83%80-u-run-2026-10-25.html
+DESCRIPTION:종목: 하프\, 10km\, 5km\, 하프 · 10km · 5km\n시간: 07
+ :00 집결\n장소: 울산 문수국제양궁장\n접수 마감: 2026-09-2
+ 0\n주최: 울산 MBC\n신청: https://www.ulsanrunfesta.com/\nhttps://cal
+ rank.vercel.app/e/rm-2026-%EC%9A%B8%EC%82%B0%EB%9F%B0%ED%8E%98%EC%8A%A4%ED
+ %83%80-u-run-2026-10-25.html
 URL:https://calrank.vercel.app/e/rm-2026-%EC%9A%B8%EC%82%B0%EB%9F%B0%ED%8E%
  98%EC%8A%A4%ED%83%80-u-run-2026-10-25.html
 TRANSP:TRANSPARENT
@@ -792,7 +206,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-2-5인-커플런-2026-광명평화마라톤-2026-10-25@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:2~5인 커플런 2026 광명평화마라톤
 LOCATION:광명역 일원
@@ -821,7 +235,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-제14회-정서진아라뱃길-마라톤-2026-10-25@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:제14회 정서진아라뱃길 마라톤
 LOCATION:정서진 아라타워
@@ -850,7 +264,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-사우나런-in-뚝섬한강공원-2026-10-30@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:사우나런 in 뚝섬한강공원
 LOCATION:뚝섬한강공원 인근
@@ -877,7 +291,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-just-run10-포천-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 JUST RUN10 포천
 LOCATION:포천시종합운동장
@@ -904,7 +318,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제7회-중소기업-인-기살리기-마라톤-대회-2026-10-31@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:제7회 중소기업 인 기살리기 마라톤 대회
 LOCATION:구일역(1호선) 하부 구로 안양천축구장
@@ -934,7 +348,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제21회-사천노을-마라톤대회-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:제21회 사천노을 마라톤대회
 LOCATION:사천 선진거북선공원
@@ -963,7 +377,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-태종대-beat-on-좀비레이스-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 태종대 BEAT ON 좀비레이스
 LOCATION:부산 영도구 태종대 자동차야외극장(Drive in영도)
@@ -990,7 +404,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-오티즘-레이스-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 오티즘 레이스
 LOCATION:월드컵공원 평화의 광장
@@ -1017,7 +431,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-한강런-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 한강런
 LOCATION:강남구 대치동 탄천공영주차장 p구역
@@ -1043,7 +457,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-당진원런-마라톤-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 당진원런 마라톤
 LOCATION:석문방조제 인근
@@ -1070,7 +484,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-마블런-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 마블런
 LOCATION:인제스피디움
@@ -1097,7 +511,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-마블런-2026-10-31-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 2026 마블런
 DESCRIPTION:종목: 10km\, 5km\, 2.5km\, 10km / 5km / 2.3km\, 10km · 5km 
@@ -1122,7 +536,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-런텐-12차-레이스-just-run10-포천-2026-10-31@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:런텐 12차 레이스 JUST RUN10 포천
 LOCATION:포천시종합운동장
@@ -1149,7 +563,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-incheon-night-race-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 INCHEON NIGHT RACE
 LOCATION:인천 영정구 중산동 하늘구름광
@@ -1175,7 +589,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-incheon-night-race-2026-10-31-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 2026 INCHEON NIGHT RACE
 DESCRIPTION:종목: 하프\, 10km\, 5km\, 8.15km\, 하프 · 10km · 5km ·
@@ -1198,7 +612,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-성남ymca-마라톤-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:제2회 성남YMCA 마라톤
 LOCATION:성남물빛정원
@@ -1225,7 +639,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-namhae-run-to-village-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 NAMHAE : RUN TO VILLAGE
 LOCATION:남해 독일마을
@@ -1251,7 +665,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-2026-namhae-250k-run-to-village-2026-10-31@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:2026 NAMHAE 250K : RUN TO VILLAGE
 LOCATION:남해 독일마을
@@ -1276,7 +690,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-26서울동행마라톤-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:26서울동행마라톤
 LOCATION:서울 목동종합운동장 주경기장
@@ -1304,7 +718,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-무안-해안-노을길-걷기-및-마라톤-2026-11-01@calrank.verc
  el.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:무안 해안 노을길 걷기 및 마라톤
 LOCATION:무안낙지공원
@@ -1333,7 +747,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-김천전국마라톤대회-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:김천전국마라톤대회
 LOCATION:김천종합스포츠타운
@@ -1360,7 +774,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-대전-신채호-마라톤-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:제2회 대전 신채호 마라톤
 LOCATION:대전 뿌리공원 잔디광장
@@ -1388,7 +802,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제21회-울산인권마라톤-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:제21회 울산인권마라톤
 LOCATION:태화강 둔치
@@ -1415,7 +829,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-jtbc-마라톤-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:2026 jtbc 마라톤
 LOCATION:상암동 평화의 광장
@@ -1442,7 +856,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-패밀리런-제2회-대전-신채호-마라톤-2026-11-01@calrank.v
  ercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:패밀리런 제2회 대전 신채호 마라톤
 LOCATION:대전 뿌리공원 잔디광장
@@ -1471,7 +885,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-dmz-open-평화마라톤-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:2026 DMZ OPEN 평화마라톤
 LOCATION:파주 임진각 평화누리 일원
@@ -1498,7 +912,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-서울국제마라톤-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:서울국제마라톤
 LOCATION:서울 광화문
@@ -1524,7 +938,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-2026-jtbc-마라톤-제마-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:2026 JTBC 마라톤 제마
 LOCATION:상암동 평화의 광장
@@ -1549,7 +963,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-justice-run-seocho-2026-2026-11-01@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261101
 SUMMARY:JUSTICE RUN SEOCHO 2026
 LOCATION:반포한강공원 달빛광장
@@ -1574,7 +988,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-자유-2026-버추얼-한글런-2026-11-05@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261105
 SUMMARY:자유 2026 버추얼 한글런
 LOCATION:어디서든
@@ -1601,7 +1015,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-자유-2026-버추얼-한글런-2026-11-05-deadline@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261104
 SUMMARY:[접수 마감] 자유 2026 버추얼 한글런
 DESCRIPTION:장소: 어디서든\n접수 마감: 2026-11-04\n주최: 헤럴
@@ -1625,7 +1039,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제40회-서봉기단축마라톤-2026-11-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261106
 SUMMARY:제40회 서봉기단축마라톤
 LOCATION:경북문경시민운동장(시내일원)
@@ -1654,7 +1068,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제40회-서봉기단축마라톤-2026-11-06-deadline@calrank.vercel
  .app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261105
 SUMMARY:[접수 마감] 제40회 서봉기단축마라톤
 DESCRIPTION:종목: 10km\, 10km\, 개인\, 단체전\, 지역학생대회\,
@@ -1680,8 +1094,73 @@ DESCRIPTION:제40회 서봉기단축마라톤 접수가 내일 마감됩니
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:rm-개인-단체전-지역학생대회-제40회-서봉기단축마라
+ 톤-2026-11-06@calrank.vercel.app
+DTSTAMP:20261025T230055Z
+DTSTART;VALUE=DATE:20261106
+SUMMARY:개인 단체전 지역학생대회 제40회 서봉기단축마라
+ 톤
+LOCATION:경북문경시민운동장(시내일원)
+DESCRIPTION:종목: 10km\n시간: 11시 집결\n장소: 경북문경시민
+ 운동장(시내일원)\n접수 마감: 2026-11-05\n주최: 문경시육
+ 상연맹\n신청: http://cafe.daum.net/seobongmarathon\nhttps://calrank.v
+ ercel.app/e/rm-%EA%B0%9C%EC%9D%B8-%EB%8B%A8%EC%B2%B4%EC%A0%84-%EC%A7%80%EC
+ %97%AD%ED%95%99%EC%83%9D%EB%8C%80%ED%9A%8C-%EC%A0%9C40%ED%9A%8C-%EC%84%9C%
+ EB%B4%89%EA%B8%B0%EB%8B%A8%EC%B6%95%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-06.
+ html
+URL:https://calrank.vercel.app/e/rm-%EA%B0%9C%EC%9D%B8-%EB%8B%A8%EC%B2%B4%E
+ C%A0%84-%EC%A7%80%EC%97%AD%ED%95%99%EC%83%9D%EB%8C%80%ED%9A%8C-%EC%A0%9C40
+ %ED%9A%8C-%EC%84%9C%EB%B4%89%EA%B8%B0%EB%8B%A8%EC%B6%95%EB%A7%88%EB%9D%BC%
+ ED%86%A4-2026-11-06.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:개인 단체전 지역학생대회 제40회 서봉기단축마
+ 라톤 D-7 — 준비물과 교통편을 확인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:개인 단체전 지역학생대회 제40회 서봉기단축마
+ 라톤 내일입니다 — 배번과 출발 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:rm-개인-단체전-지역학생대회-제40회-서봉기단축마라
+ 톤-2026-11-06-deadline@calrank.vercel.app
+DTSTAMP:20261025T230055Z
+DTSTART;VALUE=DATE:20261105
+SUMMARY:[접수 마감] 개인 단체전 지역학생대회 제40회 서봉
+ 기단축마라톤
+DESCRIPTION:종목: 10km\n시간: 11시 집결\n장소: 경북문경시민
+ 운동장(시내일원)\n접수 마감: 2026-11-05\n주최: 문경시육
+ 상연맹\n신청: http://cafe.daum.net/seobongmarathon\nhttps://calrank.v
+ ercel.app/e/rm-%EA%B0%9C%EC%9D%B8-%EB%8B%A8%EC%B2%B4%EC%A0%84-%EC%A7%80%EC
+ %97%AD%ED%95%99%EC%83%9D%EB%8C%80%ED%9A%8C-%EC%A0%9C40%ED%9A%8C-%EC%84%9C%
+ EB%B4%89%EA%B8%B0%EB%8B%A8%EC%B6%95%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-06.
+ html
+URL:https://calrank.vercel.app/e/rm-%EA%B0%9C%EC%9D%B8-%EB%8B%A8%EC%B2%B4%E
+ C%A0%84-%EC%A7%80%EC%97%AD%ED%95%99%EC%83%9D%EB%8C%80%ED%9A%8C-%EC%A0%9C40
+ %ED%9A%8C-%EC%84%9C%EB%B4%89%EA%B8%B0%EB%8B%A8%EC%B6%95%EB%A7%88%EB%9D%BC%
+ ED%86%A4-2026-11-06.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P3D
+DESCRIPTION:개인 단체전 지역학생대회 제40회 서봉기단축마
+ 라톤 접수 마감 3일 전입니다
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:개인 단체전 지역학생대회 제40회 서봉기단축마
+ 라톤 접수가 내일 마감됩니다
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:rr-gvie-run-2026-구미-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:GVIE RUN 2026 구미
 LOCATION:구미 낙동강체육공원
@@ -1707,7 +1186,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제19회-진해마라톤-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:제19회 진해마라톤
 LOCATION:진해공설운동장
@@ -1734,7 +1213,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-해양수도-부산-런페스타-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:해양수도 부산 런페스타
 LOCATION:부산 북항친수공원
@@ -1762,7 +1241,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제15회-부여-굿뜨래-마라톤-대회-2026-11-07@calrank.vercel
  .app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:제15회 부여 굿뜨래 마라톤 대회
 LOCATION:부여 구드래나루터 선착장
@@ -1792,7 +1271,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-영천댐-마라톤-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:영천댐 마라톤
 LOCATION:영천댐 하류공원
@@ -1819,7 +1298,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-포항마라톤챔피언십-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:2026 포항마라톤챔피언십
 LOCATION:영일대해상누각
@@ -1847,7 +1326,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ro-넥슨과-함께하는-2026-미라클365-푸르메런-2026-11-07@cal
  rank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:넥슨과 함께하는 2026 미라클365 푸르메런
 LOCATION:서울 상암 월드컵공원 평화광장
@@ -1875,7 +1354,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-saverace-2026-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:SaveRace 2026
 LOCATION:여의도공원 문화의마당
@@ -1899,7 +1378,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-saverace-2026-2026-11-07-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:[접수 마감] SaveRace 2026
 DESCRIPTION:종목: 10km\n시간: 07:30 집결\n장소: 여의도공원 문
@@ -1921,7 +1400,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-푸르메런-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:2026 푸르메런
 LOCATION:상암 월드컵공원 평화광장
@@ -1947,7 +1426,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-넥슨과-함께하는-2026-푸르메런-2026-11-07@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:넥슨과 함께하는 2026 푸르메런
 LOCATION:상암 월드컵공원 평화광장
@@ -1975,16 +1454,16 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-레디-셋-공익런-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:레디\, 셋\, 공익런!
 LOCATION:청주 무심천체육공원
-DESCRIPTION:종목: 10km\, 5km\n시간: 07:30\n장소: 청주 무심천체
- 육공원\n접수 마감: 2026-10-02\n주최: 충북시민사회지원센
- 터\, 충북시민사회단체연대회의\n신청: http://www.cbngo.org/s
- ub.php?menukey=138&mod=view&no=8600&page=1%3Futm_source%3Dmarathongo\nhttp
- s://calrank.vercel.app/e/rm-%EB%A0%88%EB%94%94-%EC%85%8B-%EA%B3%B5%EC%9D%B
- 5%EB%9F%B0-2026-11-07.html
+DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n시간: 07:30\n장소: 청주 
+ 무심천체육공원\n접수 마감: 2026-10-13\n주최: 충북시민사
+ 회지원센터\, 충북시민사회단체연대회의\n신청: http://www
+ .cbngo.org/sub.php?menukey=138&mod=view&no=8600&page=1\nhttps://calrank.ve
+ rcel.app/e/rm-%EB%A0%88%EB%94%94-%EC%85%8B-%EA%B3%B5%EC%9D%B5%EB%9F%B0-202
+ 6-11-07.html
 URL:https://calrank.vercel.app/e/rm-%EB%A0%88%EB%94%94-%EC%85%8B-%EA%B3%B5%
  EC%9D%B5%EB%9F%B0-2026-11-07.html
 TRANSP:TRANSPARENT
@@ -2004,15 +1483,15 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-런텐-13차-레이스-just-run10-대전-2026-11-07@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:런텐 13차 레이스 JUST RUN10 대전
 LOCATION:엑스포다리 인근
-DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n장소: 엑스포다리 인근\
- n접수 마감: 2026-10-25\n주최: (주)러닝브레이커\,전국러닝
- 협회\n신청: http://runten.co.kr\nhttps://calrank.vercel.app/e/rr-%EB%9
- F%B0%ED%85%90-13%EC%B0%A8-%EB%A0%88%EC%9D%B4%EC%8A%A4-just-run10-%EB%8C%80
- %EC%A0%84-2026-11-07.html
+DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n시간: 09:00 집결\n장소: 
+ 엑스포다리 인근\n접수 마감: 2026-10-25\n주최: (주)러닝브
+ 레이커\,전국러닝협회\n신청: http://runten.co.kr\nhttps://calran
+ k.vercel.app/e/rr-%EB%9F%B0%ED%85%90-13%EC%B0%A8-%EB%A0%88%EC%9D%B4%EC%8A%
+ A4-just-run10-%EB%8C%80%EC%A0%84-2026-11-07.html
 URL:https://calrank.vercel.app/e/rr-%EB%9F%B0%ED%85%90-13%EC%B0%A8-%EB%A0%8
  8%EC%9D%B4%EC%8A%A4-just-run10-%EB%8C%80%EC%A0%84-2026-11-07.html
 TRANSP:TRANSPARENT
@@ -2032,14 +1511,14 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-런텐-13차-레이스-just-run10-대전-2026-11-07-deadline@calrank
  .vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:[접수 마감] 런텐 13차 레이스 JUST RUN10 대전
-DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n장소: 엑스포다리 인근\
- n접수 마감: 2026-10-25\n주최: (주)러닝브레이커\,전국러닝
- 협회\n신청: http://runten.co.kr\nhttps://calrank.vercel.app/e/rr-%EB%9
- F%B0%ED%85%90-13%EC%B0%A8-%EB%A0%88%EC%9D%B4%EC%8A%A4-just-run10-%EB%8C%80
- %EC%A0%84-2026-11-07.html
+DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n시간: 09:00 집결\n장소: 
+ 엑스포다리 인근\n접수 마감: 2026-10-25\n주최: (주)러닝브
+ 레이커\,전국러닝협회\n신청: http://runten.co.kr\nhttps://calran
+ k.vercel.app/e/rr-%EB%9F%B0%ED%85%90-13%EC%B0%A8-%EB%A0%88%EC%9D%B4%EC%8A%
+ A4-just-run10-%EB%8C%80%EC%A0%84-2026-11-07.html
 URL:https://calrank.vercel.app/e/rr-%EB%9F%B0%ED%85%90-13%EC%B0%A8-%EB%A0%8
  8%EC%9D%B4%EC%8A%A4-just-run10-%EB%8C%80%EC%A0%84-2026-11-07.html
 TRANSP:TRANSPARENT
@@ -2059,15 +1538,16 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-여수-일레븐브리지마라톤-2026-11-07@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:2026 여수 일레븐브리지마라톤
 LOCATION:여수시 화양면 조발전망대 광장
-DESCRIPTION:종목: 하프\, 10km\, 하프\,10km\n장소: 여수시 화양
- 면 조발전망대 광장\n접수 마감: 2026-09-23\n주최: 일레븐
- 브리지마라톤조직위원회\n신청: http://11bridge.com\nhttps://ca
- lrank.vercel.app/e/rr-2026-%EC%97%AC%EC%88%98-%EC%9D%BC%EB%A0%88%EB%B8%90%
- EB%B8%8C%EB%A6%AC%EC%A7%80%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html
+DESCRIPTION:종목: 하프\, 10km\, 하프\,10km\n시간: 09:00 집결\n장
+ 소: 여수시 화양면 조발전망대 광장\n접수 마감: 2026-09-23
+ \n주최: 일레븐브리지마라톤조직위원회\n신청: http://11bri
+ dge.com\nhttps://calrank.vercel.app/e/rr-2026-%EC%97%AC%EC%88%98-%EC%9D%BC
+ %EB%A0%88%EB%B8%90%EB%B8%8C%EB%A6%AC%EC%A7%80%EB%A7%88%EB%9D%BC%ED%86%A4-2
+ 026-11-07.html
 URL:https://calrank.vercel.app/e/rr-2026-%EC%97%AC%EC%88%98-%EC%9D%BC%EB%A0
  %88%EB%B8%90%EB%B8%8C%EB%A6%AC%EC%A7%80%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11
  -07.html
@@ -2087,7 +1567,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-egg-run-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:2026 EGG RUN
 LOCATION:국립세종수목원 축제마당
@@ -2111,13 +1591,14 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-26-ten-bridges-night-walk-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:26 Ten Bridges Night Walk
 LOCATION:밀양시 일원
-DESCRIPTION:종목: 10km\n장소: 밀양시 일원\n접수 마감: 2026-10-
- 16\n주최: 밀양문화관광재단\n신청: http://www.mywalk.kr\nhttps:
- //calrank.vercel.app/e/rr-26-ten-bridges-night-walk-2026-11-07.html
+DESCRIPTION:종목: 10km\n시간: 17:30 집결\n장소: 밀양시 일원\n
+ 접수 마감: 2026-10-16\n주최: 밀양문화관광재단\n신청: http:
+ //www.mywalk.kr\nhttps://calrank.vercel.app/e/rr-26-ten-bridges-night-walk
+ -2026-11-07.html
 URL:https://calrank.vercel.app/e/rr-26-ten-bridges-night-walk-2026-11-07.ht
  ml
 TRANSP:TRANSPARENT
@@ -2137,16 +1618,17 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-평화의섬-2026-국무총리기국제생활체육구간-마라톤-
  2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:평화의섬 2026 국무총리기국제생활체육구간 마라톤
 LOCATION:제주 서부일주로 10개소 구간
-DESCRIPTION:종목: 구간마라톤\n장소: 제주 서부일주로 10개
- 소 구간\n접수 마감: 2026-10-09\n주최: 제주특별자치도\,대
- 한육상연맹\n신청: http://www.jaaf.kr/\nhttps://calrank.vercel.app/e
- /rr-%ED%8F%89%ED%99%94%EC%9D%98%EC%84%AC-2026-%EA%B5%AD%EB%AC%B4%EC%B4%9D%
- EB%A6%AC%EA%B8%B0%EA%B5%AD%EC%A0%9C%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1%EA
- %B5%AC%EA%B0%84-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html
+DESCRIPTION:종목: 구간마라톤\n시간: 09시 집결\n장소: 제주 
+ 서부일주로 10개소 구간\n접수 마감: 2026-10-09\n주최: 제주
+ 특별자치도\,대한육상연맹\n신청: http://www.jaaf.kr/\nhttps://
+ calrank.vercel.app/e/rr-%ED%8F%89%ED%99%94%EC%9D%98%EC%84%AC-2026-%EA%B5%A
+ D%EB%AC%B4%EC%B4%9D%EB%A6%AC%EA%B8%B0%EA%B5%AD%EC%A0%9C%EC%83%9D%ED%99%9C%
+ EC%B2%B4%EC%9C%A1%EA%B5%AC%EA%B0%84-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07
+ .html
 URL:https://calrank.vercel.app/e/rr-%ED%8F%89%ED%99%94%EC%9D%98%EC%84%AC-20
  26-%EA%B5%AD%EB%AC%B4%EC%B4%9D%EB%A6%AC%EA%B8%B0%EA%B5%AD%EC%A0%9C%EC%83%9
  D%ED%99%9C%EC%B2%B4%EC%9C%A1%EA%B5%AC%EA%B0%84-%EB%A7%88%EB%9D%BC%ED%86%A4
@@ -2168,15 +1650,15 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제21회-담양메타세쿼이아-마라톤-2026-11-07@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:제21회 담양메타세쿼이아 마라톤
 LOCATION:담양추성경기장
-DESCRIPTION:종목: 5km\, 8km\, 5km\,8km\n장소: 담양추성경기장\n
- 접수 마감: 2026-10-20\n주최: 담양마라톤클럽\n신청: http://w
- ww.metarun.kr\nhttps://calrank.vercel.app/e/rr-%EC%A0%9C21%ED%9A%8C-%EB%8B
- %B4%EC%96%91%EB%A9%94%ED%83%80%EC%84%B8%EC%BF%BC%EC%9D%B4%EC%95%84-%EB%A7%
- 88%EB%9D%BC%ED%86%A4-2026-11-07.html
+DESCRIPTION:종목: 5km\, 8km\, 5km\,8km\n시간: 10:00 집결\n장소: 담
+ 양추성경기장\n접수 마감: 2026-10-20\n주최: 담양마라톤클
+ 럽\n신청: http://www.metarun.kr\nhttps://calrank.vercel.app/e/rr-%EC%A0
+ %9C21%ED%9A%8C-%EB%8B%B4%EC%96%91%EB%A9%94%ED%83%80%EC%84%B8%EC%BF%BC%EC%9
+ D%B4%EC%95%84-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html
 URL:https://calrank.vercel.app/e/rr-%EC%A0%9C21%ED%9A%8C-%EB%8B%B4%EC%96%91
  %EB%A9%94%ED%83%80%EC%84%B8%EC%BF%BC%EC%9D%B4%EC%95%84-%EB%A7%88%EB%9D%BC%
  ED%86%A4-2026-11-07.html
@@ -2197,16 +1679,18 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ro-굿네이버스-충청권역x계란자조금관리위원회-2026-egg
  -run-2026-11-07@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:굿네이버스 충청권역X계란자조금관리위원회 2026 EG
  G RUN
 LOCATION:국립세종수목원 축제마당
-DESCRIPTION:종목: 5km\n장소: 국립세종수목원 축제마당\n접수
-  마감: 2026-10-18\n신청: https://eggrun2026.imweb.me\nhttps://calrank.
- vercel.app/e/ro-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EC%B6%A9%EC
- %B2%AD%EA%B6%8C%EC%97%ADx%EA%B3%84%EB%9E%80%EC%9E%90%EC%A1%B0%EA%B8%88%EA%
- B4%80%EB%A6%AC%EC%9C%84%EC%9B%90%ED%9A%8C-2026-egg-run-2026-11-07.html
+DESCRIPTION:종목: 5km\n시간: 07:00\n장소: 국립세종수목원 축
+ 제마당\n접수 마감: 2026-10-18\n주최: 굿네이버스 충청권역
+  x 국립세종수목원\n신청: https://eggrun2026.imweb.me\nhttps://cal
+ rank.vercel.app/e/ro-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EC%B6%
+ A9%EC%B2%AD%EA%B6%8C%EC%97%ADx%EA%B3%84%EB%9E%80%EC%9E%90%EC%A1%B0%EA%B8%8
+ 8%EA%B4%80%EB%A6%AC%EC%9C%84%EC%9B%90%ED%9A%8C-2026-egg-run-2026-11-07.htm
+ l
 URL:https://calrank.vercel.app/e/ro-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC
  %8A%A4-%EC%B6%A9%EC%B2%AD%EA%B6%8C%EC%97%ADx%EA%B3%84%EB%9E%80%EC%9E%90%EC
  %A1%B0%EA%B8%88%EA%B4%80%EB%A6%AC%EC%9C%84%EC%9B%90%ED%9A%8C-2026-egg-run-
@@ -2226,8 +1710,59 @@ DESCRIPTION:굿네이버스 충청권역X계란자조금관리위원회 202
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:rm-제3회-회복마라톤-2026-11-07@calrank.vercel.app
+DTSTAMP:20261025T230055Z
+DTSTART;VALUE=DATE:20261107
+SUMMARY:제3회 회복마라톤
+LOCATION:광주 천변 일대
+DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n시간: 08:50\n장소: 광주 
+ 천변 일대\n접수 마감: 2026-10-25\n주최: 광주남구중독관리
+ 통합지원센터 예방지원팀\n신청: https://naver.me/Fz8Zrhv0\nhtt
+ ps://calrank.vercel.app/e/rm-%EC%A0%9C3%ED%9A%8C-%ED%9A%8C%EB%B3%B5%EB%A7%
+ 88%EB%9D%BC%ED%86%A4-2026-11-07.html
+URL:https://calrank.vercel.app/e/rm-%EC%A0%9C3%ED%9A%8C-%ED%9A%8C%EB%B3%B5%
+ EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P7D
+DESCRIPTION:제3회 회복마라톤 D-7 — 준비물과 교통편을 확
+ 인하세요
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:제3회 회복마라톤 내일입니다 — 배번과 출발 
+ 시간을 확인하세요
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:rm-제3회-회복마라톤-2026-11-07-deadline@calrank.vercel.app
+DTSTAMP:20261025T230055Z
+DTSTART;VALUE=DATE:20261025
+SUMMARY:[접수 마감] 제3회 회복마라톤
+DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n시간: 08:50\n장소: 광주 
+ 천변 일대\n접수 마감: 2026-10-25\n주최: 광주남구중독관리
+ 통합지원센터 예방지원팀\n신청: https://naver.me/Fz8Zrhv0\nhtt
+ ps://calrank.vercel.app/e/rm-%EC%A0%9C3%ED%9A%8C-%ED%9A%8C%EB%B3%B5%EB%A7%
+ 88%EB%9D%BC%ED%86%A4-2026-11-07.html
+URL:https://calrank.vercel.app/e/rm-%EC%A0%9C3%ED%9A%8C-%ED%9A%8C%EB%B3%B5%
+ EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P3D
+DESCRIPTION:제3회 회복마라톤 접수 마감 3일 전입니다
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:제3회 회복마라톤 접수가 내일 마감됩니다
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:rm-해남땅끝-전국마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:해남땅끝 전국마라톤
 LOCATION:대흥사쉼터 일원
@@ -2254,7 +1789,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-라운드랩-run-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:라운드랩 RUN
 LOCATION:춘천 송암스포츠타운 종합경기장
@@ -2282,7 +1817,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제12회-아산-은행나무길-전국마라톤-2026-11-08@calrank.v
  ercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:제12회 아산 은행나무길 전국마라톤
 LOCATION:아산시  현충사 은행나무길
@@ -2312,7 +1847,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제12회-아산-은행나무길-전국마라톤-2026-11-08-deadline@
  calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:[접수 마감] 제12회 아산 은행나무길 전국마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 09:00 집결\n장소: 아
@@ -2341,7 +1876,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-경주시육상연맹회장배-마라톤-2026-11-08@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:경주시육상연맹회장배 마라톤
 LOCATION:경주서천둔치(생활체육광장)
@@ -2371,7 +1906,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08@calrank.ver
  cel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:제20회 자원봉사 사랑 굿펀 마라톤
 LOCATION:신정교하부육상트랙구장
@@ -2400,7 +1935,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-전국사상에코마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 전국사상에코마라톤
 LOCATION:삼락생태공원 럭비구장
@@ -2427,14 +1962,14 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-과천마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 과천마라톤
 LOCATION:관문체육공원
-DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 08:00 집결\n장소: 관
- 문체육공원\n접수 마감: 2026-07-31\n주최: 과천시체육회\n
- 신청: http://gcrun.co.kr\nhttps://calrank.vercel.app/e/rr-2026-%EA%B3%BC
- %EC%B2%9C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html
+DESCRIPTION:종목: 하프\, 10km\, 5km\, 하프 · 10km · 5km\n시간: 08
+ :00 집결\n장소: 관문체육공원\n접수 마감: 2026-07-31\n주최:
+  과천시체육회\n신청: http://gcrun.co.kr\nhttps://calrank.vercel.ap
+ p/e/rr-2026-%EA%B3%BC%EC%B2%9C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html
 URL:https://calrank.vercel.app/e/rr-2026-%EA%B3%BC%EC%B2%9C%EB%A7%88%EB%9D%
  BC%ED%86%A4-2026-11-08.html
 TRANSP:TRANSPARENT
@@ -2453,7 +1988,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-부산-헤리티지-런-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:부산 헤리티지 런
 LOCATION:다대포 해수욕장
@@ -2479,15 +2014,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제11회-송파구청장배-마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:제11회 송파구청장배 마라톤
 LOCATION:송파구 여성축구장
-DESCRIPTION:종목: 10km\, 5km\n시간: 09:00 집결\n장소: 송파구 여
- 성축구장\n접수 마감: 2026-10-05\n주최: 송파구육상연맹\n
- 신청: http://www.songparunsportal.com\nhttps://calrank.vercel.app/e/rr-%
- EC%A0%9C11%ED%9A%8C-%EC%86%A1%ED%8C%8C%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0
- -%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html
+DESCRIPTION:종목: 10km\, 5km\, 10km\,5km\n시간: 09:00 집결\n장소: 
+ 송파구 여성축구장\n접수 마감: 2026-10-05\n주최: 송파구육
+ 상연맹\n신청: http://www.songparunsportal.com\nhttps://calrank.vercel
+ .app/e/rr-%EC%A0%9C11%ED%9A%8C-%EC%86%A1%ED%8C%8C%EA%B5%AC%EC%B2%AD%EC%9E%
+ A5%EB%B0%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html
 URL:https://calrank.vercel.app/e/rr-%EC%A0%9C11%ED%9A%8C-%EC%86%A1%ED%8C%8C
  %EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-0
  8.html
@@ -2507,15 +2042,15 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-양산-배내골-애플-런-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 양산 배내골 애플 런
 LOCATION:장선마을 회관 앞 운동장
-DESCRIPTION:종목: 10km\, 5km\n시간: 09:00 집결\n장소: 장선마을 
- 회관 앞 운동장\n접수 마감: 2026-07-15\n주최: 배내골 주민
- 자치위원회\n신청: http://k-marathon.or.kr/main.php\nhttps://calrank
- .vercel.app/e/rr-2026-%EC%96%91%EC%82%B0-%EB%B0%B0%EB%82%B4%EA%B3%A8-%EC%9
- 5%A0%ED%94%8C-%EB%9F%B0-2026-11-08.html
+DESCRIPTION:종목: 10km\, 5km\, 10km · 5km\n시간: 09:00 집결\n장소:
+  장선마을 회관 앞 운동장\n접수 마감: 2026-07-15\n주최: 배
+ 내골 주민자치위원회\n신청: http://k-marathon.or.kr/main.php\nht
+ tps://calrank.vercel.app/e/rr-2026-%EC%96%91%EC%82%B0-%EB%B0%B0%EB%82%B4%E
+ A%B3%A8-%EC%95%A0%ED%94%8C-%EB%9F%B0-2026-11-08.html
 URL:https://calrank.vercel.app/e/rr-2026-%EC%96%91%EC%82%B0-%EB%B0%B0%EB%82
  %B4%EA%B3%A8-%EC%95%A0%ED%94%8C-%EB%9F%B0-2026-11-08.html
 TRANSP:TRANSPARENT
@@ -2535,7 +2070,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-로드레이스-건강달리기-슬로조깅-2026-전국사상에코
  마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:로드레이스 건강달리기 슬로조깅 2026 전국사상에
  코마라톤
@@ -2569,7 +2104,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-제24회-전국-나주-금성산숲길마라톤6km11km-2026-11-08@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:제24회 전국 나주 금성산숲길마라톤6km11km
 LOCATION:나주시 금성산 일원
@@ -2599,7 +2134,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-제2회-완주군-만경강-마라톤-대회-2026-11-08@calrank.verc
  el.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:제2회 완주군 만경강 마라톤 대회
 LOCATION:완주군 봉동읍 봉동교 일원
@@ -2627,7 +2162,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-올림픽데이런-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:올림픽데이런
 LOCATION:올림픽공원
@@ -2652,7 +2187,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-청양군-칠갑마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 청양군 칠갑마라톤
 LOCATION:청양군 청양목재문화자연사체험관
@@ -2680,7 +2215,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-청양군-칠갑마라톤-2026-11-08-deadline@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:[접수 마감] 2026 청양군 칠갑마라톤
 DESCRIPTION:종목: 하프\, 14km\, 7km\n시간: 09:30 집결\n장소: 청
@@ -2704,7 +2239,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-경상북도-신도시-마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:경상북도 신도시 마라톤
 LOCATION:경북도청 천년숲 앞
@@ -2731,7 +2266,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-경기화성-생태마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 경기화성 생태마라톤
 LOCATION:경기 화성 궁평항 일대
@@ -2759,7 +2294,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-강남하프마라톤-제17회강남구청장배육상대회-2026-11
  -08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:강남하프마라톤(제17회강남구청장배육상대회)
 LOCATION:강남구 대치유수지 체육공원
@@ -2789,7 +2324,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제3회-자유민주-마라톤대회-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:제3회 자유민주 마라톤대회
 LOCATION:서울시청
@@ -2817,7 +2352,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-올림픽데이런-2026-in-서울-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:올림픽데이런 2026 in 서울
 LOCATION:올림픽공원 88잔디마당
@@ -2845,7 +2380,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가족달리기-2026-경기화성-생태마라톤-2026-11-08@calrank
  .vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:가족달리기 2026 경기화성 생태마라톤
 LOCATION:경기 화성 궁평항 일대
@@ -2874,7 +2409,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ro-2026-청양군-체육회장기-칠갑마라톤대회-2026-11-08@calr
  ank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 청양군 체육회장기 칠갑마라톤대회
 LOCATION:청양목재문화자연사체험관 광장 (칠갑저수지 일
@@ -2904,7 +2439,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-안성맞춤-전국-마라톤-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026 안성맞춤 전국 마라톤
 LOCATION:안성맞춤랜드 일원
@@ -2932,7 +2467,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-강남마라톤-제17회강남구청장배육상대회-2026-11-08@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:강남마라톤(제17회강남구청장배육상대회)
 LOCATION:대치유수지 체육공원
@@ -2961,7 +2496,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026전국-체육회장배-안산-run-마라톤-2026-11-08@calrank.v
  ercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:2026전국 체육회장배 안산 RUN 마라톤
 LOCATION:안산 호수공원(중앙무대)인근
@@ -2989,37 +2524,8 @@ DESCRIPTION:2026전국 체육회장배 안산 RUN 마라톤 내일입니다
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rr-2026전국-체육회장배-안산-run-마라톤-2026-11-08-deadline@
- calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:[접수 마감] 2026전국 체육회장배 안산 RUN 마라톤
-DESCRIPTION:종목: 10km\, 5km\, 3km(학생부)\, 5인1조(10km)\n장소: 
- 안산 호수공원(중앙무대)인근\n접수 마감: 2026-10-24\n주최
- : 안산시체육회/안산시육상연맹\n신청: http://aaaf.koreashout
- .com/bbs/board.php?bo_table=cp_list&wr_id=60\nhttps://calrank.vercel.app/e
- /rr-2026%EC%A0%84%EA%B5%AD-%EC%B2%B4%EC%9C%A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%
- EC%95%88%EC%82%B0-run-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html
-URL:https://calrank.vercel.app/e/rr-2026%EC%A0%84%EA%B5%AD-%EC%B2%B4%EC%9C%
- A1%ED%9A%8C%EC%9E%A5%EB%B0%B0-%EC%95%88%EC%82%B0-run-%EB%A7%88%EB%9D%BC%ED
- %86%A4-2026-11-08.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2026전국 체육회장배 안산 RUN 마라톤 접수 마감 3
- 일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2026전국 체육회장배 안산 RUN 마라톤 접수가 내
- 일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-83타워-업힐런-챌린지-2026-11-08@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:83타워 업힐런 챌린지
 LOCATION:이월드
@@ -3046,7 +2552,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-83타워-업힐런-챌린지-2026-11-08-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:[접수 마감] 83타워 업힐런 챌린지
 DESCRIPTION:종목: 1.8Km+77층 계단\n장소: 이월드\n접수 마감: 2
@@ -3070,7 +2576,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-안양천-단풍길-마라톤-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:제2회 안양천 단풍길 마라톤
 LOCATION:신정교 하부 영롱이 억새구장
@@ -3099,7 +2605,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-안양천-단풍길-마라톤-2026-11-14-deadline@calrank.ve
  rcel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261105
 SUMMARY:[접수 마감] 제2회 안양천 단풍길 마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 09:00 집결\n장소: 신
@@ -3126,7 +2632,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-제26회-순천-남승룡마라톤-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:제26회 순천 남승룡마라톤
 LOCATION:전남광주 순천시 팔마로 333
@@ -3153,7 +2659,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-포항마라톤챔피언십-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:2026 포항마라톤챔피언십
 LOCATION:영일대해상누각
@@ -3180,7 +2686,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-포항마라톤챔피언십-2026-11-14-deadline@calrank.vercel.
  app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:[접수 마감] 2026 포항마라톤챔피언십
 DESCRIPTION:종목: 10km\, 5km\n장소: 영일대해상누각\n접수 마
@@ -3205,7 +2711,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-한강-브릿지-런-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:제2회 한강 브릿지 런
 LOCATION:구리한강시민공원 주차장
@@ -3232,7 +2738,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-한강-브릿지-런-2026-11-14-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261113
 SUMMARY:[접수 마감] 제2회 한강 브릿지 런
 DESCRIPTION:종목: 65km\n시간: 08:00 집결\n장소: 구리한강시민
@@ -3256,7 +2762,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-영종-하늘길-마라톤-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:영종 하늘길 마라톤
 LOCATION:인천\, 영종 씨사이드파크 일대
@@ -3283,7 +2789,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-통큰런-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:2026 통큰런
 LOCATION:상암 월드컵공원 평화광장
@@ -3310,7 +2816,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-가족런-2026-통큰런-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:(가족런) 2026 통큰런
 LOCATION:상암 월드컵공원 평화광장
@@ -3338,7 +2844,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-그-시절-스타들과-달리는-레트로-런-in-증평-2026-11-14
  @calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:그 시절 스타들과 달리는 레트로 런 IN 증평
 LOCATION:증평군 보강천 시민체육공원
@@ -3368,7 +2874,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-그-시절-스타들과-달리는-레트로-런-in-증평-2026-11-14
  -deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:[접수 마감] 그 시절 스타들과 달리는 레트로 런 IN 
  증평
@@ -3398,7 +2904,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-포항마라톤챔피언십-선착순모집중-2026-11-14@calra
  nk.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:2026 포항마라톤챔피언십(선착순모집중)
 LOCATION:영일대해상누각
@@ -3426,7 +2932,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-서울-빵빵런-2026-2026-11-14@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:서울 빵빵런 2026
 LOCATION:뚝섬한강공원 수변무대
@@ -3452,7 +2958,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-서울-빵빵런-2026-2026-11-14-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261113
 SUMMARY:[접수 마감] 서울 빵빵런 2026
 DESCRIPTION:종목: 10km\, 5km\n장소: 뚝섬한강공원 수변무대\n
@@ -3476,7 +2982,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ro-2026-강원-속초-해변길-건강달리기-2026-11-14@calrank.verc
  el.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261114
 SUMMARY:2026 강원 속초 해변길 건강달리기
 LOCATION:강원특별자치도 속초시 영랑호수윗길 주차장 일
@@ -3505,7 +3011,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-제28회-부산국제마라톤대회-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제28회 부산국제마라톤대회
 LOCATION:사하구 다대포해수욕장
@@ -3533,7 +3039,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-제주감귤마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제주감귤마라톤
 LOCATION:조천운동장
@@ -3560,7 +3066,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-세종특별자치시-전국-마라톤-2026-11-15@calrank.ve
  rcel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제2회 세종특별자치시 전국 마라톤
 LOCATION:세종시민운동장
@@ -3589,7 +3095,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-가민런-코리아-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 가민런 코리아
 LOCATION:고양종합운동장
@@ -3616,7 +3122,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-mbn-서울마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 MBN 서울마라톤
 LOCATION:광화문 광장\, 잠실종합운동장
@@ -3644,7 +3150,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제24회-상주-곶감-마라톤-대회-2026-11-15@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제24회 상주 곶감 마라톤 대회
 LOCATION:상주시민운동장
@@ -3673,7 +3179,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-9회-서울평화마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:9회 서울평화마라톤
 LOCATION:신정교하부육상트랙구장
@@ -3700,7 +3206,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제24회-고창고인돌마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제24회 고창고인돌마라톤
 LOCATION:고창공설운동장
@@ -3728,7 +3234,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-학생부-초등부-학생부중-고등부-제2회-세종특별자
  치시-전국-마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:학생부 초등부 학생부중.고등부 제2회 세종특별자
  치시 전국 마라톤
@@ -3763,7 +3269,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-제28회-부산국제신문마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제28회 부산국제신문마라톤
 LOCATION:사하구 다대포해수욕장
@@ -3791,7 +3297,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-jtbc-서울마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:JTBC 서울마라톤
 LOCATION:서울 잠실
@@ -3817,7 +3323,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-나눔레이스-인-용인-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 나눔레이스 인 용인
 LOCATION:세리박위드용인
@@ -3845,7 +3351,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제16회-대전서구청장배-마라톤대회-2026-11-15@calrank.ve
  rcel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제16회 대전서구청장배 마라톤대회
 LOCATION:대전 유성구  엑스포 다리밑
@@ -3875,7 +3381,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제16회-대전서구청장배-마라톤대회-2026-11-15-deadline@c
  alrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261028
 SUMMARY:[접수 마감] 제16회 대전서구청장배 마라톤대회
 DESCRIPTION:종목: 10km\, 5km\, 가족코스\, 건강코스\n시간: 09:00
@@ -3903,7 +3409,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-fila-run-espresso-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 FILA RUN & ESPRESSO
 LOCATION:상암 월드컵공원 평화광장
@@ -3928,7 +3434,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-손기정평화마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 손기정평화마라톤
 LOCATION:파주 임진각
@@ -3955,7 +3461,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-손기정평화마라톤-2026-11-15-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261027
 SUMMARY:[접수 마감] 2026 손기정평화마라톤
 DESCRIPTION:종목: 풀\, 하프\, 10km\, 6km코스\, 풀코스\n시간: 
@@ -3980,7 +3486,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제12회-창원특례시장배-광려천마라톤-2026-11-15@calrank
  .vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:제12회 창원특례시장배 광려천마라톤
 LOCATION:창원시 광려천수변공원
@@ -4009,7 +3515,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-26회-창원통일마라톤-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:26회 창원통일마라톤
 LOCATION:창원종합운동장 보조경기장
@@ -4037,7 +3543,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가족코스-건강코스-제16회-대전서구청장배-마라톤
  대회-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:가족코스 건강코스 제16회 대전서구청장배 마라톤
  대회
@@ -4070,7 +3576,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가족코스-건강코스-제16회-대전서구청장배-마라톤
  대회-2026-11-15-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261028
 SUMMARY:[접수 마감] 가족코스 건강코스 제16회 대전서구청
  장배 마라톤대회
@@ -4101,7 +3607,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-에코나우런-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 에코나우런
 LOCATION:뚝섬한강공원 수변무대 앞 광장
@@ -4127,7 +3633,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-에코나우런-2026-11-15-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:[접수 마감] 2026 에코나우런
 DESCRIPTION:종목: 5km\n장소: 뚝섬한강공원 수변무대 앞 광장
@@ -4151,7 +3657,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-영남일보-혁신도시-마라톤-2026-11-15@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 영남일보 혁신도시 마라톤
 LOCATION:대구혁신도시 신서중앙공원
@@ -4180,7 +3686,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-영남일보-혁신도시-마라톤-2026-11-15-deadline@calrank
  .vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 2026 영남일보 혁신도시 마라톤
 DESCRIPTION:종목: 10km\, 5km\n장소: 대구혁신도시 신서중앙공
@@ -4207,7 +3713,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-우리함께런-with-빗썸나눔-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:우리함께런 with 빗썸나눔
 LOCATION:여의도한강공원 물빛무대앞광장
@@ -4234,7 +3740,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-청춘레이스-2026-11-15@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 청춘레이스
 LOCATION:우이천 다목적광장
@@ -4260,7 +3766,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-청춘레이스-2026-11-15-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:[접수 마감] 2026 청춘레이스
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 우이천 다목적광장\
@@ -4284,7 +3790,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-연수구청장배-송도-walk-run-2026-11-15@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:2026 연수구청장배 송도 WALK & RUN
 LOCATION:국립인천대학교 송도캠퍼스 정문
@@ -4312,7 +3818,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-연수구청장배-송도-walk-run-2026-11-15-deadline@calrank.
  vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:[접수 마감] 2026 연수구청장배 송도 WALK & RUN
 DESCRIPTION:종목: 하프\, 10km\, 5km\, WALK 5km\, WALK 10km\n장소: 국
@@ -4338,7 +3844,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-give-run-2026-부산-2026-11-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:GIVE RUN 2026 부산
 LOCATION:부산 대저생태공원
@@ -4365,7 +3871,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-세정-가을바람-유러닝페스타-2026-11-21@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:2026 세정 가을바람 유러닝페스타
 LOCATION:하남 미사리 조정경기장
@@ -4395,7 +3901,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-세정-가을바람-유러닝페스타-2026-11-21-deadline@calr
  ank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:[접수 마감] 2026 세정 가을바람 유러닝페스타
 DESCRIPTION:종목: 10km\, 5km\, 10k 커플런\, 10k 단체전(5인1조)\n
@@ -4424,7 +3930,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-단체전-5인1조-2026-세정-가을바람-유러닝페스타-2026-
  11-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:단체전(5인1조) 2026 세정 가을바람 유러닝페스타
 LOCATION:하남 미사리 조정경기장
@@ -4454,7 +3960,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-단체전-5인1조-2026-세정-가을바람-유러닝페스타-2026-
  11-21-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:[접수 마감] 단체전(5인1조) 2026 세정 가을바람 유러
  닝페스타
@@ -4483,7 +3989,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-전마협-보성녹차-마라톤-2026-11-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:2026 전마협 보성녹차 마라톤
 LOCATION:보성군 공설운동장
@@ -4510,7 +4016,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-런텐-14차-just-run10-대구-2026-11-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:런텐 14차 JUST RUN10 대구
 LOCATION:금호강 러닝성지
@@ -4537,7 +4043,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-전마협-보성녹차-autumn-마라톤-2026-11-21@calrank.verc
  el.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:2026 전마협 보성녹차 Autumn 마라톤
 LOCATION:보성군 공설운동장
@@ -4567,7 +4073,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-아식스-서울신문-고프리런-2026-11-21@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:2026 아식스 서울신문 고프리런
 LOCATION:여의도공원 문화의마당
@@ -4596,7 +4102,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-런텐-14차-레이스-just-run10-대구-2026-11-21@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:런텐 14차 레이스 JUST RUN10 대구
 LOCATION:금호강 러닝성지
@@ -4624,7 +4130,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-런텐-14차-레이스-just-run10-대구-2026-11-21-deadline@calrank
  .vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:[접수 마감] 런텐 14차 레이스 JUST RUN10 대구
 DESCRIPTION:종목: 10km\, 5km\n장소: 금호강 러닝성지\n접수 마
@@ -4650,7 +4156,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-서울-라이프마라톤-가을-2026-11-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261121
 SUMMARY:2026 서울 라이프마라톤(가을)
 LOCATION:평화의공원 평화광장
@@ -4678,7 +4184,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-서울-라이프마라톤-가을-2026-11-21-deadline@calrank.ve
  rcel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261120
 SUMMARY:[접수 마감] 2026 서울 라이프마라톤(가을)
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 평화의공원 평화광
@@ -4704,7 +4210,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-자이스-스마일-레이스-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:자이스 스마일 레이스
 LOCATION:여의도공원 문화의 마당
@@ -4730,7 +4236,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-서울-억새풀-마라톤대회-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:2026 서울 억새풀 마라톤대회
 LOCATION:(영등포) 영롱이 억새구장
@@ -4758,7 +4264,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-서울-억새풀-마라톤대회-2026-11-22-deadline@calrank.ve
  rcel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 2026 서울 억새풀 마라톤대회
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: (영등포) 영롱이 억
@@ -4784,7 +4290,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-평화의숲-마라톤-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:평화의숲 마라톤
 LOCATION:상암 월드컵공원 평화광장
@@ -4811,7 +4317,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-평화의숲-마라톤-2026-11-22-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:[접수 마감] 평화의숲 마라톤
 DESCRIPTION:종목: 5km\, 10km\n시간: 08:00 집결\n장소: 상암 월드
@@ -4835,7 +4341,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-김대중마라톤-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:김대중마라톤
 LOCATION:목포종합경기장
@@ -4862,7 +4368,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-자이스-스-레이스-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:자이스 스 레이스
 LOCATION:여의도공원 문화의 마당
@@ -4889,7 +4395,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-서울-억새-마라톤-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:서울 억새 마라톤
 LOCATION:(영등포) 영롱이 억새구장
@@ -4916,7 +4422,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-서울-억새-마라톤-2026-11-22-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 서울 억새 마라톤
 DESCRIPTION:종목: 풀코스\, 5km\, 10km\, 하프\n시간: 08:30 집결\n
@@ -4940,7 +4446,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-인천마라톤-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:2026 인천마라톤
 LOCATION:인천아시아드 주경기장\, 운서역
@@ -4967,7 +4473,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-무주반딧불평화마라톤-2026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:무주반딧불평화마라톤
 LOCATION:무주 등나무운동장
@@ -4995,7 +4501,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-무주반딧불평화마라톤-2026-11-22-deadline@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261028
 SUMMARY:[접수 마감] 무주반딧불평화마라톤
 DESCRIPTION:종목: 5km\, 10km\, 하프\n시간: 9:00 집결\n장소: 무
@@ -5020,7 +4526,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제6회-고용노동부장관배-직장인마라톤대회-2026-11-22
  @calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:제6회 고용노동부장관배 직장인마라톤대회
 LOCATION:하남미사경정공원일원
@@ -5050,7 +4556,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-부산항일학생의거86주년기념-부산시민이어달리기-2
  026-11-22@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:부산항일학생의거86주년기념 부산시민이어달리기
 LOCATION:부산시내 중앙로구덕운동장~초읍
@@ -5082,7 +4588,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-부산항일학생의거86주년기념-부산시민이어달리기-2
  026-11-22-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261110
 SUMMARY:[접수 마감] 부산항일학생의거86주년기념 부산시민
  이어달리기
@@ -5114,7 +4620,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제19회-대구광역시장기-생활체육-육상대회-2026-11-22@
  calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:제19회 대구광역시장기 생활체육 육상대회
 LOCATION:대구스타디움
@@ -5145,7 +4651,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제19회-대구광역시장기-생활체육-육상대회-2026-11-22-
  deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261105
 SUMMARY:[접수 마감] 제19회 대구광역시장기 생활체육 육상
  대회
@@ -5175,7 +4681,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-평화런-2026-11-28@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:평화런
 LOCATION:여의도공원 문화의마당
@@ -5199,31 +4705,8 @@ DESCRIPTION:평화런 내일입니다 — 배번과 출발 시간을 확인
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rm-평화런-2026-11-28-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:[접수 마감] 평화런
-DESCRIPTION:종목: 5km\, 10km\n시간: 07:30 집결\n장소: 여의도공
- 원 문화의마당\n접수 마감: 2026-10-24\n주최: 2027 서울WYD\, C
- PBC\n신청: http://www.peacerun.kr\nhttps://calrank.vercel.app/e/rm-%ED%8
- F%89%ED%99%94%EB%9F%B0-2026-11-28.html
-URL:https://calrank.vercel.app/e/rm-%ED%8F%89%ED%99%94%EB%9F%B0-2026-11-28.
- html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:평화런 접수 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:평화런 접수가 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rm-남원-춘향-전국-마라톤대회-2026-11-28@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:남원 춘향 전국 마라톤대회
 LOCATION:남원 종합스포츠타운 운동장
@@ -5253,7 +4736,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-남원-춘향-전국-마라톤대회-2026-11-28-deadline@calrank.ver
  cel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261028
 SUMMARY:[접수 마감] 남원 춘향 전국 마라톤대회
 DESCRIPTION:종목: 5km\, 10km\, 하프\, 풀코스\, 풀\n시간: 오전 8
@@ -5281,7 +4764,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-목욕런-2026-2026-11-28@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:목욕런 2026
 LOCATION:월드컵공원 평화의 광장
@@ -5308,7 +4791,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-2027-서울-세계청년대회-성공-기원-평화런-2026-11-28@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:2027 서울 세계청년대회 성공 기원 평화런
 LOCATION:여의도공원 문화의마당
@@ -5336,39 +4819,9 @@ DESCRIPTION:2027 서울 세계청년대회 성공 기원 평화런 내일
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:rm-2027-서울-세계청년대회-성공-기원-평화런-2026-11-28-de
- adline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
-DTSTART;VALUE=DATE:20261024
-SUMMARY:[접수 마감] 2027 서울 세계청년대회 성공 기원 평화
- 런
-DESCRIPTION:종목: 10km\, 5km\n시간: 07:30 집결\n장소: 여의도공
- 원 문화의마당\n접수 마감: 2026-10-24\n주최: 2027 서울WYD\, C
- PBC\n신청: http://www.peacerun.kr/\nhttps://calrank.vercel.app/e/rm-2027
- -%EC%84%9C%EC%9A%B8-%EC%84%B8%EA%B3%84%EC%B2%AD%EB%85%84%EB%8C%80%ED%9A%8C
- -%EC%84%B1%EA%B3%B5-%EA%B8%B0%EC%9B%90-%ED%8F%89%ED%99%94%EB%9F%B0-2026-11
- -28.html
-URL:https://calrank.vercel.app/e/rm-2027-%EC%84%9C%EC%9A%B8-%EC%84%B8%EA%B3
- %84%EC%B2%AD%EB%85%84%EB%8C%80%ED%9A%8C-%EC%84%B1%EA%B3%B5-%EA%B8%B0%EC%9B
- %90-%ED%8F%89%ED%99%94%EB%9F%B0-2026-11-28.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P3D
-DESCRIPTION:2027 서울 세계청년대회 성공 기원 평화런 접수 
- 마감 3일 전입니다
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:2027 서울 세계청년대회 성공 기원 평화런 접수
- 가 내일 마감됩니다
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:rr-2026-착한서구-공부방-기부앤런-2026-11-28@calrank.vercel.a
  pp
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:2026 착한서구 공부방 기부앤런
 LOCATION:영산강 자전거길(극락교~서창교
@@ -5397,7 +4850,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-착한서구-공부방-기부앤런-2026-11-28-deadline@calrank
  .vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261117
 SUMMARY:[접수 마감] 2026 착한서구 공부방 기부앤런
 DESCRIPTION:종목: 10km\, 5km\n장소: 영산강 자전거길(극락교~
@@ -5425,7 +4878,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가야왕도-김해-전국어울림-마라톤-2026-11-29@calrank.ver
  cel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:가야왕도 김해 전국어울림 마라톤
 LOCATION:롯데워터파크 제3주차장
@@ -5455,7 +4908,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가야왕도-김해-전국어울림-마라톤-2026-11-29-deadline@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261025
 SUMMARY:[접수 마감] 가야왕도 김해 전국어울림 마라톤
 DESCRIPTION:종목: 5km\, 10km\, 하프\n시간: 08ㅣ:40 집결\n장소: 
@@ -5483,7 +4936,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제14회-안중근-평화-마라톤-2026-11-29@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:제14회 안중근 평화 마라톤
 LOCATION:여의도공원 문화의마당
@@ -5511,7 +4964,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제14회-안중근-평화-마라톤-2026-11-29-deadline@calrank.verc
  el.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:[접수 마감] 제14회 안중근 평화 마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 07:30 집결\n장소: 여
@@ -5537,7 +4990,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-새한미디어-마라톤-2026-11-29@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:새한미디어 마라톤
 LOCATION:평화의공원 평화광장
@@ -5564,7 +5017,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-새한미디어-마라톤-2026-11-29-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261116
 SUMMARY:[접수 마감] 새한미디어 마라톤
 DESCRIPTION:종목: 5km\, 10km\, 하프\n시간: 08시 집결\n장소: 평
@@ -5589,7 +5042,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-천안독립기념관-마라톤대회-2026-11-29@calrank.ver
  cel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:제2회 천안독립기념관 마라톤대회
 LOCATION:천안 독립기념관
@@ -5619,7 +5072,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-천안독립기념관-마라톤대회-2026-11-29-deadline@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:[접수 마감] 제2회 천안독립기념관 마라톤대회
 DESCRIPTION:종목: 10km\, 5km\, 3.56KM 걷기\n시간: 09:00 집결\n장
@@ -5648,7 +5101,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-정읍공동체-프리마켓-마라톤-2026-11-29@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:2026 정읍공동체 프리마켓 마라톤
 LOCATION:정읍천변 어린이전용축구장
@@ -5679,7 +5132,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-정읍공동체-프리마켓-마라톤-2026-11-29-deadline@calr
  ank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:[접수 마감] 2026 정읍공동체 프리마켓 마라톤
 DESCRIPTION:종목: 10km\, 5km\, 5km가족부(2인1조)\, 10km 단체전(3
@@ -5709,7 +5162,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가족부-2인1조-단체전-3인1조-2026-정읍공동체-프리마
  켓-마라톤-2026-11-29@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:가족부(2인1조) 단체전(3인1조) 2026 정읍공동체 프리
  마켓 마라톤
@@ -5743,7 +5196,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-가족부-2인1조-단체전-3인1조-2026-정읍공동체-프리마
  켓-마라톤-2026-11-29-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261115
 SUMMARY:[접수 마감] 가족부(2인1조) 단체전(3인1조) 2026 정읍
  공동체 프리마켓 마라톤
@@ -5774,7 +5227,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-천안-희망나눔-마라톤-2026-11-29@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:2026 천안 희망나눔 마라톤
 LOCATION:천안 독립기념관
@@ -5802,7 +5255,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-천안-희망나눔-마라톤-2026-11-29-deadline@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261128
 SUMMARY:[접수 마감] 2026 천안 희망나눔 마라톤
 DESCRIPTION:종목: 10km\, 5km\, 3.56KM 걷기\n시간: 09:00 집결\n장
@@ -5828,7 +5281,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-원주-치악마라톤-2026-11-29@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:2026 원주 치악마라톤
 LOCATION:원주종합운동장
@@ -5855,7 +5308,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-원주-치악마라톤-2026-11-29-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 2026 원주 치악마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 원주종합운동장\n접
@@ -5879,7 +5332,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-서울사랑마라톤-2026-11-29@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:2026 서울사랑마라톤
 LOCATION:서울 성북구 석관동
@@ -5905,7 +5358,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-서울사랑마라톤-2026-11-29-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261031
 SUMMARY:[접수 마감] 2026 서울사랑마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 서울 성북구 석관동
@@ -5929,7 +5382,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제9회-광진구청장배-육상대회-2026-11-29@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261129
 SUMMARY:제9회 광진구청장배 육상대회
 LOCATION:중곡동 중랑천 물놀이장 옆
@@ -5958,7 +5411,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제9회-광진구청장배-육상대회-2026-11-29-deadline@calrank.
  vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261111
 SUMMARY:[접수 마감] 제9회 광진구청장배 육상대회
 DESCRIPTION:종목: 10km\n장소: 중곡동 중랑천 물놀이장 옆\n접
@@ -5985,7 +5438,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-하남-미사-호수-에너지런-2026-12-05@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:하남 미사 호수 에너지런
 LOCATION:하남미사경정공원
@@ -6013,7 +5466,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-하남-미사-호수-에너지런-2026-12-05-deadline@calrank.vercel
  .app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261126
 SUMMARY:[접수 마감] 하남 미사 호수 에너지런
 DESCRIPTION:종목: 5km\, 10km\n시간: 09:00 집결\n장소: 하남미사
@@ -6039,7 +5492,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제23회-한강시민마라톤-2026-12-05@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:제23회 한강시민마라톤
 LOCATION:여의도 물빛무대 앞 광장
@@ -6067,7 +5520,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제23회-한강시민마라톤-2026-12-05-deadline@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261116
 SUMMARY:[접수 마감] 제23회 한강시민마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 09:00 집결\n장소: 여
@@ -6092,7 +5545,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-전국마라톤협회-금산-골드런-마라톤-2026-12-05@cal
  rank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:2026 전국마라톤협회 금산 골드런 마라톤
 LOCATION:금산
@@ -6122,7 +5575,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026월드-레코드-국제-마라톤-축제-사웨-2026-12-05@calra
  nk.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:2026월드 레코드 국제 마라톤 축제 - 사웨
 LOCATION:금산세계인삼엑스포광장
@@ -6152,7 +5605,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-사바스티안-사웨-초청기념-월드레코드-마라톤축제-
  2026-12-05@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:사바스티안 사웨 초청기념 월드레코드 마라톤축제
 LOCATION:금산세계인삼엑스포광장
@@ -6183,7 +5636,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제4회-가든파이브-라이프-레이스-2026-12-05@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:제4회 가든파이브 라이프 레이스
 LOCATION:서울 가든파이브라이프 중앙광장
@@ -6212,7 +5665,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제4회-가든파이브-라이프-레이스-2026-12-05-deadline@calr
  ank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261116
 SUMMARY:[접수 마감] 제4회 가든파이브 라이프 레이스
 DESCRIPTION:종목: 하프\, 10km\, 5km\, 마니아\n장소: 서울 가든
@@ -6240,7 +5693,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-전국마라톤협회-2026-골드런-레이스-2026-12-05@calrank.ve
  rcel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:전국마라톤협회 2026 골드런 레이스
 LOCATION:금산세계인삼엑스포광장
@@ -6270,7 +5723,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-전국마라톤협회-2026-골드런-레이스-2026-12-05-deadline@c
  alrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261125
 SUMMARY:[접수 마감] 전국마라톤협회 2026 골드런 레이스
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 금산세계인삼엑스
@@ -6298,7 +5751,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-하남-미사-대회-취소-2026-12-05@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:2026 하남 미사 대회 취소
 LOCATION:하남미사경정공원
@@ -6324,7 +5777,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-허그런-hug-run-2026-12-05@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261205
 SUMMARY:2026 허그런(HUG RUN)
 LOCATION:상암 월드컵공원 평화광장
@@ -6350,7 +5803,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-허그런-hug-run-2026-12-05-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:[접수 마감] 2026 허그런(HUG RUN)
 DESCRIPTION:종목: 10km\, 5km\n장소: 상암 월드컵공원 평화광장
@@ -6373,7 +5826,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-황영조-로드레이스-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:황영조 로드레이스
 LOCATION:정서진 아라타워
@@ -6400,7 +5853,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-황영조-로드레이스-2026-12-06-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261030
 SUMMARY:[접수 마감] 황영조 로드레이스
 DESCRIPTION:종목: 10km\, 하프\n시간: 09:00 집결\n장소: 정서진 
@@ -6424,7 +5877,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-부산브릿지-마라톤-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:2026 부산브릿지 마라톤
 LOCATION:부산 벡스코 제1전시장
@@ -6451,7 +5904,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-부산바다마라톤-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:부산바다마라톤
 LOCATION:부산 광안리
@@ -6477,7 +5930,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제20회-양산전국하프마라톤-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:제20회 양산전국하프마라톤
 LOCATION:양산종합운동장
@@ -6506,7 +5959,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-사바스티안-사웨-초청기념-월드레코드-마라톤축제-
  2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:사바스티안 사웨 초청기념 월드레코드 마라톤축제
 LOCATION:금산세계인삼엑스포광장
@@ -6536,7 +5989,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-청춘런-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:2026 청춘런
 LOCATION:상암동 평화의공원 평화광장
@@ -6562,7 +6015,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-청춘런-2026-12-06-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261108
 SUMMARY:[접수 마감] 2026 청춘런
 DESCRIPTION:종목: 10km\, 5km\n장소: 상암동 평화의공원 평화광
@@ -6586,7 +6039,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제1회-정읍-고향사랑기부마라톤-2026-12-06@calrank.vercel
  .app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:제1회 정읍 고향사랑기부마라톤
 LOCATION:정읍시 내장산 단풍생태공원
@@ -6616,7 +6069,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제1회-정읍-고향사랑기부마라톤-2026-12-06-deadline@calra
  nk.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261122
 SUMMARY:[접수 마감] 제1회 정읍 고향사랑기부마라톤
 DESCRIPTION:종목: 10km\, 5km\, 5km가족.커플부(2인1조)\, 10km 단
@@ -6644,7 +6097,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-제20회-양산전국마라톤-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:제20회 양산전국마라톤
 LOCATION:장소 미확인
@@ -6669,7 +6122,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-화순고인돌마라톤-2026-12-06@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:2026 화순고인돌마라톤
 LOCATION:화순공설운동장
@@ -6696,7 +6149,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-화순고인돌마라톤-2026-12-06-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261110
 SUMMARY:[접수 마감] 2026 화순고인돌마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 화순공설운동장\n접
@@ -6721,7 +6174,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-소년소녀-가장-돕기-기부런-2026-12-12@calrank.vercel.
  app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261212
 SUMMARY:2026 소년소녀 가장 돕기 기부런
 LOCATION:상암동 평화광장
@@ -6750,7 +6203,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-소년소녀-가장-돕기-기부런-2026-12-12-deadline@calran
  k.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261106
 SUMMARY:[접수 마감] 2026 소년소녀 가장 돕기 기부런
 DESCRIPTION:종목: 10km\, 5km\, 걷기\n시간: 07:30 집결\n장소: 상
@@ -6777,7 +6230,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제3회-긍정의힘-마라톤-2026-12-12@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261212
 SUMMARY:제3회 긍정의힘 마라톤
 LOCATION:신정교 하부 영롱이 억새구장
@@ -6805,7 +6258,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제3회-긍정의힘-마라톤-2026-12-12-deadline@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:[접수 마감] 제3회 긍정의힘 마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 09:00 집결\n장소: 신
@@ -6829,7 +6282,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-one-more-run-2026-12-12@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261212
 SUMMARY:2026 ONE MORE RUN
 LOCATION:영종구 씨사이드파크 일원
@@ -6854,7 +6307,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-one-more-run-2026-12-12-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261120
 SUMMARY:[접수 마감] 2026 ONE MORE RUN
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 영종구 씨사이드파
@@ -6876,7 +6329,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-성남-헤리티지-런-2026-12-12@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261212
 SUMMARY:2026 성남 헤리티지 런
 LOCATION:탄천종합운동장
@@ -6902,7 +6355,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-성남-헤리티지-런-2026-12-12-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261120
 SUMMARY:[접수 마감] 2026 성남 헤리티지 런
 DESCRIPTION:종목: 10km\, 5km\n장소: 탄천종합운동장\n접수 마
@@ -6925,7 +6378,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제5회-밤섬-마라톤-2026-12-13@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261213
 SUMMARY:제5회 밤섬 마라톤
 LOCATION:상암월드컵공원 평화광장
@@ -6952,7 +6405,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제5회-밤섬-마라톤-2026-12-13-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261206
 SUMMARY:[접수 마감] 제5회 밤섬 마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 08:00 집결\n장소: 상
@@ -6976,7 +6429,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제36회-진주마라톤-2026-12-13@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261213
 SUMMARY:제36회 진주마라톤
 LOCATION:진주노을공원
@@ -7003,7 +6456,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-일자산tral-running-2026-12-13@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261213
 SUMMARY:제2회 일자산TRAL RUNNING
 LOCATION:일자산보훈병원앞
@@ -7029,7 +6482,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-일자산tral-running-2026-12-13-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261209
 SUMMARY:[접수 마감] 제2회 일자산TRAL RUNNING
 DESCRIPTION:종목: 8km\, 4km\n장소: 일자산보훈병원앞\n접수 마
@@ -7052,7 +6505,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-시즌마감마라톤대회-2026-12-13@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261213
 SUMMARY:2026 시즌마감마라톤대회
 LOCATION:인천아사이드 경기장 북측 광장
@@ -7080,7 +6533,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-시즌마감마라톤대회-2026-12-13-deadline@calrank.vercel.
  app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261123
 SUMMARY:[접수 마감] 2026 시즌마감마라톤대회
 DESCRIPTION:종목: 하프\, 10km\, 5km\n장소: 인천아사이드 경기
@@ -7106,7 +6559,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-청춘-릴레이-마라톤-2026-12-19@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261219
 SUMMARY:제2회 청춘 릴레이 마라톤
 LOCATION:상암월드컵공원 평화의광장
@@ -7134,7 +6587,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-제2회-청춘-릴레이-마라톤-2026-12-19-deadline@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261209
 SUMMARY:[접수 마감] 제2회 청춘 릴레이 마라톤
 DESCRIPTION:종목: 하프\, 10km\, 5km\n시간: 08:00 집결\n장소: 상
@@ -7161,7 +6614,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-슬로우런마라톤-a-k-a-동계훈련-2026-12-20@calrank.ver
  cel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261220
 SUMMARY:2026 슬로우런마라톤(a.k.a. 동계훈련)
 LOCATION:상암동 월드컵공원 평화의 광장
@@ -7190,7 +6643,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-슬로우런마라톤-a-k-a-동계훈련-2026-12-20-deadline@ca
  lrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261130
 SUMMARY:[접수 마감] 2026 슬로우런마라톤(a.k.a. 동계훈련)
 DESCRIPTION:종목: 10km\, 5km\n장소: 상암동 월드컵공원 평화의
@@ -7217,7 +6670,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-코리아-시즌-레이스-2026-12-26@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261226
 SUMMARY:코리아 시즌 레이스
 LOCATION:상암월드컵공원 평화광장
@@ -7244,7 +6697,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-코리아-시즌-레이스-2026-12-26-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261216
 SUMMARY:[접수 마감] 코리아 시즌 레이스
 DESCRIPTION:종목: 5km\, 10km\, 하프\n시간: 08:00 집결\n장소: 상
@@ -7268,7 +6721,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-한강런-2026-12-28@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261228
 SUMMARY:2026 한강런
 LOCATION:안양천다목적광장
@@ -7294,7 +6747,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rm-2026-한강런-2026-12-28-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261212
 SUMMARY:[접수 마감] 2026 한강런
 DESCRIPTION:종목: 10km\, 5km\n시간: 09:00 집결\n장소: 안양천다
@@ -7317,7 +6770,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-한강런-준비중-2026-12-28@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261228
 SUMMARY:2026 한강런 준비중
 LOCATION:안양천다목적광장
@@ -7343,7 +6796,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-한강런-준비중-2026-12-28-deadline@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261212
 SUMMARY:[접수 마감] 2026 한강런 준비중
 DESCRIPTION:종목: 10km\, 5km\n장소: 안양천다목적광장\n접수 
@@ -7366,7 +6819,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:rr-2026-한강런-대회취소-2026-12-28@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20261228
 SUMMARY:2026 한강런 (대회취소)
 LOCATION:안양천다목적광장
@@ -7393,7 +6846,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ro-희망드림-제24회-동계마라톤대회-2027-02-14@calrank.verce
  l.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20270214
 SUMMARY:희망드림 제24회 동계마라톤대회
 LOCATION:여의도 한강 물빛광장
@@ -7420,7 +6873,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-동아일보-서울국제마라톤-2027-03-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20270321
 SUMMARY:동아일보 서울국제마라톤
 LOCATION:서울 광화문
@@ -7447,7 +6900,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-2027-서울마라톤-2027-03-21@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20270321
 SUMMARY:2027 서울마라톤
 LOCATION:광화문광장
@@ -7472,7 +6925,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ro-대구국제마라톤-2027-04-04@calrank.vercel.app
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20270404
 SUMMARY:대구국제마라톤
 LOCATION:대구 수성
@@ -7499,7 +6952,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ro-제9회-오션뷰-기장바다마라톤-2027-04-18@calrank.vercel.ap
  p
-DTSTAMP:20261024T225233Z
+DTSTAMP:20261025T230055Z
 DTSTART;VALUE=DATE:20270418
 SUMMARY:제9회 오션뷰 기장바다마라톤
 LOCATION:오시리아 동부산관광9로
