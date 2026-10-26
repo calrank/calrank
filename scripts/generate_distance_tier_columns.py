@@ -37,6 +37,133 @@ def esc(s) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+DIST_KM = {"5km": 5.0, "10km": 10.0, "half": 21.0975, "full": 42.195}
+GRADE_SLUG = {"5km": "5km", "10km": "10km", "half": "half", "full": "full"}
+
+
+def _sec(t: str) -> int:
+    """'1:23:45' 또는 '48:15' 를 초로."""
+    p = [int(x) for x in t.split(":")]
+    return p[0] * 3600 + p[1] * 60 + p[2] if len(p) == 3 else p[0] * 60 + p[1]
+
+
+def _mmss(sec: float) -> str:
+    sec = int(round(sec))
+    return f"{sec // 60}:{sec % 60:02d}"
+
+
+def _hms(sec: float) -> str:
+    sec = int(round(sec))
+    h, r = divmod(sec, 3600)
+    m, s = divmod(r, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
+# 목표 기록별로 몇 분에 어느 지점을 지나야 하는지. 러너가 실제로 팔에 적어 가는 표다.
+# 숫자는 전부 산수라 지어낼 여지가 없다.
+SPLIT_TARGETS = {
+    "5km":  [("20분", 1200), ("22분", 1320), ("25분", 1500), ("27분", 1620),
+             ("30분", 1800), ("35분", 2100)],
+    "10km": [("40분", 2400), ("45분", 2700), ("50분", 3000), ("55분", 3300),
+             ("60분", 3600), ("70분", 4200)],
+    "half": [("1시간 30분", 5400), ("1시간 40분", 6000), ("1시간 50분", 6600),
+             ("2시간", 7200), ("2시간 15분", 8100), ("2시간 30분", 9000)],
+    "full": [("서브3", 10800), ("3시간 30분", 12600), ("서브4", 14400),
+             ("4시간 30분", 16200), ("5시간", 18000), ("5시간 30분", 19800)],
+}
+# 구간을 나누는 지점(km). 짧은 거리는 촘촘하게, 긴 거리는 5km 단위로.
+SPLIT_MARKS = {
+    "5km": [1, 2, 3, 4, 5],
+    "10km": [2, 4, 6, 8, 10],
+    "half": [5, 10, 15, 20, 21.0975],
+    "full": [5, 10, 15, 20, 21.0975, 25, 30, 35, 40, 42.195],
+}
+
+
+def split_table(dist: str) -> str:
+    km = DIST_KM[dist]
+    marks = SPLIT_MARKS[dist]
+    head = "<tr><th>목표</th>" + "".join(
+        f"<th>{'하프' if abs(m-21.0975)<0.01 else ('완주' if abs(m-km)<0.01 else f'{m:g}km')}</th>"
+        for m in marks) + "</tr>"
+    rows = []
+    for label, total in SPLIT_TARGETS[dist]:
+        cells = "".join(f"<td>{_hms(total * m / km)}</td>" for m in marks)
+        rows.append(f"<tr><td>{label}</td>{cells}</tr>")
+    return ('<div class="table-scroll">\n<table class="tier-data-table">\n'
+            + head + "\n" + "\n".join(rows) + "\n</table>\n</div>")
+
+
+# Riegel(1981) 환산. T2 = T1 x (D2/D1)^1.06
+RIEGEL_B = 1.06
+# 이 거리 기록으로 나머지 세 거리를 가늠한다. 방향을 하나로 두는 쪽이 읽기 쉽다.
+RIEGEL_SAMPLES = {
+    "5km":  [1080, 1200, 1380, 1500, 1680, 1800],
+    "10km": [2400, 2700, 3000, 3300, 3600, 4200],
+    "half": [5400, 6000, 6600, 7200, 8100, 9000],
+    "full": [10800, 12600, 14400, 16200, 18000, 19800],
+}
+RIEGEL_LIMIT = 230 * 60          # Riegel 이 밝힌 적용 상한(230분)
+# 10km 페이지는 손으로 쓴 것이라 DIST_COPY 에 없다. 이름만 따로 둔다.
+DIST_NAME = {"5km": "5km", "10km": "10km", "half": "하프마라톤", "full": "풀코스"}
+
+
+def riegel_table(dist: str) -> str:
+    from_km = DIST_KM[dist]
+    others = [(k, DIST_NAME[k], DIST_KM[k]) for k in ("5km", "10km", "half", "full")
+              if k != dist]
+    head = (f"<tr><th>{DIST_NAME[dist]} 기록</th>"
+            + "".join(f"<th>{lab}</th>" for _, lab, _ in others) + "</tr>")
+    rows = []
+    for t in RIEGEL_SAMPLES[dist]:
+        cells = ""
+        for _, _, to_km in others:
+            pred = t * (to_km / from_km) ** RIEGEL_B
+            # 범위를 넘은 값은 표시해 둔다. 숨기는 것보다 적어 두는 쪽이 정직하다.
+            mark = "*" if pred > RIEGEL_LIMIT else ""
+            cells += f"<td>{_hms(pred)}{mark}</td>"
+        rows.append(f"<tr><td>{_hms(t)}</td>{cells}</tr>")
+    return ('<div class="table-scroll">\n<table class="tier-data-table">\n'
+            + head + "\n" + "\n".join(rows) + "\n</table>\n</div>")
+
+
+def median_table(dist: str) -> str:
+    """'평균 기록'을 찾는 사람이 가장 많다. 중앙값(인터미디엇 열)을 페이스와 함께 뽑는다.
+    산술평균이 아니라 중앙값을 쓰는 이유는 러닝 기록이 느린 쪽으로 꼬리가 길어서다."""
+    km = DIST_KM[dist]
+    rows = []
+    for i, dec in enumerate(DECADES):
+        m = TIER_TABLES[(dist, "male")][i][2]      # 인터미디엇 = 상위 50%
+        f = TIER_TABLES[(dist, "female")][i][2]
+        rows.append(f"<tr><td>{dec}</td><td>{m}</td><td>{_mmss(_sec(m)/km)}</td>"
+                    f"<td>{f}</td><td>{_mmss(_sec(f)/km)}</td></tr>")
+    return ('<div class="table-scroll">\n<table class="tier-data-table">\n'
+            "<tr><th>나이대</th><th>남성 중앙값</th><th>남성 페이스</th>"
+            "<th>여성 중앙값</th><th>여성 페이스</th></tr>\n"
+            + "\n".join(rows) + "\n</table>\n</div>")
+
+
+def pace_table(dist: str) -> str:
+    """시계에 페이스만 찍혀 있는 경우. 완주 시간으로 바꿔 줘야 표에서 찾을 수 있다."""
+    km = DIST_KM[dist]
+    step = 15 if dist in ("5km", "10km") else 15
+    lo, hi = (240, 450) if dist in ("5km", "10km") else (270, 510)
+    rows = []
+    for p in range(lo, hi + 1, step):
+        rows.append(f"<tr><td>{_mmss(p)}/km</td><td>{_hms(p*km)}</td></tr>")
+    return ('<div class="table-scroll">\n<table class="tier-data-table">\n'
+            f"<tr><th>평균 페이스</th><th>{DIST_COPY[dist]['label']} 완주 시간</th></tr>\n"
+            + "\n".join(rows) + "\n</table>\n</div>")
+
+
+def decade_links(dist: str) -> str:
+    key = GRADE_SLUG[dist]
+    items = " · ".join(
+        f'<a href="grade-{key}-{d}s.html" style="color:var(--accent-ink);">{d}대</a>'
+        for d in (20, 30, 40, 50, 60, 70))
+    return f'<p style="font-size:14px;line-height:2;">{items}</p>'
+
+
 def tier_table(dist: str, gender: str) -> str:
     head = ("<tr><th>나이대</th>"
             + "".join(f'<th{" class=\"tc-elite\"" if n == "엘리트" else ""}>{n}</th>'
@@ -122,6 +249,20 @@ def build(dist: str) -> tuple[str, str, str, str]:
   .tier-data-table .tc-elite {{ color: #c9a6ff; font-weight: 700; }}
   .table-scroll {{ overflow-x: auto; }}
   .column-cta {{ margin-top: 32px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
+  @media (max-width: 680px) {{
+    .column-wrap {{ padding: 32px 14px 70px; }}
+    .column-body {{ font-size: 15.5px; line-height: 1.85; }}
+    .column-body h2 {{ font-size: 18px; margin: 30px 0 10px; }}
+    .tier-data-table {{ font-size: 12.5px; }}
+    .tier-data-table th, .tier-data-table td {{ padding: 7px 5px; }}
+    /* 가로로 미는 표에서 나이대 칸은 붙잡아 둔다. 안 그러면 어느 줄인지 잃는다. */
+    /* 고정 칸이 좁으면 "3시간 30분" 이 네 줄로 접혀 행이 길어진다. 줄바꿈을 막는다. */
+    .tier-data-table td:first-child, .tier-data-table th:first-child {{
+      position: sticky; left: 0; background: var(--surface); z-index: 2;
+      white-space: nowrap; padding-right: 10px;
+      box-shadow: 1px 0 0 var(--border); }}
+    .table-scroll {{ margin: 0 -14px; padding: 0 14px; }}
+  }}
   .column-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }}
 </style>
 </head>
@@ -153,7 +294,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 · <strong>무엇을</strong>: 대규모 실제 {esc(c['label'])} 레이스 완주기록을 나이·성별로 나눈 5단계(비기너~엘리트) 백분위 등급 기준<br>
 · <strong>어떻게</strong>: 상위 5%/20%/50%/80%/95% 컷오프 라인을 나이·성별 구간별로 산출<br>
 · <strong>왜</strong>: 개인이 절대 기록이 아닌 나이·성별 대비 상대적 위치를 객관적으로 확인할 수 있도록<br><br>
-· 보강 자료: Lepers, R., Bagley, A. &amp; Stapley, P. (2021). <em>Sub 3-Hour Marathon Runners for Five Consecutive Decades Demonstrate a Reduced Age-Related Decline in Performance</em>. Frontiers in Physiology. (지구력 러닝 능력은 25~35세에 정점을 찍고, 50대 후반까지 10년마다 약 6~7% 감소한다는 연구)
+· 보강 자료: Lepers, R., Burfoot, A. &amp; Stapley, P. J. (2021). <em>Sub 3-Hour Marathon Runners for Five Consecutive Decades Demonstrate a Reduced Age-Related Decline in Performance</em>. Frontiers in Physiology, 12:649282. (서브3를 50년간 유지한 러너 40명을 추적한 연구다. 73%가 25~34세에 개인 최고기록을 냈고, 60세 전까지 10년당 7% 미만으로 감소를 묶었다. 대상이 특수하게 잘 훈련된 집단이라 일반 동호인에게 그대로 적용하기는 어렵다)
 </div>
 
 <h2>등급은 이렇게 나뉩니다</h2>
@@ -176,6 +317,70 @@ def build(dist: str) -> tuple[str, str, str, str]:
 {tier_table(dist, "female")}
 <p style="font-size:13px; color:var(--ink-faint,#8E8E8E);">※ 10대는 아직 성장기라 성인 기준 등급을 그대로 적용하기는 조심스럽습니다. 참고용으로만 봐주세요. 데이터는 5세 단위로 제공되어, 각 나이대의 대표 구간 값을 사용했습니다.</p>
 <p style="font-size:13px; color:var(--ink-faint,#8E8E8E);">※ {esc(c['note'])}</p>
+
+<h2>{esc(c['label'])} 평균 기록은 얼마일까 — 나이대별 중앙값</h2>
+<p>"평균"을 찾는 분이 많은데, 러닝 기록은 느린 쪽 꼬리가 길어서 산술 평균이 실제 체감과 어긋납니다.
+그래서 <strong>중앙값</strong>(딱 절반이 이 안에 들어오는 기록)을 씁니다. 위 표의 인터미디엇 열이
+바로 상위 50% 지점이며, 아래는 그 값만 페이스와 함께 뽑은 것입니다.</p>
+{median_table(dist)}
+
+<h2>페이스만 알 때 — {esc(c['label'])} 완주 시간 환산</h2>
+<p>시계에 찍힌 평균 페이스만 기억난다면, 먼저 완주 시간으로 바꾼 뒤 위 등급표에서 찾으세요.
+{esc(c['label'])}는 페이스에 {DIST_KM[dist]:g}을 곱하면 완주 시간이 됩니다.</p>
+{pace_table(dist)}
+
+<h2>목표 기록별 구간 통과 시간 — {esc(c['label'])}</h2>
+<p>등급을 확인했다면 다음은 "그 기록으로 달리려면 어느 지점을 몇 분에 지나야 하는가"입니다.
+아래는 목표 기록을 일정한 페이스로 나눈 통과 시간입니다. 대회 당일 시계와 맞춰 보기 좋게
+구간마다 적어 두었습니다.</p>
+{split_table(dist)}
+<p style="font-size:13px; color:var(--ink-faint);">※ 일정 페이스를 가정한 산술 값입니다.
+실제로는 오르막·급수대·초반 혼잡 때문에 구간마다 달라집니다. 특히 초반 5km는 사람에 밀려
+계획보다 느려지는 경우가 많으니, 그걸 만회하려고 무리하게 당기지 않는 편이 낫습니다.</p>
+
+<h2>{esc(c['label'])} 기록으로 다른 거리 가늠하기</h2>
+<p>"{esc(c['label'])}는 뛰어봤는데 다른 거리는 어느 정도 나올까" — 거리를 바꿔 예측할 때
+가장 널리 쓰이는 것이 Riegel 공식입니다. Peter Riegel이
+<em>American Scientist</em>(1981, 69권 3호 285-290쪽)에 실은 것으로,
+<strong>예상 시간 = 기준 기록 × (거리비)<sup>1.06</sup></strong> 형태입니다.
+지수가 1보다 큰 이유는 거리가 늘면 페이스가 떨어지기 때문이고, 단순히 거리를 곱하는 것보다
+현실에 가깝습니다.</p>
+{riegel_table(dist)}
+<p style="font-size:13px; color:var(--ink-faint); line-height:1.8;">
+※ 표에서 <strong>*</strong> 가 붙은 값은 Riegel 본인이 밝힌 적용 범위
+(<strong>3분 30초~230분</strong>, 즉 3시간 50분)를 넘어선 예측입니다. 그 구간에서는 공식이
+실제보다 빠른 값을 내놓는 것으로 알려져 있으니 참고만 하세요.<br>
+※ 두 거리를 <strong>비슷한 정도로 훈련했을 때</strong>를 전제합니다. 하프까지만 뛰던 사람이
+풀코스를 처음 나가면 예상보다 느린 것이 보통이고, 그건 공식이 틀린 게 아니라 전제가 다른 것입니다.</p>
+
+<h2>내 연령대만 자세히 보기</h2>
+<p>위 표는 10년 단위입니다. 한 살 단위로 경계가 어떻게 움직이는지 보려면 아래에서 연령대를 고르세요.
+각 페이지에 남녀 기준이 한 살씩 나뉘어 있습니다.</p>
+{decade_links(dist)}
+
+<h2>기록은 왜 나이 들수록 떨어질까</h2>
+<p>지구력은 나이가 들면서 실제로 떨어집니다. Tanaka와 Seals가 <em>Journal of Physiology</em>
+(2008;586(1):55-63)에 정리한 바로는, 지구력 종목의 기량이 대체로 35세 전후까지 유지되다가
+그 뒤 완만히, 60세를 넘기면서 뚜렷하게 떨어집니다. 최대산소섭취량과 심박출량이 줄기 때문입니다.</p>
+<p>잘 훈련된 러너는 그 기울기를 늦출 수 있습니다. Lepers 등(2021)이 서브3 마라톤을 50년간
+유지한 러너 40명을 추적했더니, 73%가 25~34세에 개인 최고기록을 냈고 60세 전까지 감소를
+10년당 7% 미만으로 묶었습니다. 다만 이건 아주 특수하게 선별된 집단이라, 일반 동호인의
+기울기는 이보다 가파를 수 있습니다.</p>
+<p>위 표에서도 20~30대 기록이 거의 같고 40대부터 서서히 벌어지는 모습이 보입니다.
+등급표가 나이마다 기준을 달리 두는 이유가 여기 있습니다.</p>
+
+<h2>이 등급은 어떻게 나왔나 — 계산 과정</h2>
+<p>러닝 등급표는 많지만, 숫자가 어디서 나왔는지 확인할 수 있는 곳은 드뭅니다. 체감이나
+커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문입니다. calrank는 두 기준을
+나란히 두고 출처와 계산식을 전부 공개합니다.</p>
+<p><strong>기준 ① 위 표 — Running Level 5단계.</strong> 해외 공개 데이터베이스의 실제 레이스
+기록 백분위입니다. 상위 95%·80%·50%·20%·5% 지점을 그대로 가져왔고 가공하지 않았습니다.</p>
+<p><strong>기준 ② calrank 7단계 — WMA 연령 기준표.</strong> 세계마스터즈육상연맹이 2025년에
+낸 도로 종목 연령 기준표(퍼블릭 도메인, CC0)를 씁니다. 그 나이·성별의 기준기록을 내 기록으로
+나눈 값이 연령등급 %이고, 그 %를 일곱 칸으로 나눈 자리만 calrank가 정했습니다.
+계산식과 경계값은 <a href="grade-method.html" style="color:var(--accent-ink);">등급 기준과 근거</a>에
+전부 적어 두었습니다.</p>
+<p>두 기준은 출처가 달라 같은 기록이라도 결과가 다를 수 있습니다. 둘 다 보시는 편이 정확합니다.</p>
 
 <div style="margin:30px 0 34px;">
 <p style="font-size:13.5px; line-height:1.8; color:var(--ink-soft,#9A9A9A); margin:0 0 14px;">
