@@ -1,0 +1,48 @@
+name: Running weather
+
+# "오늘 달리기 좋은 시간" 을 기상청 단기예보로 다시 굽는다.
+# 기록이 가장 잘 나오는 기온(3.8~9.9℃, El Helou 2012)에서 시간대별로 얼마나
+# 벗어났는지만 본다. 예보는 금세 묵으니 발표 시각에 맞춰 하루 두 번 돌린다.
+#
+# 페이지는 정적으로 굽는다. 자바스크립트로 그리면 크롤러가 본문을 못 본다
+# (monthly 계열에서 같은 문제를 겪었다).
+
+on:
+  schedule:
+    - cron: "20 21 * * *" # 매일 06:20 KST (05시 발표 반영)
+    - cron: "20 9 * * *"  # 매일 18:20 KST (17시 발표 반영)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Build running weather page
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: python scripts/fetch_running_weather.py
+
+      - name: Sync nav and theme
+        run: |
+          python scripts/sync_nav.py
+          python scripts/sync_theme.py
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add running-weather.html running-weather.json sitemap.xml
+          git diff --staged --quiet || git commit -m "chore: update running weather"
+          git push
