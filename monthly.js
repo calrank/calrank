@@ -177,6 +177,9 @@ async function init() {
       : `이번 달 주말에는 등록된 ${pageLabel} 대회가 없습니다.`;
     grid.appendChild(empty);
   } else {
+    // 정적으로 박아 둔 같은 달 목록은 치운다. 크롤러는 그걸 보고, 사람은 이 카드를 본다.
+    const dupe = document.getElementById("moDupe");
+    if (dupe) dupe.remove();
     filtered.forEach(ev => grid.appendChild(renderCard(ev)));
     grid.querySelectorAll(".event-card").forEach(card => {
       const open = () => openDetail(card.getAttribute("data-id"));
