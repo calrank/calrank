@@ -59,6 +59,72 @@ def _hms(sec: float) -> str:
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
 
 
+# 거리마다 "그 거리에서만 겪는 것"을 적는다. 숫자와 거리 이름만 바꾼 글은
+# 길어도 얇은 페이지다 — 대회 상세 822장이 1,180자인데도 유입이 0인 이유가 그것이다.
+# 여기 적는 문장은 전부 아래 출처에서 확인한 것이다. 확인 못 한 것은 쓰지 않는다.
+DIST_EXTRA = {
+    "full": """
+<h2>30km에서 무너지는 건 당신만이 아닙니다</h2>
+<p>마라톤에서 "벽"은 느낌이 아니라 통계로 잡히는 현상입니다. Smyth가 2005~2019년
+38개 도시 270개 대회의 완주 기록 <strong>418만 건(러너 274만 명)</strong>을 분석한 연구가
+있습니다. 20km 이후 5km 이상 구간에서 페이스가 25% 넘게 떨어진 경우를 벽으로 정의했더니,
+이런 그림이 나왔습니다.</p>
+<ul class="fact-list">
+<li>무너지기 시작하는 지점은 <strong>남성 평균 29.6km, 여성 29.3km</strong>입니다.
+"30km 벽"이라는 말은 경험칙이 아니라 실제 평균값과 거의 맞습니다.</li>
+<li>겪는 비율은 <strong>남성 28%, 여성 17%</strong>입니다. 남성이 모든 연령대·모든 기록대에서
+더 많이 겪습니다.</li>
+<li>한 번 무너지면 완주 기록이 <strong>평균 31~33분</strong> 늦어집니다.</li>
+<li>무너지는 구간 길이는 남성 평균 10.7km, 여성 9.6km입니다. 한 번 시작되면
+남은 거리를 대부분 그 상태로 간다는 뜻입니다.</li>
+</ul>
+<p>뜻밖의 결과가 두 가지 있습니다. 하나는 <strong>개인 최고기록을 낸 전후 3년에 오히려 더
+자주 겪는다</strong>는 것입니다(36% 대 23%). 잘 뛰려고 마음먹었을 때 무리하게 되기 때문으로
+보입니다. 다른 하나는 <strong>젊을수록 더 많이 겪고, 45~49세 구간에서 가장 적다</strong>는
+것입니다. 체력보다 페이스 판단이 더 크게 작용한다는 쪽을 시사합니다.</p>
+
+<h2>왜 하필 30km인가 — 숫자로 보면</h2>
+<p>이유는 연료입니다. Rapoport가 대사 모형으로 계산한 바로는, <strong>70kg 러너가 풀코스를
+완주하는 데 약 2,950kcal</strong>이 듭니다. 그런데 몸에 저장해 둘 수 있는 탄수화물은
+일반적으로 <strong>근육 글리코겐 약 310g, 간 글리코겐 약 88g</strong> 수준입니다.
+합쳐서 400g 남짓, 열량으로 1,600kcal 정도입니다.</p>
+<p>필요한 양의 절반 조금 넘는 수준입니다. 그래서 Rapoport는 "일반적인 저장량만으로는 부족하다"고
+못 박습니다. 탄수화물 로딩을 제대로 하면 근육 쪽을 약 570g까지, 간은 160g까지 늘릴 수
+있지만, 그래도 달리면서 보충하지 않으면 모자라는 경우가 많습니다.</p>
+<p>저장량이 바닥나는 지점은 강도에 따라 달라집니다. 같은 연구에서 최대산소섭취량의
+80~95%로 달린 경우 실패 지점이 <strong>21마일(약 34km) 부근에 몰렸습니다.</strong>
+천천히 달리면 지방을 더 쓰기 때문에 더 멀리 갑니다 — 55% 아래로 달리면 벽을 거의
+겪지 않는다고 적고 있습니다.</p>
+
+<h2>그래서 무엇을 해야 하나</h2>
+<p><strong>① 일정한 페이스로.</strong> 같은 연구가 연료 효율이 가장 좋은 전략으로
+일정 페이스를 꼽습니다. 초반에 벌어 두겠다는 생각이 30km 이후에 몇 배로 돌아옵니다.
+위의 구간 통과 시간표가 바로 그 일정 페이스를 목표별로 적어 둔 것입니다.</p>
+<p><strong>② 배고프기 전에 먹기.</strong> Rapoport는 보충을 <strong>지칠 것으로 예상되는
+시점보다 30분 먼저</strong> 하라고 권합니다. 몸이 신호를 보낼 때는 이미 늦습니다.</p>
+<p><strong>③ 시간당 얼마나.</strong> 마라톤 러너의 영양 섭취를 정리한 2025년 종설은
+미국스포츠의학회 기준을 인용해 <strong>2시간 30분까지는 시간당 탄수화물 60g,
+그보다 길어지면 최대 90g</strong>까지를 제시합니다. 4시간 완주라면 240~300g 범위입니다.
+다만 장이 적응돼 있지 않으면 그대로 넣었다가 탈이 나므로, 훈련 때 미리 시험해 보는 것이
+전제입니다.</p>
+<p><strong>④ 목표를 현실에 맞추기.</strong> 벽은 체력이 모자라서보다 페이스를 과하게 잡아서
+오는 경우가 많습니다. 위 등급표에서 지금 내 자리를 확인하고, 거기서 한 칸 위를 목표로
+잡는 편이 두 칸 위를 노리다 30km에서 무너지는 것보다 빠릅니다.</p>
+
+<div class="source-box" style="margin-top:28px;">
+<strong>📚 이 절의 출처</strong><br>
+· Smyth, B. (2021). <em>How recreational marathon runners hit the wall: A large-scale data
+analysis of late-race pacing collapse in the marathon.</em> PLoS ONE 16(5): e0251513.
+(2005~2019년 38개 도시 270개 대회, 완주 기록 418만 건)<br>
+· Rapoport, B. I. (2010). <em>Metabolic Factors Limiting Performance in Marathon Runners.</em>
+PLoS Computational Biology 6(10): e1000960. (글리코겐 저장량과 완주 가능 거리의 대사 모형)<br>
+· Jim&eacute;nez-Alfageme, R. 외 (2025). <em>Nutritional Intake and Timing of Marathon Runners.</em>
+Sports Medicine - Open 11:26. (미국스포츠의학회 탄수화물 섭취 권고 인용)
+</div>
+""",
+}
+
+
 # 목표 기록별로 몇 분에 어느 지점을 지나야 하는지. 러너가 실제로 팔에 적어 가는 표다.
 # 숫자는 전부 산수라 지어낼 여지가 없다.
 SPLIT_TARGETS = {
@@ -263,6 +329,8 @@ def build(dist: str) -> tuple[str, str, str, str]:
       box-shadow: 1px 0 0 var(--border); }}
     .table-scroll {{ margin: 0 -14px; padding: 0 14px; }}
   }}
+  .fact-list {{ margin: 0 0 18px; padding-left: 20px; }}
+  .fact-list li {{ margin-bottom: 10px; line-height: 1.85; }}
   .column-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }}
 </style>
 </head>
@@ -357,6 +425,8 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <p>위 표는 10년 단위입니다. 한 살 단위로 경계가 어떻게 움직이는지 보려면 아래에서 연령대를 고르세요.
 각 페이지에 남녀 기준이 한 살씩 나뉘어 있습니다.</p>
 {decade_links(dist)}
+
+{DIST_EXTRA.get(dist, '')}
 
 <h2>기록은 왜 나이 들수록 떨어질까</h2>
 <p>지구력은 나이가 들면서 실제로 떨어집니다. Tanaka와 Seals가 <em>Journal of Physiology</em>
