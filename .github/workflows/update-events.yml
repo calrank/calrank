@@ -71,6 +71,17 @@ jobs:
         # 바탕 두 벌이 한 곳에서만 정해지도록 하려는 것. 이미 토큰이면 건너뛴다.
         run: python scripts/sync_theme.py
 
+      - name: Fill monthly pages
+        # monthly 계열 네 장은 대회 목록을 자바스크립트로 불러와서, 크롤러가 보는
+        # 본문이 300~440자뿐이었다. 이번 달 목록을 정적으로 박는다. 달이 바뀌므로
+        # 매일 돌려야 한다. sync 다음에 둬야 새 본문도 토큰·목차가 맞는다.
+        run: python scripts/generate_monthly_pages.py
+
+      - name: Re-sync new monthly content
+        run: |
+          python scripts/sync_nav.py
+          python scripts/sync_theme.py
+
       - name: Sync favicon declarations
         run: python scripts/sync_icons.py
 
