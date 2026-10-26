@@ -20,6 +20,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import fetch_race_forecast as fcst  # noqa: E402
 from fetch_race_forecast import base_time, call_fcst, to_grid  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -82,8 +83,33 @@ def main() -> None:
         print("[running-weather] DATA_GO_KR_KEY 없음 — 중단")
         sys.exit(1)
 
+    # 키가 URL 인코딩된 채로 들어오는 경우가 있다(원본 스크립트와 같은 처리).
+    if "%" in key:
+        import urllib.parse
+        key = urllib.parse.unquote(key)
+
     now = datetime.now(KST)
     bd, bt = base_time(now)
+
+    # BASE 는 fetch_race_forecast.main() 이 정한다. 우리는 함수만 빌려 쓰므로
+    # 여기서 호스트를 직접 골라 둬야 한다. https 가 막히는 망이 있어 http 도 시험한다.
+    chosen = None
+    for host in fcst.HOSTS:
+        fcst.BASE = host + fcst.PATH
+        try:
+            probe, err = call_fcst(key, 60, 127, bd, bt)
+        except Exception as e:          # noqa: BLE001
+            print(f"[running-weather] {host} — {e}")
+            continue
+        if err:
+            print(f"[running-weather] {host} — {err}")
+            continue
+        chosen = host
+        break
+    if not chosen:
+        print("[running-weather] 기상청 API 에 닿지 못했습니다 — 중단")
+        sys.exit(1)
+    print(f"[running-weather] {chosen} · 발표 {bd} {bt}")
     ymd = now.strftime("%Y%m%d")
 
     cities, fails = [], []
