@@ -16259,7 +16259,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://saunarun.com/products/e5d5rnduj37y?page=1"
+    "applyUrl": "https://saunarun.com/products/e5d5rnduj37y?page=1",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 18.0,
+      "morningTa": 11.0,
+      "pop": 30,
+      "sky": "구름많음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-10-27 01:04"
+    }
   },
   {
     "id": "rm-2026-just-run10-포천-2026-10-31",
