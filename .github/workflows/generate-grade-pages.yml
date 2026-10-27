@@ -43,6 +43,11 @@ jobs:
       - name: Sync favicon declarations
         run: python scripts/sync_icons.py
 
+      - name: Sync canonical and og:title
+        # 색인되는 페이지에 canonical 과 og:title 이 빠진 곳을 채운다. 손으로 만든
+        # 페이지와 옛 생성기 산출물에 없었다. noindex 페이지는 건드리지 않는다.
+        run: python scripts/sync_meta.py
+
       - name: Commit if changed
         run: |
           git config user.name "calrank-bot"

@@ -38,6 +38,7 @@ jobs:
         run: |
           python scripts/sync_nav.py
           python scripts/sync_theme.py
+          python scripts/sync_meta.py
 
       - name: Commit
         run: |
