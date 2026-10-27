@@ -31,6 +31,14 @@ jobs:
 
       - name: Commit if changed
         run: |
+          # 네이버 API 키가 없으면 스크립트가 파일을 만들지 않고 그냥 끝난다.
+          # 그때 git add 가 pathspec 오류로 죽어서 10/21 부터 엿새 내리 빨간불이었다.
+          # 받아온 게 없으면 조용히 넘어가야, 진짜 고장이 났을 때 그게 눈에 띈다.
+          if [ ! -f gear_prices.json ]; then
+            echo "gear_prices.json 이 없습니다 — NAVER_CLIENT_ID/NAVER_CLIENT_SECRET 미등록으로 보입니다."
+            echo "키를 등록하면 이 단계가 자동으로 다시 동작합니다. 커밋 없이 끝냅니다."
+            exit 0
+          fi
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
           git add gear_prices.json
