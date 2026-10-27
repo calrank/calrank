@@ -101,7 +101,7 @@ function openDetail(id) {
     </div>
     <button class="modal-apply-btn" id="applyBtn">신청하기 ↗</button>
     <button class="modal-cal-btn" id="calBtn">캘린더에 저장</button>
-    <p class="modal-disclaimer">calrank는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
+    <p class="modal-disclaimer">calrank는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
   `;
   document.getElementById("applyBtn").addEventListener("click", () => {
     window.open(ev.applyUrl || ev.sourceUrl || "#", "_blank", "noopener");

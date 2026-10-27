@@ -125,6 +125,9 @@ function renderResult(result, inputs) {
           : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다 —
              운이 아니라 실력입니다`}
       </p>
+      <p class="lv-wx-link">오늘 날씨에서는 이 기록이 그대로 나오지 않을 수 있습니다 —
+      기록이 가장 잘 나오는 기온은 <b>3.8~9.9℃</b>입니다.
+      <a href="running-weather.html">오늘 달리기 좋은 시간 보기 →</a></p>
       <div class="lv-share-now">
         <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
         <p class="lv-share-hint">카드를 먼저 보여 드립니다. 보고 나서 저장하거나 공유하세요.

@@ -98,6 +98,7 @@ body{
   font-synthesis-weight:none;
   color:var(--ink);letter-spacing:0.5px;text-decoration:none;
   display:inline-flex;align-items:baseline;line-height:1;
+  min-height:24px;padding-block:1px;
 }
 .wm-a{height:0.72em;width:auto;margin:0 0.03em 0 0.02em;flex:none;}
 .wm-a path{fill:currentColor;}
@@ -106,7 +107,7 @@ body{
 .main-nav{display:flex;gap:22px;}
 .nav-link{font-size:12px;font-weight:700;color:var(--ink-faint);text-decoration:none;position:relative;padding:4px 0;letter-spacing:0.2px;}
 .nav-link.active{color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:4px;}
-.soon-tag{font-size:9px;font-weight:700;color:var(--ink-faint);border:1px solid var(--border);padding:1px 5px;margin-left:4px;vertical-align:2px;}
+.soon-tag{font-size:12px;font-weight:700;color:var(--ink-faint);border:1px solid var(--border);padding:1px 5px;margin-left:4px;vertical-align:2px;}
 
 .hero{padding:48px 0 20px;position:relative;overflow:hidden;}
 .hero::before{
@@ -206,7 +207,7 @@ body{
 .filter-group::-webkit-scrollbar{display:none;}
 .filter-row::after{content:"";position:absolute;top:0;right:0;bottom:0;width:24px;background:linear-gradient(to right, transparent, var(--bg,var(--bg)));pointer-events:none;}
 .chip{
-  flex-shrink:0;font-family:var(--font-body);font-size:11px;font-weight:700;
+  flex-shrink:0;font-family:var(--font-body);font-size:12px;font-weight:700;
   padding:8px 16px;border:1px solid var(--border);
   background:none;color:var(--ink-faint);cursor:pointer;
   letter-spacing:0.3px;border-radius:2px;
@@ -239,7 +240,7 @@ body{
 .event-card:hover{background:var(--tint-1);}
 
 .ev-tag{
-  font-family:var(--font-body);font-size:10px;font-weight:900;
+  font-family:var(--font-body);font-size:11px;font-weight:900;
   letter-spacing:1px;width:34px;flex-shrink:0;
   color:var(--sport-color,var(--ink-soft));
 }
@@ -247,12 +248,12 @@ body{
 .event-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;}
 .event-name{font-size:15px;font-weight:700;color:var(--ink);}
 .dday-badge{
-  font-size:9px;font-weight:900;letter-spacing:0.3px;
+  font-size:12px;font-weight:900;letter-spacing:0.3px;
   padding:2px 6px;border:1px solid var(--sport-color,var(--ink-faint));
   color:var(--sport-color,var(--ink-faint));border-radius:1px;
 }
 .dday-urgent{background:var(--sport-color,var(--accent));color:var(--bg);border-color:var(--sport-color,var(--accent));}
-.event-meta{font-size:11.5px;color:var(--ink-faint);margin:0;letter-spacing:0.1px;}
+.event-meta{font-size:12px;color:var(--ink-faint);margin:0;letter-spacing:0.1px;}
 .event-chevron{font-size:16px;color:var(--ink-faint);flex-shrink:0;}
 
 .empty-state{padding:48px 0;text-align:center;color:var(--ink-faint);font-size:14px;}
@@ -273,7 +274,7 @@ body{
   cursor:pointer;font-size:13px;color:var(--ink-faint);
 }
 .modal-top-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.modal-tag{font-size:10px;font-weight:900;letter-spacing:1px;color:var(--sport-color,var(--ink-soft));}
+.modal-tag{font-size:11px;font-weight:900;letter-spacing:1px;color:var(--sport-color,var(--ink-soft));}
 .modal-title{font-size:19px;font-weight:900;color:var(--ink);margin:0 0 18px;}
 .modal-fields{display:flex;flex-direction:column;gap:9px;margin:0 0 20px;}
 .modal-field-row{display:flex;justify-content:space-between;font-size:12.5px;gap:12px;}
@@ -290,10 +291,10 @@ body{
   background:none;color:var(--ink-soft);
   font-family:var(--font-body);font-size:12px;font-weight:700;cursor:pointer;
 }
-.modal-disclaimer{font-size:10.5px;color:var(--ink-faint);margin:16px 0 0;line-height:1.5;}
+.modal-disclaimer{font-size:12px;color:var(--ink-faint);margin:16px 0 0;line-height:1.5;}
 
 .site-footer{border-top:1px solid var(--line);padding:24px 0;}
-.site-footer p{font-size:11px;color:var(--ink-faint);margin:0;}
+.site-footer p{font-size:12px;color:var(--ink-faint);margin:0;}
 
 @media (max-width:600px){
   /* 가로 스크롤로 두었더니 스크롤바를 숨긴 탓에 더 있다는 표시가 없어
@@ -314,10 +315,10 @@ body{
 }
 
 .footer-links{margin-top:8px !important;}
-.footer-links a{color:var(--ink-soft);text-decoration:underline;}
+.footer-links a{color:var(--ink-soft);text-decoration:underline;display:inline-block;padding-block:5px;min-height:24px;}
 .footer-links a:hover{color:var(--ink);}
 
-.nav-contact-link{font-size:10.5px;font-weight:400;color:var(--ink-faint);text-decoration:none;padding:4px 0;margin-left:2px;border-left:1px solid var(--border);padding-left:14px;}
+.nav-contact-link{font-size:12px;font-weight:400;color:var(--ink-faint);text-decoration:none;padding:4px 0;margin-left:2px;border-left:1px solid var(--border);padding-left:14px;}
 .nav-contact-link:hover{color:var(--ink-soft);}
 @media (max-width:600px){
   .nav-contact-link{display:none;}
@@ -351,9 +352,9 @@ body{
 .tier-card.tier-elite{box-shadow:0 0 24px rgba(140,90,240,0.3);}
 .tier-card.tier-elite::before{content:"★";position:absolute;top:8px;right:10px;font-size:14px;color:var(--elite-line);opacity:0.7;}
 
-.tier-next{font-size:11px;color:var(--accent-ink);margin-top:8px;font-weight:600;}
+.tier-next{font-size:12px;color:var(--accent-ink);margin-top:8px;font-weight:600;}
 .tier-next-max{color:var(--gold);}
-.tier-rank{font-size:11px;color:var(--ink-faint);margin-top:4px;}
+.tier-rank{font-size:12px;color:var(--ink-faint);margin-top:4px;}
 
 .view-full-ranking-link{display:inline-block;margin:12px 0 24px;font-size:13px;color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--ink-faint);}
 .view-full-ranking-link:hover{color:var(--accent-ink);border-color:var(--accent);}
@@ -394,23 +395,23 @@ body{
 .ev-wx-past{color:var(--ink-faint);font-weight:500;}
 
 /* ===== calrank 규모·인지도 지수 (유저 후기 ⭐와 시각적으로 구분) ===== */
-.ev-scale-badge{margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--tint-2);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;}
+.ev-scale-badge{margin-left:8px;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--tint-2);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;}
 .scale-index-box{margin-top:16px;padding:14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);}
 .scale-index-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px;}
 .scale-index-table{width:100%;border-collapse:collapse;font-size:12px;}
 .scale-index-table td{padding:5px 4px;border-bottom:1px solid var(--tint-2);}
 .scale-idx-label{color:var(--ink-soft);}
 .scale-idx-check{width:24px;text-align:center;color:var(--accent-ink);font-weight:700;}
-.scale-index-disclaimer{margin-top:10px;font-size:11px;color:var(--ink-faint);line-height:1.5;}
+.scale-index-disclaimer{margin-top:10px;font-size:12px;color:var(--ink-faint);line-height:1.5;}
 
 .global-compare-box{margin-top:10px;padding-top:10px;border-top:1px dashed var(--tint-3);}
-.global-compare-btn{background:none;border:1px solid var(--border,var(--border));color:var(--ink-soft,var(--ink-soft));font-size:11px;padding:5px 10px;border-radius:999px;cursor:pointer;}
+.global-compare-btn{background:none;border:1px solid var(--border,var(--border));color:var(--ink-soft,var(--ink-soft));font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;}
 .global-compare-btn:hover{border-color:var(--accent);color:var(--ink);}
 .global-compare-form{display:none;gap:6px;margin-top:8px;flex-wrap:wrap;}
 .global-compare-form select{background:var(--bg,var(--bg));color:var(--ink);border:1px solid var(--border,var(--border));border-radius:6px;font-size:12px;padding:4px 6px;}
 .global-compare-submit{background:var(--accent);color:var(--on-accent);border:none;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;}
 .global-compare-result{font-size:12px;color:var(--ink);font-weight:700;margin-top:8px;}
-.global-compare-source{font-size:10px;color:var(--ink-faint,var(--ink-faint));margin-top:4px;}
+.global-compare-source{font-size:12px;color:var(--ink-faint,var(--ink-faint));margin-top:4px;}
 
 .tier-medal-wrap{margin:8px 0 4px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.4));}
 
@@ -421,7 +422,7 @@ body{
 @media (max-width:520px){.tier-guide-panel{grid-template-columns:repeat(2,1fr);}}
 .tier-guide-item{text-align:center;background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));border-radius:12px;padding:16px 10px;}
 .tier-guide-name{font-size:13px;font-weight:800;color:var(--ink);margin:8px 0 4px;}
-.tier-guide-desc{font-size:11px;color:var(--ink-faint,var(--ink-faint));line-height:1.5;}
+.tier-guide-desc{font-size:12px;color:var(--ink-faint,var(--ink-faint));line-height:1.5;}
 
 .ev-save-btn{flex-shrink:0;background:none;border:none;font-size:17px;cursor:pointer;padding:10px;margin:-10px;line-height:1;opacity:0.6;transition:opacity 0.15s ease, transform 0.15s ease;min-width:24px;min-height:24px;display:flex;align-items:center;justify-content:center;}
 .ev-save-btn:hover{opacity:1;transform:scale(1.12);}
@@ -446,7 +447,7 @@ body{
   .cert-cta{padding:14px;gap:11px;}
   .cert-cta .cc-ico{font-size:22px;}
   .cert-cta .cc-txt b{font-size:13.5px;}
-  .cert-cta .cc-txt span{font-size:11.5px;}
+  .cert-cta .cc-txt span{font-size:12px;}
   .cert-cta .cc-go{display:none;}
 }
 
@@ -468,11 +469,11 @@ body{
   display:block;text-align:center;padding:13px;border-radius:2px;
   background:var(--accent);color:var(--on-accent);font-weight:900;font-size:14px;text-decoration:none;
 }
-.sub-manual{margin:14px 0 7px;font-size:11.5px;line-height:1.7;color:var(--ink-faint);}
+.sub-manual{margin:14px 0 7px;font-size:12px;line-height:1.7;color:var(--ink-faint);}
 .sub-urlrow{display:flex;gap:6px;align-items:stretch;}
 .sub-urlrow code{
   flex:1 1 auto;min-width:0;padding:9px 11px;border:1px solid var(--border);border-radius:2px;
-  background:var(--bg);color:var(--ink-soft);font-size:11.5px;
+  background:var(--bg);color:var(--ink-soft);font-size:12px;
   user-select:all;word-break:break-all;line-height:1.5;
 }
 .sub-urlrow button{
@@ -503,7 +504,7 @@ body{
 .ac-btn:hover{border-color:var(--accent);color:var(--accent-ink);}
 .ac-btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
 .ac-btn.pri:hover{color:var(--ink);opacity:.9;}
-.ac-note{display:block;margin-top:10px;font-size:11.5px;line-height:1.65;color:var(--ink-faint);}
+.ac-note{display:block;margin-top:10px;font-size:12px;line-height:1.65;color:var(--ink-faint);}
 @media (max-width:600px){
   .ac-box{padding:13px 14px;}
   .ac-btn{flex:1 1 100%;}
@@ -522,3 +523,10 @@ body{
 .gr-srcbox summary::before{content:"▸ ";color:var(--accent-ink);}
 .gr-srcbox[open] summary::before{content:"▾ ";}
 .gr-srcbox .gr-src{margin:0;padding:0 16px 14px 34px;}
+
+/* 문장 안이 아니라 홀로 선 링크라 WCAG 2.2 AA(SC 2.5.8) 24×24px 가 그대로
+   적용된다. 글자 크기는 그대로 두고 눌리는 영역만 넓힌다. */
+.gr-links a{display:inline-block;padding-block:4px;min-height:24px;}
+
+/* 페이지끼리 건너가는 링크. 문장 밖에 홀로 있어 24×24px 가 그대로 적용된다. */
+.cross-link{display:inline-block;padding-block:3px;min-height:24px;}

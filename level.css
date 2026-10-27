@@ -24,10 +24,10 @@
 
 .level-stats{display:flex;justify-content:space-around;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:20px;}
 .level-stat{display:flex;flex-direction:column;gap:4px;}
-.level-stat-label{font-size:10.5px;color:var(--ink-faint);}
+.level-stat-label{font-size:12px;color:var(--ink-faint);}
 .level-stat-value{font-size:16px;font-weight:900;color:var(--ink);}
 
-.level-tier-table-title{font-size:11.5px;color:var(--ink-faint);margin:0 0 8px;text-align:left;}
+.level-tier-table-title{font-size:12px;color:var(--ink-faint);margin:0 0 8px;text-align:left;}
 .level-tier-table{display:flex;flex-direction:column;gap:1px;background:var(--line);text-align:left;}
 .level-tier-row{background:var(--bg);padding:9px 12px;font-size:12.5px;color:var(--ink-faint);}
 .level-tier-step{display:inline-block;min-width:18px;margin-right:9px;font-weight:900;color:var(--ink-faint);text-align:center;}
@@ -35,7 +35,7 @@
 .level-tier-row.current{background:var(--surface);color:var(--accent-ink);font-weight:900;border-left:3px solid var(--accent);padding-left:9px;}
 
 .level-disclaimer{
-  max-width:420px;margin:16px auto 0;font-size:10.5px;color:var(--ink-faint);
+  max-width:420px;margin:16px auto 0;font-size:12px;color:var(--ink-faint);
   line-height:1.6;text-align:center;
 }
 
@@ -68,7 +68,7 @@
 }
 .lv-grade-pct{font-size:38px;font-weight:900;color:var(--ink);line-height:1;letter-spacing:-1px;}
 .lv-grade-pct i{font-size:20px;font-style:normal;margin-left:2px;color:var(--accent-ink);}
-.lv-grade-cap{font-size:11.5px;color:var(--ink-soft,var(--ink-faint));margin-top:7px;line-height:1.5;}
+.lv-grade-cap{font-size:12px;color:var(--ink-soft,var(--ink-faint));margin-top:7px;line-height:1.5;}
 .lv-grade-next{
   flex:1 1 170px;display:flex;flex-direction:column;justify-content:center;gap:4px;
   padding:16px 18px;border-radius:10px;
@@ -87,7 +87,7 @@
   border-bottom:1px solid var(--border,var(--border));
 }
 .lv-what-row:last-child{border-bottom:none;}
-.lv-what-head{background:var(--surface,var(--surface));font-size:11.5px;font-weight:700;color:var(--ink-faint,var(--ink-faint));}
+.lv-what-head{background:var(--surface,var(--surface));font-size:12px;font-weight:700;color:var(--ink-faint,var(--ink-faint));}
 .lv-what-row.up{background:rgba(255,61,26,.07);}
 .lv-what-row.up span:last-child{color:var(--accent-ink);font-weight:700;}
 
@@ -98,9 +98,9 @@
   padding:13px 8px;border-radius:9px;
   background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));
 }
-.lv-equiv-d{font-size:11.5px;color:var(--ink-faint,var(--ink-faint));}
+.lv-equiv-d{font-size:12px;color:var(--ink-faint,var(--ink-faint));}
 .lv-equiv-t{font-size:16px;font-weight:700;color:var(--ink);}
-.lv-equiv-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:0 0 20px;}
+.lv-equiv-note{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:0 0 20px;}
 
 @media (max-width:520px){
   .lv-grade-pct{font-size:32px;}
@@ -141,7 +141,7 @@
   border:1px solid rgba(255,61,26,.3);}
 .lv-dna-v{font-size:15px;font-weight:900;color:var(--ink);margin:0 0 6px;}
 .lv-dna-d{font-size:12.5px;line-height:1.8;color:var(--ink-soft);margin:0;}
-.lv-dna-note{font-size:11.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;}
+.lv-dna-note{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;}
 
 @media (max-width:520px){
   .lv-dna-row label{flex:0 0 70px;}
@@ -161,7 +161,7 @@
   margin:4px 0 0;
 }
 .lv-dp-cap{
-  font-size:11.5px;color:var(--ink-faint,var(--ink-faint));margin:0 0 10px;letter-spacing:.2px;
+  font-size:12px;color:var(--ink-faint,var(--ink-faint));margin:0 0 10px;letter-spacing:.2px;
   display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;
 }
 .lv-dp-cap span{opacity:.75;}
@@ -213,13 +213,13 @@
 }
 .lv-dp-t{
   position:absolute;top:6px;transform:translateX(-50%);white-space:nowrap;
-  font-size:10px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
+  font-size:11px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
   font-variant-numeric:tabular-nums;
 }
 
 @media (max-width:520px){
   .lv-dp{--lbl:42px;--time:52px;--val:46px;--gap:7px;}
-  .lv-dp-lbl,.lv-dp-time{font-size:11.5px;}
+  .lv-dp-lbl,.lv-dp-time{font-size:12px;}
 }
 
 /* ── 이 기록 하나가 말해 주는 폭 ───────────────────────────
@@ -267,7 +267,7 @@
 .lv-band-axis{position:relative;height:22px;border-top:1px solid var(--border,var(--border));margin-top:2px;}
 .lv-band-t{
   position:absolute;top:5px;transform:translateX(-50%);white-space:nowrap;
-  font-size:10px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
+  font-size:11px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
   font-variant-numeric:tabular-nums;
 }
 
@@ -278,7 +278,7 @@
 }
 .lv-band-row span{font-size:12px;color:var(--ink-soft,var(--ink-faint));}
 .lv-band-row b{font-size:13.5px;color:var(--ink);font-variant-numeric:tabular-nums;}
-.lv-band-row em{font-size:11.5px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
+.lv-band-row em{font-size:11px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
 
 .lv-band-verdict{
   font-size:12.5px;line-height:1.85;margin:14px 0 0;
@@ -287,7 +287,7 @@
 .lv-band-verdict b{color:var(--ink);}
 .lv-band-verdict.edge{background:rgba(255,61,26,.08);border:1px solid rgba(255,61,26,.3);color:var(--ink-soft);}
 .lv-band-verdict.solid{background:var(--tint-1);border:1px solid var(--border,var(--border));color:var(--ink-soft);}
-.lv-band-src{font-size:11px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;text-align:left;}
+.lv-band-src{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;text-align:left;}
 .lv-band-src a{color:var(--ink-soft,var(--ink-faint));text-decoration:underline;text-underline-offset:2px;}
 
 @media (max-width:520px){
@@ -307,7 +307,7 @@
 .lv-give-head{font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px;}
 .lv-give-body{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
 .lv-give-what{
-  font-size:11.5px;line-height:1.9;color:var(--ink-soft,var(--ink-faint));margin:0 0 14px;
+  font-size:12px;line-height:1.9;color:var(--ink-soft,var(--ink-faint));margin:0 0 14px;
   padding:11px 12px;border-radius:8px;background:var(--tint-1);
 }
 .lv-give-what b{color:var(--ink);}
@@ -336,7 +336,7 @@
 }
 .lv-ladder-row:last-child{border-bottom:0;}
 .lv-ladder-step{
-  font-size:11px;color:var(--ink-faint,var(--ink-faint));text-align:center;
+  font-size:12px;color:var(--ink-faint,var(--ink-faint));text-align:center;
   font-variant-numeric:tabular-nums;
 }
 .lv-ladder-label{font-size:13px;color:var(--ink-soft);}
@@ -347,7 +347,7 @@
 .lv-ladder-row.current{background:rgba(255,61,26,.10);}
 .lv-ladder-row.current .lv-ladder-label{color:var(--accent-ink);font-weight:700;}
 .lv-ladder-row.current .lv-ladder-step{color:var(--accent-ink);}
-.lv-ladder-note{font-size:11.5px;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
+.lv-ladder-note{font-size:12px;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
 
 /* ── 폼 옆 미리보기 ────────────────────────────────────────
    넓은 화면에서 폼 오른쪽이 텅 비어 있었다. 검색해서 들어온 사람이
@@ -360,7 +360,7 @@
   background:var(--surface,var(--surface));
 }
 .lv-pv-title{font-size:12.5px;color:var(--ink-soft,var(--ink-faint));margin:0 0 11px;}
-.lv-pv-note{font-size:11.5px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
+.lv-pv-note{font-size:12px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
 
 @media (min-width:860px){
   .lv-twocol{
@@ -440,3 +440,17 @@
 .lv-share-now{margin:16px 0 4px;}
 .lv-share-now .lv-share-btn{margin:0;}
 .lv-share-now .lv-share-hint{margin:8px 0 0;}
+
+/* 등급 아래에서 오늘 날씨로 보내는 한 줄. 기온이 기록에 끼치는 영향은
+   El Helou 외(2012, PLoS ONE 7(5):e37407)에서 가져온 수치다. */
+.lv-wx-link{
+  margin:14px 0 0;padding:11px 13px;border-radius:8px;
+  background:var(--tint-1);border:1px solid var(--border);
+  font-size:12.5px;line-height:1.75;color:var(--ink-soft);text-align:left;
+}
+.lv-wx-link b{color:var(--ink);}
+.lv-wx-link a{color:var(--accent-ink);font-weight:700;white-space:nowrap;}
+
+/* 아래 링크 묶음은 문장 안이 아니라 홀로 서 있어서 WCAG 2.2 AA(SC 2.5.8)의
+   24×24px 가 그대로 적용된다. 높이가 16px 이었어서 눌리는 영역만 넓힌다. */
+.lv-links a{display:inline-block;padding-block:4px;min-height:24px;}
