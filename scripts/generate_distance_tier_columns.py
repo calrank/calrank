@@ -550,7 +550,7 @@ calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink
 
 <footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼의 등급표는 외부 공개 데이터(Running Level, 2024)를 바탕으로 하며, 실제 신체 조건·훈련 상태에 따라 개인차가 있을 수 있습니다.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 이 칼럼의 등급표는 외부 공개 데이터(Running Level, 2024)를 바탕으로 하며, 실제 신체 조건·훈련 상태에 따라 개인차가 있을 수 있습니다.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>

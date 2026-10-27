@@ -180,7 +180,7 @@ def add_to_sitemap() -> None:
 
 FOOTER = """<footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해 주세요.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>"""
@@ -251,7 +251,7 @@ def build_page(data) -> str:
   .rw-city{{border:1px solid var(--border);border-radius:10px;padding:14px 15px;margin:0 0 10px;background:var(--surface);}}
   .rw-head{{display:flex;align-items:center;gap:9px;margin:0 0 6px;}}
   .rw-head h3{{font-size:15.5px;margin:0;}}
-  .rw-badge{{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid var(--border);color:var(--ink-soft);}}
+  .rw-badge{{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid var(--border);color:var(--ink-soft);}}
   .rw-ok{{border-color:var(--accent);color:var(--accent-ink);}}
   .rw-hot,.rw-vhot{{border-color:var(--accent);background:rgba(255,61,26,.10);color:var(--accent-ink);}}
   .rw-best{{font-size:13.5px;margin:0 0 4px;color:var(--ink);}}
@@ -259,7 +259,7 @@ def build_page(data) -> str:
   .rw-hours{{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px;}}
   .rw-h{{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;
          min-width:40px;padding:6px 4px;border-radius:7px;background:var(--tint-1);}}
-  .rw-h i{{font-style:normal;font-size:11px;color:var(--ink-faint);}}
+  .rw-h i{{font-style:normal;font-size:12px;color:var(--ink-faint);}}
   .rw-h b{{font-size:13px;color:var(--ink);}}
   .rw-pick{{background:var(--accent);}}
   .rw-pick i,.rw-pick b{{color:var(--on-accent);}}

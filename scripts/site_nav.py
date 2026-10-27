@@ -9,18 +9,23 @@
 """
 
 # (링크, 글자, 활성 표시에 쓰는 이름)
+# 순서가 곧 소개문이다. 모바일에서는 목차가 옆으로 밀려서 앞의 두세 개만
+# 먼저 보이니, 이 사이트를 다른 일정 사이트와 가르는 "기록등급"을 둘째에 둔다.
+# 전에는 여섯째라 스크롤하지 않으면 보이지 않았다.
 NAV_ITEMS = [
     ("index.html", "캘린더", "calendar"),
+    ("grade.html", "기록등급", "grade"),
     ("regions.html", "지역별", "regions"),
     ("ranking.html", "대회랭킹", "ranking"),
     ("news.html", "종목뉴스", "news"),
     ("column.html", "칼럼", "column"),
-    ("grade.html", "등급표", "grade"),
+    ("running-weather.html", "러닝날씨", "weather"),
     ("myrank.html", "내 랭크", "myrank"),
 ]
 
 # 어느 페이지가 어느 메뉴에 속하는지. 파일 이름 앞부분으로 찾는다.
 ACTIVE_BY_PREFIX = [
+    ("running-weather", "weather"),
     ("column", "column"),
     ("grade", "grade"),
     ("myrank", "myrank"),

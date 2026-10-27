@@ -21,8 +21,17 @@ MARK_RE = re.compile(r'<a href="index\.html" class="wordmark"[^>]*>.*?</a>', re.
 
 # 꼬리말 한 줄은 모든 페이지에 깔린다. 이름을 한글로도 적어 둬야 사람들이
 # "칼랭크"로 기억하고 그렇게 검색도 한다. 영문만 쓰면 읽는 법이 안 남는다.
-BRAND_OLD = "calrank는 대회 주최측이"
-BRAND_NEW = "칼랭크(CALRANK)는 대회 주최측이"
+#
+# 이 한 줄이 사이트를 정의하는 유일한 문장이라, 전에 쓰던 "공개한 일정 정보를
+# 정리해 제공합니다"는 스스로를 수집기로 소개하는 셈이었다. 하는 일(등급 판정)을
+# 앞에 두고, 면책은 뒤 문장으로 떼어 놓는다. 페이지마다 붙는 그 뒤의 면책
+# 문구는 그대로 남는다.
+BRAND_SUBS = [
+    ("calrank는 대회 주최측이", "칼랭크(CALRANK)는 대회 주최측이"),
+    ("대회 주최측이 공개한 일정 정보를 정리해 제공합니다.",
+     "달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. "
+     "대회 일정은 주최측이 공개한 내용을 정리한 것입니다."),
+]
 
 # 목차가 없는 게 맞는 페이지들
 SKIP = {"widget.html", "greeting.html"}
@@ -39,7 +48,8 @@ def sync(path: Path) -> bool:
     want = nav_html(active)
     new = NAV_RE.sub(lambda _m: want, html, count=1)
     new = MARK_RE.sub(lambda _m: WORDMARK, new, count=1)
-    new = new.replace(BRAND_OLD, BRAND_NEW)
+    for _o, _n in BRAND_SUBS:
+        new = new.replace(_o, _n)
     if new == html:
         return False
     path.write_text(new, encoding="utf-8")

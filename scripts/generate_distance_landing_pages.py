@@ -206,7 +206,7 @@ def build_page(sport, dist_label, events):
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
 </div>
 </footer>
 </body>
@@ -305,7 +305,7 @@ def build_index(pages):
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다.</p>
 </div>
 </footer>
 </body>

@@ -135,6 +135,11 @@ def build_page(region, sport, events):
             desc += f" 접수 진행 중인 대회 {len(deadline_soon)}개."
 
     tail = " 접수 마감일과 신청 링크를 한 번에 확인하세요."
+    # 달리기 종목은 기록 등급이 있으니 그걸 같이 알린다. 대회가 한두 개뿐인
+    # 지역은 설명이 짧아지는데, 억지로 늘리는 대신 이 페이지에서 실제로 할 수
+    # 있는 일을 적는다 — 목차 둘째 칸이 기록등급이라 한 번만 누르면 닿는다.
+    if sport in ("marathon", "trail"):
+        tail += " 완주 기록을 넣으면 나이·성별 기준으로 어느 등급인지도 바로 나옵니다."
     if len(desc) + len(tail) <= DESC_LIMIT:
         desc += tail
     if len(desc) > DESC_LIMIT:
@@ -265,7 +270,7 @@ def build_page(region, sport, events):
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>
@@ -339,12 +344,12 @@ def build_index(pages):
 <main class="landing-wrap">
 <h1>지역별 대회 일정</h1>
 <p>지역과 종목을 선택해서 해당 대회 목록을 바로 확인하세요.</p>
-<a href="distances.html" style="display:inline-block;margin-top:6px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
+<a href="distances.html" style="display:inline-block;margin-top:6px;padding-block:4px;min-height:24px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
 {body}
 </main>
 <footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다.</p>
 </div>
 </footer>
 </body>

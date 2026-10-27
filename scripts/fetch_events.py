@@ -1209,11 +1209,15 @@ def refresh_home_meta(events: list[dict]) -> None:
     year = today.year
 
     title = (f"{year} 마라톤 대회 일정 | 전국 마라톤·트레일러닝·자전거 접수 캘린더 | 칼랭크 CALRANK")
-    desc = (f"칼랭크(CALRANK)가 {year} 전국 마라톤 대회 일정을 월별·지역별·거리(5km·10km·하프·풀코스)로 "
-            f"정리했습니다. 예정 대회 {len(upcoming)}개, 접수 진행 중 {len(opening)}개. "
-            f"접수 마감일과 신청 링크를 한눈에 보고, 캘린더에 추가하면 마감 전에 알림을 받습니다.")
-    og_desc = (f"{year} 전국 마라톤·트레일러닝·자전거 대회 일정과 접수 마감일을 한곳에서. "
-               f"예정 대회 {len(upcoming)}개.")
+    # 제목은 사람들이 실제로 치는 말("마라톤 대회 일정")을 지킨다. 아무도
+    # "러닝 등급 판정"으로 검색하지 않으니 제목을 그걸로 바꾸면 들어올 문이 닫힌다.
+    # 대신 설명문·og는 하는 일을 앞에 둔다. 클릭 직전과 공유될 때 읽히는 자리라,
+    # 여기서 "여긴 일정만 모아 둔 곳이 아니구나"가 생긴다.
+    desc = (f"10km·하프·풀코스 기록을 넣으면 나이·성별까지 반영해 어느 등급인지 바로 나옵니다. "
+            f"{year} 전국 마라톤 대회 일정에서 다음 출발선을 고르고, 접수 마감일은 "
+            f"캘린더로 받으세요. 예정 대회 {len(upcoming)}개, 접수 진행 중 {len(opening)}개.")
+    og_desc = (f"내 기록은 몇 등급일까. 기록 등급 판정과 {year} 전국 마라톤 대회 일정을 "
+               f"한곳에서. 예정 대회 {len(upcoming)}개.")
     h1 = f"{year} 마라톤 대회 일정 — 전국 마라톤·자전거·트레일러닝·철인3종·인라인 캘린더"
 
     with open(path, encoding="utf-8") as f:
@@ -1241,7 +1245,10 @@ def refresh_home_meta(events: list[dict]) -> None:
     # "10km 하프 풀코스", "마라톤 접수")을 본문에 글로 남긴다.
     regions = _top_regions(events, today_iso)
     next_month = 1 if today.month == 12 else today.month + 1
-    lead = (f"전국 <b>마라톤 대회 일정</b>을 월별·지역별로 모았습니다. "
+    lead = (f"칼랭크는 달린 기록이 어느 등급인지 읽어 주는 곳입니다. "
+            f"10km·하프·풀코스 기록을 넣으면 나이·성별 기준으로 등급이 바로 나오고, "
+            f"다음 출발선은 여기서 고르면 됩니다. "
+            f"전국 <b>마라톤 대회 일정</b>을 월별·지역별로 모았습니다. "
             f"{today.month}월·{next_month}월 대회부터 10km·하프마라톤·풀코스 "
             f"거리로 골라 보고, 접수 시작일과 마감일을 확인해 바로 신청하세요. ")
     if regions:

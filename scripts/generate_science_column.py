@@ -238,7 +238,7 @@ PAGE = """<!DOCTYPE html>
 
 <footer class="site-footer">
 <div class="wrap">
-<p>칼랭크(CALRANK)는 대회 주최측이 공개한 일정 정보를 정리해 제공합니다. 이 칼럼은 공개된 학술 문헌을 바탕으로 작성했으며 의학적 조언이 아닙니다.</p>
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 이 칼럼은 공개된 학술 문헌을 바탕으로 작성했으며 의학적 조언이 아닙니다.</p>
 <p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
 </div>
 </footer>
