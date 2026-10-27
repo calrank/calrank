@@ -530,3 +530,9 @@ body{
 
 /* 페이지끼리 건너가는 링크. 문장 밖에 홀로 있어 24×24px 가 그대로 적용된다. */
 .cross-link{display:inline-block;padding-block:3px;min-height:24px;}
+
+/* 칼럼 끝에서 다음 페이지로 보내는 한 줄. 문장 밖 링크라 24px 를 지킨다. */
+.column-next{margin:26px 0 0;}
+.column-next a{display:inline-block;padding-block:4px;min-height:24px;font-weight:700;
+  font-size:13.5px;color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--border);}
+.column-next a:hover{border-bottom-color:var(--accent);}
