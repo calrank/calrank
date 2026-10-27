@@ -47,6 +47,22 @@ def slugify(sport, concern_id):
     return f"column-howto-{sport}-{concern_id}.html"
 
 
+# 칼럼 끝에서 이어 보낼 페이지. (종목, concern id) 로 찾는다.
+# 러닝화 편은 "뭘 사야 하나"로 끝나는데 살 데를 안 알려 주면 거기서 끊겼다.
+NEXT_STOP = {
+    ("marathon", "shoe-selection"): (
+        "gear-prices.html", "갈래를 정했다면 — 러닝화 어디서 사나 →"),
+}
+
+
+def next_stop_html(sport, concern_id):
+    hit = NEXT_STOP.get((sport, concern_id))
+    if not hit:
+        return ""
+    href, label = hit
+    return (f'<p class="column-next"><a href="{href}">{label}</a></p>')
+
+
 def build_page(sport_label, sport, concern, cycle_count):
     title = f"{concern['title']} — {sport_label} 노하우 총정리"
     desc = f"{sport_label} {concern['title']} 실제 출처(의학·전문가, 공식 자료, 언론 보도)를 밝힌 노하우 정리."
@@ -66,6 +82,7 @@ def build_page(sport_label, sport, concern, cycle_count):
     )
 
     slug = slugify(sport, concern["id"])
+    next_stop = next_stop_html(sport, concern["id"])
     canonical_url = f"https://calrank.vercel.app/{slug}"
     date_iso = datetime.now(KST).strftime("%Y-%m-%d")
     article_ld = json.dumps({
@@ -118,7 +135,7 @@ def build_page(sport_label, sport, concern, cycle_count):
   .howto-tip {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }}
   .howto-tip-text {{ font-size: 15px; line-height: 1.8; color: #E8E4E1; margin-bottom: 10px; }}
   .howto-tip-source {{ font-size: 12px; color: var(--ink-faint, #8E8E8E); }}
-  .conf-badge {{ display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; margin-right:6px; font-weight:700; }}
+  .conf-badge {{ display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; margin-right:6px; font-weight:700; }}
   .conf-medical {{ background:rgba(120,190,255,0.15); color:#78beff; }}
   .conf-official {{ background:rgba(180,140,255,0.15); color:#c9a6ff; }}
   .conf-press {{ background:rgba(255,255,255,0.08); color:#B8B0AC; }}
@@ -153,6 +170,8 @@ def build_page(sport_label, sport, concern, cycle_count):
 </p>
 
 {tip_rows}
+
+{next_stop}
 
 <div class="column-cta">
 <p>{sport_label} 대회 일정을 확인하고 다음 목표를 잡아보세요.</p>
