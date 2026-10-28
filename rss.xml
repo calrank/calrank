@@ -4,9 +4,18 @@
   <link>https://calrank.vercel.app/index.html</link>
   <description>마라톤·자전거·트레일러닝·철인3종·인라인 대회 일정과 새 칼럼을 알려드립니다.</description>
   <language>ko</language>
-  <lastBuildDate>Tue, 27 Oct 2026 00:12:52 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 28 Oct 2026 00:13:16 +0000</lastBuildDate>
   <atom:link href="https://calrank.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
   <generator>calrank</generator>
+  <item>
+    <title>대회취소 — 2026.12.28 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</guid>
+    <pubDate>Wed, 28 Oct 2026 00:13:16 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>대회취소 — 2026.12.28 대회 일정·접수 | calrank</description>
+  </item>
   <item>
     <title>제20회 자원봉사 사랑 굿펀 마라톤(취소) — 2026.11.08 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rr-%EC%A0%9C20%ED%9A%8C-%EC%9E%90%EC%9B%90%EB%B4%89%EC%82%AC-%EC%82%AC%EB%9E%91-%EA%B5%BF%ED%8E%80-%EB%A7%88%EB%9D%BC%ED%86%A4-%EC%B7%A8%EC%86%8C-2026-11-08.html</link>
@@ -161,15 +170,6 @@
     <description>83타워 업힐런 챌린지 — 2026.11.08 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>자전거대회 준비물과 전날 점검: 펑크까지 생각하고 싸기</title>
-    <link>https://calrank.vercel.app/guide-cycling-gear.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-cycling-gear.html</guid>
-    <pubDate>Mon, 19 Oct 2026 21:04:22 +0900</pubDate>
-    <author>calrank</author>
-    <category>대회 가이드</category>
-    <description>그란폰도 준비물을 '없으면 못 달리는 것'부터 순서대로 정리했습니다. 전날 점검 항목, 기온별 레이어링, 펑크와 체인 이탈 대처까지 현장에서 쓸 수 있게 적었습니다.</description>
-  </item>
-  <item>
     <title>장거리 라이딩 후 회복: 허벅지·허리·안장통, 무엇이 효과 있나</title>
     <link>https://calrank.vercel.app/guide-cycling-recovery.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/guide-cycling-recovery.html</guid>
@@ -188,13 +188,13 @@
     <description>자전거대회는 거리가 아니라 시간으로 계산합니다. 평균 속도별로 몇 시간이 걸리고 탄수화물이 몇 g 필요한지, 물통을 몇 번 채워야 하는지 국제 권고 기준으로 표로 만들었습니다.</description>
   </item>
   <item>
-    <title>하프마라톤 2시간 깨기: 15km 이후가 무너지는 이유와 대비</title>
-    <link>https://calrank.vercel.app/guide-training-half.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-training-half.html</guid>
-    <pubDate>Mon, 19 Oct 2026 20:27:57 +0900</pubDate>
+    <title>자전거대회 준비물과 전날 점검: 펑크까지 생각하고 싸기</title>
+    <link>https://calrank.vercel.app/guide-cycling-gear.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-cycling-gear.html</guid>
+    <pubDate>Mon, 19 Oct 2026 21:04:22 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
-    <description>2시간은 km당 5분 41초입니다. 등급 한 칸을 올리려면 몇 분이 필요한지 나이·성별로 계산하고, 하프부터 실제로 필요해지는 보급량과 후반 페이스 유지를 국제 권고 기준으로 정리했습니다.</description>
+    <description>그란폰도 준비물을 '없으면 못 달리는 것'부터 순서대로 정리했습니다. 전날 점검 항목, 기온별 레이어링, 펑크와 체인 이탈 대처까지 현장에서 쓸 수 있게 적었습니다.</description>
   </item>
   <item>
     <title>10km 기록 줄이기: 60분에서 55분으로, 무엇을 바꿔야 할까</title>
@@ -206,22 +206,13 @@
     <description>5분을 줄인다는 건 km당 30초입니다. 지금 기록이 어느 등급인지, 등급 한 칸을 올리려면 몇 분을 줄여야 하는지 나이·성별로 계산했습니다. 강도 분배와 훈련량 증가에 대해서는 근거가 어디까지 있는지도 함께 적었습니다.</description>
   </item>
   <item>
-    <title>10km 마라톤 기록, 내 수준은 어디쯤일까 — 나이·성별 등급표</title>
-    <link>https://calrank.vercel.app/guide-marathon-10km.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-10km.html</guid>
-    <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
+    <title>하프마라톤 2시간 깨기: 15km 이후가 무너지는 이유와 대비</title>
+    <link>https://calrank.vercel.app/guide-training-half.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-training-half.html</guid>
+    <pubDate>Mon, 19 Oct 2026 20:27:57 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
-    <description>10km 기록을 나이와 성별에 맞춰 환산하면 지금 수준이 보입니다. WMA 2025 연령 기준표로 계산한 등급표와 목표 시간별 구간 통과표를 함께 실었습니다.</description>
-  </item>
-  <item>
-    <title>하프마라톤 21.0975km — 기록 등급표와 보급 계획 세우는 법</title>
-    <link>https://calrank.vercel.app/guide-marathon-half.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-half.html</guid>
-    <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
-    <author>calrank</author>
-    <category>대회 가이드</category>
-    <description>하프 기록을 나이·성별로 환산한 등급표, 목표 시간별 5km 통과표, 그리고 젤을 몇 개 언제 먹을지 계산한 표까지 한 번에 정리했습니다.</description>
+    <description>2시간은 km당 5분 41초입니다. 등급 한 칸을 올리려면 몇 분이 필요한지 나이·성별로 계산하고, 하프부터 실제로 필요해지는 보급량과 후반 페이스 유지를 국제 권고 기준으로 정리했습니다.</description>
   </item>
   <item>
     <title>풀코스 마라톤 42.195km — 등급표와 30km 이후를 버티는 계획</title>
@@ -233,22 +224,22 @@
     <description>풀코스 기록의 나이·성별 등급표, 목표 시간별 10km 통과표, 그리고 시간당 최대 90 g 까지 올라가는 보급 계획을 정리했습니다.</description>
   </item>
   <item>
-    <title>트레일 완주 후 다리가 더 아픈 이유: 내리막과 근육통</title>
-    <link>https://calrank.vercel.app/guide-trail-recovery.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-recovery.html</guid>
-    <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
+    <title>하프마라톤 21.0975km — 기록 등급표와 보급 계획 세우는 법</title>
+    <link>https://calrank.vercel.app/guide-marathon-half.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-half.html</guid>
+    <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
-    <description>같은 시간을 달려도 산을 다녀오면 다리가 더 아픕니다. 내리막에서 일어나는 근손상의 구조와, 다음 대회에서 덜 아프게 만드는 방법을 정리했습니다.</description>
+    <description>하프 기록을 나이·성별로 환산한 등급표, 목표 시간별 5km 통과표, 그리고 젤을 몇 개 언제 먹을지 계산한 표까지 한 번에 정리했습니다.</description>
   </item>
   <item>
-    <title>트레일러닝 필수장비: 왜 그렇게 많이 챙기라고 하는지</title>
-    <link>https://calrank.vercel.app/guide-trail-gear.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-gear.html</guid>
-    <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
+    <title>10km 마라톤 기록, 내 수준은 어디쯤일까 — 나이·성별 등급표</title>
+    <link>https://calrank.vercel.app/guide-marathon-10km.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-10km.html</guid>
+    <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
-    <description>조끼, 물, 헤드램프, 보온의류, 응급키트. 귀찮아 보이는 필수장비 목록이 사실은 저체온증 대비라는 걸 알면 빼먹지 않게 됩니다.</description>
+    <description>10km 기록을 나이와 성별에 맞춰 환산하면 지금 수준이 보입니다. WMA 2025 연령 기준표로 계산한 등급표와 목표 시간별 구간 통과표를 함께 실었습니다.</description>
   </item>
   <item>
     <title>철인3종 웻슈트 수온 규정: 몇 도부터 입고 몇 도부터 못 입나</title>
@@ -269,6 +260,15 @@
     <description>종목이 셋이라 빠뜨리기 쉽습니다. 트랜지션 순서대로 늘어놓는 방식으로 정리하면 빠지는 게 줄어듭니다.</description>
   </item>
   <item>
+    <title>트레일러닝 필수장비: 왜 그렇게 많이 챙기라고 하는지</title>
+    <link>https://calrank.vercel.app/guide-trail-gear.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-gear.html</guid>
+    <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
+    <author>calrank</author>
+    <category>대회 가이드</category>
+    <description>조끼, 물, 헤드램프, 보온의류, 응급키트. 귀찮아 보이는 필수장비 목록이 사실은 저체온증 대비라는 걸 알면 빼먹지 않게 됩니다.</description>
+  </item>
+  <item>
     <title>트레일러닝 보급과 더위: 보급소가 멀 때 어떻게 계산할까</title>
     <link>https://calrank.vercel.app/guide-trail-heat-fuel.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-heat-fuel.html</guid>
@@ -278,13 +278,13 @@
     <description>산에서는 급수대가 촘촘하지 않습니다. 시간당 필요한 탄수화물과 물을 보급소 간격에 맞춰 계산하는 법, 그리고 더운 날 기준까지 정리했습니다.</description>
   </item>
   <item>
-    <title>마라톤 당일 아침 식사: 몇 시간 전에, 얼마나 먹어야 할까</title>
-    <link>https://calrank.vercel.app/guide-marathon-race-morning.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-race-morning.html</guid>
-    <pubDate>Mon, 19 Oct 2026 15:42:24 +0900</pubDate>
+    <title>트레일 완주 후 다리가 더 아픈 이유: 내리막과 근육통</title>
+    <link>https://calrank.vercel.app/guide-trail-recovery.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-recovery.html</guid>
+    <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
-    <description>출발 몇 시간 전에 무엇을 얼마나 먹어야 하는지. 체중 1kg당 1~4 g 을 1~4시간 전에라는 국제 권고를 실제 시간표로 바꿔 정리했습니다.</description>
+    <description>같은 시간을 달려도 산을 다녀오면 다리가 더 아픕니다. 내리막에서 일어나는 근손상의 구조와, 다음 대회에서 덜 아프게 만드는 방법을 정리했습니다.</description>
   </item>
   <item>
     <title>마라톤 식단: 훈련량에 따라 하루 탄수화물 얼마나 먹어야 할까</title>
@@ -296,13 +296,22 @@
     <description>주 몇 번 달리느냐에 따라 하루에 필요한 탄수화물이 달라집니다. 체중 1kg당 몇 g인지 미국스포츠의학회 공동 입장문 기준으로 정리했습니다.</description>
   </item>
   <item>
-    <title>마라톤 에너지젤 먹는 법: 언제, 몇 개나 먹어야 할까</title>
-    <link>https://calrank.vercel.app/guide-marathon-gel.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-gel.html</guid>
+    <title>마라톤 준비물 체크리스트: 꼭 챙길 것과 안 챙겨도 되는 것</title>
+    <link>https://calrank.vercel.app/guide-marathon-checklist.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-checklist.html</guid>
     <pubDate>Mon, 19 Oct 2026 15:42:24 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
-    <description>경기 시간에 따라 시간당 탄수화물 권고량이 달라집니다. 목표 기록별로 총 몇 g 이 필요한지 계산표로 정리했습니다.</description>
+    <description>대회 전날 가방을 쌀 때 보는 목록입니다. 배번·신발·복장·여벌 옷부터 기온별 준비까지, 빠뜨리면 당일에 곤란해지는 순서대로 정리했습니다.</description>
+  </item>
+  <item>
+    <title>마라톤 완주 직후 30분: 무엇을 먹고 마시고 입어야 할까</title>
+    <link>https://calrank.vercel.app/guide-marathon-finish.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-finish.html</guid>
+    <pubDate>Mon, 19 Oct 2026 15:42:24 +0900</pubDate>
+    <author>calrank</author>
+    <category>대회 가이드</category>
+    <description>결승선을 지나고 나서가 생각보다 중요합니다. 수분은 잃은 양의 125~150%, 단백질은 체중 1kg당 0.25~0.3 g. 체온 관리와 위험 신호까지 정리했습니다.</description>
   </item>
   <item>
     <title>마라톤 후 근육통 회복법: 효과가 확인된 것과 그렇지 않은 것</title>
@@ -447,14 +456,5 @@
     <author>calrank</author>
     <category>마라톤</category>
     <description>부산항일학생의거86주년기념 부산시민이어달리기 — 2026.11.22 부산 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
-    <title>2026 에코나우런 — 2026.11.15 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EC%97%90%EC%BD%94%EB%82%98%EC%9A%B0%EB%9F%B0-2026-11-15.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%97%90%EC%BD%94%EB%82%98%EC%9A%B0%EB%9F%B0-2026-11-15.html</guid>
-    <pubDate>Wed, 07 Oct 2026 00:21:50 +0000</pubDate>
-    <author>calrank</author>
-    <category>마라톤</category>
-    <description>2026 에코나우런 — 2026.11.15 서울 대회 일정·접수 | calrank</description>
   </item>
 </channel></rss>
