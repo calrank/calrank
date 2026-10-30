@@ -3441,6 +3441,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/e/rm-2026-%EC%98%A5%ED%99%94%EA%B5%AC%EA%B3%A1-%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-11-07.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/e/rm-%ED%95%B4%EB%82%A8%EB%95%85%EB%81%9D-%EC%A0%84%EA%B5%AD%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -3657,6 +3662,11 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/e/ro-2026-%EA%B0%95%EC%9B%90-%EC%86%8D%EC%B4%88-%ED%95%B4%EB%B3%80%EA%B8%B8-%EA%B1%B4%EA%B0%95%EB%8B%AC%EB%A6%AC%EA%B8%B0-2026-11-14.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
