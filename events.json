@@ -16292,16 +16292,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://saunarun.com/products/e5d5rnduj37y?page=1",
-    "forecast": {
-      "tmn": 11.0,
-      "tmx": 19.0,
-      "morningTa": 12.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
-    }
+    "applyUrl": "https://saunarun.com/products/e5d5rnduj37y?page=1"
   },
   {
     "id": "rm-2026-just-run10-포천-2026-10-31",
@@ -16328,13 +16319,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://runten.co.kr/",
     "forecast": {
-      "tmn": 3.0,
+      "tmn": 5.0,
       "tmx": 14.0,
-      "morningTa": 5.8,
+      "morningTa": 7.6,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16364,13 +16355,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://kasmirun.kr/",
     "forecast": {
-      "tmn": 9.0,
-      "tmx": 14.0,
-      "morningTa": 10.6,
+      "tmn": 8.0,
+      "tmx": 15.0,
+      "morningTa": 9.2,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16402,11 +16393,11 @@
     "forecast": {
       "tmn": 8.0,
       "tmx": 21.0,
-      "morningTa": 11.0,
+      "morningTa": 12.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16433,13 +16424,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://taejongdaezombie.com",
     "forecast": {
-      "tmn": 10.0,
+      "tmn": 9.0,
       "tmx": 21.0,
-      "morningTa": 13.2,
+      "morningTa": 12.8,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16469,12 +16460,12 @@
     "applyUrl": "http://autismrace.com",
     "forecast": {
       "tmn": 8.0,
-      "tmx": 14.0,
-      "morningTa": 9.6,
+      "tmx": 15.0,
+      "morningTa": 8.6,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16501,13 +16492,13 @@
     "sourceUrl": "https://cyclo.kr/schedule",
     "applyUrl": "https://xcworks.com/sub/race.html?type=view&wrNo=20",
     "forecast": {
-      "tmn": 7.0,
-      "tmx": 17.0,
-      "morningTa": 9.6,
-      "pop": 0,
+      "tmn": 6.0,
+      "tmx": 18.0,
+      "morningTa": 10.0,
+      "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16536,11 +16527,11 @@
     "forecast": {
       "tmn": 8.0,
       "tmx": 19.0,
-      "morningTa": 11.4,
+      "morningTa": 12.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16590,13 +16581,13 @@
     "sourceUrl": "https://cyclo.kr/schedule",
     "applyUrl": "https://www.thebike.co.kr/race/view?r_idx=343",
     "forecast": {
-      "tmn": 7.0,
-      "tmx": 17.0,
-      "morningTa": 10.2,
+      "tmn": 8.0,
+      "tmx": 18.0,
+      "morningTa": 11.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16624,12 +16615,12 @@
     "applyUrl": "http://hgrun.kr/",
     "forecast": {
       "tmn": 9.0,
-      "tmx": 14.0,
-      "morningTa": 10.6,
+      "tmx": 15.0,
+      "morningTa": 9.6,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16657,13 +16648,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://onerun2026.life/",
     "forecast": {
-      "tmn": 8.0,
-      "tmx": 16.0,
-      "morningTa": 10.8,
+      "tmn": 9.0,
+      "tmx": 17.0,
+      "morningTa": 11.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16694,13 +16685,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://marvelrunkorea2026.com/",
     "forecast": {
-      "tmn": 2.0,
-      "tmx": 10.0,
-      "morningTa": 5.0,
+      "tmn": 3.0,
+      "tmx": 9.0,
+      "morningTa": 5.6,
       "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16728,13 +16719,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://runten.co.kr",
     "forecast": {
-      "tmn": 3.0,
+      "tmn": 5.0,
       "tmx": 14.0,
-      "morningTa": 5.8,
+      "morningTa": 7.6,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16764,13 +16755,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://icnr.kr",
     "forecast": {
-      "tmn": 9.0,
+      "tmn": 8.0,
       "tmx": 14.0,
-      "morningTa": 10.2,
+      "morningTa": 9.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16798,13 +16789,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://runpass.kr/races/seongnam-ymca/2026",
     "forecast": {
-      "tmn": 8.0,
-      "tmx": 15.0,
+      "tmn": 9.0,
+      "tmx": 14.0,
       "morningTa": 9.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16831,13 +16822,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://www.namhae250k.com/RTV-INFO",
     "forecast": {
-      "tmn": 10.0,
+      "tmn": 11.0,
       "tmx": 21.0,
-      "morningTa": 13.6,
+      "morningTa": 14.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16890,13 +16881,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://seoulrun.com",
     "forecast": {
-      "tmn": 6.0,
+      "tmn": 5.0,
       "tmx": 13.0,
-      "morningTa": 7.4,
+      "morningTa": 6.8,
       "pop": 30,
       "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16924,13 +16915,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://mara1080.com/event/d596615e-cf32-4f20-bdbe-13b633f51c4e",
     "forecast": {
-      "tmn": 9.0,
-      "tmx": 16.0,
-      "morningTa": 10.4,
+      "tmn": 8.0,
+      "tmx": 15.0,
+      "morningTa": 10.0,
       "pop": 30,
       "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -16960,12 +16951,12 @@
     "applyUrl": "http://gcmarathon.co.kr",
     "forecast": {
       "tmn": 3.0,
-      "tmx": 14.0,
-      "morningTa": 6.4,
+      "tmx": 13.0,
+      "morningTa": 7.2,
       "pop": 30,
       "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -17023,11 +17014,11 @@
     "forecast": {
       "tmn": 7.0,
       "tmx": 17.0,
-      "morningTa": 10.4,
+      "morningTa": 10.0,
       "pop": 30,
       "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -17079,13 +17070,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://www.djmarathon.co.kr/",
     "forecast": {
-      "tmn": 5.0,
-      "tmx": 14.0,
-      "morningTa": 6.8,
+      "tmn": 6.0,
+      "tmx": 13.0,
+      "morningTa": 7.0,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -17113,13 +17104,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://dmzopenrun.kr/",
     "forecast": {
-      "tmn": 3.0,
+      "tmn": 4.0,
       "tmx": 12.0,
-      "morningTa": 4.2,
+      "morningTa": 5.4,
       "pop": 30,
       "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
@@ -17195,11 +17186,11 @@
     "forecast": {
       "tmn": 6.0,
       "tmx": 13.0,
-      "morningTa": 7.2,
+      "morningTa": 6.8,
       "pop": 30,
       "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-10-30 09:49"
+      "asOf": "2026-10-31 00:50"
     }
   },
   {
