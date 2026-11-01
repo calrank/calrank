@@ -16736,16 +16736,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://seoulrun.com",
-    "forecast": {
-      "tmn": 8.0,
-      "tmx": 13.0,
-      "morningTa": 8.5,
-      "pop": 60,
-      "sky": "비",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://seoulrun.com"
   },
   {
     "id": "rm-무안-해안-노을길-걷기-및-마라톤-2026-11-01",
@@ -16770,16 +16761,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/d596615e-cf32-4f20-bdbe-13b633f51c4e",
-    "forecast": {
-      "tmn": 11.0,
-      "tmx": 16.0,
-      "morningTa": 11.5,
-      "pop": 30,
-      "sky": "흐림",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://mara1080.com/event/d596615e-cf32-4f20-bdbe-13b633f51c4e"
   },
   {
     "id": "rm-김천전국마라톤대회-2026-11-01",
@@ -16805,16 +16787,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://gcmarathon.co.kr",
-    "forecast": {
-      "tmn": 9.0,
-      "tmx": 11.0,
-      "morningTa": 10.5,
-      "pop": 30,
-      "sky": "흐림",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://gcmarathon.co.kr"
   },
   {
     "id": "rr-제2회-대전-신채호-마라톤-2026-11-01",
@@ -16868,16 +16841,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.humanrun.org",
-    "forecast": {
-      "tmn": 12.0,
-      "tmx": 17.0,
-      "morningTa": 13.0,
-      "pop": 30,
-      "sky": "흐림",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://www.humanrun.org"
   },
   {
     "id": "rr-2026-jtbc-마라톤-2026-11-01",
@@ -16926,16 +16890,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.djmarathon.co.kr/",
-    "forecast": {
-      "tmn": 8.0,
-      "tmx": 11.0,
-      "morningTa": 8.5,
-      "pop": 60,
-      "sky": "비",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://www.djmarathon.co.kr/"
   },
   {
     "id": "rm-2026-dmz-open-평화마라톤-2026-11-01",
@@ -16960,16 +16915,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://dmzopenrun.kr/",
-    "forecast": {
-      "tmn": 7.0,
-      "tmx": 12.0,
-      "morningTa": 7.5,
-      "pop": 30,
-      "sky": "흐림",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://dmzopenrun.kr/"
   },
   {
     "id": "ro-서울국제마라톤-2026-11-01",
@@ -17040,16 +16986,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://justicerun.kr/",
-    "forecast": {
-      "tmn": 8.0,
-      "tmx": 13.0,
-      "morningTa": 8.5,
-      "pop": 60,
-      "sky": "비",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-01 09:02"
-    }
+    "applyUrl": "http://justicerun.kr/"
   },
   {
     "id": "ro-2026-jtbc-서울마라톤-2026-11-01",
@@ -17118,7 +17055,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://gift.kakao.com/product/14443548?input_channel_id=2630"
+    "applyUrl": "https://gift.kakao.com/product/14443548?input_channel_id=2630",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 16.0,
+      "morningTa": 10.0,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-02 00:57"
+    }
   },
   {
     "id": "rr-제40회-서봉기단축마라톤-2026-11-06",
