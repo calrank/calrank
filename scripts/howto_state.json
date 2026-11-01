@@ -1,15 +1,6 @@
 {
   "published": [
-    "marathon:injury",
-    "marathon:women-runners",
-    "marathon:weather-heat",
-    "marathon:shoe-selection",
-    "trail:injury-ankle-knee",
-    "trail:poles-technique",
-    "cycling:group-ride-etiquette",
-    "triathlon:open-water-fear",
-    "triathlon:transition-training",
-    "triathlon:race-day-pacing"
+    "marathon:injury"
   ],
-  "cycle": 0
+  "cycle": 1
 }
