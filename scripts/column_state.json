@@ -1,5 +1,5 @@
 {
-  "last_sport_index": 2,
+  "last_sport_index": 0,
   "published": [
     "marathon-2026-09",
     "trail-2026-09",
@@ -9,6 +9,7 @@
     "triathlon-2026-10",
     "marathon-2026-10",
     "cycling-2026-10",
-    "trail-2026-11"
+    "trail-2026-11",
+    "marathon-2026-11"
   ]
 }
