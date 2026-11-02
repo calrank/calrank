@@ -278,7 +278,7 @@
 }
 .lv-band-row span{font-size:12px;color:var(--ink-soft,var(--ink-faint));}
 .lv-band-row b{font-size:13.5px;color:var(--ink);font-variant-numeric:tabular-nums;}
-.lv-band-row em{font-size:11px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
+.lv-band-row em{font-size:12px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
 
 .lv-band-verdict{
   font-size:12.5px;line-height:1.85;margin:14px 0 0;
@@ -454,3 +454,12 @@
 /* 아래 링크 묶음은 문장 안이 아니라 홀로 서 있어서 WCAG 2.2 AA(SC 2.5.8)의
    24×24px 가 그대로 적용된다. 높이가 16px 이었어서 눌리는 영역만 넓힌다. */
 .lv-links a{display:inline-block;padding-block:4px;min-height:24px;}
+
+/* 거리별 강점 판정의 근거. 주장에는 출처를 붙인다는 원칙을 여기에도 건다.
+   읽는 글이라 12px 바닥을 지킨다. */
+.lv-dna-src{margin:12px 0 0;font-size:12px;line-height:1.8;
+  color:var(--ink-soft,var(--ink-faint));text-align:left;
+  padding-top:11px;border-top:1px solid var(--border);}
+.lv-dna-src b{color:var(--ink);}
+.lv-dna-cite{display:block;margin-top:7px;font-size:12px;line-height:1.7;
+  color:var(--ink-faint);}

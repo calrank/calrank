@@ -139,6 +139,59 @@ function renderResult(result, inputs) {
     })()}
 
     ${(() => {
+      // ── 다른 거리로 환산하면 ─────────────────────────────────
+      // 같은 연령등급을 받는 다른 거리의 기록이다. 예측이 아니라
+      // 같은 기준으로 환산한 값이라는 점을 문구로 분명히 해 둔다.
+      const others = [5, 10, 21.0975, 42.195].filter(
+        (k) => Math.abs(k - inputs.distanceKm) > 0.01);
+      const rows = others.map((k) => {
+        const t = equivTime(inputs.finishSec, inputs.distanceKm, k,
+                            inputs.age, inputs.gender);
+        return t ? { k, t } : null;
+      }).filter(Boolean);
+      if (!rows.length) return "";
+      return `
+      <p class="level-tier-table-title">같은 수준이라면 다른 거리에서는</p>
+      <div class="lv-equiv">
+        ${rows.map((r) => `
+        <div class="lv-equiv-c">
+          <span class="lv-equiv-d">${distLabel(r.k)}</span>
+          <span class="lv-equiv-t">${fmtClock(r.t)}</span>
+        </div>`).join("")}
+      </div>
+      <p class="lv-equiv-note">지금 기록과 같은 연령등급이 되는 기록입니다.
+      앞으로 그 거리를 뛰면 이 시간이 나온다는 뜻은 아닙니다 — 거리마다
+      필요한 훈련이 다릅니다. 실제로 뛴 기록이 있다면 아래에 넣어 보세요.
+      예상과 얼마나 다른지, 어느 쪽이 약한지 바로 나옵니다.</p>`;
+    })()}
+
+    ${(() => {
+      // ── 거리별 강점 입력 ─────────────────────────────────────
+      // 실제로 뛴 다른 거리 기록을 넣으면 거리끼리 견줄 수 있다.
+      // 연령등급이 이미 거리·나이·성별을 정규화한 값이라 가능한 비교다.
+      const others = [5, 10, 21.0975, 42.195].filter(
+        (k) => Math.abs(k - inputs.distanceKm) > 0.01);
+      return `
+      <details class="lv-dna" open>
+        <summary>기록이 두 개면 약한 쪽이 보입니다 — 거리별로 견줘 보기</summary>
+        <div class="lv-dna-in">
+          <p class="lv-dna-help">실제로 뛴 기록만 넣어 주세요. 하나만 넣어도 됩니다.
+          비어 있는 칸은 건너뜁니다.</p>
+          ${others.map((k) => `
+          <div class="lv-dna-row">
+            <label for="dna-${String(k).replace(".", "_")}">${distLabel(k)}</label>
+            <input type="text" id="dna-${String(k).replace(".", "_")}"
+                   data-km="${k}" class="lv-dna-time"
+                   placeholder="예: ${k < 11 ? "52:38" : "1:58:20"}"
+                   inputmode="numeric" autocomplete="off">
+          </div>`).join("")}
+          <button type="button" class="lv-dna-go" id="lvDnaGo">거리별로 견줘 보기</button>
+          <div class="lv-dna-out" id="lvDnaOut"></div>
+        </div>
+      </details>`;
+    })()}
+
+    ${(() => {
       // ── 이 기록 하나가 말해 주는 폭 ──────────────────────────
       // 등급을 소수점 한 자리로 딱 찍어 주면 그만큼 정확해 보인다.
       // 실제로는 같은 사람이 같은 몸으로 뛰어도 대회마다 기록이 흔들린다.
@@ -234,57 +287,6 @@ function renderResult(result, inputs) {
       </div>`;
     })()}
 
-    ${(() => {
-      // ── 다른 거리로 환산하면 ─────────────────────────────────
-      // 같은 연령등급을 받는 다른 거리의 기록이다. 예측이 아니라
-      // 같은 기준으로 환산한 값이라는 점을 문구로 분명히 해 둔다.
-      const others = [5, 10, 21.0975, 42.195].filter(
-        (k) => Math.abs(k - inputs.distanceKm) > 0.01);
-      const rows = others.map((k) => {
-        const t = equivTime(inputs.finishSec, inputs.distanceKm, k,
-                            inputs.age, inputs.gender);
-        return t ? { k, t } : null;
-      }).filter(Boolean);
-      if (!rows.length) return "";
-      return `
-      <p class="level-tier-table-title">같은 수준이라면 다른 거리에서는</p>
-      <div class="lv-equiv">
-        ${rows.map((r) => `
-        <div class="lv-equiv-c">
-          <span class="lv-equiv-d">${distLabel(r.k)}</span>
-          <span class="lv-equiv-t">${fmtClock(r.t)}</span>
-        </div>`).join("")}
-      </div>
-      <p class="lv-equiv-note">지금 기록과 같은 연령등급이 되는 기록입니다.
-      앞으로 그 거리를 뛰면 이 시간이 나온다는 뜻은 아닙니다 — 거리마다
-      필요한 훈련이 다릅니다.</p>`;
-    })()}
-
-    ${(() => {
-      // ── 거리별 강점 입력 ─────────────────────────────────────
-      // 실제로 뛴 다른 거리 기록을 넣으면 거리끼리 견줄 수 있다.
-      // 연령등급이 이미 거리·나이·성별을 정규화한 값이라 가능한 비교다.
-      const others = [5, 10, 21.0975, 42.195].filter(
-        (k) => Math.abs(k - inputs.distanceKm) > 0.01);
-      return `
-      <details class="lv-dna">
-        <summary>다른 거리 기록도 있으신가요 — 거리별 강점 보기</summary>
-        <div class="lv-dna-in">
-          <p class="lv-dna-help">실제로 뛴 기록만 넣어 주세요. 하나만 넣어도 됩니다.
-          비어 있는 칸은 건너뜁니다.</p>
-          ${others.map((k) => `
-          <div class="lv-dna-row">
-            <label for="dna-${String(k).replace(".", "_")}">${distLabel(k)}</label>
-            <input type="text" id="dna-${String(k).replace(".", "_")}"
-                   data-km="${k}" class="lv-dna-time"
-                   placeholder="예: ${k < 11 ? "52:38" : "1:58:20"}"
-                   inputmode="numeric" autocomplete="off">
-          </div>`).join("")}
-          <button type="button" class="lv-dna-go" id="lvDnaGo">거리별로 견줘 보기</button>
-          <div class="lv-dna-out" id="lvDnaOut"></div>
-        </div>
-      </details>`;
-    })()}
 
     <p class="level-tier-table-title">등급 사다리 (${inputs.age}세 ${genderLabel} ${distLabel(inputs.distanceKm)} 기준)</p>
     ${tierLadder(inputs.distanceKm, inputs.age, inputs.gender, tier.label)}
@@ -330,7 +332,23 @@ function renderResult(result, inputs) {
         <p class="lv-dna-note">연령등급은 거리·나이·성별을 이미 맞춰 놓은 값이라
         거리끼리 견줄 수 있습니다. 다만 기록 시점이 많이 다르면 거리 차이가 아니라
         그동안의 변화를 보는 것이 됩니다. 그리고 이건 기록에서 보이는 패턴이지
-        몸의 특성을 확정하는 것이 아닙니다.</p>`;
+        몸의 특성을 확정하는 것이 아닙니다.</p>
+        <p class="lv-dna-src"><b>왜 이렇게 견줄 수 있나.</b>
+        Riegel은 1979년까지의 기록을 분석하면서, 주자가 거리에 상관없이
+        세계 최고 속도의 일정한 비율을 유지하는 경향이 있다고 보고했습니다.
+        그렇다면 거리 사이에 비율 차이가 난다는 건 그 경향에서 벗어나 있다는 뜻입니다.
+        인접한 두 거리의 기록 비율로 특수지구력을 평가하고, 약한 쪽이 훈련이
+        필요한 곳이라고 보는 방법은 2025년 <i>Scientific Reports</i>에 실렸습니다
+        — 다만 그 논문은 트랙 100m~10,000m가 대상이라, 도로 거리의 기준값은
+        아직 없습니다.
+        <br>그래서 여기서는 <b>2.0%p</b> 아래 차이는 말하지 않습니다. 논문에서 가져온
+        수치가 아니라, 그날 컨디션이나 코스로 생기는 폭을 경향으로 잘못 읽지 않으려고
+        칼랭크가 보수적으로 잡은 선입니다. 도로 거리의 기준값은 같은 나이·성별의
+        기록이 충분히 모이면 그때 숫자로 내놓겠습니다.
+        <br><span class="lv-dna-cite">Riegel PS. Athletic records and human endurance.
+        <i>American Scientist</i> 1981;69(3):285–290. ·
+        Blödorn W, Döring F. Special endurance coefficients enable the evaluation of
+        running performance. <i>Scientific Reports</i> 2025. doi:10.1038/s41598-025-06009-6</span></p>`;
     });
   }
   el.scrollIntoView({ behavior: "smooth", block: "nearest" });
