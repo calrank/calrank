@@ -1,0 +1,48 @@
+name: Race climate
+
+# 대회가 열리는 날 그 지역이 보통 어떤 날씨였는지를 기상청 종관기상관측(ASOS)
+# 일자료로 붙인다. 평년값은 해마다 한 점씩만 늘어나니 자주 돌 필요가 없다.
+# 대신 새 대회가 들어오면 그 날짜의 평년값이 필요하므로 주 1회 돌린다.
+
+on:
+  schedule:
+    - cron: "40 19 * * 1"   # 매주 화요일 04:40 KST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  climate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check API access
+        # 어느 서비스에 활용신청이 되어 있는지 먼저 찍는다. 막혀 있으면
+        # 여기서 바로 보이고, 뒤 단계는 건너뛴다.
+        id: probe
+        continue-on-error: true
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+          KMA_APIHUB_KEY: ${{ secrets.KMA_APIHUB_KEY }}
+        run: python scripts/fetch_race_climate.py --selftest
+
+      - name: Fetch climate
+        if: steps.probe.outcome == 'success'
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+          KMA_APIHUB_KEY: ${{ secrets.KMA_APIHUB_KEY }}
+        run: python scripts/fetch_race_climate.py
+
+      - name: Commit if changed
+        if: steps.probe.outcome == 'success'
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add events.json data/race_climate.json data/asos_stations.json
+          git diff --quiet --cached || (git commit -m "chore: update race climate" && git push)
