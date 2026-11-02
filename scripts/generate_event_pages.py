@@ -187,6 +187,16 @@ def _km_label(km):
     return f"{km:g}km"
 
 
+# 등급 계산기로 보낼 때 쓸 주 거리. build_record_standards 와 같은 우선순위라,
+# 페이지가 설명하는 거리와 링크가 가리키는 거리가 어긋나지 않는다.
+def _main_km(ev: dict):
+    kms = _parse_km(ev.get("distances"))
+    for pref in (10.0, 21.0975, 5.0, 42.195):
+        if pref in kms:
+            return pref
+    return None
+
+
 def build_record_standards(ev: dict) -> str:
     """이 대회 거리 기준으로 '어느 정도면 어느 수준인지'를 짧은 산문으로."""
     kms = _parse_km(ev.get("distances"))
@@ -303,6 +313,43 @@ def build_static_content(ev: dict) -> str:
     if ev.get("organizerPhone"):
         organizer += " · " + esc(ev["organizerPhone"])
     apply_url = ev.get("applyUrl") or ev.get("sourceUrl") or "#"
+
+    # 지난 대회에 "신청하기"를 그대로 띄우면 죽은 링크를 약속하는 셈이다.
+    # 660장이 그 상태였다. 라벨을 사실대로 바꾸고, 대신 그 자리에
+    # 기록을 넣어 볼 길을 놓는다 — 대회를 막 뛰고 온 사람에게는 그게 용건이다.
+    d = parse_date(ev.get("date"))
+    is_past = bool(d) and d < date.today()
+    km = _main_km(ev)
+    grade_href = f"level.html?d={km:g}" if km else ""
+
+    if is_past:
+        cta = (
+            f'<a class="modal-apply-btn ev-cta-sub" style="display:inline-block;'
+            f'text-decoration:none;margin-top:24px;" href="{esc(apply_url)}" '
+            f'target="_blank" rel="noopener">대회 홈페이지 ↗</a>'
+        )
+        if grade_href:
+            cta = (
+                f'<div class="ev-after">'
+                f'<p class="ev-after-q">이 대회 다녀오셨나요?</p>'
+                f'<a class="ev-after-btn" href="{grade_href}">'
+                f'완주 기록이 몇 등급인지 보기 →</a>'
+                f'<p class="ev-after-n">나이와 성별까지 반영해 바로 나옵니다. '
+                f'가입하지 않아도 됩니다.</p>'
+                f'</div>'
+            ) + cta
+    else:
+        cta = (
+            f'<a class="modal-apply-btn" style="display:inline-block;'
+            f'text-decoration:none;margin-top:24px;" href="{esc(apply_url)}" '
+            f'target="_blank" rel="noopener">신청하기 ↗</a>'
+        )
+        if grade_href:
+            cta += (
+                f'<p class="ev-goal"><a href="{grade_href}">'
+                f'목표 기록을 정해 볼까요 — 등급으로 확인하기 →</a></p>'
+            )
+
     return (
         f'<section class="hero"><p class="hero-sub">{esc(sport)}</p><h1>{esc(ev.get("name"))}</h1></section>'
         f'<div class="modal-fields" style="margin-top:24px;">'
@@ -311,8 +358,7 @@ def build_static_content(ev: dict) -> str:
         f'<div class="modal-field-row"><span class="k">종목/거리</span><span class="v">{esc(" / ".join(dedupe_distances(ev.get("distances"))))}</span></div>'
         f'<div class="modal-field-row"><span class="k">주최</span><span class="v">{organizer}</span></div>'
         f'</div>'
-        f'<a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" '
-        f'href="{esc(apply_url)}" target="_blank" rel="noopener">신청하기 ↗</a>'
+        f'{cta}'
     )
 
 
