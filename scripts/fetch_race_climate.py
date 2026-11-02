@@ -62,6 +62,10 @@ PATH_STN_CANDIDATES = [
 # 공공데이터포털 키와 다른 키라서 KMA_APIHUB_KEY 가 있을 때만 쓴다.
 APIHUB_STN = "https://apihub.kma.go.kr/api/typ01/url/kma_stnlist.php"
 
+# 일자료 서비스가 열려 있는지 볼 때 쓰는 지점 후보. 맞는 번호를 모르는 상태라
+# 몇 개를 눌러 본다 — 하나라도 자료가 오면 서비스는 열려 있는 것이다.
+PROBE_STATIONS = [108, 112, 159, 143, 156, 101, 105, 133]
+
 YEARS_BACK = 10          # 최근 몇 해를 평년으로 볼지
 WINDOW = 3               # 대회 날 ±며칠까지 같이 볼지 (그날 하루는 표본이 너무 적다)
 MIN_YEARS = 4            # 이보다 적게 모이면 말하지 않는다
@@ -330,29 +334,43 @@ def main():
     if "%" in key:
         key = urllib.parse.unquote(key)
 
-    # 1) 지점
-    stations = load_stations(key, force=args.refresh_stations)
-    if not stations:
-        print("[climate] 지점 목록을 못 받았습니다. 지상기상관측 지점정보 조회서비스에 "
-              "활용신청이 되어 있는지 확인해 주세요.", file=sys.stderr)
-        return 2
-
-    # 2) 일자료가 되는지
+    # 1) 일자료부터 확인한다. 이게 본체고, 지점 목록은 거기에 딸린 문제다.
+    #    전에는 순서가 반대여서 지점에서 막히자 정작 본체를 시험도 못 했다.
     today = dt.date.today()
     probe_end = today - dt.timedelta(days=2)
     probe_start = probe_end - dt.timedelta(days=5)
-    seoul = next((s["id"] for s in stations if s["name"] == "서울"), stations[0]["id"])
-    days, err = fetch_days(key, seoul, probe_start.strftime("%Y%m%d"),
-                           probe_end.strftime("%Y%m%d"))
-    if err:
-        print("[climate] ASOS 일자료 — %s" % err, file=sys.stderr)
-        print("[climate] 지상(종관, ASOS) 일자료 조회서비스에 활용신청이 "
-              "되어 있는지 확인해 주세요.", file=sys.stderr)
+    daily_ok, probe_stn, days = False, None, {}
+    for cand in PROBE_STATIONS:
+        days, err = fetch_days(key, cand, probe_start.strftime("%Y%m%d"),
+                               probe_end.strftime("%Y%m%d"))
+        if err:
+            print("[climate] 일자료 지점 %s — %s" % (cand, err))
+            # 인증 문제면 지점을 바꿔도 소용없다
+            if any(w in str(err).upper() for w in
+                   ("SERVICE", "KEY", "AUTH", "REGIST", "DENIED", "허용")):
+                break
+            continue
+        if days:
+            daily_ok, probe_stn = True, cand
+            break
+    if not daily_ok:
+        print("[climate] ASOS 일자료를 받지 못했습니다. 공공데이터포털에서 "
+              "'기상청_지상(종관, ASOS) 일자료 조회서비스'에 활용신청이 되어 "
+              "있는지 확인해 주세요.", file=sys.stderr)
         return 2
-    print("[climate] ASOS 일자료 확인 — 지점 %s, %d일치" % (seoul, len(days)))
+    print("[climate] ASOS 일자료 됩니다 — 지점 %s, %d일치" % (probe_stn, len(days)))
+    for k in sorted(days)[-2:]:
+        print("   %s %s" % (k, days[k]))
+
+    # 2) 지점 목록
+    stations = load_stations(key, force=args.refresh_stations)
+    if not stations:
+        print("[climate] 일자료는 되는데 지점 목록을 못 받았습니다. "
+              "KMA_APIHUB_KEY(기상청 API허브) 를 넣어 주시면 전체 지점표를 "
+              "한 번에 받습니다.", file=sys.stderr)
+        return 3
     if args.selftest:
-        for k in sorted(days)[-3:]:
-            print("   %s %s" % (k, days[k]))
+        print("[climate] 자체 점검 통과 — 일자료 OK, 지점 %d곳" % len(stations))
         return 0
 
     # 3) 대회마다 가장 가까운 지점과 월일을 모은다
