@@ -1432,6 +1432,8 @@
             giveMsg.textContent = "보내지 못했습니다. 잠시 뒤 다시 시도해 주세요.";
             return;
           }
+          // 해자가 실제로 쌓이는 지점. 이 숫자가 0 이면 나머지는 다 포장이다.
+          if (window.calrankMark) window.calrankMark("stats-given");
           try { localStorage.setItem(giveKey(row), "1"); } catch (e) {}
           giveBtn.textContent = "보태 주셔서 고맙습니다";
           consentCk.disabled = true;

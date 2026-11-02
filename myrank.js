@@ -1000,6 +1000,7 @@ async function handleRecordSubmit(e) {
     return;
   }
 
+  if (window.calrankMark) window.calrankMark("record-saved");
   msgEl.textContent = editingRecordId ? "기록이 수정되었습니다." : "기록이 저장되었습니다.";
   msgEl.className = "record-msg";
   e.target.reset();

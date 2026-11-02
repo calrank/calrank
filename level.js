@@ -71,6 +71,8 @@ function analyze({ finishSec, distanceKm, age, gender }) {
 }
 
 function renderResult(result, inputs) {
+  // 등급 결과를 실제로 본 사람 수. 아래 단계들의 분모가 된다.
+  if (window.calrankMark) window.calrankMark("grade-calc");
   const el = document.getElementById("levelResult");
   const { actualPaceSec, speedKmh, tier } = result;
   const genderLabel = inputs.gender === "male" ? "남성" : "여성";
@@ -1528,6 +1530,7 @@ function ensurePreviewStyle() {
 }
 
 function showCardPreview(blob, file, d) {
+  if (window.calrankMark) window.calrankMark("card-made");
   ensurePreviewStyle();
   closeCardPreview();
   const url = URL.createObjectURL(blob);
@@ -1557,6 +1560,7 @@ function showCardPreview(blob, file, d) {
   back.appendChild(box);
 
   box.querySelector(".lvp-save").addEventListener("click", () => {
+    if (window.calrankMark) window.calrankMark("card-saved");
     const a = document.createElement("a");
     a.href = url; a.download = "calrank-내등급.png";
     document.body.appendChild(a); a.click(); a.remove();
@@ -1581,6 +1585,8 @@ function showCardPreview(blob, file, d) {
     shareBtn.addEventListener("click", async () => {
       try {
         await navigator.share({ files: [file], title: "내 러닝 등급" });
+        // 취소하면 AbortError 로 빠지니, 여기까지 오면 실제로 공유된 것이다.
+        if (window.calrankMark) window.calrankMark("card-shared");
       } catch (err) {
         if (err && err.name !== "AbortError") {
           shareBtn.textContent = "저장해 주세요";
