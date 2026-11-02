@@ -17052,7 +17052,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://gift.kakao.com/product/14443548?input_channel_id=2630"
+    "applyUrl": "https://gift.kakao.com/product/14443548?input_channel_id=2630",
+    "forecast": {
+      "tmn": 8.0,
+      "tmx": 16.0,
+      "morningTa": 9.0,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-02 09:36"
+    }
   },
   {
     "id": "rr-제40회-서봉기단축마라톤-2026-11-06",
