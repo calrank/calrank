@@ -10,38 +10,9 @@ X-WR-TIMEZONE:Asia/Seoul
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
-UID:tri-제22회-울진-트라이애슬론-대회-2026-10-31@calrank.vercel
- .app
-DTSTAMP:20261031T235533Z
-DTSTART;VALUE=DATE:20261031
-SUMMARY:제22회 울진 트라이애슬론 대회
-LOCATION:울진군 후포면 요트경기장
-DESCRIPTION:장소: 울진군 후포면 요트경기장\n신청: https://tr
- iathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2111&page=1&sYear
- =2026&vType=list&field=&keyword=\nhttps://calrank.vercel.app/e/tri-%EC%A0%
- 9C22%ED%9A%8C-%EC%9A%B8%EC%A7%84-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%A0%EC%8
- A%AC%EB%A1%A0-%EB%8C%80%ED%9A%8C-2026-10-31.html
-URL:https://calrank.vercel.app/e/tri-%EC%A0%9C22%ED%9A%8C-%EC%9A%B8%EC%A7%8
- 4-%ED%8A%B8%EB%9D%BC%EC%9D%B4%EC%95%A0%EC%8A%AC%EB%A1%A0-%EB%8C%80%ED%9A%8
- C-2026-10-31.html
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P7D
-DESCRIPTION:제22회 울진 트라이애슬론 대회 D-7 — 준비물과 
- 교통편을 확인하세요
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:제22회 울진 트라이애슬론 대회 내일입니다 — 
- 배번과 출발 시간을 확인하세요
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:tri-2026-경기도철인3종협회장배-전국듀애슬론-d100-대회
  -2026-11-07@calrank.vercel.app
-DTSTAMP:20261031T235533Z
+DTSTAMP:20261102T000637Z
 DTSTART;VALUE=DATE:20261107
 SUMMARY:2026 경기도철인3종협회장배 전국듀애슬론(D100)대회
 LOCATION:경기도 여주시 대신면 일원(대회본부: 천서리 566
