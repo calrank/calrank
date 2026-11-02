@@ -1672,8 +1672,43 @@ async function shareCard(result, inputs, btn) {
   }
 }
 
+// 대회 페이지에서 넘어올 때 거리를 미리 채워 둔다.
+// 대회를 뛰고 나서 "내 기록이 뭐지" 하고 넘어오는 길이라, 거리를 다시
+// 고르게 하면 거기서 떨어진다. ?d=10 또는 ?d=21.0975 를 받는다.
+function prefillFromUrl() {
+  try {
+    const q = new URLSearchParams(location.search);
+    const d = q.get("d");
+    if (!d) return;
+    const sel = document.getElementById("lvDistance");
+    if (!sel) return;
+    const want = parseFloat(d);
+    if (!isFinite(want)) return;
+    // 셀렉트에 있는 값 중 가장 가까운 것으로 맞춘다(21 → 21.0975)
+    let best = null, gap = Infinity;
+    for (const o of sel.options) {
+      const v = parseFloat(o.value);
+      if (!isFinite(v)) continue;
+      const g = Math.abs(v - want);
+      if (g < gap) { gap = g; best = o.value; }
+    }
+    if (best !== null && gap < 1.2) {
+      sel.value = best;
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    const t = q.get("t");
+    if (t) {
+      const tf = document.getElementById("lvTime");
+      if (tf) tf.value = t;
+    }
+  } catch (e) {
+    // 주소에서 받아오는 건 거들 뿐이다. 실패해도 폼은 그대로 쓴다.
+  }
+}
+
 function init() {
   wirePreview();
+  prefillFromUrl();
   document.getElementById("levelForm").addEventListener("submit", (e) => {
     e.preventDefault();
 
