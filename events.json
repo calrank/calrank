@@ -142,7 +142,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://beachultra.kr/"
+    "applyUrl": "http://beachultra.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.9,
+      "maxAvg": 16.8,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 20.3,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-2026-예천군민-마스터즈-2026-03-08",
@@ -165,7 +175,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.ycg.kr/open.content/ko/administrative/news/notice/?i=175950%3Futm_source%3Dmarathongo"
+    "applyUrl": "http://www.ycg.kr/open.content/ko/administrative/news/notice/?i=175950%3Futm_source%3Dmarathongo",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.8,
+      "maxAvg": 17.7,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 24.1,
+      "station": "���뵿",
+      "stationKm": 60
+    }
   },
   {
     "id": "rm-제16회-여의도-벚꽃-마라톤-2026-03-08",
@@ -263,7 +283,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://marathon-mbngj.com/"
+    "applyUrl": "http://marathon-mbngj.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.0,
+      "maxAvg": 16.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 20.2,
+      "station": "�뿵",
+      "stationKm": 13
+    }
   },
   {
     "id": "rm-2026-성주참외-전국마라톤-2026-03-08",
@@ -289,7 +319,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sjmelon.kr/"
+    "applyUrl": "http://sjmelon.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.8,
+      "maxAvg": 17.7,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 24.1,
+      "station": "���뵿",
+      "stationKm": 25
+    }
   },
   {
     "id": "rm-2026-고양특례시-마라톤-2026-03-08",
@@ -362,7 +402,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/db8bfa91-d6de-4591-9f19-8f48da3adc7b"
+    "applyUrl": "http://mara1080.com/event/db8bfa91-d6de-4591-9f19-8f48da3adc7b",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.7,
+      "maxAvg": 19.5,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 24.4,
+      "station": "�ݻ걺",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-제20회-창녕부곡-온천마라톤-2026-03-14",
@@ -387,7 +437,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cngmarathon.co.kr/"
+    "applyUrl": "http://www.cngmarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.2,
+      "maxAvg": 20.8,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 23.8,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-제1회-보은-보청천-마라톤-2026-03-14",
@@ -412,7 +472,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/0566e5c2-e218-436f-b000-61cb42ab591d"
+    "applyUrl": "http://mara1080.com/event/0566e5c2-e218-436f-b000-61cb42ab591d",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.0,
+      "maxAvg": 19.3,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 24.8,
+      "station": "���뵿",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026-서울마라톤-2026-03-15",
@@ -460,7 +530,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runten.co.kr/"
+    "applyUrl": "http://runten.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.7,
+      "maxAvg": 20.3,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 26.1,
+      "station": "���뵿",
+      "stationKm": 4
+    }
   },
   {
     "id": "rm-2026-남해트레일레이스-2026-03-21",
@@ -483,7 +563,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.6,
+      "maxAvg": 18.3,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 21.1,
+      "station": "�뿵",
+      "stationKm": 50
+    }
   },
   {
     "id": "rm-2026-지리산봄꽃레이스-2026-03-21",
@@ -507,7 +597,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jirisanrace.com/"
+    "applyUrl": "http://jirisanrace.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.2,
+      "maxAvg": 17.6,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 21.1,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-2026-제6회-버킷런-2026-03-21",
@@ -722,7 +822,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://marathon.knn.co.kr/"
+    "applyUrl": "http://marathon.knn.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.6,
+      "maxAvg": 19.4,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 22.2,
+      "station": "�λ걤����",
+      "stationKm": 12
+    }
   },
   {
     "id": "rm-제2회-영광-광풍-마라톤-2026-03-22",
@@ -747,7 +857,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://yeonggwang.run1080.com/"
+    "applyUrl": "http://yeonggwang.run1080.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.9,
+      "maxAvg": 19.6,
+      "rainYears": 0,
+      "hottestYear": 2025,
+      "hottestMax": 24.6,
+      "station": "�Ż긮",
+      "stationKm": 11
+    }
   },
   {
     "id": "rm-2026-heat-run-2026-03-22",
@@ -818,7 +938,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mtrailrun.kr/"
+    "applyUrl": "http://www.mtrailrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.2,
+      "maxAvg": 21.1,
+      "rainYears": 0,
+      "hottestYear": 2025,
+      "hottestMax": 26.2,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "rm-수정중-2026-03-22",
@@ -867,7 +997,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.jdmarathon.com/"
+    "applyUrl": "http://www.jdmarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.2,
+      "maxAvg": 21.1,
+      "rainYears": 0,
+      "hottestYear": 2025,
+      "hottestMax": 26.2,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "rm-제42회-코오롱구간마라톤대회-2026-03-28",
@@ -890,7 +1030,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://marathon.co.kr/marathon.asp"
+    "applyUrl": "http://marathon.co.kr/marathon.asp",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.2,
+      "maxAvg": 23.3,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 28.5,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-2026-여수-영취산-진달래-트레일레이스-2026-03-28",
@@ -914,7 +1064,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.5,
+      "maxAvg": 20.4,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 24.9,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-제2회-의성마늘마라톤-2026-03-28",
@@ -938,7 +1098,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://uiseongrun.kr/"
+    "applyUrl": "http://uiseongrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.2,
+      "maxAvg": 23.3,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 28.5,
+      "station": "���뵿",
+      "stationKm": 43
+    }
   },
   {
     "id": "rm-7인-단체전-여성1인필수포함-2026-봄바람-유러닝페스타-2026-03-28",
@@ -988,7 +1158,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.ulsanmaeilmara.com/html/00_main/main.php"
+    "applyUrl": "http://www.ulsanmaeilmara.com/html/00_main/main.php",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.5,
+      "maxAvg": 21.7,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 25.4,
+      "station": "��걤����",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-릴레이-3인1조-2026-금강울트라마라톤-2026-03-28",
@@ -1012,7 +1192,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://dtrail.co.kr/45"
+    "applyUrl": "http://dtrail.co.kr/45",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.7,
+      "maxAvg": 21.8,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 24
+    }
   },
   {
     "id": "rm-망우산둘레길-걷기-망우산둘레길-트레일런-2026-제3회-구리시-걷기-트레일런-2026-03-28",
@@ -1082,7 +1272,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mywalk.kr/"
+    "applyUrl": "http://www.mywalk.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.9,
+      "maxAvg": 22.7,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 25.4,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-팀-k리그-런-2026-03-28",
@@ -1128,7 +1328,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://www.yowo-mfond.com/ko"
+    "applyUrl": "https://www.yowo-mfond.com/ko",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.5,
+      "maxAvg": 21.9,
+      "rainYears": 0,
+      "hottestYear": 2025,
+      "hottestMax": 25.6,
+      "station": "�ֻ긮",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026년-안양천-벚꽃-마라톤-2026-03-29",
@@ -1202,7 +1412,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://mara1080.com/event/7284aebc-502f-406a-95e5-a43a70893547"
+    "applyUrl": "https://mara1080.com/event/7284aebc-502f-406a-95e5-a43a70893547",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.2,
+      "maxAvg": 22.6,
+      "rainYears": 0,
+      "hottestYear": 2025,
+      "hottestMax": 28.6,
+      "station": "�ݻ걺",
+      "stationKm": 20
+    }
   },
   {
     "id": "rm-제25회-합천벚꽃마라톤-2026-03-29",
@@ -1228,7 +1448,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://hcmrt.or.kr/"
+    "applyUrl": "http://hcmrt.or.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.8,
+      "maxAvg": 23.4,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 25.4,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-제20회-정남진장흥-전국마라톤-2026-03-29",
@@ -1253,7 +1483,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.jeongnamjin.net/"
+    "applyUrl": "http://www.jeongnamjin.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.7,
+      "maxAvg": 20.3,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 24.9,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-제2회-한강-벚꽃-마라톤-2026-03-29",
@@ -1376,7 +1616,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.3,
+      "maxAvg": 23.1,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 25.6,
+      "station": "���뵿",
+      "stationKm": 27
+    }
   },
   {
     "id": "cy-위아위스와-함께하는-2026-공룡나라그란폰도-2026-04-04",
@@ -1400,7 +1650,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "http://speedagency.kr/more.html?game_code=99#"
+    "applyUrl": "http://speedagency.kr/more.html?game_code=99#",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.5,
+      "maxAvg": 20.9,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 22.5,
+      "station": "�뿵",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-2026-왕인의-봄-영암벚꽃마라톤-2026-04-04",
@@ -1424,7 +1684,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://yeongammrathon.kr/"
+    "applyUrl": "http://yeongammrathon.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.5,
+      "maxAvg": 20.1,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 24.3,
+      "station": "���굿",
+      "stationKm": 24
+    }
   },
   {
     "id": "rm-제33회-경주벚꽃마라톤-2026-04-04",
@@ -1449,7 +1719,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cherrymarathon.co.kr/"
+    "applyUrl": "http://www.cherrymarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.2,
+      "maxAvg": 21.9,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 27.0,
+      "station": "��걤����",
+      "stationKm": 28
+    }
   },
   {
     "id": "rm-제17회-대한경제마라톤-2026-04-04",
@@ -1522,7 +1802,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://kumf.kr/"
+    "applyUrl": "http://kumf.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.9,
+      "maxAvg": 20.7,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 24.5,
+      "station": "�Ż긮",
+      "stationKm": 35
+    }
   },
   {
     "id": "rm-수원-광교산트레일런-2026-04-04",
@@ -1595,7 +1885,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.najurun.kr/"
+    "applyUrl": "http://www.najurun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.6,
+      "maxAvg": 20.6,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 24.3,
+      "station": "���굿",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-half-half-2026-군산-새만금마라톤-2026-04-05",
@@ -1670,7 +1970,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.gnmarathon.co.kr/"
+    "applyUrl": "http://www.gnmarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.7,
+      "maxAvg": 24.4,
+      "rainYears": 4,
+      "hottestYear": 2017,
+      "hottestMax": 27.1,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-제27회-이천-도자기-마라톤-2026-04-05",
@@ -1719,7 +2029,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--vk1b28fn4bg9oswgdukrjf16d.kr/"
+    "applyUrl": "http://xn--vk1b28fn4bg9oswgdukrjf16d.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.5,
+      "maxAvg": 23.3,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 25.9,
+      "station": "���긮",
+      "stationKm": 34
+    }
   },
   {
     "id": "rm-2026-the-race-seoul-2026-04-05",
@@ -1767,7 +2087,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://run.cwnu.ac.kr/"
+    "applyUrl": "http://run.cwnu.ac.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.7,
+      "maxAvg": 24.4,
+      "rainYears": 4,
+      "hottestYear": 2017,
+      "hottestMax": 27.1,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-제22회-예산윤봉길-전국마라톤-2026-04-05",
@@ -1793,7 +2123,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://yesanmarathon.co.kr/"
+    "applyUrl": "http://yesanmarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.1,
+      "maxAvg": 23.3,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 26.1,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-2026-제3회-서울봄꽃레이스-2026-04-05",
@@ -1915,7 +2255,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ehompy0669.ehompy.co.kr/main"
+    "applyUrl": "http://ehompy0669.ehompy.co.kr/main",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.1,
+      "maxAvg": 24.1,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 28.5,
+      "station": "�ݻ걺",
+      "stationKm": 28
+    }
   },
   {
     "id": "rm-2026-mbn-선셋마라톤-영종-2026-04-11",
@@ -2013,7 +2363,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://cndu.org/"
+    "applyUrl": "http://cndu.org/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.5,
+      "maxAvg": 24.4,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 28.9,
+      "station": "���뵿",
+      "stationKm": 20
+    }
   },
   {
     "id": "rm-2026-서울클린뷰티런-2026-04-11",
@@ -2060,7 +2420,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "http://speedagency.kr/more.html?game_code=104"
+    "applyUrl": "http://speedagency.kr/more.html?game_code=104",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.9,
+      "maxAvg": 23.7,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 27.6,
+      "station": "���긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-제3회-가든파이브-라이프-레이스-2026-04-12",
@@ -2109,7 +2479,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.kcmarathon.co.kr/"
+    "applyUrl": "http://www.kcmarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.0,
+      "maxAvg": 24.8,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 28.0,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-안양천-벚꽃-마라톤-2026-04-12",
@@ -2158,7 +2538,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runtoharmony.kr/"
+    "applyUrl": "http://runtoharmony.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.2,
+      "maxAvg": 24.3,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 10
+    }
   },
   {
     "id": "rm-제15회-mbc섬진강꽃길마라톤-2026-04-12",
@@ -2183,7 +2573,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mbcrun.com/"
+    "applyUrl": "http://mbcrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.5,
+      "maxAvg": 21.2,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 25.8,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-제19회-영남일보-국제-마라톤-2026-04-12",
@@ -2208,7 +2608,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ynmarathon.kr/"
+    "applyUrl": "http://ynmarathon.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.6,
+      "maxAvg": 25.4,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 30.2,
+      "station": "�뱸",
+      "stationKm": 6
+    }
   },
   {
     "id": "rm-산이정원패밀리esg-rece-step1-2026-04-12",
@@ -2231,7 +2641,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--zl2bt5ac3ce9g95id2ah6ab60d.kr/"
+    "applyUrl": "http://xn--zl2bt5ac3ce9g95id2ah6ab60d.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.5,
+      "maxAvg": 21.2,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 25.8,
+      "station": "���굿",
+      "stationKm": 12
+    }
   },
   {
     "id": "rm-2026-하남육연-회장기-벚꽃-마라톤-2026-04-12",
@@ -2396,7 +2816,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.kolonsport.com/Event/TRAIL-RUN-CONCEPT"
+    "applyUrl": "http://www.kolonsport.com/Event/TRAIL-RUN-CONCEPT",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.7,
+      "maxAvg": 26.5,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 30.0,
+      "station": "�ֻ긮",
+      "stationKm": 39
+    }
   },
   {
     "id": "rm-제23회-춘천호반마라톤-2026-04-18",
@@ -2493,7 +2923,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--oi2bn8o9vb5vdh8b21cw84a0mg.kr/"
+    "applyUrl": "http://xn--oi2bn8o9vb5vdh8b21cw84a0mg.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.7,
+      "maxAvg": 26.7,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 29.6,
+      "station": "���뵿",
+      "stationKm": 43
+    }
   },
   {
     "id": "rm-부산-이기대트레일런-2026-04-18",
@@ -2516,7 +2956,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mtrailrun.kr/"
+    "applyUrl": "http://www.mtrailrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.8,
+      "maxAvg": 22.9,
+      "rainYears": 0,
+      "hottestYear": 2021,
+      "hottestMax": 25.3,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-제9회-오션뷰-기장바다마라톤-2026-04-18",
@@ -2540,7 +2990,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.badarun.co.kr/"
+    "applyUrl": "http://www.badarun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.8,
+      "maxAvg": 22.9,
+      "rainYears": 0,
+      "hottestYear": 2021,
+      "hottestMax": 25.3,
+      "station": "�λ걤����",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-제23회-호남마라톤-2026-04-19",
@@ -2564,7 +3024,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--q20bn3kn1bd06bl9e.kr/"
+    "applyUrl": "http://www.xn--q20bn3kn1bd06bl9e.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.1,
+      "maxAvg": 25.6,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 27.7,
+      "station": "�Ż긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-제-11회-기적의마라톤-2026-04-19",
@@ -2589,7 +3059,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://todagmarathon.com/"
+    "applyUrl": "http://todagmarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.2,
+      "maxAvg": 27.3,
+      "rainYears": 2,
+      "hottestYear": 2019,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026-dmz평화마라톤-2026-04-19",
@@ -2663,7 +3143,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://run.ksilbo.co.kr/"
+    "applyUrl": "http://run.ksilbo.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.0,
+      "maxAvg": 25.8,
+      "rainYears": 1,
+      "hottestYear": 2018,
+      "hottestMax": 29.1,
+      "station": "��걤����",
+      "stationKm": 8
+    }
   },
   {
     "id": "rm-2026-코리아-k건강마라톤-2026-04-19",
@@ -2759,7 +3249,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://busan.therace.co.kr/"
+    "applyUrl": "http://busan.therace.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.1,
+      "maxAvg": 23.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 26.5,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-2026-부안해변마라톤-2026-04-19",
@@ -2784,7 +3284,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.buanmarathon.kr/"
+    "applyUrl": "http://www.buanmarathon.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.6,
+      "maxAvg": 26.6,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 28.9,
+      "station": "���긮",
+      "stationKm": 32
+    }
   },
   {
     "id": "rm-학생부-초등부-학생부중-고등부-제21회-세종특별자치시-전국복사꽃-마라톤-2026-04-19",
@@ -2808,7 +3318,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sejongrun.kr/"
+    "applyUrl": "http://sejongrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.2,
+      "maxAvg": 27.3,
+      "rainYears": 2,
+      "hottestYear": 2019,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 15
+    }
   },
   {
     "id": "rm-제20회-2026-단양팔경-걷기-및-마라톤-2026-04-19",
@@ -2834,7 +3354,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://danyangmarathon.kr/"
+    "applyUrl": "http://danyangmarathon.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.5,
+      "maxAvg": 26.6,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 30.0,
+      "station": "�ֻ긮",
+      "stationKm": 51
+    }
   },
   {
     "id": "rm-제8회-오션뷰-기장바다마라톤-2026-04-19",
@@ -2858,7 +3388,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.badarun.co.kr/"
+    "applyUrl": "http://www.badarun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.1,
+      "maxAvg": 23.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 26.5,
+      "station": "�λ걤����",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-제2회-무등산-구석구석트레일런-2026-04-19",
@@ -2883,7 +3423,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cuk-sports.co.kr/apply/mudeugnsan_2026"
+    "applyUrl": "http://www.cuk-sports.co.kr/apply/mudeugnsan_2026",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.1,
+      "maxAvg": 25.6,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 27.7,
+      "station": "�Ż긮",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-트레일런-walk5-10-댕댕런-2026-송도-walk-run-2026-04-19",
@@ -2933,7 +3483,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cuk-sports.co.kr/apply/mudeugnsan_2026"
+    "applyUrl": "http://www.cuk-sports.co.kr/apply/mudeugnsan_2026",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.1,
+      "maxAvg": 25.6,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 27.7,
+      "station": "�Ż긮",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-123층-총-2-917개의-계단-2026-skyrun-2026-04-19",
@@ -3027,7 +3587,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://giverun.co.kr/"
+    "applyUrl": "http://giverun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.8,
+      "maxAvg": 23.4,
+      "rainYears": 4,
+      "hottestYear": 2019,
+      "hottestMax": 26.2,
+      "station": "���굿",
+      "stationKm": 37
+    }
   },
   {
     "id": "rm-트레일런-walk5-10-댕댕런-2026-송도-walk-run-2026-04-25",
@@ -3078,7 +3648,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/8921cdef-67fc-4e1c-9237-763520b90c80"
+    "applyUrl": "http://mara1080.com/event/8921cdef-67fc-4e1c-9237-763520b90c80",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.4,
+      "maxAvg": 26.4,
+      "rainYears": 1,
+      "hottestYear": 2022,
+      "hottestMax": 29.3,
+      "station": "�밭��",
+      "stationKm": 42
+    }
   },
   {
     "id": "ks-2026-전국생활체육대축전-2026-04-25",
@@ -3149,7 +3729,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://phrun.co.kr/"
+    "applyUrl": "http://phrun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.0,
+      "maxAvg": 24.9,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 27.8,
+      "station": "��걤����",
+      "stationKm": 47
+    }
   },
   {
     "id": "rm-제20회-반기문마라톤-2026-04-26",
@@ -3174,7 +3764,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.bankimoonmarathon.kr/"
+    "applyUrl": "http://www.bankimoonmarathon.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 25.9,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 29.1,
+      "station": "���뵿",
+      "stationKm": 39
+    }
   },
   {
     "id": "rm-2026-서울마라톤-2026-04-26",
@@ -3270,7 +3870,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://koreatrail.net/"
+    "applyUrl": "http://koreatrail.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 25.9,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 29.1,
+      "station": "���뵿",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-제2회-소백산-문장대-trail-running-2026-04-26",
@@ -3293,7 +3903,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://koreatrail.net/"
+    "applyUrl": "http://koreatrail.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 25.9,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 29.1,
+      "station": "���뵿",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-제2회-홍천트레일런-2026-04-26",
@@ -3344,7 +3964,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/e40f1082-eb59-40b3-9fbe-b05afe6bf741"
+    "applyUrl": "http://mara1080.com/event/e40f1082-eb59-40b3-9fbe-b05afe6bf741",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 25.9,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 29.1,
+      "station": "���뵿",
+      "stationKm": 42
+    }
   },
   {
     "id": "rm-댕댕런-2026-송도-walk-run-2026-04-26",
@@ -3445,7 +4075,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://2026darangrun.org/"
+    "applyUrl": "http://2026darangrun.org/",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.1,
+      "maxAvg": 23.4,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 25.7,
+      "station": "�뿵",
+      "stationKm": 56
+    }
   },
   {
     "id": "rm-2026-just-run10-남양주-2026-05-02",
@@ -3516,7 +4156,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://www.sc.or.kr/marathon/main.do"
+    "applyUrl": "https://www.sc.or.kr/marathon/main.do",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.9,
+      "maxAvg": 27.2,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 29.9,
+      "station": "�ݻ걺",
+      "stationKm": 28
+    }
   },
   {
     "id": "rm-2026-굽네-오븐런-마라톤대회-2026-05-03",
@@ -3539,7 +4189,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://goobne-ovenrun.com/"
+    "applyUrl": "http://goobne-ovenrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.9,
+      "maxAvg": 23.7,
+      "rainYears": 3,
+      "hottestYear": 2016,
+      "hottestMax": 26.0,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-2026-the-race-daegu-2026-05-03",
@@ -3562,7 +4222,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://daegu.therace.co.kr/"
+    "applyUrl": "http://daegu.therace.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.9,
+      "maxAvg": 28.8,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 31.3,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-제24회-불-수-사-도-북-trail-run-2026-05-03",
@@ -3659,7 +4329,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.urmarathon.com/"
+    "applyUrl": "http://www.urmarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.6,
+      "maxAvg": 26.7,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 29.5,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-남한산성-트레일런-2026-05-03",
@@ -3755,7 +4435,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://coffeebbangrun.com/"
+    "applyUrl": "http://coffeebbangrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.6,
+      "maxAvg": 27.9,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 30.2,
+      "station": "�밭��",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-2026-busan-2026-05-09",
@@ -3781,7 +4471,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.busan-50k.com/"
+    "applyUrl": "http://www.busan-50k.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.3,
+      "maxAvg": 24.6,
+      "rainYears": 3,
+      "hottestYear": 2017,
+      "hottestMax": 26.6,
+      "station": "�λ걤����",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-2026-나는-솔로런-2026-05-09",
@@ -3828,7 +4528,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://dhultra.kr/"
+    "applyUrl": "http://dhultra.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.5,
+      "maxAvg": 26.9,
+      "rainYears": 4,
+      "hottestYear": 2019,
+      "hottestMax": 28.9,
+      "station": "���뵿",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026-제23회-보령머드임해마라톤-2026-05-09",
@@ -3974,7 +4684,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.tjrace.net/"
+    "applyUrl": "http://www.tjrace.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.1,
+      "maxAvg": 26.4,
+      "rainYears": 4,
+      "hottestYear": 2021,
+      "hottestMax": 28.6,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026-동해-스카이레이스-2026-05-10",
@@ -4022,7 +4742,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.barefootfesta.com/"
+    "applyUrl": "http://www.barefootfesta.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.1,
+      "maxAvg": 26.4,
+      "rainYears": 4,
+      "hottestYear": 2021,
+      "hottestMax": 28.6,
+      "station": "�ݻ걺",
+      "stationKm": 29
+    }
   },
   {
     "id": "rm-기부-마라톤-윙스-포-라이프-월드런-2026-2026-05-10",
@@ -4092,7 +4822,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://www.thebike.co.kr/race/view?r_idx=327"
+    "applyUrl": "https://www.thebike.co.kr/race/view?r_idx=327",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.2,
+      "maxAvg": 29.0,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 31.6,
+      "station": "���긮",
+      "stationKm": 22
+    }
   },
   {
     "id": "rm-2026-제1회-경기신문-씨사이드-마라톤-2026-05-16",
@@ -4166,7 +4906,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runten.co.kr/"
+    "applyUrl": "http://runten.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.8,
+      "maxAvg": 29.5,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 31.4,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-철강마라톤-2026-05-16",
@@ -4356,7 +5106,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.run518.com/"
+    "applyUrl": "http://www.run518.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.6,
+      "maxAvg": 28.2,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 30.7,
+      "station": "�Ż긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-2026-연구단지-생물다양성-마라톤-다다다런-2026-05-16",
@@ -4381,7 +5141,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://www.science.go.kr/mps/0/bbs/431/moveBbsNttDetail.do?nttSn=49006%3Futm_source%3Dmarathongo"
+    "applyUrl": "https://www.science.go.kr/mps/0/bbs/431/moveBbsNttDetail.do?nttSn=49006%3Futm_source%3Dmarathongo",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.4,
+      "maxAvg": 29.5,
+      "rainYears": 4,
+      "hottestYear": 2023,
+      "hottestMax": 30.9,
+      "station": "�ݻ걺",
+      "stationKm": 29
+    }
   },
   {
     "id": "cy-2026-화천-dmz-랠리-2026-05-17",
@@ -4427,7 +5197,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://daejeon.therace.co.kr/"
+    "applyUrl": "http://daejeon.therace.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.0,
+      "maxAvg": 30.4,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 32.3,
+      "station": "���뵿",
+      "stationKm": 28
+    }
   },
   {
     "id": "rm-2026-gold-rush-race-2026-05-17",
@@ -4474,7 +5254,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/29a34ee9-32a9-4a3b-b92f-37b3772cc183"
+    "applyUrl": "http://mara1080.com/event/29a34ee9-32a9-4a3b-b92f-37b3772cc183",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.7,
+      "maxAvg": 29.8,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 31.8,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026-인천시육상연맹배-마라톤-2026-05-17",
@@ -4522,7 +5312,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mtrailrun.kr/"
+    "applyUrl": "http://www.mtrailrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.8,
+      "maxAvg": 29.6,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 31.7,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-분노의질주런-용인스피드웨이-2026-05-23",
@@ -4594,7 +5394,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://korearun01.imweb.me/"
+    "applyUrl": "http://korearun01.imweb.me/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.0,
+      "maxAvg": 30.4,
+      "rainYears": 1,
+      "hottestYear": 2019,
+      "hottestMax": 33.2,
+      "station": "�ݻ긮",
+      "stationKm": 8
+    }
   },
   {
     "id": "rm-hy하루야채와-함께하는-하루런-마라톤-2026-05-23",
@@ -4714,7 +5524,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.sc.or.kr/marathon"
+    "applyUrl": "http://www.sc.or.kr/marathon",
+    "climate": {
+      "years": 9,
+      "minAvg": 10.3,
+      "maxAvg": 28.2,
+      "rainYears": 1,
+      "hottestYear": 2016,
+      "hottestMax": 30.0,
+      "station": "�Ż긮",
+      "stationKm": 41
+    }
   },
   {
     "id": "rm-63빌딩-2026-한화생명-시그니처-63-run-2026-05-23",
@@ -4761,7 +5581,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250519153230&csno=20150930092416#baseline?utm_source=marathongo&utm_medium=referral"
+    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250519153230&csno=20150930092416#baseline?utm_source=marathongo&utm_medium=referral",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.8,
+      "maxAvg": 29.3,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 31.3,
+      "station": "���뵿",
+      "stationKm": 21
+    }
   },
   {
     "id": "rm-버닝런-2026-2026-05-25",
@@ -4862,7 +5692,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://geoje100.creatorlink.net/"
+    "applyUrl": "http://geoje100.creatorlink.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.3,
+      "maxAvg": 27.4,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 29.9,
+      "station": "�뿵",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-2026-just-run10-대구-러닝-2026-05-30",
@@ -4886,7 +5726,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runten.co.kr/"
+    "applyUrl": "http://runten.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.6,
+      "maxAvg": 31.8,
+      "rainYears": 1,
+      "hottestYear": 2017,
+      "hottestMax": 35.9,
+      "station": "�뱸",
+      "stationKm": 8
+    }
   },
   {
     "id": "rm-제2회-한밭-런앤워크-2026-05-30",
@@ -4910,7 +5760,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://hrun.co.kr/"
+    "applyUrl": "http://hrun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.0,
+      "maxAvg": 29.4,
+      "rainYears": 1,
+      "hottestYear": 2017,
+      "hottestMax": 31.6,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-서울-유아차-레이스-with-신한-20-뛰어요-2026-05-30",
@@ -4957,7 +5817,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jejubbangrun.com/"
+    "applyUrl": "http://jejubbangrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 13.0,
+      "maxAvg": 26.7,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 29.9,
+      "station": "�Ż긮",
+      "stationKm": 22
+    }
   },
   {
     "id": "rm-2026-삼삼트레일런-2026-05-30",
@@ -5027,7 +5897,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://nightrun.busan.com/"
+    "applyUrl": "http://nightrun.busan.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.0,
+      "maxAvg": 27.2,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 30.5,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-21floors-2026-제1회-버티컬런-광주-수직-마라톤-대회-2026-05-30",
@@ -5050,7 +5930,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://www.gwangju.ac.kr/bbs/?site=gwangju&mn=536&b_id=gwangju_notice_no&type=view&bs_idx=5036%3Futm_source%3Dmarathongo"
+    "applyUrl": "https://www.gwangju.ac.kr/bbs/?site=gwangju&mn=536&b_id=gwangju_notice_no&type=view&bs_idx=5036%3Futm_source%3Dmarathongo",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.0,
+      "maxAvg": 28.7,
+      "rainYears": 1,
+      "hottestYear": 2018,
+      "hottestMax": 31.0,
+      "station": "�Ż긮",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-2026-부천의장배-릴레이마라톤-2026-05-30",
@@ -5130,6 +6020,16 @@
       "rhm": 55.8,
       "awayKm": 25.6,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 12.3,
+      "maxAvg": 31.4,
+      "rainYears": 1,
+      "hottestYear": 2017,
+      "hottestMax": 34.9,
+      "station": "�ݻ긮",
+      "stationKm": 3
     }
   },
   {
@@ -5153,7 +6053,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://gwangju.therace.co.kr/"
+    "applyUrl": "http://gwangju.therace.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.9,
+      "maxAvg": 29.0,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 31.0,
+      "station": "�Ż긮",
+      "stationKm": 35
+    }
   },
   {
     "id": "rm-2026년-독도수호를-위한-동호인마라톤-2026-05-31",
@@ -5177,7 +6087,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--289a04w1ifu9bvwfi4b78e.com/"
+    "applyUrl": "http://xn--289a04w1ifu9bvwfi4b78e.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.2,
+      "maxAvg": 31.5,
+      "rainYears": 1,
+      "hottestYear": 2017,
+      "hottestMax": 34.8,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-2026-백양산숲길건강달리기-2026-05-31",
@@ -5202,7 +6122,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.bsama.co.kr/"
+    "applyUrl": "http://www.bsama.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.4,
+      "maxAvg": 27.1,
+      "rainYears": 2,
+      "hottestYear": 2016,
+      "hottestMax": 30.5,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-제22회-영등포구연맹회장배-육상대회-2026-05-31",
@@ -5276,7 +6206,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://forms.gle/GgxNLeTT9bNoPgwz7"
+    "applyUrl": "http://forms.gle/GgxNLeTT9bNoPgwz7",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.8,
+      "maxAvg": 29.2,
+      "rainYears": 0,
+      "hottestYear": 2017,
+      "hottestMax": 33.4,
+      "station": "��걤����",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-전마협-창단25주년기념-2026금산월드런마라톤-2026-05-31",
@@ -5301,7 +6241,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/d9909060-99e2-49ff-9112-0dc6c7c4d1db"
+    "applyUrl": "http://mara1080.com/event/d9909060-99e2-49ff-9112-0dc6c7c4d1db",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.1,
+      "maxAvg": 29.8,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 32.2,
+      "station": "�ݻ걺",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-물사랑-낙동강-울트라마라톤-2026-06-05",
@@ -5325,7 +6275,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.ndru200.co.kr/"
+    "applyUrl": "http://www.ndru200.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.4,
+      "maxAvg": 27.1,
+      "rainYears": 2,
+      "hottestYear": 2019,
+      "hottestMax": 29.7,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "cy-2026-삼척-그란폰도-2026-06-06",
@@ -5349,7 +6309,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "http://speedagency.kr/more.html?game_code=105"
+    "applyUrl": "http://speedagency.kr/more.html?game_code=105",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.9,
+      "maxAvg": 31.5,
+      "rainYears": 4,
+      "hottestYear": 2020,
+      "hottestMax": 36.0,
+      "station": "�ֻ긮",
+      "stationKm": 50
+    }
   },
   {
     "id": "rm-제9회남한산성trailrunning-2026-06-06",
@@ -5398,7 +6368,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ktra.kr/"
+    "applyUrl": "http://ktra.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.9,
+      "maxAvg": 26.5,
+      "rainYears": 5,
+      "hottestYear": 2023,
+      "hottestMax": 28.0,
+      "station": "�Ż긮",
+      "stationKm": 29
+    }
   },
   {
     "id": "rm-2026-춘천봄내마라톤-2026-06-06",
@@ -5447,7 +6427,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://namhae250k.com/"
+    "applyUrl": "http://namhae250k.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.3,
+      "maxAvg": 31.1,
+      "rainYears": 4,
+      "hottestYear": 2020,
+      "hottestMax": 34.3,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-2026-푸른하늘런-2026-06-06",
@@ -5521,7 +6511,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://citygasonrun.com/"
+    "applyUrl": "http://citygasonrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.8,
+      "maxAvg": 31.0,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 34.5,
+      "station": "�밭��",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-2026-백산수-심심런-2026-06-06",
@@ -5641,7 +6641,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://marathonworld.kr/"
+    "applyUrl": "http://marathonworld.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.5,
+      "maxAvg": 30.8,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 33.0,
+      "station": "�Ż긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-2026-im뱅크-코리아-오픈-마라톤-2026-06-07",
@@ -5689,7 +6699,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://daegu.therace.co.kr/"
+    "applyUrl": "http://daegu.therace.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.6,
+      "maxAvg": 33.3,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 37.0,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-제30회-제주관광마라톤-축제-2026-06-07",
@@ -5714,7 +6734,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jejumarathon.com/"
+    "applyUrl": "http://jejumarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.4,
+      "maxAvg": 26.6,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 28.0,
+      "station": "�Ż긮",
+      "stationKm": 22
+    }
   },
   {
     "id": "rm-2026-마인드-마라톤-2026-06-07",
@@ -5921,7 +6951,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mudolgil518.or.kr/"
+    "applyUrl": "http://www.mudolgil518.or.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.8,
+      "maxAvg": 30.3,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 32.6,
+      "station": "�Ż긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-2026-강릉헌화로-run-2026-06-13",
@@ -5944,7 +6984,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--11k-9o7l940cuub9v9gd5a.com/"
+    "applyUrl": "http://www.xn--11k-9o7l940cuub9v9gd5a.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.2,
+      "maxAvg": 30.0,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 35.3,
+      "station": "�밭��",
+      "stationKm": 20
+    }
   },
   {
     "id": "rm-제10회-포항철강마라톤-2026-06-13",
@@ -5968,7 +7018,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://phsteelrun.com/"
+    "applyUrl": "http://phsteelrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.6,
+      "maxAvg": 31.7,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 36.1,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-2026-just-run10-대전-대회-2026-06-13",
@@ -5992,7 +7052,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runten.co.kr/"
+    "applyUrl": "http://runten.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.6,
+      "maxAvg": 31.2,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 33.8,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-제1회-일광문오성-바다-마라톤-2026-06-13",
@@ -6016,7 +7086,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.nhlp.or.kr"
+    "applyUrl": "http://www.nhlp.or.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.8,
+      "maxAvg": 27.7,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 30.5,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-2026-제23회-빛고을-울트라마라톤-2026-06-13",
@@ -6040,7 +7120,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://gj100k.org/"
+    "applyUrl": "http://gj100k.org/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.8,
+      "maxAvg": 30.3,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 32.6,
+      "station": "�Ż긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-2026-강릉옥계헌화로-run-2026-06-13",
@@ -6063,7 +7153,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--11k-9o7l940cuub9v9gd5a.com/"
+    "applyUrl": "http://www.xn--11k-9o7l940cuub9v9gd5a.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.2,
+      "maxAvg": 30.0,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 35.3,
+      "station": "�밭��",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-2026-컬처런-2026-06-13",
@@ -6110,7 +7210,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://lightrun2026.imweb.me"
+    "applyUrl": "http://lightrun2026.imweb.me",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.4,
+      "maxAvg": 31.9,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 34.4,
+      "station": "���뵿",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-2026-지중해마을-마라톤-2026-06-13",
@@ -6133,7 +7243,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://bluecrystalmarathon.imweb.me/"
+    "applyUrl": "http://bluecrystalmarathon.imweb.me/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.4,
+      "maxAvg": 31.9,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 34.4,
+      "station": "���뵿",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-제1회-모두런-2026-06-13",
@@ -6156,7 +7276,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.sfinder.co.kr/"
+    "applyUrl": "http://www.sfinder.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.4,
+      "maxAvg": 31.9,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 34.4,
+      "station": "���뵿",
+      "stationKm": 21
+    }
   },
   {
     "id": "rm-2026-런-지중해의-밤-마라톤-2026-06-13",
@@ -6181,7 +7311,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://bluecrystalmarathon.imweb.me/"
+    "applyUrl": "https://bluecrystalmarathon.imweb.me/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.4,
+      "maxAvg": 31.9,
+      "rainYears": 2,
+      "hottestYear": 2020,
+      "hottestMax": 34.4,
+      "station": "���뵿",
+      "stationKm": 38
+    }
   },
   {
     "id": "rm-제22회-영덕-해변-전국마라톤-2026-06-14",
@@ -6206,7 +7346,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.runmp.kr/"
+    "applyUrl": "http://www.runmp.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.5,
+      "maxAvg": 32.0,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 36.1,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-당일-서울시-행사가-있어-변경합니다-2026-06-14",
@@ -6281,7 +7431,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.supgil.com/"
+    "applyUrl": "http://www.supgil.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.1,
+      "maxAvg": 31.2,
+      "rainYears": 5,
+      "hottestYear": 2024,
+      "hottestMax": 34.8,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-제21회-광진구연맹회장배-육상대회-2026-06-14",
@@ -6354,7 +7514,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ulmarathon.co.kr/"
+    "applyUrl": "http://ulmarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.5,
+      "maxAvg": 32.0,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 36.1,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-전마협창단25주년-2026-대전월드런마라톤축제-2026-06-14",
@@ -6379,7 +7549,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/cc73d8d1-a3d1-410c-9246-5d2eb76dd95e"
+    "applyUrl": "http://mara1080.com/event/cc73d8d1-a3d1-410c-9246-5d2eb76dd95e",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.2,
+      "maxAvg": 31.1,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 33.8,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "cy-2026-세나-설악그란폰도-2026-06-20",
@@ -6403,7 +7583,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://granfondo.co.kr"
+    "applyUrl": "https://granfondo.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.6,
+      "maxAvg": 33.0,
+      "rainYears": 0,
+      "hottestYear": 2025,
+      "hottestMax": 35.8,
+      "station": "�밭��",
+      "stationKm": 57
+    }
   },
   {
     "id": "rm-제16회-국민행복마라톤-2026-06-20",
@@ -6453,7 +7643,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://cjapplemarathon.com/index.asp"
+    "applyUrl": "http://cjapplemarathon.com/index.asp",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.6,
+      "maxAvg": 33.3,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 36.3,
+      "station": "���뵿",
+      "stationKm": 55
+    }
   },
   {
     "id": "rm-제2회-희망-서울-마라톤-2026-06-20",
@@ -6574,7 +7774,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mtrailrun.kr/"
+    "applyUrl": "http://www.mtrailrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.6,
+      "maxAvg": 33.8,
+      "rainYears": 1,
+      "hottestYear": 2024,
+      "hottestMax": 36.7,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-2026-참행복-마라톤-마라톤훈련-계획-2026-06-21",
@@ -6623,7 +7833,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://thepacerseries.com"
+    "applyUrl": "http://thepacerseries.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.2,
+      "maxAvg": 33.6,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 36.3,
+      "station": "���뵿",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-소백산-죽령trailrunnig-2026-06-21",
@@ -6646,7 +7866,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://koreatrail.net/"
+    "applyUrl": "http://koreatrail.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.2,
+      "maxAvg": 33.6,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 37.4,
+      "station": "�ֻ긮",
+      "stationKm": 58
+    }
   },
   {
     "id": "rm-spindle-trail-run-2026-2026-06-21",
@@ -6669,7 +7899,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sqnc.global/spindle-trail-run"
+    "applyUrl": "http://sqnc.global/spindle-trail-run",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.6,
+      "maxAvg": 32.6,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 35.8,
+      "station": "�밭��",
+      "stationKm": 15
+    }
   },
   {
     "id": "rm-2026-람사르습지-밤섬런-2026-06-21",
@@ -6741,7 +7981,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/cfa1bea4-b545-4df9-8ae1-5ce280ca0e3d"
+    "applyUrl": "http://mara1080.com/event/cfa1bea4-b545-4df9-8ae1-5ce280ca0e3d",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.2,
+      "maxAvg": 33.6,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 36.3,
+      "station": "���뵿",
+      "stationKm": 5
+    }
   },
   {
     "id": "tri-제26회-문화체육관광부장관배-전국-트라이애슬론-선수권-대회-2026-06-26",
@@ -6857,7 +8107,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://projectruntrip.com/"
+    "applyUrl": "http://projectruntrip.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.7,
+      "maxAvg": 31.7,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 34.4,
+      "station": "���뵿",
+      "stationKm": 48
+    }
   },
   {
     "id": "rm-2026-전마협-연대별-최강전-2026-06-27",
@@ -6881,7 +8141,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/5baeed50-d91c-4453-bf68-48ab19911d58"
+    "applyUrl": "http://mara1080.com/event/5baeed50-d91c-4453-bf68-48ab19911d58",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.2,
+      "maxAvg": 31.7,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 33.7,
+      "station": "�ݻ걺",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-무주-베리-로드-트레일-덕유산-2026-06-27",
@@ -6904,7 +8174,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.2,
+      "maxAvg": 31.7,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 33.7,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "cy-카부토코리아와-함께-하는-제6회-국민고향-정선-동강-전국자전거대회-2026-06-28",
@@ -6928,7 +8208,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://www.thebike.co.kr/race/view?r_idx=335"
+    "applyUrl": "https://www.thebike.co.kr/race/view?r_idx=335",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.2,
+      "maxAvg": 32.6,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 35.1,
+      "station": "�ֻ긮",
+      "stationKm": 1
+    }
   },
   {
     "id": "rm-2026-서울런-2026-06-28",
@@ -7025,7 +8315,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://thepacerseries.com"
+    "applyUrl": "http://thepacerseries.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.8,
+      "maxAvg": 32.8,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 34.6,
+      "station": "���뵿",
+      "stationKm": 20
+    }
   },
   {
     "id": "rm-제1회-리프레시런-re-fresh-run-2026-06-28",
@@ -7073,7 +8373,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://modern-infinity-9e6.notion.site/2026-359918810cc280958531fd2261f990d6"
+    "applyUrl": "http://modern-infinity-9e6.notion.site/2026-359918810cc280958531fd2261f990d6",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.5,
+      "maxAvg": 31.0,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 34.7,
+      "station": "��걤����",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-가족부-2인1조-단체전-3인1조-2026-전국블루베리마라톤축제-2026-06-28",
@@ -7097,7 +8407,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://dhrun.kr/"
+    "applyUrl": "http://dhrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.2,
+      "maxAvg": 31.9,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 33.7,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "rm-사우나런-in-석촌호수-2026-06-30",
@@ -7145,7 +8465,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/3c31740e-986e-4cb8-a7e5-850a80d2a5fd"
+    "applyUrl": "http://mara1080.com/event/3c31740e-986e-4cb8-a7e5-850a80d2a5fd",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.1,
+      "maxAvg": 32.4,
+      "rainYears": 5,
+      "hottestYear": 2025,
+      "hottestMax": 35.6,
+      "station": "�ݻ걺",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-iron-run-2026-2026-07-04",
@@ -7168,7 +8498,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.ironrun.kr/"
+    "applyUrl": "http://www.ironrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.8,
+      "maxAvg": 33.8,
+      "rainYears": 5,
+      "hottestYear": 2025,
+      "hottestMax": 38.3,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rm-제10회-노원구청장배-겸-회장배마라톤-2026-07-05",
@@ -7284,7 +8624,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/48dc9d78-292d-4851-9cc9-bbebcfad0a45"
+    "applyUrl": "http://mara1080.com/event/48dc9d78-292d-4851-9cc9-bbebcfad0a45",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.2,
+      "maxAvg": 32.7,
+      "rainYears": 5,
+      "hottestYear": 2025,
+      "hottestMax": 36.1,
+      "station": "�ݻ걺",
+      "stationKm": 17
+    }
   },
   {
     "id": "rm-2026-울릉도-국제-트레일러닝-2026-07-12",
@@ -7332,7 +8682,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.trailrun.kr/"
+    "applyUrl": "http://www.trailrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.4,
+      "maxAvg": 33.1,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 36.1,
+      "station": "���걸",
+      "stationKm": 58
+    }
   },
   {
     "id": "rm-2026-전마협-청주-무료-초청-훈련-마라톤-2026-07-18",
@@ -7355,7 +8715,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/e320ef81-c1ba-4939-bc1d-c398e514e920"
+    "applyUrl": "http://mara1080.com/event/e320ef81-c1ba-4939-bc1d-c398e514e920",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.7,
+      "maxAvg": 33.6,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 37.1,
+      "station": "���뵿",
+      "stationKm": 4
+    }
   },
   {
     "id": "rm-제2회-울릉나이트런-2026-07-18",
@@ -7403,7 +8773,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://koreanightrun.imweb.me/main"
+    "applyUrl": "http://koreanightrun.imweb.me/main",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.2,
+      "maxAvg": 33.3,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 36.6,
+      "station": "�ֻ긮",
+      "stationKm": 34
+    }
   },
   {
     "id": "rm-2026-청계산-인릉산trailrunn-2026-07-19",
@@ -7452,7 +8832,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.bsama.co.kr/index.asp"
+    "applyUrl": "http://www.bsama.co.kr/index.asp",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.6,
+      "maxAvg": 31.0,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 33.7,
+      "station": "�λ걤����",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-순천만국가정원-챌린지가든런-2026-07-25",
@@ -7475,7 +8865,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://projectruntrip.com/"
+    "applyUrl": "http://projectruntrip.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.6,
+      "maxAvg": 34.0,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 37.5,
+      "station": "���뵿",
+      "stationKm": 56
+    }
   },
   {
     "id": "rm-사우나런-in-올림픽공원-2026-07-31",
@@ -7569,7 +8969,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 22.4,
+      "maxAvg": 35.2,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 36.8,
+      "station": "���뵿",
+      "stationKm": 27
+    }
   },
   {
     "id": "rm-미정-2026-나이트런-부산-2026-08-01",
@@ -7592,7 +9002,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.nightracebusan.co.kr/"
+    "applyUrl": "http://www.nightracebusan.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 24.9,
+      "maxAvg": 33.3,
+      "rainYears": 1,
+      "hottestYear": 2018,
+      "hottestMax": 35.4,
+      "station": "�λ걤����",
+      "stationKm": 10
+    }
   },
   {
     "id": "rm-2026-쿨밸리트레일레이스-2026-08-02",
@@ -7615,7 +9035,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://rocknrun.kr/coolvalleytrailrace_info"
+    "applyUrl": "https://rocknrun.kr/coolvalleytrailrace_info",
+    "climate": {
+      "years": 10,
+      "minAvg": 22.6,
+      "maxAvg": 35.2,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 36.8,
+      "station": "���뵿",
+      "stationKm": 27
+    }
   },
   {
     "id": "rr-2026-양산-어필-up-hill-레이스-2026-08-08",
@@ -7650,6 +9080,16 @@
       "rhm": 63.9,
       "awayKm": 13.3,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 23.7,
+      "maxAvg": 35.6,
+      "rainYears": 4,
+      "hottestYear": 2021,
+      "hottestMax": 37.4,
+      "station": "���걸",
+      "stationKm": 2
     }
   },
   {
@@ -7673,7 +9113,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://korearun01.imweb.me/"
+    "applyUrl": "http://korearun01.imweb.me/",
+    "climate": {
+      "years": 10,
+      "minAvg": 23.5,
+      "maxAvg": 36.6,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 39.0,
+      "station": "�ݻ긮",
+      "stationKm": 8
+    }
   },
   {
     "id": "rm-2026-incheon-night-race-2026-08-15",
@@ -7755,6 +9205,16 @@
       "rhm": 80.5,
       "awayKm": 21.5,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 20.8,
+      "maxAvg": 34.2,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 37.0,
+      "station": "���뵿",
+      "stationKm": 27
     }
   },
   {
@@ -7803,7 +9263,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/9e568eef-64ff-4548-881f-3a420689dece"
+    "applyUrl": "http://mara1080.com/event/9e568eef-64ff-4548-881f-3a420689dece",
+    "climate": {
+      "years": 10,
+      "minAvg": 20.1,
+      "maxAvg": 33.8,
+      "rainYears": 3,
+      "hottestYear": 2018,
+      "hottestMax": 38.4,
+      "station": "�ݻ걺",
+      "stationKm": 29
+    }
   },
   {
     "id": "rr-제38회-지리산화대종주-utmb-2026-08-15",
@@ -7840,6 +9310,16 @@
       "rhm": 79.4,
       "awayKm": 22.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 20.8,
+      "maxAvg": 34.2,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 37.0,
+      "station": "���뵿",
+      "stationKm": 21
     }
   },
   {
@@ -7932,7 +9412,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250820150217&csno=20191209143330#baseline?utm_source=marathongo&utm_medium=referral"
+    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250820150217&csno=20191209143330#baseline?utm_source=marathongo&utm_medium=referral",
+    "climate": {
+      "years": 10,
+      "minAvg": 20.8,
+      "maxAvg": 34.2,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 37.0,
+      "station": "���뵿",
+      "stationKm": 21
+    }
   },
   {
     "id": "rm-p-2026-장수-나이트-트레일-2026-08-15",
@@ -7955,7 +9445,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 20.8,
+      "maxAvg": 34.2,
+      "rainYears": 2,
+      "hottestYear": 2018,
+      "hottestMax": 37.0,
+      "station": "���뵿",
+      "stationKm": 27
+    }
   },
   {
     "id": "rm-9봉-영남알프스9봉-트레일-레이스-2026-08-15",
@@ -7978,7 +9478,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jyd.creatorlink.net/"
+    "applyUrl": "http://jyd.creatorlink.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 22.4,
+      "maxAvg": 34.7,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 36.8,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-2026happy700평창대관령전국하프마라톤-2026-08-16",
@@ -8026,7 +9536,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.ifunrunkorea.co.kr/sub0102"
+    "applyUrl": "http://www.ifunrunkorea.co.kr/sub0102",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.8,
+      "maxAvg": 32.4,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 36.0,
+      "station": "�밭��",
+      "stationKm": 19
+    }
   },
   {
     "id": "rm-제2회-한양도성길-트레일런-2026-08-22",
@@ -8083,6 +9603,16 @@
       "rhm": 78.5,
       "awayKm": 2.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 21.6,
+      "maxAvg": 35.0,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 37.2,
+      "station": "�뱸",
+      "stationKm": 5
     }
   },
   {
@@ -8235,6 +9765,16 @@
       "rhm": 87.4,
       "awayKm": 15.6,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 17.6,
+      "maxAvg": 33.9,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 37.1,
+      "station": "�ֻ긮",
+      "stationKm": 59
     }
   },
   {
@@ -8258,7 +9798,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.wmac2026.com/"
+    "applyUrl": "http://www.wmac2026.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.1,
+      "maxAvg": 35.1,
+      "rainYears": 4,
+      "hottestYear": 2025,
+      "hottestMax": 37.2,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-35세이상일반인-3000명-2026대구세계마스터즈-대회-2026-08-23",
@@ -8281,7 +9831,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.wmac2026.com/"
+    "applyUrl": "http://www.wmac2026.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 21.1,
+      "maxAvg": 35.1,
+      "rainYears": 4,
+      "hottestYear": 2025,
+      "hottestMax": 37.2,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-1회전-2026-교룡산성-백야드-2026-08-23",
@@ -8304,7 +9864,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://samsamis.com/66"
+    "applyUrl": "http://samsamis.com/66",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.7,
+      "maxAvg": 33.8,
+      "rainYears": 6,
+      "hottestYear": 2018,
+      "hottestMax": 36.6,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "ro-러너온-크루매치-시험-대회-2026-08-24",
@@ -8394,7 +9964,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/48116855-ac2a-4db5-b343-593a01c5b353"
+    "applyUrl": "http://mara1080.com/event/48116855-ac2a-4db5-b343-593a01c5b353",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.4,
+      "maxAvg": 31.9,
+      "rainYears": 6,
+      "hottestYear": 2025,
+      "hottestMax": 35.0,
+      "station": "���뵿",
+      "stationKm": 5
+    }
   },
   {
     "id": "rr-2026-단양달빛레이스-2026-08-29",
@@ -8429,6 +10009,16 @@
       "rhm": 92.0,
       "awayKm": 19.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 16.2,
+      "maxAvg": 30.6,
+      "rainYears": 8,
+      "hottestYear": 2025,
+      "hottestMax": 35.1,
+      "station": "�ֻ긮",
+      "stationKm": 51
     }
   },
   {
@@ -8582,7 +10172,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://daegwallyeongrun.com/"
+    "applyUrl": "http://daegwallyeongrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.8,
+      "maxAvg": 32.0,
+      "rainYears": 6,
+      "hottestYear": 2025,
+      "hottestMax": 36.4,
+      "station": "�밭��",
+      "stationKm": 19
+    }
   },
   {
     "id": "rr-2026대구세계마스터즈-하프마라톤대회-2026-08-30",
@@ -8632,7 +10232,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.wmac2026.com/"
+    "applyUrl": "http://www.wmac2026.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 19.4,
+      "maxAvg": 32.5,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 36.7,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-제3회-한강-서울-마라톤-2026-08-30",
@@ -8725,6 +10335,16 @@
       "rhm": 85.6,
       "awayKm": 7.3,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 19.6,
+      "maxAvg": 31.2,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 35.6,
+      "station": "��걤����",
+      "stationKm": 47
     }
   },
   {
@@ -8874,6 +10494,16 @@
       "rhm": 61.6,
       "awayKm": 18.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 17.0,
+      "maxAvg": 30.7,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 35.0,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -8922,7 +10552,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runten.co.kr/"
+    "applyUrl": "http://runten.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.5,
+      "maxAvg": 31.1,
+      "rainYears": 4,
+      "hottestYear": 2025,
+      "hottestMax": 34.3,
+      "station": "���뵿",
+      "stationKm": 24
+    }
   },
   {
     "id": "rr-제2회-2026-vrun-2026-09-05",
@@ -8969,7 +10609,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.scultra100.net/"
+    "applyUrl": "http://www.scultra100.net/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.7,
+      "maxAvg": 30.4,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 33.3,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rr-제23회-철원dmz국제평화마라톤-2026-09-05",
@@ -9008,6 +10658,16 @@
       "rhm": 90.6,
       "awayKm": 31.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 18.1,
+      "maxAvg": 30.3,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 34.1,
+      "station": "�밭��",
+      "stationKm": 45
     }
   },
   {
@@ -9047,6 +10707,16 @@
       "rhm": 90.6,
       "awayKm": 31.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 18.1,
+      "maxAvg": 30.3,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 34.1,
+      "station": "�밭��",
+      "stationKm": 45
     }
   },
   {
@@ -9071,7 +10741,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "http://speedagency.kr/more.html?game_code=106"
+    "applyUrl": "http://speedagency.kr/more.html?game_code=106",
+    "climate": {
+      "years": 10,
+      "minAvg": 17.0,
+      "maxAvg": 30.7,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 35.0,
+      "station": "���뵿",
+      "stationKm": 53
+    }
   },
   {
     "id": "tri-제1회-제주-삼다-철인3종경기-대회-2026-09-05",
@@ -9117,7 +10797,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://taebaektrail.com/"
+    "applyUrl": "http://taebaektrail.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.1,
+      "maxAvg": 30.0,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 34.6,
+      "station": "�ֻ긮",
+      "stationKm": 37
+    }
   },
   {
     "id": "ro-제2회-vrun-2026-2026-09-05",
@@ -9185,6 +10875,16 @@
       "rhm": 59.3,
       "awayKm": 14.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 18.5,
+      "maxAvg": 31.1,
+      "rainYears": 4,
+      "hottestYear": 2025,
+      "hottestMax": 34.3,
+      "station": "���뵿",
+      "stationKm": 22
     }
   },
   {
@@ -9208,7 +10908,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.mtrailrun.kr/"
+    "applyUrl": "http://www.mtrailrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.4,
+      "maxAvg": 31.3,
+      "rainYears": 7,
+      "hottestYear": 2024,
+      "hottestMax": 34.7,
+      "station": "���뵿",
+      "stationKm": 58
+    }
   },
   {
     "id": "rr-2026-전마협회장배-청주마라톤-2026-09-06",
@@ -9244,6 +10954,16 @@
       "rhm": 56.4,
       "awayKm": 3.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 18.4,
+      "maxAvg": 31.3,
+      "rainYears": 7,
+      "hottestYear": 2024,
+      "hottestMax": 34.7,
+      "station": "���뵿",
+      "stationKm": 4
     }
   },
   {
@@ -9329,6 +11049,16 @@
       "rhm": 65.6,
       "awayKm": 18.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 16.8,
+      "maxAvg": 30.8,
+      "rainYears": 6,
+      "hottestYear": 2024,
+      "hottestMax": 35.0,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -9401,6 +11131,16 @@
       "rhm": 66.9,
       "awayKm": 17.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 14.9,
+      "maxAvg": 30.3,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 34.8,
+      "station": "�ֻ긮",
+      "stationKm": 54
     }
   },
   {
@@ -9555,7 +11295,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://n-runplus.co.kr/"
+    "applyUrl": "https://n-runplus.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.4,
+      "maxAvg": 30.8,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 36.2,
+      "station": "���뵿",
+      "stationKm": 4
+    }
   },
   {
     "id": "rm-제-6회-계란-마라톤-2026-09-12",
@@ -9725,7 +11475,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/REDFOODRACE"
+    "applyUrl": "http://rocknrun.kr/REDFOODRACE",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.4,
+      "maxAvg": 30.2,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 34.6,
+      "station": "���뵿",
+      "stationKm": 28
+    }
   },
   {
     "id": "rr-제2회-화이트런-생리대-기부마라톤-2026-09-12",
@@ -9800,6 +11560,16 @@
       "rhm": 63.8,
       "awayKm": 7.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 15.4,
+      "maxAvg": 30.4,
+      "rainYears": 5,
+      "hottestYear": 2024,
+      "hottestMax": 36.5,
+      "station": "�ݻ걺",
+      "stationKm": 26
     }
   },
   {
@@ -9825,7 +11595,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://yrun.co.kr/"
+    "applyUrl": "http://yrun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 16.8,
+      "maxAvg": 29.3,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 34.2,
+      "station": "�밭��",
+      "stationKm": 43
+    }
   },
   {
     "id": "rm-빵트레일런-2026-2026-09-12",
@@ -9850,7 +11630,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://bbangtrailrun.co.kr/"
+    "applyUrl": "http://bbangtrailrun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.2,
+      "maxAvg": 30.1,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 37.1,
+      "station": "�ֻ긮",
+      "stationKm": 23
+    }
   },
   {
     "id": "rm-나이트런-in-청주-2026-09-12",
@@ -9884,6 +11674,16 @@
       "rhm": 58.5,
       "awayKm": 3.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 18.4,
+      "maxAvg": 30.8,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 36.2,
+      "station": "���뵿",
+      "stationKm": 4
     }
   },
   {
@@ -9932,7 +11732,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/9443583f-6577-466c-ab2f-43d1dbd820d4"
+    "applyUrl": "http://mara1080.com/event/9443583f-6577-466c-ab2f-43d1dbd820d4",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.4,
+      "maxAvg": 30.4,
+      "rainYears": 5,
+      "hottestYear": 2024,
+      "hottestMax": 36.5,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "rm-2026-에너지-히어로-레이스-2026-09-12",
@@ -10073,6 +11883,16 @@
       "rhm": 71.3,
       "awayKm": 7.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 15.5,
+      "maxAvg": 30.5,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 36.5,
+      "station": "�ݻ걺",
+      "stationKm": 26
     }
   },
   {
@@ -10134,7 +11954,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://energyrun.co.kr/"
+    "applyUrl": "http://energyrun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 18.7,
+      "maxAvg": 29.5,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 33.3,
+      "station": "��걤����",
+      "stationKm": 49
+    }
   },
   {
     "id": "rr-2026-런서울런-2026-09-13",
@@ -10269,6 +12099,16 @@
       "rhm": 84.9,
       "awayKm": 31.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 16.8,
+      "maxAvg": 29.5,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 34.2,
+      "station": "�밭��",
+      "stationKm": 45
     }
   },
   {
@@ -10404,7 +12244,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/0674df45-473c-4182-bed4-d15582fb8c73/guide/overview"
+    "applyUrl": "http://mara1080.com/event/0674df45-473c-4182-bed4-d15582fb8c73/guide/overview",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.5,
+      "maxAvg": 30.5,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 36.5,
+      "station": "�ݻ걺",
+      "stationKm": 30
+    }
   },
   {
     "id": "rw-2026-울진-금강송배-전국마라톤-2026-09-13",
@@ -10438,6 +12288,16 @@
       "rhm": 72.1,
       "awayKm": 18.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 16.6,
+      "maxAvg": 30.3,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 34.7,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -10506,6 +12366,16 @@
       "rhm": 72.1,
       "awayKm": 18.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 16.6,
+      "maxAvg": 30.3,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 34.7,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -10529,7 +12399,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sachalrun.com/"
+    "applyUrl": "http://sachalrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.1,
+      "maxAvg": 29.9,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 35.9,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rr-2026-무한도전-run-in-경주-2026-09-19",
@@ -10565,6 +12445,16 @@
       "rhm": 79.3,
       "awayKm": 1.9,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 15.9,
+      "maxAvg": 29.3,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 33.4,
+      "station": "��걤����",
+      "stationKm": 33
     }
   },
   {
@@ -10833,7 +12723,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/2044eb82-fcdb-4e56-b79b-f3543a6a360d"
+    "applyUrl": "http://mara1080.com/event/2044eb82-fcdb-4e56-b79b-f3543a6a360d",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.3,
+      "maxAvg": 29.2,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 35.7,
+      "station": "�ݻ걺",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-2026-장수트레일레이스-fall-2026-09-19",
@@ -10870,6 +12770,16 @@
       "rhm": 76.6,
       "awayKm": 21.5,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 14.0,
+      "maxAvg": 29.9,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 35.8,
+      "station": "���뵿",
+      "stationKm": 27
     }
   },
   {
@@ -10939,7 +12849,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.0,
+      "maxAvg": 29.9,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 35.8,
+      "station": "���뵿",
+      "stationKm": 27
+    }
   },
   {
     "id": "rm-t1-wish-run-2026-09-19",
@@ -11151,7 +13071,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://pulsesport.co.kr/register"
+    "applyUrl": "https://pulsesport.co.kr/register",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.3,
+      "maxAvg": 29.2,
+      "rainYears": 2,
+      "hottestYear": 2024,
+      "hottestMax": 35.7,
+      "station": "�ݻ걺",
+      "stationKm": 28
+    }
   },
   {
     "id": "rw-서울수복-75주년-기념-아라뱃길-나이트워크-2026-09-19",
@@ -11209,7 +13139,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://modern-infinity-9e6.notion.site/2026-395918810cc28075b602c0e076d8d3ea"
+    "applyUrl": "http://modern-infinity-9e6.notion.site/2026-395918810cc28075b602c0e076d8d3ea",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.4,
+      "maxAvg": 29.1,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 33.4,
+      "station": "��걤����",
+      "stationKm": 5
+    }
   },
   {
     "id": "rr-2026-인천송도국제하프마라톤-2026-09-20",
@@ -11408,7 +13348,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.gongjumarathon.com/"
+    "applyUrl": "http://www.gongjumarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.8,
+      "maxAvg": 29.4,
+      "rainYears": 4,
+      "hottestYear": 2024,
+      "hottestMax": 34.9,
+      "station": "���뵿",
+      "stationKm": 36
+    }
   },
   {
     "id": "rr-제19회-가평자라섬-전국마라톤-2026-09-20",
@@ -11700,7 +13650,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://samsamis.com/34"
+    "applyUrl": "http://samsamis.com/34",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.7,
+      "maxAvg": 27.0,
+      "rainYears": 6,
+      "hottestYear": 2021,
+      "hottestMax": 31.1,
+      "station": "�ݻ걺",
+      "stationKm": 28
+    }
   },
   {
     "id": "rr-2026-천사데이기념-동두천천사마라톤-2026-10-03",
@@ -11751,7 +13711,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://gimjesm.co.kr"
+    "applyUrl": "http://gimjesm.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.7,
+      "maxAvg": 27.0,
+      "rainYears": 6,
+      "hottestYear": 2021,
+      "hottestMax": 31.1,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "rr-제-2회-아산이순신-트레일-2026-10-03",
@@ -11826,7 +13796,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://xcworks.com/sub/race.html?type=view&wrNo=17"
+    "applyUrl": "https://xcworks.com/sub/race.html?type=view&wrNo=17",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.7,
+      "maxAvg": 27.3,
+      "rainYears": 6,
+      "hottestYear": 2021,
+      "hottestMax": 30.6,
+      "station": "���뵿",
+      "stationKm": 55
+    }
   },
   {
     "id": "cy-2026-상주그란폰도-2026-10-03",
@@ -11850,7 +13830,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "http://speedagency.kr/more.html?game_code=107"
+    "applyUrl": "http://speedagency.kr/more.html?game_code=107",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.6,
+      "maxAvg": 27.6,
+      "rainYears": 5,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 36
+    }
   },
   {
     "id": "rm-2026-글로벌-포-워터-부산-2026-10-03",
@@ -11874,7 +13864,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://global6kforwater.com/frt/application/applicationOverview.do?CMPT_AREA_TYPE=6"
+    "applyUrl": "https://global6kforwater.com/frt/application/applicationOverview.do?CMPT_AREA_TYPE=6",
+    "climate": {
+      "years": 10,
+      "minAvg": 15.8,
+      "maxAvg": 27.8,
+      "rainYears": 4,
+      "hottestYear": 2022,
+      "hottestMax": 30.8,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-2026-마스터즈-마라톤-2026-10-03",
@@ -11923,7 +13923,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runten.co.kr/"
+    "applyUrl": "http://runten.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.7,
+      "maxAvg": 27.3,
+      "rainYears": 6,
+      "hottestYear": 2021,
+      "hottestMax": 30.6,
+      "station": "���뵿",
+      "stationKm": 4
+    }
   },
   {
     "id": "rm-smtown-run-club-26-2026-10-03",
@@ -12014,6 +14024,16 @@
       "rhm": 54.6,
       "awayKm": 8.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 15.8,
+      "maxAvg": 27.8,
+      "rainYears": 4,
+      "hottestYear": 2022,
+      "hottestMax": 30.8,
+      "station": "�λ걤����",
+      "stationKm": 9
     }
   },
   {
@@ -12152,7 +14172,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/just-run10-cheongju/"
+    "applyUrl": "https://runningwikii.com/entry/just-run10-cheongju/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.7,
+      "maxAvg": 27.3,
+      "rainYears": 6,
+      "hottestYear": 2021,
+      "hottestMax": 30.6,
+      "station": "���뵿",
+      "stationKm": 34
+    }
   },
   {
     "id": "rm-2026-마스터즈-마라톤마라톤-완주-팁-2026-10-03",
@@ -12287,7 +14317,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.knmarathon.co.kr"
+    "applyUrl": "http://www.knmarathon.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 14.2,
+      "maxAvg": 28.5,
+      "rainYears": 3,
+      "hottestYear": 2021,
+      "hottestMax": 31.1,
+      "station": "���걸",
+      "stationKm": 1
+    }
   },
   {
     "id": "rr-2026-파주북시티마라톤-2026-10-04",
@@ -12341,7 +14381,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.admarathon.kr"
+    "applyUrl": "http://www.admarathon.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.7,
+      "maxAvg": 27.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 59
+    }
   },
   {
     "id": "rr-제20회-달서하프마라톤-2026-10-04",
@@ -12367,7 +14417,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.달서하프마라톤.kr"
+    "applyUrl": "http://www.달서하프마라톤.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.8,
+      "maxAvg": 27.7,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 31.5,
+      "station": "�뱸",
+      "stationKm": 16
+    }
   },
   {
     "id": "rr-2026-홍천사랑마라톤-2026-10-04",
@@ -12464,7 +14524,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--bk1bo0gn4bnwmwqvbue1qa.kr/"
+    "applyUrl": "http://www.xn--bk1bo0gn4bnwmwqvbue1qa.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.8,
+      "maxAvg": 27.7,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 31.5,
+      "station": "�뱸",
+      "stationKm": 16
+    }
   },
   {
     "id": "rm-2026-ytn-서울투어마라톤-2026-10-04",
@@ -12570,6 +14640,16 @@
       "rhm": 66.1,
       "awayKm": 13.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 12.8,
+      "maxAvg": 27.7,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 31.5,
+      "station": "�뱸",
+      "stationKm": 16
     }
   },
   {
@@ -12604,6 +14684,16 @@
       "rhm": 71.8,
       "awayKm": 18.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 11.7,
+      "maxAvg": 27.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -12627,7 +14717,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://www.sonohotelsresorts.com/reserve/activity/dtl?salesNo=292686"
+    "applyUrl": "https://www.sonohotelsresorts.com/reserve/activity/dtl?salesNo=292686",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.7,
+      "maxAvg": 27.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rw-소노-런트립-180k-in-경주-2026-10-04",
@@ -12650,7 +14750,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/sono-run-trip-gyeongju/"
+    "applyUrl": "https://runningwikii.com/entry/sono-run-trip-gyeongju/",
+    "climate": {
+      "years": 10,
+      "minAvg": 11.7,
+      "maxAvg": 27.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rr-제23회-강남국제평화마라톤-2026-10-05",
@@ -12913,7 +15023,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://hangeulrun.com/"
+    "applyUrl": "http://hangeulrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.1,
+      "maxAvg": 24.9,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 22
+    }
   },
   {
     "id": "rr-wyd와-함께하는-생명사랑-마라톤-걷기-대회-2026-10-09",
@@ -12938,7 +15058,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.naver.com/browna6seu"
+    "applyUrl": "http://cafe.naver.com/browna6seu",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.1,
+      "maxAvg": 24.9,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 58
+    }
   },
   {
     "id": "rr-제26회-홍성마라톤-2026-10-09",
@@ -12989,7 +15119,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://binggraegranfondo.com/"
+    "applyUrl": "https://binggraegranfondo.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.1,
+      "maxAvg": 24.9,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 36
+    }
   },
   {
     "id": "rm-10-9-금-접수-대기제26회-홍성마라톤-2026-10-09",
@@ -13073,6 +15213,16 @@
       "rhm": 64.5,
       "awayKm": 16.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 10.1,
+      "maxAvg": 24.9,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 22
     }
   },
   {
@@ -13195,6 +15345,16 @@
       "rhm": 67.8,
       "awayKm": 27.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 15.9,
+      "maxAvg": 25.5,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 29.3,
+      "station": "���긮",
+      "stationKm": 16
     }
   },
   {
@@ -13231,6 +15391,16 @@
       "rhm": 67.9,
       "awayKm": 19.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 9.5,
+      "maxAvg": 25.0,
+      "rainYears": 3,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 60
     }
   },
   {
@@ -13306,7 +15476,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.naver.com/gumitrailrunnerclub"
+    "applyUrl": "http://cafe.naver.com/gumitrailrunnerclub",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.3,
+      "maxAvg": 25.4,
+      "rainYears": 0,
+      "hottestYear": 2021,
+      "hottestMax": 29.6,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rr-제5회-무등산지오마라톤-2026-10-10",
@@ -13332,7 +15512,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://georun.kr/ko/"
+    "applyUrl": "http://georun.kr/ko/",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.2,
+      "maxAvg": 25.6,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 29.5,
+      "station": "���뵿",
+      "stationKm": 40
+    }
   },
   {
     "id": "rr-2026-경포마라톤-2026-10-10",
@@ -13357,7 +15547,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.경포마라톤.com"
+    "applyUrl": "http://www.경포마라톤.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.9,
+      "maxAvg": 24.4,
+      "rainYears": 3,
+      "hottestYear": 2021,
+      "hottestMax": 28.3,
+      "station": "�밭��",
+      "stationKm": 6
+    }
   },
   {
     "id": "rr-카카오프렌즈런-2026-2026-10-10",
@@ -13406,7 +15606,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.chultra.kr/"
+    "applyUrl": "http://www.chultra.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 9.5,
+      "maxAvg": 25.0,
+      "rainYears": 3,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 29
+    }
   },
   {
     "id": "rm-제9회-거제시장배-섬꽃-전국-마라톤-2026-10-10",
@@ -13430,7 +15640,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/b43655f0-60be-4c97-ad62-d377f6586ae0"
+    "applyUrl": "http://mara1080.com/event/b43655f0-60be-4c97-ad62-d377f6586ae0",
+    "climate": {
+      "years": 10,
+      "minAvg": 13.0,
+      "maxAvg": 26.2,
+      "rainYears": 0,
+      "hottestYear": 2021,
+      "hottestMax": 29.4,
+      "station": "�뿵",
+      "stationKm": 13
+    }
   },
   {
     "id": "rm-패밀리런-제4회-강서허준런-run-2026-10-10",
@@ -13571,7 +15791,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://rocknrun.kr"
+    "applyUrl": "http://rocknrun.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 8.2,
+      "maxAvg": 25.6,
+      "rainYears": 3,
+      "hottestYear": 2025,
+      "hottestMax": 29.5,
+      "station": "���뵿",
+      "stationKm": 29
+    }
   },
   {
     "id": "rr-2026-연수-꿈이음길-러닝대회-2026-10-10",
@@ -13619,7 +15849,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runten.co.kr/competitions"
+    "applyUrl": "https://runten.co.kr/competitions",
+    "climate": {
+      "years": 10,
+      "minAvg": 10.2,
+      "maxAvg": 26.0,
+      "rainYears": 0,
+      "hottestYear": 2021,
+      "hottestMax": 31.8,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rw-2026-제5회-무등산권-지오마라톤-2026-10-10",
@@ -13642,7 +15882,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/2026-mudeungsan-geo-marathon/"
+    "applyUrl": "https://runningwikii.com/entry/2026-mudeungsan-geo-marathon/",
+    "climate": {
+      "years": 10,
+      "minAvg": 12.4,
+      "maxAvg": 24.9,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���굿",
+      "stationKm": 19
+    }
   },
   {
     "id": "rr-2026-인천로봇랜드-퓨처런-2026-10-11",
@@ -13748,6 +15998,16 @@
       "rhm": 76.5,
       "awayKm": 16.6,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 8.1,
+      "maxAvg": 25.7,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 29.5,
+      "station": "���뵿",
+      "stationKm": 29
     }
   },
   {
@@ -13785,6 +16045,16 @@
       "rhm": 79.0,
       "awayKm": 4.7,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 9.4,
+      "maxAvg": 24.7,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 28.2,
+      "station": "���뵿",
+      "stationKm": 35
     }
   },
   {
@@ -13858,6 +16128,16 @@
       "rhm": 77.5,
       "awayKm": 2.5,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 11.7,
+      "maxAvg": 25.0,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.6,
+      "station": "��걤����",
+      "stationKm": 3
     }
   },
   {
@@ -13895,6 +16175,16 @@
       "rhm": 77.3,
       "awayKm": 5.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 8.9,
+      "maxAvg": 25.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.6,
+      "station": "���뵿",
+      "stationKm": 53
     }
   },
   {
@@ -14006,6 +16296,16 @@
       "rhm": 72.3,
       "awayKm": 23.9,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 12.4,
+      "maxAvg": 25.0,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 29.8,
+      "station": "���굿",
+      "stationKm": 38
     }
   },
   {
@@ -14116,6 +16416,16 @@
       "rhm": 70.0,
       "awayKm": 4.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 8.9,
+      "maxAvg": 25.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.6,
+      "station": "���뵿",
+      "stationKm": 4
     }
   },
   {
@@ -14152,6 +16462,16 @@
       "rhm": 77.3,
       "awayKm": 5.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 8.9,
+      "maxAvg": 25.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.6,
+      "station": "���뵿",
+      "stationKm": 53
     }
   },
   {
@@ -14243,6 +16563,16 @@
       "rhm": 70.0,
       "awayKm": 5.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 8.9,
+      "maxAvg": 25.1,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 29.6,
+      "station": "���뵿",
+      "stationKm": 5
     }
   },
   {
@@ -14488,6 +16818,16 @@
       "rhm": 70.6,
       "awayKm": 2.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 9.9,
+      "maxAvg": 25.7,
+      "rainYears": 1,
+      "hottestYear": 2021,
+      "hottestMax": 31.8,
+      "station": "�뱸",
+      "stationKm": 5
     }
   },
   {
@@ -14666,6 +17006,16 @@
       "rhm": 56.6,
       "awayKm": 3.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.7,
+      "maxAvg": 24.1,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 26.4,
+      "station": "�Ż긮",
+      "stationKm": 31
     }
   },
   {
@@ -14851,6 +17201,16 @@
       "rhm": 65.8,
       "awayKm": 16.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.0,
+      "maxAvg": 23.9,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 25.9,
+      "station": "���뵿",
+      "stationKm": 22
     }
   },
   {
@@ -14888,6 +17248,16 @@
       "rhm": 72.0,
       "awayKm": 1.9,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 9.5,
+      "maxAvg": 23.7,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 25.9,
+      "station": "��걤����",
+      "stationKm": 33
     }
   },
   {
@@ -14927,6 +17297,16 @@
       "rhm": 59.1,
       "awayKm": 14.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.0,
+      "maxAvg": 23.9,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 25.9,
+      "station": "���뵿",
+      "stationKm": 15
     }
   },
   {
@@ -14962,6 +17342,16 @@
       "rhm": 65.8,
       "awayKm": 8.6,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 3.9,
+      "maxAvg": 23.8,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 25.5,
+      "station": "�ݻ걺",
+      "stationKm": 23
     }
   },
   {
@@ -15032,6 +17422,16 @@
       "rhm": 86.0,
       "awayKm": 36.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 4.4,
+      "maxAvg": 23.0,
+      "rainYears": 1,
+      "hottestYear": 2024,
+      "hottestMax": 25.1,
+      "station": "�ֻ긮",
+      "stationKm": 5
     }
   },
   {
@@ -15206,6 +17606,16 @@
       "rhm": 56.6,
       "awayKm": 5.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.7,
+      "maxAvg": 24.1,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 26.4,
+      "station": "�Ż긮",
+      "stationKm": 31
     }
   },
   {
@@ -15240,6 +17650,16 @@
       "rhm": 56.6,
       "awayKm": 11.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.7,
+      "maxAvg": 24.1,
+      "rainYears": 2,
+      "hottestYear": 2021,
+      "hottestMax": 26.4,
+      "station": "�Ż긮",
+      "stationKm": 28
     }
   },
   {
@@ -15308,6 +17728,16 @@
       "rhm": 64.1,
       "awayKm": 2.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 11.4,
+      "maxAvg": 24.8,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 27.6,
+      "station": "�뿵",
+      "stationKm": 2
     }
   },
   {
@@ -15413,6 +17843,16 @@
       "rhm": 81.9,
       "awayKm": 10.7,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 9.2,
+      "maxAvg": 24.7,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 28.8,
+      "station": "���걸",
+      "stationKm": 1
     }
   },
   {
@@ -15450,6 +17890,16 @@
       "rhm": 83.9,
       "awayKm": 14.5,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 6.9,
+      "maxAvg": 23.6,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 25.9,
+      "station": "���뵿",
+      "stationKm": 19
     }
   },
   {
@@ -15485,6 +17935,16 @@
       "rhm": 76.0,
       "awayKm": 3.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 23.8,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 25.7,
+      "station": "�뱸",
+      "stationKm": 6
     }
   },
   {
@@ -15522,6 +17982,16 @@
       "rhm": 80.6,
       "awayKm": 13.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 10.0,
+      "maxAvg": 23.3,
+      "rainYears": 1,
+      "hottestYear": 2024,
+      "hottestMax": 26.1,
+      "station": "���굿",
+      "stationKm": 13
     }
   },
   {
@@ -15738,6 +18208,16 @@
       "rhm": 81.6,
       "awayKm": 8.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 9.3,
+      "maxAvg": 23.7,
+      "rainYears": 3,
+      "hottestYear": 2024,
+      "hottestMax": 25.9,
+      "station": "��걤����",
+      "stationKm": 30
     }
   },
   {
@@ -15906,6 +18386,16 @@
       "rhm": 83.6,
       "awayKm": 3.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 6.3,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 24.1,
+      "station": "���뵿",
+      "stationKm": 4
     }
   },
   {
@@ -15941,6 +18431,16 @@
       "rhm": 94.3,
       "awayKm": 3.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.2,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2019,
+      "hottestMax": 24.1,
+      "station": "���뵿",
+      "stationKm": 59
     }
   },
   {
@@ -16049,6 +18549,16 @@
       "rhm": 93.3,
       "awayKm": 20.9,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 2.6,
+      "maxAvg": 21.8,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 24.1,
+      "station": "�ݻ걺",
+      "stationKm": 45
     }
   },
   {
@@ -16189,6 +18699,16 @@
       "rhm": 95.0,
       "awayKm": 29.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 2.6,
+      "maxAvg": 21.8,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 24.1,
+      "station": "�ݻ걺",
+      "stationKm": 33
     }
   },
   {
@@ -16368,6 +18888,16 @@
       "rhm": 95.8,
       "awayKm": 19.3,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.3,
+      "maxAvg": 22.5,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 24.9,
+      "station": "���긮",
+      "stationKm": 29
     }
   },
   {
@@ -16439,6 +18969,16 @@
       "rhm": 92.9,
       "awayKm": 5.3,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.5,
+      "maxAvg": 22.4,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 24.9,
+      "station": "�밭��",
+      "stationKm": 15
     }
   },
   {
@@ -16474,6 +19014,16 @@
       "rhm": 86.9,
       "awayKm": 24.9,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.5,
+      "maxAvg": 22.4,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 24.9,
+      "station": "�밭��",
+      "stationKm": 25
     }
   },
   {
@@ -16644,6 +19194,16 @@
       "rhm": 94.3,
       "awayKm": 18.0,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.2,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2019,
+      "hottestMax": 24.1,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -16678,6 +19238,16 @@
       "rhm": 92.9,
       "awayKm": 31.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.5,
+      "maxAvg": 22.4,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 24.9,
+      "station": "�밭��",
+      "stationKm": 45
     }
   },
   {
@@ -16746,6 +19316,16 @@
       "rhm": 86.9,
       "awayKm": 24.9,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.5,
+      "maxAvg": 22.4,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 24.9,
+      "station": "�밭��",
+      "stationKm": 25
     }
   },
   {
@@ -16854,6 +19434,16 @@
       "rhm": 95.8,
       "awayKm": 9.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 10.0,
+      "maxAvg": 23.6,
+      "rainYears": 1,
+      "hottestYear": 2019,
+      "hottestMax": 24.9,
+      "station": "�λ걤����",
+      "stationKm": 9
     }
   },
   {
@@ -16967,6 +19557,16 @@
       "rhm": 95.0,
       "awayKm": 17.6,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 5.5,
+      "maxAvg": 22.4,
+      "rainYears": 1,
+      "hottestYear": 2019,
+      "hottestMax": 24.7,
+      "station": "�뱸",
+      "stationKm": 26
     }
   },
   {
@@ -17112,6 +19712,16 @@
       "rhm": 95.4,
       "awayKm": 5.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 22.4,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 24.4,
+      "station": "��걤����",
+      "stationKm": 8
     }
   },
   {
@@ -17331,6 +19941,16 @@
       "rhm": 74.5,
       "awayKm": 13.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.7,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 25.4,
+      "station": "�뿵",
+      "stationKm": 42
     }
   },
   {
@@ -17366,6 +19986,16 @@
       "rhm": 52.9,
       "awayKm": 9.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 8.9,
+      "maxAvg": 22.8,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 25.7,
+      "station": "�λ걤����",
+      "stationKm": 9
     }
   },
   {
@@ -17473,6 +20103,16 @@
       "rhm": 66.9,
       "awayKm": 25.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.5,
+      "maxAvg": 21.1,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 25.3,
+      "station": "���굿",
+      "stationKm": 36
     }
   },
   {
@@ -17542,6 +20182,16 @@
       "rhm": 71.1,
       "awayKm": 5.2,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 0.4,
+      "maxAvg": 21.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 26.7,
+      "station": "�ݻ걺",
+      "stationKm": 59
     }
   },
   {
@@ -17797,6 +20447,16 @@
       "rhm": 61.6,
       "awayKm": 10.4,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.7,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 25.4,
+      "station": "�뿵",
+      "stationKm": 37
     }
   },
   {
@@ -17831,6 +20491,16 @@
       "rhm": 61.6,
       "awayKm": 10.6,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.7,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 25.4,
+      "station": "�뿵",
+      "stationKm": 36
     }
   },
   {
@@ -17905,6 +20575,16 @@
       "rhm": 82.6,
       "awayKm": 21.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 20.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 25.3,
+      "station": "���굿",
+      "stationKm": 21
     }
   },
   {
@@ -17942,6 +20622,16 @@
       "rhm": 73.4,
       "awayKm": 12.1,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 3.2,
+      "maxAvg": 20.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 25.8,
+      "station": "���뵿",
+      "stationKm": 21
     }
   },
   {
@@ -18015,6 +20705,16 @@
       "rhm": 61.8,
       "awayKm": 1.5,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 6.0,
+      "maxAvg": 21.9,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 27.6,
+      "station": "��걤����",
+      "stationKm": 4
     }
   },
   {
@@ -18086,6 +20786,16 @@
       "rhm": 88.8,
       "awayKm": 9.8,
       "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 0.3,
+      "maxAvg": 20.8,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 26.7,
+      "station": "�ݻ걺",
+      "stationKm": 22
     }
   },
   {
@@ -18384,6 +21094,16 @@
       "sky": "맑음",
       "src": "KMA 단기예보",
       "asOf": "2026-11-03 11:52"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 1.0,
+      "maxAvg": 21.2,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 24.6,
+      "station": "���뵿",
+      "stationKm": 52
     }
   },
   {
@@ -18409,7 +21129,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://giverun.kr"
+    "applyUrl": "http://giverun.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.3,
+      "maxAvg": 21.1,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 23.7,
+      "station": "���뵿",
+      "stationKm": 4
+    }
   },
   {
     "id": "rr-2026-문경-레전드-트레일-백두대간-2026-11-07",
@@ -18435,7 +21165,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://legendtrail.kr/"
+    "applyUrl": "http://legendtrail.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.0,
+      "maxAvg": 20.5,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "���뵿",
+      "stationKm": 58
+    }
   },
   {
     "id": "rr-제19회-진해마라톤-2026-11-07",
@@ -18460,7 +21200,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.jinhaemarathon.co.kr"
+    "applyUrl": "http://www.jinhaemarathon.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.8,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-해양수도-부산-런페스타-2026-11-07",
@@ -18483,7 +21233,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runfesta.co.kr"
+    "applyUrl": "http://runfesta.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.3,
+      "maxAvg": 22.6,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 24.3,
+      "station": "�λ걤����",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-제15회-부여-굿뜨래-마라톤-대회-2026-11-07",
@@ -18511,7 +21271,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://mara1080.com/event/ffc023fc-7a54-4610-bdd6-2bb9a1028122"
+    "applyUrl": "http://mara1080.com/event/ffc023fc-7a54-4610-bdd6-2bb9a1028122",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.6,
+      "maxAvg": 20.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 24.7,
+      "station": "�ݻ걺",
+      "stationKm": 55
+    }
   },
   {
     "id": "rm-영천댐-마라톤-2026-11-07",
@@ -18537,7 +21307,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runyc.kr"
+    "applyUrl": "http://runyc.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.4,
+      "maxAvg": 21.6,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 23.7,
+      "station": "�뱸",
+      "stationKm": 38
+    }
   },
   {
     "id": "cy-제35회-문화체육관광부장관기-무주메디오폰도대회-2026-11-07",
@@ -18560,7 +21340,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://www.jbcycling.or.kr/reception/"
+    "applyUrl": "https://www.jbcycling.or.kr/reception/",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.6,
+      "maxAvg": 20.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 24.7,
+      "station": "�ݻ걺",
+      "stationKm": 20
+    }
   },
   {
     "id": "rm-2026-포항마라톤챔피언십-2026-11-07",
@@ -18585,7 +21375,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://pohangmarathon.com/"
+    "applyUrl": "http://pohangmarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 4.6,
+      "maxAvg": 21.6,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 23.6,
+      "station": "��걤����",
+      "stationKm": 53
+    }
   },
   {
     "id": "ro-넥슨과-함께하는-2026-미라클365-푸르메런-2026-11-07",
@@ -18725,7 +21525,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cbngo.org/sub.php?menukey=138&mod=view&no=8600&page=1"
+    "applyUrl": "http://www.cbngo.org/sub.php?menukey=138&mod=view&no=8600&page=1",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.0,
+      "maxAvg": 20.5,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "���뵿",
+      "stationKm": 4
+    }
   },
   {
     "id": "cy-2026-원바이오젠-안동호반-라면-그란폰도-2026-11-07",
@@ -18774,7 +21584,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runten.co.kr"
+    "applyUrl": "http://runten.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.6,
+      "maxAvg": 20.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 24.7,
+      "station": "�ݻ걺",
+      "stationKm": 29
+    }
   },
   {
     "id": "rr-2026-여수-일레븐브리지마라톤-2026-11-07",
@@ -18799,7 +21619,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://11bridge.com"
+    "applyUrl": "http://11bridge.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.6,
+      "maxAvg": 20.7,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 24.8,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rr-2026-egg-run-2026-11-07",
@@ -18845,7 +21675,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.mywalk.kr"
+    "applyUrl": "http://www.mywalk.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.8,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 30
+    }
   },
   {
     "id": "rr-평화의섬-2026-국무총리기국제생활체육구간-마라톤-2026-11-07",
@@ -18868,7 +21708,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.jaaf.kr/"
+    "applyUrl": "http://www.jaaf.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 7.2,
+      "maxAvg": 22.8,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 25.8,
+      "station": "�Ż긮",
+      "stationKm": 35
+    }
   },
   {
     "id": "rr-제21회-담양메타세쿼이아-마라톤-2026-11-07",
@@ -18893,7 +21743,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.metarun.kr"
+    "applyUrl": "http://www.metarun.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.3,
+      "maxAvg": 21.5,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 24.7,
+      "station": "���긮",
+      "stationKm": 29
+    }
   },
   {
     "id": "tri-2026-경기도철인3종협회장배-전국듀애슬론-d100-대회-2026-11-07",
@@ -18939,7 +21799,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "https://eggrun2026.imweb.me"
+    "applyUrl": "https://eggrun2026.imweb.me",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.0,
+      "maxAvg": 20.5,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "���뵿",
+      "stationKm": 21
+    }
   },
   {
     "id": "rm-제3회-회복마라톤-2026-11-07",
@@ -18964,7 +21834,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://naver.me/Fz8Zrhv0"
+    "applyUrl": "https://naver.me/Fz8Zrhv0",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.2,
+      "maxAvg": 21.4,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "�Ż긮",
+      "stationKm": 31
+    }
   },
   {
     "id": "rm-2026-옥화구곡-트레일런-2026-11-07",
@@ -18988,7 +21868,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://app.cjsmarttour.kr/Connection?url=/smartExperience/ExperStore&toolbarTitle=2026바람따라길따라옥화구곡트레일런&poiNo=1458"
+    "applyUrl": "https://app.cjsmarttour.kr/Connection?url=/smartExperience/ExperStore&toolbarTitle=2026바람따라길따라옥화구곡트레일런&poiNo=1458",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.0,
+      "maxAvg": 20.5,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "���뵿",
+      "stationKm": 22
+    }
   },
   {
     "id": "rw-세이브레이스-2026-2026-11-07",
@@ -19034,7 +21924,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/canicross-jangsu/"
+    "applyUrl": "https://runningwikii.com/entry/canicross-jangsu/",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.6,
+      "maxAvg": 20.9,
+      "rainYears": 2,
+      "hottestYear": 2023,
+      "hottestMax": 24.7,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "rw-2026-ten-bridges-night-walk-2026-11-07",
@@ -19057,7 +21957,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/26th-ten-bridges-night-walk/"
+    "applyUrl": "https://runningwikii.com/entry/26th-ten-bridges-night-walk/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.8,
+      "maxAvg": 22.0,
+      "rainYears": 0,
+      "hottestYear": 2023,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 33
+    }
   },
   {
     "id": "rm-해남땅끝-전국마라톤-2026-11-08",
@@ -19085,7 +21995,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://haenammarathon.co.kr"
+    "applyUrl": "http://haenammarathon.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.2,
+      "maxAvg": 20.5,
+      "rainYears": 4,
+      "hottestYear": 2022,
+      "hottestMax": 23.4,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-라운드랩-run-2026-11-08",
@@ -19137,7 +22057,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://asanmarathon.co.kr/"
+    "applyUrl": "http://asanmarathon.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.6,
+      "maxAvg": 20.7,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "���뵿",
+      "stationKm": 42
+    }
   },
   {
     "id": "rm-경주시육상연맹회장배-마라톤-2026-11-08",
@@ -19163,7 +22093,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--289a04w1ifu9bvwfi4b78e.com/resv/competition.php"
+    "applyUrl": "http://xn--289a04w1ifu9bvwfi4b78e.com/resv/competition.php",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.2,
+      "maxAvg": 20.9,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 23.7,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rr-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08",
@@ -19291,7 +22231,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://heritagerun.co.kr"
+    "applyUrl": "http://heritagerun.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.9,
+      "maxAvg": 22.4,
+      "rainYears": 3,
+      "hottestYear": 2022,
+      "hottestMax": 23.7,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rr-제11회-송파구청장배-마라톤-2026-11-08",
@@ -19341,7 +22291,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://k-marathon.or.kr/main.php"
+    "applyUrl": "http://k-marathon.or.kr/main.php",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.6,
+      "maxAvg": 22.0,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-제5회-거제시체육회장배-거제앵산트레일레이스-2026-11-08",
@@ -19390,7 +22350,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--v69ax3ta679frncr7fk7d1bz7fc91d.com/"
+    "applyUrl": "http://www.xn--v69ax3ta679frncr7fk7d1bz7fc91d.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.8,
+      "maxAvg": 21.8,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 24.1,
+      "station": "�뿵",
+      "stationKm": 23
+    }
   },
   {
     "id": "rm-트레일런-2026-서울구석구석-국제-트레일런-2026-11-08",
@@ -19489,7 +22459,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.geumsungsan.kr"
+    "applyUrl": "http://www.geumsungsan.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.2,
+      "maxAvg": 20.5,
+      "rainYears": 4,
+      "hottestYear": 2022,
+      "hottestMax": 23.4,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rm-제2회-완주군-만경강-마라톤-대회-2026-11-08",
@@ -19515,7 +22495,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://wjrun.co.kr/"
+    "applyUrl": "https://wjrun.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.0,
+      "maxAvg": 21.1,
+      "rainYears": 4,
+      "hottestYear": 2023,
+      "hottestMax": 24.7,
+      "station": "�ݻ걺",
+      "stationKm": 46
+    }
   },
   {
     "id": "rm-올림픽데이런-2026-11-08",
@@ -19587,7 +22577,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cymarathon.imweb.me/index?preview_mode=1"
+    "applyUrl": "http://cymarathon.imweb.me/index?preview_mode=1",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.6,
+      "maxAvg": 20.7,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 25.0,
+      "station": "���뵿",
+      "stationKm": 57
+    }
   },
   {
     "id": "rm-경상북도-신도시-마라톤-2026-11-08",
@@ -19614,7 +22614,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://1004.tbc.co.kr/"
+    "applyUrl": "http://1004.tbc.co.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.2,
+      "maxAvg": 20.9,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 23.7,
+      "station": "���뵿",
+      "stationKm": 52
+    }
   },
   {
     "id": "rr-2026-경기화성-생태마라톤-2026-11-08",
@@ -19909,7 +22919,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/jinhae-marathon/"
+    "applyUrl": "https://runningwikii.com/entry/jinhae-marathon/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.6,
+      "maxAvg": 22.0,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 33
+    }
   },
   {
     "id": "rm-77층-계단-83타워-업힐런-챌린지-2026-11-08",
@@ -19932,7 +22952,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://eworld83toweruphillrun.lovable.app/"
+    "applyUrl": "http://eworld83toweruphillrun.lovable.app/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.2,
+      "maxAvg": 21.4,
+      "rainYears": 3,
+      "hottestYear": 2023,
+      "hottestMax": 23.3,
+      "station": "�뱸",
+      "stationKm": 8
+    }
   },
   {
     "id": "rm-학생부-5인1조-2026전국-체육회장배-안산-run-마라톤-2026-11-08",
@@ -20009,7 +23039,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sc-marathon.kr"
+    "applyUrl": "http://sc-marathon.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.7,
+      "maxAvg": 18.8,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 23.1,
+      "station": "���뵿",
+      "stationKm": 55
+    }
   },
   {
     "id": "rr-2026-포항마라톤챔피언십-2026-11-14",
@@ -20154,7 +23194,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://n-runplus.co.kr"
+    "applyUrl": "http://n-runplus.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 1.3,
+      "maxAvg": 18.6,
+      "rainYears": 0,
+      "hottestYear": 2022,
+      "hottestMax": 24.5,
+      "station": "���뵿",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-2026-포항마라톤챔피언십-선착순모집중-2026-11-14",
@@ -20178,7 +23228,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://pohangmarathon.com/"
+    "applyUrl": "http://pohangmarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.8,
+      "maxAvg": 19.9,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 22.9,
+      "station": "��걤����",
+      "stationKm": 53
+    }
   },
   {
     "id": "rr-서울-빵빵런-2026-2026-11-14",
@@ -20249,7 +23309,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
-    "applyUrl": "https://www.thebike.co.kr/race/view.php?r_idx=346"
+    "applyUrl": "https://www.thebike.co.kr/race/view.php?r_idx=346",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.2,
+      "maxAvg": 18.7,
+      "rainYears": 0,
+      "hottestYear": 2022,
+      "hottestMax": 23.9,
+      "station": "�ݻ걺",
+      "stationKm": 27
+    }
   },
   {
     "id": "rm-제28회-부산국제마라톤대회-2026-11-15",
@@ -20276,7 +23346,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://kjmarathon.com"
+    "applyUrl": "http://kjmarathon.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.2,
+      "maxAvg": 20.6,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 24.4,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rm-제주감귤마라톤-2026-11-15",
@@ -20302,7 +23382,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://marathon.ihalla.com"
+    "applyUrl": "http://marathon.ihalla.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 6.4,
+      "maxAvg": 21.6,
+      "rainYears": 1,
+      "hottestYear": 2016,
+      "hottestMax": 24.3,
+      "station": "�Ż긮",
+      "stationKm": 28
+    }
   },
   {
     "id": "rr-제2회-세종특별자치시-전국-마라톤-2026-11-15",
@@ -20453,7 +23543,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.mara1080.com/event/c8dc2c22-a83a-4743-9e34-c884e9809dbb"
+    "applyUrl": "http://www.mara1080.com/event/c8dc2c22-a83a-4743-9e34-c884e9809dbb",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.6,
+      "maxAvg": 18.6,
+      "rainYears": 0,
+      "hottestYear": 2022,
+      "hottestMax": 23.1,
+      "station": "���뵿",
+      "stationKm": 36
+    }
   },
   {
     "id": "rm-9회-서울평화마라톤-2026-11-15",
@@ -20502,7 +23602,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.gcrun.com"
+    "applyUrl": "http://www.gcrun.com",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.5,
+      "maxAvg": 19.7,
+      "rainYears": 0,
+      "hottestYear": 2022,
+      "hottestMax": 24.5,
+      "station": "���긮",
+      "stationKm": 3
+    }
   },
   {
     "id": "rm-제3회-무등산더블하트국제트레일런대회-2026-11-15",
@@ -20526,7 +23636,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cuk-sports.com/"
+    "applyUrl": "http://www.cuk-sports.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.3,
+      "maxAvg": 19.8,
+      "rainYears": 0,
+      "hottestYear": 2022,
+      "hottestMax": 25.1,
+      "station": "�Ż긮",
+      "stationKm": 38
+    }
   },
   {
     "id": "rr-제24회-대모산-구룡산-트레일런-2026-11-15",
@@ -20574,7 +23694,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://영남알프스마라톤.kr"
+    "applyUrl": "http://영남알프스마라톤.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.8,
+      "maxAvg": 19.9,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 23.0,
+      "station": "��걤����",
+      "stationKm": 5
+    }
   },
   {
     "id": "rm-학생부-초등부-학생부중-고등부-제2회-세종특별자치시-전국-마라톤-2026-11-15",
@@ -20598,7 +23728,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sjrun.com/"
+    "applyUrl": "http://sjrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 0.3,
+      "maxAvg": 18.6,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 24.5,
+      "station": "���뵿",
+      "stationKm": 15
+    }
   },
   {
     "id": "rm-제28회-부산국제신문마라톤-2026-11-15",
@@ -20623,7 +23763,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://kjmarathon.com/"
+    "applyUrl": "https://kjmarathon.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 5.2,
+      "maxAvg": 20.6,
+      "rainYears": 0,
+      "hottestYear": 2024,
+      "hottestMax": 24.4,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "ro-jtbc-서울마라톤-2026-11-15",
@@ -20697,7 +23847,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://JGMRUN.COM"
+    "applyUrl": "http://JGMRUN.COM",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.1,
+      "maxAvg": 18.7,
+      "rainYears": 1,
+      "hottestYear": 2022,
+      "hottestMax": 23.9,
+      "station": "�ݻ걺",
+      "stationKm": 29
+    }
   },
   {
     "id": "rr-2026-fila-run-espresso-2026-11-15",
@@ -20771,7 +23931,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.cwaaf.kr/bbs/board.php?bo_table=rally&wr_id=3"
+    "applyUrl": "http://www.cwaaf.kr/bbs/board.php?bo_table=rally&wr_id=3",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.4,
+      "maxAvg": 20.0,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-26회-창원통일마라톤-2026-11-15",
@@ -20794,7 +23964,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.tongilmarathon.kr"
+    "applyUrl": "http://www.tongilmarathon.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.4,
+      "maxAvg": 20.0,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 24.6,
+      "station": "���걸",
+      "stationKm": 1
+    }
   },
   {
     "id": "rm-가족코스-건강코스-제16회-대전서구청장배-마라톤대회-2026-11-15",
@@ -20818,7 +23998,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jgmrun.com/"
+    "applyUrl": "http://jgmrun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.1,
+      "maxAvg": 18.7,
+      "rainYears": 1,
+      "hottestYear": 2022,
+      "hottestMax": 23.9,
+      "station": "�ݻ걺",
+      "stationKm": 29
+    }
   },
   {
     "id": "rr-2026-에코나우런-2026-11-15",
@@ -21142,7 +24332,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://mara1080.com/event/cf5801a7-c7fd-4152-998b-bf11f0ec3e26"
+    "applyUrl": "http://mara1080.com/event/cf5801a7-c7fd-4152-998b-bf11f0ec3e26",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.7,
+      "maxAvg": 17.8,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 22.6,
+      "station": "���굿",
+      "stationKm": 7
+    }
   },
   {
     "id": "rr-2026-아식스-서울신문-고프리런-2026-11-21",
@@ -21190,7 +24390,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runten.co.kr"
+    "applyUrl": "http://runten.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.7,
+      "maxAvg": 18.6,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 25.3,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rr-2026-getr구미-에코-트레일레이스-2026-11-21",
@@ -21311,7 +24521,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://namhaerun.com/"
+    "applyUrl": "https://namhaerun.com/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.9,
+      "maxAvg": 19.2,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 22.9,
+      "station": "�뿵",
+      "stationKm": 50
+    }
   },
   {
     "id": "rw-런텐-just-run10-대구-2026-11-21",
@@ -21334,7 +24554,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/just-run10-daegu/"
+    "applyUrl": "https://runningwikii.com/entry/just-run10-daegu/",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.7,
+      "maxAvg": 18.6,
+      "rainYears": 0,
+      "hottestYear": 2020,
+      "hottestMax": 25.3,
+      "station": "�뱸",
+      "stationKm": 5
+    }
   },
   {
     "id": "rr-자이스-스마일-레이스-2026-11-22",
@@ -21432,7 +24662,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.djrun.kr/"
+    "applyUrl": "http://www.djrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": 2.4,
+      "maxAvg": 17.9,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 22.0,
+      "station": "���굿",
+      "stationKm": 2
+    }
   },
   {
     "id": "rm-자이스-스-레이스-2026-11-22",
@@ -21533,7 +24773,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mujumarathon.com"
+    "applyUrl": "http://mujumarathon.com",
+    "climate": {
+      "years": 10,
+      "minAvg": -4.4,
+      "maxAvg": 17.5,
+      "rainYears": 3,
+      "hottestYear": 2020,
+      "hottestMax": 22.2,
+      "station": "�ݻ걺",
+      "stationKm": 20
+    }
   },
   {
     "id": "rr-제6회-고용노동부장관배-직장인마라톤대회-2026-11-22",
@@ -21628,7 +24878,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.7,
+      "maxAvg": 17.2,
+      "rainYears": 2,
+      "hottestYear": 2019,
+      "hottestMax": 21.1,
+      "station": "���뵿",
+      "stationKm": 27
+    }
   },
   {
     "id": "rm-평화런-2026-11-28",
@@ -21679,7 +24939,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/c2cec79b-c38a-4832-bf4f-7ecb499cdcd5/guide/overview"
+    "applyUrl": "http://mara1080.com/event/c2cec79b-c38a-4832-bf4f-7ecb499cdcd5/guide/overview",
+    "climate": {
+      "years": 10,
+      "minAvg": -4.0,
+      "maxAvg": 14.9,
+      "rainYears": 2,
+      "hottestYear": 2025,
+      "hottestMax": 19.0,
+      "station": "���뵿",
+      "stationKm": 1
+    }
   },
   {
     "id": "rr-목욕런-2026-2026-11-28",
@@ -21776,7 +25046,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://gimhaemarathon.imweb.me/"
+    "applyUrl": "http://gimhaemarathon.imweb.me/",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.7,
+      "maxAvg": 17.4,
+      "rainYears": 1,
+      "hottestYear": 2022,
+      "hottestMax": 21.6,
+      "station": "���걸",
+      "stationKm": 13
+    }
   },
   {
     "id": "rr-제14회-안중근-평화-마라톤-2026-11-29",
@@ -21852,7 +25132,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runwithus.co.kr"
+    "applyUrl": "http://runwithus.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.2,
+      "maxAvg": 13.6,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 17.9,
+      "station": "���뵿",
+      "stationKm": 25
+    }
   },
   {
     "id": "rr-2026-정읍공동체-프리마켓-마라톤-2026-11-29",
@@ -21878,7 +25168,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.xn--ob0bs4k27c8xc9da633vynbkyur2ft5hckl.kr/"
+    "applyUrl": "http://www.xn--ob0bs4k27c8xc9da633vynbkyur2ft5hckl.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.5,
+      "maxAvg": 15.8,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 21.6,
+      "station": "���긮",
+      "stationKm": 21
+    }
   },
   {
     "id": "rm-가족부-2인1조-단체전-3인1조-2026-정읍공동체-프리마켓-마라톤-2026-11-29",
@@ -21902,7 +25202,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--ob0bs4k27c8xc9da633vynbkyur2ft5hckl.kr/"
+    "applyUrl": "http://www.xn--ob0bs4k27c8xc9da633vynbkyur2ft5hckl.kr/",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.5,
+      "maxAvg": 15.8,
+      "rainYears": 2,
+      "hottestYear": 2022,
+      "hottestMax": 21.6,
+      "station": "���긮",
+      "stationKm": 21
+    }
   },
   {
     "id": "rr-2026-천안-희망나눔-마라톤-2026-11-29",
@@ -21927,7 +25237,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runwithus.co.kr"
+    "applyUrl": "http://runwithus.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -3.2,
+      "maxAvg": 13.6,
+      "rainYears": 1,
+      "hottestYear": 2025,
+      "hottestMax": 17.9,
+      "station": "���뵿",
+      "stationKm": 25
+    }
   },
   {
     "id": "rr-2026-원주-치악마라톤-2026-11-29",
@@ -22120,7 +25440,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/df4b4e7d-4fbc-4843-858c-f15c032e92cb"
+    "applyUrl": "http://mara1080.com/event/df4b4e7d-4fbc-4843-858c-f15c032e92cb",
+    "climate": {
+      "years": 10,
+      "minAvg": -7.5,
+      "maxAvg": 13.4,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 18.8,
+      "station": "�ݻ걺",
+      "stationKm": 12
+    }
   },
   {
     "id": "rm-2026월드-레코드-국제-마라톤-축제-사웨-2026-12-05",
@@ -22143,7 +25473,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/guide/overview"
+    "applyUrl": "http://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/guide/overview",
+    "climate": {
+      "years": 10,
+      "minAvg": -7.5,
+      "maxAvg": 13.4,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 18.8,
+      "station": "�ݻ걺",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-사바스티안-사웨-초청기념-월드레코드-마라톤축제-2026-12-05",
@@ -22339,7 +25679,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.busanmarathon.com"
+    "applyUrl": "http://www.busanmarathon.com",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.6,
+      "maxAvg": 16.0,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 20.7,
+      "station": "�λ걤����",
+      "stationKm": 12
+    }
   },
   {
     "id": "ro-부산바다마라톤-2026-12-06",
@@ -22362,7 +25712,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "https://www.runneron.com/marathon/부산바다마라톤"
+    "applyUrl": "https://www.runneron.com/marathon/부산바다마라톤",
+    "climate": {
+      "years": 10,
+      "minAvg": -0.6,
+      "maxAvg": 16.0,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 20.7,
+      "station": "�λ걤����",
+      "stationKm": 9
+    }
   },
   {
     "id": "rr-제20회-양산전국하프마라톤-2026-12-06",
@@ -22434,7 +25794,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.youthrun.co.kr"
+    "applyUrl": "http://www.youthrun.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -1.2,
+      "maxAvg": 13.9,
+      "rainYears": 1,
+      "hottestYear": 2018,
+      "hottestMax": 19.6,
+      "station": "���굿",
+      "stationKm": 5
+    }
   },
   {
     "id": "rr-제1회-정읍-고향사랑기부마라톤-2026-12-06",
@@ -22485,7 +25855,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ysmarathon.kr"
+    "applyUrl": "http://ysmarathon.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.8,
+      "maxAvg": 14.9,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 20.8,
+      "station": "���걸",
+      "stationKm": 2
+    }
   },
   {
     "id": "rr-2026-화순고인돌마라톤-2026-12-06",
@@ -22759,7 +26139,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.jinma.co.kr"
+    "applyUrl": "http://www.jinma.co.kr",
+    "climate": {
+      "years": 10,
+      "minAvg": -2.2,
+      "maxAvg": 14.2,
+      "rainYears": 1,
+      "hottestYear": 2023,
+      "hottestMax": 20.0,
+      "station": "�뿵",
+      "stationKm": 46
+    }
   },
   {
     "id": "rr-제2회-일자산tral-running-2026-12-13",
@@ -23070,7 +26460,17 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "https://www.runneron.com/marathon/대구국제마라톤"
+    "applyUrl": "https://www.runneron.com/marathon/대구국제마라톤",
+    "climate": {
+      "years": 10,
+      "minAvg": 3.0,
+      "maxAvg": 24.0,
+      "rainYears": 4,
+      "hottestYear": 2018,
+      "hottestMax": 27.2,
+      "station": "�뱸",
+      "stationKm": 6
+    }
   },
   {
     "id": "ro-제9회-오션뷰-기장바다마라톤-2027-04-18",
