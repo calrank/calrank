@@ -562,7 +562,8 @@ def attach_climate(events: list) -> int:
         if not s:
             ev.pop("climate", None)
             continue
-        ev["climate"] = dict(s, station=best["name"], stationKm=round(bd))
+        ev["climate"] = dict(s, station=best["name"], stationKm=round(bd),
+                             approx=bool(ev.get("geoApprox")))
         filled += 1
     return filled
 
@@ -575,9 +576,16 @@ def build_climate(ev: dict) -> str:
     lo, hi, yrs = c["minAvg"], c["maxAvg"], c["years"]
     rain, station, km = c.get("rainYears", 0), esc(c["station"]), c["stationKm"]
 
-    bits = ["최근 %d년 이 대회 날 둘레의 기온은 아침 최저 평균 %.1f도, 낮 최고 평균 "
-            "%.1f도였습니다. %s 관측소 기준이고 대회장에서 %dkm 떨어져 있습니다."
-            % (yrs, lo, hi, station, km)]
+    # 좌표를 장소명이 아니라 행정구역에서 얻은 대회가 있다. 그럴 때
+    # '대회장에서 N km' 는 실제로 '시·군 중심에서 N km' 라서, 가진 것보다
+    # 정확한 척하는 문장이 된다. 그런 경우에는 거리를 말하지 않는다.
+    head = ("최근 %d년 이 대회 날 둘레의 기온은 아침 최저 평균 %.1f도, 낮 최고 평균 "
+            "%.1f도였습니다. " % (yrs, lo, hi))
+    if c.get("approx"):
+        head += "%s 관측소 기준입니다." % station
+    else:
+        head += "%s 관측소 기준이고 대회장에서 %dkm 떨어져 있습니다." % (station, km)
+    bits = [head]
 
     # 아침 기온이 최적 구간의 어디에 있느냐로 결론이 갈린다
     if lo > OPT_HI:
