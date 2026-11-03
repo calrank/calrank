@@ -222,14 +222,15 @@ def build_record_standards(ev: dict) -> str:
     slug = _GRADE_SLUG.get(main)
     link = ""
     if slug:
-        link = (f' 20대부터 75세까지 나이별 전체 기준은 '
-                f'<a href="/grade-{slug}-male.html">{lab} 남성 등급표</a>와 '
-                f'<a href="/grade-{slug}-female.html">여성 등급표</a>에 있습니다.')
+        link = (f' 나이별 전체 기준표는 '
+                f'<a href="/grade-{slug}-male.html">남성</a>·'
+                f'<a href="/grade-{slug}-female.html">여성</a> 등급표에 있습니다.')
 
     return (
-        f"이 대회 {lab}를 기준으로 보면, 40대 남성은 {m_avg} 안에 들어오면 '꾸준한 러너', "
-        f"{m_good} 안쪽이면 '매우 좋은 편'에 해당합니다. 40대 여성은 각각 {f_avg}, {f_good}입니다. "
-        f"WMA(세계마스터즈육상연맹) 연령 기준표를 쓴 참고용 수치이고, 공인 기록은 아닙니다.{link}"
+        f"이 대회 {lab}에서 40대 남성 {m_avg}, 40대 여성 {f_avg}이 "
+        f"'꾸준한 러너' 선입니다. 나이와 성별, 자기 기록을 넣으면 등급이 바로 나옵니다 — "
+        f'<a href="/level.html?d={main:g}">{lab} 등급 확인하기 →</a>'
+        f"{link}"
     )
 
 
@@ -493,6 +494,75 @@ def build_day_context(ev: dict, same_day: dict) -> str:
     return ('<h2 class="ev-h2">%s</h2>' % title
             + "".join('<p class="ev-p">%s</p>' % b for b in bits))
 
+# ── 그날 보통 어떤 날씨였나 ──────────────────────────────────────────
+#
+# 대회마다 숫자가 아니라 '결론'이 달라지는 유일한 자료다. 기상청 종관기상관측
+# 일자료로 대회 날 ±3일을 최근 10년 모아 접은 값이고, fetch_race_climate.py 가
+# events.json 의 climate 칸에 넣어 둔다.
+#
+# 기온 기준은 사이트 다른 곳과 같은 걸 쓴다 — 마라톤 기록이 가장 잘 나오는
+# 구간 3.8~9.9℃ (El Helou 외, PLoS ONE 2012;7(5):e37407). 여기서만 다른 숫자를
+# 쓰면 같은 사이트에서 말이 엇갈린다.
+OPT_LO, OPT_HI = 3.8, 9.9
+
+
+def build_climate(ev: dict) -> str:
+    c = ev.get("climate") or {}
+    need = ("years", "minAvg", "maxAvg", "station", "stationKm")
+    if not all(k in c for k in need):
+        return ""
+    lo, hi, yrs = c["minAvg"], c["maxAvg"], c["years"]
+    rain, station, km = c.get("rainYears", 0), esc(c["station"]), c["stationKm"]
+
+    bits = ["최근 %d년 이 대회 날 둘레의 기온은 아침 최저 평균 %.1f도, 낮 최고 평균 "
+            "%.1f도였습니다. %s 관측소 기준이고 대회장에서 %dkm 떨어져 있습니다."
+            % (yrs, lo, hi, station, km)]
+
+    # 아침 기온이 최적 구간의 어디에 있느냐로 결론이 갈린다
+    if lo > OPT_HI:
+        over = lo - OPT_HI
+        bits.append("기록이 가장 잘 나오는 %.1f~%.1f도 구간을 아침부터 %.1f도 "
+                    "웃돌던 날씨입니다. 더위에 맞춰 페이스를 낮춰 잡고 물을 "
+                    "자주 마시는 편이 안전합니다." % (OPT_LO, OPT_HI, over))
+    elif hi < OPT_LO:
+        bits.append("기록이 가장 잘 나오는 %.1f~%.1f도 구간보다 하루 종일 추웠던 "
+                    "날씨입니다. 출발 전 체온을 지키는 것과 장갑·귀마개가 "
+                    "기록보다 먼저입니다." % (OPT_LO, OPT_HI))
+    elif lo >= OPT_LO and hi <= OPT_HI:
+        bits.append("기록이 가장 잘 나오는 %.1f~%.1f도 구간에 하루가 통째로 "
+                    "들어옵니다. 날씨만 보면 기록을 노려볼 만한 때입니다."
+                    % (OPT_LO, OPT_HI))
+    elif lo < OPT_LO and hi <= OPT_HI:
+        bits.append("아침에는 %.1f~%.1f도 구간보다 춥고 낮이 되어야 그 안에 "
+                    "들어옵니다. 출발할 때 입고 있다가 벗을 수 있는 옷차림이 "
+                    "낫습니다." % (OPT_LO, OPT_HI))
+    elif lo >= OPT_LO and hi > OPT_HI:
+        bits.append("아침은 %.1f~%.1f도 구간 안이지만 낮에는 그 위로 올라갑니다. "
+                    "뒤로 갈수록 더워지니 초반에 무리하지 않는 편이 낫습니다."
+                    % (OPT_LO, OPT_HI))
+    else:
+        # 아침은 구간보다 춥고 낮에는 구간 위로 올라간다 — 일교차가 큰 날이다
+        bits.append("아침은 %.1f~%.1f도 구간보다 춥고 낮에는 그 위로 올라갑니다. "
+                    "하루 사이 %.1f도가 움직이니, 출발 전 겉옷을 어디에 맡길지 "
+                    "미리 정해 두는 편이 낫습니다."
+                    % (OPT_LO, OPT_HI, hi - lo))
+
+    tail = []
+    if rain >= 3:
+        tail.append("%d년 중 %d번은 이 날 비가 왔습니다" % (yrs, rain))
+    elif rain == 0:
+        tail.append("최근 %d년 동안 이 날 비가 온 해는 없었습니다" % yrs)
+    hy, hm = c.get("hottestYear"), c.get("hottestMax")
+    if hy and hm and hm - hi >= 3.0:
+        tail.append("가장 더웠던 %d년에는 %.1f도까지 올랐습니다" % (hy, hm))
+    if tail:
+        bits.append(" · ".join(tail) + ".")
+
+    return ('<h2 class="ev-h2">이 날은 보통 어떤 날씨였나</h2>'
+            + "".join('<p class="ev-p">%s</p>' % b for b in bits)
+            + '<p class="ev-src">기상청 종관기상관측(ASOS) 일자료 · '
+              '기온 기준은 El Helou 외, <i>PLoS ONE</i> 2012;7(5):e37407</p>')
+
 def build_related_links(ev: dict) -> str:
     links = []
     sport = ev.get("sport")
@@ -525,27 +595,23 @@ def _hms(total_sec: int) -> str:
 
 
 def build_pace_table(ev: dict) -> str:
-    """이 대회 거리를 km당 페이스로 환산한 표. 단순 곱셈이라 틀릴 일이 없다."""
+    """페이스·등급 표는 거리별 전용 페이지에 한 장만 둔다.
+
+    km당 페이스 → 완주 시간은 거리만 정해지면 내용이 완전히 같아지는 표다.
+    822장에 같은 표를 복제하면 검색엔진에는 822장이 한 장으로 보이고,
+    방문자에게도 자기 기록을 넣어 볼 곳이 없다. 그래서 여기서는
+    이 대회 거리로 미리 맞춰 둔 계산기로 보낸다.
+    """
     kms = _parse_km(ev.get("distances"))
     if not kms:
         return ""
-    km = kms[-1]                      # 가장 긴 거리 하나만. 표가 여럿이면 지저분하다
-    rows = []
-    for pace in _PACE_MIN:
-        pm, ps = int(pace), int(round((pace - int(pace)) * 60))
-        rows.append(
-            f"<tr><td>{pm}분 {ps:02d}초</td><td>{_hms(km * pace * 60)}</td></tr>"
-        )
+    km = kms[-1]
     label = _km_label(km)
-    # "10km(10km)" 처럼 겹쳐 쓰지 않는다. 하프·풀코스일 때만 km 를 덧붙인다.
-    shown = label if label.endswith("km") else f"{label}({km:g}km)"
     return (
-        f'<h2 class="ev-h2">{esc(label)} 페이스별 완주 시간</h2>'
-        f'<p class="ev-p">이 대회 {esc(shown)}를 km당 몇 분으로 달리면 '
-        f"몇 시간에 들어오는지입니다. 목표 시간을 정할 때 쓰세요.</p>"
-        '<table class="ev-pace"><thead><tr><th>km당 페이스</th>'
-        f"<th>{esc(label)} 완주 시간</th></tr></thead><tbody>"
-        + "".join(rows) + "</tbody></table>"
+        f'<p class="ev-p ev-tool">목표 시간을 정하는 중이라면 '
+        f'<a href="/level.html?d={km:g}">{esc(label)} 페이스·등급 계산기</a>에서 '
+        f"이 대회 거리로 바로 맞춰 볼 수 있습니다. "
+        f"기록을 넣으면 km당 페이스와 등급이 같이 나옵니다.</p>"
     )
 
 
@@ -613,6 +679,7 @@ EXTRA_CSS = """
   .ev-extra{margin-top:40px;}
   .ev-h2{font-size:17px;margin:32px 0 10px;}
   .ev-p{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:0 0 12px;}
+  .ev-src{font-size:12px;line-height:1.7;color:var(--ink-faint);margin:6px 0 0;}
   .ev-pace{width:100%;max-width:420px;border-collapse:collapse;font-size:14px;}
   .ev-pace th,.ev-pace td{padding:8px 10px;text-align:left;
     border-bottom:1px solid rgba(255,255,255,.08);}
@@ -691,6 +758,7 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
     out = out.replace(marker, summary_block + marker, 1)
 
     extra = "".join(filter(None, [
+        build_climate(ev),
         build_day_context(ev, ctx.get("by_date", {})),
         build_pace_table(ev),
         build_other_editions(ev, ctx),
