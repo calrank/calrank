@@ -95,6 +95,9 @@ jobs:
           git config user.name "calrank-bot"
           git config user.email "bot@calrank.local"
           git add events.json sitemap-events.xml feed.ics feed-*.ics
+          # 사이트맵 lastmod 대장. 내용이 실제로 바뀐 날만 찍히므로
+          # 이 파일이 빠지면 매 실행마다 전부 오늘로 되돌아간다.
+          git add data/
           git add event_aliases.json vercel.json
           git add index.html
           git add e/ aquathlon.html
