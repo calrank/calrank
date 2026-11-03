@@ -84,17 +84,38 @@ WINDOW = 3               # 대회 날 ±며칠까지 같이 볼지 (그날 하�
 MIN_YEARS = 4            # 이보다 적게 모이면 말하지 않는다
 
 
-def http_get(url, tries=3, timeout=20):
+def http_bytes(url, tries=3, timeout=20):
     last = None
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "calrank/1.0"})
             with urllib.request.urlopen(req, timeout=timeout) as r:
-                return r.read().decode("utf-8", "replace")
+                return r.read()
         except Exception as e:                      # noqa: BLE001
             last = e
             time.sleep(1.0 * (i + 1))
     raise RuntimeError("요청 실패: %s" % last)
+
+
+def http_get(url, tries=3, timeout=20):
+    return http_bytes(url, tries, timeout).decode("utf-8", "replace")
+
+
+def http_get_korean(url, tries=3, timeout=20):
+    """API허브 typ01 평문은 EUC-KR 로 온다.
+
+    UTF-8 로 읽으면 지점 이름이 통째로 깨지고, 한글을 못 찾은 줄이 버려져
+    105곳이 19곳으로 줄어든다. 실제로 그렇게 됐었다.
+    """
+    raw = http_bytes(url, tries, timeout)
+    for enc in ("euc-kr", "cp949", "utf-8"):
+        try:
+            got = raw.decode(enc)
+        except (UnicodeDecodeError, LookupError):
+            continue
+        if any("가" <= c <= "힣" for c in got):
+            return got
+    return raw.decode("utf-8", "replace")
 
 
 def call(base_path, params, key):
@@ -219,7 +240,7 @@ def _stations_from_apihub(auth):
     raw = None
     for path in APIHUB_STN_PATHS:
         try:
-            got = http_get(APIHUB_BASE + path + "?" + qs)
+            got = http_get_korean(APIHUB_BASE + path + "?" + qs)
         except Exception as e:                      # noqa: BLE001
             print("[climate] API허브 %s — %s" % (path, e))
             continue
