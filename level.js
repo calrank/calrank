@@ -1712,6 +1712,29 @@ async function shareCard(result, inputs, btn) {
 // 대회 페이지에서 넘어올 때 거리를 미리 채워 둔다.
 // 대회를 뛰고 나서 "내 기록이 뭐지" 하고 넘어오는 길이라, 거리를 다시
 // 고르게 하면 거기서 떨어진다. ?d=10 또는 ?d=21.0975 를 받는다.
+// 글이나 대회 페이지를 타고 들어온 사람은 이미 무엇인지 알고 온다.
+// 그런데 첫 화면은 사진과 설명이 차지하고 입력칸은 320px 아래에 있다
+// (390px 폭에서 잰 값이다). 읽으러 온 사람에게는 맞는 구성이지만,
+// 기록을 넣으러 온 사람에게는 같은 설명을 또 읽히는 셈이다.
+// 그래서 주소에 의도가 실려 있을 때만 입력칸으로 내려 준다.
+// 검색으로 들어온 사람의 화면은 그대로 둔다.
+function scrollToFormIfAsked() {
+  try {
+    const q = new URLSearchParams(location.search);
+    const asked = location.hash === "#now" || location.hash === "#form"
+               || q.has("d") || q.has("t");
+    if (!asked) return;
+    const form = document.getElementById("levelForm");
+    if (!form) return;
+    // 레이아웃이 자리를 잡은 뒤에 옮긴다. 바로 부르면 사진이 로드되면서
+    // 높이가 바뀌어 엉뚱한 곳에 선다.
+    requestAnimationFrame(() => {
+      setTimeout(() => form.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+    });
+  } catch (e) {}
+}
+
+
 function prefillFromUrl() {
   try {
     const q = new URLSearchParams(location.search);
@@ -1746,6 +1769,7 @@ function prefillFromUrl() {
 function init() {
   wirePreview();
   prefillFromUrl();
+  scrollToFormIfAsked();
   document.getElementById("levelForm").addEventListener("submit", (e) => {
     e.preventDefault();
 
