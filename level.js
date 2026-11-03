@@ -1161,21 +1161,24 @@ function drawCard(ctx, d) {
 
   ctx.textAlign = "center";
   ctx.fillStyle = "#FFFFFF";
-  setFont(ctx, 900, 30);
-  ctx.letterSpacing = "3px";
-  ctx.fillText("LEVEL", bx, by + 10);
+  setFont(ctx, 900, 26);
+  ctx.letterSpacing = "2px";
+  ctx.fillText("연령등급", bx, by + 10);
   ctx.letterSpacing = "0px";
 
   // 큰 숫자 — 강조색. 축이 흔들리지 않게 바깥 글자 없이 가운데 하나만 둔다.
-  // '7단계 중 몇 번째'는 아래 '체력 수준 구간' 목록이 그대로 보여준다.
   const baseY = by + 94;
   const gNum = ctx.createLinearGradient(0, baseY - 70, 0, baseY);
   gNum.addColorStop(0, "#FF8A62");
   gNum.addColorStop(1, "#EF3C16");
+  // 순위(7단계 중 몇 번째)가 아니라 연령등급 %를 싣는다.
+  // 순위는 중앙값 아래 절반이 올릴 수 없는 숫자지만, 연령등급은
+  // 나이를 반영한 값이라 절대 기록이 느린 사람에게도 내세울 수 있다.
   ctx.fillStyle = gNum;
-  setFont(ctx, 900, 92);
+  const pctText = d.agePct === "–" ? "–" : d.agePct + "%";
+  fitFont(ctx, pctText, 900, 92, 206, 46);
   ctx.textAlign = "center";
-  ctx.fillText(String(d.step), bx, baseY);
+  ctx.fillText(pctText, bx, baseY);
   ctx.textAlign = "left";
 
   // ── 기록 줄 ────────────────────────────────────────────
@@ -1211,7 +1214,8 @@ function drawCard(ctx, d) {
   });
 
   // ── 왼쪽: 거리별 환산 ───────────────────────────────────
-  const pY = 492, pH = 520, pW = (R - L - 28) / 2;
+  // 오른쪽 패널을 내려서 전폭을 쓴다.
+  const pY = 492, pH = 520, pW = R - L;
   ctx.fillStyle = PANEL;
   roundRect(ctx, L, pY, pW, pH, 18); ctx.fill();
   ctx.strokeStyle = LINE; ctx.lineWidth = 1.5; ctx.stroke();
@@ -1224,7 +1228,7 @@ function drawCard(ctx, d) {
   setFont(ctx, 400, 20);
   ctx.fillText("같은 체력이라면 이 정도", L + 30, pY + 82);
 
-  const rowY0 = pY + 118, rowH = 62;
+  const rowY0 = pY + 126, rowH = 66;
   d.equivalents.forEach((e, i) => {
     const y = rowY0 + i * rowH;
     if (e.current) {
@@ -1242,97 +1246,38 @@ function drawCard(ctx, d) {
     ctx.textAlign = "left";
   });
 
-  const spY = rowY0 + d.equivalents.length * rowH + 18;
-  ctx.fillStyle = "rgba(255,61,26,.08)";
-  roundRect(ctx, L + 18, spY, pW - 36, 86, 12); ctx.fill();
-  iconCircle(ctx, L + 64, spY + 43, 26, "trend", d.icons);
-  ctx.fillStyle = INK_FAINT;
-  setFont(ctx, 400, 21);
-  ctx.fillText("평균 속도", L + 106, spY + 33);
-  ctx.fillStyle = INK;
-  setFont(ctx, 900, 36);
-  ctx.fillText(d.speed, L + 106, spY + 75);
-  const spw = ctx.measureText(d.speed).width;
-  ctx.fillStyle = INK_SOFT;
-  setFont(ctx, 400, 20);
-  ctx.fillText("km/h", L + 112 + spw, spY + 75);
+  // 평균 속도는 뺐다 — 페이스와 같은 값을 단위만 바꿔 두 번 싣고 있었다.
+  // 그 자리에 '보는 사람이 자기를 잴 수 있는 기준선'을 하나 둔다.
+  // 실용성은 공유를 경외와 같은 크기로 밀어 올리는 변수인데
+  // (Berger & Milkman 2012, β = .34), 지금 카드에는 받는 사람 몫이 없었다.
+  const ref = (d.tiers || []).find((t) => t.label === "꾸준한 러너");
+  if (ref && ref.cut) {
+    const bY = rowY0 + d.equivalents.length * rowH + 8;
+    ctx.fillStyle = "rgba(255,61,26,.08)";
+    roundRect(ctx, L + 18, bY, pW - 36, 76, 12); ctx.fill();
+    ctx.strokeStyle = "rgba(255,61,26,.28)"; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = INK_FAINT;
+    setFont(ctx, 400, 21);
+    ctx.fillText(`${d.age}세 ${d.genderLabel} ${d.distance} 기준`, L + 44, bY + 30);
+    ctx.fillStyle = INK;
+    setFont(ctx, 900, 28);
+    ctx.fillText("'꾸준한 러너' 선", L + 44, bY + 62);
+    ctx.textAlign = "right";
+    ctx.fillStyle = ACCENT;
+    setFont(ctx, 900, 34);
+    ctx.fillText(ref.cut, L + pW - 44, bY + 56);
+    ctx.textAlign = "left";
+  }
 
   ctx.fillStyle = INK_FAINT;
   setFont(ctx, 400, 18);
   ctx.fillText("WMA 연령 기준표로 환산 · 실제 기록과 다를 수 있습니다", L + 30, pY + pH - 26);
 
-  // ── 오른쪽: 체력 수준 구간 ──────────────────────────────
-  const qX = L + pW + 28;
-  ctx.fillStyle = PANEL;
-  roundRect(ctx, qX, pY, pW, pH, 18); ctx.fill();
-  ctx.strokeStyle = LINE; ctx.lineWidth = 1.5; ctx.stroke();
+  // 체력 수준 구간표와 '다음 등급까지 N 남음'은 카드에서 내렸다.
+  // 페이지에는 그대로 있다. 만든 사람에게는 유용하지만, 남이 볼 때는
+  // 사다리 위 내 위치와 부족분을 공개하는 평가표가 된다. 러너는 느린
+  // 기록을 숨긴다 (Behavioral Sciences 2026, n=225: 3.62 대 2.65).
 
-  ctx.fillStyle = INK;
-  setFont(ctx, 900, 27);
-  ctx.fillText("체력 수준 구간", qX + 30, pY + 50);
-  ctx.fillStyle = INK_FAINT;
-  setFont(ctx, 400, 20);
-  ctx.fillText(`${d.age}세 ${d.genderLabel} ${d.distance} 기준`, qX + 30, pY + 82);
-
-  const tY0 = pY + 104, tH = 44;
-  const chipX = qX + 30, chipW = 44;
-  d.tiers.forEach((t, i) => {
-    const y = tY0 + i * tH, h = tH - 7;
-    ctx.fillStyle = t.current ? ACCENT : "rgba(255,255,255,.035)";
-    roundRect(ctx, qX + 18, y, pW - 36, h, 8); ctx.fill();
-
-    // 레벨 번호 — 배지의 숫자와 같은 축으로 읽히도록 왼쪽에 고정폭으로 둔다
-    ctx.fillStyle = t.current ? "rgba(255,255,255,.22)" : "rgba(255,255,255,.05)";
-    roundRect(ctx, chipX, y + 6, chipW, h - 12, 7); ctx.fill();
-    ctx.textAlign = "center";
-    ctx.fillStyle = t.current ? "#FFFFFF" : INK_FAINT;
-    setFont(ctx, 900, 19);
-    ctx.fillText(String(t.step), chipX + chipW / 2, y + 26);
-
-    ctx.textAlign = "left";
-    ctx.fillStyle = t.current ? "#FFFFFF" : INK_SOFT;
-    setFont(ctx, t.current ? 900 : 400, 22);
-    ctx.fillText(t.label, chipX + chipW + 14, y + 26);
-
-    // 경계 시간은 오른쪽에. 이름만 있으면 받아 본 사람이 견줄 수가 없다.
-    if (t.cut) {
-      ctx.textAlign = "right";
-      ctx.fillStyle = t.current ? "#FFFFFF" : INK_FAINT;
-      setFont(ctx, t.current ? 900 : 400, 20);
-      ctx.fillText(t.cut, qX + pW - 32, y + 26);
-      ctx.textAlign = "left";
-    }
-  });
-
-  if (d.next) {
-    const nY = tY0 + d.tiers.length * tH + 16;
-    ctx.fillStyle = "rgba(255,61,26,.10)";
-    roundRect(ctx, qX + 18, nY, pW - 36, 64, 10); ctx.fill();
-    ctx.fillStyle = INK_SOFT;
-    setFont(ctx, 400, 20);
-    ctx.fillText(`'${d.next.label}'까지`, qX + 38, nY + 26);
-    ctx.fillStyle = ACCENT;
-    setFont(ctx, 900, 28);
-    ctx.textAlign = "right";
-    ctx.fillText(`${fmtGap(d.next.diff)} 남음`, qX + pW - 38, nY + 46);
-    ctx.textAlign = "left";
-  } else {
-    // 최상위 구간이면 '다음 구간' 상자가 비어 구멍이 생긴다. 그 자리를 채운다.
-    const nY = pY + pH - 92;
-    ctx.fillStyle = "rgba(255,61,26,.10)";
-    roundRect(ctx, qX + 22, nY, pW - 44, 70, 14); ctx.fill();
-    ctx.strokeStyle = "rgba(255,61,26,.3)"; ctx.lineWidth = 1.5; ctx.stroke();
-    ctx.fillStyle = ACCENT;
-    setFont(ctx, 900, 26);
-    ctx.fillText("최고 구간", qX + 38, nY + 44);
-    ctx.fillStyle = INK_SOFT;
-    setFont(ctx, 400, 20);
-    ctx.textAlign = "right";
-    ctx.fillText("더 올라갈 구간이 없습니다", qX + pW - 38, nY + 44);
-    ctx.textAlign = "left";
-  }
-
-  // ── 꼬리말 ────────────────────────────────────────────
   const fY = 1020;
   ctx.strokeStyle = LINE; ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(L, fY); ctx.lineTo(R, fY); ctx.stroke();
