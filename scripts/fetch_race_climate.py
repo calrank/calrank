@@ -159,10 +159,22 @@ def call(base_path, params, key):
 def load_stations(key, force=False):
     """지점번호·이름·위경도. 한 번 받아 두면 파일로 재사용한다."""
     if STATIONS.exists() and not force:
-        got = json.loads(STATIONS.read_text(encoding="utf-8"))
-        if got:
+        try:
+            got = json.loads(STATIONS.read_text(encoding="utf-8"))
+        except Exception:                           # noqa: BLE001
+            got = []
+        # 성한 캐시만 다시 쓴다. 전에 인코딩이 깨져 105곳이 19곳으로 줄고
+        # 이름이 뭉개진 채 저장된 적이 있다. 그대로 쓰면 대회마다 엉뚱한
+        # 관측소가 붙는다.
+        ok = (len(got) >= 50
+              and sum(1 for x in got
+                      if any("가" <= c <= "힣" for c in x.get("name", "")))
+                  >= len(got) * 0.9)
+        if ok:
             print("[climate] 지점 %d곳 (캐시)" % len(got))
             return got
+        if got:
+            print("[climate] 캐시가 성하지 않습니다(%d곳). 다시 받습니다." % len(got))
 
     # 1) API허브 키가 있으면 그쪽이 가장 깔끔하다 (한 번에 전체 지점표)
     hub = os.environ.get("KMA_APIHUB_KEY", "").strip()
