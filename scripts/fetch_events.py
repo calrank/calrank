@@ -871,6 +871,52 @@ def _completeness(ev: dict) -> int:
     return score
 
 
+# ── 손으로 바로잡는 자리 ────────────────────────────────────────
+# 소스가 틀린 날짜·이름을 주는 경우가 있다. 자동 규칙으로는 못 고친다 —
+# 같은 이름이 다른 날짜에 있는 36건 중 대부분은 정당한 연례 개최라서
+# (희망드림 2026-02-14 / 2027-02-14), 묶으면 멀쩡한 회차가 사라진다.
+# 그래서 사실을 확인한 것만 data/event_overrides.json 에 적어 두고 쓴다.
+OVERRIDES_PATH = "data/event_overrides.json"
+
+
+def load_overrides() -> dict:
+    try:
+        with open(OVERRIDES_PATH, encoding="utf-8") as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return {"drop": {}, "rename": {}}
+    return {"drop": d.get("drop") or {}, "rename": d.get("rename") or {}}
+
+
+def apply_renames(events: list, ren: dict) -> int:
+    """중복 제거 전에 이름을 맞춰 둔다. 그래야 같은 묶음으로 들어간다."""
+    n = 0
+    for ev in events:
+        new = ren.get(ev.get("id"))
+        if new and ev.get("name") != new:
+            ev["name"] = new
+            n += 1
+    return n
+
+
+def apply_drops(events: list, drop: dict, aliases: dict) -> int:
+    """지정한 id 를 빼고, 그 주소는 같은 대회의 살아남은 쪽으로 넘긴다."""
+    if not drop:
+        return 0
+    bad = set(drop)
+    keep = [e for e in events if e.get("id") not in bad]
+    gone = [e for e in events if e.get("id") in bad]
+    by_norm = {}
+    for e in keep:
+        by_norm.setdefault(normalize_name(e.get("name")), e["id"])
+    for e in gone:
+        target = drop.get(e["id"]) or by_norm.get(normalize_name(e.get("name")))
+        if target:
+            aliases[e["id"]] = target
+    events[:] = keep
+    return len(gone)
+
+
 def dedupe_across_sources(
     events: list[dict], known_ids: "set[str] | None" = None
 ) -> "tuple[list[dict], dict[str, str]]":
@@ -1415,8 +1461,14 @@ def main():
     # 중복 제거는 '합친 뒤 전체'에 대고 한다. 새로 긁어온 것만 정리하면,
     # merge_and_dedupe 가 기존 events.json 을 통째로 seed 로 쓰기 때문에
     # 예전에 쌓인 중복이 그대로 되살아난다.
+    ov = load_overrides()
+    renamed = apply_renames(existing, ov["rename"]) + apply_renames(all_new, ov["rename"])
+
     merged = merge_and_dedupe(existing, all_new)
     merged, aliases = dedupe_across_sources(merged, known_ids=known_ids)
+    dropped = apply_drops(merged, ov["drop"], aliases)
+    if renamed or dropped:
+        print("[events] 수동 보정 — 이름 %d건, 제거 %d건" % (renamed, dropped))
     merged.sort(key=lambda e: e["date"])
 
     live_ids = {ev["id"] for ev in merged if ev.get("id")}
