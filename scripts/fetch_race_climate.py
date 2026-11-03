@@ -53,14 +53,27 @@ PATH_DAILY = "/1360000/AsosDalyInfoService/getWthrDataList"
 # 지점 목록은 경로가 공개 메타데이터에 없다. 추측으로 박으면 대회마다 엉뚱한
 # 지역 기온이 조용히 들어가므로, 되는 경로를 차례로 눌러 보고 안 되면 멈춘다.
 # 틀린 날씨를 넣느니 안 넣는 쪽이 낫다.
+# 맞는 서비스는 "기상청_지점정보(기상관측, 특보구역) 조회서비스" 이고 기본 주소는
+# apis.data.go.kr/1360000/WethrBasicInfoService 다(포털 메타데이터에서 확인).
+# 그 안의 '지상관측지점정보조회' 가 stnId·stnKo·lat·lon·ht 를 준다.
+# 다만 오퍼레이션 영문명이 공개 명세에 없어서, 되는 이름을 눌러 본다.
 PATH_STN_CANDIDATES = [
+    "/1360000/WethrBasicInfoService/getWeatherStnList",
+    "/1360000/WethrBasicInfoService/getStnInfo",
+    "/1360000/WethrBasicInfoService/getSfcStnInfo",
+    "/1360000/WethrBasicInfoService/getGrndStnInfo",
+    "/1360000/WethrBasicInfoService/getWeatherStnInfo",
     "/1360000/SfcInfoService/getStnInfo",
-    "/1360000/SfcMtlyInfoService/getSfcStnLstTbl",
-    "/1360000/AsosDalyInfoService/getStnInfo",
 ]
+# 지상관측지점정보조회는 국가 코드가 필수다(대한민국 2180).
+STN_EXTRA = {"cc": "2180"}
 # 기상청 API허브. 여기에 전체 지상관측 지점표가 있다(지점번호·이름·위경도·고도).
 # 공공데이터포털 키와 다른 키라서 KMA_APIHUB_KEY 가 있을 때만 쓴다.
-APIHUB_STN = "https://apihub.kma.go.kr/api/typ01/url/kma_stnlist.php"
+#
+# 경로는 stn_inf.php 다. 처음에 바깥 문서를 보고 kma_stnlist.php 로 적었는데,
+# API허브 '활용신청 현황'에 찍힌 실제 경로가 /url/stn_inf.php 였다.
+APIHUB_BASE = "https://apihub.kma.go.kr/api/typ01/url/"
+APIHUB_STN_PATHS = ["stn_inf.php", "kma_stnlist.php"]
 
 # 일자료 서비스가 열려 있는지 볼 때 쓰는 지점 후보. 맞는 번호를 모르는 상태라
 # 몇 개를 눌러 본다 — 하나라도 자료가 오면 서비스는 열려 있는 것이다.
@@ -142,7 +155,7 @@ def load_stations(key, force=False):
     # 2) 공공데이터포털의 지점정보 서비스. 경로가 공개돼 있지 않아 차례로 눌러 본다.
     out, used, last_err = [], None, None
     for path in PATH_STN_CANDIDATES:
-        probe, err = call(path, {"pageNo": "1", "numOfRows": "10"}, key)
+        probe, err = call(path, dict(STN_EXTRA, pageNo="1", numOfRows="10"), key)
         if err:
             last_err = "%s → %s" % (path, err)
             continue
@@ -157,7 +170,7 @@ def load_stations(key, force=False):
 
     page = 1
     while page <= 12:
-        items, err = call(used, {"pageNo": str(page), "numOfRows": "100"}, key)
+        items, err = call(used, dict(STN_EXTRA, pageNo=str(page), numOfRows="100"), key)
         if err:
             print("[climate] 지점정보 서비스 — %s" % err, file=sys.stderr)
             return None
@@ -165,11 +178,14 @@ def load_stations(key, force=False):
             break
         for it in items:
             try:
-                sid = int(str(it.get("stnId") or it.get("stnID") or "").strip())
+                raw_id = int(str(it.get("stnId") or it.get("stnID") or "").strip())
                 lat = float(it.get("lat"))
                 lon = float(it.get("lon"))
             except (TypeError, ValueError):
                 continue
+            # 지점정보는 WMO 번호(서울 47108)로 오고, 일자료는 기상청 번호(108)를
+            # 받는다. 그대로 넘기면 전부 빈 응답이 온다. 뒤 세 자리를 쓴다.
+            sid = raw_id % 1000 if raw_id >= 1000 else raw_id
             name = (it.get("stnNm") or it.get("stnKo") or "").strip()
             if not name:
                 continue
@@ -196,12 +212,25 @@ def _save_stations(rows):
 
 def _stations_from_apihub(auth):
     """API허브의 지상관측 지점표. 공백으로 칸을 나눈 평문으로 온다."""
-    url = APIHUB_STN + "?" + urllib.parse.urlencode(
-        {"stn": "0", "help": "0", "authKey": auth})
-    try:
-        raw = http_get(url)
-    except Exception as e:                          # noqa: BLE001
-        print("[climate] API허브 — %s" % e)
+    # inf=SFC 가 지상(종관) 지점이다. AWS·북한·자외선은 각각 AWS·NKO·UV 로,
+    # 빠뜨리면 엉뚱한 지점 묶음이 온다. (API허브 '지상관측 지점정보 조회' 명세)
+    qs = urllib.parse.urlencode(
+        {"inf": "SFC", "stn": "0", "help": "0", "authKey": auth})
+    raw = None
+    for path in APIHUB_STN_PATHS:
+        try:
+            got = http_get(APIHUB_BASE + path + "?" + qs)
+        except Exception as e:                      # noqa: BLE001
+            print("[climate] API허브 %s — %s" % (path, e))
+            continue
+        # 인증 실패나 빈 응답은 본문 길이로 가려낸다
+        if got and len(got) > 400 and "#" in got:
+            print("[climate] API허브 지점표 경로: %s" % path)
+            raw = got
+            break
+        print("[climate] API허브 %s — 응답이 비었거나 짧습니다(%d자)"
+              % (path, len(got or "")))
+    if raw is None:
         return None
     rows = []
     for line in raw.split("\n"):
