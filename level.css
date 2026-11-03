@@ -463,3 +463,9 @@
 .lv-dna-src b{color:var(--ink);}
 .lv-dna-cite{display:block;margin-top:7px;font-size:12px;line-height:1.7;
   color:var(--ink-faint);}
+
+/* 모은 정도를 보여 주는 줄. 부탁만 하고 끝나지 않게. */
+.lv-prog{font-size:12.5px;line-height:1.65;color:var(--ink-soft);
+  margin:0 0 10px;min-height:1px;}
+.lv-prog:empty{display:none;}
+.lv-prog.lv-prog-open{color:var(--ink);font-weight:700;}

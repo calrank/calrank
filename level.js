@@ -725,17 +725,81 @@ function buildStatRow(inputs) {
 // 결과를 막 받은 자리에서 한 번 묻는다. 긴 설명은 아래 블록에 그대로 두되,
 // 동의에 필요한 세 가지(보내는 것 · 안 보내는 것 · 되돌릴 수 없음)는 여기에도 적는다.
 // 아래로 1.7화면을 더 내려가야 부탁이 나오던 구조라, 사실상 아무도 못 보고 있었다.
+
+// ── 지금까지 얼마나 모였나 ─────────────────────────────────────
+// 보태 달라고만 하고 결과를 안 보여 주면, 보탠 사람에게 돌아가는 게 없다.
+// 원본 표는 잠겨 있고 집계 뷰만 열려 있다 — 나오는 건 칸별 인원수와
+// 중앙값뿐이고, 사람이 적은 칸은 중앙값을 아예 내보내지 않는다.
+const STAT_MIN = 5;          // 뷰의 n >= 5 와 같은 값
+
+async function fetchStatsSummary() {
+  const r = await fetch(
+    SB_URL + "/rest/v1/record_stats_public?select=*",
+    { headers: { apikey: SB_KEY } }
+  );
+  if (!r.ok) throw new Error("summary " + r.status);
+  return await r.json();
+}
+
+function progressText(rows, row) {
+  const total = rows.reduce((a, x) => a + (x.n || 0), 0);
+  const mine = rows.find((x) =>
+    x.distance_category === row.distance_category &&
+    x.age_band === row.age_band &&
+    x.gender === row.gender) || { n: 0 };
+  // 거리를 앞에 둔다 — "10km 30대 남성" 쪽이 입에 붙는다
+  const dist = row.distance_category === "half" ? "하프"
+             : row.distance_category === "full" ? "풀코스"
+             : row.distance_category;
+  const who = dist + " " + row.age_band + " "
+            + (row.gender === "male" ? "남성" : "여성");
+
+  if (mine.n >= STAT_MIN && mine.median_sec) {
+    let t = who + " " + mine.n + "명 기준으로 중앙값은 "
+          + fmtClock(mine.median_sec) + "입니다.";
+    if (mine.p25_sec) t += " 빠른 쪽 4분의 1은 " + fmtClock(mine.p25_sec) + " 안쪽입니다.";
+    return { text: t, open: true, total: total };
+  }
+  const left = STAT_MIN - mine.n;
+  return {
+    text: "지금까지 " + total + "명이 기록을 보태 주셨습니다. " + who + " 칸은 "
+        + mine.n + "명 — " + left + "명이 더 모이면 이 칸의 중앙값이 열립니다.",
+    open: false,
+    total: total
+  };
+}
+
+function paintProgress(inputs) {
+  const row = buildStatRow(inputs);
+  if (!row) return;
+  const slots = ["lvProg", "lvProgMini"].map((id) => document.getElementById(id))
+                                        .filter(Boolean);
+  if (!slots.length) return;
+  fetchStatsSummary().then((rows) => {
+    const p = progressText(rows, row);
+    slots.forEach((el) => {
+      el.textContent = p.text;
+      el.classList.toggle("lv-prog-open", p.open);
+    });
+  }).catch(() => {
+    // 못 읽으면 그 줄만 비운다. 등급 결과는 그대로 나온다.
+    slots.forEach((el) => { el.textContent = ""; });
+  });
+}
+
 function giveMini(inputs) {
   const row = buildStatRow(inputs);
   if (!row) return "";
   let done = false;
   try { done = !!localStorage.getItem(statKey(row)); } catch (e) {}
   if (done) {
-    return `<p class="lv-gm-done" data-done="1">이 기록은 통계에 보태 주셨습니다. 고맙습니다.</p>`;
+    return `<p class="lv-gm-done" data-done="1">이 기록은 통계에 보태 주셨습니다. 고맙습니다.</p>
+    <p class="lv-prog" id="lvProgMini"></p>`;
   }
   return `
   <div class="lv-gm" id="lvGiveMini">
-    <p class="lv-gm-ask">같은 또래가 보통 몇 분에 들어오는지는 아직 못 보여 드립니다 — 그 자료가 없어서요.</p>
+    <p class="lv-gm-ask">같은 또래가 보통 몇 분에 들어오는지, 함께 모으는 중입니다.</p>
+    <p class="lv-prog" id="lvProgMini"></p>
     <label class="lv-gm-ck">
       <input type="checkbox" id="lvConsentMini">
       <span><b>거리 · 완주 시간 · 연령대 · 성별</b>만 익명으로 보탭니다.
@@ -756,13 +820,15 @@ function giveBlock(inputs) {
     return `
     <div class="lv-give" data-done="1">
       <p class="lv-give-thanks">이 기록은 이미 통계에 보태 주셨습니다. 고맙습니다.</p>
+      <p class="lv-prog" id="lvProg"></p>
     </div>`;
   }
   return `
   <div class="lv-give" id="lvGive">
     <p class="lv-give-head">같은 또래는 보통 몇 분에 뛸까요</p>
-    <p class="lv-give-body">아직 답해 드릴 수 없습니다. 한국 동호인의 기록 분포 자료가
-    없어서요. 타이밍 업체가 올린 결과에는 이름과 배번이 같이 적혀 있어 가져오지
+    <p class="lv-prog" id="lvProg"></p>
+    <p class="lv-give-body">한국 동호인의 기록 분포는 아무도 공개하지 않습니다.
+    타이밍 업체가 올린 결과에는 이름과 배번이 같이 적혀 있어 가져오지
     않기로 했습니다. 남은 방법은 하나입니다 — 뛰신 분이 직접 보태 주는 것.</p>
     <p class="lv-give-what"><b>보내는 것</b> 거리 · 완주 시간 · 연령대(10년 단위) · 성별, 이 넷뿐입니다.<br>
     <b>보내지 않는 것</b> 이름, 대회, 정확한 생년, 계정. 누구 기록인지 저희도 알 수 없습니다.<br>
@@ -781,9 +847,10 @@ function wireGive(inputs) {
   // 어느 쪽으로 보내든 양쪽이 같이 "보냈음"으로 바뀌어야 두 번 묻지 않는다.
   wireGiveOne(inputs, "lvConsent", "lvGiveBtn", "lvGiveMsg");
   wireGiveOne(inputs, "lvConsentMini", "lvGiveBtnMini", "lvGiveMsgMini");
+  paintProgress(inputs);
 }
 
-function giveDone() {
+function giveDone(inputs) {
   // 양쪽 모두 잠그고, 보낸 자리에는 인사를 남긴다.
   [["lvConsent", "lvGiveBtn", "lvGiveMsg"],
    ["lvConsentMini", "lvGiveBtnMini", "lvGiveMsgMini"]].forEach(([c, b, m]) => {
@@ -794,6 +861,8 @@ function giveDone() {
     if (btn) { btn.disabled = true; btn.textContent = "보태 주셔서 고맙습니다"; }
     if (msg) msg.textContent = "고맙습니다. 표본이 쌓이면 같은 나이·성별 안에서 내 자리를 보여 드릴 수 있습니다.";
   });
+  // 방금 보탠 것이 반영된 숫자를 다시 읽는다 — 올라가는 걸 보게 한다
+  if (inputs) paintProgress(inputs);
 }
 
 function wireGiveOne(inputs, ckId, btnId, msgId) {
@@ -821,7 +890,7 @@ function wireGiveOne(inputs, ckId, btnId, msgId) {
       sb.from("record_stats").insert(row).then((res) => {
         if (res && res.error) { fail("보내지 못했습니다. 잠시 뒤 다시 시도해 주세요."); return; }
         try { localStorage.setItem(statKey(row), "1"); } catch (e) {}
-        giveDone();
+        giveDone(inputs);
       });
     } catch (e) {
       fail("보내지 못했습니다.");
