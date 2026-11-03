@@ -506,6 +506,67 @@ def build_day_context(ev: dict, same_day: dict) -> str:
 OPT_LO, OPT_HI = 3.8, 9.9
 
 
+# ── 기온 평년값 붙이기 ──────────────────────────────────────────
+# events.json 에 실려 오기를 기다리지 않는다. update-events 가 events.json 을
+# 새로 만들면 fetch_race_climate 가 붙여 둔 climate 가 통째로 날아가고,
+# 그러면 822장에서 기온 문단만 조용히 사라진다. (실제로 707개 → 183개가 됐다)
+# 캐시 파일 두 개만 있으면 여기서 다시 붙일 수 있으므로, 순서에 기대지 않는다.
+
+_STATIONS_PATH = ROOT / "data" / "asos_stations.json"
+_CLIMATE_PATH = ROOT / "data" / "race_climate.json"
+_MAX_STATION_KM = 60      # fetch_race_climate.py 와 같은 값
+
+
+def _haversine(lat1, lon1, lat2, lon2):
+    import math
+    r = 6371.0
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dp = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    a = (math.sin(dp / 2) ** 2
+         + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2)
+    return 2 * r * math.asin(math.sqrt(a))
+
+
+def attach_climate(events: list) -> int:
+    """캐시에서 기온 평년값을 각 대회에 붙인다. 붙인 개수를 돌려준다."""
+    if not (_STATIONS_PATH.exists() and _CLIMATE_PATH.exists()):
+        return 0
+    try:
+        stations = json.loads(_STATIONS_PATH.read_text(encoding="utf-8"))
+        cache = json.loads(_CLIMATE_PATH.read_text(encoding="utf-8"))
+    except (ValueError, OSError):
+        return 0
+    if not stations or not cache:
+        return 0
+
+    filled = 0
+    for ev in events:
+        lat, lng, d = ev.get("lat"), ev.get("lng"), ev.get("date")
+        if not (lat and lng and d):
+            ev.pop("climate", None)
+            continue
+        day = parse_date(d)
+        if not day:
+            ev.pop("climate", None)
+            continue
+        best, bd = None, 1e9
+        for st in stations:
+            dist = _haversine(float(lat), float(lng), st["lat"], st["lon"])
+            if dist < bd:
+                bd, best = dist, st
+        if not best or bd > _MAX_STATION_KM:
+            ev.pop("climate", None)
+            continue
+        s = cache.get("%d:%02d%02d" % (best["id"], day.month, day.day))
+        if not s:
+            ev.pop("climate", None)
+            continue
+        ev["climate"] = dict(s, station=best["name"], stationKm=round(bd))
+        filled += 1
+    return filled
+
+
 def build_climate(ev: dict) -> str:
     c = ev.get("climate") or {}
     need = ("years", "minAvg", "maxAvg", "station", "stationKm")
@@ -1223,6 +1284,8 @@ def write_event_archive(wanted: dict) -> None:
 
 def main():
     events = json.loads((ROOT / "events.json").read_text(encoding="utf-8"))
+    n_clim = attach_climate(events)
+    print("[event pages] 기온 평년값 %d개 붙임" % n_clim)
     template = (ROOT / "event.html").read_text(encoding="utf-8")
     cutoff = date.today() - timedelta(days=KEEP_DAYS_AFTER)
 
