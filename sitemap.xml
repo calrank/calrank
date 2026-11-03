@@ -103,6 +103,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://calrank.vercel.app/about.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://calrank.vercel.app/contact.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -913,36 +919,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://calrank.vercel.app/column-howto-cycling-group-ride-etiquette.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-running-after-50-body-change.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-open-water-fear.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-running-bone-density-foot.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-transition-training.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/running-weather.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://calrank.vercel.app/landing-daegu-inline.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -970,31 +946,6 @@
   <url>
     <loc>https://calrank.vercel.app/landing-chungbuk-cycling.html</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-running-achilles-tendon-injury.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-race-day-pacing.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-running-common-myths-evidence.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-2026-11-trail-auto.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-2026-11-marathon-auto.html</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
