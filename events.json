@@ -17052,16 +17052,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://gift.kakao.com/product/14443548?input_channel_id=2630",
-    "forecast": {
-      "tmn": 9.0,
-      "tmx": 16.0,
-      "morningTa": 10.6,
-      "pop": 60,
-      "sky": "비",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-03 04:25"
-    }
+    "applyUrl": "https://gift.kakao.com/product/14443548?input_channel_id=2630"
   },
   {
     "id": "rr-제40회-서봉기단축마라톤-2026-11-06",
@@ -17112,16 +17103,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://cafe.daum.net/seobongmarathon",
-    "forecast": {
-      "tmn": 5.0,
-      "tmx": 14.0,
-      "morningTa": 7.5,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-03 04:25"
-    }
+    "applyUrl": "http://cafe.daum.net/seobongmarathon"
   },
   {
     "id": "rr-gvie-run-2026-구미-2026-11-07",
