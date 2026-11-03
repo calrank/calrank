@@ -741,7 +741,7 @@ async function fetchStatsSummary() {
   return await r.json();
 }
 
-function progressText(rows, row) {
+function progressText(rows, row, gave) {
   const total = rows.reduce((a, x) => a + (x.n || 0), 0);
   const mine = rows.find((x) =>
     x.distance_category === row.distance_category &&
@@ -760,13 +760,16 @@ function progressText(rows, row) {
     if (mine.p25_sec) t += " 빠른 쪽 4분의 1은 " + fmtClock(mine.p25_sec) + " 안쪽입니다.";
     return { text: t, open: true, total: total };
   }
+  // 총계는 내보내지 않는다. 표본이 적을 때 숫자를 밝히면 사회적 증거가
+  // 아니라 '여긴 비어 있다'는 신호가 되어, 들어온 사람을 돌려보낸다.
+  // 보탠 사람에게만 자기 칸이 몇 명인지 보여 준다 — 자기가 움직인 결과는
+  // 보여야 다시 올 이유가 생기고, 그건 그 사람에게만 필요한 정보다.
   const left = STAT_MIN - mine.n;
-  return {
-    text: "지금까지 " + total + "명이 기록을 보태 주셨습니다. " + who + " 칸은 "
-        + mine.n + "명 — " + left + "명이 더 모이면 이 칸의 중앙값이 열립니다.",
-    open: false,
-    total: total
-  };
+  const text = gave
+    ? who + " 칸은 이제 " + mine.n + "명입니다. " + left
+      + "명이 더 모이면 이 칸의 중앙값이 열립니다."
+    : who + " 칸은 " + STAT_MIN + "명이 모이면 중앙값을 보여 드립니다.";
+  return { text: text, open: false, total: total };
 }
 
 function paintProgress(inputs) {
@@ -775,8 +778,10 @@ function paintProgress(inputs) {
   const slots = ["lvProg", "lvProgMini"].map((id) => document.getElementById(id))
                                         .filter(Boolean);
   if (!slots.length) return;
+  let gave = false;
+  try { gave = !!localStorage.getItem(statKey(row)); } catch (e) {}
   fetchStatsSummary().then((rows) => {
-    const p = progressText(rows, row);
+    const p = progressText(rows, row, gave);
     slots.forEach((el) => {
       el.textContent = p.text;
       el.classList.toggle("lv-prog-open", p.open);
