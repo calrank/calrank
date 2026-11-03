@@ -69,6 +69,28 @@
 .tenk-why b{color:var(--ink);}
 .tenk-eq{margin:11px 0 0;font-size:13px;line-height:1.8;color:var(--ink-soft);}
 .tenk-eq b{color:var(--ink);}
+.gap-fig{margin:18px 0 22px;padding:0;}
+.gap-svg{display:block;width:100%;height:auto;overflow:visible;}
+.gap-grid line{stroke:var(--line);stroke-width:1;opacity:.55;}
+.gap-ax text{font-size:13px;fill:var(--ink-faint);font-family:inherit;}
+.gap-ref{stroke:var(--ink-faint);stroke-width:1.5;stroke-dasharray:5 5;opacity:.8;}
+.gap-reft{font-size:12.5px;fill:var(--ink-faint);font-family:inherit;}
+.gap-m{fill:none;stroke:#C42808;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.gap-f{fill:none;stroke:#2F5FBF;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.gap-dot-m circle,circle.gap-dot-m{fill:#C42808;stroke:var(--surface);stroke-width:2;}
+.gap-dot-f circle,circle.gap-dot-f{fill:#2F5FBF;stroke:var(--surface);stroke-width:2;}
+.gap-lbl{font-size:14px;font-weight:700;font-family:inherit;}
+.gap-tm{fill:#C42808;}
+.gap-tf{fill:#2F5FBF;}
+.gap-leg text{font-size:13px;fill:var(--ink-soft);font-family:inherit;}
+.gap-leg .gap-unit{font-size:11.5px;fill:var(--ink-faint);}
+.gap-fig figcaption{margin-top:10px;font-size:12.5px;line-height:1.75;color:var(--ink-faint);}
+@media (prefers-color-scheme: dark){
+  .gap-m{stroke:#FF3D1A;} .gap-f{stroke:#5B8DEF;}
+  .gap-dot-m circle,circle.gap-dot-m{fill:#FF3D1A;}
+  .gap-dot-f circle,circle.gap-dot-f{fill:#5B8DEF;}
+  .gap-tm{fill:#FF3D1A;} .gap-tf{fill:#5B8DEF;}
+}
 </style>
 </head>
 <body>
@@ -271,6 +293,72 @@ calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink
 <p>방법은 간단합니다. 각 나이대의 <b>Running Level 중앙값</b>(인터미디엇, 상위 50% 지점)을
 가져다가, 그 기록이 <b>WMA 연령등급</b>으로는 몇 %에 해당하는지 계산했습니다.
 두 기준이 같은 사람을 똑같이 평가한다면 이 값은 나이와 무관하게 일정해야 합니다.</p>
+
+<figure class="gap-fig">
+<svg viewBox="0 0 680 400" class="gap-svg" role="img"
+     aria-labelledby="gapTitle gapDesc" preserveAspectRatio="xMidYMid meet">
+<title id="gapTitle">나이대별 Running Level 중앙값의 WMA 연령등급</title>
+<desc id="gapDesc">가로축은 20대부터 70대까지, 세로축은 연령등급 백분율입니다.
+남성은 56.5%에서 60.2%로, 여성은 53.1%에서 57.2%로 나이가 많아질수록 올라갑니다.
+두 기준이 같은 사람을 똑같이 평가한다면 두 선은 평평해야 합니다.</desc>
+
+<g class="gap-grid">
+  <line x1="70" y1="300" x2="620" y2="300"/>
+  <line x1="70" y1="230" x2="620" y2="230"/>
+  <line x1="70" y1="161" x2="620" y2="161"/>
+  <line x1="70" y1="91"  x2="620" y2="91"/>
+  <line x1="70" y1="22"  x2="620" y2="22"/>
+</g>
+<g class="gap-ax">
+  <text x="62" y="305" text-anchor="end">52%</text>
+  <text x="62" y="235" text-anchor="end">54.5%</text>
+  <text x="62" y="166" text-anchor="end">57%</text>
+  <text x="62" y="96"  text-anchor="end">59.5%</text>
+  <text x="62" y="27"  text-anchor="end">62%</text>
+  <text x="70"  y="332">20대</text>
+  <text x="180" y="332">30대</text>
+  <text x="290" y="332">40대</text>
+  <text x="400" y="332">50대</text>
+  <text x="510" y="332">60대</text>
+  <text x="620" y="332">70대</text>
+</g>
+
+<line class="gap-ref" x1="70" y1="175" x2="620" y2="175"/>
+<text class="gap-reft" x="345" y="168" text-anchor="middle">두 기준이 일치한다면 이 선처럼 평평해야 합니다</text>
+
+<polyline class="gap-m" points="70,175 180,161 290,111 400,106 510,100 620,72"/>
+<polyline class="gap-f" points="70,269 180,253 290,217 400,183 510,169 620,156"/>
+
+<g class="gap-dot-m">
+  <circle cx="70" cy="175" r="5"/><circle cx="180" cy="161" r="5"/>
+  <circle cx="290" cy="111" r="5"/><circle cx="400" cy="106" r="5"/>
+  <circle cx="510" cy="100" r="5"/><circle cx="620" cy="72" r="5"/>
+</g>
+<g class="gap-dot-f">
+  <circle cx="70" cy="269" r="5"/><circle cx="180" cy="253" r="5"/>
+  <circle cx="290" cy="217" r="5"/><circle cx="400" cy="183" r="5"/>
+  <circle cx="510" cy="169" r="5"/><circle cx="620" cy="156" r="5"/>
+</g>
+
+<text class="gap-lbl gap-tm" x="620" y="56" text-anchor="end">남성 60.2%</text>
+<text class="gap-lbl gap-tf" x="620" y="140" text-anchor="end">여성 57.2%</text>
+<text class="gap-lbl gap-tm" x="70" y="199">56.5%</text>
+<text class="gap-lbl gap-tf" x="70" y="290">53.1%</text>
+
+<g class="gap-leg">
+  <line class="gap-m" x1="70" y1="370" x2="100" y2="370"/>
+  <circle class="gap-dot-m" cx="85" cy="370" r="4.5"/>
+  <text x="108" y="375">남성</text>
+  <line class="gap-f" x1="170" y1="370" x2="200" y2="370"/>
+  <circle class="gap-dot-f" cx="185" cy="370" r="4.5"/>
+  <text x="208" y="375">여성</text>
+  <text class="gap-unit" x="620" y="375" text-anchor="end">세로축 = 그 나이대 중앙값의 WMA 연령등급</text>
+</g>
+</svg>
+<figcaption>나이가 많을수록 또래 중앙값이 그 나이의 세계 기준에 더 가까이 가 있습니다.
+두 기준이 같은 것을 재고 있다면 선은 평평해야 하는데, 그렇지 않습니다.
+Running Level 중앙값(상위 50% 컷오프)을 WMA 2025 연령 기준표로 나눈 값입니다.</figcaption>
+</figure>
 
 <table>
 <thead><tr><th>나이대</th><th>남성 중앙값</th><th>WMA 연령등급</th><th>여성 중앙값</th><th>WMA 연령등급</th></tr></thead>
