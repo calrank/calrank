@@ -12,7 +12,9 @@
   --ink:#15110F;        /* 바탕 대비 16.8:1 */
   --ink-soft:#4A4542;   /* 8.5:1 */
   --ink-faint:#6B6460;  /* 5.2:1 — 작은 글자도 통과 */
-  --accent:#FF3D1A;     /* 채우기·테두리 전용 */
+  --accent:#FF3D1A;     /* 채우기·테두리 전용 — 글자를 얹지 않는다 */
+  --accent-fill:#D62D0A;/* 흰 글자를 얹는 배경. #FF3D1A 는 3.54:1 로
+                           WCAG AA(본문 4.5:1)에 못 미친다. 이 값은 4.95:1 */
   --accent-ink:#C42808; /* 주황 글자용 5.2:1 */
   --on-accent:#FFFFFF;  /* 주황 위에 얹는 글자 */
   --gold:#8A6A00;
@@ -49,6 +51,7 @@
     --ink-soft:#C8C4C2;
     --ink-faint:#8E8E8E;
     --accent:#FF3D1A;
+    --accent-fill:#D62D0A;
     --accent-ink:#FF3D1A;
     --on-accent:#FFFFFF;
     --gold:#D4AF37;
@@ -147,7 +150,7 @@ body{
 .footer-topics a{color:var(--ink-soft);text-decoration:none;}
 .footer-topics a:hover{text-decoration:underline;}
 .lv-share-btn{display:block;width:100%;margin:22px 0 8px;padding:16px 18px;
-  background:var(--accent);color:var(--on-accent);border:0;border-radius:4px;cursor:pointer;
+  background:var(--accent-fill);color:var(--on-accent);border:0;border-radius:4px;cursor:pointer;
   font-family:var(--font-display);font-weight:900;font-size:15.5px;letter-spacing:.3px;}
 .lv-share-btn:hover{filter:brightness(1.08);}
 .lv-share-btn:disabled{opacity:.6;cursor:default;}
@@ -282,7 +285,13 @@ body{
 .modal-field-row .v{color:var(--ink);text-align:right;}
 .modal-apply-btn{
   width:100%;padding:15px;border:none;border-radius:2px;
-  background:var(--sport-color,var(--accent));color:var(--on-accent);
+  /* 종목색은 밝은모드에서 어둡고 다크모드에서 밝다. 흰 글자를 고정하면
+     다크에서 여섯 종목 모두 2.26~3.54:1 로 떨어진다. 바탕색을 글자로
+     쓰면 양쪽 다 뒤집혀서 최악이 4.71:1 이다 (.dday-urgent 와 같은 방식) */
+  /* 대체값도 종목색과 같이 모드에 따라 뒤집혀야 한다. --accent-fill 은
+     양쪽 다 #D62D0A 라 어두운 글자를 얹으면 다크에서 3.97:1 로 떨어진다.
+     --marathon 은 밝은모드 #C42808 / 다크 #FF3D1A 로 뒤집혀 양쪽 다 통과한다. */
+  background:var(--sport-color,var(--marathon));color:var(--bg);
   font-family:var(--font-body);font-size:14px;font-weight:900;letter-spacing:0.3px;
   cursor:pointer;margin-bottom:8px;
 }
@@ -345,7 +354,7 @@ body{
 .tier-card.tier-gold .tier-badge{background:linear-gradient(135deg,#f3d074,#c69a2e);color:var(--surface);}
 .tier-card.tier-gold{box-shadow:0 0 0 1px rgba(212,175,55,0.25);}
 .tier-card.tier-top{border-color:var(--accent);}
-.tier-card.tier-top .tier-badge{background:var(--accent);color:var(--on-accent);}
+.tier-card.tier-top .tier-badge{background:var(--accent-fill);color:var(--on-accent);}
 .tier-card.tier-top{box-shadow:0 0 20px rgba(255,61,26,0.2);}
 .tier-card.tier-elite{border-color:var(--elite-line);background:linear-gradient(160deg, var(--surface) 0%, rgba(120,80,220,0.12) 100%);}
 .tier-card.tier-elite .tier-badge{background:linear-gradient(135deg,var(--elite-line),#8a5cf5);color:var(--on-accent);}
@@ -409,7 +418,7 @@ body{
 .global-compare-btn:hover{border-color:var(--accent);color:var(--ink);}
 .global-compare-form{display:none;gap:6px;margin-top:8px;flex-wrap:wrap;}
 .global-compare-form select{background:var(--bg,var(--bg));color:var(--ink);border:1px solid var(--border,var(--border));border-radius:6px;font-size:12px;padding:4px 6px;}
-.global-compare-submit{background:var(--accent);color:var(--on-accent);border:none;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;}
+.global-compare-submit{background:var(--accent-fill);color:var(--on-accent);border:none;border-radius:6px;font-size:12px;padding:4px 10px;cursor:pointer;}
 .global-compare-result{font-size:12px;color:var(--ink);font-weight:700;margin-top:8px;}
 .global-compare-source{font-size:12px;color:var(--ink-faint,var(--ink-faint));margin-top:4px;}
 
@@ -467,7 +476,7 @@ body{
 .sub-sport.on{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 .sub-go{
   display:block;text-align:center;padding:13px;border-radius:2px;
-  background:var(--accent);color:var(--on-accent);font-weight:900;font-size:14px;text-decoration:none;
+  background:var(--accent-fill);color:var(--on-accent);font-weight:900;font-size:14px;text-decoration:none;
 }
 .sub-manual{margin:14px 0 7px;font-size:12px;line-height:1.7;color:var(--ink-faint);}
 .sub-urlrow{display:flex;gap:6px;align-items:stretch;}
@@ -502,7 +511,7 @@ body{
   text-align:center;text-decoration:none;cursor:pointer;line-height:1.3;
 }
 .ac-btn:hover{border-color:var(--accent);color:var(--accent-ink);}
-.ac-btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
+.ac-btn.pri{background:var(--accent-fill);border-color:var(--accent);color:var(--on-accent);}
 .ac-btn.pri:hover{color:var(--ink);opacity:.9;}
 .ac-note{display:block;margin-top:10px;font-size:12px;line-height:1.65;color:var(--ink-faint);}
 @media (max-width:600px){
@@ -543,7 +552,7 @@ body{
   background:var(--tint-1);border:1px solid var(--line);}
 .ev-after-q{margin:0 0 10px;font-size:15px;font-weight:800;color:var(--ink);}
 .ev-after-btn{display:inline-block;padding:11px 18px;min-height:24px;border-radius:999px;
-  background:var(--accent-ink);color:var(--on-accent);font-size:14px;font-weight:700;
+  background:var(--accent-fill);color:var(--on-accent);font-size:14px;font-weight:700;
   text-decoration:none;}
 .ev-after-btn:hover{filter:brightness(1.08);}
 .ev-after-n{margin:10px 0 0;font-size:12px;line-height:1.7;color:var(--ink-faint);}

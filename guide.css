@@ -125,7 +125,7 @@
 .g-cta{background:linear-gradient(135deg,rgba(255,61,26,.1),rgba(255,61,26,.03));
   border:1px solid rgba(255,61,26,.3);border-radius:10px;padding:22px;margin:34px 0 0;text-align:center;}
 .g-cta-t{font-size:14.5px;color:var(--ink);margin:0 0 13px;line-height:1.7;}
-.g-cta-b{display:inline-block;background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:700;
+.g-cta-b{display:inline-block;background:var(--accent-fill);color:var(--on-accent);font-size:14px;font-weight:700;
   padding:11px 24px;border-radius:7px;text-decoration:none;}
 .g-cta-b:hover{opacity:.9;}
 

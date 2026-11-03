@@ -70,7 +70,7 @@ transition:border-color 0.15s;
 }
 
 /* ===== 대회랭킹 고도화: 등록 유도 CTA + 챔피언 하이라이트 ===== */
-.submit-record-cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 22px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:14px;border-radius:8px;text-decoration:none;}
+.submit-record-cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 22px;background:var(--accent-fill);color:var(--on-accent);font-weight:700;font-size:14px;border-radius:8px;text-decoration:none;}
 .submit-record-cta:hover{filter:brightness(1.08);}
 
 .champion-section{margin:28px 0;}
