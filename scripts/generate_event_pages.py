@@ -19,7 +19,7 @@ import re
 from datetime import date, datetime, timedelta
 import sys
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_nav import site_header  # noqa: E402
@@ -362,6 +362,137 @@ def build_static_content(ev: dict) -> str:
     )
 
 
+# ── 대회 당일의 사정 ────────────────────────────────────────────────
+#
+# 822장이 서로 2/3쯤 같은 글이라 색인이 안 되고 있었다. 틀을 두껍게 하는 걸로는
+# 안 되고, 대회마다 실제로 다른 사실이 들어가야 한다. 지금 가진 것 중에
+# 그런 게 둘 있다 — 좌표와 날짜로 계산되는 해 뜨는 시각, 그리고 같은 날
+# 전국에 몇 개가 열리는지. 둘 다 계산이지 베낀 글이 아니다.
+import sun_times  # noqa: E402
+
+
+def _hhmm(minutes):
+    m = int(round(minutes))
+    return "%d:%02d" % (m // 60 % 24, m % 60)
+
+
+def _start_minutes(ev):
+    t = str(ev.get("time") or "")
+    m = re.match(r"^(\d{1,2}):(\d{2})", t)
+    if not m:
+        return None
+    h, mm = int(m.group(1)), int(m.group(2))
+    if not (0 <= h <= 23 and 0 <= mm <= 59):
+        return None
+    return h * 60 + mm
+
+
+def build_day_context(ev: dict, same_day: dict) -> str:
+    """해 뜨는 시각과 같은 날 사정. 대회마다 다른 값만 쓴다."""
+    lat, lng = ev.get("lat"), ev.get("lng")
+    d = parse_date(ev.get("date"))
+    if not (lat and lng and d):
+        return ""
+    try:
+        rise, set_ = sun_times.sun_times(float(lat), float(lng), d)
+    except Exception:                               # noqa: BLE001
+        return ""
+    if rise is None:
+        return ""
+
+    place = (ev.get("location") or "").split()[0] if ev.get("location") else ""
+    where = place or (ev.get("region") or "이 지역")
+    bits = []
+
+    evening = False
+    start = _start_minutes(ev)
+    if start is None:
+        bits.append(
+            "대회 날 %s의 해는 %s에 떠서 %s에 집니다. 출발 시각은 주최 측 공지를 "
+            "확인해 주세요." % (esc(where), _hhmm(rise), _hhmm(set_)))
+    else:
+        # 해 뜨는 쪽만 보면 저녁 대회에 한낮 조언이 붙는다(울릉나이트런 19:30 에
+        # "모자와 선크림"이 붙었던 적이 있다). 일출과 일몰을 같이 본다.
+        gap = start - rise
+        to_set = set_ - start
+        head = "%s 출발입니다. 그날 %s의 일출은 %s, 일몰은 %s인데," % (
+            _hhmm(start), esc(where), _hhmm(rise), _hhmm(set_))
+
+        if start > set_ + 20:
+            evening = True
+            bits.append(
+                "%s 해가 진 뒤에 출발하는 야간 대회입니다. 처음부터 끝까지 "
+                "어두우니 헤드랜턴과 반사 띠는 선택이 아니라 필수고, 발밑이 안 "
+                "보이는 구간에서 속도를 줄이는 편이 안전합니다." % head)
+        elif to_set <= 10:
+            evening = True
+            bits.append(
+                "%s 해가 지는 시각에 맞춰 출발합니다. 몇 분 지나지 않아 어두워지니 "
+                "헤드랜턴이나 반사 띠를 챙기고, 해가 지면 기온이 빠르게 떨어집니다."
+                % head)
+        elif to_set < 90:
+            evening = True
+            bits.append(
+                "%s 해 지기 %d분 전에 출발합니다. 달리는 중에 어두워지니 "
+                "반사 띠를 챙기고, 해가 지면 기온이 빠르게 떨어집니다."
+                % (head, int(to_set)))
+        elif gap < -30:
+            evening = False
+            bits.append(
+                "%s 출발이 해 뜨기 %d분 전입니다. 처음 한동안은 어두운 채로 "
+                "달리게 되니 헤드랜턴과 반사 띠를 챙기세요. 기온도 해 뜨기 직전이 "
+                "가장 낮습니다." % (head, -gap))
+        elif gap < 20:
+            evening = False
+            bits.append(
+                "%s 해가 막 뜨는 시각에 출발합니다. 출발선에서는 아직 어둑하고 "
+                "몇 km 지나며 밝아집니다." % head)
+        elif gap < 120:
+            evening = False
+            bits.append(
+                "%s 해가 뜨고 %d분 뒤에 출발합니다. 아침 기온이 아직 오르기 전이라 "
+                "출발 전 겉옷을 어떻게 맡길지 정해 두는 편이 낫습니다." % (head, gap))
+        else:
+            evening = False
+            h, m = divmod(gap, 60)
+            when = "%d시간" % h + (" %d분" % m if m else "")
+            bits.append(
+                "%s 해가 뜨고 %s 지난 뒤 출발합니다. 해가 꽤 올라온 시간이라 "
+                "모자와 선크림을 생각해 두세요." % (head, when))
+
+        # 긴 거리는 제한시간 안에 해가 지는지가 실제로 갈린다
+        km = _main_km(ev)
+        if km and km >= 21.0 and not evening and 0 < to_set < 8 * 60:
+            bits.append(
+                "완주에 %d시간 %d분 넘게 걸리면 해가 지고 나서 들어오게 됩니다."
+                % (int(to_set // 60), int(to_set % 60)))
+
+    # 같은 날 전국 사정
+    key = ev.get("date")
+    others = [o for o in same_day.get(key, []) if o.get("id") != ev.get("id")]
+    if others:
+        near = [o for o in others if o.get("region") and o.get("region") == ev.get("region")]
+        if len(near) >= 2:
+            when_word = "교통" if evening else "아침 교통"
+            bits.append(
+                "같은 날 전국에서 %d개 대회가 더 열리고, 그중 %d개가 %s입니다. "
+                "숙소와 %s이 겹칠 수 있습니다."
+                % (len(others), len(near), esc(ev.get("region")), when_word))
+        elif len(others) >= 5:
+            bits.append("같은 날 전국에서 %d개 대회가 더 열립니다." % len(others))
+
+    if not bits:
+        return ""
+    start_for_title = _start_minutes(ev)
+    if start_for_title is not None and start_for_title > set_ - 90:
+        title = "대회 날 저녁은 이렇습니다"
+    elif start_for_title is not None and start_for_title >= 12 * 60:
+        title = "대회 날 그 시간대는 이렇습니다"
+    else:
+        title = "대회 날 아침은 이렇습니다"
+    return ('<h2 class="ev-h2">%s</h2>' % title
+            + "".join('<p class="ev-p">%s</p>' % b for b in bits))
+
 def build_related_links(ev: dict) -> str:
     links = []
     sport = ev.get("sport")
@@ -560,6 +691,7 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
     out = out.replace(marker, summary_block + marker, 1)
 
     extra = "".join(filter(None, [
+        build_day_context(ev, ctx.get("by_date", {})),
         build_pace_table(ev),
         build_other_editions(ev, ctx),
         build_nearby(ev, ctx),
@@ -909,6 +1041,59 @@ def update_sitemap(slugs) -> int:
 
 
 
+# ── 사이트맵의 lastmod ───────────────────────────────────────────────
+#
+# 822개 URL 에 lastmod 가 하나도 없었다. 크롤러에게 "이 페이지가 언제 바뀌었다"를
+# 알려 주는 유일한 신호인데 비어 있고, 대신 들어간 changefreq·priority 는 구글이
+# 공식적으로 무시한다. 재크롤 우선순위가 낮을 수밖에 없다.
+#
+# CI 는 체크아웃마다 파일 시각을 새로 찍으므로 mtime 은 쓸 수 없다. 내용이 실제로
+# 바뀐 날만 대장에 적어 두고 그 값을 사이트맵에 넣는다.
+LASTMOD = ROOT / "data" / "event_lastmod.json"
+
+
+def load_lastmod() -> dict:
+    try:
+        return json.loads(LASTMOD.read_text(encoding="utf-8"))
+    except Exception:                               # noqa: BLE001
+        return {}
+
+
+def save_lastmod(book: dict) -> None:
+    LASTMOD.parent.mkdir(exist_ok=True)
+    LASTMOD.write_text(json.dumps(book, ensure_ascii=False, sort_keys=True,
+                                  indent=0) + "\n", encoding="utf-8")
+
+
+def patch_sitemap_lastmod(book: dict) -> int:
+    """sitemap-events.xml 의 각 <url> 에 lastmod 를 넣거나 고친다."""
+    path = ROOT / "sitemap-events.xml"
+    if not path.exists():
+        return 0
+    xml = path.read_text(encoding="utf-8")
+    touched = 0
+
+    def fix(m):
+        nonlocal touched
+        block = m.group(0)
+        loc = re.search(r"<loc>([^<]+)</loc>", block)
+        if not loc:
+            return block
+        name = unquote(loc.group(1).rsplit("/", 1)[-1])
+        when = book.get(name)
+        if not when:
+            return block
+        block = re.sub(r"\s*<lastmod>[^<]*</lastmod>", "", block)
+        block = block.replace("</loc>", "</loc>\n    <lastmod>%s</lastmod>" % when, 1)
+        touched += 1
+        return block
+
+    new = re.sub(r"<url>.*?</url>", fix, xml, flags=re.S)
+    if new != xml:
+        path.write_text(new, encoding="utf-8")
+    return touched
+
+
 def write_event_archive(wanted: dict) -> None:
     """이미 열린 대회의 상세 페이지를 월별로 엮은 아카이브.
 
@@ -982,20 +1167,30 @@ def main():
         wanted[f"{ev['id']}.html"] = ev
 
     # 관련 대회를 찾으려면 전체 목록이 필요하다. 한 번만 만들어 돌려 쓴다.
-    ctx = {"by_sport": {}, "by_norm": {}}
+    ctx = {"by_sport": {}, "by_norm": {}, "by_date": {}}
     for e in wanted.values():
         ctx["by_sport"].setdefault(e.get("sport"), []).append(e)
         key = _norm_name(e.get("name"))
         if key:
             ctx["by_norm"].setdefault(key, []).append(e)
+        if e.get("date"):
+            ctx["by_date"].setdefault(e["date"], []).append(e)
 
+    book = load_lastmod()
+    _today_iso = date.today().isoformat()
     written = 0
     for fname, ev in wanted.items():
         content = render_page(template, ev, ctx)
         p = OUT_DIR / fname
         if not p.exists() or p.read_text(encoding="utf-8") != content:
             p.write_text(content, encoding="utf-8")
+            book[fname] = _today_iso
             written += 1
+        else:
+            # 대장에 없는 장은 처음 한 번만 오늘로 채운다. 이 스크립트가
+            # 내용이 같으면 파일을 건드리지 않으므로, 이후로는 실제로 바뀐
+            # 날만 찍힌다. 없는 날짜를 지어내지 않으려는 것이다.
+            book.setdefault(fname, _today_iso)
 
     removed = 0
     for p in OUT_DIR.glob("*.html"):
@@ -1003,6 +1198,11 @@ def main():
             p.unlink()
             removed += 1
     print(f"[event pages] 대상 {len(wanted)}개, 갱신 {written}개, 정리 {removed}개")
+
+    # 지금 돌면서 내용이 바뀐 장만 대장에 날짜가 찍혔다. 그 값을 사이트맵에 넣는다.
+    save_lastmod(book)
+    n_lm = patch_sitemap_lastmod(book)
+    print("[sitemap-events.xml] lastmod %d개 반영 (대장 %d칸)" % (n_lm, len(book)))
 
     write_event_index(wanted)
     write_event_archive(wanted)
