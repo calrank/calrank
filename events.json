@@ -41,8 +41,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8713,
+    "lng": 128.6018,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://koreaskate.or.kr/news/schedule/",
@@ -3096,8 +3096,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.2279109,
+    "lng": 128.8895378,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://koreaskate.or.kr/news/schedule/",
@@ -5767,8 +5767,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.9679984,
+    "lng": 126.7369036,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://koreaskate.or.kr/news/schedule/",
@@ -5790,8 +5790,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 38.3808,
+    "lng": 128.4678,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
@@ -5806,7 +5806,8 @@
       "rhm": 47.4,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "cy-2026-여수시-여자만-무탄소-자전거-대행진-2026-06-13",
@@ -6769,8 +6770,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.9479291,
+    "lng": 126.9578025,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
@@ -6785,7 +6786,8 @@
       "rhm": 69.8,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "tri-2026-고령군수배-대가야-전국-철인3종-대회-2026-06-27",
@@ -6803,8 +6805,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.7258,
+    "lng": 128.2632,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
@@ -6819,7 +6821,8 @@
       "rhm": 61.5,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rm-2026-큰별-마라톤-2026-06-27",
@@ -7243,12 +7246,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.9679984,
+    "lng": 126.7369036,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2070&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2070&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "tri-2026-lotte-aquathlon-롯데-아쿠아슬론-대회-2026-07-11",
@@ -7266,12 +7270,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2043&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2043&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-2026-전마협-무주-마라톤-2026-07-11",
@@ -8171,12 +8176,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2808823,
+    "lng": 127.4429132,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2104&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2104&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-러닝-프로그램-2026-서울패션로드-ddp-런더핏-run-the-fit-2026-08-22",
@@ -8218,8 +8224,8 @@
     "organizerPhone": "010-7469-1526",
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.4163118,
+    "lng": 127.3903713,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -8234,7 +8240,8 @@
       "rhm": 67.8,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026대구세계마스터즈-10km대회-2026-08-23",
@@ -8254,8 +8261,8 @@
     "organizerPhone": "053-803-1834",
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8713,
+    "lng": 128.6018,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -8270,7 +8277,8 @@
       "rhm": 68.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-금수산트레일러닝대회-2026-08-23",
@@ -8422,12 +8430,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 34.8804677,
+    "lng": 128.621207,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2041&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2041&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-백범김구선생-탄생150주년기념-손기정하천마라톤-2026-08-29",
@@ -8795,8 +8804,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8713,
+    "lng": 128.6018,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -8811,7 +8820,8 @@
       "rhm": 85.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-포항호미반도트레일런-2026-08-30",
@@ -8910,7 +8920,10 @@
       "rhm": 55.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "lat": 37.3798891,
+    "lng": 126.8032255,
+    "geoApprox": true
   },
   {
     "id": "tri-2026-시흥시장배-거북섬-전국-철인3종대회-토요일-스프린트-일요일-스탠다드-중등부-주니어부-모집-8월-26일-17-00-마감-2026-09-04",
@@ -8929,8 +8942,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3798891,
+    "lng": 126.8032255,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
@@ -8945,7 +8958,8 @@
       "rhm": 55.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "tri-2026-시흥시장배-거북섬-전국-철인3종대회-2026-09-04",
@@ -8963,12 +8977,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3798891,
+    "lng": 126.8032255,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2098&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2098&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-이일선마라톤-2026-09-05",
@@ -9249,12 +9264,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 33.5062324,
+    "lng": 126.5310417,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2110&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2110&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-t-u-2026-다이나핏-태백-트레일-2026-09-05",
@@ -9934,8 +9950,8 @@
     "organizerPhone": "02-6285-7428",
     "regDeadline": "2026-08-31",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -9950,7 +9966,8 @@
       "rhm": 68.4,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rm-2026-장수-레드푸드레이스-2026-09-12",
@@ -10254,8 +10271,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8198999,
+    "lng": 127.109,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -10270,7 +10287,8 @@
       "rhm": 59.8,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "ks-제16회-문화체육관광부장관배-생활체육-전국-인라인-스피드대회-2026-09-12",
@@ -10288,8 +10306,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.1326042,
+    "lng": 128.1913508,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://koreaskate.or.kr/news/schedule/",
@@ -10806,8 +10824,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -10822,7 +10840,8 @@
       "rhm": 71.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rw-2026-포항-이차전지-마라톤-2026-09-13",
@@ -11308,12 +11327,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.9479291,
+    "lng": 126.9578025,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2065&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2065&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "tri-제7회-충청북도지사배-충주탄금호-전국-철인3종-경기대회-마감-2026-09-19",
@@ -11331,12 +11351,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.9907334,
+    "lng": 127.9259891,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2044&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2044&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-100s-j-2026-장수트레일레이스-fall-2026-09-19",
@@ -11519,8 +11540,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.456,
+    "lng": 126.7052,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -11535,7 +11556,8 @@
       "rhm": 57.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "ro-제18회-사이버-영토-수호-마라톤-2026-대회-2026-09-19",
@@ -11935,12 +11957,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.9479291,
+    "lng": 126.9578025,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2064&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2064&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-2026-인천송도국제마라톤-2026-09-20",
@@ -12160,12 +12183,13 @@
     "organizerPhone": "02-2636-6543",
     "regDeadline": "2026-09-30",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://mastershalf.kr/"
+    "applyUrl": "http://mastershalf.kr/",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-완주트레일런-2026-10-03",
@@ -12504,8 +12528,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-09-30",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -12520,7 +12544,8 @@
       "rhm": 50.9,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "ro-2026-글로벌-6k-포-워터-부산-2026-10-03",
@@ -12673,8 +12698,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.5754,
+    "lng": 128.5058,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -12689,7 +12714,8 @@
       "rhm": 61.6,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rw-2026-just-run10-청주-2026-10-03",
@@ -12822,12 +12848,13 @@
     "organizerPhone": "02-312-1998",
     "regDeadline": "2026-08-02",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.nbkorea.com/launchingCalendar/detail.action?listStatus=H&launchingIdx=3117"
+    "applyUrl": "http://www.nbkorea.com/launchingCalendar/detail.action?listStatus=H&launchingIdx=3117",
+    "geoApprox": true
   },
   {
     "id": "rr-s-oil과-함께하는-감동의-마라톤-2026-10-04",
@@ -13060,12 +13087,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.2083966,
+    "lng": 127.46393,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2037&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2037&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-거북이마라톤-2026-파주북시티마라톤-2026-10-04",
@@ -13700,12 +13728,13 @@
     "organizerPhone": "02-2647-4488",
     "regDeadline": "2026-04-14",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.6593,
+    "lng": 126.6729,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://amarunhs.com"
+    "applyUrl": "http://amarunhs.com",
+    "geoApprox": true
   },
   {
     "id": "cy-2026-빙그레그란폰도-2026-10-09",
@@ -13869,12 +13898,13 @@
     "organizerPhone": "02-312-1998",
     "regDeadline": "2026-09-10",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.superbluemarathon.kr/"
+    "applyUrl": "http://www.superbluemarathon.kr/",
+    "geoApprox": true
   },
   {
     "id": "rr-제3회서울트레일런-대회-2026-10-10",
@@ -14031,12 +14061,13 @@
     "organizerPhone": "02-2600-6795",
     "regDeadline": "2026-07-17",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://강서허준런.com"
+    "applyUrl": "http://강서허준런.com",
+    "geoApprox": true
   },
   {
     "id": "rr-제3회-성동구연맹회장기-마라톤-2026-10-10",
@@ -14346,8 +14377,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-07-17",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -14362,7 +14393,8 @@
       "rhm": 53.5,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-하트런-2026-10-10",
@@ -15365,8 +15397,8 @@
     "organizerPhone": "010-9514-0724",
     "regDeadline": "2026-10-10",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8713,
+    "lng": 128.6018,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -15381,7 +15413,8 @@
       "rhm": 70.6,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-독립유공자후손-기부마라톤-2026대학생run-2026-10-11",
@@ -15400,8 +15433,8 @@
     "organizerPhone": "010-7937-2087",
     "regDeadline": "2026-10-04",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4939063,
+    "lng": 126.9240874,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -15416,7 +15449,8 @@
       "rhm": 53.4,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rw-2026-평택항마라톤-2026-10-11",
@@ -15571,8 +15605,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 33.5568936,
+    "lng": 126.7604526,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
@@ -15690,8 +15724,8 @@
     "organizerPhone": "061-921-9900",
     "regDeadline": "2026-09-20",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 34.6429669,
+    "lng": 126.4014288,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -15706,7 +15740,8 @@
       "rhm": 56.8,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rm-경청마라톤-2026-10-17",
@@ -15775,8 +15810,8 @@
     "organizerPhone": "02-785-1915",
     "regDeadline": "2026-09-17",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.7454236,
+    "lng": 126.29836,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -15791,7 +15826,8 @@
       "rhm": 60.9,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-정선동강-마라톤-2026-10-17",
@@ -15813,8 +15849,8 @@
     "organizerPhone": "00-1600-3962",
     "regDeadline": "2026-09-25",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.7725252,
+    "lng": 128.3820739,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -15829,7 +15865,8 @@
       "rhm": 74.6,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-u-119-메모리얼런-2026-10-17",
@@ -16098,8 +16135,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-06-23",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.7725252,
+    "lng": 128.3820739,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -16114,7 +16151,8 @@
       "rhm": 74.6,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "ro-2026-경주국제마라톤-2026-10-17",
@@ -16132,8 +16170,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-05-28",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.5754,
+    "lng": 128.5058,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -16148,7 +16186,8 @@
       "rhm": 62.5,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "ro-2026-마인드런-2026-10-17",
@@ -16166,8 +16205,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -16182,7 +16221,8 @@
       "rhm": 61.1,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-억새노을마라톤대회-2026-10-17",
@@ -16356,8 +16396,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-09-21",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1558147,
+    "lng": 126.8306362,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -16372,7 +16412,8 @@
       "rhm": 56.6,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-제19회-중랑구청장배-장미-마라톤-2026-10-18",
@@ -16925,8 +16966,8 @@
     "organizerPhone": "031-575-7243",
     "regDeadline": "2026-10-07",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -16941,7 +16982,8 @@
       "rhm": 73.8,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-뉴시스-바다마라톤-2026-10-24",
@@ -17099,8 +17141,8 @@
     "organizerPhone": "010-8468-5148",
     "regDeadline": "2026-09-24",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.4799999,
+    "lng": 127.289,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -17115,7 +17157,8 @@
       "rhm": 97.4,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-2026-경기옛길-함께run-2026-10-24",
@@ -17294,12 +17337,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 34.854254,
+    "lng": 128.433205,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2042&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2042&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "rm-2026-gtws-무주-트레일-2026-10-24",
@@ -18076,8 +18120,8 @@
     "organizerPhone": "00-1600-3962",
     "regDeadline": "2026-07-13",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2884675,
+    "lng": 127.0535231,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -18092,7 +18136,8 @@
       "rhm": 74.9,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-k-run-챌린지-2026-10-25",
@@ -18703,12 +18748,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.993,
+    "lng": 129.4006,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2111&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2111&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "cy-2026-부여-굿뜨래-그란폰도-2026-10-31",
@@ -19222,12 +19268,13 @@
     "organizerPhone": "042-255-7917",
     "regDeadline": "2026-07-31",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.3497007,
+    "lng": 127.3849016,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.djmarathon.co.kr"
+    "applyUrl": "http://www.djmarathon.co.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-제21회-울산인권마라톤-2026-11-01",
@@ -19271,12 +19318,13 @@
     "organizerPhone": "02-2031-1935",
     "regDeadline": "2026-04-15",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://marathon.jtbc.com/"
+    "applyUrl": "http://marathon.jtbc.com/",
+    "geoApprox": true
   },
   {
     "id": "rm-패밀리런-제2회-대전-신채호-마라톤-2026-11-01",
@@ -19388,8 +19436,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-04-15",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -19404,7 +19452,8 @@
       "rhm": 80.4,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rr-justice-run-seocho-2026-2026-11-01",
@@ -19446,8 +19495,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -19462,7 +19511,8 @@
       "rhm": 80.4,
       "awayKm": null,
       "src": "KMA ASOS"
-    }
+    },
+    "geoApprox": true
   },
   {
     "id": "rw-2026-서울동행마라톤-2026-11-01",
@@ -19480,8 +19530,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-10-02",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
@@ -19540,12 +19590,13 @@
     "organizerPhone": "010-6711-2215",
     "regDeadline": "2026-11-05",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.5754,
+    "lng": 128.5058,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.daum.net/seobongmarathon"
+    "applyUrl": "http://cafe.daum.net/seobongmarathon",
+    "geoApprox": true
   },
   {
     "id": "rm-개인-단체전-지역학생대회-제40회-서봉기단축마라톤-2026-11-06",
@@ -19900,12 +19951,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "https://purmerun.com/"
+    "applyUrl": "https://purmerun.com/",
+    "geoApprox": true
   },
   {
     "id": "rr-saverace-2026-2026-11-07",
@@ -19959,7 +20011,10 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://purmerun.com/"
+    "applyUrl": "http://purmerun.com/",
+    "lat": 37.5666791,
+    "lng": 126.9782914,
+    "geoApprox": true
   },
   {
     "id": "rr-넥슨과-함께하는-2026-푸르메런-2026-11-07",
@@ -20178,12 +20233,13 @@
     "organizerPhone": "041-575-9601",
     "regDeadline": "2026-10-18",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.4799999,
+    "lng": 127.289,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://eggrun2026.imweb.me"
+    "applyUrl": "http://eggrun2026.imweb.me",
+    "geoApprox": true
   },
   {
     "id": "rr-26-ten-bridges-night-walk-2026-11-07",
@@ -20299,12 +20355,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2982901,
+    "lng": 127.637033,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
-    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2129&page=1&sYear=2026&vType=list&field=&keyword="
+    "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2129&page=1&sYear=2026&vType=list&field=&keyword=",
+    "geoApprox": true
   },
   {
     "id": "ro-굿네이버스-충청권역x계란자조금관리위원회-2026-egg-run-2026-11-07",
@@ -20421,8 +20478,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-10-25",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
@@ -20444,8 +20501,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-09-20",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8198999,
+    "lng": 127.109,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
@@ -20467,8 +20524,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-10-16",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.3878276,
+    "lng": 128.3662341,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
@@ -20640,12 +20697,13 @@
     "organizerPhone": "051-310-4128",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1799528,
+    "lng": 129.0752365,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://ssecorun.co.kr"
+    "applyUrl": "http://ssecorun.co.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-서울구석구석-국제-트레일런-2026-11-08",
@@ -20666,12 +20724,13 @@
     "organizerPhone": "070-7719-5788",
     "regDeadline": "2026-10-12",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.naver.com/seoultrailrun/?viewType=pc"
+    "applyUrl": "http://cafe.naver.com/seoultrailrun/?viewType=pc",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-과천마라톤-2026-11-08",
@@ -20794,12 +20853,13 @@
     "organizerPhone": "010-5636-5708",
     "regDeadline": "2026-09-30",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 34.8804677,
+    "lng": 128.621207,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.거제앵산트레일레이스.com"
+    "applyUrl": "http://www.거제앵산트레일레이스.com",
+    "geoApprox": true
   },
   {
     "id": "rm-산악-제5회-거제시체육회장배-거제앵산트레일레이스-2026-11-08",
@@ -20888,8 +20948,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 33.4887737,
+    "lng": 126.4987083,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
@@ -21010,8 +21070,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8237631,
+    "lng": 127.1472805,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://koreaskate.or.kr/news/schedule/",
@@ -21101,12 +21161,13 @@
     "organizerPhone": "010-4573-3330",
     "regDeadline": "2026-10-18",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2884675,
+    "lng": 127.0535231,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://kiccrace.com"
+    "applyUrl": "http://kiccrace.com",
+    "geoApprox": true
   },
   {
     "id": "rr-강남하프마라톤-제17회강남구청장배육상대회-2026-11-08",
@@ -21127,12 +21188,13 @@
     "organizerPhone": "010-6364-4749",
     "regDeadline": "2026-10-23",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5177,
+    "lng": 127.0473,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://comport11.oopy.io/gangnamhalfmarathon"
+    "applyUrl": "http://comport11.oopy.io/gangnamhalfmarathon",
+    "geoApprox": true
   },
   {
     "id": "rr-제3회-자유민주-마라톤대회-2026-11-08",
@@ -21226,12 +21288,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.4591386,
+    "lng": 126.8021303,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "https://cymarathon.imweb.me"
+    "applyUrl": "https://cymarathon.imweb.me",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-안성맞춤-전국-마라톤-2026-11-08",
@@ -21303,12 +21366,13 @@
     "organizerPhone": "031-339-6338",
     "regDeadline": "2026-10-24",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2884675,
+    "lng": 127.0535231,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://aaaf.koreashout.com/bbs/board.php?bo_table=cp_list&wr_id=60"
+    "applyUrl": "http://aaaf.koreashout.com/bbs/board.php?bo_table=cp_list&wr_id=60",
+    "geoApprox": true
   },
   {
     "id": "rr-83타워-업힐런-챌린지-2026-11-08",
@@ -21327,8 +21391,8 @@
     "organizerPhone": "070-7549-8112",
     "regDeadline": "2026-10-31",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8521679,
+    "lng": 128.5660265,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -21374,8 +21438,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-10-09",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.3878276,
+    "lng": 128.3662341,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
@@ -21681,12 +21745,13 @@
     "organizerPhone": "02-364-1986",
     "regDeadline": "2026-11-13",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://seoul.bbangrun.com"
+    "applyUrl": "http://seoul.bbangrun.com",
+    "geoApprox": true
   },
   {
     "id": "ro-2026-강원-속초-해변길-건강달리기-2026-11-14",
@@ -21704,12 +21769,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 38.2069574,
+    "lng": 128.5913424,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "https://sites.google.com/view/misozium-smilerun/%ED%99%88"
+    "applyUrl": "https://sites.google.com/view/misozium-smilerun/%ED%99%88",
+    "geoApprox": true
   },
   {
     "id": "cy-2026-완주-만경강-메디오폰도-2026-11-14",
@@ -21818,8 +21884,8 @@
     "organizerPhone": "010-3448-0990",
     "regDeadline": "2026-07-29",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.5968602,
+    "lng": 127.2841086,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -22362,12 +22428,13 @@
     "organizerPhone": "02-556-3012",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://econow.campaignus.me/econow_run"
+    "applyUrl": "http://econow.campaignus.me/econow_run",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-영남일보-혁신도시-마라톤-2026-11-15",
@@ -22411,12 +22478,13 @@
     "organizerPhone": "070-4350-5663",
     "regDeadline": "2026-11-09",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://bithumbnanumrun.com"
+    "applyUrl": "http://bithumbnanumrun.com",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-청춘레이스-2026-11-15",
@@ -22437,12 +22505,13 @@
     "organizerPhone": "02-877-3335",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://youngrace.kr"
+    "applyUrl": "http://youngrace.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-연수구청장배-송도-walk-run-2026-11-15",
@@ -22465,12 +22534,13 @@
     "organizerPhone": "070-4098-1114",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.456,
+    "lng": 126.7052,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://walknrun.kr"
+    "applyUrl": "http://walknrun.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-제3회-무등산더블하트국제트레일런대회-추가접수-2026-11-15",
@@ -22489,8 +22559,8 @@
     "organizerPhone": "00-1899-8610",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1412134,
+    "lng": 126.9303491,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -22540,8 +22610,8 @@
     "organizerPhone": "063-353-2025",
     "regDeadline": "2026-11-15",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 34.835308,
+    "lng": 127.911495,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -22763,8 +22833,8 @@
     "organizerPhone": "010-7152-1910",
     "regDeadline": "2026-10-30",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.1676137,
+    "lng": 128.4669655,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -22814,12 +22884,13 @@
     "organizerPhone": "070-4443-4392",
     "regDeadline": "2026-11-21",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.3878276,
+    "lng": 128.3662341,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.kpioneertrailrun.co.kr/"
+    "applyUrl": "http://www.kpioneertrailrun.co.kr/",
+    "geoApprox": true
   },
   {
     "id": "rr-천안시장배-대한독립천안트레일런산악등반대회-2026-11-21",
@@ -22883,8 +22954,8 @@
     "organizerPhone": null,
     "regDeadline": "2026-10-20",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8713,
+    "lng": 128.6018,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
@@ -22908,12 +22979,13 @@
     "organizerPhone": "00-1566-1936",
     "regDeadline": "2026-10-18",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://zeiss-smilerace.kr"
+    "applyUrl": "http://zeiss-smilerace.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-서울-억새풀-마라톤대회-2026-11-22",
@@ -22934,12 +23006,13 @@
     "organizerPhone": "02-2647-4488",
     "regDeadline": "2026-11-02",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://ssrun.kr/"
+    "applyUrl": "http://ssrun.kr/",
+    "geoApprox": true
   },
   {
     "id": "rm-평화의숲-마라톤-2026-11-22",
@@ -23136,12 +23209,13 @@
     "organizerPhone": "070-4406-1123",
     "regDeadline": "2026-11-10",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1799528,
+    "lng": 129.0752365,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://i1123.org"
+    "applyUrl": "http://i1123.org",
+    "geoApprox": true
   },
   {
     "id": "rr-제19회-대구광역시장기-생활체육-육상대회-2026-11-22",
@@ -23162,8 +23236,8 @@
     "organizerPhone": "010-3503-4558",
     "regDeadline": "2026-11-05",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8297517,
+    "lng": 128.6901254,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -23322,12 +23396,13 @@
     "organizerPhone": "063-535-0495",
     "regDeadline": "2026-11-17",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1558147,
+    "lng": 126.8306362,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://기부앤런.kr"
+    "applyUrl": "http://기부앤런.kr",
+    "geoApprox": true
   },
   {
     "id": "rm-가야왕도-김해-전국어울림-마라톤-2026-11-29",
@@ -23597,8 +23672,8 @@
     "organizerPhone": "00-1600-4525",
     "regDeadline": "2026-11-15",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.6078902,
+    "lng": 127.0614852,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -23643,8 +23718,8 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5610455,
+    "lng": 127.0958009,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://koreaskate.or.kr/news/schedule/",
@@ -23862,12 +23937,13 @@
     "organizerPhone": "02-332-3997",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://hugrun.kr"
+    "applyUrl": "http://hugrun.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-모악트레일런-2026-12-05",
@@ -23993,8 +24069,8 @@
     "organizerPhone": "051-867-0517",
     "regDeadline": "2026-10-20",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.3446683,
+    "lng": 129.0322653,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -24076,12 +24152,13 @@
     "organizerPhone": "010-4654-0495",
     "regDeadline": "2026-11-22",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.5697678,
+    "lng": 126.8559787,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://love.myrunup.kr"
+    "applyUrl": "http://love.myrunup.kr",
+    "geoApprox": true
   },
   {
     "id": "rm-제20회-양산전국마라톤-2026-12-06",
@@ -24126,8 +24203,8 @@
     "organizerPhone": "061-375-1201",
     "regDeadline": "2026-11-10",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.0486974,
+    "lng": 126.9674051,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -24150,8 +24227,8 @@
     "organizerPhone": "010-3526-9120",
     "regDeadline": "2026-12-05",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4868089,
+    "lng": 127.1022458,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -24174,12 +24251,13 @@
     "organizerPhone": "02-2632-0912",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.youthrun.co.kr"
+    "applyUrl": "http://www.youthrun.co.kr",
+    "geoApprox": true
   },
   {
     "id": "rr-2026-소년소녀-가장-돕기-기부런-2026-12-12",
@@ -24299,8 +24377,8 @@
     "organizerPhone": "031-821-9940",
     "regDeadline": "2026-11-20",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4101054,
+    "lng": 127.1212153,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -24424,12 +24502,13 @@
     "organizerPhone": "00-1600-3962",
     "regDeadline": "2026-11-23",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.456,
+    "lng": 126.7052,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://42195race.com/"
+    "applyUrl": "http://42195race.com/",
+    "geoApprox": true
   },
   {
     "id": "rr-제2회-청춘-릴레이-마라톤-2026-12-19",
@@ -24473,12 +24552,13 @@
     "organizerPhone": "02-332-3247",
     "regDeadline": "2026-11-30",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://slowrun.kr"
+    "applyUrl": "http://slowrun.kr",
+    "geoApprox": true
   },
   {
     "id": "rm-코리아-시즌-레이스-2026-12-26",
@@ -24617,12 +24697,13 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5666791,
+    "lng": 126.9782914,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "http://dkrun.co.kr"
+    "applyUrl": "http://dkrun.co.kr",
+    "geoApprox": true
   },
   {
     "id": "ro-동아일보-서울국제마라톤-2027-03-21",
@@ -24739,11 +24820,12 @@
     "organizerPhone": null,
     "regDeadline": null,
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1799528,
+    "lng": 129.0752365,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://www.runneron.com/marathon",
-    "applyUrl": "http://www.badarun.co.kr"
+    "applyUrl": "http://www.badarun.co.kr",
+    "geoApprox": true
   }
 ]
