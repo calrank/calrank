@@ -1,7 +1,8 @@
 {
   "published": [
     "marathon:injury",
-    "marathon:women-runners"
+    "marathon:women-runners",
+    "marathon:weather-heat"
   ],
   "cycle": 1
 }
