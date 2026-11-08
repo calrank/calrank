@@ -2,7 +2,8 @@
   "published": [
     "marathon:injury",
     "marathon:women-runners",
-    "marathon:weather-heat"
+    "marathon:weather-heat",
+    "marathon:shoe-selection"
   ],
   "cycle": 1
 }
