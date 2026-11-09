@@ -37,6 +37,10 @@
 .level-disclaimer{
   max-width:420px;margin:16px auto 0;font-size:12px;color:var(--ink-faint);
   line-height:1.6;text-align:center;
+  /* 가운데 정렬은 줄 끝이 양쪽 다 보여서 길이가 다르면 바로 티가 난다.
+     pretty 는 마지막 줄에 한 단어만 남을 때만 손대서, 두 단어(12자)로
+     떨어진 이 문단을 그냥 지나쳤다. 39/43/43/12 → 34/32/35/36. */
+  text-wrap:balance;
 }
 
 @media (max-width:600px){

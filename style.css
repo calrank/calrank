@@ -210,6 +210,16 @@ body{
 }
 .hero-sub{font-size:13px;color:var(--ink-faint);margin:0;letter-spacing:0.2px;}
 
+/* 제목 둘째 줄 — 어떤 종목이 있는지. 제목만큼 크면 둘 다 안 읽히고,
+   너무 작으면 제목에 딸린 군더더기로 보인다. 그 사이로 잡는다. */
+.h1-kinds{
+  display:block;margin-top:6px;
+  font-family:var(--font-body);
+  font-size:clamp(14px,1.8vw,18px);
+  font-weight:700;letter-spacing:0;
+  color:var(--ink-soft);
+}
+
 .filter-row{margin-bottom:8px;}
 .filter-row{position:relative;}
 .filter-group{display:flex;gap:6px;overflow-x:auto;padding:4px 2px;scrollbar-width:none;-ms-overflow-style:none;}
@@ -603,3 +613,9 @@ body{
    적용 전 여러 줄 문단 55개 중 2개가 마지막 줄 4글자 이하였고, 적용 후 0개. */
 h1,h2,h3,h4{text-wrap:balance;}
 p,li,dd,figcaption,summary{text-wrap:pretty;}
+
+/* 가운데 정렬된 짧은 글은 balance 로. 줄 끝이 양쪽 다 드러나서 길이가
+   다르면 바로 눈에 걸린다. 여섯 줄이 넘으면 브라우저가 알아서 손을
+   떼므로, 긴 본문에 섞여 들어도 아무 일도 일어나지 않는다. */
+.lv-share-hint,.empty-state,.tier-empty,.myrank-login-hint,
+.auth-alt,.tier-guide-item{text-wrap:balance;}
