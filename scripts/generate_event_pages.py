@@ -359,11 +359,32 @@ def build_static_content(ev: dict) -> str:
             # 계산도 기록 저장도 그대로 level.html 이 맡으므로 자산 경로는
             # 건드리지 않는다.
             ph = _time_placeholder(km)
+            # 그 대회 당일 기상청 실측 일평균기온이 있으면 같이 넘긴다.
+            # level.js 가 이걸 받아 15℃ 기준으로 환산한 등급을 함께 보여 준다.
+            # 평년값(climate)은 넘기지 않는다 — 그 날의 날씨가 아니라 그
+            # 날짜의 10년 평균이라서, 보정의 근거로 쓰면 거짓말이 된다.
+            wx = ev.get("weather")
+            avg_ta = wx.get("avgTa") if isinstance(wx, dict) else None
+            if not isinstance(avg_ta, (int, float)):
+                avg_ta = None
+            ev_name = (ev.get("name") or "").strip()[:40]
+            ask = "이 대회 다녀오셨나요? 기록을 넣어 보세요."
+            if avg_ta is not None and avg_ta > 15:
+                ask = (f"이 대회는 당일 평균 {avg_ta:.1f}℃였습니다. "
+                       f"그 더위까지 반영해서 등급을 봅니다.")
+            elif avg_ta is not None:
+                ask = (f"이 대회는 당일 평균 {avg_ta:.1f}℃였습니다. "
+                       f"기록을 넣어 보세요.")
+            extra = ""
+            if avg_ta is not None:
+                extra = (f'<input type="hidden" name="tc" value="{avg_ta:.1f}">'
+                         f'<input type="hidden" name="ev" value="{esc(ev_name)}">')
             cta = (
                 f'<div class="ev-after">'
-                f'<p class="ev-after-q">이 대회 다녀오셨나요? 기록을 넣어 보세요.</p>'
+                f'<p class="ev-after-q">{esc(ask)}</p>'
                 f'<form class="ev-grade-form" action="/level.html" method="get">'
                 f'<input type="hidden" name="d" value="{km:g}">'
+                f'{extra}'
                 f'<label class="ev-grade-sr" for="evGradeTime">완주시간</label>'
                 f'<input class="ev-grade-t" id="evGradeTime" name="t" type="text" '
                 f'inputmode="numeric" autocomplete="off" placeholder="{ph}" '
