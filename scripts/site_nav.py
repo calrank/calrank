@@ -10,11 +10,14 @@
 
 # (링크, 글자, 활성 표시에 쓰는 이름)
 # 순서가 곧 소개문이다. 모바일에서는 목차가 옆으로 밀려서 앞의 두세 개만
-# 먼저 보이니, 이 사이트를 다른 일정 사이트와 가르는 "기록등급"을 둘째에 둔다.
-# 전에는 여섯째라 스크롤하지 않으면 보이지 않았다.
+# 먼저 보이니, 이 사이트를 다른 일정 사이트와 가르는 판정 둘 — "기록등급"과
+# "장비판정" — 을 둘째·셋째에 둔다. 기록등급이 전에는 여섯째라 스크롤하지
+# 않으면 보이지 않았다. 둘을 붙여 두면 첫 화면이 "일정 사이트"가 아니라
+# "판정하는 곳"으로 읽힌다.
 NAV_ITEMS = [
     ("index.html", "캘린더", "calendar"),
     ("grade.html", "기록등급", "grade"),
+    ("gear.html", "장비판정", "gear"),
     ("regions.html", "지역별", "regions"),
     ("ranking.html", "대회랭킹", "ranking"),
     ("news.html", "종목뉴스", "news"),
@@ -46,6 +49,7 @@ ACTIVE_BY_PREFIX = [
     ("walking-events", "calendar"),
     ("aquathlon", "calendar"),
     ("index", "calendar"),
+    ("gear", "gear"),
     # 기록증 판독·등급 계산기는 등급표 묶음이다
     ("cert", "grade"),
     ("level", "grade"),
