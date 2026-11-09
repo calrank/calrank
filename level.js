@@ -820,6 +820,13 @@ function buildStatRow(inputs) {
   if (!cat || !band) return null;
   const sec = Math.round(inputs.finishSec);
   if (sec < 300 || sec > 54000) return null;      // 서버 제약과 같은 범위
+  // 연령등급 %. 나이·성별·거리를 이미 보정한 값이라, 거리×연령대×성별
+  // 64칸으로 쪼개지 않고 한 분포에 모을 수 있다. 쪼개면 지금 16건이
+  // 11칸에 흩어져 어느 칸도 차지 않는다. 보내는 값이 하나 느는 게
+  // 아니라, 이미 보내는 값들에서 나오는 숫자를 정확한 나이로 미리
+  // 계산해 두는 것이다 — 연령대만 저장하면 45세인지 49세인지 모른다.
+  const std = wmaStd(inputs.gender, inputs.distanceKm, inputs.age);
+  const pct = std ? Math.round((std / sec) * 10000) / 100 : null;
   return {
     race_name: null,            // 이 화면에서는 대회를 묻지 않는다
     sport: "marathon",
@@ -827,6 +834,7 @@ function buildStatRow(inputs) {
     finish_time_seconds: sec,
     age_band: band,
     gender: inputs.gender,
+    age_grade_pct: pct,
     source: "level",
   };
 }
@@ -848,6 +856,42 @@ async function fetchStatsSummary() {
   );
   if (!r.ok) throw new Error("summary " + r.status);
   return await r.json();
+}
+
+// 모인 기록 전체를 연령등급 % 하나로 모아 본 분포. 칸을 쪼개지 않으므로
+// 지금 같은 적은 표본에서도 자리를 말해 줄 수 있다. 개별 기록은 나오지
+// 않는다 — 5%p 단위 도수와 사분위수만 열려 있다.
+async function fetchPooled() {
+  const [p, h] = await Promise.all([
+    fetch(SB_URL + "/rest/v1/record_stats_pooled?select=*", { headers: { apikey: SB_KEY } }),
+    fetch(SB_URL + "/rest/v1/record_stats_hist?select=*&order=band_lo.asc", { headers: { apikey: SB_KEY } }),
+  ]);
+  if (!p.ok || !h.ok) throw new Error("pooled");
+  const [sum] = await p.json();
+  return { sum: sum || null, hist: await h.json() };
+}
+
+// 내 등급이 모인 사람들 사이에서 몇 번째인지. 도수분포만으로 센다.
+// 같은 5%p 칸에 있는 사람은 절반만 앞선 것으로 본다 — 칸 안의 순서는
+// 알 수 없으니 가운데로 둔다.
+function poolRank(hist, myPct) {
+  if (!Array.isArray(hist) || !hist.length) return null;
+  // isFinite(null) 은 true 다 — null 이 0 으로 바뀐다. 등급을 못 구한
+  // 사람에게 "꼴찌"를 붙이게 되므로 Number.isFinite 를 쓴다.
+  if (!Number.isFinite(myPct)) return null;
+  const myLo = Math.floor(myPct / 5) * 5;
+  let faster = 0, same = 0, total = 0;
+  for (const b of hist) {
+    const n = b.n || 0;
+    total += n;
+    if (b.band_lo > myLo) faster += n;
+    else if (b.band_lo === myLo) same += n;
+  }
+  if (total < 1) return null;
+  // 같은 5%p 칸 사람은 절반만 앞선 것으로 본다. 칸 안의 순서는 모른다.
+  // "N명 중 몇 번째"로 말하면 꼴찌일 때 N+1 번째가 나와 말이 안 된다.
+  // 앞선 사람 수로 말하면 그런 일이 없다.
+  return { total: total, ahead: Math.min(total, Math.round(faster + same / 2)) };
 }
 
 function progressText(rows, row, gave) {
@@ -889,13 +933,33 @@ function paintProgress(inputs) {
   if (!slots.length) return;
   let gave = false;
   try { gave = !!localStorage.getItem(statKey(row)); } catch (e) {}
-  fetchStatsSummary().then((rows) => {
+  // 모인 사람이 열 명을 넘으면 칸별 진행 대신 전체 분포에서의 자리를
+  // 보여 준다. 칸을 쪼개면 아직 어느 칸도 안 차지만, 연령등급으로 모으면
+  // 지금도 말할 게 있다. 열 명 아래에서는 "3명 중 2번째" 같은 말이 되어
+  // 버려서 예전 문장을 그대로 쓴다.
+  const POOL_MIN = 10;
+  fetchPooled().then(({ sum, hist }) => {
+    const n = sum && sum.n ? sum.n : 0;
+    if (n < POOL_MIN) throw new Error("적음");
+    const r = poolRank(hist, row.age_grade_pct);
+    if (!r) throw new Error("자리 못 셈");
+    const mid = sum.median_pct ? `가운데는 연령등급 ${sum.median_pct}%예요. ` : "";
+    const text = r.ahead === 0
+      ? `지금까지 ${r.total}명이 보탰는데, 그중 당신보다 앞선 기록은 없습니다. ` + mid
+        + `아직 표본이 작아 참고로만 보세요.`
+      : `지금까지 ${r.total}명이 보탰고, 그중 당신보다 앞선 기록은 ${r.ahead}명입니다. `
+        + mid + `아직 표본이 작아 참고로만 보세요.`;
+    slots.forEach((el) => {
+      el.textContent = text;
+      el.classList.add("lv-prog-open");
+    });
+  }).catch(() => fetchStatsSummary().then((rows) => {
     const p = progressText(rows, row, gave);
     slots.forEach((el) => {
       el.textContent = p.text;
       el.classList.toggle("lv-prog-open", p.open);
     });
-  }).catch(() => {
+  })).catch(() => {
     // 못 읽으면 그 줄만 비운다. 등급 결과는 그대로 나온다.
     slots.forEach((el) => { el.textContent = ""; });
   });
