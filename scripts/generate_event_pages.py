@@ -550,19 +550,28 @@ def attach_climate(events: list) -> int:
         if not day:
             ev.pop("climate", None)
             continue
-        best, bd = None, 1e9
-        for st in stations:
-            dist = _haversine(float(lat), float(lng), st["lat"], st["lon"])
-            if dist < bd:
-                bd, best = dist, st
-        if not best or bd > _MAX_STATION_KM:
+        # 가장 가까운 관측소에 그 날짜 자료가 없으면 포기하지 않고,
+        # 자료가 있는 다음 관측소로 넘어간다. 캐시는 (관측소, 월일)별이라
+        # 바로 옆 관측소라도 그 날짜만 비어 있는 일이 흔하다. 그 탓에
+        # 11/15 대회 3건이 기온 문단 없이 나갔다. 거리는 페이지에 그대로
+        # 밝히므로, 먼 관측소를 쓰면 쓴다고 독자가 알 수 있다.
+        key = "%02d%02d" % (day.month, day.day)
+        near = sorted(
+            ((_haversine(float(lat), float(lng), st["lat"], st["lon"]), st)
+             for st in stations), key=lambda t: t[0])
+        picked = None
+        for bd, st in near:
+            if bd > _MAX_STATION_KM:
+                break
+            row = cache.get("%d:%s" % (st["id"], key))
+            if row:
+                picked = (row, st, bd)
+                break
+        if not picked:
             ev.pop("climate", None)
             continue
-        s = cache.get("%d:%02d%02d" % (best["id"], day.month, day.day))
-        if not s:
-            ev.pop("climate", None)
-            continue
-        ev["climate"] = dict(s, station=best["name"], stationKm=round(bd),
+        row, st, bd = picked
+        ev["climate"] = dict(row, station=st["name"], stationKm=round(bd),
                              approx=bool(ev.get("geoApprox")))
         filled += 1
     return filled

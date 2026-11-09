@@ -15,7 +15,7 @@ import argparse
 import random
 import time
 from datetime import datetime, timedelta
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 
 import requests
 from bs4 import BeautifulSoup
@@ -917,6 +917,106 @@ def apply_drops(events: list, drop: dict, aliases: dict) -> int:
     return len(gone)
 
 
+# ── 같은 대회가 '코스명이 앞에 붙은 이름'으로 한 번 더 들어온다 ──────
+# 소스가 코스/부문을 제목에 끼워 넣은 채로 한 줄을 더 내보낸다:
+#   "제16회 대전서구청장배 마라톤대회"
+#   "가족코스 건강코스 제16회 대전서구청장배 마라톤대회"   ← 같은 대회
+#   "제3회 무등산더블하트국제트레일런대회 추가접수"          ← 같은 대회
+# normalize_name 은 "제N회"와 앞머리 연도만 떼므로 이런 건 못 잡고,
+# 11/15 하루에만 29건 중 6건이 이렇게 중복이었다(전체의 21%).
+#
+# 이름만으로는 판단이 위험해서(같은 장소에서 다른 대회가 열린다),
+# 날짜·주최·접수처가 모두 같은 묶음 안에서, 한쪽 이름이 다른 쪽을
+# 통째로 품고 있을 때만 긴 쪽의 이름을 짧은 쪽에 맞춘다. 이름이 같아지면
+# 그 다음의 dedupe_across_sources 가 평소대로 하나로 합친다.
+_CANCEL_RE = re.compile(r"취소")
+
+# 이름에 덧붙어 들어오는 군더더기: 코스·부문·참가형태, 접수 상태,
+# 그리고 소스가 흘린 기호/숫자 조각("-P", "37: 20:11", "100s -J").
+_JUNK_AFFIX_RE = re.compile(
+    r"코스|부문|학생부?|초등|중등|고등|대학부|일반부|장애인|휠체어|가족|패밀리"
+    r"|단체|개인|커플|인1조|인조|걷기|워킹|walk|run&|추가접수|접수|모집|마감"
+    r"|준비중|회전|차레이스|레이스$|운동|프로그램|건강|슬로조깅|로드레이스"
+    r"|산악|트레일런$|지역|체험|이벤트|기념품"
+    # 소스가 기사 제목을 이름에 흘려 넣는 경우("…마라톤마라톤 완주 팁")
+    r"|완주\s*팁|후기|방법|준비물|가이드|안내|정보|추천|주의", re.I)
+
+
+def _is_junk_affix(extra: str) -> bool:
+    """덧붙은 조각이 대회 이름의 일부가 아니라 군더더기인가."""
+    e = (extra or "").strip()
+    if not e:
+        return False
+    if _JUNK_AFFIX_RE.search(e):
+        return True
+    # 글자가 거의 없는 조각은 소스가 흘린 찌꺼기로 본다
+    letters = re.sub(r"[^가-힣A-Za-z]", "", e)
+    return len(letters) <= 2
+
+
+def _apply_host(u) -> str:
+    """접수 URL 의 호스트. 영남알프스마라톤.kr 과 xn--... 는 같은 곳이다."""
+    if not _meaningful(u):
+        return ""
+    raw = str(u).strip()
+    h = urlsplit(raw if "//" in raw else "http://" + raw).netloc.lower().split(":")[0]
+    if h.startswith("www."):
+        h = h[4:]
+    if h.startswith("xn--"):
+        try:
+            h = h.encode("ascii").decode("idna")
+        except Exception:
+            pass
+    return h
+
+
+def canonicalize_variant_names(events: list[dict]) -> int:
+    """코스명·부문명이 덧붙은 변형 이름을 정식 이름으로 되돌린다."""
+    groups: "dict[tuple, list[dict]]" = {}
+    for ev in events:
+        org = re.sub(r"[^0-9A-Za-z가-힣]", "", str(ev.get("organizer") or "")).lower()
+        host = _apply_host(ev.get("applyUrl"))
+        if not org or not host:
+            continue          # 주최나 접수처를 모르면 손대지 않는다
+        groups.setdefault((ev.get("date"), org, host), []).append(ev)
+
+    fixed = 0
+    for items in groups.values():
+        if len(items) < 2:
+            continue
+        # 짧은 이름을 정식으로 본다. 덧붙은 쪽이 항상 더 길다.
+        ranked = sorted(items, key=lambda e: len(normalize_name(e.get("name"))))
+        _ = ranked
+        for short in ranked:
+            ns = normalize_name(short.get("name"))
+            if not ns:
+                continue
+            for long in ranked:
+                if long is short:
+                    continue
+                nl = normalize_name(long.get("name"))
+                if nl == ns or not (nl.startswith(ns) or nl.endswith(ns)):
+                    continue
+                # 어느 쪽을 보여 줄지는 '덧붙은 부분'이 군더더기냐로 정한다.
+                # 코스·부문 이름이면 짧은 쪽이 정식 명칭이지만,
+                # "2027 서울 세계청년대회 성공 기원 평화런" 처럼 긴 쪽이
+                # 정식 명칭인 경우도 있어서 짧은 쪽을 무조건 쓰면 이름이 잘린다.
+                extra = nl[len(ns):] if nl.startswith(ns) else nl[: len(nl) - len(ns)]
+                canon = short if _is_junk_affix(extra) else long
+                # 소스가 이름을 중간에서 자른 흔적(괄호가 안 닫힘)이 있으면
+                # 긴 쪽을 쓰지 않는다. "… (SEOUL PETLYMPIC & RUN" 같은 것.
+                if canon is long and str(long.get("name") or "").count("(") != \
+                   str(long.get("name") or "").count(")"):
+                    canon = short
+                other = long if canon is short else short
+                if _CANCEL_RE.search(str(other.get("name") or "")) and \
+                   not _CANCEL_RE.search(str(canon.get("name") or "")):
+                    canon["name"] = str(canon["name"]).rstrip() + "(취소)"
+                other["name"] = canon["name"]
+                fixed += 1
+    return fixed
+
+
 def dedupe_across_sources(
     events: list[dict], known_ids: "set[str] | None" = None
 ) -> "tuple[list[dict], dict[str, str]]":
@@ -1465,8 +1565,11 @@ def main():
     renamed = apply_renames(existing, ov["rename"]) + apply_renames(all_new, ov["rename"])
 
     merged = merge_and_dedupe(existing, all_new)
+    variants = canonicalize_variant_names(merged)
     merged, aliases = dedupe_across_sources(merged, known_ids=known_ids)
     dropped = apply_drops(merged, ov["drop"], aliases)
+    if variants:
+        print("[events] 코스명이 덧붙은 변형 이름 %d건을 정식 이름으로 되돌림" % variants)
     if renamed or dropped:
         print("[events] 수동 보정 — 이름 %d건, 제거 %d건" % (renamed, dropped))
     merged.sort(key=lambda e: e["date"])
