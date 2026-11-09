@@ -12,6 +12,7 @@ calrank 대회 상세 정적 페이지 생성 스크립트
 - 기존 event.js가 그대로 동작하도록 window.EVENT_ID 등을 심어 준다.
   (후기·찜하기·날씨·공유는 정적 페이지에서도 같은 코드로 작동한다)
 """
+import hashlib
 import html
 import json
 import math
@@ -1257,11 +1258,28 @@ def update_sitemap(slugs) -> int:
 LASTMOD = ROOT / "data" / "event_lastmod.json"
 
 
+def _sig(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+
 def load_lastmod() -> dict:
+    """{파일명: {"date": ..., "sig": ...}}. 옛 형태({파일명: 날짜})도 읽는다."""
     try:
-        return json.loads(LASTMOD.read_text(encoding="utf-8"))
+        raw = json.loads(LASTMOD.read_text(encoding="utf-8"))
     except Exception:                               # noqa: BLE001
         return {}
+    out = {}
+    for k, v in (raw or {}).items():
+        if isinstance(v, str):
+            out[k] = {"date": v, "sig": ""}         # 서명은 이번에 채운다
+        elif isinstance(v, dict) and v.get("date"):
+            out[k] = {"date": v["date"], "sig": v.get("sig") or ""}
+    return out
+
+
+def lastmod_date(book: dict, name: str):
+    rec = book.get(name)
+    return rec.get("date") if isinstance(rec, dict) else None
 
 
 def save_lastmod(book: dict) -> None:
@@ -1285,7 +1303,7 @@ def patch_sitemap_lastmod(book: dict) -> int:
         if not loc:
             return block
         name = unquote(loc.group(1).rsplit("/", 1)[-1])
-        when = book.get(name)
+        when = lastmod_date(book, name)
         if not when:
             return block
         block = re.sub(r"\s*<lastmod>[^<]*</lastmod>", "", block)
@@ -1386,18 +1404,36 @@ def main():
     book = load_lastmod()
     _today_iso = date.today().isoformat()
     written = 0
+    # 디스크의 파일과 비교하면 안 된다. 이 스크립트는 sync 이전 형태를 만들고,
+    # 디스크에는 sync_theme·sync_nav 가 색과 목차를 손본 결과가 들어 있다.
+    # 둘은 내용이 안 바뀌어도 늘 달라서, 868장이 매일 "바뀜"으로 찍혔다.
+    # 그래서 lastmod 가 전부 오늘이 되고, 크롤러에게 아무 신호도 못 준다.
+    #
+    # 렌더 결과 자체의 서명을 대장에 적어 두고 그걸 견준다. 파일을 쓸지와
+    # 날짜를 찍을지를 따로 판단한다 — 쓰는 건 디스크가 다를 때, 날짜는
+    # 내용이 정말 달라졌을 때.
     for fname, ev in wanted.items():
         content = render_page(template, ev, ctx)
+        sig = _sig(content)
         p = OUT_DIR / fname
+        rec = book.get(fname)
+        known = rec.get("sig") if rec else ""
+
         if not p.exists() or p.read_text(encoding="utf-8") != content:
             p.write_text(content, encoding="utf-8")
-            book[fname] = _today_iso
             written += 1
-        else:
-            # 대장에 없는 장은 처음 한 번만 오늘로 채운다. 이 스크립트가
-            # 내용이 같으면 파일을 건드리지 않으므로, 이후로는 실제로 바뀐
-            # 날만 찍힌다. 없는 날짜를 지어내지 않으려는 것이다.
-            book.setdefault(fname, _today_iso)
+
+        if not rec:
+            # 처음 보는 장. 없는 날짜를 지어내지 않고 오늘로 연다.
+            book[fname] = {"date": _today_iso, "sig": sig}
+        elif not known:
+            # 옛 대장(날짜만 적힌 형태)을 옮겨 오는 중이다. 그 시점에는
+            # 서명이 없어 바뀌었는지 알 길이 없다. 오늘로 찍는다 —
+            # 모른다고 옛 날짜를 그대로 두면, 정말 바뀐 장까지 안 바뀐
+            # 것처럼 적히기 때문이다. 한 번 몰려 찍히고 다음부터 안정된다.
+            book[fname] = {"date": _today_iso, "sig": sig}
+        elif known != sig:
+            book[fname] = {"date": _today_iso, "sig": sig}
 
     removed = 0
     for p in OUT_DIR.glob("*.html"):
