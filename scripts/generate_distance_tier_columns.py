@@ -32,6 +32,12 @@ SERIES = [
 ]
 
 
+import wma_standards as wma  # noqa: E402
+
+
+import json  # noqa: E402
+
+
 def esc(s) -> str:
     return (str(s).replace("&", "&amp;").replace("<", "&lt;")
             .replace(">", "&gt;").replace('"', "&quot;"))
@@ -317,6 +323,322 @@ def series_links(current: str) -> str:
             '다른 거리의 등급표 · ' + " · ".join(items) + "</p>")
 
 
+# ── 글 안에서 두 기준을 같이 보여 주는 부분 ──────────────────────
+# 이 글들은 Running Level 표와 calrank 연령등급을 둘 다 싣는다. 그러면
+# "둘이 다르게 말하면 어느 쪽이 맞나"가 바로 따라오는데, 지금까지는
+# 말로만 답했다. 그래서 (1) 글 안에서 두 기준을 같이 계산해 주고
+# (2) 두 기준이 나이에 따라 얼마나 갈리는지를 직접 계산해 싣는다.
+#
+# 등급 경계값은 level.js 의 TIER_BOUNDS 와 같은 값이어야 한다.
+# 한쪽만 바뀌면 같은 기록에 두 화면이 다른 답을 내놓는다.
+TIER_CUTS = [(72, "상당한 러너"), (65, "러닝 상급자"), (59, "매우 좋은 편"),
+             (51, "상당히 좋은 편"), (45, "꾸준한 러너"), (39, "보통"), (0, "이제 시작")]
+GAP_BANDS = ["20대", "30대", "40대", "50대", "60대", "70대"]
+GAP_CFG = {
+    "5km": {
+        "lo": 720,
+        "hi": 4500,
+        "ex": "23:19",
+        "exlo": "12분",
+        "exhi": "1시간 15분"
+    },
+    "10km": {
+        "lo": 1500,
+        "hi": 12000,
+        "ex": "52:30",
+        "exlo": "25분",
+        "exhi": "3시간 20분"
+    },
+    "half": {
+        "lo": 3300,
+        "hi": 16200,
+        "ex": "1:47:15",
+        "exlo": "55분",
+        "exhi": "4시간 30분"
+    },
+    "full": {
+        "lo": 7200,
+        "hi": 28800,
+        "ex": "3:42:35",
+        "exlo": "2시간",
+        "exhi": "8시간"
+    }
+}
+GAP_CONCL = {
+    "5km": "5km는 남녀 격차가 거의 닫힙니다. 20대 3.7%p가 60대에는 <b>0.2%p</b>까지 줄어들고, 70대에서 0.8%p로 조금 돌아옵니다. 그래도 네 거리 중 가장 크게 좁혀지는 구간이에요.",
+    "10km": "10km는 격차가 거의 그대로입니다. 20대 3.5%p, 70대 3.0%p로 나이가 들어도 비슷한 간격을 유지합니다.",
+    "half": "하프는 격차가 조금 좁혀집니다. 20대 3.6%p에서 70대 2.6%p로, 5km처럼 확 닫히지도 풀코스처럼 벌어지지도 않는 중간 모양입니다.",
+    "full": "풀코스는 격차가 오히려 벌어집니다. 20대 4.0%p에서 70대 <b>4.8%p</b>로 늘어납니다. 네 거리 중 유일하게 나이가 들수록 차이가 커지는 거리예요."
+}
+
+WIDGET_CSS = """.tenk-box{margin:18px 0 24px;padding:18px;border:1px solid var(--line);
+  border-radius:14px;background:var(--tint-1);}
+.tenk-h{margin:0 0 6px;font-size:17px;font-weight:900;color:var(--ink);}
+.tenk-sub{margin:0 0 14px;font-size:13.5px;line-height:1.7;color:var(--ink-soft);}
+.tenk-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
+.tenk-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;
+  font-weight:700;color:var(--ink-soft);flex:1 1 92px;}
+.tenk-form input,.tenk-form select{padding:10px;min-height:24px;font-size:15px;
+  border-radius:8px;border:1px solid var(--line);background:var(--surface);
+  color:var(--ink);font-family:inherit;}
+.tenk-go{flex:1 1 100%;padding:12px;min-height:24px;border:0;border-radius:8px;
+  background:var(--accent-fill);color:var(--ink);font-size:15px;font-weight:900;
+  font-family:inherit;cursor:pointer;}
+.tenk-err{margin:10px 0 0;font-size:13px;color:var(--accent-ink);}
+.tenk-out{margin:16px 0 0;}
+.tenk-two{display:flex;flex-wrap:wrap;gap:10px;}
+.tenk-card{flex:1 1 150px;padding:13px;border-radius:10px;
+  border:1px solid var(--line);background:var(--surface);}
+.tenk-card h3{margin:0 0 3px;font-size:11.5px;font-weight:700;color:var(--ink-faint);letter-spacing:.3px;}
+.tenk-card b{display:block;font-size:20px;font-weight:900;color:var(--ink);line-height:1.3;}
+.tenk-card span{display:block;margin-top:4px;font-size:12.5px;line-height:1.6;color:var(--ink-soft);}
+.tenk-why{margin:13px 0 0;padding:13px;border-radius:10px;
+  background:var(--tint-2);font-size:13.5px;line-height:1.75;color:var(--ink-soft);}
+.tenk-why b{color:var(--ink);}
+.tenk-eq{margin:11px 0 0;font-size:13px;line-height:1.8;color:var(--ink-soft);}
+.tenk-eq b{color:var(--ink);}
+.gap-fig{margin:18px 0 22px;padding:0;}
+.gap-svg{display:block;width:100%;height:auto;overflow:visible;}
+.gap-grid line{stroke:var(--line);stroke-width:1;opacity:.55;}
+.gap-ax text{font-size:13px;fill:var(--ink-faint);font-family:inherit;}
+.gap-ref{stroke:var(--ink-faint);stroke-width:1.5;stroke-dasharray:5 5;opacity:.8;}
+.gap-reft{font-size:12.5px;fill:var(--ink-faint);font-family:inherit;}
+.gap-m{fill:none;stroke:#C42808;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.gap-f{fill:none;stroke:#2F5FBF;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.gap-dot-m circle,circle.gap-dot-m{fill:#C42808;stroke:var(--surface);stroke-width:2;}
+.gap-dot-f circle,circle.gap-dot-f{fill:#2F5FBF;stroke:var(--surface);stroke-width:2;}
+.gap-lbl{font-size:14px;font-weight:700;font-family:inherit;}
+.gap-tm{fill:#C42808;}
+.gap-tf{fill:#2F5FBF;}
+.gap-leg text{font-size:13px;fill:var(--ink-soft);font-family:inherit;}
+.gap-leg .gap-unit{font-size:11.5px;fill:var(--ink-faint);}
+.gap-fig figcaption{margin-top:10px;font-size:12.5px;line-height:1.75;color:var(--ink-faint);}
+@media (prefers-color-scheme: dark){
+  .gap-m{stroke:#FF3D1A;} .gap-f{stroke:#5B8DEF;}
+  .gap-dot-m circle,circle.gap-dot-m{fill:#FF3D1A;}
+  .gap-dot-f circle,circle.gap-dot-f{fill:#5B8DEF;}
+  .gap-tm{fill:#FF3D1A;} .gap-tf{fill:#5B8DEF;}
+}"""
+
+WIDGET_JS = """// Running Level 5단계 컷오프 — 이 글의 표에서 그대로 뽑았다
+var TENK_RL = {"male": {"tiers": ["비기너", "노비스", "인터미디엇", "어드밴스드", "엘리트"], "bands": {"10대": [4059, 3388, 2895, 2535, 2271], "20대": [3930, 3279, 2803, 2454, 2198], "30대": [3930, 3279, 2803, 2454, 2198], "40대": [4078, 3403, 2909, 2546, 2281], "50대": [4422, 3690, 3154, 2761, 2474], "60대": [4830, 4031, 3445, 3016, 2702], "70대": [5320, 4440, 3795, 3322, 2976], "80대": [6236, 5205, 4448, 3894, 3488]}}, "female": {"tiers": ["비기너", "노비스", "인터미디엇", "어드밴스드", "엘리트"], "bands": {"10대": [4732, 4018, 3475, 3067, 2763], "20대": [4429, 3760, 3253, 2871, 2586], "30대": [4438, 3768, 3259, 2877, 2592], "40대": [4603, 3908, 3380, 2984, 2688], "50대": [5021, 4263, 3687, 3255, 2932], "60대": [5658, 4804, 4155, 3668, 3304], "70대": [6481, 5503, 4760, 4201, 3785], "80대": [7709, 6546, 5662, 4998, 4502]}}};
+var TENK_BAND = {10:"10대",20:"20대",30:"30대",40:"40대",50:"50대",60:"60대",70:"70대",80:"80대"};
+// calrank 7단계 경계 (연령등급 기준)
+var TENK_TIERS = [[72,"상당한 러너"],[65,"러닝 상급자"],[59,"매우 좋은 편"],
+                  [51,"상당히 좋은 편"],[45,"꾸준한 러너"],[39,"보통"],[0,"이제 시작"]];
+var PCT = [95,80,50,20,5];
+
+function tkSec(t){
+  var m = String(t||"").trim().match(/^(\\d{1,2}):(\\d{1,2})(?::(\\d{1,2}))?$/);
+  if(!m) return null;
+  var a=+m[1], b=+m[2], c=(m[3]===undefined?null:+m[3]);
+  return c===null ? a*60+b : a*3600+b*60+c;
+}
+function tkClock(s){
+  s=Math.round(s);
+  var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), x=s%60;
+  var p=function(n){return String(n).padStart(2,"0")};
+  return h ? h+":"+p(m)+":"+p(x) : m+":"+p(x);
+}
+function tkBand(age){ var d=Math.floor(age/10)*10; if(d<10)d=10; if(d>80)d=80; return TENK_BAND[d]; }
+
+document.getElementById("tenkForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var err=document.getElementById("tkErr"), out=document.getElementById("tkOut");
+  err.hidden=true; out.hidden=true;
+  var sec=tkSec(document.getElementById("tkTime").value);
+  var age=parseInt(document.getElementById("tkAge").value,10);
+  var sex=document.getElementById("tkSex").value;
+  if(!sec){ err.textContent="완주 시간을 52:30 또는 1:02:30 형식으로 넣어 주세요."; err.hidden=false; return; }
+  if(!(age>=10&&age<=99)){ err.textContent="나이를 10에서 99 사이로 넣어 주세요."; err.hidden=false; return; }
+  if(sec<1500||sec>12000){ err.textContent="10km 기록으로 보기 어려운 값입니다. 25분에서 3시간 20분 사이로 확인해 주세요."; err.hidden=false; return; }
+
+  var cuts=TENK_RL[sex].bands[tkBand(age)], names=TENK_RL[sex].tiers;
+  var rlName=names[0], rlNote="비기너 기준선 바깥";
+  for(var i=cuts.length-1;i>=0;i--){ if(sec<=cuts[i]){ rlName=names[i]; rlNote="상위 "+PCT[i]+"% 안"; break; } }
+
+  var std = (typeof wmaStandard==="function") ? wmaStandard(sex,"10km",age) : null;
+  var grade = std ? (std/sec*100) : null;
+  var ckName="—";
+  if(grade!==null){ for(var j=0;j<TENK_TIERS.length;j++){ if(grade>=TENK_TIERS[j][0]){ ckName=TENK_TIERS[j][1]; break; } } }
+
+  var h='<div class="tenk-two">';
+  h+='<div class="tenk-card"><h3>Running Level · 또래 러너 사이</h3><b>'+rlName+'</b><span>'+rlNote+'</span></div>';
+  h+='<div class="tenk-card"><h3>calrank · WMA 연령 기준 대비</h3><b>'+(grade!==null?grade.toFixed(1)+"%":"—")+'</b><span>'+ckName+'</span></div>';
+  h+='</div>';
+
+  if(grade!==null){
+    var medSec=cuts[2], medGrade=std/medSec*100, diff=grade-medGrade;
+    h+='<div class="tenk-why"><b>두 기준이 다르게 말하는 이유.</b> '
+      +'Running Level 은 <b>실제로 대회를 뛰는 사람들 사이의 등수</b>이고, '
+      +'WMA 연령등급은 <b>그 나이·성별 세계 최고 기록과의 비율</b>입니다. 재는 것이 다릅니다. '
+      +'지금 나이대의 중앙값('+tkClock(medSec)+')은 연령등급으로 '+medGrade.toFixed(1)+'%에 해당합니다. '
+      +'넣으신 '+grade.toFixed(1)+'%는 그보다 '
+      +(diff>=0 ? '<b>'+diff.toFixed(1)+'%p 높습니다</b>' : '<b>'+(-diff).toFixed(1)+'%p 낮습니다</b>')+'.</div>';
+
+    for(var k=TENK_TIERS.length-1;k>=0;k--){
+      if(TENK_TIERS[k][0]>grade){
+        var need=std/(TENK_TIERS[k][0]/100);
+        h+='<p class="tenk-eq">다음 구간 <b>‘'+TENK_TIERS[k][1]+'’</b>까지 <b>'+tkClock(need)+'</b> — 지금보다 '+tkClock(sec-need)+' 줄이면 됩니다.</p>';
+        break;
+      }
+    }
+    var eq=[];
+    [["5km","5km"],["half","하프"],["full","풀코스"]].forEach(function(d){
+      var s2=(typeof wmaStandard==="function") ? wmaStandard(sex,d[0],age) : null;
+      if(s2) eq.push(d[1]+' <b>'+tkClock(s2/(grade/100))+'</b>');
+    });
+    if(eq.length) h+='<p class="tenk-eq">같은 연령등급이라면 '+eq.join(" · ")+' 입니다.</p>';
+  }
+  h+='<p class="tenk-eq" style="color:var(--ink-faint);font-size:12px;">계산은 이 페이지 안에서 끝납니다. 기록은 저장되지 않습니다.</p>';
+  out.innerHTML=h; out.hidden=false;
+});"""
+
+
+def _gap_rows(dist: str):
+    """각 나이대 Running Level 중앙값이 WMA 연령등급으로 몇 %인지."""
+    out = []
+    for b in GAP_BANDS:
+        i = DECADES.index(b)
+        age = int(b[:2]) + 5
+        ms = _sec(TIER_TABLES[(dist, "male")][i][2])
+        fs = _sec(TIER_TABLES[(dist, "female")][i][2])
+        out.append((b, ms, wma.standard("male", dist, age) / ms * 100,
+                       fs, wma.standard("female", dist, age) / fs * 100))
+    return out
+
+
+def gap_chart(dist: str) -> str:
+    rows = _gap_rows(dist)
+    vals = [v for _, _, m, _, f in rows for v in (m, f)]
+    lo = int(min(vals)) - 1.5
+    hi = int(max(vals)) + 2.5
+    span = hi - lo
+    X = [70, 180, 290, 400, 510, 620]
+    def y(v):
+        return round(300 - (v - lo) / span * 250, 1)
+    pm = " ".join("%d,%s" % (X[i], y(r[2])) for i, r in enumerate(rows))
+    pf = " ".join("%d,%s" % (X[i], y(r[4])) for i, r in enumerate(rows))
+    dm = "".join('<circle cx="%d" cy="%s" r="5"/>' % (X[i], y(r[2])) for i, r in enumerate(rows))
+    df = "".join('<circle cx="%d" cy="%s" r="5"/>' % (X[i], y(r[4])) for i, r in enumerate(rows))
+    grid = axl = ""
+    for k in range(5):
+        v = lo + span * k / 4
+        grid += '<line x1="70" y1="%s" x2="620" y2="%s"/>' % (y(v), y(v))
+        axl += '<text x="62" y="%s" text-anchor="end">%.1f%%</text>' % (y(v) + 5, v)
+    xl = "".join('<text x="%d" y="332">%s</text>' % (X[i], r[0]) for i, r in enumerate(rows))
+    refy = y(rows[0][2])
+    m20, f20, m70, f70 = rows[0][2], rows[0][4], rows[-1][2], rows[-1][4]
+    return (
+        '<figure class="gap-fig">\n'
+        '<svg viewBox="0 0 680 400" class="gap-svg" role="img" '
+        'aria-labelledby="gt-%(d)s gd-%(d)s" preserveAspectRatio="xMidYMid meet">\n'
+        '<title id="gt-%(d)s">나이대별 Running Level 중앙값의 WMA 연령등급</title>\n'
+        '<desc id="gd-%(d)s">가로축 20대부터 70대, 세로축 연령등급 백분율. '
+        '남성은 %(m20).1f%%에서 %(m70).1f%%로, 여성은 %(f20).1f%%에서 %(f70).1f%%로 올라갑니다. '
+        '두 기준이 같다면 평평해야 합니다.</desc>\n'
+        '<g class="gap-grid">%(grid)s</g>\n<g class="gap-ax">%(axl)s%(xl)s</g>\n'
+        '<line class="gap-ref" x1="70" y1="%(refy)s" x2="620" y2="%(refy)s"/>\n'
+        '<text class="gap-reft" x="74" y="%(refty)s">일치한다면 이 높이로 평평</text>\n'
+        '<polyline class="gap-m" points="%(pm)s"/>\n<polyline class="gap-f" points="%(pf)s"/>\n'
+        '<g class="gap-dot-m">%(dm)s</g><g class="gap-dot-f">%(df)s</g>\n'
+        '<text class="gap-lbl gap-tm" x="620" y="%(lm)s" text-anchor="end">남성 %(m70).1f%%</text>\n'
+        '<text class="gap-lbl gap-tf" x="620" y="%(lf)s" text-anchor="end">여성 %(f70).1f%%</text>\n'
+        '<g class="gap-leg">'
+        '<line class="gap-m" x1="70" y1="370" x2="100" y2="370"/>'
+        '<circle class="gap-dot-m" cx="85" cy="370" r="4.5"/><text x="108" y="375">남성</text>'
+        '<line class="gap-f" x1="170" y1="370" x2="200" y2="370"/>'
+        '<circle class="gap-dot-f" cx="185" cy="370" r="4.5"/><text x="208" y="375">여성</text>'
+        '<text class="gap-unit" x="620" y="375" text-anchor="end">'
+        '세로축 = 그 나이대 중앙값의 WMA 연령등급</text></g>\n</svg>\n'
+        '<figcaption>나이가 많을수록 또래 중앙값이 그 나이의 세계 기준에 더 가까이 가 있습니다. '
+        '두 기준이 같은 것을 재고 있다면 선은 평평해야 하는데, 그렇지 않습니다. '
+        'Running Level 중앙값(상위 50%% 컷오프)을 WMA 2025 연령 기준표로 나눈 값입니다.'
+        '</figcaption>\n</figure>'
+    ) % dict(d=dist, grid=grid, axl=axl, xl=xl, refy=refy, refty=round(refy + 21, 1),
+             pm=pm, pf=pf, dm=dm, df=df, m20=m20, f20=f20, m70=m70, f70=f70,
+             lm=round(y(m70) - 16, 1), lf=round(y(f70) + 38, 1))
+
+
+def gap_section(dist: str) -> str:
+    rows = _gap_rows(dist)
+    body = "\n".join(
+        "<tr><td>%s</td><td>%s</td><td><b>%.1f%%</b></td><td>%s</td><td><b>%.1f%%</b></td></tr>"
+        % (b, _hms(ms) if ms >= 3600 else _mmss(ms), gm,
+           _hms(fs) if fs >= 3600 else _mmss(fs), gf)
+        for b, ms, gm, fs, gf in rows)
+    return f"""<h2>두 기준은 어디서 갈리나 — 직접 맞춰 봤습니다</h2>
+<p>등급표를 두 개 들고 있으면 당연히 나오는 질문이 있습니다. <b>둘이 다르게 말하면 어느 쪽이 맞나?</b>
+어느 쪽도 틀리지 않습니다. 재는 것이 다를 뿐입니다. 그걸 말로만 하지 않고 숫자로 맞춰 봤습니다.</p>
+<p>각 나이대의 <b>Running Level 중앙값</b>(인터미디엇, 상위 50% 지점)이
+<b>WMA 연령등급</b>으로는 몇 %에 해당하는지 계산했습니다. 두 기준이 같은 사람을 똑같이
+평가한다면 이 값은 나이와 무관하게 일정해야 합니다.</p>
+{gap_chart(dist)}
+<div class="table-scroll">
+<table class="tier-data-table">
+<tr><th>나이대</th><th>남성 중앙값</th><th>WMA 연령등급</th><th>여성 중앙값</th><th>WMA 연령등급</th></tr>
+{body}
+</table>
+</div>
+<p><b>일정하지 않습니다.</b> 나이가 많을수록, 또래 사이에서 '딱 중간'인 사람이
+그 나이의 세계 기준에는 더 가까이 가 있습니다. 나이가 들수록 대회에 계속 나오는 사람의
+구성이 달라지기 때문으로 봅니다 — 스물다섯에는 한두 번 신청해 본 사람까지 섞이지만,
+일흔에도 뛰러 나오는 사람은 대개 오래 달려 온 사람입니다. 이건 저희 해석이고,
+표의 숫자는 두 공개 자료를 나눈 결과 그대로입니다.</p>
+<p>{GAP_CONCL[dist]}</p>
+<p>실용적인 결론은 이렇습니다. <b>또래와 견주고 싶으면 Running Level 등급을,
+나이를 감안한 절대 수준이 궁금하면 WMA 연령등급을</b> 보시면 됩니다.
+이 글 맨 위 계산기는 둘을 같이 보여 줍니다.</p>
+"""
+
+
+def calc_form(dist: str) -> str:
+    cfg = GAP_CFG[dist]
+    return f"""<section class="tenk-box" id="tenkBox">
+<h2 class="tenk-h">표를 뒤지지 말고, 기록을 넣어 보세요</h2>
+<p class="tenk-sub">두 기준이 각각 뭐라고 하는지 <b>여기서 같이</b> 보여 드립니다. 아래 표만 보면 한 기준밖에 못 봅니다.</p>
+<form class="tenk-form" id="tenkForm" novalidate>
+  <label>완주 시간
+    <input type="text" id="tkTime" inputmode="numeric" placeholder="{cfg['ex']}" autocomplete="off">
+  </label>
+  <label>나이
+    <input type="number" id="tkAge" inputmode="numeric" placeholder="42" min="10" max="99">
+  </label>
+  <label>성별
+    <select id="tkSex"><option value="male">남성</option><option value="female">여성</option></select>
+  </label>
+  <button type="submit" class="tenk-go">두 기준으로 보기</button>
+</form>
+<p class="tenk-err" id="tkErr" hidden></p>
+<div class="tenk-out" id="tkOut" hidden></div>
+</section>"""
+
+
+def widget_js(dist: str) -> str:
+    cfg = GAP_CFG[dist]
+    rl = {}
+    for gkey in ("male", "female"):
+        rl[gkey] = {"tiers": list(TIER_NAMES),
+                    "bands": {d: [_sec(v) for v in TIER_TABLES[(dist, gkey)][i]]
+                              for i, d in enumerate(DECADES)}}
+    js = WIDGET_JS
+    # WIDGET_JS 는 10km 페이지에서 그대로 떠온 것이라 TENK_RL 에 10km 표가
+    # 박혀 있다. 거리별 표로 통째로 갈아끼운다. (자리표시자를 믿지 않는다)
+    js, n = re.subn(r"var TENK_RL = \{.*?\};",
+                    "var TENK_RL = %s;" % json.dumps(rl, ensure_ascii=False).replace("\\", "\\\\"),
+                    js, count=1, flags=re.S)
+    if n != 1:
+        raise SystemExit("TENK_RL 치환 실패 — WIDGET_JS 구조가 바뀌었다")
+    js = js.replace('"10km"', '"%s"' % dist)
+    js = js.replace("sec<1500||sec>12000", "sec<%d||sec>%d" % (cfg["lo"], cfg["hi"]))
+    js = js.replace("25분에서 3시간 20분 사이", "%s에서 %s 사이" % (cfg["exlo"], cfg["exhi"]))
+    js = js.replace("10km 기록으로", "%s 기록으로" % DIST_NAME[dist])
+    js = js.replace("52:30 또는 1:02:30", cfg["ex"])
+    js = js.replace("var TENK_TIERS = [[72,\"상당한 러너\"],[65,\"러닝 상급자\"],[59,\"매우 좋은 편\"],\n                  [51,\"상당히 좋은 편\"],[45,\"꾸준한 러너\"],[39,\"보통\"],[0,\"이제 시작\"]];",
+                    "var TENK_TIERS = %s;" % json.dumps([[a, b] for a, b in TIER_CUTS], ensure_ascii=False))
+    return js
+
+
 def build(dist: str) -> tuple[str, str, str, str]:
     c = DIST_COPY[dist]
     slug = f"column-{c['slug']}-age-gender-tier.html"
@@ -390,6 +712,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
   .fact-list {{ margin: 0 0 18px; padding-left: 20px; }}
   .fact-list li {{ margin-bottom: 10px; line-height: 1.85; }}
   .column-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }}
+{WIDGET_CSS}
 </style>
 </head>
 <body>
@@ -406,11 +729,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <div class="column-body">
 <p>{esc(c['lead'])}</p>
 
-<a href="level.html" class="cert-cta" style="margin:18px 0 22px;">
-<span class="cc-ico">🧮</span>
-<span class="cc-txt"><b>표에서 찾기 전에 — 기록을 넣으면 바로 알려드립니다</b><span>완주 시간과 나이만 넣으면 내 등급, 다음 등급까지 남은 시간, 다른 거리 환산 기록까지 나옵니다. 결과는 이미지로 저장해 공유할 수 있습니다. 로그인 없이 바로.</span></span>
-<span class="cc-go">계산하기 →</span>
-</a>
+{calc_form(dist)}
 
 <div class="source-box">
 <strong>📌 이 칼럼의 출처</strong><br>
@@ -497,6 +816,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <p>위 표에서도 20~30대 기록이 거의 같고 40대부터 서서히 벌어지는 모습이 보입니다.
 등급표가 나이마다 기준을 달리 두는 이유가 여기 있습니다.</p>
 
+{gap_section(dist)}
 <h2>이 등급은 어떻게 나왔나 — 계산 과정</h2>
 <p>러닝 등급표는 많지만, 숫자가 어디서 나왔는지 확인할 수 있는 곳은 드뭅니다. 체감이나
 커뮤니티 의견으로 구간을 나누면 보여 줄 계산 과정이 없기 때문입니다. calrank는 두 기준을
@@ -555,6 +875,10 @@ calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink
 </div>
 </footer>
 
+<script src="wma-standards.js"></script>
+<script>
+{widget_js(dist)}
+</script>
 </body>
 </html>
 """
@@ -574,11 +898,13 @@ def link_10km_page() -> bool:
     html = path.read_text(encoding="utf-8")
     block = series_links("10km")
     marker = '<div class="column-cta">'
-    existing = re.search(r'<p style="font-size:13\.5px;line-height:1\.9;[^>]*>다른 거리의 등급표.*?</p>\n', html, re.S)
+    # 뒤따르는 빈 줄까지 통째로 집어삼킨다. 한 줄만 먹으면 돌 때마다
+    # 빈 줄이 쌓여서 CI 가 매일 의미 없는 diff 를 만든다.
+    existing = re.search(r'<p style="font-size:13\.5px;line-height:1\.9;[^>]*>다른 거리의 등급표.*?</p>\s*', html, re.S)
     if existing:
-        new = html[:existing.start()] + block + "\n\n" + html[existing.end():]
+        new = html[:existing.start()] + block.rstrip() + "\n\n" + html[existing.end():]
     elif marker in html:
-        new = html.replace(marker, block + "\n\n" + marker, 1)
+        new = html.replace(marker, block.rstrip() + "\n\n" + marker, 1)
     else:
         print("[tier columns] 10km 페이지에 넣을 자리를 못 찾음")
         return False
