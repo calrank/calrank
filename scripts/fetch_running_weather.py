@@ -280,6 +280,25 @@ def build_page(data) -> str:
 
 {cities}
 
+<div class="ev-after">
+<p class="ev-after-q">좋은 시간에 뛰고 오셨나요? 기록을 넣어 보세요.</p>
+<form class="ev-grade-form" action="/level.html" method="get">
+<label class="ev-grade-sr" for="rwGradeD">거리</label>
+<select id="rwGradeD" name="d">
+<option value="5">5km</option>
+<option value="10" selected>10km</option>
+<option value="21.0975">하프</option>
+<option value="42.195">풀코스</option>
+</select>
+<label class="ev-grade-sr" for="rwGradeT">완주시간</label>
+<input class="ev-grade-t" id="rwGradeT" name="t" type="text" inputmode="numeric"
+ autocomplete="off" placeholder="52:30" aria-describedby="rwGradeHint">
+<button type="submit">등급 보기 →</button>
+</form>
+<p class="ev-after-n" id="rwGradeHint">분:초 또는 시:분:초로 적어 주세요.
+나이와 성별까지 반영하고, 가입은 필요 없습니다.</p>
+</div>
+
 <div class="rw-src">
 <b>이 페이지의 근거</b><br>
 · 기온과 기록: El Helou N, Tafflet M, Berthelot G 외 (2012).

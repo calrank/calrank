@@ -108,7 +108,10 @@ def build_summary(ev: dict) -> str:
 
     rd = parse_date(ev.get("regDeadline"))
     if is_past:
-        parts.append("이미 종료된 대회입니다. 다음 회차 일정은 주최 측 공지를 확인해 주세요.")
+        # 끝난 대회 설명도 '접수'가 아니라 '기록'으로 맺는다. 검색 결과에
+        # 제목 바로 아래 붙는 문장이라, 여기까지 맞춰야 말이 이어진다.
+        parts.append("이미 종료된 대회입니다. 완주 기록을 넣으면 나이와 성별을 "
+                     "반영한 등급을 바로 확인할 수 있습니다.")
         return " ".join(parts)
     if ev.get("regClosed"):
         parts.append("접수는 이미 마감되었습니다.")
@@ -239,6 +242,19 @@ def build_meta_description(ev: dict) -> str:
     return text if len(text) <= 150 else text[:147] + "…"
 
 
+def _time_placeholder(km: float) -> str:
+    """입력 예시는 그 거리에서 흔한 기록으로 보여 준다."""
+    if not km:
+        return "52:30"
+    if km <= 6:
+        return "25:30"
+    if km <= 12:
+        return "52:30"
+    if km <= 25:
+        return "1:45:30"
+    return "3:55:00"
+
+
 def build_title(ev: dict) -> str:
     d = parse_date(ev.get("date"))
     base = ev.get("name", "")
@@ -248,7 +264,14 @@ def build_title(ev: dict) -> str:
     if ev.get("region") and ev["region"] not in ("전국", "미표기"):
         tail.append(ev["region"])
     suffix = " ".join(tail)
-    return f"{base} — {suffix} 대회 일정·접수 | calrank" if suffix else f"{base} 대회 일정·접수 | calrank"
+    # 끝난 대회 제목에 "일정·접수"를 그대로 두면, 검색 결과에 보이는 문구가
+    # 아무도 더는 찾지 않는 말이 된다(728장이 그 상태였다). 대회가 끝나면
+    # 사람들이 찾는 건 '내 기록이 몇 등급인가'다 — 본문은 이미 그렇게
+    # 바뀌는데 제목만 안 따라갔다. 한 번 지난 대회는 계속 이 제목을 쓴다.
+    # 기간을 두면 대회가 그 기간을 벗어날 때 제목이 되돌아가 버린다.
+    is_past = bool(d) and d < date.today()
+    kind = "완주 기록 등급" if is_past else "대회 일정·접수"
+    return f"{base} — {suffix} {kind} | calrank" if suffix else f"{base} {kind} | calrank"
 
 
 def build_event_jsonld(ev: dict, url: str, desc: str) -> dict:
@@ -330,13 +353,27 @@ def build_static_content(ev: dict) -> str:
             f'target="_blank" rel="noopener">대회 홈페이지 ↗</a>'
         )
         if grade_href:
+            # 링크 하나로 끝내면 누른 다음에야 입력창을 만난다. 그 사이에
+            # 사람이 빠진다. JS 없이 GET 폼으로 넘기면 거리와 시간이 채워진
+            # level.html 이 열린다(prefillFromUrl 이 d·t 를 읽는다).
+            # 계산도 기록 저장도 그대로 level.html 이 맡으므로 자산 경로는
+            # 건드리지 않는다.
+            ph = _time_placeholder(km)
             cta = (
                 f'<div class="ev-after">'
-                f'<p class="ev-after-q">이 대회 다녀오셨나요?</p>'
-                f'<a class="ev-after-btn" href="{grade_href}">'
-                f'완주 기록이 몇 등급인지 보기 →</a>'
-                f'<p class="ev-after-n">나이와 성별까지 반영해 바로 나옵니다. '
-                f'가입하지 않아도 됩니다.</p>'
+                f'<p class="ev-after-q">이 대회 다녀오셨나요? 기록을 넣어 보세요.</p>'
+                f'<form class="ev-grade-form" action="/level.html" method="get">'
+                f'<input type="hidden" name="d" value="{km:g}">'
+                f'<label class="ev-grade-sr" for="evGradeTime">완주시간</label>'
+                f'<input class="ev-grade-t" id="evGradeTime" name="t" type="text" '
+                f'inputmode="numeric" autocomplete="off" placeholder="{ph}" '
+                f'aria-describedby="evGradeHint">'
+                f'<button type="submit">등급 보기 →</button>'
+                f'</form>'
+                # 형식 안내는 placeholder 가 아니라 여기에 둔다. 스크린리더는
+                # placeholder 를 건너뛰는 일이 있어서, 읽히는 쪽에 적어야 한다.
+                f'<p class="ev-after-n" id="evGradeHint">분:초 또는 시:분:초로 '
+                f'적어 주세요. 나이와 성별까지 반영하고, 가입은 필요 없습니다.</p>'
                 f'</div>'
             ) + cta
     else:
