@@ -2427,6 +2427,11 @@
       "permanent": true
     },
     {
+      "source": "/e/rr-2026-%ED%8F%89%ED%99%94%EB%9F%B0-2026-11-28.html",
+      "destination": "/e/rm-%ED%8F%89%ED%99%94%EB%9F%B0-2026-11-28.html",
+      "permanent": true
+    },
+    {
       "source": "/e/rr-2026-%ED%8F%89%ED%99%94%EC%9D%98%EC%88%B2-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-22.html",
       "destination": "/e/rm-%ED%8F%89%ED%99%94%EC%9D%98%EC%88%B2-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-22.html",
       "permanent": true
@@ -3519,6 +3524,11 @@
     {
       "source": "/e/rw-%EC%A0%9C20%ED%9A%8C-%EC%88%9C%EC%B2%9C%EB%A7%8C%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-09-05.html",
       "destination": "/e/rm-%EC%A0%9C20%ED%9A%8C-%EC%88%9C%EC%B2%9C%EB%A7%8C%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-09-05.html",
+      "permanent": true
+    },
+    {
+      "source": "/e/rw-%EC%A0%9C20%ED%9A%8C-%EC%9E%90%EC%9B%90%EB%B4%89%EC%82%AC-%EC%82%AC%EB%9E%91-%EA%B5%BF%ED%8E%80-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html",
+      "destination": "/e/rr-%EC%A0%9C20%ED%9A%8C-%EC%9E%90%EC%9B%90%EB%B4%89%EC%82%AC-%EC%82%AC%EB%9E%91-%EA%B5%BF%ED%8E%80-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-08.html",
       "permanent": true
     },
     {

@@ -11051,7 +11051,7 @@
     "id": "rm-제2회-경기신문-씨사이드-마라톤-2026-09-19",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "제2회 경기신문 씨사이드 마라톤(대회취소)",
+    "name": "제2회 경기신문 씨사이드 마라톤",
     "date": "2026-09-19",
     "time": "오전 8시 30분 집결",
     "location": "영종구 씨사이드파크 일원",
@@ -11062,7 +11062,7 @@
       "5km"
     ],
     "organizer": "경기신문",
-    "organizerPhone": "00-1588-2341",
+    "organizerPhone": null,
     "regDeadline": "2026-08-14",
     "regClosed": null,
     "lat": 37.4563,
@@ -19567,14 +19567,15 @@
     "id": "rr-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "제20회 자원봉사 사랑 굿펀 마라톤(취소)",
+    "name": "제20회 자원봉사 사랑 굿펀 마라톤",
     "date": "2026-11-08",
     "time": "09:00 집결",
     "location": "신정교하부육상트랙구장",
     "region": "서울",
     "distances": [
       "10km",
-      "5km"
+      "5km",
+      "10km · 5km"
     ],
     "organizer": "(사)대한생활체육마라톤협회",
     "organizerPhone": "00-1644-4219",
@@ -20243,29 +20244,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningwikii.com/",
     "applyUrl": "https://runningwikii.com/entry/seoul-corner-international-trailrun/"
-  },
-  {
-    "id": "rw-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제20회 자원봉사 사랑 굿펀 마라톤",
-    "date": "2026-11-08",
-    "time": "미확인",
-    "location": "서울",
-    "region": "서울",
-    "distances": [
-      "10km · 5km"
-    ],
-    "organizer": null,
-    "organizerPhone": null,
-    "regDeadline": "2026-10-18",
-    "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningwikii.com/",
-    "applyUrl": "https://runningwikii.com/entry/volunteer-love-good-fun-marathon/"
   },
   {
     "id": "rw-83타워-업힐런-챌린지-2026-11-08",
@@ -22003,17 +21981,18 @@
     "id": "rm-평화런-2026-11-28",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "2027 서울 세계청년대회 성공 기원 평화런",
+    "name": "평화런",
     "date": "2026-11-28",
     "time": "07:30 집결",
     "location": "여의도공원 문화의마당",
     "region": "서울",
     "distances": [
       "5km",
-      "10km"
+      "10km",
+      "10km · 5km"
     ],
     "organizer": "2027 서울WYD, CPBC",
-    "organizerPhone": null,
+    "organizerPhone": "00-1566-1936",
     "regDeadline": "2026-10-24",
     "regClosed": null,
     "lat": 37.524630704323,
@@ -22126,31 +22105,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://spotvrun.co.kr"
-  },
-  {
-    "id": "rr-2026-평화런-2026-11-28",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2026 평화런",
-    "date": "2026-11-28",
-    "time": "미확인",
-    "location": "여의도공원 문화의마당",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "5km",
-      "10km · 5km"
-    ],
-    "organizer": "가톨릭평화방송/런코리아",
-    "organizerPhone": "00-1566-1936",
-    "regDeadline": "2026-10-24",
-    "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.peacerun.kr"
   },
   {
     "id": "rm-가야왕도-김해-전국어울림-마라톤-2026-11-29",
