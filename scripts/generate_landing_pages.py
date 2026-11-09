@@ -139,7 +139,7 @@ def build_page(region, sport, events):
     # 지역은 설명이 짧아지는데, 억지로 늘리는 대신 이 페이지에서 실제로 할 수
     # 있는 일을 적는다 — 목차 둘째 칸이 기록등급이라 한 번만 누르면 닿는다.
     if sport in ("marathon", "trail"):
-        tail += " 완주 기록을 넣으면 나이·성별 기준으로 어느 등급인지도 바로 나옵니다."
+        tail += " 완주 기록을 넣으면 나이와 성별 기준으로 어느 등급인지도 바로 나옵니다."
     if len(desc) + len(tail) <= DESC_LIMIT:
         desc += tail
     if len(desc) > DESC_LIMIT:

@@ -1098,10 +1098,10 @@ def archive_month_mix(rows: list[dict]) -> str:
     bits = []
     top_r = sorted(regions.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
     if top_r:
-        bits.append(" · ".join(f"{k} {n}개" for k, n in top_r))
+        bits.append(", ".join(f"{k} {n}개" for k, n in top_r))
     top_d = sorted(dists.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
     if top_d:
-        bits.append("거리는 " + "·".join(k for k, _ in top_d) + " 중심")
+        bits.append("거리는 " + ", ".join(k for k, _ in top_d) + "가 많았습니다")
     return ", ".join(bits)
 
 
@@ -1165,9 +1165,10 @@ def archive_shell(title: str, desc: str, canonical: str, body: str) -> str:
 def build_archive_month(key, rows, prev_key, next_key) -> str:
     label = month_label(key)
     mix = archive_month_mix(rows)
-    desc = (f"{label}에 열린 국내 마라톤·트레일러닝·자전거·철인3종 대회 "
-            f"{len(rows)}개 목록입니다." + (f" {mix}." if mix else "")
-            + " 대회별 코스 거리, 장소, 개최일을 확인할 수 있습니다.")
+    desc = (f"{label}에 열린 국내 대회 {len(rows)}개를 모았습니다. "
+            f"마라톤과 트레일러닝, 자전거, 철인3종까지 들어 있어요."
+            + (f" {mix}." if mix else "")
+            + " 대회마다 코스 거리와 장소, 열린 날짜를 볼 수 있습니다.")
     pager = []
     if next_key:
         pager.append(f'<a href="{archive_slug(next_key)}">← {month_label(next_key)}</a>')
@@ -1190,9 +1191,9 @@ def build_archive_month(key, rows, prev_key, next_key) -> str:
 
 
 def build_archive_hub(by_month, keys, own_page, total) -> str:
-    desc = (f"이미 열린 국내 마라톤·트레일러닝·자전거·철인3종 대회 {total}개를 "
-            f"{len(keys)}개 달로 나눠 모은 기록 보관소입니다. "
-            "대회별 코스 거리, 장소, 개최일을 확인할 수 있습니다.")
+    desc = (f"이미 열린 국내 대회 {total}개를 {len(keys)}개 달로 나눠 모았습니다. "
+            "마라톤과 트레일러닝, 자전거, 철인3종이 함께 들어 있고, "
+            "대회마다 코스 거리와 장소, 열린 날짜를 볼 수 있습니다.")
     cards, inline = [], []
     for key in keys:
         rows = by_month[key]
