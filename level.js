@@ -821,11 +821,17 @@ function buildStatRow(inputs) {
   const sec = Math.round(inputs.finishSec);
   if (sec < 300 || sec > 54000) return null;      // 서버 제약과 같은 범위
   // 연령등급 %. 나이·성별·거리를 이미 보정한 값이라, 거리×연령대×성별
-  // 64칸으로 쪼개지 않고 한 분포에 모을 수 있다. 쪼개면 지금 16건이
-  // 11칸에 흩어져 어느 칸도 차지 않는다. 보내는 값이 하나 느는 게
-  // 아니라, 이미 보내는 값들에서 나오는 숫자를 정확한 나이로 미리
-  // 계산해 두는 것이다 — 연령대만 저장하면 45세인지 49세인지 모른다.
-  const std = wmaStd(inputs.gender, inputs.distanceKm, inputs.age);
+  // 64칸으로 쪼개지 않고 한 분포에 모을 수 있다.
+  //
+  // 정확한 나이가 아니라 연령대의 가운데 나이로 계산한다. 정확한 나이로
+  // 계산하면 거리·시간·성별과 이 %만으로 기준기록을 되짚어 나이를 역산할
+  // 수 있다. 동의문에서 "정확한 생년은 보내지 않는다"고 한 약속이 깨진다.
+  // 가운데 나이를 쓰면 이미 보내는 네 값에서 나오는 숫자가 되어, 새로
+  // 드러나는 것이 없다.
+  const MID = { "10대": 15, "20대": 25, "30대": 35, "40대": 45,
+                "50대": 55, "60대": 65, "70대": 75, "80대 이상": 82 };
+  const mid = MID[band];
+  const std = mid ? wmaStd(inputs.gender, inputs.distanceKm, mid) : null;
   const pct = std ? Math.round((std / sec) * 10000) / 100 : null;
   return {
     race_name: null,            // 이 화면에서는 대회를 묻지 않는다
