@@ -7753,12 +7753,13 @@
     "sportLabel": "트레일",
     "name": "2026 장수 나이트 트레일",
     "date": "2026-08-15",
-    "time": "미확인",
+    "time": "19:00 집결",
     "location": "장수종합경기장",
     "region": "경기",
     "distances": [
       "38K-P",
-      "14K"
+      "14K",
+      "38K"
     ],
     "organizer": "(주)락앤런",
     "organizerPhone": "063-353-2025",
@@ -8000,29 +8001,6 @@
     "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250820150217&csno=20191209143330#baseline?utm_source=marathongo&utm_medium=referral"
   },
   {
-    "id": "rm-p-2026-장수-나이트-트레일-2026-08-15",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "-P 2026 장수 나이트 트레일",
-    "date": "2026-08-15",
-    "time": "19:00 집결",
-    "location": "장수종합경기장",
-    "region": "전북",
-    "distances": [
-      "38K"
-    ],
-    "organizer": "(주)락앤런",
-    "organizerPhone": null,
-    "regDeadline": "2026-07-31",
-    "regClosed": null,
-    "lat": 35.64041139214,
-    "lng": 127.52085183562,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
-  },
-  {
     "id": "rm-9봉-영남알프스9봉-트레일-레이스-2026-08-15",
     "sport": "trail",
     "sportLabel": "트레일",
@@ -8212,16 +8190,17 @@
     "sportLabel": "마라톤",
     "name": "2026 교룡산성 백야드",
     "date": "2026-08-23",
-    "time": "미확인",
+    "time": "07:00 집결",
     "location": "전북 남원시 산곡동 251-2",
     "region": "전북",
     "distances": [
       "1회전 7K",
-      "6회전 42K"
+      "6회전 42K",
+      "7K"
     ],
     "organizer": "삼삼이즈",
     "organizerPhone": "010-7469-1526",
-    "regDeadline": null,
+    "regDeadline": "2026-08-17",
     "regClosed": null,
     "lat": 35.4163118,
     "lng": 127.3903713,
@@ -8369,29 +8348,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://www.wmac2026.com/"
-  },
-  {
-    "id": "rm-1회전-2026-교룡산성-백야드-2026-08-23",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "1회전 2026 교룡산성 백야드",
-    "date": "2026-08-23",
-    "time": "07:00 집결",
-    "location": "전북 남원시 산곡동 251-2",
-    "region": "전북",
-    "distances": [
-      "7K"
-    ],
-    "organizer": "삼삼이즈",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-17",
-    "regClosed": null,
-    "lat": 35.8203,
-    "lng": 127.1088,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://samsamis.com/66"
   },
   {
     "id": "ro-러너온-크루매치-시험-대회-2026-08-24",
@@ -9178,9 +9134,9 @@
     "sportLabel": "트레일",
     "name": "2026 다이나핏 태백 트레일",
     "date": "2026-09-05",
-    "time": "미확인",
+    "time": "6:00 집결",
     "location": "태백 소원지 오토캠핑장",
-    "region": "전국",
+    "region": "강원",
     "distances": [
       "50k",
       "32k-T",
@@ -9267,29 +9223,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://triathlon.or.kr/events/tour/",
     "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2110&page=1&sYear=2026&vType=list&field=&keyword="
-  },
-  {
-    "id": "rm-t-u-2026-다이나핏-태백-트레일-2026-09-05",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "-T -U 2026 다이나핏 태백 트레일",
-    "date": "2026-09-05",
-    "time": "6:00 집결",
-    "location": "태백 소원지 오토캠핑장",
-    "region": "강원",
-    "distances": [
-      "50k"
-    ],
-    "organizer": "태백시, 태백시 철인3종 협회",
-    "organizerPhone": null,
-    "regDeadline": "2026-05-11",
-    "regClosed": null,
-    "lat": 37.133729941503,
-    "lng": 128.961469971974,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://taebaektrail.com/"
   },
   {
     "id": "ro-제2회-vrun-2026-2026-09-05",
@@ -10042,7 +9975,7 @@
     "sportLabel": "마라톤",
     "name": "제2회 초록우산 런웨이 마라톤",
     "date": "2026-09-12",
-    "time": "미확인",
+    "time": "오전8시 집결",
     "location": "대전엑스포시민광장",
     "region": "대전",
     "distances": [
@@ -10201,31 +10134,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://www.hyundai.com/kr/ko/brand/forestrun/forestrun-apply/finalrun"
-  },
-  {
-    "id": "rm-걷기-어린이-제2회-초록우산-런웨이-마라톤-2026-09-12",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "걷기(어린이) 제2회 초록우산 런웨이 마라톤",
-    "date": "2026-09-12",
-    "time": "오전8시 집결",
-    "location": "대전엑스포시민광장",
-    "region": "대전",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "초록우산 대전세종지역본부",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-01",
-    "regClosed": null,
-    "lat": 36.3680652196732,
-    "lng": 127.388085716496,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/9443583f-6577-466c-ab2f-43d1dbd820d4"
   },
   {
     "id": "rm-2026-에너지-히어로-레이스-2026-09-12",
@@ -10573,11 +10481,11 @@
     "id": "rr-제14회설악산공룡능선utmb-2026-09-13",
     "sport": "trail",
     "sportLabel": "트레일",
-    "name": "제14회설악산공룡능선UTMB",
+    "name": "제14회 설악산공룡능선 UTMB CLIMBATHON",
     "date": "2026-09-13",
-    "time": "미확인",
+    "time": "03:00 집결",
     "location": "설익산한계령휴계소",
-    "region": "전국",
+    "region": "강원",
     "distances": [
       "27km",
       "22km",
@@ -10687,29 +10595,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://www.ujrun.kr/"
-  },
-  {
-    "id": "rm-제14회-설악산공룡능선-utmb-climbathon-2026-09-13",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "제14회 설악산공룡능선 UTMB CLIMBATHON",
-    "date": "2026-09-13",
-    "time": "03:00 집결",
-    "location": "설익산한계령휴계소",
-    "region": "강원",
-    "distances": [
-      "27km"
-    ],
-    "organizer": "(사)한국산악마라톤연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-25",
-    "regClosed": null,
-    "lat": 37.8228,
-    "lng": 128.1555,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250910133652&csno=20191227110239#baseline"
   },
   {
     "id": "rm-제16회-스-런-페스티벌-2026-09-13",
@@ -11163,14 +11048,14 @@
     "applyUrl": "http://runten.co.kr/"
   },
   {
-    "id": "rr-제2회-경기신문-씨사이드-마라톤-대회취소-2026-09-19",
+    "id": "rm-제2회-경기신문-씨사이드-마라톤-2026-09-19",
     "sport": "marathon",
     "sportLabel": "마라톤",
     "name": "제2회 경기신문 씨사이드 마라톤(대회취소)",
     "date": "2026-09-19",
-    "time": "미확인",
+    "time": "오전 8시 30분 집결",
     "location": "영종구 씨사이드파크 일원",
-    "region": "전국",
+    "region": "인천",
     "distances": [
       "하프",
       "10km",
@@ -11178,13 +11063,13 @@
     ],
     "organizer": "경기신문",
     "organizerPhone": "00-1588-2341",
-    "regDeadline": "2026-08-31",
+    "regDeadline": "2026-08-14",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4563,
+    "lng": 126.7052,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://kgseasiderun.co.kr/"
   },
   {
@@ -11193,9 +11078,9 @@
     "sportLabel": "마라톤",
     "name": "제18회 사이버 영토 수호 마라톤",
     "date": "2026-09-19",
-    "time": "미확인",
+    "time": "오전 8시 출발 집결",
     "location": "여의도 물빛무대 앞 광",
-    "region": "전국",
+    "region": "서울",
     "distances": [
       "하프",
       "10km",
@@ -11266,7 +11151,7 @@
     "sportLabel": "트레일",
     "name": "2026 장수트레일레이스 Fall",
     "date": "2026-09-19",
-    "time": "미확인",
+    "time": "07:00 집결",
     "location": "장수종합경기장",
     "region": "경기",
     "distances": [
@@ -11354,29 +11239,6 @@
     "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2044&page=1&sYear=2026&vType=list&field=&keyword="
   },
   {
-    "id": "rm-100s-j-2026-장수트레일레이스-fall-2026-09-19",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "100s -J 2026 장수트레일레이스 Fall",
-    "date": "2026-09-19",
-    "time": "07:00 집결",
-    "location": "장수종합경기장",
-    "region": "전북",
-    "distances": [
-      "100km"
-    ],
-    "organizer": "(주)락앤런",
-    "organizerPhone": null,
-    "regDeadline": "2026-06-10",
-    "regClosed": null,
-    "lat": 35.64041139214,
-    "lng": 127.52085183562,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
-  },
-  {
     "id": "rm-t1-wish-run-2026-09-19",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -11398,31 +11260,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://t1.fan/shop/products/440"
-  },
-  {
-    "id": "rm-걷기-제18회-사이버-영토-수호-마라톤-2026-09-19",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "걷기 제18회 사이버 영토 수호 마라톤",
-    "date": "2026-09-19",
-    "time": "오전 8시 출발 집결",
-    "location": "여의도 물빛무대 앞 광",
-    "region": "서울",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "(사)21세기경제사회연구원",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-03",
-    "regClosed": null,
-    "lat": 37.535599813854,
-    "lng": 126.899494768157,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cyber-run.com/"
   },
   {
     "id": "rm-2026-안양천-마라톤-2026-09-19",
@@ -11448,75 +11285,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://aychalf.kr/"
-  },
-  {
-    "id": "rm-운동-프로그램-시포레-run-fit-with-디스커버리-2026-09-19",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "+운동 프로그램 시포레 RUN & FIT with 디스커버리",
-    "date": "2026-09-19",
-    "time": "08시 집결",
-    "location": "고양시 일산호수공원",
-    "region": "경기",
-    "distances": [
-      "10km"
-    ],
-    "organizer": "HLL중앙 / 코틴스포츠",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-31",
-    "regClosed": null,
-    "lat": 37.6561360415672,
-    "lng": 126.764141543966,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://cityforestival.kr/",
-    "weather": {
-      "station": "서울",
-      "stationId": 108,
-      "avgTa": 24.4,
-      "minTa": 20.0,
-      "maxTa": 29.5,
-      "rn": null,
-      "rhm": 52.9,
-      "awayKm": 20.1,
-      "src": "KMA ASOS"
-    },
-    "climate": {
-      "years": 10,
-      "minAvg": 15.2,
-      "maxAvg": 29.5,
-      "rainYears": 2,
-      "hottestYear": 2024,
-      "hottestMax": 33.6,
-      "station": "서울",
-      "stationKm": 20
-    }
-  },
-  {
-    "id": "rm-제2회-경기신문-씨사이드-마라톤-2026-09-19",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제2회 경기신문 씨사이드 마라톤",
-    "date": "2026-09-19",
-    "time": "오전 8시 30분 집결",
-    "location": "영종구 씨사이드파크 일원",
-    "region": "인천",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "경기신문",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-14",
-    "regClosed": null,
-    "lat": 37.4563,
-    "lng": 126.7052,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://kgseasiderun.co.kr/"
   },
   {
     "id": "ro-아라뱃길나이트워크-66km-2026-09-19",
@@ -12434,7 +12202,7 @@
     "applyUrl": "https://global6kforwater.com/frt/application/applicationOverview.do?CMPT_AREA_TYPE=6"
   },
   {
-    "id": "rm-2026-마스터즈-마라톤-2026-10-03",
+    "id": "rm-2026-마스터즈-마라톤마라톤-완주-팁-2026-10-03",
     "sport": "marathon",
     "sportLabel": "마라톤",
     "name": "2026 마스터즈 마라톤",
@@ -12445,7 +12213,8 @@
     "distances": [
       "하프",
       "10km",
-      "5km"
+      "5km",
+      "36K"
     ],
     "organizer": "(사)사회안전예방중앙회",
     "organizerPhone": null,
@@ -12456,7 +12225,28 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mastershalf.kr/"
+    "applyUrl": "http://mastershalf.kr/",
+    "weather": {
+      "station": "서울",
+      "stationId": 108,
+      "avgTa": 17.1,
+      "minTa": 10.2,
+      "maxTa": 22.8,
+      "rn": null,
+      "rhm": 50.9,
+      "awayKm": 6.2,
+      "src": "KMA ASOS"
+    },
+    "climate": {
+      "years": 10,
+      "minAvg": 12.1,
+      "maxAvg": 27.5,
+      "rainYears": 3,
+      "hottestYear": 2019,
+      "hottestMax": 29.9,
+      "station": "서울",
+      "stationKm": 6
+    }
   },
   {
     "id": "rm-2026-just-run10-청주-하반기-2026-10-03",
@@ -12744,53 +12534,6 @@
     }
   },
   {
-    "id": "rm-2026-마스터즈-마라톤마라톤-완주-팁-2026-10-03",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2026 마스터즈 마라톤마라톤 완주 팁",
-    "date": "2026-10-03",
-    "time": "08:00 집결",
-    "location": "상암 월드컵공원 평화광장",
-    "region": "서울",
-    "distances": [
-      "하프",
-      "10km",
-      "5km",
-      "36K"
-    ],
-    "organizer": "(사)사회안전예방중앙회",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-21",
-    "regClosed": null,
-    "lat": 37.5650560057921,
-    "lng": 126.896211243867,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mastershalf.kr/",
-    "weather": {
-      "station": "서울",
-      "stationId": 108,
-      "avgTa": 17.1,
-      "minTa": 10.2,
-      "maxTa": 22.8,
-      "rn": null,
-      "rhm": 50.9,
-      "awayKm": 6.2,
-      "src": "KMA ASOS"
-    },
-    "climate": {
-      "years": 10,
-      "minAvg": 12.1,
-      "maxAvg": 27.5,
-      "rainYears": 3,
-      "hottestYear": 2019,
-      "hottestMax": 29.9,
-      "station": "서울",
-      "stationKm": 6
-    }
-  },
-  {
     "id": "rr-제14회-광명시장배건강달리기-2026-10-04",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -12829,9 +12572,9 @@
     "id": "rr-2026-run-your-way-seoul-10k-2026-10-04",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "2026 Run Your Way Seoul 10K",
+    "name": "2026 Run Your Way Seoul",
     "date": "2026-10-04",
-    "time": "미확인",
+    "time": "07:30 집결",
     "location": "여의도공원 문화의 광장",
     "region": "서울",
     "distances": [
@@ -12923,9 +12666,9 @@
     "id": "rr-2026-파주북시티마라톤-2026-10-04",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "2026 파주북시티마라톤",
+    "name": "(거북이마라톤) 2026 파주북시티마라톤",
     "date": "2026-10-04",
-    "time": "미확인",
+    "time": "08:40 집결",
     "location": "파주출판도시",
     "region": "경기",
     "distances": [
@@ -13088,30 +12831,6 @@
     "applyUrl": "https://triathlon.or.kr/events/tour/overview/?mode=overview&tourcd=2037&page=1&sYear=2026&vType=list&field=&keyword="
   },
   {
-    "id": "rm-거북이마라톤-2026-파주북시티마라톤-2026-10-04",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "(거북이마라톤) 2026 파주북시티마라톤",
-    "date": "2026-10-04",
-    "time": "08:40 집결",
-    "location": "파주출판도시",
-    "region": "경기",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "(사)파주출판도시입주기업체협의",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-10",
-    "regClosed": null,
-    "lat": 37.7090806994679,
-    "lng": 126.686639856943,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runbookcity.com/"
-  },
-  {
     "id": "rm-제20회-달서마라톤-2026-10-04",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -13159,29 +12878,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://run.ytn.co.kr/"
-  },
-  {
-    "id": "rm-2026-run-your-way-seoul-2026-10-04",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2026 Run Your Way Seoul",
-    "date": "2026-10-04",
-    "time": "07:30 집결",
-    "location": "여의도공원 문화의 광장",
-    "region": "서울",
-    "distances": [
-      "10km"
-    ],
-    "organizer": "뉴발란스",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-02",
-    "regClosed": null,
-    "lat": 37.524630704323,
-    "lng": 126.920336120685,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.nbkorea.com/launchingCalendar/detail.action?listStatus=H&launchingIdx=3117"
   },
   {
     "id": "rm-2026-s오일-감동의-마라톤-2026-10-04",
@@ -13256,7 +12952,7 @@
     "id": "rm-펫런-소노-런트립-in-경주-2026-10-04",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "펫런 소노 런트립 in 경주",
+    "name": "소노 런트립 in 경주7km9km",
     "date": "2026-10-04",
     "time": "18:00 집결",
     "location": "경주시 소노캄 경주 및 보문호반길 일원",
@@ -13295,29 +12991,6 @@
       "station": "안동",
       "stationKm": 18
     }
-  },
-  {
-    "id": "rm-소노-런트립-in-경주7km9km-2026-10-04",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "소노 런트립 in 경주7km9km",
-    "date": "2026-10-04",
-    "time": "18:00 집결",
-    "location": "경주시 소노캄 경주 및 보문호반길 일원",
-    "region": "경북",
-    "distances": [
-      "거리 미확인"
-    ],
-    "organizer": "(주)소노인터내셔널",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-30",
-    "regClosed": null,
-    "lat": 36.576,
-    "lng": 128.5056,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://www.sonohotelsresorts.com/reserve/activity/dtl?salesNo=292686"
   },
   {
     "id": "rw-소노-런트립-180k-in-경주-2026-10-04",
@@ -13706,7 +13379,7 @@
     "sportLabel": "마라톤",
     "name": "제26회 홍성마라톤",
     "date": "2026-10-09",
-    "time": "미확인",
+    "time": "08:00 집결",
     "location": "홍주 종합경기장",
     "region": "충남",
     "distances": [
@@ -13776,31 +13449,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://amarunhs.com"
-  },
-  {
-    "id": "rm-단체런-5인-제26회-홍성마라톤-2026-10-09",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "단체런(5인) 제26회 홍성마라톤",
-    "date": "2026-10-09",
-    "time": "08:00 집결",
-    "location": "홍주 종합경기장",
-    "region": "충남",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "홍성군체육회",
-    "organizerPhone": null,
-    "regDeadline": "2026-05-29",
-    "regClosed": null,
-    "lat": 36.6066571238299,
-    "lng": 126.643833390054,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://amarunhs.com/"
   },
   {
     "id": "rm-미정-2026-한글런-2026-10-09",
@@ -14041,7 +13689,7 @@
     "sportLabel": "마라톤",
     "name": "제4회 강서허준런(RUN)",
     "date": "2026-10-10",
-    "time": "미확인",
+    "time": "오전 7시 30분 집결",
     "location": "서울식물원 초지원",
     "region": "서울",
     "distances": [
@@ -14284,74 +13932,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://mara1080.com/event/b43655f0-60be-4c97-ad62-d377f6586ae0"
-  },
-  {
-    "id": "rm-패밀리런-제4회-강서허준런-run-2026-10-10",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "패밀리런 제4회 강서허준런(RUN)",
-    "date": "2026-10-10",
-    "time": "오전 7시 30분 집결",
-    "location": "서울식물원 초지원",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "강서구",
-    "organizerPhone": null,
-    "regDeadline": "2026-07-17",
-    "regClosed": null,
-    "lat": 37.5693958477101,
-    "lng": 126.835037244018,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--939aw8timh48hotq.com/"
-  },
-  {
-    "id": "rm-37-20-11-제3회서울트레일런-대회-2026-10-10",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "37: 20:11 제3회서울트레일런 대회",
-    "date": "2026-10-10",
-    "time": "07시30분출발 집결",
-    "location": "시청 덕수궁돌담길",
-    "region": "서울",
-    "distances": [
-      "거리 미확인"
-    ],
-    "organizer": "서울울트라랠리",
-    "organizerPhone": null,
-    "regDeadline": "2026-08-05",
-    "regClosed": null,
-    "lat": 37.564976582796,
-    "lng": 126.975664628917,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--zl2btb922be3fb2a860c.com/",
-    "weather": {
-      "station": "서울",
-      "stationId": 108,
-      "avgTa": 19.9,
-      "minTa": 13.2,
-      "maxTa": 28.0,
-      "rn": null,
-      "rhm": 53.5,
-      "awayKm": 1.1,
-      "src": "KMA ASOS"
-    },
-    "climate": {
-      "years": 10,
-      "minAvg": 9.1,
-      "maxAvg": 24.9,
-      "rainYears": 3,
-      "hottestYear": 2017,
-      "hottestMax": 28.8,
-      "station": "서울",
-      "stationKm": 1
-    }
   },
   {
     "id": "ro-제4회-강서허준런-2026-2026-10-10",
@@ -15378,7 +14958,7 @@
     "sportLabel": "마라톤",
     "name": "83타워 업힐런",
     "date": "2026-10-11",
-    "time": "미확인",
+    "time": "07:00 집결",
     "location": "대구 이월드 및 83타워",
     "region": "대구",
     "distances": [
@@ -15487,53 +15067,6 @@
       "station": "수원",
       "stationKm": 7
     }
-  },
-  {
-    "id": "rm-업힐코스-83타워-업힐런-2026-10-11",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "업힐코스 83타워 업힐런",
-    "date": "2026-10-11",
-    "time": "07:00 집결",
-    "location": "대구 이월드 및 83타워",
-    "region": "대구",
-    "distances": [
-      "거리 미확인"
-    ],
-    "organizer": "㈜이월드 / 페스티벌잼",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-10",
-    "regClosed": null,
-    "lat": 35.8714,
-    "lng": 128.6014,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://leisure-web.yanolja.com/leisure/10365567"
-  },
-  {
-    "id": "rr-제6회-영등포구청장배-육상대회-마감-2026-10-11",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제6회 영등포구청장배 육상대회 (마감)",
-    "date": "2026-10-11",
-    "time": "미확인",
-    "location": "신정교하부육상트랙구장",
-    "region": "전국",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "서울특별시영등포구체육회",
-    "organizerPhone": "010-3794-7297",
-    "regDeadline": "2026-10-04",
-    "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.naver.com/ydprun1/646"
   },
   {
     "id": "ro-7080-띠별-온라인-마라톤-대회-2026-10-13",
@@ -15704,7 +15237,7 @@
     "sportLabel": "마라톤",
     "name": "제2회 10.19 평화마라톤",
     "date": "2026-10-17",
-    "time": "미확인",
+    "time": "09:00 집결",
     "location": "여수진남경기장 주경기장",
     "region": "전남",
     "distances": [
@@ -15788,7 +15321,7 @@
     "sportLabel": "마라톤",
     "name": "제7회 충청남도 태안 전국어울림마라톤",
     "date": "2026-10-17",
-    "time": "미확인",
+    "time": "09:00 집결",
     "location": "태안군 안면읍 꽃지해수욕장 일",
     "region": "충남",
     "distances": [
@@ -15827,7 +15360,7 @@
     "sportLabel": "마라톤",
     "name": "2026 정선동강 마라톤",
     "date": "2026-10-17",
-    "time": "미확인",
+    "time": "오전 9시 00분 집결",
     "location": "정선생태체험학습장",
     "region": "강원",
     "distances": [
@@ -16036,79 +15569,6 @@
       "station": "대전",
       "stationKm": 9
     }
-  },
-  {
-    "id": "rm-10-19-제2회-10-19-평화마라톤-2026-10-17",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "10.19 제2회 10.19 평화마라톤",
-    "date": "2026-10-17",
-    "time": "09:00 집결",
-    "location": "여수진남경기장 주경기장",
-    "region": "전남",
-    "distances": [
-      "5km"
-    ],
-    "organizer": "뉴스탑전남",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-20",
-    "regClosed": null,
-    "lat": 34.7616067930205,
-    "lng": 127.727463830093,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ys1019.kr/"
-  },
-  {
-    "id": "rm-가족런-2026-정선동강-마라톤-2026-10-17",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "가족런 2026 정선동강 마라톤",
-    "date": "2026-10-17",
-    "time": "오전 9시 00분 집결",
-    "location": "정선생태체험학습장",
-    "region": "강원",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "정선군",
-    "organizerPhone": null,
-    "regDeadline": "2026-07-22",
-    "regClosed": null,
-    "lat": 37.3602769455652,
-    "lng": 128.623494379027,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jsrun.kr/"
-  },
-  {
-    "id": "rm-장애인부-제7회-충청남도-태안-전국어울림마라톤-2026-10-17",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "장애인부 제7회 충청남도 태안 전국어울림마라톤",
-    "date": "2026-10-17",
-    "time": "09:00 집결",
-    "location": "태안군 안면읍 꽃지해수욕장 일",
-    "region": "충남",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "충청남도장애인체육회",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-17",
-    "regClosed": null,
-    "lat": 36.4971820793945,
-    "lng": 126.336020530277,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--3e0b74d44h2nczb998h9tb24ds3tnvj.kr/"
   },
   {
     "id": "ro-2026-경포마라톤-2026-10-17",
@@ -16420,7 +15880,8 @@
       "하프",
       "10km",
       "5km",
-      "하프 · 10km · 5km"
+      "하프 · 10km · 5km",
+      "하프,10km,5km"
     ],
     "organizer": "중랑구육상연맹",
     "organizerPhone": "02-3285-5556",
@@ -16689,7 +16150,7 @@
     "sportLabel": "마라톤",
     "name": "제23회 여주 세종대왕 마라톤",
     "date": "2026-10-18",
-    "time": "미확인",
+    "time": "오전 8시30분 집결",
     "location": "여주 현암지구공원",
     "region": "경기",
     "distances": [
@@ -16754,78 +16215,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://cyclo.kr/schedule",
     "applyUrl": "https://www.bianchigranfondo.kr/"
-  },
-  {
-    "id": "rm-휠체어-제23회-여주-세종대왕-마라톤-2026-10-18",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "(휠체어) 제23회 여주 세종대왕 마라톤",
-    "date": "2026-10-18",
-    "time": "오전 8시30분 집결",
-    "location": "여주 현암지구공원",
-    "region": "경기",
-    "distances": [
-      "하프",
-      "10km",
-      "4km"
-    ],
-    "organizer": "여주시육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-18",
-    "regClosed": null,
-    "lat": 37.3064879557258,
-    "lng": 127.632946550306,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://mara1080.com/event/edaee6e1-0d92-4248-9927-06ed3b0abfd0"
-  },
-  {
-    "id": "rm-제19회-중랑구청장배-장미-마라톤-준비중-2026-10-18",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제19회 중랑구청장배 장미 마라톤 준비중",
-    "date": "2026-10-18",
-    "time": "09:00 집결",
-    "location": "중화체육공원",
-    "region": "서울",
-    "distances": [
-      "하프",
-      "10km",
-      "5km",
-      "하프,10km,5km"
-    ],
-    "organizer": "중랑구육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-11",
-    "regClosed": null,
-    "lat": 37.605382431296,
-    "lng": 127.07274207279,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.jnrun.co.kr/",
-    "weather": {
-      "station": "서울",
-      "stationId": 108,
-      "avgTa": 18.8,
-      "minTa": 15.6,
-      "maxTa": 21.3,
-      "rn": 51.4,
-      "rhm": 76.8,
-      "awayKm": 10.2,
-      "src": "KMA ASOS"
-    },
-    "climate": {
-      "years": 10,
-      "minAvg": 6.8,
-      "maxAvg": 23.8,
-      "rainYears": 3,
-      "hottestYear": 2016,
-      "hottestMax": 27.1,
-      "station": "서울",
-      "stationKm": 10
-    }
   },
   {
     "id": "ro-경주국제마라톤-2026-10-18",
@@ -16944,15 +16333,16 @@
     "id": "rr-2026-서울-펫림픽-런-위드-고-2026-10-24",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "2026 서울 펫림픽 & 런 위드 고",
+    "name": "2026 서울 펫림픽 & 런 위드 고 (SEOUL PETLYMPIC & RUN WITH GO)",
     "date": "2026-10-24",
-    "time": "미확인",
+    "time": "07:00 집결",
     "location": "서울 월드컵경기장 평화광장",
     "region": "서울",
     "distances": [
       "10km",
       "5km",
-      "10km · 5km"
+      "10km · 5km",
+      "5KM, 10KM"
     ],
     "organizer": "(사)함께하는 사랑밭",
     "organizerPhone": "031-575-7243",
@@ -17408,76 +16798,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://sejongrun26.com/"
-  },
-  {
-    "id": "rm-2026-서울-펫림픽-런-위드-고-seoul-petlympic-run-with-go-2026-10-24",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2026 서울 펫림픽 & 런 위드 고 (SEOUL PETLYMPIC & RUN WITH GO)",
-    "date": "2026-10-24",
-    "time": "07:00 집결",
-    "location": "서울 월드컵경기장 평화광장",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "(사)함께하는 사랑밭",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-07",
-    "regClosed": null,
-    "lat": 37.5650560057921,
-    "lng": 126.896211243867,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://runwithgo.com/"
-  },
-  {
-    "id": "rm-seoul-petlympic-run-with-go-2026-10-24",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "SEOUL PETLYMPIC & RUN WITH GO",
-    "date": "2026-10-24",
-    "time": "07:00 집결",
-    "location": "서울 월드컵경기장 평화광장",
-    "region": "서울",
-    "distances": [
-      "5km",
-      "10km",
-      "5KM, 10KM"
-    ],
-    "organizer": "(사)함께하는 사랑밭",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-30",
-    "regClosed": null,
-    "lat": 37.5650560057921,
-    "lng": 126.896211243867,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://runwithgo.com/runwithgo/",
-    "weather": {
-      "station": "서울",
-      "stationId": 108,
-      "avgTa": 16.0,
-      "minTa": 14.8,
-      "maxTa": 17.5,
-      "rn": null,
-      "rhm": 73.8,
-      "awayKm": 6.2,
-      "src": "KMA ASOS"
-    },
-    "climate": {
-      "years": 10,
-      "minAvg": 5.8,
-      "maxAvg": 22.1,
-      "rainYears": 0,
-      "hottestYear": 2017,
-      "hottestMax": 25.2,
-      "station": "서울",
-      "stationKm": 6
-    }
   },
   {
     "id": "rr-2026-담양-트레일런-데이브레이크-2026-10-24",
@@ -18096,7 +17416,7 @@
     "sportLabel": "마라톤",
     "name": "2026 광명평화마라톤",
     "date": "2026-10-25",
-    "time": "미확인",
+    "time": "오전 8시 00분 집결",
     "location": "광명역 일원",
     "region": "경기",
     "distances": [
@@ -18368,31 +17688,6 @@
     "applyUrl": "https://www.ulsanrunfesta.com/"
   },
   {
-    "id": "rm-2-5인-커플런-2026-광명평화마라톤-2026-10-25",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2~5인 커플런 2026 광명평화마라톤",
-    "date": "2026-10-25",
-    "time": "오전 8시 00분 집결",
-    "location": "광명역 일원",
-    "region": "경기",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "광명시체육회",
-    "organizerPhone": null,
-    "regDeadline": "2026-07-13",
-    "regClosed": null,
-    "lat": 37.4161962339271,
-    "lng": 126.884681236063,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://gmrun.kr/"
-  },
-  {
     "id": "rm-제14회-정서진아라뱃길-마라톤-2026-10-25",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -18453,7 +17748,8 @@
     "distances": [
       "10km",
       "5km",
-      "10km · 5km"
+      "10km · 5km",
+      "10km,5km"
     ],
     "organizer": "(주)러닝브레이커,전국러닝협회",
     "organizerPhone": "042-710-2058",
@@ -18890,52 +18186,6 @@
     }
   },
   {
-    "id": "rr-런텐-12차-레이스-just-run10-포천-2026-10-31",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "런텐 12차 레이스 JUST RUN10 포천",
-    "date": "2026-10-31",
-    "time": "09:00 집결",
-    "location": "포천시종합운동장",
-    "region": "경기",
-    "distances": [
-      "10km",
-      "5km",
-      "10km,5km"
-    ],
-    "organizer": "(주)러닝브레이커,전국러닝협회",
-    "organizerPhone": "042-710-2058",
-    "regDeadline": "2026-10-18",
-    "regClosed": null,
-    "lat": 37.8880225997173,
-    "lng": 127.200641403371,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runten.co.kr",
-    "weather": {
-      "station": "서울",
-      "stationId": 108,
-      "avgTa": 12.0,
-      "minTa": 7.9,
-      "maxTa": 16.8,
-      "rn": null,
-      "rhm": 53.9,
-      "awayKm": 40.8,
-      "src": "KMA ASOS"
-    },
-    "climate": {
-      "years": 10,
-      "minAvg": 0.7,
-      "maxAvg": 21.4,
-      "rainYears": 1,
-      "hottestYear": 2023,
-      "hottestMax": 25.7,
-      "station": "동두천",
-      "stationKm": 12
-    }
-  },
-  {
     "id": "rr-2026-incheon-night-race-2026-10-31",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -19244,7 +18494,7 @@
     "sportLabel": "마라톤",
     "name": "제2회 대전 신채호 마라톤",
     "date": "2026-11-01",
-    "time": "미확인",
+    "time": "08:30 집결",
     "location": "대전 뿌리공원 잔디광장",
     "region": "대전",
     "distances": [
@@ -19258,8 +18508,8 @@
     "organizerPhone": "042-255-7917",
     "regDeadline": "2026-07-31",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.2848030313296,
+    "lng": 127.38713431926,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -19313,31 +18563,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://marathon.jtbc.com/"
-  },
-  {
-    "id": "rm-패밀리런-제2회-대전-신채호-마라톤-2026-11-01",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "패밀리런 제2회 대전 신채호 마라톤",
-    "date": "2026-11-01",
-    "time": "08:30 집결",
-    "location": "대전 뿌리공원 잔디광장",
-    "region": "대전",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "대전시 중구 육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-07-31",
-    "regClosed": null,
-    "lat": 36.2848030313296,
-    "lng": 127.38713431926,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.djmarathon.co.kr/"
   },
   {
     "id": "rm-2026-dmz-open-평화마라톤-2026-11-01",
@@ -19507,7 +18732,7 @@
     "sportLabel": "마라톤",
     "name": "제40회 서봉기단축마라톤",
     "date": "2026-11-06",
-    "time": "미확인",
+    "time": "11시 집결",
     "location": "경북문경시민운동장(시내일원)",
     "region": "경북",
     "distances": [
@@ -19521,34 +18746,11 @@
     "organizerPhone": "010-6711-2215",
     "regDeadline": "2026-11-05",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.daum.net/seobongmarathon"
-  },
-  {
-    "id": "rm-개인-단체전-지역학생대회-제40회-서봉기단축마라톤-2026-11-06",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "개인 단체전 지역학생대회 제40회 서봉기단축마라톤",
-    "date": "2026-11-06",
-    "time": "11시 집결",
-    "location": "경북문경시민운동장(시내일원)",
-    "region": "경북",
-    "distances": [
-      "10km"
-    ],
-    "organizer": "문경시육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-11-05",
-    "regClosed": null,
     "lat": 36.576,
     "lng": 128.5056,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://cafe.daum.net/seobongmarathon"
   },
   {
@@ -19832,9 +19034,9 @@
     "id": "rr-2026-푸르메런-2026-11-07",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "2026 푸르메런",
+    "name": "넥슨과 함께하는 2026 푸르메런",
     "date": "2026-11-07",
-    "time": "미확인",
+    "time": "9시 집결",
     "location": "상암 월드컵공원 평화광장",
     "region": "서울",
     "distances": [
@@ -19852,30 +19054,6 @@
     "lat": 37.5666791,
     "lng": 126.9782914,
     "geoApprox": true
-  },
-  {
-    "id": "rr-넥슨과-함께하는-2026-푸르메런-2026-11-07",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "넥슨과 함께하는 2026 푸르메런",
-    "date": "2026-11-07",
-    "time": "9시 집결",
-    "location": "상암 월드컵공원 평화광장",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "3km"
-    ],
-    "organizer": "푸르메재단",
-    "organizerPhone": "02-338-0344",
-    "regDeadline": "2026-09-23",
-    "regClosed": null,
-    "lat": 37.5650560057921,
-    "lng": 126.896211243867,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://purmerun.com/"
   },
   {
     "id": "rr-남한산성트레일-2026-11-07",
@@ -20254,6 +19432,29 @@
     "applyUrl": "https://runningwikii.com/entry/26th-ten-bridges-night-walk/"
   },
   {
+    "id": "rw-2026-푸르메런-2026-11-07",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 푸르메런",
+    "date": "2026-11-07",
+    "time": "미확인",
+    "location": "서울",
+    "region": "서울",
+    "distances": [
+      "10km · 3km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": "2026-09-23",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "https://runningwikii.com/entry/purme-run/"
+  },
+  {
     "id": "rm-해남땅끝-전국마라톤-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -20366,15 +19567,14 @@
     "id": "rr-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "제20회 자원봉사 사랑 굿펀 마라톤",
+    "name": "제20회 자원봉사 사랑 굿펀 마라톤(취소)",
     "date": "2026-11-08",
     "time": "09:00 집결",
     "location": "신정교하부육상트랙구장",
     "region": "서울",
     "distances": [
       "10km",
-      "5km",
-      "10km · 5km"
+      "5km"
     ],
     "organizer": "(사)대한생활체육마라톤협회",
     "organizerPhone": "00-1644-4219",
@@ -20393,7 +19593,7 @@
     "sportLabel": "마라톤",
     "name": "2026 전국사상에코마라톤",
     "date": "2026-11-08",
-    "time": "미확인",
+    "time": "10:00",
     "location": "삼락생태공원 럭비구장",
     "region": "부산",
     "distances": [
@@ -20406,8 +19606,8 @@
     "organizerPhone": "051-310-4128",
     "regDeadline": "2026-11-08",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.1675798467842,
+    "lng": 128.974342841436,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -20417,22 +19617,22 @@
     "id": "rr-2026-서울구석구석-국제-트레일런-2026-11-08",
     "sport": "trail",
     "sportLabel": "트레일",
-    "name": "2026 서울구석구석 국제 트레일런",
+    "name": "트레일런 2026 서울구석구석 국제 트레일런",
     "date": "2026-11-08",
-    "time": "미확인",
+    "time": "07:00~08:00 집결",
     "location": "서울마당(지하철1호선 시청역 4번출구)",
     "region": "서울",
     "distances": [
       "트레일런 14km",
       "트레일런 35km",
-      "트레일런 14km · 35km"
+      "14km"
     ],
     "organizer": "서울신문, 한국익스트림앤스포츠",
     "organizerPhone": "070-7719-5788",
     "regDeadline": "2026-10-12",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5665,
+    "lng": 126.978,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -20541,44 +19741,22 @@
     "applyUrl": "http://k-marathon.or.kr/main.php"
   },
   {
-    "id": "rr-제5회-거제시체육회장배-거제앵산트레일레이스-2026-11-08",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "제5회 거제시체육회장배 거제앵산트레일레이스",
-    "date": "2026-11-08",
-    "time": "미확인",
-    "location": "경남 거제시 하청면스포츠타운",
-    "region": "경남",
-    "distances": [
-      "산악28km/17km",
-      "임도숲길 18km/10km"
-    ],
-    "organizer": "하청면체육회",
-    "organizerPhone": "010-5636-5708",
-    "regDeadline": "2026-09-30",
-    "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.거제앵산트레일레이스.com"
-  },
-  {
     "id": "rm-산악-제5회-거제시체육회장배-거제앵산트레일레이스-2026-11-08",
     "sport": "trail",
     "sportLabel": "트레일",
-    "name": "산악/ 제5회 거제시체육회장배 거제앵산트레일레이스",
+    "name": "제5회 거제시체육회장배 거제앵산트레일레이스",
     "date": "2026-11-08",
     "time": "09:00 집결",
     "location": "경남 거제시 하청면스포츠타운",
     "region": "경남",
     "distances": [
       "28km",
-      "17km"
+      "17km",
+      "산악28km/17km",
+      "임도숲길 18km/10km"
     ],
     "organizer": "하청면체육회",
-    "organizerPhone": null,
+    "organizerPhone": "010-5636-5708",
     "regDeadline": "2026-09-30",
     "regClosed": null,
     "lat": 34.9585678706987,
@@ -20587,53 +19765,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://www.xn--v69ax3ta679frncr7fk7d1bz7fc91d.com/"
-  },
-  {
-    "id": "rm-트레일런-2026-서울구석구석-국제-트레일런-2026-11-08",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "트레일런 2026 서울구석구석 국제 트레일런",
-    "date": "2026-11-08",
-    "time": "07:00~08:00 집결",
-    "location": "서울마당(지하철1호선 시청역 4번출구)",
-    "region": "서울",
-    "distances": [
-      "14km"
-    ],
-    "organizer": "서울신문, 한국익스트림앤스포츠",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-30",
-    "regClosed": null,
-    "lat": 37.5665,
-    "lng": 126.978,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://cafe.naver.com/seoultrailrun/?viewType=pc"
-  },
-  {
-    "id": "rm-로드레이스-건강달리기-슬로조깅-2026-전국사상에코마라톤-2026-11-08",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "로드레이스 건강달리기 슬로조깅 2026 전국사상에코마라톤",
-    "date": "2026-11-08",
-    "time": "10:00",
-    "location": "삼락생태공원 럭비구장",
-    "region": "부산",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "사상구청,사상구체육회",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-30",
-    "regClosed": null,
-    "lat": 35.1675798467842,
-    "lng": 128.974342841436,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://ssecorun.co.kr/"
   },
   {
     "id": "ro-제주국제트레일러닝-2026-11-08",
@@ -20848,7 +19979,7 @@
     "sportLabel": "마라톤",
     "name": "2026 경기화성 생태마라톤",
     "date": "2026-11-08",
-    "time": "미확인",
+    "time": "08:30 집결",
     "location": "경기 화성 궁평항 일대",
     "region": "경기",
     "distances": [
@@ -20862,8 +19993,8 @@
     "organizerPhone": "010-4573-3330",
     "regDeadline": "2026-10-18",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.1154134348502,
+    "lng": 126.680723094426,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -20944,31 +20075,6 @@
     "applyUrl": "http://www.olympicday.co.kr/"
   },
   {
-    "id": "rm-가족달리기-2026-경기화성-생태마라톤-2026-11-08",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "가족달리기 2026 경기화성 생태마라톤",
-    "date": "2026-11-08",
-    "time": "08:30 집결",
-    "location": "경기 화성 궁평항 일대",
-    "region": "경기",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "경기신문",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-18",
-    "regClosed": null,
-    "lat": 37.1154134348502,
-    "lng": 126.680723094426,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://kiccrace.com/"
-  },
-  {
     "id": "ro-2026-청양군-체육회장기-칠갑마라톤대회-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -21047,7 +20153,7 @@
     "sportLabel": "마라톤",
     "name": "2026전국 체육회장배 안산 RUN 마라톤",
     "date": "2026-11-08",
-    "time": "미확인",
+    "time": "09:00 집결",
     "location": "안산 호수공원(중앙무대)인근",
     "region": "경기",
     "distances": [
@@ -21061,60 +20167,36 @@
     "organizerPhone": "031-339-6338",
     "regDeadline": "2026-10-24",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.275,
+    "lng": 127.0095,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://aaaf.koreashout.com/bbs/board.php?bo_table=cp_list&wr_id=60"
   },
   {
-    "id": "rr-83타워-업힐런-챌린지-2026-11-08",
+    "id": "rm-77층-계단-83타워-업힐런-챌린지-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "83타워 업힐런 챌린지",
+    "name": "+77층 계단 83타워 업힐런 챌린지",
     "date": "2026-11-08",
-    "time": "미확인",
+    "time": "07:00 집결",
     "location": "이월드",
     "region": "대구",
     "distances": [
-      "1.8Km+77층 계단",
-      "1.8km + 77층 계단"
+      "1.8Km",
+      "1.8Km+77층 계단"
     ],
     "organizer": "이월드 / 페스티벌잼",
     "organizerPhone": "070-7549-8112",
     "regDeadline": "2026-10-31",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8540580356462,
+    "lng": 128.564713669346,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://eworld83toweruphillrun.lovable.app/"
-  },
-  {
-    "id": "rr-제20회-자원봉사-사랑-굿펀-마라톤-취소-2026-11-08",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제20회 자원봉사 사랑 굿펀 마라톤(취소)",
-    "date": "2026-11-08",
-    "time": "미확인",
-    "location": "신정교하부육상트랙구장",
-    "region": "전국",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "(사)대한생활체육마라톤협회",
-    "organizerPhone": "00-1644-4219",
-    "regDeadline": "2026-09-27",
-    "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://xn--oi2bo7bn3do4es0j56afy5b.kr/"
   },
   {
     "id": "rw-제19회-진해마라톤-2026-11-08",
@@ -21140,51 +20222,73 @@
     "applyUrl": "https://runningwikii.com/entry/jinhae-marathon/"
   },
   {
-    "id": "rm-77층-계단-83타워-업힐런-챌린지-2026-11-08",
+    "id": "rw-2026-서울구석구석-국제-트레일런-2026-11-08",
+    "sport": "trail",
+    "sportLabel": "트레일",
+    "name": "2026 서울구석구석 국제 트레일런",
+    "date": "2026-11-08",
+    "time": "미확인",
+    "location": "서울",
+    "region": "서울",
+    "distances": [
+      "트레일런 14km · 35km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": "2026-09-30",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "https://runningwikii.com/entry/seoul-corner-international-trailrun/"
+  },
+  {
+    "id": "rw-제20회-자원봉사-사랑-굿펀-마라톤-2026-11-08",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "+77층 계단 83타워 업힐런 챌린지",
+    "name": "제20회 자원봉사 사랑 굿펀 마라톤",
     "date": "2026-11-08",
-    "time": "07:00 집결",
-    "location": "이월드",
+    "time": "미확인",
+    "location": "서울",
+    "region": "서울",
+    "distances": [
+      "10km · 5km"
+    ],
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": "2026-10-18",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "https://runningwikii.com/entry/volunteer-love-good-fun-marathon/"
+  },
+  {
+    "id": "rw-83타워-업힐런-챌린지-2026-11-08",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "83타워 업힐런 챌린지",
+    "date": "2026-11-08",
+    "time": "미확인",
+    "location": "대구",
     "region": "대구",
     "distances": [
-      "1.8Km"
+      "1.8km + 77층 계단"
     ],
-    "organizer": "이월드 / 페스티벌잼",
+    "organizer": null,
     "organizerPhone": null,
     "regDeadline": "2026-10-31",
     "regClosed": null,
-    "lat": 35.8540580356462,
-    "lng": 128.564713669346,
+    "lat": null,
+    "lng": null,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://eworld83toweruphillrun.lovable.app/"
-  },
-  {
-    "id": "rm-학생부-5인1조-2026전국-체육회장배-안산-run-마라톤-2026-11-08",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "(학생부) 5인1조() 2026전국 체육회장배 안산 RUN 마라톤",
-    "date": "2026-11-08",
-    "time": "09:00 집결",
-    "location": "안산 호수공원(중앙무대)인근",
-    "region": "경기",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "안산시체육회/안산시육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-24",
-    "regClosed": null,
-    "lat": 37.275,
-    "lng": 127.0095,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://aaaf.koreashout.com/bbs/board.php?bo_table=cp_list&wr_id=60"
+    "sourceUrl": "https://runningwikii.com/",
+    "applyUrl": "https://runningwikii.com/entry/83tower-uphill-run-challenge-2026/"
   },
   {
     "id": "rr-제2회-안양천-단풍길-마라톤-2026-11-14",
@@ -21242,12 +20346,12 @@
     "applyUrl": "http://sc-marathon.kr"
   },
   {
-    "id": "rr-2026-포항마라톤챔피언십-2026-11-14",
+    "id": "rm-2026-포항마라톤챔피언십-선착순모집중-2026-11-14",
     "sport": "marathon",
     "sportLabel": "마라톤",
     "name": "2026 포항마라톤챔피언십",
     "date": "2026-11-14",
-    "time": "08:00 집결",
+    "time": "09:00 집결",
     "location": "영일대해상누각",
     "region": "경북",
     "distances": [
@@ -21256,13 +20360,13 @@
     ],
     "organizer": "kthcn",
     "organizerPhone": "054-1600-4525",
-    "regDeadline": "2026-11-03",
+    "regDeadline": "2026-11-14",
     "regClosed": null,
     "lat": 36.0615645090088,
     "lng": 129.383051999155,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://pohangmarathon.com/"
   },
   {
@@ -21321,7 +20425,7 @@
     "sportLabel": "마라톤",
     "name": "2026 통큰런",
     "date": "2026-11-14",
-    "time": "미확인",
+    "time": "08:00 집결",
     "location": "상암 월드컵공원 평화광장",
     "region": "서울",
     "distances": [
@@ -21335,36 +20439,12 @@
     "organizerPhone": "070-8656-9035",
     "regDeadline": "2026-10-23",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://tongkeun-run.com"
-  },
-  {
-    "id": "rm-가족런-2026-통큰런-2026-11-14",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "(가족런) 2026 통큰런",
-    "date": "2026-11-14",
-    "time": "08:00 집결",
-    "location": "상암 월드컵공원 평화광장",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "롯데마트, 롯데슈퍼, 기아대책",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-23",
-    "regClosed": null,
     "lat": 37.5650560057921,
     "lng": 126.896211243867,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://tongkeun-run.com/"
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://tongkeun-run.com"
   },
   {
     "id": "rr-그-시절-스타들과-달리는-레트로-런-in-증평-2026-11-14",
@@ -21391,30 +20471,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://n-runplus.co.kr"
-  },
-  {
-    "id": "rm-2026-포항마라톤챔피언십-선착순모집중-2026-11-14",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2026 포항마라톤챔피언십(선착순모집중)",
-    "date": "2026-11-14",
-    "time": "09:00 집결",
-    "location": "영일대해상누각",
-    "region": "경북",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "kthcn",
-    "organizerPhone": null,
-    "regDeadline": "2026-11-14",
-    "regClosed": null,
-    "lat": 36.0615645090088,
-    "lng": 129.383051999155,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://pohangmarathon.com/"
   },
   {
     "id": "rr-서울-빵빵런-2026-2026-11-14",
@@ -21711,7 +20767,7 @@
     "sportLabel": "마라톤",
     "name": "제2회 세종특별자치시 전국 마라톤",
     "date": "2026-11-15",
-    "time": "미확인",
+    "time": "09:30 집결",
     "location": "세종시민운동장",
     "region": "세종",
     "distances": [
@@ -21725,8 +20781,8 @@
     "organizerPhone": "010-3448-0990",
     "regDeadline": "2026-07-29",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.596741738052,
+    "lng": 127.284097061602,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -21809,12 +20865,12 @@
     "applyUrl": "http://happytrailrun.com"
   },
   {
-    "id": "rr-제4회-영남알프스-전국-하프마라톤-2026-11-15",
+    "id": "rm-제4회-영남알프스-전국-마라톤-2026-11-15",
     "sport": "trail",
     "sportLabel": "트레일",
     "name": "제4회 영남알프스 전국 하프마라톤",
     "date": "2026-11-15",
-    "time": "미확인",
+    "time": "09:00 집결",
     "location": "울주군 영남알프스 일원",
     "region": "울산",
     "distances": [
@@ -21825,14 +20881,14 @@
     ],
     "organizer": "울산광역시 울주군육상연맹",
     "organizerPhone": "052-269-1001",
-    "regDeadline": "2026-09-30",
+    "regDeadline": "2026-10-31",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 35.5384,
+    "lng": 129.3114,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://영남알프스마라톤.kr"
+    "sourceUrl": "https://runningmap.kr",
+    "applyUrl": "http://xn--q20bn3kn1bg9oekd84a785cnfg.kr/"
   },
   {
     "id": "rr-제24회-상주-곶감-마라톤-대회-2026-11-15",
@@ -21927,10 +20983,12 @@
     "distances": [
       "16km",
       "36km",
+      "16km/36km",
+      "51.8km",
       "16km · 36km · 47km"
     ],
     "organizer": "한국백혈병소아암협회/시유케이컴",
-    "organizerPhone": null,
+    "organizerPhone": "00-1899-8610",
     "regDeadline": "2026-10-15",
     "regClosed": null,
     "lat": 35.1427320844516,
@@ -21962,81 +21020,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20241014202801&csno=20200702232740#baseline"
-  },
-  {
-    "id": "rm-제4회-영남알프스-전국-마라톤-2026-11-15",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "제4회 영남알프스 전국 마라톤",
-    "date": "2026-11-15",
-    "time": "09:00 집결",
-    "location": "울주군 영남알프스 일원",
-    "region": "울산",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "울산광역시 울주군육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-31",
-    "regClosed": null,
-    "lat": 35.5384,
-    "lng": 129.3114,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--q20bn3kn1bg9oekd84a785cnfg.kr/"
-  },
-  {
-    "id": "rm-학생부-초등부-학생부중-고등부-제2회-세종특별자치시-전국-마라톤-2026-11-15",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "학생부 초등부 학생부중.고등부 제2회 세종특별자치시 전국 마라톤",
-    "date": "2026-11-15",
-    "time": "09:30 집결",
-    "location": "세종시민운동장",
-    "region": "세종",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "세종특별자치시육상연맹",
-    "organizerPhone": null,
-    "regDeadline": "2026-07-29",
-    "regClosed": null,
-    "lat": 36.596741738052,
-    "lng": 127.284097061602,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://sjrun.com/"
-  },
-  {
-    "id": "rm-제28회-부산국제신문마라톤-2026-11-15",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제28회 부산국제신문마라톤",
-    "date": "2026-11-15",
-    "time": "9시",
-    "location": "사하구 다대포해수욕장",
-    "region": "부산",
-    "distances": [
-      "하프",
-      "10km",
-      "5km",
-      "하프,10km,5km"
-    ],
-    "organizer": "국제신문",
-    "organizerPhone": null,
-    "regDeadline": "2026-09-18",
-    "regClosed": null,
-    "lat": 35.0465263488422,
-    "lng": 128.962741189119,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://kjmarathon.com/"
   },
   {
     "id": "rr-2026-나눔레이스-인-용인-2026-11-15",
@@ -22071,7 +21054,7 @@
     "sportLabel": "마라톤",
     "name": "제16회 대전서구청장배 마라톤대회",
     "date": "2026-11-15",
-    "time": "미확인",
+    "time": "09:00 집결",
     "location": "대전 유성구  엑스포 다리밑",
     "region": "대전",
     "distances": [
@@ -22086,8 +21069,8 @@
     "organizerPhone": "042-543-5210",
     "regDeadline": "2026-10-28",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 36.3504,
+    "lng": 127.3845,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
@@ -22193,30 +21176,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://www.tongilmarathon.kr"
-  },
-  {
-    "id": "rm-가족코스-건강코스-제16회-대전서구청장배-마라톤대회-2026-11-15",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "가족코스 건강코스 제16회 대전서구청장배 마라톤대회",
-    "date": "2026-11-15",
-    "time": "09:00 집결",
-    "location": "대전 유성구  엑스포 다리밑",
-    "region": "대전",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "대전서구육상연맹/중걷마런",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-28",
-    "regClosed": null,
-    "lat": 36.3504,
-    "lng": 127.3845,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://jgmrun.com/"
   },
   {
     "id": "rr-2026-에코나우런-2026-11-15",
@@ -22326,7 +21285,7 @@
     "sportLabel": "마라톤",
     "name": "2026 연수구청장배 송도 WALK & RUN",
     "date": "2026-11-15",
-    "time": "미확인",
+    "time": "오전8시 집결",
     "location": "송도달빛공원",
     "region": "인천",
     "distances": [
@@ -22342,61 +21301,35 @@
     "organizerPhone": "070-4098-1114",
     "regDeadline": "2026-11-15",
     "regClosed": null,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4563,
+    "lng": 126.7052,
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://walknrun.kr"
   },
   {
-    "id": "rr-제3회-무등산더블하트국제트레일런대회-추가접수-2026-11-15",
-    "sport": "trail",
-    "sportLabel": "트레일",
-    "name": "제3회 무등산더블하트국제트레일런대회 추가접수",
+    "id": "ro-제28회-부산국제신문마라톤-2026-11-15",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "제28회 부산국제신문마라톤",
     "date": "2026-11-15",
     "time": "미확인",
-    "location": "조선대학교",
-    "region": "전국",
+    "location": "사하구 다대포해수욕장",
+    "region": "부산",
     "distances": [
-      "16km/36km",
-      "51.8km"
+      "하프,10km,5km"
     ],
-    "organizer": "한국백혈병소아암협회/시유케이컴",
-    "organizerPhone": "00-1899-8610",
-    "regDeadline": "2026-11-08",
+    "organizer": null,
+    "organizerPhone": null,
+    "regDeadline": null,
     "regClosed": null,
     "lat": null,
     "lng": null,
     "saves": 0,
     "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.cuk-sports.com/"
-  },
-  {
-    "id": "rm-walk-walk-2026-연수구청장배-송도-walk-run-2026-11-15",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "WALK WALK 2026 연수구청장배 송도 WALK & RUN",
-    "date": "2026-11-15",
-    "time": "오전8시 집결",
-    "location": "국립인천대학교 송도캠퍼스 정문",
-    "region": "인천",
-    "distances": [
-      "하프",
-      "10km",
-      "5km"
-    ],
-    "organizer": "인천광역시연수구걷기협회",
-    "organizerPhone": null,
-    "regDeadline": "2026-11-08",
-    "regClosed": null,
-    "lat": 37.4563,
-    "lng": 126.7052,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://walknrun.kr/"
+    "sourceUrl": "https://www.runneron.com/marathon",
+    "applyUrl": "https://kjmarathon.com"
   },
   {
     "id": "rr-give-run-2026-부산-2026-11-21",
@@ -22477,40 +21410,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://urfesta.com"
-  },
-  {
-    "id": "rm-단체전-5인1조-2026-세정-가을바람-유러닝페스타-2026-11-21",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "단체전(5인1조) 2026 세정 가을바람 유러닝페스타",
-    "date": "2026-11-21",
-    "time": "08:30 집결",
-    "location": "하남 미사리 조정경기장",
-    "region": "경기",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "주식회사 세정",
-    "organizerPhone": null,
-    "regDeadline": "2026-11-07",
-    "regClosed": null,
-    "lat": 37.5593159285618,
-    "lng": 127.207022766767,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://urfesta.com",
-    "climate": {
-      "years": 10,
-      "minAvg": -2.8,
-      "maxAvg": 16.2,
-      "rainYears": 2,
-      "hottestYear": 2022,
-      "hottestMax": 20.2,
-      "station": "서울",
-      "stationKm": 21
-    }
   },
   {
     "id": "rr-2026-전마협-보성녹차-마라톤-2026-11-21",
@@ -23104,18 +22003,17 @@
     "id": "rm-평화런-2026-11-28",
     "sport": "marathon",
     "sportLabel": "마라톤",
-    "name": "평화런",
+    "name": "2027 서울 세계청년대회 성공 기원 평화런",
     "date": "2026-11-28",
     "time": "07:30 집결",
     "location": "여의도공원 문화의마당",
     "region": "서울",
     "distances": [
       "5km",
-      "10km",
-      "10km · 5km"
+      "10km"
     ],
     "organizer": "2027 서울WYD, CPBC",
-    "organizerPhone": "00-1566-1936",
+    "organizerPhone": null,
     "regDeadline": "2026-10-24",
     "regClosed": null,
     "lat": 37.524630704323,
@@ -23179,40 +22077,6 @@
     "applyUrl": "http://mokyokrun.shop"
   },
   {
-    "id": "rm-2027-서울-세계청년대회-성공-기원-평화런-2026-11-28",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "2027 서울 세계청년대회 성공 기원 평화런",
-    "date": "2026-11-28",
-    "time": "07:30 집결",
-    "location": "여의도공원 문화의마당",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "2027 서울WYD, CPBC",
-    "organizerPhone": null,
-    "regDeadline": "2026-10-24",
-    "regClosed": null,
-    "lat": 37.524630704323,
-    "lng": 126.920336120685,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.peacerun.kr/",
-    "climate": {
-      "years": 10,
-      "minAvg": -4.4,
-      "maxAvg": 13.2,
-      "rainYears": 2,
-      "hottestYear": 2022,
-      "hottestMax": 17.8,
-      "station": "서울",
-      "stationKm": 7
-    }
-  },
-  {
     "id": "rr-2026-착한서구-공부방-기부앤런-2026-11-28",
     "sport": "marathon",
     "sportLabel": "마라톤",
@@ -23262,6 +22126,31 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://spotvrun.co.kr"
+  },
+  {
+    "id": "rr-2026-평화런-2026-11-28",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "2026 평화런",
+    "date": "2026-11-28",
+    "time": "미확인",
+    "location": "여의도공원 문화의마당",
+    "region": "서울",
+    "distances": [
+      "10km",
+      "5km",
+      "10km · 5km"
+    ],
+    "organizer": "가톨릭평화방송/런코리아",
+    "organizerPhone": "00-1566-1936",
+    "regDeadline": "2026-10-24",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://www.peacerun.kr"
   },
   {
     "id": "rm-가야왕도-김해-전국어울림-마라톤-2026-11-29",
@@ -23402,40 +22291,6 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://www.xn--ob0bs4k27c8xc9da633vynbkyur2ft5hckl.kr/"
-  },
-  {
-    "id": "rm-가족부-2인1조-단체전-3인1조-2026-정읍공동체-프리마켓-마라톤-2026-11-29",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "가족부(2인1조) 단체전(3인1조) 2026 정읍공동체 프리마켓 마라톤",
-    "date": "2026-11-29",
-    "time": "09:30 집결",
-    "location": "정읍천변 어린이전용축구장",
-    "region": "전북",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "대흥리마을공동체,정읍시공동체협",
-    "organizerPhone": null,
-    "regDeadline": "2026-11-15",
-    "regClosed": null,
-    "lat": 35.5605980098214,
-    "lng": 126.856551691375,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.xn--ob0bs4k27c8xc9da633vynbkyur2ft5hckl.kr/",
-    "climate": {
-      "years": 10,
-      "minAvg": -2.7,
-      "maxAvg": 15.6,
-      "rainYears": 2,
-      "hottestYear": 2022,
-      "hottestMax": 20.9,
-      "station": "정읍",
-      "stationKm": 2
-    }
   },
   {
     "id": "rr-2026-천안-희망나눔-마라톤-2026-11-29",
@@ -24092,30 +22947,6 @@
     "applyUrl": "http://www.mtrailrun.kr/"
   },
   {
-    "id": "rr-제6회-2026-청춘런-2026-12-06",
-    "sport": "marathon",
-    "sportLabel": "마라톤",
-    "name": "제6회 2026 청춘런",
-    "date": "2026-12-06",
-    "time": "미확인",
-    "location": "상암동 평화의공원 평화광장",
-    "region": "서울",
-    "distances": [
-      "10km",
-      "5km"
-    ],
-    "organizer": "런앤런",
-    "organizerPhone": "02-2632-0912",
-    "regDeadline": "2026-11-22",
-    "regClosed": null,
-    "lat": null,
-    "lng": null,
-    "saves": 0,
-    "savesTrend7d": 0,
-    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.youthrun.co.kr"
-  },
-  {
     "id": "rr-2026-대전보문산트레일-2026-12-06",
     "sport": "trail",
     "sportLabel": "트레일",
@@ -24287,6 +23118,30 @@
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://order.doortoout.com/12/8/78"
+  },
+  {
+    "id": "rr-화성레이스-2026-12-12",
+    "sport": "marathon",
+    "sportLabel": "마라톤",
+    "name": "화성레이스",
+    "date": "2026-12-12",
+    "time": "미확인",
+    "location": "봉담2생태체육공원",
+    "region": "전국",
+    "distances": [
+      "10km",
+      "5km"
+    ],
+    "organizer": "화성시러닝크루연맹",
+    "organizerPhone": "010-9805-4983",
+    "regDeadline": "2026-11-14",
+    "regClosed": null,
+    "lat": null,
+    "lng": null,
+    "saves": 0,
+    "savesTrend7d": 0,
+    "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
+    "applyUrl": "http://hwaseongrace.com"
   },
   {
     "id": "rr-제5회-밤섬-마라톤-2026-12-13",
