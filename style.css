@@ -556,6 +556,30 @@ body{
   text-decoration:none;}
 .ev-after-btn:hover{filter:brightness(1.08);}
 .ev-after-n{margin:10px 0 0;font-size:12px;line-height:1.7;color:var(--ink-faint);}
+/* 기록을 이 자리에서 바로 받는다. 전에는 링크여서, 누른 다음에야 입력창을
+   만났다 — 대회 다음 날 아침의 한 번 더 클릭은 그대로 이탈이다.
+   JS 없는 GET 폼으로 /level.html?d=..&t=.. 로 넘긴다. 계산과 기록 저장은
+   level.html 이 그대로 맡는다. 입력 글자는 16px 밑으로 내리지 않는다 —
+   그 아래면 iOS 사파리가 화면을 확대해 버리고, 방문의 3/4 가 모바일이다. */
+.ev-grade-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+.ev-grade-form{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;}
+.ev-grade-form .ev-grade-t{flex:1 1 128px;min-width:0;padding:11px 14px;
+  border-radius:999px;border:1px solid var(--line);background:var(--bg);
+  color:var(--ink);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;}
+.ev-grade-form .ev-grade-t::placeholder{color:var(--ink-faint);font-weight:400;}
+.ev-grade-form .ev-grade-t:focus-visible{outline:2px solid var(--accent-fill);
+  outline-offset:1px;}
+.ev-grade-form button{flex:0 0 auto;padding:11px 18px;border:0;border-radius:999px;
+  background:var(--accent-fill);color:var(--on-accent);font-size:14px;font-weight:700;
+  cursor:pointer;}
+.ev-grade-form button:hover{filter:brightness(1.08);}
+/* 러닝날씨 페이지는 어느 거리인지 알 수 없어 고르게 한다 */
+.ev-grade-form select{flex:0 0 auto;padding:11px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink);
+  font-size:16px;font-weight:700;}
+.ev-grade-form select:focus-visible{outline:2px solid var(--accent-fill);
+  outline-offset:1px;}
 /* 지난 대회의 홈페이지 링크는 주연이 아니다 */
 .ev-cta-sub{margin-top:12px !important;background:none !important;
   color:var(--ink-soft) !important;border:1px solid var(--border) !important;}
