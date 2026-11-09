@@ -1,7 +1,7 @@
 // calrank 내 체력 등급 확인 — 로그인 없이 바로 계산 (전부 브라우저에서 처리)
 
 // 등급 기준축은 WMA(세계마스터즈육상연맹) 2025 도로 연령 기준표다.
-// 연령등급 % = 그 나이·성별의 기준기록 ÷ 내 기록 × 100. 100%가 세계기록 수준이고,
+// 연령등급 % = 그 나이와 성별의 기준기록 ÷ 내 기록 × 100. 100%가 세계기록 수준이고,
 // 어느 age-grading 계산기에 넣어도 같은 값이 나온다. 표와 출처는 wma-standards.js에.
 //
 // 내림차순(빠른 순). 값은 그 등급을 받기 위한 연령등급 % 하한.
@@ -236,6 +236,7 @@ function renderResult(result, inputs) {
           : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다 —
              운이 아니라 실력입니다`}
       </p>
+      ${giveMini(inputs)}
       <p class="lv-wx-link">오늘 날씨에서는 이 기록이 그대로 나오지 않을 수 있습니다 —
       기록이 가장 잘 나오는 기온은 <b>3.8~9.9℃</b>입니다.
       <a href="running-weather.html">오늘 달리기 좋은 시간 보기 →</a></p>
@@ -243,8 +244,7 @@ function renderResult(result, inputs) {
         <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
         <p class="lv-share-hint">카드를 먼저 보여 드립니다. 보고 나서 저장하거나 공유하세요.
         가입은 필요 없고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
-      </div>
-      ${giveMini(inputs)}`;
+      </div>`;
     })()}
 
     ${(() => {
@@ -912,13 +912,16 @@ function giveMini(inputs) {
   }
   return `
   <div class="lv-gm" id="lvGiveMini">
-    <p class="lv-gm-ask">같은 또래가 보통 몇 분에 들어오는지, 함께 모으는 중입니다.</p>
+    <p class="lv-gm-ask">방금 등급은 <b>세계 기준</b>으로 매긴 것입니다.
+    국내 또래와 견주는 건 아직 못 해요 — 그 기록이 어디에도 공개돼 있지 않거든요.
+    한 줄 보태 주시겠어요?</p>
     <p class="lv-prog" id="lvProgMini"></p>
     <label class="lv-gm-ck">
       <input type="checkbox" id="lvConsentMini">
-      <span><b>거리 · 완주 시간 · 연령대 · 성별</b>만 익명으로 보탭니다.
-      이름 · 대회 · 생년 · 계정은 보내지 않고, 누구 기록인지 저희도 알 수 없어
-      나중에 지워 드릴 수 없습니다. <a href="#lvGive" class="lv-gm-more">자세히</a></span>
+      <span>보내는 건 <b>거리, 완주 시간, 연령대, 성별</b> 넷뿐입니다.
+      이름도 대회도 계정도 보내지 않아요. 누구 기록인지 저희도 알 수 없어서,
+      나중에 지워 달라고 하셔도 찾을 수가 없습니다.
+      <a href="#lvGive" class="lv-gm-more">자세히</a></span>
     </label>
     <button type="button" class="lv-gm-go" id="lvGiveBtnMini" disabled>통계에 보태기</button>
     <p class="lv-gm-msg" id="lvGiveMsgMini"></p>
