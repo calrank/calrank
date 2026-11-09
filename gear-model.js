@@ -70,6 +70,78 @@
     return null;
   }
 
+  // ── Martin 등(1998) 도로사이클 출력 모델 ──────────────────────────
+  //
+  // 다른 주장은 "연구가 N% 라고 보고했다"를 옮기지만, 공기저항만은 검증된
+  // 식이 있어서 그대로 돌리면 된다. 식 자체는 실측 출력과 r=.97, 표준오차
+  // 2.7W 로 맞았다 (J Appl Biomech 14(3):276–291).
+  //
+  //   P = [ ½ρ·CdA·v³ + Crr·m·g·v + (91 + 8.7v)×10⁻³·v ] / Ec
+  //
+  // 평지·무풍을 가정한다. 경사와 바람 항은 논문에 있지만 여기서는 쓰지
+  // 않는다 — 사용자가 넣을 수 없는 값을 기본값으로 채우면 그 기본값이
+  // 결과를 좌우하면서 출처는 논문으로 보이게 된다.
+  var MARTIN = { rho: 1.225, crr: 0.004, mass: 80, ec: 0.977, g: 9.81 };
+
+  function martinPower(v, o) {
+    o = o || MARTIN;
+    if (!isNum(v) || v <= 0) return null;
+    var aero = 0.5 * o.rho * o.cda * v * v * v;
+    var roll = o.crr * o.mass * o.g * v;
+    var bear = (91 + 8.7 * v) * 1e-3 * v;
+    return { total: (aero + roll + bear) / o.ec, aero: aero, roll: roll, bear: bear,
+             share: aero / (aero + roll + bear) };
+  }
+
+  // 같은 출력에서 CdA 만 바뀌면 속도가 어디로 가는지. 이분법으로 푼다.
+  function martinSpeed(watts, o) {
+    if (!isNum(watts) || watts <= 0) return null;
+    var lo = 0.1, hi = 30, mid;
+    for (var i = 0; i < 60; i++) {
+      mid = (lo + hi) / 2;
+      var p = martinPower(mid, o);
+      if (!p) return null;
+      if (p.total < watts) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  // 공기저항이 가져가는 몫 — 속도만 있으면 난다.
+  function aeroShareAt(speedKmh, opts) {
+    if (!isNum(speedKmh) || speedKmh <= 0) return null;
+    var o = Object.assign({}, MARTIN, opts || {});
+    if (!isNum(o.cda)) o.cda = 0.264;   // 논문 참가자 6명 평균
+    var p = martinPower(speedKmh / 3.6, o);
+    return p ? { sharePct: p.share * 100, watts: p.total, cda: o.cda } : null;
+  }
+
+  // CdA 가 deltaM2 만큼 줄면 같은 힘으로 얼마나 빨라지나.
+  function cdaTimeGain(speedKmh, deltaM2, distanceKm, opts) {
+    if (!isNum(speedKmh) || speedKmh <= 0) return null;
+    if (!isNum(deltaM2) || deltaM2 <= 0) return null;
+    var o = Object.assign({}, MARTIN, opts || {});
+    if (!isNum(o.cda)) o.cda = 0.264;
+    if (deltaM2 >= o.cda) return null;
+
+    var v0 = speedKmh / 3.6;
+    var p0 = martinPower(v0, o);
+    if (!p0) return null;
+    var o2 = Object.assign({}, o, { cda: o.cda - deltaM2 });
+    var v1 = martinSpeed(p0.total, o2);
+    if (!isNum(v1) || v1 <= 0) return null;
+
+    var out = { watts: p0.total, sharePct: p0.share * 100,
+                speedBefore: v0 * 3.6, speedAfter: v1 * 3.6,
+                gainKmh: (v1 - v0) * 3.6, gainPct: (v1 / v0 - 1) * 100,
+                cdaBefore: o.cda, cdaAfter: o2.cda };
+    if (isNum(distanceKm) && distanceKm > 0) {
+      out.secBefore = distanceKm * 1000 / v0;
+      out.secAfter  = distanceKm * 1000 / v1;
+      out.cutSec    = out.secBefore - out.secAfter;
+    }
+    return out;
+  }
+
   // input: { claim, finishSec, distanceKm, age, gender, priceKrw, [조건값] }
   function judge(input) {
     input = input || {};
@@ -99,6 +171,30 @@
         direction: eff.direction || "better",
         evidence: ev, hasEvidence: !!ev
       };
+      // 모델로 계산하는 효과. 보고된 숫자를 옮기는 대신 식을 돌린다.
+      if (ev && eff.computed) {
+        out.hasAnyEvidence = true;
+        row.computed = eff.computed;
+        var spd = isNum(cond) ? cond : null;
+        if (eff.computed === "aero_share") {
+          row.aero = aeroShareAt(spd, { cda: input.cda });
+          row.hasEvidence = !!row.aero;
+        } else if (eff.computed === "cda_time") {
+          var delta = isNum(input.cdaDelta) ? input.cdaDelta : ev.cda_delta_m2;
+          row.aero = cdaTimeGain(spd, delta, input.distanceKm, { cda: input.cda });
+          row.hasEvidence = !!row.aero;
+          if (row.aero && isNum(row.aero.cutSec)) {
+            row.cutSec = { point: row.aero.cutSec, lo: row.aero.cutSec, hi: row.aero.cutSec };
+            row.adjustedSec = Math.max(1, Math.round(row.aero.secAfter));
+            if (isNum(input.priceKrw) && input.priceKrw > 0 && row.aero.cutSec > 0) {
+              row.wonPerSecond = input.priceKrw / row.aero.cutSec;
+              row.priceKrw = input.priceKrw;
+            }
+          }
+        }
+        out.effects.push(row);
+        continue;
+      }
       if (ev && ev.no_data) {
         // 적용 구간은 찾았지만 그 구간에 연구가 없다. 이것도 정보다 —
         // 오히려 가장 알고 싶은 구간이 비어 있다는 사실이 정보다.
@@ -176,6 +272,10 @@
 
   global.calrankGear = {
     judge: judge,
+    martinPower: martinPower,
+    martinSpeed: martinSpeed,
+    aeroShareAt: aeroShareAt,
+    cdaTimeGain: cdaTimeGain,
     pickEvidence: pickEvidence,
     effectRange: effectRange,
     evidenceMap: evidenceMap,

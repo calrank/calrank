@@ -326,6 +326,31 @@
       return '<section class="ge-eff ge-empty"><h3>' + esc(e.label) + "</h3>" +
         '<p class="ge-none">이 조건에서는 근거가 없습니다. 다른 구간의 숫자를 끌어다 쓰지 않았습니다.</p></section>';
     }
+
+    // 모델로 계산한 효과. 보고된 구간이 아니라 식을 푼 결과라서 "0~X%" 꼴이
+    // 아니다. 대신 넣은 값과 나온 값을 같이 보여 준다 — 식이 투명해야
+    // 숫자를 믿을 수 있고, 기본값이 마음에 안 들면 바꿔 넣을 수 있다.
+    if (e.computed && e.aero) {
+      var a = e.aero, body = "";
+      if (e.computed === "aero_share") {
+        body = '<p class="ge-big"><strong>' + a.sharePct.toFixed(1) + "%</strong>가 " +
+          "바람과 싸우는 데 쓰입니다</p>" +
+          '<p class="ge-time">그 속도를 유지하는 데 드는 힘이 약 <b>' +
+          Math.round(a.watts) + "W</b>입니다. 나머지는 구름저항과 베어링 몫이고요.</p>";
+      } else if (e.computed === "cda_time") {
+        body = '<p class="ge-big"><strong>' + minSec(a.cutSec) + "</strong> 빨라집니다</p>" +
+          '<p class="ge-time">같은 힘으로 <b>' + a.speedBefore.toFixed(1) + " → " +
+          a.speedAfter.toFixed(1) + "㎞/h</b> (" + a.gainPct.toFixed(2) + "%), " +
+          "CdA " + a.cdaBefore.toFixed(3) + " → " + a.cdaAfter.toFixed(3) + "㎡ 기준입니다.</p>";
+        if (e.wonPerSecond) {
+          body += '<p class="ge-value">' + num(e.priceKrw) + "원이면 <b>1초에 " +
+            num(Math.round(e.wonPerSecond)) + "원</b>입니다.</p>";
+        }
+      }
+      return '<section class="ge-eff"><h3>' + esc(e.label) +
+        (e.detail ? ' <span class="ge-detail">' + esc(e.detail) + "</span>" : "") + "</h3>" +
+        body + evidenceCard(e.evidence) + "</section>";
+    }
     var r = e.range, ns = e.evidence.significant === false;
     var dirWord = e.direction === "worse" ? "나빠집니다" : "좋아집니다";
     var headline = ns ? "0 ~ " + r.hi.toFixed(1) + "%"
@@ -374,6 +399,28 @@
     var by = parseInt($("geBirthYear") && $("geBirthYear").value, 10);
     var price = parseInt(($("gePrice") && $("gePrice").value || "").replace(/\D/g, ""), 10);
 
+    if (CLAIM.model) {
+      var kmh = parseFloat($("geCond") && $("geCond").value);
+      if (!isFinite(kmh) || kmh <= 0) {
+        out.innerHTML = '<p class="gr-hint">평균 속도를 넣으면 판정이 나옵니다.</p>'; return;
+      }
+      input.speed_kmh = kmh;
+      input.distanceKm = parseFloat($("geDistance") && $("geDistance").value);
+      var cda = parseFloat($("geCda") && $("geCda").value);
+      if (isFinite(cda) && cda > 0) input.cda = cda;
+      var dl = parseFloat($("geCdaDelta") && $("geCdaDelta").value);
+      if (isFinite(dl) && dl > 0) input.cdaDelta = dl;
+      if (isFinite(price) && price > 0) input.priceKrw = price;
+      var mres = window.calrankGear.judge(input);
+      if (!mres) { out.innerHTML = '<p class="gr-hint">입력을 확인해 주세요.</p>'; return; }
+      out.innerHTML = '<p class="ge-cond">평균 <b>' + kmh.toFixed(1) + "㎞/h</b>로 " +
+        (isFinite(input.distanceKm) ? input.distanceKm + "km" : "") + " 달릴 때</p>" +
+        mres.effects.map(function (e) {
+          return effectBlock(e, CLAIM, kmh, "㎞/h");
+        }).join("");
+      return;
+    }
+
     if (CLAIM.condition === "speed_kmh") {
       if (!sec) { out.innerHTML = '<p class="gr-hint">완주 기록을 넣으면 판정이 나옵니다.</p>'; return; }
       input.finishSec = sec; input.distanceKm = km;
@@ -406,7 +453,32 @@
     if (!box || !CLAIM) return;
     var speed = CLAIM.condition === "speed_kmh";
     var timed = CLAIM.effects.some(function (e) { return e.affects_time; });
+    var modelled = !!CLAIM.model;
     var rows = [];
+
+    // 모델로 푸는 주장은 기록이 아니라 평속과 거리를 받는다. 자전거는
+    // 기록을 외우는 사람보다 평속을 외우는 사람이 훨씬 많다.
+    if (modelled) {
+      rows.push(
+        '<label for="geCond">평균 속도 <span class="gf-unit">(㎞/h)</span></label>' +
+        '<input id="geCond" type="number" step="0.5" min="5" max="70" value="30">',
+        '<label for="geDistance">거리 <span class="gf-unit">(km)</span></label>' +
+        '<input id="geDistance" type="number" step="5" min="1" max="500" value="40">',
+        '<label for="geCda">내 CdA <span class="gf-unit">(㎡, 모르면 그대로)</span></label>' +
+        '<input id="geCda" type="number" step="0.005" min="0.15" max="0.6" value="0.264">',
+        '<label for="geCdaDelta">휠이 줄여 준다는 CdA <span class="gf-unit">(㎡)</span></label>' +
+        '<input id="geCdaDelta" type="number" step="0.001" min="0.001" max="0.1" value="0.010">',
+        '<label for="gePrice">가격 (원)</label>' +
+        '<input id="gePrice" type="text" inputmode="numeric" placeholder="1200000" value="1200000">'
+      );
+      box.innerHTML = rows.join("");
+      box.querySelectorAll("input,select").forEach(function (el) {
+        el.addEventListener("input", renderClaim);
+        el.addEventListener("change", renderClaim);
+      });
+      return;
+    }
+
     if (!speed) {
       rows.push('<label for="geCond">' + esc(CLAIM.condition_label) + "</label>" +
         '<input id="geCond" type="number" step="1" value="10">');
@@ -439,6 +511,13 @@
     var box = $("gearMeta");
     if (!box || !CLAIM) return;
     var html = "";
+    if (CLAIM.surprise) {
+      html += '<p class="gm-surprise">' + esc(CLAIM.surprise) + "</p>";
+    }
+    if (CLAIM.model_note) {
+      html += "<h2>이 숫자를 어떻게 냈나</h2><p class=\"gm-measure\">" +
+        esc(CLAIM.model_note) + "</p>";
+    }
     if (CLAIM.transfer_note) {
       html += "<h2>기록으로 바꿀 때의 가정</h2><p class=\"gm-measure\">" +
         esc(CLAIM.transfer_note) + "</p>";
@@ -476,6 +555,8 @@
       } else if (CLAIM) {
         document.body.classList.add("ge-detail-mode", "ge-claim-mode");
         setHead(CLAIM.label, CLAIM.question);
+        var chl = $("gearHeadline");
+        if (chl && CLAIM.headline) chl.textContent = CLAIM.headline;
         buildClaimForm(); claimMeta(); renderClaim();
       } else {
         document.body.classList.add("ge-hub-mode");
