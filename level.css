@@ -501,3 +501,5 @@
   .lv-adj-body strong{font-size:15.5px;}
   .lv-adj-tier{font-size:13.5px;}
 }
+/* <strong> 은 환산 기록 한 곳에만 쓴다. 문장 안의 작은 강조는 <b>. */
+.lv-adj-body b{font-weight:900;color:var(--ink);}

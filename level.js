@@ -169,21 +169,28 @@ function renderResult(result, inputs) {
       if (!adj.applies) {
         return `
       <div class="lv-adj lv-adj-none">
-        <p class="lv-adj-head">${nm ? `${nm}, 당일` : "그날은"} 평균 ${adj.avgTa.toFixed(1)}℃ — 달리기에 좋은 쪽이었어요</p>
-        <p class="lv-adj-body">연구들이 꼽는 최적 구간(대략 4~15℃)에 들어가서 더위 보정은 하지 않았습니다. 위 등급이 그대로예요.</p>
+        <p class="lv-adj-head">${nm ? `${nm}, ` : "그날 "}당일 평균기온 <span class="nw">${adj.avgTa.toFixed(1)}℃</span> — 달리기 좋은 쪽이었습니다</p>
+        <p class="lv-adj-body">연구들이 꼽는 최적 구간(대략 <span class="nw">4~15℃</span>)에 들어가서 더위 보정은 하지 않았습니다. 위 등급이 그대로예요.</p>
         <p class="lv-adj-src">최적 기온 3.8~9.9℃ — El Helou 등(2012) PLoS ONE 7(5):e37407, 완주자 1,791,972명. 기온은 기상청 ASOS 실측 일평균.</p>
       </div>`;
       }
       const moved = adjTier && t0 && adjTier.label !== t0.label;
+      // 단서는 한 문단으로 묶는다. 한 줄짜리 <p> 를 쌓으면 기계가 쓴 글처럼 읽힌다.
+      const notes = [];
+      if (adj.upperBound) notes.push(
+        `보정 계수는 풀코스 자료에서 나온 값이라 ${distLabel(inputs.distanceKm)}에서는 영향이 이보다 작을 수 있습니다. 최대치로 보시면 돼요.`);
+      if (adj.capped) notes.push(
+        `보정은 <span class="nw">23℃</span>까지만 반영했습니다. 그 위 구간은 원자료 관측이 20건뿐이라 논문도 결론을 내지 않았어요.`);
+      const note = notes.join(" ");
       return `
       <div class="lv-adj">
-        <p class="lv-adj-head">${nm ? `${nm}, 당일` : "그날은"} 평균 ${adj.avgTa.toFixed(1)}℃였어요</p>
-        <p class="lv-adj-body">기준으로 삼는 15℃보다 ${adj.over.toFixed(1)}℃ 높습니다. 같은 몸으로 15℃에서 뛰었다면 대략 <strong>${fmtClock(adj.adjustedSec)}</strong>, ${fmtMinSec(adj.gainSec)} 빠른 기록이 됩니다.</p>
-        ${adjTier ? `<p class="lv-adj-tier">연령등급 ${result.agePct.toFixed(1)}% → <strong>${result.adjPct.toFixed(1)}%</strong>, 등급은 ${moved
-          ? `${t0.label} → <strong>${adjTier.label}</strong>`
-          : `<strong>${t0.label}</strong> 그대로`}입니다.</p>` : ""}
-        ${adj.upperBound ? `<p class="lv-adj-note">보정 계수는 풀코스 자료에서 나온 값입니다. ${distLabel(inputs.distanceKm)}는 더위에 노출되는 시간이 짧아 영향이 이보다 작을 가능성이 높아요. 최대치로 보시면 됩니다.</p>` : ""}
-        ${adj.capped ? `<p class="lv-adj-note">보정은 23℃까지만 반영했습니다. 그 위 구간은 원자료 관측이 20건뿐이라 논문도 결론을 내지 않았어요.</p>` : ""}
+        <p class="lv-adj-head">${nm ? `${nm}, ` : "그날 "}당일 평균기온 <span class="nw">${adj.avgTa.toFixed(1)}℃</span></p>
+        <p class="lv-adj-body">기준으로 삼는 <span class="nw">15℃</span>보다 <span class="nw">${adj.over.toFixed(1)}℃</span> 높습니다. 같은 몸으로 <span class="nw">15℃</span>에서 뛰었다면 대략 <span class="nw"><strong>${fmtClock(adj.adjustedSec)}</strong>,</span> ${fmtMinSec(adj.gainSec)} 빠른 기록이 되고${adjTier
+          ? ` 연령등급은 ${result.agePct.toFixed(1)}%에서 <b>${result.adjPct.toFixed(1)}%</b>로 올라갑니다. ${moved
+              ? `등급도 ${t0.label}에서 <b>${adjTier.label}</b>으로 올라가고요.`
+              : `등급은 <b>${t0.label}</b> 그대로예요.`}`
+          : `요.`}</p>
+        ${note ? `<p class="lv-adj-note">${note}</p>` : ""}
         <p class="lv-adj-src">보스턴마라톤 완주 기록 383,982건에서 평균기온이 1℃ 오를 때 전체 완주자가 1분 53초 느려졌습니다(그 표의 평균 완주시간 3:40:29 대비 0.85%). 독립된 다른 자료(580,990건)에서는 1분 47초였고, 여기서는 둘보다 보수적인 0.8%/℃를 씁니다. · Nikolaidis 등(2019) IJERPH 16:614 · Knechtle 등(2019) PLoS ONE 14(3):e0212797 · 기온은 기상청 ASOS 실측 일평균</p>
       </div>`;
     })()}

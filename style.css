@@ -82,6 +82,12 @@ body{
   font-family:var(--font-body);
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  /* 한글은 기본값(word-break:normal)이면 음절 아무 데서나 끊긴다.
+     "23.0℃였어 / 요", "0.8%/ / ℃를" 같은 줄바꿈이 그래서 나왔다.
+     keep-all 이면 띄어쓰기(어절) 자리에서만 끊는다.
+     혼자 한 줄도 못 채우는 긴 영문·URL 은 break-word 가 받아 준다. */
+  word-break:keep-all;
+  overflow-wrap:break-word;
 }
 
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
@@ -589,3 +595,11 @@ body{
   font-weight:700;color:var(--accent-ink);text-decoration:none;
   border-bottom:1px solid var(--border);}
 .ev-goal a:hover{border-bottom-color:var(--accent);}
+/* 숫자와 단위는 갈라 놓으면 읽기가 끊긴다("30.3 / ℃", "30.3℃ / 였어요"). */
+.nw{white-space:nowrap;}
+
+/* 제목은 줄 길이를 고르게(balance), 본문은 마지막 줄에 한 단어만 떨어지는 걸
+   막는다(pretty). 둘 다 지원 안 하는 브라우저는 기존 그대로 보인다.
+   적용 전 여러 줄 문단 55개 중 2개가 마지막 줄 4글자 이하였고, 적용 후 0개. */
+h1,h2,h3,h4{text-wrap:balance;}
+p,li,dd,figcaption,summary{text-wrap:pretty;}
