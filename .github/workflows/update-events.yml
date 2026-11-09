@@ -102,6 +102,10 @@ jobs:
           git add index.html
           git add e/ aquathlon.html
           git add events-index.html events-archive.html sitemap.xml
+          # 달이 바뀌면 새 월별 아카이브가 생긴다. 허브(events-archive.html)는
+          # 추적 중이라 링크가 커밋되는데 새 페이지는 add -u 로 안 잡혀서,
+          # 링크만 올라가고 대상이 404 가 됐다(2026-11 이 실제로 그랬다).
+          git add events-archive-20*.html
           git add open-registration.html ultra-marathon.html night-run.html
           git add walking-events.html kids-marathon.html
           git add -u          # 목차 동기화 등으로 바뀐 기존 파일
