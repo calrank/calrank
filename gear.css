@@ -1,0 +1,286 @@
+/* 장비 판정 — 허브와 상세 두 화면.
+ *
+ * 색은 전부 style.css 의 토큰만 쓴다. 하드코딩 hex 를 쓰면 sync_theme.py 가
+ * 다음 실행에서 토큰으로 바꿔 버리고, 그 과정에서 의도한 색이 아닌 값이
+ * 들어앉는다. 판정 색도 토큰으로 간다 —
+ *   통과 --trail / 위반 --accent-ink / 갈림·의무 --warn-ink / 모름 --ink-faint
+ * 어두운 모드 값이 토큰 쪽에 이미 정의돼 있어서, 여기서 모드를 다시
+ * 분기하지 않아도 양쪽 다 대비가 선다.
+ *
+ * 색만으로 판정을 전달하지 않는다. 통과·위반은 언제나 글자로 먼저 적고
+ * 색은 거드는 역할만 한다. 색을 못 가리는 사람에게도 결과가 남아야 한다. */
+
+/* ── 공통 ──────────────────────────────────────────────────── */
+.gi-headline:empty, .gi-meta:empty, .gi-hub:empty, .gi-result:empty { display: none; }
+.gi-back { display: none; }
+body.ge-detail-mode .gi-intro { display: none; }
+body.ge-detail-mode .gi-back { display: block; }
+body.ge-hub-mode .gi-form-wrap { display: none; }
+
+.gi-headline {
+  max-width: 640px; margin: 18px auto 0;
+  font-size: 19px; font-weight: 700; line-height: 1.6;
+  color: var(--ink); text-wrap: balance; text-align: center;
+}
+.gi-intro {
+  max-width: 640px; margin: 20px auto 0;
+  font-size: 14.5px; line-height: 1.85; color: var(--ink-soft);
+}
+.gi-intro p + p { margin-top: 12px; }
+.gi-intro b { color: var(--ink); }
+
+.gi-back { max-width: 640px; margin: 34px auto 0; }
+.gi-back a {
+  font-size: 13.5px; color: var(--ink-faint); text-decoration: none;
+}
+.gi-back a:hover { color: var(--accent-ink); }
+
+.gi-sec { max-width: 640px; margin: 46px auto 0; }
+.gi-sec h2 { font-size: 18px; margin-bottom: 10px; }
+.gi-sec p { font-size: 14.5px; line-height: 1.85; color: var(--ink-soft); }
+.gi-sec p + p { margin-top: 11px; }
+.gi-sec b { color: var(--ink); }
+
+.gi-links { max-width: 640px; margin: 34px auto 0; font-size: 13.5px; line-height: 2; }
+.gi-links a {
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px dashed var(--ink-faint);
+}
+.gi-links a:hover { color: var(--accent-ink); border-color: var(--accent); }
+
+/* ── 허브: 종목 × 두 축 ─────────────────────────────────────── */
+.gi-hub { max-width: 760px; margin: 28px auto 0; }
+.gh-sport {
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 18px 18px; margin-bottom: 14px; background: var(--surface);
+}
+.gh-sport h2 {
+  font-size: 17px; margin: 0 0 14px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+}
+.gh-body {
+  font-size: 11.5px; font-weight: 400; color: var(--ink-faint);
+  letter-spacing: .01em;
+}
+.gh-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.gh-col h3 {
+  font-size: 12.5px; color: var(--ink-faint); font-weight: 700;
+  margin: 0 0 9px; padding-bottom: 7px; border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.gh-col h3 small { font-size: 11px; font-weight: 400; color: var(--ink-faint); }
+
+.gh-item {
+  display: block; text-decoration: none; padding: 10px 11px;
+  border: 1px solid var(--line); border-radius: 8px; margin-bottom: 7px;
+  background: var(--tint-1);
+}
+.gh-item:hover { border-color: var(--accent); background: var(--tint-2); }
+.gh-item b { display: block; font-size: 14px; color: var(--ink); }
+.gh-q {
+  display: block; font-size: 12px; line-height: 1.6;
+  color: var(--ink-soft); margin-top: 4px;
+}
+.gh-tag {
+  display: inline-block; font-size: 10.5px; font-weight: 700;
+  color: var(--on-accent); background: var(--accent-fill);
+  padding: 1px 6px; border-radius: 999px; margin-top: 5px;
+}
+.gh-empty {
+  font-size: 12px; line-height: 1.7; color: var(--ink-faint);
+  padding: 10px 2px; margin: 0;
+}
+
+/* ── 입력 ──────────────────────────────────────────────────── */
+.gi-form-wrap { max-width: 640px; margin: 24px auto 0; }
+.gi-form {
+  display: grid; grid-template-columns: auto 1fr; gap: 10px 14px;
+  align-items: center; border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 18px; background: var(--surface);
+}
+.gi-form label { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.gf-unit { font-weight: 400; color: var(--ink-faint); }
+.gi-form input, .gi-form select {
+  width: 100%; font: inherit; font-size: 15px; padding: 9px 11px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--ink);
+}
+.gi-form input:focus, .gi-form select:focus {
+  outline: 2px solid var(--accent); outline-offset: 1px;
+}
+
+/* ── 규정 판정 결과 ─────────────────────────────────────────── */
+.gi-result { max-width: 640px; margin: 20px auto 0; }
+.gr-hint, .ge-cond {
+  font-size: 13.5px; line-height: 1.8; color: var(--ink-faint);
+  text-align: center; margin: 0;
+}
+.ge-cond { color: var(--ink-soft); }
+.ge-cond b { color: var(--ink); }
+
+.gr-verdict {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: center; gap: 10px;
+  border: 2px solid var(--border); border-radius: 12px;
+  padding: 18px 20px; background: var(--surface);
+}
+.gr-word { font-size: 28px; font-weight: 900; letter-spacing: -.01em; }
+.gr-input { font-size: 14px; color: var(--ink-faint); }
+.gr-ok  { border-color: var(--trail); }
+.gr-ok  .gr-word { color: var(--trail); }
+.gr-no  { border-color: var(--accent); }
+.gr-no  .gr-word { color: var(--accent-ink); }
+.gr-mix { border-color: var(--warn-ink); }
+.gr-mix .gr-word { color: var(--warn-ink); }
+.gr-un  .gr-word { color: var(--ink-faint); }
+
+.gr-band {
+  font-size: 14px; line-height: 1.8; color: var(--ink-soft);
+  margin: 13px 0 0; padding: 12px 14px;
+  border-left: 3px solid var(--warn-ink); background: var(--tint-1);
+}
+.gr-band b { color: var(--ink); }
+
+.gr-rows { list-style: none; padding: 0; margin: 14px 0 0; }
+.gr-rows li {
+  display: grid; grid-template-columns: 1fr auto; gap: 3px 10px;
+  padding: 11px 13px; border: 1px solid var(--line);
+  border-radius: 8px; margin-bottom: 7px; background: var(--surface);
+}
+.gr-scope { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.gr-mark { font-size: 13px; font-weight: 700; text-align: right; }
+.gr-rows li.gr-ok  .gr-mark { color: var(--trail); }
+.gr-rows li.gr-no  .gr-mark { color: var(--accent-ink); }
+.gr-rows li.gr-un  .gr-mark { color: var(--ink-faint); }
+.gr-rows li.gr-no  { border-color: var(--accent); }
+.gr-lim, .gr-free {
+  grid-column: 1 / -1; font-size: 12.5px; color: var(--ink-soft);
+}
+.gr-lim em { font-style: normal; color: var(--accent-ink); font-weight: 700; }
+.gr-rnote {
+  grid-column: 1 / -1; font-size: 12px; line-height: 1.7;
+  color: var(--ink-faint); margin-top: 3px;
+}
+.gr-mixnote {
+  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft);
+  margin: 12px 0 0; padding: 12px 14px;
+  border-left: 3px solid var(--warn-ink); background: var(--tint-1);
+}
+
+/* ── 규정 전문 ─────────────────────────────────────────────── */
+.gi-meta { max-width: 640px; margin: 36px auto 0; }
+.gi-meta h2 {
+  font-size: 15px; margin: 28px 0 10px; padding-bottom: 7px;
+  border-bottom: 1px solid var(--line);
+}
+.gi-meta h2:first-child { margin-top: 0; }
+.gm-surprise {
+  font-size: 14.5px; line-height: 1.9; color: var(--ink-soft);
+  margin: 0 0 4px; padding: 14px 16px;
+  border-left: 3px solid var(--accent); background: var(--tint-1);
+  border-radius: 0 8px 8px 0;
+}
+.gm-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.gm-table th, .gm-table td {
+  text-align: left; vertical-align: top; padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.gm-table th { font-weight: 700; color: var(--ink); width: 42%; }
+.gm-table td { color: var(--ink-soft); }
+.gm-note {
+  display: block; font-size: 12px; line-height: 1.7;
+  color: var(--ink-faint); margin-top: 4px;
+}
+.gm-measure, .gm-body, .gm-src {
+  font-size: 13.5px; line-height: 1.85; color: var(--ink-soft); margin: 0;
+}
+.gm-body b { color: var(--ink); }
+.gm-src { font-size: 12.5px; color: var(--ink-faint); margin-top: 24px; }
+.gm-src a { color: var(--accent-ink); }
+
+/* ── 효과 판정 ─────────────────────────────────────────────── */
+.ge-eff {
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 18px; margin-top: 16px; background: var(--surface);
+}
+.ge-eff h3 {
+  font-size: 15px; margin: 0 0 10px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px;
+}
+.ge-detail { font-size: 12px; font-weight: 400; color: var(--ink-faint); }
+.ge-big { font-size: 15px; line-height: 1.7; margin: 0; color: var(--ink-soft); }
+.ge-big strong { font-size: 22px; font-weight: 900; color: var(--ink); }
+.ge-ns {
+  display: block; font-style: normal; font-size: 12px; line-height: 1.7;
+  color: var(--warn-ink); font-weight: 700; margin-top: 5px;
+}
+.ge-time, .ge-grade-move, .ge-value {
+  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin: 9px 0 0;
+}
+.ge-time strong, .ge-grade-move b, .ge-value b { color: var(--ink); }
+.ge-note, .ge-none {
+  font-size: 12px; line-height: 1.75; color: var(--ink-faint); margin: 10px 0 0;
+}
+.ge-empty { border-style: dashed; }
+.ge-gap {
+  font-size: 13.5px; line-height: 1.85; color: var(--ink-soft);
+  margin: 0; padding: 13px 15px;
+  border-left: 3px solid var(--warn-ink); background: var(--tint-1);
+}
+.ge-gap b { color: var(--ink); }
+
+.ge-src {
+  margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line);
+}
+.ge-grade {
+  display: inline-block; font-size: 11.5px; font-weight: 900;
+  padding: 2px 8px; border-radius: 999px; margin-right: 7px;
+  color: var(--on-accent); background: var(--ink-faint);
+}
+.ge-A { background: var(--trail); }
+.ge-B { background: var(--forecast); }
+.ge-C { background: var(--warn-ink); color: var(--bg); }
+.ge-D { background: var(--ink-faint); }
+.ge-meta { font-size: 12px; color: var(--ink-soft); }
+.ge-cite {
+  font-size: 11.5px; line-height: 1.7; color: var(--ink-faint); margin: 9px 0 0;
+}
+.ge-cite a { color: var(--accent-ink); white-space: nowrap; }
+
+/* ── 근거 지형 차트 ────────────────────────────────────────── */
+.gc-wrap { margin: 16px 0 0; }
+.gc { width: 100%; height: auto; display: block; overflow: visible; }
+.gc-grid { stroke: var(--line); stroke-width: 1; }
+.gc-ytick, .gc-xtick, .gc-badge, .gc-melabel {
+  font-family: var(--font-body); fill: var(--ink-faint);
+}
+.gc-ytick { font-size: 10px; text-anchor: end; }
+.gc-xtick { font-size: 10px; text-anchor: start; }
+.gc-xtick.gc-end { text-anchor: end; }
+.gc-badge { font-size: 11px; font-weight: 900; text-anchor: middle; fill: var(--ink-soft); }
+.gc-melabel { font-size: 10.5px; font-weight: 700; text-anchor: middle; fill: var(--accent-ink); }
+.gc-band { fill-opacity: .55; }
+.gc-A { fill: var(--trail); }
+.gc-B { fill: var(--forecast); }
+.gc-C { fill: var(--warn-ink); }
+.gc-D { fill: var(--ink-faint); }
+.gc-ns { fill-opacity: .22; stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 2; }
+.gc-me { stroke: var(--accent); stroke-width: 2; }
+.gc-cap {
+  font-size: 11.5px; line-height: 1.7; color: var(--ink-faint); margin-top: 8px;
+}
+
+/* ── 모바일 ────────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .gh-cols { grid-template-columns: 1fr; gap: 18px; }
+  .gh-sport { padding: 14px 15px 16px; }
+  .gi-form { grid-template-columns: 1fr; gap: 4px; padding: 14px 15px; }
+  .gi-form label { margin-top: 8px; }
+  .gi-form label:first-child { margin-top: 0; }
+  .gi-headline { font-size: 17px; }
+  .gr-word { font-size: 24px; }
+  .ge-big strong { font-size: 20px; }
+  .gm-table th, .gm-table td { display: block; width: auto; padding-right: 0; }
+  .gm-table th { border-bottom: 0; padding-bottom: 2px; }
+  .gi-sec { margin-top: 36px; }
+}
