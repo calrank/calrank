@@ -1,4 +1,4 @@
-// 장비 판정 화면. 축이 둘이라 화면도 셋이다.
+// 기어 판정 화면. 축이 둘이라 화면도 셋이다.
 //
 //   ?        → 허브. 종목 × 두 축 교차표.
 //   ?r=<id>  → 규정 판정. 내 수치가 연맹 규정을 통과하는지.
@@ -453,7 +453,7 @@
   function setHead(title, question) {
     var t = $("gearTitle"); if (t) t.textContent = title;
     var q = $("gearQuestion"); if (q) q.textContent = question || "";
-    if (title) document.title = title + " — 장비 판정 | calrank";
+    if (title) document.title = title + " — 기어 판정 | calrank";
   }
 
   function init() {
