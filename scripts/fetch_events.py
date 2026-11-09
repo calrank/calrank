@@ -1364,7 +1364,11 @@ def refresh_home_meta(events: list[dict]) -> None:
             f"캘린더로 받으세요. 예정 대회 {len(upcoming)}개, 접수 진행 중 {len(opening)}개.")
     og_desc = (f"내 기록은 몇 등급일까. 기록 등급 판정과 {year} 전국 마라톤 대회 일정을 "
                f"한곳에서. 예정 대회 {len(upcoming)}개.")
-    h1 = f"{year} 마라톤 대회 일정 — 전국 마라톤·자전거·트레일러닝·철인3종·인라인 캘린더"
+    # 연도를 박으면 해가 바뀔 때마다 틀린 말이 되고, '캘린더'는 화면을 보면
+    # 아는 말이라 뺀다. 다만 '대회 일정'은 남긴다 — 사람들이 실제로 치는
+    # 검색어고, 이게 빠지면 들어올 문이 좁아진다.
+    h1 = ('전국의 모든 대회 일정'
+          '<span class="h1-kinds">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 인라인</span>')
 
     with open(path, encoding="utf-8") as f:
         html = f.read()
@@ -1385,24 +1389,33 @@ def refresh_home_meta(events: list[dict]) -> None:
          f'<meta name="twitter:title" content="{title}">')
     swap(r'<meta name="twitter:description" content="[^"]*">',
          f'<meta name="twitter:description" content="{og_desc}">')
-    swap(r"<h1>[^<]*</h1>", f"<h1>{h1}</h1>")
+    swap(r"<h1>.*?</h1>", f"<h1>{h1}</h1>")
 
     # 히어로 소개 문단. 사람들이 실제로 검색하는 말("전국 마라톤 대회 일정",
     # "10km 하프 풀코스", "마라톤 접수")을 본문에 글로 남긴다.
     regions = _top_regions(events, today_iso)
     next_month = 1 if today.month == 12 else today.month + 1
+    # 검색어를 가운뎃점으로 엮어 문장인 척 늘어놓으면 기계가 쓴 글이 된다.
+    # 예전 문단에는 한 단락에 가운뎃점이 여섯 개, 괄호 설명이 겹쳐 있었다.
+    # 같은 말을 사람이 하는 방식으로 쓴다. 검색어는 그대로 다 들어 있다.
     lead = (f"칼랭크는 달린 기록이 어느 등급인지 읽어 주는 곳입니다. "
-            f"10km·하프·풀코스 기록을 넣으면 나이·성별 기준으로 등급이 바로 나오고, "
-            f"다음 출발선은 여기서 고르면 됩니다. "
-            f"전국 <b>마라톤 대회 일정</b>을 월별·지역별로 모았습니다. "
-            f"{today.month}월·{next_month}월 대회부터 10km·하프마라톤·풀코스 "
-            f"거리로 골라 보고, 접수 시작일과 마감일을 확인해 바로 신청하세요. ")
+            f"10km든 하프든 풀코스든, 기록을 넣으면 나이와 성별을 반영한 "
+            f"등급이 바로 나옵니다. "
+            f"다음 출발선도 여기서 고르면 됩니다. 전국 <b>마라톤 대회 일정</b>을 "
+            f"월별로, 지역별로 모았어요. {today.month}월과 {next_month}월 대회부터 "
+            f"거리로 추려 보고 접수 마감일을 확인하세요. ")
     if regions:
-        lead += f"{'·'.join(regions)} 등 지역별로 "
-    lead += (f"국내 예정 대회 {len(upcoming)}개와 트레일러닝, 자전거(그란폰도·"
-             "메디오폰도), 철인3종(트라이애슬론)·아쿠아슬론, 인라인 대회 일정을 "
-             "함께 담았습니다.")
-    swap(r'<p class="hero-lead"[^>]*>.*?</p>', f'<p class="hero-lead">{lead}</p>')
+        lead += f"지금 {', '.join(regions)}을 비롯해 "
+    else:
+        lead += "지금 "
+    lead += (f"예정된 대회가 {len(upcoming)}개 있습니다. "
+             "마라톤만 있는 건 아닙니다. 트레일러닝, 그란폰도 같은 자전거 대회, "
+             "철인3종과 아쿠아슬론, 인라인 대회도 함께 담았습니다.")
+    # id 를 빠뜨리면 script.js 의 setupHeroLead 가 요소를 못 찾고 그냥 빠져나간다.
+    # 그러면 접기가 안 걸리는데 '더보기' 버튼은 .hero-more{display:block} 가
+    # hidden 속성을 이겨서 그대로 남는다 — 눌러도 아무 일 없는 버튼이 된다.
+    swap(r'<p class="hero-lead"[^>]*>.*?</p>',
+         f'<p class="hero-lead" id="heroLead">{lead}</p>')
 
     # 목록 자리에 가까운 대회를 미리 심는다 (위 HOME_PRERENDER_LIMIT 주석 참고).
     swap(r'<p class="result-count" id="resultCount">.*?</p>',
