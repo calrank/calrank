@@ -631,12 +631,33 @@ def fetch_runningmap() -> list[dict]:
         return []
 
     headers = {**HEADERS, "apikey": key, "Authorization": f"Bearer {key}"}
-    resp = requests.get(
-        f"{RUNNINGMAP_SUPABASE_URL}?select=*&order=race_date.asc",
-        headers=headers, timeout=15,
-    )
-    resp.raise_for_status()
-    rows = resp.json()
+
+    # limit 없이 한 번만 부르면 안 된다. PostgREST 는 서버 쪽 상한이 걸려 있을
+    # 수 있고, 정렬이 race_date 오름차순이라 잘리는 쪽이 하필 가장 나중 대회다.
+    # 즉 내년 대회부터 사라진다. 끝까지 받아 온다.
+    #
+    # 한 번에 몇 개를 주는지는 서버가 정한다. 받은 만큼만 건너뛰면 상한이
+    # 얼마든 상관없이 끝까지 간다. 날짜가 같은 줄의 순서가 흔들려 겹쳐
+    # 들어와도 뒤의 중복 제거가 걸러 준다.
+    rows, offset, page = [], 0, 0
+    while True:
+        resp = requests.get(
+            f"{RUNNINGMAP_SUPABASE_URL}?select=*&order=race_date.asc"
+            f"&limit=1000&offset={offset}",
+            headers=headers, timeout=15,
+        )
+        resp.raise_for_status()
+        batch = resp.json()
+        if not isinstance(batch, list) or not batch:
+            break
+        rows.extend(batch)
+        offset += len(batch)
+        page += 1
+        if offset >= 50000 or page >= 60:
+            print("[runningmap] 받은 줄이 너무 많다 — 끊는다 (%d줄)" % offset,
+                  file=sys.stderr)
+            break
+    print("[runningmap] %d줄 (%d쪽)" % (len(rows), page))
 
     events = []
     for row in rows:
