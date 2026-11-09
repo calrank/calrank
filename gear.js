@@ -71,6 +71,7 @@
   function buildHub() {
     var hub = $("gearHub");
     if (!hub || !CLAIMS || !RULES) return;
+    if (hub.children.length) return;   // 생성기가 이미 링크를 박아 둠
     var rows = window.calrankRules.coverage(CLAIMS, RULES);
 
     hub.innerHTML = rows.map(function (s) {
@@ -201,6 +202,7 @@
   function ruleMeta() {
     var box = $("gearMeta");
     if (!box || !RULE) return;
+    if (box.children.length) return;   // 생성기가 이미 써 둔 페이지
     var body = window.calrankRules.bodyOf(RULES, RULE);
     var html = "";
     if (RULE.surprise) html += '<p class="gm-surprise">' + esc(RULE.surprise) + "</p>";
@@ -510,6 +512,7 @@
   function claimMeta() {
     var box = $("gearMeta");
     if (!box || !CLAIM) return;
+    if (box.children.length) return;   // 생성기가 이미 써 둔 페이지
     var html = "";
     if (CLAIM.surprise) {
       html += '<p class="gm-surprise">' + esc(CLAIM.surprise) + "</p>";
@@ -541,8 +544,13 @@
       fetch("data/gear_rules.json").then(function (r) { return r.json(); })
     ]).then(function (d) {
       CLAIMS = d[0]; RULES = d[1];
+      // 어느 판정인지는 두 곳에서 올 수 있다. 쿼리(gear.html?r=…)는 사람이
+      // 허브에서 눌러 들어온 경우고, body 속성은 생성기가 찍은 정적 페이지다.
+      // 정적 페이지 쪽이 검색엔진이 읽는 주소라서 그쪽을 먼저 본다.
       var q = new URLSearchParams(location.search);
-      var rid = q.get("r"), cid = q.get("c");
+      var body = document.body;
+      var rid = body.getAttribute("data-gear-rule") || q.get("r");
+      var cid = body.getAttribute("data-gear-claim") || q.get("c");
       RULE = rid ? window.calrankRules.findRule(RULES, rid) : null;
       CLAIM = cid ? window.calrankGear.findClaim(CLAIMS, cid) : null;
 
@@ -550,13 +558,17 @@
         document.body.classList.add("ge-detail-mode", "ge-rule-mode");
         setHead(RULE.label, RULE.question);
         var hl = $("gearHeadline");
-        if (hl && RULE.headline) hl.textContent = RULE.headline;
+        if (hl && RULE.headline && !document.querySelector(".gi-meta .gi-headline")) {
+          hl.textContent = RULE.headline;
+        }
         buildRuleForm(); ruleMeta(); renderRule();
       } else if (CLAIM) {
         document.body.classList.add("ge-detail-mode", "ge-claim-mode");
         setHead(CLAIM.label, CLAIM.question);
         var chl = $("gearHeadline");
-        if (chl && CLAIM.headline) chl.textContent = CLAIM.headline;
+        if (chl && CLAIM.headline && !document.querySelector(".gi-meta .gi-headline")) {
+          chl.textContent = CLAIM.headline;
+        }
         buildClaimForm(); claimMeta(); renderClaim();
       } else {
         document.body.classList.add("ge-hub-mode");
