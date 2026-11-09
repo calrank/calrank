@@ -57,6 +57,70 @@ function formatPace(sec) {
   return `${m}:${String(s).padStart(2, "0")}/km`;
 }
 
+// ── 조건 보정 ────────────────────────────────────────────────────────────
+// 더운 날 낸 기록은 같은 사람이 시원한 날 냈을 기록보다 느리다. 얼마나
+// 느린지는 대규모 완주 기록에서 나온 숫자가 있다.
+//
+//  Nikolaidis 등(2019) Int J Environ Res Public Health 16:614
+//    보스턴마라톤 1897-2018, 383,982건 / 완주자 244,642명. 평균기온이 1℃
+//    오를 때 전체 완주자 +1분 53초, 상위 100위 +37초, 상위 10위 +38초.
+//    같은 논문 표1의 전체 완주자 평균 완주시간이 3:40:29(13,229초)이므로
+//    113초 = 0.854%/℃.
+//  Knechtle 등(2019) PLoS ONE 14(3):e0212797
+//    보스턴마라톤 1972-2018, 580,990건 / 완주자 382,209명(남녀). 전체
+//    완주자 +1분 47초/℃. 위와 독립된 자료인데 0.81%/℃ 로 거의 같다.
+//
+// 두 값이 0.81~0.85 로 모이니 작은 쪽 아래인 0.8%/℃ 를 쓴다. 보정이 작아지는
+// 쪽으로 고른다. 참고로 Nikolaidis 표1의 구간 평균을 그냥 빼면 8~15℃ 대비
+// 16~23℃ 가 13.2% 느린데, 그건 연도·연령·성별 보정이 안 된 값이다. 회귀계수
+// 쪽이 절반도 안 되게 작고, 그래서 이걸 쓴다.
+const ADJ_PER_C = 0.008;
+
+// 기준 기온. Nikolaidis 표1에서 전체 완주자가 가장 빨랐던 구간이 8~15℃고
+// (3:34:37 / 0~7℃ 3:41:51 / 16~23℃ 4:02:55), El Helou 등(2012) PLoS ONE
+// 7(5):e37407 이 완주자 1,791,972명에서 찾은 최적 기온은 3.8~9.9℃다. 두
+// 구간이 겹치는 8~10℃ 가 아니라 상단인 15℃ 를 기준으로 삼는다. 이것도
+// 보정이 작아지는 쪽이다. 15℃ 아래는 보정하지 않는다 — 0~7℃ 가 8~15℃ 보다
+// 느렸다는 건 같은 표에 있지만, 추운 쪽 1℃당 계수는 발표된 게 없다.
+const ADJ_REF_C = 15;
+
+// 보정 상한. 표1의 24~30℃ 칸은 관측이 20건뿐이어서 논문도 결론을 못 낸다.
+// 15 + 8 = 23℃ 까지만 보정하고 그 위는 23℃ 값으로 묶는다.
+const ADJ_MAX_DELTA = 8;
+
+// 대회 페이지에서 넘어올 때 주소에 실려 오는 그 대회의 당일 기상청 실측값.
+let RACE_CTX = { avgTa: null, name: null };
+
+function fmtMinSec(sec) {
+  const s = Math.max(0, Math.round(sec));
+  const m = Math.floor(s / 60), r = s % 60;
+  if (!m) return `${r}초`;
+  return r ? `${m}분 ${r}초` : `${m}분`;
+}
+
+function climateAdjust(finishSec, distanceKm, avgTa) {
+  if (!Number.isFinite(finishSec) || finishSec <= 0) return null;
+  if (!Number.isFinite(avgTa)) return null;
+  const over = avgTa - ADJ_REF_C;
+  if (over <= 0) return { applies: false, avgTa, delta: 0, capped: false };
+  const delta = Math.min(over, ADJ_MAX_DELTA);
+  const adjustedSec = Math.round(finishSec / (1 + ADJ_PER_C * delta));
+  return {
+    applies: true,
+    avgTa,
+    over,
+    delta,
+    capped: over > ADJ_MAX_DELTA,
+    pct: ADJ_PER_C * delta * 100,
+    adjustedSec,
+    gainSec: finishSec - adjustedSec,
+    // 계수는 풀코스 자료에서 나왔다. 하프보다 짧으면 더울 때 받는 영향이
+    // 더 작을 가능성이 높아서(노출 시간이 짧다) 그대로 쓰면 과하게 깎인다.
+    // 그래서 짧은 거리는 "최대 이 정도"로만 말한다.
+    upperBound: distanceKm < 21,
+  };
+}
+
 function analyze({ finishSec, distanceKm, age, gender }) {
   const actualPaceSec = finishSec / distanceKm;
   const speedKmh = distanceKm / (finishSec / 3600);
@@ -67,7 +131,15 @@ function analyze({ finishSec, distanceKm, age, gender }) {
   const agePct = std ? (std / finishSec) * 100 : null;
   const tier = agePct === null ? null : getTier(agePct);
 
-  return { actualPaceSec, speedKmh, agePct, tier };
+  // 대회 페이지에서 왔고 그 대회 당일 실측 기온이 있으면 보정도 같이 낸다.
+  const adj = climateAdjust(finishSec, distanceKm, RACE_CTX.avgTa);
+  let adjTier = null, adjPct = null;
+  if (adj && adj.applies && std) {
+    adjPct = (std / adj.adjustedSec) * 100;
+    adjTier = getTier(adjPct);
+  }
+
+  return { actualPaceSec, speedKmh, agePct, tier, adj, adjTier, adjPct };
 }
 
 function renderResult(result, inputs) {
@@ -85,6 +157,36 @@ function renderResult(result, inputs) {
       <div class="level-stat"><span class="level-stat-label">시속</span><span class="level-stat-value">${speedKmh.toFixed(1)}km/h</span></div>
       <div class="level-stat"><span class="level-stat-label">비교 기준</span><span class="level-stat-value">${inputs.age}세 ${genderLabel}</span></div>
     </div>
+    ${(() => {
+      // ── 조건 보정 ──────────────────────────────────────────────
+      // 대회 페이지에서 그 대회 당일 실측 기온을 싣고 왔을 때만 나온다.
+      // 숫자의 출처와 한계를 같은 블록 안에 둔다. 따로 떼면 안 읽는다.
+      const { adj, adjTier, tier: t0 } = result;
+      if (!adj) return "";
+      // 이름 뒤에 "는/은"을 붙이면 받침에 따라 틀린다("평화런는"). 쉼표로
+      // 끊으면 어떤 이름이든 안전하고, 읽기도 더 낫다.
+      const nm = RACE_CTX.name;
+      if (!adj.applies) {
+        return `
+      <div class="lv-adj lv-adj-none">
+        <p class="lv-adj-head">${nm ? `${nm}, 당일` : "그날은"} 평균 ${adj.avgTa.toFixed(1)}℃ — 달리기에 좋은 쪽이었어요</p>
+        <p class="lv-adj-body">연구들이 꼽는 최적 구간(대략 4~15℃)에 들어가서 더위 보정은 하지 않았습니다. 위 등급이 그대로예요.</p>
+        <p class="lv-adj-src">최적 기온 3.8~9.9℃ — El Helou 등(2012) PLoS ONE 7(5):e37407, 완주자 1,791,972명. 기온은 기상청 ASOS 실측 일평균.</p>
+      </div>`;
+      }
+      const moved = adjTier && t0 && adjTier.label !== t0.label;
+      return `
+      <div class="lv-adj">
+        <p class="lv-adj-head">${nm ? `${nm}, 당일` : "그날은"} 평균 ${adj.avgTa.toFixed(1)}℃였어요</p>
+        <p class="lv-adj-body">기준으로 삼는 15℃보다 ${adj.over.toFixed(1)}℃ 높습니다. 같은 몸으로 15℃에서 뛰었다면 대략 <strong>${fmtClock(adj.adjustedSec)}</strong>, ${fmtMinSec(adj.gainSec)} 빠른 기록이 됩니다.</p>
+        ${adjTier ? `<p class="lv-adj-tier">연령등급 ${result.agePct.toFixed(1)}% → <strong>${result.adjPct.toFixed(1)}%</strong>, 등급은 ${moved
+          ? `${t0.label} → <strong>${adjTier.label}</strong>`
+          : `<strong>${t0.label}</strong> 그대로`}입니다.</p>` : ""}
+        ${adj.upperBound ? `<p class="lv-adj-note">보정 계수는 풀코스 자료에서 나온 값입니다. ${distLabel(inputs.distanceKm)}는 더위에 노출되는 시간이 짧아 영향이 이보다 작을 가능성이 높아요. 최대치로 보시면 됩니다.</p>` : ""}
+        ${adj.capped ? `<p class="lv-adj-note">보정은 23℃까지만 반영했습니다. 그 위 구간은 원자료 관측이 20건뿐이라 논문도 결론을 내지 않았어요.</p>` : ""}
+        <p class="lv-adj-src">보스턴마라톤 완주 기록 383,982건에서 평균기온이 1℃ 오를 때 전체 완주자가 1분 53초 느려졌습니다(그 표의 평균 완주시간 3:40:29 대비 0.85%). 독립된 다른 자료(580,990건)에서는 1분 47초였고, 여기서는 둘보다 보수적인 0.8%/℃를 씁니다. · Nikolaidis 등(2019) IJERPH 16:614 · Knechtle 등(2019) PLoS ONE 14(3):e0212797 · 기온은 기상청 ASOS 실측 일평균</p>
+      </div>`;
+    })()}
     ${(() => {
       // ── 연령등급 숫자와 다음 등급까지 ──────────────────────────
       // 이 페이지는 WMA 연령등급 위에 서 있는데, 정작 그 숫자가 화면에
@@ -1761,6 +1863,11 @@ function prefillFromUrl() {
       const tf = document.getElementById("lvTime");
       if (tf) tf.value = t;
     }
+    // 대회 페이지가 그 대회 당일 실측 기온(tc)과 이름(ev)을 함께 넘긴다.
+    const tc = parseFloat(q.get("tc"));
+    if (isFinite(tc) && tc > -40 && tc < 50) RACE_CTX.avgTa = tc;
+    const ev = (q.get("ev") || "").trim();
+    if (ev) RACE_CTX.name = ev.slice(0, 40);
   } catch (e) {
     // 주소에서 받아오는 건 거들 뿐이다. 실패해도 폼은 그대로 쓴다.
   }

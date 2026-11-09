@@ -469,3 +469,35 @@
   margin:0 0 10px;min-height:1px;}
 .lv-prog:empty{display:none;}
 .lv-prog.lv-prog-open{color:var(--ink);font-weight:700;}
+
+/* ── 조건 보정 ────────────────────────────────────────────────
+   대회 당일 실측 기온으로 기록을 15℃ 기준으로 환산해 보여 준다.
+   근거와 한계를 같은 카드 안에 두는 게 요점이다. 아래로 떼어 놓으면
+   읽지 않고, 그러면 추정값을 측정값처럼 받아들인다.
+   색은 토큰만 쓴다(다크모드가 style.css 의 :root 재정의로 따라온다).
+   합성 후 명도대비 — 라이트 4.80~15.66:1 / 다크 5.29~18.73:1, 전부 AA. */
+.lv-adj{
+  margin:18px 0 20px;padding:16px 18px 14px;border-radius:10px;
+  background:var(--tint-1);border:1px solid var(--border);
+  /* 결과 영역이 가운데 정렬이라 그대로 두면 근거 문단이 가운데로 흩어진다.
+     여러 줄짜리 설명은 왼쪽으로 붙여야 읽힌다. */
+  text-align:left;
+}
+.lv-adj-head{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--ink);line-height:1.5;}
+.lv-adj-body{margin:0;font-size:14px;line-height:1.8;color:var(--ink-soft);}
+.lv-adj-body strong{font-size:16px;font-weight:900;color:var(--accent-ink);}
+.lv-adj-tier{margin:8px 0 0;font-size:14px;line-height:1.7;color:var(--ink-soft);}
+.lv-adj-tier strong{color:var(--ink);font-weight:900;}
+.lv-adj-note{margin:10px 0 0;font-size:12.5px;line-height:1.7;color:var(--ink-faint);}
+.lv-adj-src{
+  margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line);
+  font-size:11.5px;line-height:1.75;color:var(--ink-faint);
+}
+.lv-adj-none{background:transparent;}
+@media (max-width:520px){
+  .lv-adj{padding:14px 14px 12px;}
+  .lv-adj-head{font-size:14.5px;}
+  .lv-adj-body{font-size:13.5px;}
+  .lv-adj-body strong{font-size:15.5px;}
+  .lv-adj-tier{font-size:13.5px;}
+}
