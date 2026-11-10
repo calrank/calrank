@@ -39,7 +39,7 @@ COMMONS = {
     "tri-helmet": ("Couple_preparing_for_bike_ride.jpg", "자전거 타기 전에 헬멧을 쓴 두 사람", "Bill Branson", PD),
     "tri-draft":  ("USMC-110925-M-0992R-275.jpg", "철인3종 경기 자전거 구간", "미 해병대", PD),
     "tri-bib":    ("A_Photo_by_William_W._Ward,_\"Untitled.\"_(15162148422).jpg", "배번을 단 철인3종 선수", "Billie Grace Ward", CC2),
-    "shoe-section": ("Nike_Running_Shoe_Dissected_Rear.jpg", "반으로 잘라 밑창 단면이 보이는 러닝화 뒤꿈치", "Yottanesia", CC0),
+    "shoe-section": ("Nike_Running_Shoe_Dissected_Rear.jpg", "반으로 잘라 밑창 단면이 보이는 러닝화 뒤꿈치", "Yottanesia", CC0, "카본 플레이트가 없는 구형 신발을 자른 사진이라, 밑창이 어떤 층으로 이루어졌는지 보여 주는 용도입니다."),
     "uci-saddle": ("Koersfiets_Scott,_Annemiek_van_Vleuten,_2020_-_detailopname_zadel_rechts_(R0629_-_collectie_KOERS._Museum_van_de_Wielersport).jpg", "도로 사이클 경기용 안장 옆면", "Scott USA / Syncros", CC0),
     "ccc-gear": ("CCC_Gears.jpg", "트레일 대회 필수 장비를 펼쳐 놓은 모습", "mako10", CC2),
     "tri-swim":   ("Swim_start_Ironman_Brazil_2011.jpg", "아이언맨 수영 출발 모습", "Arcadiuš", CC2),
@@ -54,10 +54,11 @@ def commons_page(k):
     return "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(COMMONS[k][0])
 
 def commons_fig(k, cls="gi-hero-img"):
-    f, alt, who, lic = COMMONS[k]
+    f, alt, who, lic = COMMONS[k][:4]
+    note = COMMONS[k][4] + " " if len(COMMONS[k]) > 4 else ""
     l = f'<a href="{lic[1]}" rel="noopener" target="_blank">{lic[0]}</a>' if lic[1] else lic[0]
     return (f'<figure class="{cls}"><img src="{commons_url(k,960)}" alt="{alt}" loading="lazy" decoding="async">'
-            f'<figcaption>사진 {who} · {l} · <a href="{commons_page(k)}" rel="noopener" target="_blank">Wikimedia Commons</a></figcaption></figure>')
+            f'<figcaption>{note}사진 {who} · {l} · <a href="{commons_page(k)}" rel="noopener" target="_blank">Wikimedia Commons</a></figcaption></figure>')
 
 # 페이지마다 그 페이지가 다루는 물건이 보이는 사진을 따로 고른다.
 SLUG = {
