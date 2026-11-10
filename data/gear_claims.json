@@ -130,7 +130,12 @@
             }
           ]
         }
-      ]
+      ],
+      "seo": {
+        "title": "카본화 효과, 내 페이스에서는? — 근거 등급으로 따집니다",
+        "description": "메타분석이 뒷받침하는 구간은 14㎞/h 이상입니다. 그보다 느리면 근거가 16명짜리 단일 연구이고 통계적으로 유의하지도 않았습니다."
+      },
+      "short_label": "카본화"
     },
     {
       "id": "shoe-mass",
@@ -213,7 +218,12 @@
             }
           ]
         }
-      ]
+      ],
+      "seo": {
+        "title": "러닝화 무게와 기록 — 100g이 몇 초인가",
+        "description": "신발 한 짝에 100g을 더하면 러닝 이코노미가 어떻게 되는지, 운동 강도별로 나눠 적었습니다. 동료심사 연구 근거와 함께."
+      },
+      "short_label": "신발 무게"
     },
     {
       "id": "trail-poles",
@@ -325,7 +335,12 @@
             }
           ]
         }
-      ]
+      ],
+      "seo": {
+        "title": "트레일 폴 효과 — 에너지는 더 쓰고 다리 부담은 줄어듭니다",
+        "description": "통념과 반대입니다. 평지에서는 산소 소모가 오히려 늘고, 다리에 걸리는 힘은 줄어듭니다. 경사별로 나눈 연구 근거."
+      },
+      "short_label": "폴"
     },
     {
       "id": "trail-pack-weight",
@@ -439,7 +454,12 @@
             }
           ]
         }
-      ]
+      ],
+      "seo": {
+        "title": "트레일 배낭 무게와 기록 — 연구가 비어 있는 구간",
+        "description": "UTMB 필수 장비는 체중의 3~6%인데, 적재 문헌은 20kg 이상 걷기에 몰려 있습니다. 가장 알고 싶은 구간이 가장 비어 있습니다."
+      },
+      "short_label": "배낭 무게"
     },
     {
       "id": "aero-wheel",
@@ -509,7 +529,389 @@
           ]
         }
       ],
-      "surprise": "에어로 장비는 빠른 사람의 물건이라고들 한다. 절반만 맞다. 공기저항이 페달 힘에서 차지하는 몫은 분명히 속도를 따라 커진다 — 20㎞/h에서 60%, 40㎞/h에서 86%다. 그런데 기록으로 돌아오는 '초'는 반대로 간다. 같은 휠로 40km를 달릴 때 25㎞/h로 가는 사람은 64초를 벌고 40㎞/h로 가는 사람은 44초를 번다. 속도가 오르는 비율은 1.1~1.2%로 거의 같은데, 느린 사람이 코스에 더 오래 있어서 같은 비율이 더 많은 초가 된다. 1초당 값으로 따지면 느린 사람 쪽이 오히려 남는 장사다."
+      "surprise": "에어로 장비는 빠른 사람의 물건이라고들 한다. 절반만 맞다. 공기저항이 페달 힘에서 차지하는 몫은 분명히 속도를 따라 커진다 — 20㎞/h에서 60%, 40㎞/h에서 86%다. 그런데 기록으로 돌아오는 '초'는 반대로 간다. 같은 휠로 40km를 달릴 때 25㎞/h로 가는 사람은 64초를 벌고 40㎞/h로 가는 사람은 44초를 번다. 속도가 오르는 비율은 1.1~1.2%로 거의 같은데, 느린 사람이 코스에 더 오래 있어서 같은 비율이 더 많은 초가 된다. 1초당 값으로 따지면 느린 사람 쪽이 오히려 남는 장사다.",
+      "seo": {
+        "title": "에어로 휠 효과 — 빠를수록 아껴 주는 초는 줄어듭니다",
+        "description": "공기저항 몫은 속도를 따라 커지는데 기록으로 돌아오는 초는 반대로 갑니다. 검증된 출력 모델로 내 평속에서 계산합니다."
+      },
+      "short_label": "에어로 휠"
+    },
+    {
+      "id": "tyre-rolling",
+      "sport": "cycling",
+      "category": "tyre",
+      "label": "타이어와 공기압",
+      "question": "휠 바꾸기 전에 타이어부터 봐야 하나?",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "같은 제조사의 같은 타이어인데 버전이 다르면 33% 차이가 난다. 휠값의 몇 십 분의 일이다.",
+      "model": "martin1998",
+      "model_note": "구름저항이 줄면 기록이 얼마나 줄어드는지는 Martin 등(1998)의 검증된 출력 모델로 푼다(실측과 r=.97, 표준오차 2.7W). 평지·무풍을 가정한다. 기본 구름저항계수 0.004와 총중량 80㎏, 공기밀도 1.225㎏/㎥, CdA 0.264㎡는 칼랭크가 고른 기본값이고, 바꿔 넣을 수 있다. 참고로 Sellier·Bellenoue 가 실측한 도로 선수 CdA 는 0.369㎡였다 — 상체를 세우고 타면 0.264 보다 이쪽에 가깝다.",
+      "effects": [
+        {
+          "id": "tyre_version",
+          "label": "같은 제조사, 다른 버전",
+          "detail": "타임트라이얼용과 일반용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "crr_time",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "crr_delta_pct": 33.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Sellier M, Bellenoue S (2025). A Novel Energy Imbalance Approach Applied to Rolling Resistance Assessment in Cycling. Journal of Science and Cycling 14(2), Article 17",
+              "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
+              "note": "한 제조사의 타임트라이얼 버전과 일반 버전 사이에 구름저항이 33% 차이 났다. 45㎞/h·81.5㎏ 기준으로 6bar 에서 6W, 3bar 에서 11W 다. 다만 타임트라이얼 타이어는 더 낮은 기온에서 측정됐다고 저자들이 밝혀 두었다 — 기온이 낮으면 구름저항이 낮게 나오므로 33%에는 기온 효과가 섞여 있을 수 있다. 시험 주행자는 한 명, 28mm 튜블리스 레이스 타이어, 측정 반복성 2% 미만이다."
+            }
+          ]
+        },
+        {
+          "id": "tyre_brand",
+          "label": "제조사 사이의 차이",
+          "detail": "세 제조사를 같은 조건에서",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "crr_time",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "crr_delta_pct": 9.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Sellier M, Bellenoue S (2025). Journal of Science and Cycling 14(2), Article 17",
+              "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
+              "note": "세 제조사 사이의 평균 차이가 9%였다. 한 제조사가 나머지 둘보다 공기압에 따라 7~11% 낮았고, 나머지 둘 사이에는 유의한 차이가 없었다. 제조사 이름은 논문이 M1·M2·M3 로만 적어 공개하지 않았다."
+            }
+          ]
+        },
+        {
+          "id": "tyre_pressure",
+          "label": "공기압을 낮추면",
+          "detail": "6bar 에서 3bar 로",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": true,
+          "computed": "crr_time",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "crr_delta_pct": 26.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Sellier M, Bellenoue S (2025). Journal of Science and Cycling 14(2), Article 17",
+              "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
+              "note": "6bar 에서 3bar 로 낮추면 구름저항이 26% 늘었다. 매끈한 포장도로 한 곳에서만 쟀다는 점이 중요하다 — 노면이 거칠면 공기압을 낮추는 쪽이 오히려 빨라지는 구간이 있다고 알려져 있는데, 이 연구는 그 조건을 다루지 않았다. 저자들도 노면 효과를 다음 과제로 남겼다. 공기압을 낮추면 바퀴 둘레도 줄어 속도계가 어긋난다는 점을 따로 적어 두었다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "자전거 타이어 공기압과 구름저항 — 휠보다 타이어가 먼저인 이유",
+        "description": "같은 제조사의 같은 타이어인데 버전이 다르면 33% 차이가 납니다. 휠값의 몇 십 분의 일로요. 공기압 26%, 제조사 간 9%까지."
+      },
+      "short_label": "타이어"
+    },
+    {
+      "id": "aero-helmet",
+      "sport": "cycling",
+      "category": "helmet",
+      "label": "에어로 헬멧",
+      "question": "TT 헬멧, 에어로 로드 헬멧보다 얼마나 빠른가?",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "헬멧을 바꾸는 것보다 바이저를 빼지 않는 게 더 큰 차이를 만든다.",
+      "surprise": "타임트라이얼 헬멧 둘이 에어로 로드 헬멧보다 CdA 가 2% 낮았다. 그런데 같은 타임트라이얼 헬멧에서 바이저를 빼면 4.8%가 도로 올라간다 — 헬멧을 바꿔서 얻은 것보다 큰 값이다. 통풍구를 테이프로 막는 것은 0.25% 변화에 그쳐 유의하지 않았다. 통풍구를 막으면 12% 줄어든다는 이야기가 돌지만, 그건 이 연구의 결과가 아니라 다른 논문에서 인용된 수치다.",
+      "model": "martin1998",
+      "model_note": "헬멧 자료는 모나시대 풍동에서 마네킹으로 44㎞/h 에서 잰 CdA 다. 기록 환산은 Martin 등(1998) 모델로 한다. 한 가지 분명히 해 둘 것 — 이 시험은 요각(옆바람 각도)을 바꾸지 않았고, 자세도 도로 주행 자세 하나로 고정했다. 실제 주행에서는 옆바람이 늘 있으므로, 여기 숫자는 무풍 정면 조건의 값으로 읽어야 한다.",
+      "effects": [
+        {
+          "id": "helmet_choice",
+          "label": "TT 헬멧으로 바꾸면",
+          "detail": "에어로 로드 헬멧 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 2.0,
+              "studies": 1,
+              "n": 0,
+              "source": "Novak J, Burton D, Crouch T (2019). Aerodynamic test results of bicycle helmets in different configurations: Towards a responsive design. Proc IMechE Part P: J Sports Engineering and Technology 233(2):268–276",
+              "url": "https://doi.org/10.1177/1754337118822613",
+              "note": "바이저를 단 타임트라이얼 헬멧 두 종(Giro Advantage, Kask Bambino)이 에어로 로드 헬멧(S-Works Evade)보다 CdA 가 약 2% 낮았다. 마네킹을 80rpm 으로 페달링시키며 44㎞/h 에서 측정했고, 세 번 시험의 평균이며 측정 불확도는 ±0.001㎡ 미만이다. 사람이 아니라 마네킹이고 자세가 하나뿐이라, 자기 자세에서 같은 값이 나온다고 보기는 어렵다."
+            }
+          ]
+        },
+        {
+          "id": "visor",
+          "label": "바이저를 빼면",
+          "detail": "같은 헬멧에서",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 4.8,
+              "ci_pct": [
+                0.8,
+                4.8
+              ],
+              "studies": 1,
+              "n": 0,
+              "source": "Novak J, Burton D, Crouch T (2019). Proc IMechE Part P 233(2):268–276",
+              "url": "https://doi.org/10.1177/1754337118822613",
+              "note": "바이저를 떼면 Kask Bambino 는 CdA 가 4.8%, Giro Advantage 는 0.8% 올라갔다. 헬멧마다 바이저가 하는 일이 크게 다르다는 뜻이다. 헬멧을 바꿔 얻는 2%보다 바이저 하나가 더 클 수 있다."
+            }
+          ]
+        },
+        {
+          "id": "vent_taping",
+          "label": "통풍구를 막으면",
+          "detail": "테이프로",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": 0.25,
+              "ci": [
+                0.0,
+                0.25
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 0,
+              "source": "Novak J, Burton D, Crouch T (2019). Proc IMechE Part P 233(2):268–276",
+              "url": "https://doi.org/10.1177/1754337118822613",
+              "note": "Giro Advantage 의 통풍구를 막았을 때 변화는 약 0.25%로 유의하지 않았다. 통풍구를 막으면 항력계수가 12% 줄어든다는 숫자가 돌아다니는데, 그건 이 연구가 측정한 값이 아니라 Alam 등(2010)에서 인용된 수치다. 더위에 치르는 대회라면 잃는 쪽이 더 클 수 있다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "에어로 헬멧 효과 — 헬멧보다 바이저가 더 큽니다",
+        "description": "TT 헬멧이 에어로 로드 헬멧보다 2% 낮았는데, 바이저를 빼면 4.8%가 도로 올라갑니다. 통풍구 테이핑은 유의하지 않았습니다."
+      },
+      "short_label": "에어로 헬멧"
+    },
+    {
+      "id": "wetsuit",
+      "sport": "triathlon",
+      "category": "wetsuit",
+      "label": "웻슈트",
+      "question": "웻슈트가 정말 기록을 줄여 주나?",
+      "condition": "swim_distance_km",
+      "condition_label": "수영 거리",
+      "headline": "실제 대회 결과에서는 유의한 차이가 나오지 않았다. 논문 초록조차 그 결과보다 세게 적혀 있다.",
+      "surprise": "웻슈트는 부력을 주고 항력을 줄이니 당연히 빠를 것 같다. 그런데 실제 대회 기록 584명분을 모아 보니, 웻슈트를 입은 쪽과 안 입은 쪽의 완주 시간 차이가 통계적으로 유의하지 않았다. 26.4㎞ 에서 남자 3.1%, 여자 2.8%, 3.8㎞ 에서 남자 0.0%, 여자 1.2% — 전부 p>0.05 다. 상위권만 따로 보면 다른 얘기가 나오지만 표본이 급격히 작아진다. 짚어 둘 것이 하나 더 있다. 이 논문의 초록은 웻슈트가 '긍정적 영향'을 줬다고 맺는데, 본문의 유의하지 않은 결과가 그 문장을 받쳐 주지 않는다. 초록만 읽고 인용한 글이 많은 이유이기도 하다.",
+      "effects": [
+        {
+          "id": "race_time",
+          "label": "완주 시간 차이",
+          "detail": "실제 대회 기록으로 견준 값",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "swim_distance_km": [
+                  10,
+                  null
+                ]
+              },
+              "effect_pct": 3.1,
+              "ci": [
+                0.0,
+                3.1
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 300,
+              "source": "Ulsamer S, Rüst CA, Rosemann T, Lepers R, Knechtle B (2014). Swimming performances in long distance open-water events with and without wetsuit. BMC Sports Sci Med Rehabil 6:20",
+              "url": "https://doi.org/10.1186/2052-1847-6-20",
+              "note": "취리히호 26.4㎞ 마라톤 스윔, 2002~2012년 완주자 300명(여 111·남 189). 남자 534±82분 대 551±89분(3.1%), 여자 572±94분 대 589±105분(2.8%)으로 둘 다 유의하지 않았다. 남자 상위 3명만 보면 웻슈트 쪽이 5.9% 빨랐다(p<0.01). 여자는 반대로 웻슈트 쪽이 느렸는데(상위 10명 25.5%, p<0.01), 웻슈트를 입은 여자가 12명뿐이라 저자들 스스로 믿을 만한 표본이 아니라고 적었다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "swim_distance_km": [
+                  null,
+                  10
+                ]
+              },
+              "effect_pct": 1.2,
+              "ci": [
+                0.0,
+                1.2
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 284,
+              "source": "Ulsamer S 등 (2014). BMC Sports Sci Med Rehabil 6:20",
+              "url": "https://doi.org/10.1186/2052-1847-6-20",
+              "note": "온타리오호 3.8㎞ LOST 레이스, 2008~2012년 완주자 284명. 남자는 73±16분 대 73±19분으로 차이가 0.0%, 여자는 1.2%로 둘 다 유의하지 않았다. 여자 상위 10명만 보면 웻슈트 쪽이 6.5% 빨랐다(p<0.01)."
+            }
+          ]
+        },
+        {
+          "id": "confounding",
+          "label": "이 숫자를 믿을 때 조심할 것",
+          "detail": "관찰 연구의 한계",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "swim_distance_km": [
+                  null,
+                  null
+                ]
+              },
+              "significant": false,
+              "studies": 1,
+              "n": 584,
+              "source": "Ulsamer S 등 (2014). BMC Sports Sci Med Rehabil 6:20",
+              "url": "https://doi.org/10.1186/2052-1847-6-20",
+              "note": "같은 사람에게 둘 다 입혀 본 실험이 아니라, 선수가 스스로 고른 결과를 나중에 모은 자료다. 웻슈트를 고르는 사람과 안 고르는 사람이 애초에 다를 수 있다 — 경험 많은 장거리 수영 선수일수록 웻슈트 없이 뛰는 쪽을 택하는 경향이 있다. 그리고 두 대회 모두 수온이 20℃를 넘었다. 웻슈트가 가장 크게 도움이 될 찬물 조건은 이 자료에 들어 있지 않다. 그래서 '웻슈트는 효과가 없다'가 아니라 '따뜻한 물에서 치른 이 두 대회의 기록에서는 차이를 찾지 못했다'가 정확한 문장이다.",
+              "caveat": true
+            }
+          ],
+          "kind": "caveat"
+        }
+      ],
+      "seo": {
+        "title": "웻슈트 효과 — 실제 대회 기록에선 차이가 없었습니다",
+        "description": "완주자 584명분 실제 대회 기록을 보니 웻슈트 유무로 완주 시간이 유의하게 다르지 않았습니다. 논문 초록이 본문보다 세게 적힌 사례이기도 합니다."
+      },
+      "short_label": "웻슈트"
+    },
+    {
+      "id": "inline-bearings",
+      "sport": "inline",
+      "category": "bearing",
+      "label": "베어링 등급(ABEC)",
+      "question": "ABEC 9 베어링, 정말 더 빠른가?",
+      "condition": "wheel_mm",
+      "condition_label": "바퀴 지름",
+      "headline": "동료심사 논문이 한 편도 없다. 그런데 등급이 재는 것이 무엇인지만 봐도 짐작이 간다.",
+      "surprise": "칼랭크가 스포츠과학 문헌을 두 차례 다른 검색어로 뒤졌지만 베어링 등급과 주행 속도의 관계를 잰 동료심사 연구를 찾지 못했다. 나오는 것은 제조사 자료, 판매점 블로그, 특허뿐이다. 그래서 효과 칸은 비워 둔다 — 지어낼 수 없다. 다만 숫자 하나는 직접 따져 볼 수 있다. ABEC 은 성능 등급이 아니라 가공 정밀도 등급이고, 애초에 고속 산업기계를 위해 만들어진 척도다. 80mm 바퀴로 20㎞/h 를 내면 베어링은 분당 약 1,326회 돈다. SKF 카탈로그가 같은 규격(608) 베어링의 한계 회전수를 38,000rpm 으로 적어 두었으니, 스케이팅은 그 한계의 3.5% 만 쓰는 셈이다. 경기용 125mm 바퀴라면 849rpm, 2.2% 로 더 내려간다. 정밀도 등급이 갈리는 영역과 우리가 쓰는 영역이 애초에 두 자릿수만큼 떨어져 있다.",
+      "effects": [
+        {
+          "id": "speed_effect",
+          "label": "베어링 등급이 속도에 주는 영향",
+          "detail": "ABEC 5 와 ABEC 9 의 차이",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "wheel_mm": [
+                  null,
+                  null
+                ]
+              },
+              "no_data": true,
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
+              "note": "두 차례 다른 검색어로 스포츠과학 문헌을 찾았으나 베어링 등급과 주행 속도·구름저항의 관계를 잰 동료심사 연구가 나오지 않았다. 검색에 걸리는 것은 제조사 카탈로그, 판매점 블로그, 특허, 취미 글이다. 그 자료들끼리도 서로를 인용하고 있어 숫자의 출처를 거슬러 올라가면 대개 같은 블로그 한두 편에서 끝난다. 효과가 없다는 뜻이 아니라, 아무도 제대로 재지 않았다는 뜻이다."
+            }
+          ]
+        },
+        {
+          "id": "abec_meaning",
+          "label": "등급이 실제로 재는 것",
+          "detail": "성능이 아니라 가공 정밀도",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "kind": "caveat",
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "wheel_mm": [
+                  null,
+                  null
+                ]
+              },
+              "caveat": true,
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "SKF, Rolling Bearings 카탈로그 (608 규격 한계 회전수) · 회전수 환산은 칼랭크 계산",
+              "note": "ABEC 은 가공 정밀도 허용오차를 1부터 9까지 홀수로 나눈 척도이고, 재료의 질이나 내구성, 먼지·물에 대한 저항은 재지 않는다. 고속 산업기계를 위해 만들어진 척도다. 스케이팅이 베어링을 얼마나 돌리는지는 직접 계산할 수 있다 — 20㎞/h 로 달릴 때 80mm 바퀴는 분당 약 1,326회, 경기용 125mm 바퀴는 849회 돈다(바퀴 둘레로 나눈 값이니 직접 확인해 보셔도 된다). SKF 카탈로그가 같은 608 규격의 한계 회전수를 38,000rpm 으로 적어 두었으므로, 쓰는 영역은 한계의 2~4% 다. 이 대비는 제조사 문서와 산술에서 나온 것이지 동료심사 연구가 아니다. 그래서 근거 D 로 둔다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "ABEC 베어링 등급 — 인라인에서 정말 빨라지나",
+        "description": "동료심사 논문이 한 편도 없습니다. ABEC 은 성능이 아니라 가공 정밀도 등급이고, 스케이팅은 그 한계 회전수의 2~4%만 씁니다. 숫자를 직접 따져 봤습니다."
+      },
+      "short_label": "베어링"
     }
   ]
 }

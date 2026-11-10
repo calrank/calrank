@@ -92,7 +92,11 @@
       ],
       "measure_note": "두 곳에서 잰다. 앞발 중앙(신발 안쪽 길이의 75% 지점)과 뒤꿈치 중앙(12% 지점)이다. 안쪽 바닥면부터 바깥 밑면까지의 거리로 재고, 밑창의 홈이나 돌기도 두께에 포함한다. 큰 사이즈에서 조금 두꺼워지는 것은 따지지 않는다. (Reg. 10.2–10.5)",
       "source": "World Athletics, Book C – C2.1A Athletic Shoe Regulations, Reg. 10.1 및 Appendix 3",
-      "url": "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29"
+      "url": "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29",
+      "seo": {
+        "title": "러닝화 밑창 두께 규정 — 40mm 넘으면 기록이 공인될까",
+        "description": "세계육상연맹 규정 원문 그대로: 로드 40mm, 트랙 20mm, 트레일은 제한 없음. 내 신발 두께를 넣으면 종목별 통과·위반이 바로 나옵니다."
+      }
     },
     {
       "id": "wa-rigid-plate",
@@ -119,7 +123,11 @@
       ],
       "measure_note": "밑창에 박힌 센서나 지능형 기술은 개수와 무관하게 금지다(Reg. 10.6.4). 이 조항은 '추후 통지까지' 유효하고, 예외는 경기위원회의 서면 동의가 있어야 한다.",
       "source": "World Athletics, Athletic Shoe Regulations, Reg. 10.6.1–10.6.4",
-      "url": "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29"
+      "url": "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29",
+      "seo": {
+        "title": "카본 플레이트 규정 — 카본화는 금지가 아니라 '한 개까지'",
+        "description": "세계육상연맹은 카본화를 막지 않고 셉니다. 딱딱한 구조물 한 개까지, 스파이크 부착판은 별도 한 개. 규정 원문과 조항 번호를 그대로 옮겼습니다."
+      }
     },
     {
       "id": "wa-availability",
@@ -132,7 +140,11 @@
       "checkable": false,
       "measure_note": "World Athletics는 승인된 신발 목록을 공개한다(Appendix 1, 4항). 개발용 신발은 별도 목록으로 공개하고(Appendix 2, 3항), 선수 맞춤 신발은 목록에 올리지 않는다.",
       "source": "World Athletics, Athletic Shoe Regulations, Reg. 13.1–13.2 및 Appendix 4",
-      "url": "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29"
+      "url": "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29",
+      "seo": {
+        "title": "레이싱화 시판 규정 — 프로토타입을 못 신는 진짜 이유",
+        "description": "규정이 막는 건 성능이 아니라 '남은 못 사는 신발'입니다. 대회 한 달 전 시판, 증빙 없으면 기록에 UNC 표시. 세계육상연맹 규정 원문."
+      }
     },
     {
       "id": "utmb-jacket",
@@ -164,7 +176,11 @@
       ],
       "measure_note": "모자 일체형, 솔기 밀봉, 방수 아닌 천 없음 — 세 조건은 숫자와 별개로 모두 만족해야 한다. 옷은 제 치수여야 하고 공장 출고 뒤 개조한 것은 안 된다.",
       "source": "UTMB World Series, Mandatory equipment (Ultra 105K, 2024)",
-      "url": "https://wildstrubel.utmb.world/mandatory-equipment"
+      "url": "https://wildstrubel.utmb.world/mandatory-equipment",
+      "seo": {
+        "title": "UTMB 방수 재킷 기준 — 10,000 Schmerber와 RET 13",
+        "description": "트레일 장비 검사에서 가장 많이 반려되는 품목. 방수막 10,000 Schmerber, 투습 RET 13, 모자 일체형·솔기 밀봉. 내 재킷 수치로 확인하세요."
+      }
     },
     {
       "id": "utmb-kit",
@@ -214,7 +230,11 @@
       ],
       "measure_note": "휘슬, 전손가락 보온 장갑, 머리와 귀를 덮는 보온 모자(버프 가능), 긴 바지 또는 레깅스, 신분증, 휴대폰도 필수다. 휴대폰은 전원을 켜 두어야 하고 비행기 모드는 금지다. 폴은 선택이지만 한번 들면 전 구간 들고 가야 한다.",
       "source": "UTMB World Series, Mandatory equipment (Ultra 105K, 2024)",
-      "url": "https://wildstrubel.utmb.world/mandatory-equipment"
+      "url": "https://wildstrubel.utmb.world/mandatory-equipment",
+      "seo": {
+        "title": "UTMB 필수 장비 목록 — 물 1L, 컵 150ml, 담요 1.4×2m",
+        "description": "뚜껑 달린 물병은 컵으로 인정되지 않습니다. 보온 상의는 무게로 판정합니다. UTMB가 숫자로 적어 둔 필수 장비 기준 전부."
+      }
     },
     {
       "id": "uci-min-weight",
@@ -241,7 +261,11 @@
         }
       ],
       "source": "UCI Technical Regulation, Art. 1.3.019 (Clarification Guide, 2023-01-01)",
-      "url": "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf"
+      "url": "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf",
+      "seo": {
+        "title": "UCI 자전거 최소 중량 6.8kg — 가벼우면 실격입니다",
+        "description": "경량화가 목표인데 규정에선 가벼움이 제한 대상입니다. 물통은 빼고 케이지는 달고 재는 방식까지. UCI 기술규정 1.3.019 원문."
+      }
     },
     {
       "id": "uci-saddle-setback",
@@ -268,7 +292,11 @@
       ],
       "measure_note": "안장 기울기 수평 ±9도 이내, 안장 길이 24~30cm (Art. 1.3.014). 장비는 제조사 출고 상태에서 '어떤 개조도 없이' 써야 한다 — 3:1 규정을 맞추려 테이프를 붙이는 것도 개조로 본다 (Art. 1.3.002).",
       "source": "UCI Technical Regulation, Art. 1.3.013–1.3.014 (Clarification Guide, 2023-01-01)",
-      "url": "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf"
+      "url": "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf",
+      "seo": {
+        "title": "UCI 안장 규정 — 안장 코는 BB에서 뒤로 50mm 이상",
+        "description": "동호인 TT·철인 포지션에서 가장 자주 어긋나는 숫자입니다. 안장 기울기 9도, 길이 24~30cm까지. UCI 기술규정 1.3.013 원문."
+      }
     },
     {
       "id": "uci-frame-approval",
@@ -298,7 +326,11 @@
       ],
       "measure_note": "비표준 휠은 40J 수직 낙하 시험을 통과해야 한다. 전통형 휠(림 25mm 미만, 알로이, 탈착식 강철 스포크 20개 이상)은 시험이 면제된다.",
       "source": "UCI Technical Regulation, Art. 1.3.001 BIS, 1.3.012, 1.3.018 (Clarification Guide, 2023-01-01)",
-      "url": "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf"
+      "url": "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf",
+      "seo": {
+        "title": "UCI 프레임·휠 승인 — 목록에 없으면 출발 못 합니다",
+        "description": "사이클만 제조사가 미리 승인을 받는 구조입니다. 승인 프레임셋·휠 목록, ISO 4210, 40J 낙하시험까지 UCI 규정 원문으로."
+      }
     },
     {
       "id": "wt-wetsuit-thickness",
@@ -326,7 +358,11 @@
       ],
       "measure_note": "스윔스킨은 100% 섬유여야 하고 폴리우레탄·네오프렌 같은 고무 소재는 안 된다. 수온과 무관하게 쓸 수 있다 (4.11.c). 추진 장치, 부력 장치, 장갑, 양말(웻슈트 의무인 경우 제외), 스노클, 부력 반바지는 금지다 (4.11.f).",
       "source": "World Triathlon Competition Rules, 4.11.c–4.11.f",
-      "url": "https://www.triathlon.org/about_triathlon/statutes_and_bylaws"
+      "url": "https://www.triathlon.org/about_triathlon/statutes_and_bylaws",
+      "seo": {
+        "title": "트라이애슬론 웻슈트 두께 규정 — 어디를 재도 5mm",
+        "description": "평균이 아니라 '어디를 재도'입니다. 상하 분리형은 겹친 부분까지 합산, 허용 오차 ±0.3mm. World Triathlon 규정 4.11 원문."
+      }
     },
     {
       "id": "wt-wetsuit-temp",
@@ -385,7 +421,11 @@
       },
       "measure_note": "표의 '금지' 수온은 그 값 이상, '의무' 수온은 그 값 이하다. 그 사이는 선택이다. 기술대표(TD)가 조건에 따라 웻슈트를 금지할 수 있다.",
       "source": "World Triathlon Competition Rules, 4.2(a)",
-      "url": "https://www.triathlon.org/about_triathlon/statutes_and_bylaws"
+      "url": "https://www.triathlon.org/about_triathlon/statutes_and_bylaws",
+      "seo": {
+        "title": "웻슈트 수온 기준 — 동호인은 엘리트보다 느슨합니다",
+        "description": "같은 물에서 엘리트는 못 입고 동호인은 입는 구간이 있습니다. 60세 이상은 24.6℃까지. 수온을 넣으면 금지·선택·의무가 바로 나옵니다."
+      }
     },
     {
       "id": "wt-bike-agegroup",
@@ -422,7 +462,11 @@
       ],
       "measure_note": "UCI 도로(RD) 라벨 자전거는 드래프팅 허용 경기에서 항상 허용되고, UCI 타임트라이얼(TT) 라벨은 드래프팅 금지 경기에서 항상 허용된다. 이어폰과 귀를 덮는 스마트 헬멧, 유리 용기, 거울은 금지다.",
       "source": "World Triathlon Competition Rules, 5.2.c–5.2.j",
-      "url": "https://www.triathlon.org/about_triathlon/statutes_and_bylaws"
+      "url": "https://www.triathlon.org/about_triathlon/statutes_and_bylaws",
+      "seo": {
+        "title": "철인3종 에이지그룹 자전거 규정 — 클립온 금지입니다",
+        "description": "드래프팅 허용 경기에서 동호인은 전통형 드롭바만, 디스크휠 불가, 스포크 12개 이상. 엘리트도 2023년부터 클립온 금지."
+      }
     },
     {
       "id": "ws-wheel-diameter",
@@ -488,7 +532,11 @@
       ],
       "measure_note": "스케이트 전체 길이는 50cm 이내, 바퀴는 일렬로 최대 5개까지다. 축이 바퀴 밖으로 튀어나오면 안 되고 브레이크는 금지다 (Art. 85.1). 헬멧은 국제 인증을 받은 경질이어야 하고, 단·장거리 경기에서는 돌출부 없는 일반 형태여야 한다. 타임트라이얼에서만 유선형이 허용된다 (Art. 84).",
       "source": "World Skate, Speed Technical Commission Rulebook 2025, Art. 85.1–85.4 및 Art. 84",
-      "url": "https://www.worldskate.org/speed/about/regulations.html"
+      "url": "https://www.worldskate.org/speed/about/regulations.html",
+      "seo": {
+        "title": "인라인 바퀴 크기 규정 — 110mm가 기본, 125mm는 마라톤만",
+        "description": "트랙·로드에 125를 끼면 출발 전 검사에서 걸립니다. 심판이 직접 확인합니다. 나이별 상한까지 World Skate 규정 원문."
+      }
     }
   ]
 }
