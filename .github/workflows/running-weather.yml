@@ -34,11 +34,13 @@ jobs:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python scripts/fetch_running_weather.py
 
-      - name: Sync nav and theme
-        run: |
-          python scripts/sync_nav.py
-          python scripts/sync_theme.py
-          python scripts/sync_meta.py
+      - name: Finish the page
+        # 마무리는 네 단계가 한 벌이다. 여기서 아이콘만 빠져 있었고,
+        # 그래서 이 워크플로가 도는 하루 두 번마다 running-weather.html
+        # 에서 96px 파비콘 선언이 떨어졌다. 다음 날 update-events 가
+        # 돌아야 되살아나니, 그 사이 내내 선언이 빠진 채로 서 있었다.
+        # 단계를 하나씩 적으면 또 빠뜨린다 — 한 벌로 묶어 둔 것을 쓴다.
+        run: python scripts/sync_all.py
 
       - name: Commit
         run: |
