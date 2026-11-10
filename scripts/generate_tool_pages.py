@@ -1,4 +1,4 @@
-"""도구 페이지 세 개를 만든다: kit.html(내 장비 서랍), age-curve.html(나이 곡선), ledger.html(예측 장부).
+"""도구 페이지 세 개를 만든다: kit.html(내 장비 서랍), age-curve.html(나이 곡선), ledger.html(예상 기록 노트).
 
 머리말·바닥글은 gear-prices.html 에서 그대로 가져온다. 끝낸 뒤 sync_all.py 를 돌려야 한다.
 여러 번 돌려도 같은 결과가 나온다.
@@ -113,9 +113,9 @@ AGE = page(
      ("'지금 등급을 지키는 기록'은 무엇인가요?", "그 나이의 기준기록으로 거꾸로 계산해서, 지금 등급의 경계에 해당하는 기록입니다. 이 시간 안쪽이면 그 나이에도 같은 등급입니다.")])
 
 LEDGER = page(
-    "ledger.html", "예측 장부 — 대회 전에 적고, 끝난 뒤 맞춰 보기",
+    "ledger.html", "예상 기록 노트 — 대회 전에 적고, 끝난 뒤 맞춰 보기",
     "대회 전에 내 예상 기록을 적어 두고 끝난 뒤 실제 기록과 비교합니다. 카본화 효과를 연구 근거 범위로 환산해 적을 수도 있습니다. 기록은 내 기기에만 저장됩니다.",
-    "예측 장부",
+    "예상 기록 노트",
     "대회 전에 예상 기록을 적어 두고, 끝난 뒤 실제 기록과 맞춰 봅니다. 맞히는 쪽은 칼랭크가 아니라 나입니다. 몇 번 쌓이면 내 예측이 어느 쪽으로 치우치는지 보입니다.",
     '''<section class="tp-card">
 <div class="tp-grid">
@@ -128,11 +128,11 @@ LEDGER = page(
 </div>
 <datalist id="lgNames"></datalist>
 <p class="tp-small" id="lgCarbonNote" hidden>카본화 신발을 신었을 때 줄어드는 시간의 범위를 연구 근거로 환산해 함께 저장합니다. 대회 뒤에는 실제로 줄어든 시간이 그 범위 안이었는지 봅니다. 연구는 대부분 남성 엘리트·상급자 대상이고, 시간으로 옮기는 비율(0.70)은 칼랭크의 가정입니다.</p>
-<p style="margin-top:12px"><button type="button" class="tp-btn" id="lgAdd">장부에 적기</button></p>
+<p style="margin-top:12px"><button type="button" class="tp-btn" id="lgAdd">노트에 적기</button></p>
 <p class="tp-note" id="lgMsg" role="status" aria-live="polite"></p>
 </section>
 <div id="lgSum" hidden class="tp-card"></div>
-<section class="tp-card"><h2 class="tp-h2">내 장부</h2><div id="lgList"></div></section>
+<section class="tp-card"><h2 class="tp-h2">내 노트</h2><div id="lgList"></div></section>
 <p class="tp-small" id="lgStore"></p>''',
     ["wma-standards.js", "grade-model.js", "gear-model.js", "calrank-local.js", "ledger.js"],
     [("기록은 어디에 저장되나요?", "이 기기의 브라우저 안에만 저장됩니다. 서버로 보내지 않으므로 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다."),

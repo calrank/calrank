@@ -440,7 +440,7 @@ def build_hub(rules, claims):
         '<div class="gh-cols"><div class="gh-col">'
         '<a class="gh-item" href="kit.html"><b>내 장비 서랍</b><span class="gh-tag">내 수치로 확인</span>'
         '<span class="gh-q">가진 장비가 규정에 맞는지 한 화면에서 보고 싶다면</span></a>'
-        '<a class="gh-item" href="ledger.html"><b>예측 장부</b>'
+        '<a class="gh-item" href="ledger.html"><b>예상 기록 노트</b>'
         '<span class="gh-q">대회 전에 적은 예상 기록은 얼마나 맞았을까?</span></a></div>'
         '<div class="gh-col">'
         '<a class="gh-item" href="age-curve.html"><b>나이 곡선</b>'
