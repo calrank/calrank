@@ -18,6 +18,12 @@
       "body": "World Athletics",
       "url": "https://worldathletics.org/download/download?filename=61b09e88-36c9-4782-8563-2adce1e15ff0.pdf&urlslug=C2.1A%20%E2%80%93%20Athletic%20Shoe%20Regulations%20(effective%20from%2020%20April%202026)",
       "note": "원문 PDF를 직접 읽고 옮겼습니다. 이사회 승인 2026-03-19, 시행 2026-04-20입니다. 이후 개정은 원문에서 확인해 주세요."
+    },
+    "utmb-my-penalties": {
+      "label": "UTMB 말레이시아 벌칙표 (2025-11 갱신, MY50·MY25·MY13)",
+      "body": "UTMB 말레이시아",
+      "url": "https://res.cloudinary.com/utmb-world/image/upload/v1763970659/malaysia/Pages/Rules/Penalties_other_races_fd10f645e6.pdf.pdf",
+      "note": "한 대회(UTMB 말레이시아)의 벌칙표를 옮겼습니다. 트레일 벌칙은 대회마다 다르고, 이 문서에는 판 번호가 없어서 갱신일(2025년 11월)을 기준으로 적었습니다."
     }
   },
   "sports": {
@@ -195,9 +201,99 @@
           "source": "wa-c21a"
         }
       ]
+    },
+    "trail": {
+      "edited": "2026-11-10",
+      "items": [
+        {
+          "id": "tr-safety",
+          "title": "필수 안전 장비가 없을 때",
+          "severity": "실격",
+          "clause": "벌칙표",
+          "text": "필수 안전 장비가 없으면 바로 실격입니다. 이 표에는 어떤 장비가 '필수 안전 장비'인지가 나와 있지 않아서, 대회별 필수 장비 목록에서 확인해야 합니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-other-eq",
+          "title": "그 밖의 필수 장비가 없을 때",
+          "severity": "시간 벌칙",
+          "clause": "벌칙표",
+          "text": "안전 장비가 아닌 다른 필수 장비가 없으면 30분 벌칙입니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-check",
+          "title": "장비 검사를 거부할 때",
+          "severity": "실격",
+          "clause": "벌칙표",
+          "text": "필수 장비 검사를 거부하면 실격입니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-phone",
+          "title": "스마트폰이 꺼져 있을 때",
+          "severity": "시간 벌칙",
+          "clause": "벌칙표",
+          "text": "스마트폰을 끄거나 비행기 모드로 두면 15분 벌칙입니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-poles",
+          "title": "폴을 처음부터 들지 않았거나 중간에 버렸을 때",
+          "severity": "시간 벌칙",
+          "clause": "벌칙표",
+          "text": "출발부터 들고 가지 않은 폴을 쓰거나, 경기 중 폴을 버리면 30분 벌칙입니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-bib",
+          "title": "배번이 보이지 않거나 규격에 맞지 않을 때",
+          "severity": "시간 벌칙",
+          "clause": "벌칙표",
+          "text": "배번이 보이지 않으면 10분 벌칙입니다. 규격에 맞지 않는 배번도 10분이고, 그동안 배번을 규정대로 다시 달아야 합니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-assist",
+          "title": "허용 구역 밖 지원, 동반 주행",
+          "severity": "시간 벌칙",
+          "clause": "벌칙표",
+          "text": "허용된 구역 밖에서 지원이나 크루를 받으면 30분, 코스에서 누군가와 함께 달리면 10분 벌칙입니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-litter",
+          "title": "쓰레기를 버리거나 화장실을 쓰지 않을 때",
+          "severity": "시간 벌칙",
+          "clause": "벌칙표",
+          "text": "쓰레기를 버리거나 대회가 마련한 화장실을 쓰지 않으면 30분 벌칙입니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-help",
+          "title": "도움이 필요한 사람을 돕지 않을 때",
+          "severity": "실격",
+          "clause": "벌칙표",
+          "text": "도움이 필요한 사람을 돕지 않으면 실격이고, 법적 책임이 따로 있을 수 있습니다.",
+          "source": "utmb-my-penalties"
+        },
+        {
+          "id": "tr-time",
+          "title": "시간 벌칙 방식",
+          "severity": "규정",
+          "clause": "벌칙표",
+          "text": "시간 벌칙은 그 자리에서 바로 적용합니다. 선수는 벌칙 시간 동안 멈춰 서 있어야 하고, 그동안에도 기록 시간은 흐릅니다.",
+          "source": "utmb-my-penalties"
+        }
+      ]
     }
   },
   "changelog": [
+    {
+      "date": "2026-11-10",
+      "title": "트레일 벌칙 기준 공개",
+      "text": "UTMB 말레이시아 벌칙표(2025-11 갱신) 한 대회의 내용을 옮겼습니다. 트레일은 대회마다 규정이 달라서 모든 트레일 대회의 기준이 아니라 한 예시임을 페이지에 적었습니다."
+    },
     {
       "date": "2026-11-10",
       "title": "러닝 규칙 기준 공개",
