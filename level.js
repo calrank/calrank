@@ -245,6 +245,7 @@ function renderResult(result, inputs) {
         <p class="lv-share-hint">카드를 먼저 보여 드립니다. 보고 나서 저장하거나 공유하세요.
         가입은 필요 없고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
       </div>
+      <div id="lvReturn" class="tp-alert" hidden></div>
       <div id="lvGear" class="lv-gear" hidden></div>`;
     })()}
 
@@ -1149,6 +1150,33 @@ function wireGive(inputs) {
   wireGiveOne(inputs, "lvConsentMini", "lvGiveBtnMini", "lvGiveMsgMini");
   paintProgress(inputs);
   paintGearLift(inputs);
+  paintReturn(inputs);
+}
+
+// 지난번 확인과 견주기. 기록은 이 기기의 브라우저에만 남기고 서버로 보내지 않는다.
+// 지난 기록이 없으면 아무것도 보여 주지 않는다.
+function paintReturn(inputs) {
+  const box = document.getElementById("lvReturn");
+  const L = window.CalrankLocal;
+  if (!box || !L) return;
+  let r;
+  try { r = analyze(inputs); } catch (e) { return; }
+  if (!r || r.agePct == null) return;
+  const prev = L.lastResult(inputs.distanceKm);
+  L.pushResult({ km: inputs.distanceKm, sec: inputs.finishSec, age: inputs.age,
+                 gender: inputs.gender, pct: Math.round(r.agePct * 10) / 10 });
+  const km = Math.round(inputs.distanceKm * 10) / 10;
+  const q = `g=${inputs.gender}&t=${encodeURIComponent(fmtClock(inputs.finishSec))}&age=${inputs.age}&d=` +
+    ({ 5: "5km", 10: "10km", 21.0975: "half", 42.195: "full" }[inputs.distanceKm] || "10km");
+  let line = "";
+  if (prev) {
+    const d = r.agePct - prev.pct, ds = inputs.finishSec - prev.sec;
+    line = `지난번(${prev.t}) 연령등급 <b>${prev.pct.toFixed(1)}%</b> → 이번 <b>${r.agePct.toFixed(1)}%</b>` +
+      `(${d >= 0 ? "+" : ""}${d.toFixed(1)}%p, 기록은 ${Math.abs(ds) < 1 ? "같습니다" : (ds < 0 ? "빨라졌습니다" : "느려졌습니다")}). `;
+  }
+  box.hidden = false;
+  box.innerHTML = line + `같은 기록을 나이별로 환산한 곡선은 <a href="age-curve.html?${q}">나이 곡선</a>에서 볼 수 있습니다.` +
+    (prev ? "" : " 이 기기에 이번 결과를 적어 두었으니, 다음에 다시 오시면 지난번과 견줘 드립니다.");
 }
 
 function giveDone(inputs) {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예측 장부 — 대회 전에 적고, 끝난 뒤 맞춰 보기 | 칼랭크 CALRANK</title>
+<meta name="description" content="대회 전에 내 예상 기록을 적어 두고 끝난 뒤 실제 기록과 비교합니다. 카본화 효과를 연구 근거 범위로 환산해 적을 수도 있습니다. 기록은 내 기기에만 저장됩니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#F5F2EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="tools.css">
+<script defer src="/_vercel/insights/script.js"></script>
+<link rel="canonical" href="https://calrank.vercel.app/ledger.html">
+<meta property="og:title" content="예측 장부 — 대회 전에 적고, 끝난 뒤 맞춰 보기 | 칼랭크 CALRANK">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"예측 장부","url":"https://calrank.vercel.app/ledger.html","applicationCategory":"HealthApplication","operatingSystem":"All","inLanguage":"ko-KR","description":"대회 전에 내 예상 기록을 적어 두고 끝난 뒤 실제 기록과 비교합니다. 카본화 효과를 연구 근거 범위로 환산해 적을 수도 있습니다. 기록은 내 기기에만 저장됩니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"isPartOf":{"@type":"WebSite","name":"calrank","url":"https://calrank.vercel.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"기록은 어디에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"이 기기의 브라우저 안에만 저장됩니다. 서버로 보내지 않으므로 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다."}},{"@type":"Question","name":"카본화 효과는 어떤 근거로 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"동료 심사를 거친 연구들의 결과를 모아 근거 등급(A–D)을 매긴 칼랭크의 장비 판정 자료를 씁니다. 연구 대부분이 남성 엘리트·상급자 대상이라 동호회 선수에게는 범위가 달라질 수 있고, 근거가 없는 속도 구간에서는 환산을 하지 않습니다."}},{"@type":"Question","name":"칼랭크가 예측해 주나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 예측은 내가 적고, 칼랭크는 끝난 뒤 실제 기록과 비교만 합니다. 환산 방식을 고르면 연구 범위를 계산해 줄 뿐입니다."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"calrank","item":"https://calrank.vercel.app/index.html"},{"@type":"ListItem","position":2,"name":"기어","item":"https://calrank.vercel.app/gear.html"},{"@type":"ListItem","position":3,"name":"예측 장부"}]}</script>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
+<nav class="main-nav">
+<a href="index.html" class="nav-link">캘린더</a>
+<a href="grade.html" class="nav-link">기록등급</a>
+<a href="gear.html" class="nav-link">기어</a>
+<a href="regions.html" class="nav-link">지역별</a>
+<a href="ranking.html" class="nav-link">대회랭킹</a>
+<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="column.html" class="nav-link">칼럼</a>
+<a href="running-weather.html" class="nav-link">러닝날씨</a>
+<a href="myrank.html" class="nav-link">내 랭크</a>
+<a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a>
+<a href="contact.html" class="nav-contact-link">제휴문의</a>
+</nav>
+</div>
+</header>
+
+<main class="tp">
+<h1 class="tp-title">예측 장부</h1>
+<p class="tp-sub">대회 전에 예상 기록을 적어 두고, 끝난 뒤 실제 기록과 맞춰 봅니다. 맞히는 쪽은 칼랭크가 아니라 나입니다. 몇 번 쌓이면 내 예측이 어느 쪽으로 치우치는지 보입니다.</p>
+<section class="tp-card">
+<div class="tp-grid">
+<label class="tp-field">대회 이름<input id="lgName" type="text" list="lgNames" autocomplete="off" placeholder="대회 이름"></label>
+<label class="tp-field">대회 날짜<input id="lgDate" type="date"></label>
+<label class="tp-field">거리<select id="lgDist"><option value="5km">5km</option><option value="10km">10km</option><option value="half">하프</option><option value="full" selected>풀코스</option></select></label>
+<label class="tp-field">예측 방식<select id="lgBasis"><option value="gut">내 감으로</option><option value="carbon">카본화 효과 환산</option></select></label>
+<label class="tp-field" id="lgPredWrap">예측 기록<input id="lgPred" type="text" inputmode="numeric" placeholder="3:45:00"></label>
+<label class="tp-field" id="lgBaseWrap" hidden>지금 신발로 낸 최근 기록<input id="lgBase" type="text" inputmode="numeric" placeholder="3:50:00"></label>
+</div>
+<datalist id="lgNames"></datalist>
+<p class="tp-small" id="lgCarbonNote" hidden>카본화 신발을 신었을 때 줄어드는 시간의 범위를 연구 근거로 환산해 함께 저장합니다. 대회 뒤에는 실제로 줄어든 시간이 그 범위 안이었는지 봅니다. 연구는 대부분 남성 엘리트·상급자 대상이고, 시간으로 옮기는 비율(0.70)은 칼랭크의 가정입니다.</p>
+<p style="margin-top:12px"><button type="button" class="tp-btn" id="lgAdd">장부에 적기</button></p>
+<p class="tp-note" id="lgMsg" role="status" aria-live="polite"></p>
+</section>
+<div id="lgSum" hidden class="tp-card"></div>
+<section class="tp-card"><h2 class="tp-h2">내 장부</h2><div id="lgList"></div></section>
+<p class="tp-small" id="lgStore"></p>
+<section class="tp-sec tp-faq"><h2 class="tp-h2">자주 묻는 것</h2><h3>기록은 어디에 저장되나요?</h3><p>이 기기의 브라우저 안에만 저장됩니다. 서버로 보내지 않으므로 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다.</p><h3>카본화 효과는 어떤 근거로 계산하나요?</h3><p>동료 심사를 거친 연구들의 결과를 모아 근거 등급(A–D)을 매긴 칼랭크의 장비 판정 자료를 씁니다. 연구 대부분이 남성 엘리트·상급자 대상이라 동호회 선수에게는 범위가 달라질 수 있고, 근거가 없는 속도 구간에서는 환산을 하지 않습니다.</p><h3>칼랭크가 예측해 주나요?</h3><p>아닙니다. 예측은 내가 적고, 칼랭크는 끝난 뒤 실제 기록과 비교만 합니다. 환산 방식을 고르면 연구 범위를 계산해 줄 뿐입니다.</p></section>
+</main>
+
+<footer class="site-footer">
+<div class="wrap">
+<p>칼랭크(CALRANK)는 달린 기록이 어느 등급인지 읽어 주고, 다음 출발선을 찾아 주는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다.</p>
+</div>
+</footer>
+<script src="wma-standards.js"></script>
+<script src="grade-model.js"></script>
+<script src="gear-model.js"></script>
+<script src="calrank-local.js"></script>
+<script src="ledger.js"></script>
+</body>
+</html>

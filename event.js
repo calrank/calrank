@@ -358,6 +358,7 @@ async function init() {
     </div>
     <div class="event-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">${buildEventTags(ev).map(tag => `<a href="${tag.href}" class="chip" style="text-decoration:none; font-size:12px; padding:4px 10px;">#${tag.label}</a>`).join("")}</div>
     <div id="weatherWidget"></div>
+    <div id="gearVerdict"></div>
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
     <div id="addCalWidget"></div>
   `;
@@ -457,6 +458,9 @@ async function init() {
 
   setupShareAndMap(ev, pageUrl);
   renderWeatherWidget(ev);
+  // 장비 점검 카드(gear-verdict.js). 스크립트가 먼저 실려 있으면 바로 그리고, 아니면 이벤트로 알린다.
+  window.__calrankEvent = ev;
+  if (typeof window.renderGearVerdict === "function") window.renderGearVerdict(ev);
 }
 
 init();
