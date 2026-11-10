@@ -1,0 +1,40 @@
+{
+ "https://assets.ctfassets.net/761l7gh5x5an/6cmP3f8KY4mTfI6hAYCduP/5e606e6e9a6ca688a35e625a25947a3f/Clarification_Guide_of_the_UCI_Technical_Regulation_-_20230101_-_ENG.pdf": {
+  "checked": "2026-11-10",
+  "hash": "6171f39ff3ba1137",
+  "ok": true
+ },
+ "https://wildstrubel.utmb.world/mandatory-equipment": {
+  "checked": "2026-11-10",
+  "hash": "fba392530b7d6078",
+  "ok": true
+ },
+ "https://worldathletics.org/download/download?filename=61b09e88-36c9-4782-8563-2adce1e15ff0.pdf&urlslug=C2.1A%20%E2%80%93%20Athletic%20Shoe%20Regulations%20(effective%20from%2020%20April%202026)": {
+  "checked": "2026-11-10",
+  "hash": "e76ce12b07b6cf1d",
+  "ok": true
+ },
+ "https://worldathletics.org/download/download?filename=b723c6b6-7d1f-40ad-8b27-1d3f956c6c99.pdf&urlslug=C2.1A+%E2%80%93+Athletic+Shoe+Regulations+%28effective+from+01+January+2022%29": {
+  "checked": "2026-11-10",
+  "hash": "3585477e4d21640d",
+  "ok": true
+ },
+ "https://www.jtu.or.jp/wordpress/wp-content/uploads/2026/03/World-Triathlon_Competition-Rules_2026_0330_jp.pdf": {
+  "checked": "2026-11-10",
+  "hash": "54678328008e3e94",
+  "ok": true
+ },
+ "https://www.triathlon.org/about_triathlon/statutes_and_bylaws": {
+  "error": "HTTPError",
+  "ok": false
+ },
+ "https://www.uci.org/docs/default-source/rules-and-regulations/part-i-general-organisation/main.pdf": {
+  "error": "TooManyRedirects",
+  "ok": false
+ },
+ "https://www.worldskate.org/speed/about/regulations.html": {
+  "checked": "2026-11-10",
+  "hash": "0416e38984daf629",
+  "ok": true
+ }
+}
