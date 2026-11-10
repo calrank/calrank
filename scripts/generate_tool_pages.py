@@ -84,7 +84,7 @@ KIT = page(
 <p class="tp-small" id="kitStore"></p>
 <p><button type="button" class="tp-btn ghost" id="kitClear">저장된 수치 지우기</button></p>
 <p class="tp-src">규정의 출처와 기준 시점은 각 항목의 &lsquo;판정 자세히&rsquo;에서 원문 링크와 함께 확인할 수 있습니다. 대회 요강이 연맹 규정보다 엄격할 수 있어, 출전 전에는 요강도 확인해 주세요.</p>''',
-    ["gear-rules.js", "calrank-local.js", "kit.js"],
+    ["gear-rules.js", "calrank-local.js", "source-watch.js", "kit.js"],
     [("적은 수치는 어디에 저장되나요?", "이 기기의 브라우저 안(localStorage)에만 저장됩니다. 칼랭크 서버로 보내지 않아서 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다."),
      ("규정이 바뀌면 알려 주나요?", "칼랭크가 가진 규정 값이 지난번에 본 때와 달라졌으면 이 페이지를 열었을 때 알려 드립니다. 연맹이 규정을 고친 경우일 수도 있고 칼랭크가 값을 바로잡은 경우일 수도 있어서, '바뀐 항목이 있으니 다시 확인하세요'까지만 말씀드립니다. 푸시 알림은 보내지 않습니다."),
      ("여기서 통과하면 대회에서도 통과인가요?", "연맹 규정 기준으로는 그렇습니다. 다만 대회 요강이 규정보다 엄격한 경우가 있고, 현장 검사 방식도 대회마다 다릅니다. 출전 전에 요강을 함께 확인해 주세요.")])
@@ -139,7 +139,65 @@ LEDGER = page(
      ("카본화 효과는 어떤 근거로 계산하나요?", "동료 심사를 거친 연구들의 결과를 모아 근거 등급(A–D)을 매긴 칼랭크의 장비 판정 자료를 씁니다. 연구 대부분이 남성 엘리트·상급자 대상이라 동호회 선수에게는 범위가 달라질 수 있고, 근거가 없는 속도 구간에서는 환산을 하지 않습니다."),
      ("칼랭크가 예측해 주나요?", "아닙니다. 예측은 내가 적고, 칼랭크는 끝난 뒤 실제 기록과 비교만 합니다. 환산 방식을 고르면 연구 범위를 계산해 줄 뿐입니다.")])
 
-for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", LEDGER)]:
+# ── 종목별 기준 페이지: 수치 기준(gear_rules) + 실격·벌칙(gear_dq) ─────────────
+RULES = json.loads((ROOT / "data/gear_rules.json").read_text(encoding="utf-8"))
+DQ = json.loads((ROOT / "data/gear_dq.json").read_text(encoding="utf-8"))
+SPORT_META = {
+    "triathlon": ("철인3종", "World Triathlon", "standards-triathlon.html",
+                  "철인3종 장비·규칙 기준 — 실격되는 것과 벌칙 정리"),
+}
+
+
+def esc(s):
+    return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
+def standards_page(sid):
+    label, body_name, slug, title = SPORT_META[sid]
+    items = DQ["sports"][sid]["items"]
+    rules = [r for r in RULES["rules"] if r["sport"] == sid]
+    src = DQ["sources"]
+    used = []
+    for it in items:
+        if it["source"] not in used:
+            used.append(it["source"])
+    cards = ""
+    for order, tag in (("실격", "실격"), ("벌칙·실격", "벌칙·실격"), ("시간 벌칙", "시간 벌칙"), ("규정", "규정")):
+        for it in [i for i in items if i["severity"] == order]:
+            cls = "dq-tag dq" if "실격" in it["severity"] else "dq-tag"
+            cards += (f'<div class="dq-card" id="{it["id"]}"><div class="dq-top"><h3 class="dq-title">{esc(it["title"])}</h3>'
+                      f'<span class="{cls}">{esc(it["severity"])}</span><span class="dq-clause">{esc(it["clause"])}</span></div>'
+                      f'<p class="dq-text">{esc(it["text"])}</p></div>')
+    links = "".join(f'<a class="dq-link" href="gear-{r["id"]}.html"><b>{esc(r["label"])}</b><span>{esc(r["headline"])}</span></a>' for r in rules)
+    srcs = "".join(
+        f'<p class="tp-src">출처: {esc(src[k]["label"])} — <a href="{esc(src[k]["url"])}" rel="noopener" target="_blank">원문 열기</a>. '
+        f'{esc(src[k].get("note", ""))}<br><span class="dq-watch" data-watch="{esc(src[k]["url"])}">원문 확인 현황은 매주 자동으로 갱신됩니다.</span></p>'
+        for k in used)
+    body = f"""<section class="tp-sec"><h2 class="tp-h2">실격과 벌칙</h2>
+<p class="tp-p">에이지그룹(동호인) 경기에 적용되는 조항을 규정 원문에서 조항 번호와 함께 옮겼습니다. 대회 요강이 더 엄격할 수 있고, 현장 판정은 심판장이 합니다.</p>
+{cards}</section>
+<section class="tp-sec"><h2 class="tp-h2">내 장비가 기준에 맞는지 보기</h2>{links}
+<p class="tp-p"><a href="kit.html">내 장비 서랍</a>에 수치를 적어 두면 한 화면에서 판정합니다.</p></section>
+{srcs}"""
+    faq = [
+        ("트라이애슬론에서 헤드폰을 쓰면 실격인가요?",
+         "규정 2.1 a) (xv)는 주변에 온전히 주의를 기울이지 못하게 하는 기기를 쓰지 말라고 하고, 음악 재생을 그런 사용의 예로 듭니다. 이를 어기면 실격입니다. 헤드폰이라는 말이 직접 적혀 있지는 않지만, 음악을 듣는 것은 여기에 해당합니다."),
+        ("트라이애슬론 드래프팅은 몇 미터인가요?",
+         "5.5 c) (iv)에 따라 앞 선수 앞바퀴 앞끝에서 12m가 드래프팅 구간이고, 다른 선수의 구간을 통과하는 데는 최대 25초까지 허용됩니다."),
+        ("드래프팅 벌칙은 몇 분인가요?",
+         "3.3 e) (i)에 따라 에이지그룹은 롱 3분, 미들 2분, 스탠더드 1분, 스프린트 이하 30초입니다. 위반이 반복되면 실격이 될 수 있습니다(스탠더드 이하는 두 번째, 미들·롱은 세 번째 위반)."),
+        ("자전거에서 헬멧 턱끈은 언제 채워야 하나요?",
+         "5.2 g) (iv)에 따라 헬멧은 항상 단단히 채워야 하고, 자전거 구간으로 돌아가거나 다시 타기 전에 턱끈을 먼저 채워야 합니다."),
+    ]
+    h1 = f"{label} 장비·규칙 기준"
+    sub = f"{body_name} 규정에서 실격이 되는 것, 시간 벌칙이 붙는 것, 장비 수치 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
+    desc = f"{label} 에이지그룹 규정의 실격 사유와 벌칙을 조항 번호와 함께 정리했습니다. 헬멧, 드래프팅 12m와 벌칙 시간, 헤드폰, 배번, 웻슈트 기준까지."
+    return slug, page(slug, title, desc, h1, sub, body, ["source-watch.js"], faq)
+
+
+STANDARDS = [standards_page(s) for s in SPORT_META]
+
+for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name
     if not p.exists() or p.read_text(encoding="utf-8") != html:
         p.write_text(html, encoding="utf-8")
@@ -149,9 +207,9 @@ for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", L
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "age-curve.html", "ledger.html"):
+for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html"):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
     sm.write_text(t.replace("</urlset>", add + "</urlset>"), encoding="utf-8")
-    print("sitemap +3")
+    print("sitemap 추가")

@@ -444,7 +444,9 @@ def build_hub(rules, claims):
         '<span class="gh-q">대회 전에 적은 예상 기록은 얼마나 맞았을까?</span></a></div>'
         '<div class="gh-col">'
         '<a class="gh-item" href="age-curve.html"><b>나이 곡선</b>'
-        '<span class="gh-q">같은 기록이면 몇 살에 어느 등급일까?</span></a></div></div></section>']
+        '<span class="gh-q">같은 기록이면 몇 살에 어느 등급일까?</span></a>'
+        '<a class="gh-item" href="standards-triathlon.html"><b>철인3종 규칙 기준</b>'
+        '<span class="gh-q">헬멧, 드래프팅, 헤드폰… 뭐가 실격일까?</span></a></div></div></section>']
     for sp in claims.get("sports", []):
         sid = sp["id"]
         rs = [r for r in rules.get("rules", []) if r.get("sport") == sid]
