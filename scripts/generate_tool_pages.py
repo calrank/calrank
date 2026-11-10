@@ -151,6 +151,8 @@ SPORT_META = {
                   "철인3종 장비·규칙 기준 — 실격되는 것과 벌칙 정리"),
     "running": ("러닝", "World Athletics", "standards-running.html",
                 "러닝화 규칙 기준 — 밑창 두께 40mm와 플레이트 규정"),
+    "trail": ("트레일", "UTMB 말레이시아", "standards-trail.html",
+              "트레일 대회 벌칙 예시 — 필수 장비가 없으면 어떻게 될까"),
     "cycling": ("사이클", "UCI", "standards-cycling.html",
                 "사이클 장비·규칙 기준 — 최소 무게와 안장 위치"),
 }
@@ -162,10 +164,14 @@ def esc(s):
 
 import sys as _s; _s.path.insert(0, str(ROOT / "scripts"))
 from gear_images import commons_fig
-FIG = {"wa-stack": commons_fig("shoe-section", "dq-fig"), "uci-setback": commons_fig("uci-saddle", "dq-fig"), "wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
+FIG = {"tr-safety": commons_fig("ccc-gear", "dq-fig"), "wa-stack": commons_fig("shoe-section", "dq-fig"), "uci-setback": commons_fig("uci-saddle", "dq-fig"), "wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
 
 
-FAQS = {"running": [
+FAQS = {"trail": [
+    ("트레일 대회에서 필수 장비가 없으면 어떻게 되나요?", "UTMB 말레이시아 벌칙표 기준으로 필수 안전 장비가 없으면 즉시 실격이고, 그 밖의 필수 장비가 없으면 30분 벌칙입니다. 다른 대회는 다를 수 있어서 대회 규정을 확인해야 합니다."),
+    ("트레일 대회에서 스마트폰을 꺼 두면 벌칙이 있나요?", "UTMB 말레이시아에서는 스마트폰을 끄거나 비행기 모드로 두면 15분 벌칙입니다. 다른 대회의 기준은 대회 요강을 확인해 주세요."),
+    ("트레일 폴을 중간에 버려도 되나요?", "UTMB 말레이시아에서는 처음부터 들고 가지 않은 폴을 쓰거나 경기 중에 폴을 버리면 30분 벌칙입니다."),
+], "running": [
     ("마라톤 러닝화 두께 한도는 몇 mm인가요?", "부칙 2에 따라 도로 달리기는 40mm입니다. 신발 안쪽 윗면에서 바깥 밑면까지를 앞꿈치 중심과 뒤꿈치 중심에서 재고(8.3–8.4), 기준 크기는 270mm(US 8.5)입니다."),
     ("카본 플레이트가 있는 러닝화도 괜찮나요?", "8.5.1에 따라 스파이크 없는 신발은 단단한 구조물을 하나까지만 넣을 수 있습니다. 두 개 이상이면 안 됩니다."),
     ("트레일 러닝화에도 40mm 한도가 있나요?", "3.3과 부칙 2에서 산·트레일 경주와 크로스컨트리는 두께 한도 표에서 빠져 있습니다. 대회 요강이 따로 정한 것이 있는지는 확인해 주세요."),
@@ -199,7 +205,10 @@ def standards_page(sid):
         f'{esc(src[k].get("note", ""))}<br><span class="dq-watch" data-watch="{esc(src[k]["url"])}">원문 확인 현황은 매주 자동으로 갱신됩니다.</span></p>'
         for k in used)
     edited = DQ["sports"][sid].get("edited", "")
-    if sid == "running":
+    if sid == "trail":
+        h2 = "벌칙 예시"
+        intro = "트레일은 대회마다 필수 장비와 벌칙이 다릅니다. 이 페이지는 UTMB 말레이시아 한 대회의 벌칙표를 옮긴 예시이고, 모든 트레일 대회의 기준이 아닙니다. 신청한 대회의 규정을 먼저 확인해 주세요."
+    elif sid == "running":
         h2 = "신발 기준"
         intro = "World Athletics 신발 규정 원문에서 조항 번호와 함께 옮겼습니다. 이 규정은 세계랭킹 대회와 국제 대회를 대상으로 하므로, 동호인 대회에 그대로 적용되는지는 대회 요강으로 먼저 확인해 주세요."
     elif sid == "cycling":
@@ -228,6 +237,9 @@ def standards_page(sid):
     h1 = f"{label} 장비·규칙 기준"
     sub = f"{body_name} 규정에서 실격이 되는 것, 시간 벌칙이 붙는 것, 장비 수치 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
     desc = f"{label} 에이지그룹 규정의 실격 사유와 벌칙을 조항 번호와 함께 정리했습니다. 헬멧, 드래프팅 12m와 벌칙 시간, 헤드폰, 배번, 웻슈트 기준까지."
+    if sid == "trail":
+        sub = "UTMB 말레이시아 벌칙표에서 실격이 되는 것과 시간 벌칙이 붙는 것을 옮긴 한 대회의 예시입니다. 트레일은 대회마다 규정이 다릅니다."
+        desc = "트레일 대회에서 필수 장비가 없으면 실격인지 시간 벌칙인지, UTMB 말레이시아 벌칙표 예시로 정리했습니다. 스마트폰, 폴, 배번 벌칙까지."
     if sid == "running":
         sub = "World Athletics 신발 규정에서 밑창 두께 한도, 플레이트 규정, 시판·개발 신발, 스파이크 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
         desc = "World Athletics 러닝화 규정의 도로 40mm 두께 한도, 단단한 구조물 하나 제한, 시판·개발 신발, 스파이크 기준을 조항 번호와 함께 정리했습니다."
@@ -267,7 +279,7 @@ for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", L
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "gear-changes.html"):
+for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html"):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
