@@ -130,7 +130,7 @@
         var id = b.getAttribute("data-settle");
         var t = G.parseTime(document.querySelector('[data-act="' + id + '"]').value);
         if (!t) { alert("기록을 1:02:30 처럼 적어 주세요."); return; }
-        L.settle(id, t); render();
+        L.settle(id, t); render(); nudge();
       });
     });
     [].forEach.call($("lgList").querySelectorAll("[data-del]"), function (b) {
@@ -146,7 +146,20 @@
     }).catch(function () {});
   }
 
+  // 대회가 지났는데 실제 기록을 아직 적지 않은 예측이 있으면, 한 줄로만 물어본다.
+  // 재촉하거나 횟수를 세지 않는다. 아래 목록에서 입력하면 사라진다.
+  function nudge() {
+    var box = $("lgNudge"); if (!box) return;
+    var t = L.today();
+    var due = L.ledger().filter(function (p) { return !p.actualSec && p.date && p.date < t; })
+      .sort(function (a, b) { return b.date.localeCompare(a.date); })[0];
+    if (!due) { box.hidden = true; return; }
+    box.hidden = false;
+    box.textContent = "지난 " + due.date + " " + due.name + "(" + KM_LABEL[due.dist] + ") 예상은 " + fmt(due.predSec) + "였습니다. 실제 기록은 어땠나요? 아래 목록에서 적어 두면 비교해 드립니다.";
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    nudge();
     loadClaims().then(function () {});
     $("lgBasis").addEventListener("change", syncBasis);
     $("lgAdd").addEventListener("click", add);
