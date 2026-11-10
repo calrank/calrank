@@ -3,18 +3,18 @@
 import re
 
 IMG = {
-    "sole":    ("1548801133-da353ebb1d97", "러닝화 밑창", "j7zu2kpTnwY", "Ryan Waring"),
-    "plate":   ("1755194757953-a9301005114b", "러닝화 옆모습", "p5C9ZTeDzko", "Fujiphilm"),
+    "sole":    ("1548801133-da353ebb1d97", "러닝화 밑창 바닥면", "j7zu2kpTnwY", "Ryan Waring"),
+    "plate":   ("1755194757953-a9301005114b", "러닝화 옆모습과 밑창", "p5C9ZTeDzko", "Fujiphilm"),
     "store":   ("1633464130613-0a9154299ac2", "매장 벽면에 진열된 신발", "O8_sTTWaJ14", "Mick Haupt"),
     "shoe":    ("1571008887538-b36bb32f4571", "러닝화 한 켤레", "XiZ7pRvCzro", "sporlab"),
-    "shoe2":   ("1606107557195-0e29a4b5b4aa", "초록·검정 러닝화", "kP6knT7tjn4", ""),
+    "shoe2":   ("1542291026-7eec264c27ff", "빨간 러닝화 한 짝", "164_6wVEHfI", ""),
     "race5":   ("1759674861540-afed9f86f94a", "레이스 중인 러너들", "W2pBsQaT6FQ", ""),
     "half":    ("1758684051120-60735855c088", "도로 위를 달리는 마라톤 러너", "0-di3PxkxTQ", "Quan-You Zhang"),
     "full":    ("1760315972424-1637530daead", "마라톤 출발 무리", "laxDhpYqZZc", ""),
     "poles":   ("1623783593139-f4f36b7bbb2f", "트레일 폴을 쥔 손", "zW8NsaUruMU", ""),
     "slope":   ("1518214598173-1666bc921d66", "언덕 위의 러너", "CVvFVQ_-oUg", ""),
     "pack":    ("1635745488837-ffa006eaf9cf", "배낭을 멘 채 걷는 사람", "hHdJNsiCzfI", ""),
-    "jacket":  ("1507244342122-2b25198e3c87", "산에서 후드 재킷을 입은 사람", "d440ykz956E", "Erik Odiin"),
+    "jacket":  ("1548883354-94bcfe321cbb", "후드가 달린 방수 재킷을 입은 사람", "6TIoPIpMvLc", "Kyle Loftus"),
     "kit":     ("1562571373-e12c2f3a53ec", "트레일 레이스를 준비하는 러너", "tT-SvVAbK_w", "Zan Lazarevic"),
     "wheel":   ("1540838005002-0bb3287af8ae", "자전거 바퀴", "9oYHSMxt7tg", "Clint McKoy"),
     "tyre":    ("1523357585206-175e971f2ad9", "자전거 타이어", "cAY9X4rPG3g", "Alessandra Caretto"),
@@ -33,22 +33,22 @@ IMG = {
 
 # 페이지마다 그 페이지가 다루는 물건이 보이는 사진을 따로 고른다.
 SLUG = {
-    "gear-wa-stack-height": "sole", "gear-wa-rigid-plate": "plate", "gear-wa-availability": "store",
+    "gear-wa-stack-height": "plate", "gear-wa-rigid-plate": "sole", "gear-wa-availability": "store",
     "gear-carbon-plate": "shoe", "gear-carbon-plate-5km": "race5", "gear-carbon-plate-10km": "race5",
     "gear-carbon-plate-half": "half", "gear-carbon-plate-full": "full", "gear-shoe-mass": "shoe2",
     "gear-utmb-jacket": "jacket", "gear-utmb-kit": "kit", "gear-trail-poles": "poles",
-    "gear-trail-poles-by-gradient": "slope", "gear-trail-pack-weight": "pack",
+    "gear-trail-poles-by-gradient": "pack", "gear-trail-pack-weight": "kit",
     "gear-aero-wheel": "wheel", "gear-aero-wheel-40km": "wheel", "gear-aero-wheel-100km": "wheel",
     "gear-tyre-rolling": "tyre", "gear-tyre-rolling-40km": "tyre", "gear-tyre-rolling-100km": "tyre",
     "gear-aero-helmet": "helmet", "gear-aero-helmet-40km": "helmet", "gear-aero-helmet-100km": "helmet",
     "gear-uci-min-weight": "road", "gear-uci-saddle-setback": "saddle", "gear-uci-frame-approval": "frame",
     "gear-wt-bike-agegroup": "tribike", "gear-wt-wetsuit-thickness": "wetsuit", "gear-wetsuit": "wetbeach",
     "gear-wt-wetsuit-temp": "openwater", "gear-wetsuit-by-temp": "swimstart",
-    "gear-ws-wheel-diameter": "skate", "gear-inline-bearings": "skate2",
+    "gear-ws-wheel-diameter": "skate", "gear-inline-bearings": "skate",
 }
 
 # 사진마다 잘려도 되는 쪽이 다르다. 기본은 위쪽 가까이(머리·배낭이 위에 있는 사진이 많다).
-POS = {"pack": "50% 0%", "poles": "50% 35%", "jacket": "50% 30%"}
+POS = {}
 
 def group_of(s):
     return SLUG.get(s.replace(".html", ""))
@@ -65,6 +65,6 @@ def add_image(slug, html):
     html = html.replace('<meta name="twitter:card"', og + '<meta name="twitter:card"', 1)
     credit = f' · 사진 {who}' if who else ''
     fig = (f'<figure class="gi-hero-img"><img src="{url(g,960)}" width="960" height="640" '
-           f'alt="{alt}" style="object-position:{POS.get(g, "50% 20%")}" decoding="async" fetchpriority="high">'
+           f'alt="{alt}" decoding="async" fetchpriority="high">'
            f'<figcaption><a href="https://unsplash.com/photos/{ph}" rel="noopener" target="_blank">Unsplash</a>{credit}</figcaption></figure>\n')
     return html.replace("</section>\n", "</section>\n\n" + fig, 1)
