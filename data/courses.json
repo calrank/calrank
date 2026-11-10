@@ -1,0 +1,15 @@
+{
+  "schema": {
+    "note": "코스 한 곳당 항목 하나. 값을 확인하지 못한 것은 비우고 status를 '미확인'으로 둔다.",
+    "fields": {
+      "id": "영문 소문자와 하이픈 (페이지 주소 course-<id>.html)",
+      "name": "코스 이름", "region": "지역",
+      "source": {"label": "자료 출처", "url": "원문 주소", "license": "이용허락 조건", "fetched": "받은 날 YYYY-MM-DD"},
+      "profile": "[[누적거리 m, 고도 m], ...] 최대 300점",
+      "technical": {"level": "1~5 또는 null(미평가)", "note": "근거 한 줄", "basis": "무엇을 보고 정했는지"},
+      "checks": {"start|mid|finish": {"parking|toilet|water|signal|escape|transit": {"status": "확인|미확인", "text": "내용", "verified": "확인한 날", "source": "확인한 곳"}}},
+      "edited": "내용을 고친 날"
+    }
+  },
+  "courses": []
+}
