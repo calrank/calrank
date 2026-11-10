@@ -25,6 +25,52 @@
       .then(function (d) { RULES = d; return d; });
   }
 
+  var DQ = null;
+  function loadDq() {
+    if (DQ) return Promise.resolve(DQ);
+    return fetch("data/gear_dq.json").then(function (r) { return r.json(); })
+      .then(function (d) { DQ = d; return d; }).catch(function () { return null; });
+  }
+  // 출발 전 점검표: 체크 상태는 이 기기에만 저장한다(대회마다 따로).
+  var CHECK_KEY = "calrank.check.v1";
+  var CHECK_IDS = ["wt-helmet", "wt-device", "wt-bib", "wt-draft-zone", "wt-draft-penalty"];
+  function checkKey(ev) { return String(ev.id || (ev.name + "|" + ev.date)); }
+  function readChecks(ev) {
+    try { var o = JSON.parse(localStorage.getItem(CHECK_KEY) || "{}"); return o[checkKey(ev)] || []; } catch (e) { return []; }
+  }
+  function writeChecks(ev, ids) {
+    try {
+      var o = JSON.parse(localStorage.getItem(CHECK_KEY) || "{}");
+      o[checkKey(ev)] = ids; localStorage.setItem(CHECK_KEY, JSON.stringify(o));
+    } catch (e) {}
+  }
+  function checklistRow(ev) {
+    var items = DQ && DQ.sports && DQ.sports.triathlon && DQ.sports.triathlon.items;
+    if (!items) return "";
+    var done = readChecks(ev);
+    var lis = CHECK_IDS.map(function (id) {
+      var it = items.filter(function (x) { return x.id === id; })[0];
+      if (!it) return "";
+      return '<li><label><input type="checkbox" data-ck="' + esc(id) + '"' + (done.indexOf(id) >= 0 ? " checked" : "") + "> " +
+        "<b>" + esc(it.title) + "</b> <span class=\"gv-small\">" + esc(it.severity) + " · " + esc(it.clause) + "</span></label>" +
+        ' <a href="standards-triathlon.html#' + esc(id) + '">조항 보기</a></li>';
+    }).join("");
+    return row("출발 전 점검표",
+      '<ul class="gv-ul gv-ck">' + lis + "</ul>" +
+      '<p class="gv-small">에이지그룹 기준입니다. 체크는 이 기기에만 저장됩니다. 대회 요강이 더 엄격할 수 있습니다.</p>',
+      "standards-triathlon.html", "실격·벌칙 조항 전체");
+  }
+  function wireChecks(ev) {
+    var boxes = document.querySelectorAll("[data-ck]");
+    [].forEach.call(boxes, function (b) {
+      b.addEventListener("change", function () {
+        var ids = [].filter.call(document.querySelectorAll("[data-ck]"), function (x) { return x.checked; })
+          .map(function (x) { return x.getAttribute("data-ck"); });
+        writeChecks(ev, ids);
+      });
+    });
+  }
+
   function find(id) {
     var rs = (RULES && RULES.rules) || [];
     for (var i = 0; i < rs.length; i++) if (rs[i].id === id) return rs[i];
@@ -161,6 +207,8 @@
       if (r) s.push(row("웻슈트 두께", "<p>어느 부위를 재도 5mm 이하여야 합니다.</p>",
         "gear-wt-wetsuit-thickness.html", "내 웻슈트 판정하기"));
       if (f) s.push(row("당일 기온", "<p>" + esc(wx(f)) + ".</p>", null, null));
+      var ck = checklistRow(ev);
+      if (ck) s.push(ck);
     }
     return s;
   }
@@ -188,7 +236,7 @@
     if (!box || !ev || !ev.sport || !ev.date) return;
     var d = dday(ev.date);
     if (d < 0) return;
-    Promise.all([loadRules(), getForecast(ev, d), ev.sport === "triathlon" ? getSea(ev, d) : Promise.resolve(null)])
+    Promise.all([loadRules(), getForecast(ev, d), ev.sport === "triathlon" ? getSea(ev, d) : Promise.resolve(null), ev.sport === "triathlon" ? loadDq() : Promise.resolve(null)])
       .then(function (res) {
         var f = res[1], sea = res[2];
         var list = sections(ev, f, sea);
@@ -199,6 +247,7 @@
           list.join("") +
           '<p class="gv-foot">규정은 연맹 문서 기준이며, 주최측이 따로 정한 규정이 있으면 그쪽이 우선합니다. 예보는 바뀔 수 있습니다. <a href="kit.html">내 장비 서랍에 저장해 두고 한 번에 보기</a></p></section>';
         wireWetsuit();
+        wireChecks(ev);
       }).catch(function () {});
   }
 
