@@ -115,6 +115,42 @@ AGE = page(
      ("이 곡선이 내 미래 기록 예측인가요?", "아닙니다. 같은 기록을 유지한다고 가정하고 기준표로 환산한 값입니다. 나이 들면서 실제로 얼마나 느려지는지는 훈련량과 부상 이력에 따라 사람마다 크게 다릅니다."),
      ("'지금 등급을 지키는 기록'은 무엇인가요?", "그 나이의 기준기록으로 거꾸로 계산해서, 지금 등급의 경계에 해당하는 기록입니다. 이 시간 안쪽이면 그 나이에도 같은 등급입니다.")])
 
+COURSE = page(
+    "course.html", "코스 판정 — 이 코스는 평지 몇 km에 해당할까",
+    "코스의 거리와 오르내림(또는 GPX 파일)으로 평지 몇 km에 해당하는지 환산하고, 내 평지 페이스로 걸리는 시간을 계산합니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.",
+    "코스 판정",
+    "거리와 누적 상승·하강, 또는 GPX 파일을 넣으면 코스를 평지 거리로 환산하고 내 평지 페이스로 걸리는 시간을 계산합니다. GPX 파일은 서버로 보내지 않고 이 브라우저 안에서만 읽습니다.",
+    '''<section class="tp-card"><div class="tp-grid">
+<label class="tp-field">GPX 파일(선택)<input id="cvFile" type="file" accept=".gpx,application/gpx+xml,text/xml"></label>
+<label class="tp-field">평지 페이스 (분:초 / km)<input id="cvPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
+</div>
+<p class="tp-small">GPX가 없으면 아래에 직접 적어도 됩니다. 처음에 보이는 값은 예시입니다.</p>
+<div class="tp-grid">
+<label class="tp-field">거리 (km)<input id="cvDist" type="number" inputmode="decimal" min="1" step="0.1" value="21"></label>
+<label class="tp-field">누적 상승 (m)<input id="cvGain" type="number" inputmode="numeric" min="0" value="1000"></label>
+<label class="tp-field">누적 하강 (m)<input id="cvLoss" type="number" inputmode="numeric" min="0" value="1000"></label>
+<label class="tp-field">오르막 평균 경사<select id="cvUpg"><option value="0.08">8%</option><option value="0.12" selected>12%</option><option value="0.16">16%</option></select></label>
+</div>
+<div class="kit-row"><button type="button" id="cvRun" class="tp-btn">계산하기</button>
+<label class="cv-check"><input type="checkbox" id="cvDown"> 내리막에서 빨라지는 것까지 반영</label></div>
+<p id="cvMsg" class="tp-small" role="status" aria-live="polite"></p></section>
+<div id="cvOut" hidden>
+<section class="tp-card"><p class="tp-small">기준: <span id="cvSource"></span></p>
+<p class="cv-big"><b id="cvIndex">1.00</b><span> 코스 부하 지수 · <span id="cvBand"></span></span></p>
+<table class="cv-table"><tbody id="cvTable"></tbody></table></section>
+<section class="tp-card" id="cvChartWrap" hidden><div id="cvChart"></div></section>
+</div>
+<section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>
+<p class="tp-p">경사에 따라 달릴 때 쓰는 에너지가 달라진다는 연구 결과를 구간마다 적용합니다. 평지에서 같은 힘을 낸다고 보고, 오르막에서는 더 느려지고 내리막에서는 덜 힘들다고 계산합니다. 그 합이 "평지로 환산한 거리"이고, 코스 부하 지수는 환산한 거리를 실제 거리로 나눈 값입니다. 1.00이면 평지와 같습니다.</p>
+<p class="tp-p">내리막은 처음에는 평지와 같다고 계산합니다. 실험에서는 내리막이 덜 힘들게 나오지만, 코스가 거칠면 실제로 그만큼 빨리 내려가기 어렵기 때문입니다. 위 체크 상자를 켜면 그 이득까지 넣습니다.</p>
+<p class="tp-p"><b>이 계산이 모르는 것</b>: 바위·뿌리·진흙 같은 노면, 날씨, 고도, 피로, 가파른 구간에서 걷는 것은 들어 있지 않습니다. 실험 참가자는 남성 엘리트 산악 러너 10명이라 모든 사람에게 그대로 맞는다고 할 수 없습니다. 부하 지수의 구분(평지에 가까움, 오르내림 있는 코스, 산악 코스, 매우 힘든 산악 코스)은 연구가 정한 기준이 아니라 칼랭크가 나눈 것입니다. 시간은 예측이 아니라 이 가정 아래의 환산값입니다.</p></section>
+<p class="tp-src">근거: Minetti AE, Moia C, Roi GS, Susta D, Ferretti G. Energy cost of walking and running at extreme uphill and downhill slopes. J Appl Physiol 93:1039–1046, 2002 (doi:10.1152/japplphysiol.01177.2001). 경사 −45%~+45%에서 잰 달리기 에너지 비용의 5차 다항식을 씁니다.</p>''',
+    ["course.js"],
+    [("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같고, 1.40이면 같은 거리를 평지에서 1.4배 달리는 정도의 에너지가 든다는 뜻입니다."),
+     ("GPX 파일을 올리면 서버에 저장되나요?", "아닙니다. 파일은 이 브라우저 안에서만 읽고, 서버로 보내지 않으며 저장하지 않습니다."),
+     ("가파른 오르막에서 걷는 것은 반영되나요?", "반영되지 않습니다. 달리는 비용으로 계산하므로, 실제로 걷는 구간이 많은 코스에서는 계산보다 시간이 다르게 나올 수 있습니다.")])
+
+
 LEDGER = page(
     "ledger.html", "예상 기록 노트 — 대회 전에 적고, 끝난 뒤 맞춰 보기",
     "대회 전에 내 예상 기록을 적어 두고 끝난 뒤 실제 기록과 비교합니다. 카본화 효과를 연구 근거 범위로 환산해 적을 수도 있습니다. 기록은 내 기기에만 저장됩니다.",
@@ -269,7 +305,7 @@ def changes_page():
 
 STANDARDS.append(changes_page())
 
-for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
+for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name
     if not p.exists() or p.read_text(encoding="utf-8") != html:
         p.write_text(html, encoding="utf-8")
@@ -279,7 +315,7 @@ for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", L
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html"):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html"):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
