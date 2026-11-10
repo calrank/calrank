@@ -1,0 +1,47 @@
+{
+  "_note": "규정 원문을 직접 읽고 조항 번호와 함께 옮긴 것만 담는다. 원문에서 확인하지 못한 것은 넣지 않는다.",
+  "sources": {
+    "wt-rules-2026": {
+      "label": "World Triathlon Competition Rules (2026-03-30 판)",
+      "body": "World Triathlon",
+      "url": "https://www.jtu.or.jp/wordpress/wp-content/uploads/2026/03/World-Triathlon_Competition-Rules_2026_0330_jp.pdf",
+      "note": "본문 확인에 쓴 사본(일본트라이애슬론연맹 게시). 영문 원문이 우선합니다."
+    }
+  },
+  "sports": {
+    "triathlon": {
+      "items": [
+        {"id": "wt-helmet", "title": "헬멧 턱끈", "severity": "벌칙·실격", "clause": "5.2 g) (ii)(iii)(iv)",
+         "text": "자전거를 타는 모든 공식 활동(대회·적응·훈련)에서 헬멧을 써야 하고, 항상 단단히 채우고 몸에 맞아야 합니다. 턱끈을 고치는 것은 금지입니다. 자전거 구간으로 돌아가거나 다시 타기 전에 턱끈을 먼저 채워야 합니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-draft-zone", "title": "드래프팅 구간", "severity": "시간 벌칙", "clause": "5.5 c) (iv)",
+         "text": "앞 선수 앞바퀴 앞끝에서 12m가 드래프팅 구간입니다. 다른 선수의 구간을 통과하는 데 허용되는 시간은 최대 25초입니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-draft-penalty", "title": "드래프팅 시간 벌칙", "severity": "시간 벌칙", "clause": "3.3 e) (i)",
+         "text": "에이지그룹 벌칙 시간은 거리에 따라 다릅니다. 롱 3분, 미들 2분, 스탠더드 1분, 스프린트 이하 30초입니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-draft-dq", "title": "드래프팅 반복·벌칙 구역 미정지", "severity": "실격", "clause": "5.6 d)–f)",
+         "text": "벌칙 구역에서 서지 않으면 실격입니다. 스탠더드 이하 경기에서는 두 번째 드래프팅 위반, 미들·롱에서는 세 번째 위반에서 실격입니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-device", "title": "주의를 빼앗는 기기", "severity": "실격", "clause": "2.1 a) (xv)",
+         "text": "주변에 온전히 주의를 기울이지 못하게 하는 기기를 쓰면 안 됩니다. 규정은 음악 재생을 그런 사용의 예로 듭니다. 이렇게 통신 기기를 쓰면 실격입니다. 헤드폰이라는 말이 직접 적혀 있지는 않습니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-bib", "title": "배번 착용", "severity": "규정", "clause": "2.9 c) (i)",
+         "text": "웻슈트 수영에서는 배번을 달아도 되지만, 웻슈트를 못 입는 수영에서는 달면 안 됩니다. 달리기 구간에서는 반드시 달아야 하고 앞에서 보여야 합니다. 배번은 심판장 승인 없이 고칠 수 없습니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-assist-equipment", "title": "필수 장비를 남에게 주기", "severity": "실격", "clause": "2.2 b)",
+         "text": "자전거 완성차, 프레임, 휠, 헬멧 같은 필수 장비를 다른 선수에게 주면 두 선수 모두 실격입니다. 펌프, 튜브 같은 소모품을 서로 나누는 것은 허용됩니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-assist-push", "title": "다른 선수를 밀어 주기", "severity": "실격", "clause": "2.2 c)",
+         "text": "코스 어디에서든 다른 선수가 앞으로 나아가는 것을 몸으로 돕지 못합니다. 돕는 선수와, 도움을 받아들인 선수 모두 실격입니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-contact", "title": "고의 접촉·위험한 행동", "severity": "실격", "clause": "4.1 e) (iii)(iv), 5.1 h)",
+         "text": "수영에서 다른 선수를 고의로 노리거나 물속으로 누르거나 때리거나 할퀴거나 차면 실격입니다. 자전거에서도 고의로 상대를 노려 다치게 하거나 넘어뜨리면 실격입니다.",
+         "source": "wt-rules-2026"},
+        {"id": "wt-serve", "title": "벌칙을 이행하지 않기", "severity": "실격", "clause": "3.9 c)",
+         "text": "받은 시간 벌칙을 이행하기를 거부하면 실격입니다.",
+         "source": "wt-rules-2026"}
+      ]
+    }
+  }
+}
