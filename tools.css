@@ -141,3 +141,8 @@
 .cv-check { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--ink-soft); }
 .cv-check input { width: 20px; height: 20px; min-height: 0; margin: 0; }
 .tp-card .kit-row { margin-top: 14px; }
+.cp-lv { font-size: 18px; color: var(--ink); margin: 0 0 4px; }
+.cp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; line-height: 1.7; color: var(--ink-soft); }
+.cp-list b { color: var(--ink); }
+.cp-un { color: var(--ink-faint); }
+.cp-v { display: block; font-size: 12px; color: var(--ink-faint); }

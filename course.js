@@ -107,6 +107,18 @@
     return { segs: segs, profile: sm.map(function (e, idx) { return { x: idx * step, y: e }; }) };
   }
 
+  // [[누적거리 m, 고도 m], ...] → 구간 목록 (저장된 코스 단면용)
+  function fromProfile(pts) {
+    var segs = [], i, d, g;
+    for (i = 1; i < pts.length; i++) {
+      d = pts[i][0] - pts[i - 1][0];
+      if (d <= 0) continue;
+      g = (pts[i][1] - pts[i - 1][1]) / d;
+      segs.push({ d: d, g: Math.max(-LIM, Math.min(LIM, g)) });
+    }
+    return segs;
+  }
+
   // 코스 부하 지수 구분. 연구가 정한 기준이 아니라 칼랭크가 나눈 구간이다.
   function band(index) {
     if (index < 1.15) return "평지에 가까움";
@@ -115,7 +127,7 @@
     return "매우 힘든 산악 코스";
   }
 
-  var api = { cr: cr, factor: factor, analyze: analyze, fromTotals: fromTotals, parseGpx: parseGpx, segsFromPoints: segsFromPoints, band: band, LEVEL: LEVEL };
+  var api = { cr: cr, factor: factor, analyze: analyze, fromTotals: fromTotals, parseGpx: parseGpx, fromProfile: fromProfile, segsFromPoints: segsFromPoints, band: band, LEVEL: LEVEL };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.CalrankCourse = api;
 
@@ -135,7 +147,7 @@
   }
 
   function drawProfile(pr) {
-    var W = 640, H = 220, L = 70, R = 14, T = 14, B = 36;
+    var W = 640, H = 220, L = 70, R = 26, T = 14, B = 36;
     var xs = pr[pr.length - 1].x, mn = Infinity, mx = -Infinity, i;
     for (i = 0; i < pr.length; i++) { if (pr[i].y < mn) mn = pr[i].y; if (pr[i].y > mx) mx = pr[i].y; }
     var pad = Math.max(10, (mx - mn) * 0.1); mn -= pad; mx += pad;
@@ -154,6 +166,8 @@
     return '<svg viewBox="0 0 ' + W + " " + H + '" width="100%" role="img" aria-label="코스 고도 단면">' + g +
       '<path d="' + area + '" fill="var(--tint-2)" stroke="none"/><path d="' + d + '" fill="none" stroke="var(--accent)" stroke-width="2"/></svg>';
   }
+
+  api.drawProfile = drawProfile; api.fmtTime = fmtTime; api.parsePace = parsePace;
 
   function render() {
     var pace = parsePace($("cvPace").value);
@@ -197,6 +211,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    if (!$("cvRun")) return;        // 코스 도구 페이지가 아닌 곳(저장된 코스 페이지)에서는 쓰지 않는다
     $("cvRun").addEventListener("click", manual);
     $("cvFile").addEventListener("change", function (e) { onFile(e.target.files[0]); });
     $("cvDown").addEventListener("change", function () { if (segs) render(); });
