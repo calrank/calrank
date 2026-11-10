@@ -6,6 +6,12 @@
       "body": "World Triathlon",
       "url": "https://www.jtu.or.jp/wordpress/wp-content/uploads/2026/03/World-Triathlon_Competition-Rules_2026_0330_jp.pdf",
       "note": "본문 확인에 쓴 사본(일본트라이애슬론연맹 게시). 영문 원문이 우선합니다."
+    },
+    "uci-part1": {
+      "label": "UCI 규정 제1편 일반 조직 (본문 확인판 2021-07-22)",
+      "body": "UCI",
+      "url": "https://www.uci.org/docs/default-source/rules-and-regulations/part-i-general-organisation/main.pdf",
+      "note": "본문을 읽은 판은 2021년 7월 22일판입니다. 이후 개정됐을 수 있어서 대회 전에는 UCI 게시 최신판을 확인해 주세요."
     }
   },
   "sports": {
@@ -93,9 +99,51 @@
         }
       ],
       "edited": "2026-11-10"
+    },
+    "cycling": {
+      "edited": "2026-11-10",
+      "items": [
+        {
+          "id": "uci-weight",
+          "title": "자전거 최소 무게 6.8kg",
+          "severity": "규정",
+          "clause": "1.3.019",
+          "text": "자전거의 무게는 6.8kg보다 가벼울 수 없습니다.",
+          "source": "uci-part1"
+        },
+        {
+          "id": "uci-setback",
+          "title": "안장 위치",
+          "severity": "규정",
+          "clause": "1.3.013",
+          "text": "안장 끝점은 크랭크 축(보텀브래킷) 수직면보다 최소 5cm 뒤에 있어야 합니다. 체형 때문에 더 앞으로 두어야 하면 경기 전 장비 검사에서 심판단에 알려야 하고, 안장과 핸들바 연장부 중 한 가지에만 예외를 요청할 수 있습니다(1.3.023).",
+          "source": "uci-part1"
+        },
+        {
+          "id": "uci-saddle-angle",
+          "title": "안장 각도",
+          "severity": "규정",
+          "clause": "1.3.014",
+          "text": "안장의 가장 높은 앞·뒤 점을 지나는 면은 수평에서 최대 9도까지 기울 수 있습니다.",
+          "source": "uci-part1"
+        },
+        {
+          "id": "uci-approval",
+          "title": "UCI 승인 장비",
+          "severity": "규정",
+          "clause": "1.3.001, 1.3.004, 1.3.006",
+          "text": "도로·트랙·사이클로크로스 경기에 쓰는 장비는 UCI가 승인 규약에 따라 승인한 것이어야 합니다. 새 기술은 승인되기 전까지 쓸 수 있고, UCI는 서류가 갖춰진 날부터 6개월 안에 답합니다. 시제품은 사용 전에 UCI 장비 부서의 허가가 필요합니다.",
+          "source": "uci-part1"
+        }
+      ]
     }
   },
   "changelog": [
+    {
+      "date": "2026-11-10",
+      "title": "사이클 규칙 기준 공개",
+      "text": "UCI 규정 제1편(2021-07-22판)에서 직접 읽고 확인한 4개 항목을 조항 번호와 함께 실었습니다. 최신판 개정 여부는 확인하지 못해 원문 확인을 안내합니다."
+    },
     {
       "date": "2026-11-10",
       "title": "철인3종 규칙 기준 공개",
