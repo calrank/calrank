@@ -18,6 +18,13 @@
 
   var CLAIMS = null, RULES = null, CLAIM = null, RULE = null;
 
+  // 생성기가 본문을 미리 찍어 둔 페이지인가. 그렇다면 위쪽 판정에서는
+  // 근거 카드와 차트를 되풀이하지 않는다 — 바로 아래에 같은 것이 있다.
+  function hasStaticBody() {
+    var m = document.getElementById("gearMeta");
+    return !!(m && m.children.length);
+  }
+
   var GRADE_TEXT = {
     A: "메타분석 또는 복수의 무작위 대조 연구",
     B: "동료심사를 거친 단일 연구",
@@ -348,10 +355,38 @@
           body += '<p class="ge-value">' + num(e.priceKrw) + "원이면 <b>1초에 " +
             num(Math.round(e.wonPerSecond)) + "원</b>입니다.</p>";
         }
+      } else if (e.computed === "crr_time" || e.computed === "cda_pct_time") {
+        // 손해 보는 쪽(공기압 낮추기, 바이저 빼기)은 "느려집니다"로 적어야 한다.
+        // 저항이 몇 % 줄었는지가 아니라 기록이 어느 쪽으로 가는지가 답이다.
+        var worse = e.direction === "worse";
+        var label = e.computed === "crr_time" ? "구름저항" : "공기저항";
+        body = '<p class="ge-big"><strong>' + minSec(a.cutSec) + "</strong> " +
+          (worse ? "느려집니다" : "빨라집니다") + "</p>" +
+          '<p class="ge-time">' + esc(label) + "을 " + a.deltaPct.toFixed(0) +
+          "% 바꾸면 같은 힘으로 <b>" + a.speedBefore.toFixed(1) + " → " +
+          (worse ? (2 * a.speedBefore - a.speedAfter).toFixed(1) : a.speedAfter.toFixed(1)) +
+          "㎞/h</b> (" + a.gainPct.toFixed(2) + "%)입니다. " +
+          "이 속도에서 공기저항이 " + a.sharePct.toFixed(0) +
+          "%, 구름저항이 " + a.rollSharePct.toFixed(0) + "%를 가져갑니다.</p>";
+        if (e.wonPerSecond) {
+          body += '<p class="ge-value">' + num(e.priceKrw) + "원이면 <b>1초에 " +
+            num(Math.round(e.wonPerSecond)) + "원</b>입니다.</p>";
+        }
       }
       return '<section class="ge-eff"><h3>' + esc(e.label) +
         (e.detail ? ' <span class="ge-detail">' + esc(e.detail) + "</span>" : "") + "</h3>" +
-        body + evidenceCard(e.evidence) + "</section>";
+        body +
+        (hasStaticBody()
+          ? '<p class="ge-mini-src"><span class="ge-grade ge-' + esc(e.evidence.grade) +
+            '">근거 ' + esc(e.evidence.grade) + "</span> 자세한 근거와 출처는 아래에 적어 두었습니다.</p>"
+          : evidenceCard(e.evidence)) +
+        "</section>";
+    }
+    if (e.caveat) {
+      return '<section class="ge-eff ge-caveat"><h3>' + esc(e.label) +
+        (e.detail ? ' <span class="ge-detail">' + esc(e.detail) + "</span>" : "") + "</h3>" +
+        '<p class="ge-gap">' + esc(e.evidence.note || "") + "</p>" +
+        (hasStaticBody() ? "" : evidenceCard(e.evidence)) + "</section>";
     }
     var r = e.range, ns = e.evidence.significant === false;
     var dirWord = e.direction === "worse" ? "나빠집니다" : "좋아집니다";
@@ -382,6 +417,12 @@
           num(Math.round(e.wonPerSecond)) + "원</b>입니다.</p>";
       }
       if (claim.transfer_note) html += '<p class="ge-note">' + esc(claim.transfer_note) + "</p>";
+    }
+    if (hasStaticBody()) {
+      return html +
+        '<p class="ge-mini-src"><span class="ge-grade ge-' + esc(e.evidence.grade) +
+        '">근거 ' + esc(e.evidence.grade) + "</span> 자세한 근거와 출처는 아래에 적어 두었습니다.</p>" +
+        "</section>";
     }
     return html + evidenceChart(claim, e.id, condValue, unit) + evidenceCard(e.evidence) + "</section>";
   }
@@ -461,18 +502,22 @@
     // 모델로 푸는 주장은 기록이 아니라 평속과 거리를 받는다. 자전거는
     // 기록을 외우는 사람보다 평속을 외우는 사람이 훨씬 많다.
     if (modelled) {
+      var needsDelta = CLAIM.effects.some(function (e) { return e.computed === "cda_time"; });
       rows.push(
         '<label for="geCond">평균 속도 <span class="gf-unit">(㎞/h)</span></label>' +
         '<input id="geCond" type="number" step="0.5" min="5" max="70" value="30">',
         '<label for="geDistance">거리 <span class="gf-unit">(km)</span></label>' +
         '<input id="geDistance" type="number" step="5" min="1" max="500" value="40">',
         '<label for="geCda">내 CdA <span class="gf-unit">(㎡, 모르면 그대로)</span></label>' +
-        '<input id="geCda" type="number" step="0.005" min="0.15" max="0.6" value="0.264">',
-        '<label for="geCdaDelta">휠이 줄여 준다는 CdA <span class="gf-unit">(㎡)</span></label>' +
-        '<input id="geCdaDelta" type="number" step="0.001" min="0.001" max="0.1" value="0.010">',
-        '<label for="gePrice">가격 (원)</label>' +
-        '<input id="gePrice" type="text" inputmode="numeric" placeholder="1200000" value="1200000">'
+        '<input id="geCda" type="number" step="0.005" min="0.15" max="0.6" value="0.264">'
       );
+      if (needsDelta) {
+        rows.push('<label for="geCdaDelta">휠이 줄여 준다는 CdA <span class="gf-unit">(㎡)</span></label>' +
+          '<input id="geCdaDelta" type="number" step="0.001" min="0.001" max="0.1" value="0.010">');
+      }
+      rows.push('<label for="gePrice">가격 (원)</label>' +
+        '<input id="gePrice" type="text" inputmode="numeric" placeholder="90000" value="' +
+        (needsDelta ? "1200000" : "90000") + '">');
       box.innerHTML = rows.join("");
       box.querySelectorAll("input,select").forEach(function (el) {
         el.addEventListener("input", renderClaim);

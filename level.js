@@ -244,7 +244,8 @@ function renderResult(result, inputs) {
         <button type="button" class="lv-share-btn" id="lvShareBtn">📷 공유 카드 만들기</button>
         <p class="lv-share-hint">카드를 먼저 보여 드립니다. 보고 나서 저장하거나 공유하세요.
         가입은 필요 없고, 이미지는 기기 안에서 만들어져 서버로 올라가지 않습니다.</p>
-      </div>`;
+      </div>
+      <div id="lvGear" class="lv-gear" hidden></div>`;
     })()}
 
     ${(() => {
@@ -721,6 +722,119 @@ function gradeBand(finishSec, km, age, gender) {
 }
 
 
+
+// ── 장비로 이 기록을 얼마나 줄일 수 있나 ────────────────────────
+//
+// 이 블록이 칼랭크가 다른 곳과 갈리는 자리다. 장비를 파는 곳은 효과를
+// 말하지만 그 사람 등급이 어떻게 되는지는 모른다. 등급을 매기는 곳은
+// 등급을 말하지만 장비 얘기를 못 한다. 둘을 다 가진 곳이 드물다.
+//
+// 그래서 여기서 할 일은 "좋은 장비를 사세요"가 아니라 그 반대다.
+// 느린 분에게는 "장비로는 등급이 안 바뀝니다"가 나와야 하고, 그게
+// 정직한 답이다. 실제로 카본화 근거는 12㎞/h 아래에서 통계적으로
+// 유의하지 않았다. 그 사실을 숨기면 이 블록은 광고가 된다.
+//
+// 조건을 기록에서 바로 뽑을 수 있는 주장만 쓴다. 신발 무게는 조건이
+// '운동 강도'라 대회 기록만으로는 알 수 없다 — 내가 강도를 가정해
+// 넣으면 그 가정이 결과를 좌우하면서 출처는 논문으로 보이게 된다.
+// 그런 건 자기 페이지로 보낸다.
+let GEAR_CLAIMS = null;
+
+async function loadGearClaims() {
+  if (GEAR_CLAIMS) return GEAR_CLAIMS;
+  try {
+    const r = await fetch("data/gear_claims.json");
+    GEAR_CLAIMS = await r.json();
+  } catch (e) {
+    GEAR_CLAIMS = { claims: [] };
+  }
+  return GEAR_CLAIMS;
+}
+
+async function paintGearLift(inputs) {
+  const box = document.getElementById("lvGear");
+  if (!box || !window.calrankGear) return;
+  const { finishSec, distanceKm, age, gender } = inputs;
+  const std = wmaStd(gender, distanceKm, age);
+  if (!std) return;
+
+  const data = await loadGearClaims();
+  const claim = window.calrankGear.findClaim(data, "carbon-plate");
+  if (!claim) return;
+
+  const res = window.calrankGear.judge({ claim, finishSec, distanceKm });
+  if (!res || !res.effects.length) return;
+  const e = res.effects[0];
+  if (!e.hasEvidence || !e.cutSec) return;
+
+  const ns = e.evidence.significant === false;
+  const pctNow = (std / finishSec) * 100;
+  const tierNow = getTier(pctNow);
+
+  // 아래끝·위끝 양쪽으로 등급이 어디까지 가는지 본다. 점추정 하나만
+  // 쓰면 "3분 38초 단축"처럼 딱 떨어져 보이는데, 그건 구간의 한가운데일
+  // 뿐이다.
+  const best = Math.max(Math.abs(e.cutSec.lo), Math.abs(e.cutSec.hi));
+  const secBest = Math.max(1, Math.round(finishSec - best));
+  const pctBest = (std / secBest) * 100;
+  const tierBest = getTier(pctBest);
+  const moves = tierBest.label !== tierNow.label;
+
+  // 등급 사다리는 이미 "다음 등급까지 몇 초"를 보여 주고 있다. 장비가
+  // 돌려주는 초와 그 숫자를 나란히 놓으면 판단이 바로 선다. 4분 16초가
+  // 필요한데 장비가 22초를 준다면, 더 설명할 것이 없다.
+  const gap = gapToNextTier({ agePct: pctNow, finishSec, distanceKm, age, gender });
+
+  let head;
+  if (moves) {
+    head = `카본화를 신으면 등급이 <b>${tierNow.label}</b>에서
+            <b>${tierBest.label}</b>까지 갈 수 있습니다`;
+  } else if (gap) {
+    head = `다음 등급 <b>${gap.label}</b>까지는 <b>${fmtGap(gap.diff)}</b>가 필요한데,
+            카본화가 돌려주는 건 많아야 <b>${fmtGap(best)}</b>입니다`;
+  } else {
+    head = `카본화를 신어도 등급은 <b>${tierNow.label}</b> 그대로입니다`;
+  }
+
+  const span = ns
+    ? `0초 ~ ${fmtGap(best)}`
+    : `${fmtGap(Math.min(Math.abs(e.cutSec.lo), Math.abs(e.cutSec.hi)))} ~ ${fmtGap(best)}`;
+
+  box.innerHTML = `
+    <h3 class="lv-gear-h">장비로는 얼마나 줄일 수 있을까</h3>
+    <p class="lv-gear-head">${head}</p>
+    <div class="lv-gear-row">
+      <span class="lv-gear-name">카본 플레이트 레이싱화</span>
+      <span class="lv-gear-grade lv-g-${e.evidence.grade}">근거 ${e.evidence.grade}</span>
+      <span class="lv-gear-cut">${span} 단축</span>
+    </div>
+    <p class="lv-gear-why">
+      당신 페이스는 <b>${res.speedKmh.toFixed(1)}㎞/h</b>입니다.
+      ${ns
+        ? `이 속도 구간을 다룬 연구는 참가자 16명짜리 하나뿐이고, 그나마
+           통계적으로 유의하지 않았습니다(p=0.065). 효과가 0일 가능성을
+           배제하지 못한다는 뜻이라 아래끝을 0으로 적었습니다.`
+        : `이 속도 구간은 연구 ${e.evidence.studies}편, 참가자
+           ${e.evidence.n}명을 통합한 메타분석이 뒷받침합니다.`}
+      ${moves ? "" : gap
+        ? ` 장비보다는 훈련이 그 ${fmtGap(gap.diff)}를 메우는 길입니다.`
+        : " 등급 경계를 넘기에는 모자랍니다."}
+    </p>
+    <p class="lv-gear-note">
+      이코노미가 좋아진 만큼 그대로 기록이 줄지는 않아서, 보수적으로
+      70%만 반영했습니다. 이 70%는 연구에서 나온 값이 아니라 칼랭크가
+      고른 가정입니다. 여러 장비의 효과를 더하지도 않았습니다 —
+      서로 다른 조건에서 따로 잰 숫자라 더하면 어느 연구에도 없는
+      값이 됩니다.
+    </p>
+    <p class="lv-gear-links">
+      <a href="gear-carbon-plate.html">카본화 판정 자세히</a> ·
+      <a href="gear-wa-stack-height.html">내 신발이 규정에 맞나</a> ·
+      <a href="gear.html">기어 판정 전체</a>
+    </p>`;
+  box.hidden = false;
+}
+
 // ── 등급 사다리 ───────────────────────────────────────────────
 // '마라톤 등급'을 검색해서 들어오는 사람이 가장 보고 싶어 하는 건
 // "몇 분이면 어느 등급인가" 하는 표다. 그런데 구간 이름만 1~7로
@@ -1035,6 +1149,7 @@ function wireGive(inputs) {
   wireGiveOne(inputs, "lvConsent", "lvGiveBtn", "lvGiveMsg");
   wireGiveOne(inputs, "lvConsentMini", "lvGiveBtnMini", "lvGiveMsgMini");
   paintProgress(inputs);
+  paintGearLift(inputs);
 }
 
 function giveDone(inputs) {

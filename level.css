@@ -507,3 +507,56 @@
 }
 /* <strong> 은 환산 기록 한 곳에만 쓴다. 문장 안의 작은 강조는 <b>. */
 .lv-adj-body b{font-weight:900;color:var(--ink);}
+
+/* ── 장비로는 얼마나 줄일 수 있나 ──────────────────────────────
+ * 등급을 보고 나면 바로 "그래서 어떻게 올리지"가 나온다. 그 자리에
+ * 답을 두되, 파는 말투가 되지 않게 한다. 근거 등급을 숫자에서 떼지
+ * 않고, 느린 분에게는 "장비로는 안 바뀝니다"가 그대로 보이게 한다.
+ * 색은 전부 토큰이다 — 하드코딩 hex 는 sync_theme 가 바꿔 버린다. */
+.lv-gear {
+  margin: 22px 0 0; padding: 16px 18px;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--surface);
+}
+.lv-gear-h {
+  font-size: 13px; font-weight: 700; color: var(--ink-faint);
+  margin: 0 0 8px; letter-spacing: .01em;
+}
+.lv-gear-head {
+  font-size: 16px; line-height: 1.65; color: var(--ink-soft);
+  margin: 0 0 12px; text-wrap: balance;
+}
+.lv-gear-head b { color: var(--ink); }
+.lv-gear-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+  padding: 11px 13px; border-radius: 8px; background: var(--tint-1);
+}
+.lv-gear-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+.lv-gear-grade {
+  font-size: 11px; font-weight: 900; padding: 2px 7px; border-radius: 999px;
+  color: var(--on-accent); background: var(--ink-faint);
+}
+.lv-g-A { background: var(--trail); }
+.lv-g-B { background: var(--forecast); }
+.lv-g-C { background: var(--warn-ink); color: var(--bg); }
+.lv-g-D { background: var(--ink-faint); }
+.lv-gear-cut { font-size: 13.5px; color: var(--ink-soft); margin-left: auto; }
+.lv-gear-why {
+  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin: 11px 0 0;
+}
+.lv-gear-why b { color: var(--ink); }
+.lv-gear-note {
+  font-size: 12px; line-height: 1.75; color: var(--ink-faint); margin: 9px 0 0;
+}
+.lv-gear-links { font-size: 13px; line-height: 1.9; margin: 12px 0 0; }
+.lv-gear-links a {
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px dashed var(--ink-faint);
+}
+.lv-gear-links a:hover { color: var(--accent-ink); border-color: var(--accent); }
+
+@media (max-width: 680px) {
+  .lv-gear { padding: 14px 15px; }
+  .lv-gear-head { font-size: 15px; }
+  .lv-gear-cut { margin-left: 0; width: 100%; }
+}

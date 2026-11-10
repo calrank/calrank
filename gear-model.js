@@ -83,6 +83,19 @@
   // 결과를 좌우하면서 출처는 논문으로 보이게 된다.
   var MARTIN = { rho: 1.225, crr: 0.004, mass: 80, ec: 0.977, g: 9.81 };
 
+  // Object.assign 은 undefined 도 복사한다. 사용자가 안 넣은 값까지 덮어쓰면
+  // 기본값이 사라지면서 계산이 NaN 이 되고, 화면에는 "근거 없음"으로 나온다.
+  // 숫자가 들어온 것만 덮는다.
+  function withOpts(base, opts) {
+    var o = Object.assign({}, base);
+    if (opts) {
+      for (var k in opts) {
+        if (Object.prototype.hasOwnProperty.call(opts, k) && isNum(opts[k])) o[k] = opts[k];
+      }
+    }
+    return o;
+  }
+
   function martinPower(v, o) {
     o = o || MARTIN;
     if (!isNum(v) || v <= 0) return null;
@@ -109,17 +122,55 @@
   // 공기저항이 가져가는 몫 — 속도만 있으면 난다.
   function aeroShareAt(speedKmh, opts) {
     if (!isNum(speedKmh) || speedKmh <= 0) return null;
-    var o = Object.assign({}, MARTIN, opts || {});
+    var o = withOpts(MARTIN, opts);
     if (!isNum(o.cda)) o.cda = 0.264;   // 논문 참가자 6명 평균
     var p = martinPower(speedKmh / 3.6, o);
     return p ? { sharePct: p.share * 100, watts: p.total, cda: o.cda } : null;
+  }
+
+  // 저항 계수 하나를 퍼센트로 바꿨을 때 같은 힘으로 얼마나 빨라지나.
+  // 공기저항(cda)과 구름저항(crr) 둘 다 같은 식으로 푼다 — 어느 쪽을
+  // 건드리든 출력을 고정하고 속도를 다시 푸는 일은 똑같다.
+  //
+  // 여기서 재미있는 건 둘의 방향이 반대라는 점이다. 공기저항은 속도의
+  // 세제곱으로 커지니 빠를수록 비중이 커지고, 구름저항은 속도에 비례하니
+  // 느릴수록 비중이 커진다. 그래서 같은 퍼센트를 줄여도 빠른 사람은
+  // 휠에서, 느린 사람은 타이어에서 더 많이 돌려받는다.
+  function resistTimeGain(speedKmh, which, deltaPct, distanceKm, opts) {
+    if (!isNum(speedKmh) || speedKmh <= 0) return null;
+    if (!isNum(deltaPct) || deltaPct <= 0 || deltaPct >= 100) return null;
+    if (which !== "cda" && which !== "crr") return null;
+    var o = withOpts(MARTIN, opts);
+    if (!isNum(o.cda)) o.cda = 0.264;
+    if (!isNum(o[which])) return null;
+
+    var v0 = speedKmh / 3.6;
+    var p0 = martinPower(v0, o);
+    if (!p0) return null;
+    var o2 = Object.assign({}, o);
+    o2[which] = o[which] * (1 - deltaPct / 100);
+    var v1 = martinSpeed(p0.total, o2);
+    if (!isNum(v1) || v1 <= 0) return null;
+
+    var out = { which: which, deltaPct: deltaPct,
+                watts: p0.total, sharePct: p0.share * 100,
+                rollSharePct: (p0.roll / (p0.aero + p0.roll + p0.bear)) * 100,
+                speedBefore: v0 * 3.6, speedAfter: v1 * 3.6,
+                gainKmh: (v1 - v0) * 3.6, gainPct: (v1 / v0 - 1) * 100,
+                before: o[which], after: o2[which] };
+    if (isNum(distanceKm) && distanceKm > 0) {
+      out.secBefore = distanceKm * 1000 / v0;
+      out.secAfter  = distanceKm * 1000 / v1;
+      out.cutSec    = out.secBefore - out.secAfter;
+    }
+    return out;
   }
 
   // CdA 가 deltaM2 만큼 줄면 같은 힘으로 얼마나 빨라지나.
   function cdaTimeGain(speedKmh, deltaM2, distanceKm, opts) {
     if (!isNum(speedKmh) || speedKmh <= 0) return null;
     if (!isNum(deltaM2) || deltaM2 <= 0) return null;
-    var o = Object.assign({}, MARTIN, opts || {});
+    var o = withOpts(MARTIN, opts);
     if (!isNum(o.cda)) o.cda = 0.264;
     if (deltaM2 >= o.cda) return null;
 
@@ -179,6 +230,23 @@
         if (eff.computed === "aero_share") {
           row.aero = aeroShareAt(spd, { cda: input.cda });
           row.hasEvidence = !!row.aero;
+        } else if (eff.computed === "crr_time" || eff.computed === "cda_pct_time") {
+          var which = eff.computed === "crr_time" ? "crr" : "cda";
+          var dp = which === "crr" ? ev.crr_delta_pct : ev.cda_delta_pct;
+          if (isNum(input.resistDeltaPct)) dp = input.resistDeltaPct;
+          row.aero = resistTimeGain(spd, which, dp, input.distanceKm,
+                                    { cda: input.cda, crr: input.crr });
+          row.hasEvidence = !!row.aero;
+          if (row.aero && isNum(row.aero.cutSec)) {
+            var sgn = (eff.direction === "worse") ? -1 : 1;
+            row.cutSec = { point: sgn * row.aero.cutSec,
+                           lo: sgn * row.aero.cutSec, hi: sgn * row.aero.cutSec };
+            row.adjustedSec = Math.max(1, Math.round(row.aero.secAfter));
+            if (isNum(input.priceKrw) && input.priceKrw > 0 && row.cutSec.point > 0) {
+              row.wonPerSecond = input.priceKrw / row.cutSec.point;
+              row.priceKrw = input.priceKrw;
+            }
+          }
         } else if (eff.computed === "cda_time") {
           var delta = isNum(input.cdaDelta) ? input.cdaDelta : ev.cda_delta_m2;
           row.aero = cdaTimeGain(spd, delta, input.distanceKm, { cda: input.cda });
@@ -201,6 +269,13 @@
         row.hasEvidence = false;
         row.noData = true;
         row.gap = { note: ev.note, source: ev.source };
+      } else if (ev && (ev.caveat || eff.kind === "caveat")) {
+        // 효과가 아니라 주의사항이다. 퍼센트를 붙이면 "0% 좋아집니다"
+        // 같은 말이 되는데, 하려던 말과 정반대로 읽힌다.
+        out.hasAnyEvidence = true;
+        row.hasEvidence = true;
+        row.caveat = true;
+        row.evidence = ev;
       } else if (ev) {
         out.hasAnyEvidence = true;
         row.range = effectRange(ev);
@@ -276,6 +351,7 @@
     martinSpeed: martinSpeed,
     aeroShareAt: aeroShareAt,
     cdaTimeGain: cdaTimeGain,
+    resistTimeGain: resistTimeGain,
     pickEvidence: pickEvidence,
     effectRange: effectRange,
     evidenceMap: evidenceMap,

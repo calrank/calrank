@@ -292,3 +292,69 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   .gm-table th { border-bottom: 0; padding-bottom: 2px; }
   .gi-sec { margin-top: 36px; }
 }
+
+/* 생성기가 찍은 페이지에서는 위쪽 판정이 숫자만 낸다. 근거와 출처는
+   바로 아래 본문에 있으니, 여기서는 등급만 달고 그쪽을 가리킨다. */
+.ge-mini-src {
+  margin: 12px 0 0; padding-top: 11px; border-top: 1px solid var(--line);
+  font-size: 12px; color: var(--ink-faint);
+}
+
+/* 주의사항 칸 — 효과가 아니라서 숫자를 내지 않는다. */
+.ge-caveat { border-style: dashed; }
+
+/* ── 기록별·평속별 효과표 ──────────────────────────────────────
+ * 목표 시간 페이지와 같은 일을 한다 — 읽는 사람이 표에서 자기 줄을
+ * 찾게 한다. 모바일에서 가로로 밀리게 두되, 밀린다는 걸 알 수 있게
+ * 가장자리에 그늘을 준다. */
+.gt-wrap {
+  margin: 18px 0 0; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.gt {
+  width: 100%; border-collapse: collapse; font-size: 13.5px;
+  min-width: 460px;
+}
+.gt thead th {
+  text-align: left; font-size: 12px; color: var(--ink-faint);
+  font-weight: 700; padding: 0 12px 8px 0;
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.gt tbody th {
+  text-align: left; font-weight: 700; color: var(--ink);
+  padding: 11px 12px 11px 0; white-space: nowrap;
+}
+.gt tbody td {
+  color: var(--ink-soft); padding: 11px 12px 11px 0; vertical-align: top;
+}
+.gt tbody tr + tr th, .gt tbody tr + tr td { border-top: 1px solid var(--line); }
+.gt tbody td b { color: var(--ink); }
+.gt tbody td em { font-style: normal; color: var(--ink-faint); }
+.gt .ge-grade { margin-right: 0; }
+.gt-ns {
+  display: block; font-size: 11px; color: var(--warn-ink);
+  font-weight: 700; margin-top: 3px; white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  /* 좁은 화면에서 가로로 밀리면 맨 오른쪽 '등급' 칸이 잘린다. 그런데
+     그 칸이 이 표의 요점이다 — 몇 초 줄어드는지보다 등급이 바뀌는지가
+     사람들이 알고 싶은 것이다. 속도는 페이스에서 바로 나오는 값이라
+     여기서만 접는다. 그러면 나머지가 화면 안에 들어온다. */
+  .gt { font-size: 12.5px; min-width: 0; }
+  .gt thead th, .gt tbody th, .gt tbody td { padding-right: 8px; }
+  .gt thead th:nth-child(3), .gt tbody td:nth-child(3) { display: none; }
+  .gt-ns { font-size: 10.5px; }
+}
+
+/* 표 페이지로 보내는 줄. 판정 머리 가까이 둔다. */
+.gi-tablinks {
+  margin: 0 0 16px; padding: 11px 14px; border-radius: 8px;
+  background: var(--tint-1); font-size: 13.5px; line-height: 1.9;
+  color: var(--ink-faint);
+}
+.gi-tablinks a {
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px dashed var(--ink-faint);
+}
+.gi-tablinks a:hover { color: var(--accent-ink); border-color: var(--accent); }
