@@ -50,8 +50,23 @@ def slugify(sport, concern_id):
 # 칼럼 끝에서 이어 보낼 페이지. (종목, concern id) 로 찾는다.
 # 러닝화 편은 "뭘 사야 하나"로 끝나는데 살 데를 안 알려 주면 거기서 끊겼다.
 NEXT_STOP = {
-    ("marathon", "shoe-selection"): (
-        "gear-prices.html", "갈래를 정했다면 — 러닝화 어디서 사나 →"),
+    ("marathon", "shoe-selection"): [
+        ("gear-carbon-plate.html", "카본화는 기록을 얼마나 줄일까 — 속도별 근거 등급"),
+        ("gear-wa-stack-height.html", "러닝화 밑창 두께 규정 — 대회에서 쓸 수 있는 신발인지"),
+        ("gear-prices.html", "러닝화 어디서 사나")],
+    ("trail", "beginner-gear"): [
+        ("gear-utmb-kit.html", "UTMB 필수 장비 목록과 규정"),
+        ("gear-utmb-jacket.html", "방수 재킷 규정 — 무엇을 기준으로 보나"),
+        ("gear-trail-pack-weight.html", "배낭 무게가 기록에 주는 영향")],
+    ("trail", "poles-technique"): [
+        ("gear-trail-poles.html", "트레일 폴 효과와 근거 등급"),
+        ("gear-trail-poles-by-gradient.html", "경사도별 트레일 폴 효과")],
+    ("cycling", "granfondo-prep"): [
+        ("gear-tyre-rolling.html", "타이어와 구름저항"),
+        ("gear-aero-wheel.html", "에어로 휠 효과와 근거 등급")],
+    ("triathlon", "open-water-fear"): [
+        ("gear-wetsuit-by-temp.html", "수온별 웻슈트 착용 기준"),
+        ("gear-wt-wetsuit-thickness.html", "웻슈트 두께 규정")],
 }
 
 
@@ -59,13 +74,16 @@ def next_stop_html(sport, concern_id):
     hit = NEXT_STOP.get((sport, concern_id))
     if not hit:
         return ""
-    href, label = hit
-    return (f'<p class="column-next"><a href="{href}">{label}</a></p>')
+    items = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in hit)
+    return ('<div class="column-next"><h2>장비가 궁금하다면</h2>'
+            '<p>칼랭크 기어 판정은 규정을 연맹 문서에서, 효과를 논문에서 가져와 따로 정리합니다.</p>'
+            f'<ul>{items}</ul></div>')
 
 
 def build_page(sport_label, sport, concern, cycle_count):
-    title = f"{concern['title']} — {sport_label} 노하우 총정리"
-    desc = f"{sport_label} {concern['title']} 실제 출처(의학·전문가, 공식 자료, 언론 보도)를 밝힌 노하우 정리."
+    title = f"{concern['title']} — {sport_label} 노하우"
+    desc = (f"{concern['title']} {sport_label}에서 알려진 방법을 출처와 함께 정리했습니다. "
+            "전문가 확인, 공식 자료, 언론 보도를 나눠 표시했습니다.")[:155]
     today = datetime.now(KST).strftime("%Y.%m.%d")
 
     tip_rows = "\n".join(
@@ -174,7 +192,7 @@ def build_page(sport_label, sport, concern, cycle_count):
 {next_stop}
 
 <div class="column-cta">
-<p>{sport_label} 대회 일정을 확인하고 다음 목표를 잡아보세요.</p>
+<p>다음 대회를 고르는 중이라면, 캘린더에서 {sport_label} 대회를 지역과 거리별로 볼 수 있습니다.</p>
 <a href="index.html?sport={sport}">{sport_label} 대회 캘린더 보기 →</a>
 </div>
 </main>
@@ -280,7 +298,7 @@ def main():
     slug = slugify(sport, concern_id)
     (ROOT / slug).write_text(html, encoding="utf-8")
 
-    update_column_list(concern["title"] + f" — {sport_label} 노하우 총정리", f"{sport_label} {concern['title']} 실제 출처를 밝힌 노하우 정리.", slug, sport_label)
+    update_column_list(concern["title"] + f" — {sport_label} 노하우", f"{concern['title']} {sport_label}에서 알려진 방법을 출처와 함께 정리했습니다.", slug, sport_label)
     update_sitemap(slug)
 
     state["published"].append(f"{sport}:{concern_id}")

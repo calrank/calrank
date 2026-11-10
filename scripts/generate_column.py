@@ -159,55 +159,25 @@ def build_content(stats, rng):
     top_region_name, top_region_count = s["top_regions"][0]
 
     title_options = [
-        f'{s["month_kr"]}, 전국 {s["sport_label"]} 대회 {s["total"]}개 — 지역별 완전정리',
-        f'{s["month_kr"]} {s["sport_label"]} 대회 총정리 — {s["total"]}개 대회 한눈에',
+        f'{s["month_kr"]}, 전국 {s["sport_label"]} 대회 {s["total"]}개 — 지역별 정리',
+        f'{s["month_kr"]} {s["sport_label"]} 대회 {s["total"]}개 — 지역·거리별 현황',
         f'{s["month_kr"]}에 열리는 {s["sport_label"]} 대회 {s["total"]}곳',
     ]
     title = rng.choice(title_options)
 
-    intro_options = [
-        f'{s["sport_label"]}은 계절이 바뀔 때마다 대회 일정도 함께 바뀝니다. calrank에 등록된 실제 데이터를 기준으로, {s["month_kr"]} 한 달간 열리는 {s["sport_label"]} 대회를 지역별·거리별로 정리했습니다.',
-        f'calrank가 보유한 실제 대회 데이터를 바탕으로, {s["month_kr"]} {s["sport_label"]} 대회 현황을 살펴봤습니다. 어디서, 어떤 거리로 대회가 열리는지 한눈에 확인해보세요.',
-        f'{s["month_kr"]}에 {s["sport_label"]} 대회를 찾고 계신다면 참고하세요. calrank 데이터를 기준으로 이번 달 대회를 지역별·거리별로 직접 집계했습니다.',
-    ]
-    intro = rng.choice(intro_options)
-
-    sec1_heading = rng.choice(["이번 달 대회 현황", f'{s["month_kr"]} {s["sport_label"]} 대회 규모', "총 몇 개나 열릴까"])
-    sec1_body_options = [
-        f'{s["month_kr"]} 한 달간 calrank에 등록된 {s["sport_label"]} 대회는 총 {s["total"]}개입니다.',
-        f'이번 달 {s["sport_label"]} 대회는 전국에서 {s["total"]}개가 확인됩니다.',
-        f'calrank 데이터 기준으로 {s["month_kr"]}에 {s["total"]}개의 {s["sport_label"]} 대회가 등록되어 있습니다.',
-    ]
-    sec1_body = rng.choice(sec1_body_options)
-    if sample_lines:
-        sec1_body += f' 대표적으로 {sample_lines} 등의 대회를 확인할 수 있습니다.'
-
-    sec2_heading = rng.choice(["어느 지역에서 가장 많이 열릴까", "지역별 분포", f'{s["sport_label"]} 대회, 어디서 많이 열리나'])
-    sec2_body_options = [
-        f'지역별로 나눠보면 {top_region_name}이 {top_region_count}개로 가장 많고, 그 뒤를 {region_lines} 순으로 이어집니다.',
-        f'{region_lines} 순으로 대회가 분포되어 있으며, 그중 {top_region_name} 지역이 {top_region_count}개로 가장 활발합니다.',
-        f'전국 각지에서 열리지만, 특히 {top_region_name}({top_region_count}개) 지역에 대회가 몰려있는 경향을 보입니다.',
-    ]
-    sec2_body = rng.choice(sec2_body_options)
-
+    from column_text import build as build_text
+    tx = build_text(s["sport_label"], s["month_kr"], s["total"], s["sample_names"],
+                    s["top_regions"], s["top_distances"], s["sport"])
+    intro = tx["intro"]
     sections = [
-        {"heading": sec1_heading, "body": sec1_body},
-        {"heading": sec2_heading, "body": sec2_body},
+        {"heading": "이번 달 대회 현황", "body": tx["sec1"]},
+        {"heading": "지역별 분포", "body": tx["sec2"]},
     ]
-
-    if distance_lines:
-        sec3_heading = rng.choice(["거리별로는 어떨까", "코스 거리 분포", "어떤 거리의 대회가 많을까"])
-        sec3_body_options = [
-            f'참가 거리 기준으로는 {distance_lines} 순으로 대회가 많습니다. 본인 체력 수준에 맞는 거리를 골라보세요.',
-            f'거리별 분포는 {distance_lines} 순입니다. 처음이라면 짧은 거리부터 도전해보는 것을 추천합니다.',
-        ]
-        sections.append({"heading": sec3_heading, "body": rng.choice(sec3_body_options)})
-
-    cta_options = [
-        f'지금 바로 {s["month_kr"]} {s["sport_label"]} 대회를 지역·거리별로 필터링해서 찾아보세요.',
-        f'{s["sport_label"]} 대회 접수 마감일까지 calrank에서 한눈에 확인하세요.',
-    ]
-    cta_text = rng.choice(cta_options)
+    if tx["sec3"]:
+        sections.append({"heading": "거리별 분포", "body": tx["sec3"]})
+    if tx["gear"]:
+        sections.append({"heading": "장비도 함께 보려면", "body": tx["gear"]})
+    cta_text = tx["cta"]
 
     return {"title": title, "intro": intro, "sections": sections, "cta_text": cta_text}
 
@@ -244,7 +214,7 @@ def build_html(stats, content, slug, rng):
         f'<h2>{sec["heading"]}</h2>\n<p>{sec["body"]}</p>' for sec in content["sections"]
     )
     region_boxes = "".join(
-        f'<div class="stat-box"><b>{r}</b><span>{c}개</span></div>' for r, c in stats["top_regions"][:3]
+        f'<div class="stat-box"><b>{r}</b><span>{c}개</span></div>' for r, c in [x for x in stats["top_regions"] if x[0] not in ("전국", "미표기", "")][:3]
     )
     stat_boxes = f'<div class="stat-grid"><div class="stat-box"><b>{stats["total"]}개</b><span>{stats["month_label"]} {stats["sport_label"]} 대회</span></div>{region_boxes}</div>'
 
