@@ -578,6 +578,8 @@
 
   // ── 시작 ────────────────────────────────────────────────────────
   function setHead(title, question) {
+    // 정적으로 만들어진 페이지는 제목·H1 이 이미 검색용으로 정해져 있다.
+    if (hasStaticBody()) return;
     var t = $("gearTitle"); if (t) t.textContent = title;
     var q = $("gearQuestion"); if (q) q.textContent = question || "";
     if (title) document.title = title + " — 기어 판정 | calrank";
