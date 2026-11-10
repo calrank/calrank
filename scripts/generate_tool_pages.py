@@ -149,6 +149,8 @@ DQ = json.loads((ROOT / "data/gear_dq.json").read_text(encoding="utf-8"))
 SPORT_META = {
     "triathlon": ("철인3종", "World Triathlon", "standards-triathlon.html",
                   "철인3종 장비·규칙 기준 — 실격되는 것과 벌칙 정리"),
+    "cycling": ("사이클", "UCI", "standards-cycling.html",
+                "사이클 장비·규칙 기준 — 최소 무게와 안장 위치"),
 }
 
 
@@ -158,7 +160,14 @@ def esc(s):
 
 import sys as _s; _s.path.insert(0, str(ROOT / "scripts"))
 from gear_images import commons_fig
-FIG = {"wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
+FIG = {"uci-setback": commons_fig("uci-saddle", "dq-fig"), "wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
+
+
+FAQS = {"cycling": [
+    ("UCI 자전거 최소 무게는 몇 kg인가요?", "1.3.019에 따라 자전거 무게는 6.8kg보다 가벼울 수 없습니다. UCI 규정의 조항입니다. 동호인 대회에 그대로 적용되는지는 대회 요강을 확인해 주세요."),
+    ("UCI 안장은 크랭크 축에서 얼마나 뒤에 있어야 하나요?", "1.3.013에 따라 안장 끝점이 크랭크 축 수직면보다 최소 5cm 뒤에 있어야 합니다. 체형 때문에 필요하면 경기 전 장비 검사에서 알리고 예외를 요청할 수 있습니다."),
+    ("안장은 얼마나 기울여도 되나요?", "1.3.014에 따라 안장의 가장 높은 앞·뒤 점을 지나는 면이 수평에서 최대 9도까지 기울 수 있습니다."),
+]}
 
 
 def standards_page(sid):
@@ -183,14 +192,20 @@ def standards_page(sid):
         f'{esc(src[k].get("note", ""))}<br><span class="dq-watch" data-watch="{esc(src[k]["url"])}">원문 확인 현황은 매주 자동으로 갱신됩니다.</span></p>'
         for k in used)
     edited = DQ["sports"][sid].get("edited", "")
+    if sid == "cycling":
+        h2 = "장비 기준"
+        intro = "UCI 규정 원문에서 조항 번호와 함께 옮겼습니다. UCI 규정이라 동호인 대회에 그대로 적용되는지는 대회 요강으로 먼저 확인해 주세요. 현장 판정은 심판단이 합니다."
+    else:
+        h2 = "실격과 벌칙"
+        intro = "에이지그룹(동호인) 경기에 적용되는 조항을 규정 원문에서 조항 번호와 함께 옮겼습니다. 대회 요강이 더 엄격할 수 있고, 현장 판정은 심판장이 합니다."
     body = f"""<p class="tp-small">내용 수정 {edited} · 고친 내용은 <a href="gear-changes.html">변경 기록</a>에 남깁니다.</p>
-<section class="tp-sec"><h2 class="tp-h2">실격과 벌칙</h2>
-<p class="tp-p">에이지그룹(동호인) 경기에 적용되는 조항을 규정 원문에서 조항 번호와 함께 옮겼습니다. 대회 요강이 더 엄격할 수 있고, 현장 판정은 심판장이 합니다.</p>
+<section class="tp-sec"><h2 class="tp-h2">{h2}</h2>
+<p class="tp-p">{intro}</p>
 {cards}</section>
 <section class="tp-sec"><h2 class="tp-h2">내 장비가 기준에 맞는지 보기</h2>{links}
 <p class="tp-p"><a href="kit.html">내 장비 서랍</a>에 수치를 적어 두면 한 화면에서 판정합니다.</p></section>
 {srcs}"""
-    faq = [
+    faq = FAQS.get(sid) or [
         ("트라이애슬론에서 헤드폰을 쓰면 실격인가요?",
          "규정 2.1 a) (xv)는 주변에 온전히 주의를 기울이지 못하게 하는 기기를 쓰지 말라고 하고, 음악 재생을 그런 사용의 예로 듭니다. 이를 어기면 실격입니다. 헤드폰이라는 말이 직접 적혀 있지는 않지만, 음악을 듣는 것은 여기에 해당합니다."),
         ("트라이애슬론 드래프팅은 몇 미터인가요?",
@@ -203,6 +218,9 @@ def standards_page(sid):
     h1 = f"{label} 장비·규칙 기준"
     sub = f"{body_name} 규정에서 실격이 되는 것, 시간 벌칙이 붙는 것, 장비 수치 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
     desc = f"{label} 에이지그룹 규정의 실격 사유와 벌칙을 조항 번호와 함께 정리했습니다. 헬멧, 드래프팅 12m와 벌칙 시간, 헤드폰, 배번, 웻슈트 기준까지."
+    if sid == "cycling":
+        sub = "UCI 규정에서 자전거 최소 무게, 안장 위치와 각도, 장비 승인 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
+        desc = "UCI 규정의 자전거 최소 무게 6.8kg, 안장 5cm 뒤 위치, 안장 각도 9도, 장비 승인 기준을 조항 번호와 함께 정리했습니다."
     return slug, page(slug, title, desc, h1, sub, body, ["source-watch.js"], faq)
 
 
@@ -236,7 +254,7 @@ for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", L
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "gear-changes.html"):
+for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "gear-changes.html"):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
