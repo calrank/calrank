@@ -286,14 +286,29 @@ PAGE = """<!DOCTYPE html>
 
 
 def jsonld_for(item, slug, title, desc, sport):
+    qa = [(item.get("question") or title, item.get("headline") or desc)]
+    # 화면에도 그대로 보이는 문항만 넣는다. 보이지 않는 질문을 마크업에만
+    # 넣으면 검색엔진이 규정 위반으로 본다.
+    qa += [(f["q"], f["a"]) for f in item.get("faq", [])]
     faq = {
         "@context": "https://schema.org", "@type": "FAQPage",
         "mainEntity": [{
-            "@type": "Question", "name": item.get("question") or title,
-            "acceptedAnswer": {"@type": "Answer",
-                               "text": item.get("headline") or desc},
-        }],
+            "@type": "Question", "name": q,
+            "acceptedAnswer": {"@type": "Answer", "text": a},
+        } for q, a in qa],
     }
+    from gear_images import image_url
+    img = image_url(slug)
+    article = {
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": title, "description": desc,
+        "mainEntityOfPage": f"{BASE}/{slug}",
+        "inLanguage": "ko",
+        "author": {"@type": "Organization", "name": "칼랭크", "url": f"{BASE}/about.html"},
+        "publisher": {"@type": "Organization", "name": "칼랭크", "url": f"{BASE}/"},
+    }
+    if img:
+        article["image"] = [img]
     crumb = {
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
@@ -308,7 +323,15 @@ def jsonld_for(item, slug, title, desc, sport):
         return ('<script type="application/ld+json">'
                 + json.dumps(o, ensure_ascii=False, separators=(",", ":"))
                 + "</script>")
-    return dump(faq) + "\n" + dump(crumb)
+    return dump(article) + "\n" + dump(faq) + "\n" + dump(crumb)
+
+
+def faq_html(item):
+    faqs = item.get("faq") or []
+    if not faqs:
+        return ""
+    rows = "".join(f'<h3>{esc(f["q"])}</h3><p>{esc(f["a"])}</p>' for f in faqs)
+    return f'<section class="gi-sec gi-faq"><h2>자주 묻는 질문</h2>{rows}</section>'
 
 
 def build_page(kind, item, bodies, siblings, tables=None):
@@ -338,6 +361,7 @@ def build_page(kind, item, bodies, siblings, tables=None):
     if tables:
         links = " · ".join(f'<a href="{esc(h)}">{esc(l)}</a>' for h, l in tables)
         body = (f'<p class="gi-tablinks">기록별로 미리 보기 · {links}</p>' + body)
+    body += faq_html(item)
     attr = f' data-gear-{kind}="{esc(item["id"])}"'
     return slug, PAGE.format(
         title=esc(title), desc=esc(desc), base=BASE, slug=slug,
@@ -538,7 +562,7 @@ def build_table_page(claim, ctx, bodies):
         slug = f'gear-{claim["id"]}-{ctx["key"]}.html'
         short = claim.get("short_label") or claim["label"]
         h1 = f'{ctx["label"]} {short} 효과'
-        title = f'{h1} — 기록별로 몇 초 줄어드나 | 칼랭크'
+        title = f'{h1} — {rows[0]["label"]}~{rows[-1]["label"]} 기록별 단축 시간 | 칼랭크'
         flip = len(grades) > 1
         moved = [r for r in rows if r["moved"]]
 
@@ -558,8 +582,8 @@ def build_table_page(claim, ctx, bodies):
             lead += " 같은 신발이라도 표 윗줄과 아랫줄의 근거 수준은 다릅니다."
         elif flip:
             lead += " 다만 근거 수준은 기록에 따라 달라집니다."
-        desc = (f'{ctx["label"]} 목표 기록별 {short} 효과를 연구 근거 등급과 함께 '
-                f'정리했습니다. 단축 초와 등급 변화까지 한 표로 봅니다.')[:155]
+        desc = (f'{ctx["label"]} {rows[0]["label"]}~{rows[-1]["label"]} 기록에서 {short}로 몇 초를 줄일 수 있는지 '
+                f'연구 근거 등급(A~D)과 함께 표로 정리했습니다. {lead}')[:155]
         note = (
             '<h2>표를 읽을 때</h2>'
             '<p class="gm-measure">단축 초는 나이·성별과 무관합니다. 다만 그 초가 '
@@ -584,7 +608,7 @@ def build_table_page(claim, ctx, bodies):
         slug = f'gear-{claim["id"]}-{ctx["km"]}km.html'
         short = claim.get("short_label") or claim["label"]
         h1 = f'{ctx["label"]} {short} 효과'
-        title = f'{h1} — 평속별로 몇 초 줄어드나 | 칼랭크'
+        title = f'{h1} — 평속 {BIKE_SPEEDS[0]}~{BIKE_SPEEDS[-1]}㎞/h별 단축 시간 | 칼랭크'
         # 글머리가 표의 폭을 먼저 말한다. 느린 쪽이 더 받는지 덜 받는지가
         # 이 표에서 읽히는 유일한 결론이고, 장비마다 방향이 다르다.
         lo, hi = rows[0], rows[-1]
@@ -595,8 +619,8 @@ def build_table_page(claim, ctx, bodies):
                 f'{hi["label"]}는 {_gap(hi["cutSec"])} 줄어듭니다. '
                 + (f'{wider} 더 많이 줄어들고, 차이는 {ratio:.1f}배입니다.'
                    if ratio >= 1.3 else f'{wider} 조금 더 줄어듭니다.'))
-        desc = (f'{ctx["label"]} 주행에서 평속별 {short} 효과를 검증된 출력 모델로 '
-                f'계산했습니다. 필요 출력과 완주 시간 변화까지 한 표로 봅니다.')[:155]
+        desc = (f'{ctx["label"]} 주행에서 평속 {BIKE_SPEEDS[0]}~{BIKE_SPEEDS[-1]}㎞/h별로 {short}이 몇 초를 줄이는지 '
+                f'검증된 출력 모델로 계산했습니다. {lead}')[:155]
         note = (
             '<h2>표를 읽을 때</h2>'
             '<p class="gm-measure">공기저항은 속도의 세제곱으로, 구름저항은 속도에 비례해 '

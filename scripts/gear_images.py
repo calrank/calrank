@@ -53,6 +53,10 @@ POS = {}
 def group_of(s):
     return SLUG.get(s.replace(".html", ""))
 
+def image_url(slug):
+    g = group_of(slug)
+    return url(g, 1200) if g else None
+
 def url(g, w):
     return f"https://images.unsplash.com/photo-{IMG[g][0]}?auto=format&fit=crop&w={w}&q=70"
 
@@ -63,6 +67,10 @@ def add_image(slug, html):
     pid, alt, ph, who = IMG[g]
     og = f'<meta property="og:image" content="{url(g,1200)}">\n<meta name="twitter:image" content="{url(g,1200)}">\n'
     html = html.replace('<meta name="twitter:card"', og + '<meta name="twitter:card"', 1)
+    # 대표 사진이 화면 맨 위라 가장 큰 요소(LCP)다. 연결을 미리 열고 먼저 받는다.
+    pre = ('<link rel="preconnect" href="https://images.unsplash.com">\n'
+           f'<link rel="preload" as="image" href="{url(g, 960)}" fetchpriority="high">\n')
+    html = html.replace('<link rel="canonical"', pre + '<link rel="canonical"', 1)
     credit = f' · 사진 {who}' if who else ''
     fig = (f'<figure class="gi-hero-img"><img src="{url(g,960)}" width="960" height="640" '
            f'alt="{alt}" decoding="async" fetchpriority="high">'

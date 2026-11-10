@@ -279,6 +279,13 @@ def build(dist: str, goal: int, frag: str, name: str, alias: str):
 {goal_links(slug, dist)}
 
 <div style="margin:34px 0 0;">
+<a href="gear-carbon-plate-{dist}.html" class="cert-cta">
+<span class="cc-ico">👟</span>
+<span class="cc-txt"><b>카본화를 신으면 이 기록이 얼마나 줄까</b><span>속도별 연구 결과와 근거 등급을 표로 정리했습니다.</span></span>
+<span class="cc-go">기어 판정 →</span>
+</a>
+</div>
+<div style="margin:14px 0 0;">
 <a href="cert.html" class="cert-cta">
 <span class="cc-ico">📷</span>
 <span class="cc-txt"><b>기록증 사진 한 장으로 내 위치 확인</b><span>완주 시간을 읽어 내 등급과 다음 목표까지 남은 시간을 알려드립니다. 로그인도 타이핑도 필요 없습니다.</span></span>
