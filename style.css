@@ -619,3 +619,7 @@ p,li,dd,figcaption,summary{text-wrap:pretty;}
    떼므로, 긴 본문에 섞여 들어도 아무 일도 일어나지 않는다. */
 .lv-share-hint,.empty-state,.tier-empty,.myrank-login-hint,
 .auth-alt,.tier-guide-item{text-wrap:balance;}
+.column-next h2{font-size:17px;margin:0 0 6px;}
+.column-next p{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:0 0 6px;}
+.column-next ul{margin:0;padding-left:18px;}
+.column-next li{line-height:1.9;font-size:15px;}
