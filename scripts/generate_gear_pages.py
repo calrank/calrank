@@ -326,6 +326,61 @@ def jsonld_for(item, slug, title, desc, sport):
     return dump(article) + "\n" + dump(faq) + "\n" + dump(crumb)
 
 
+# 규정(허용되나)과 효과(얼마나 줄이나)는 같은 사람이 이어서 찾는다.
+# 짝이 되는 판정끼리 서로 가리키게 해서, 한 페이지에서 들어와도 반대쪽 축까지 읽게 한다.
+PAIRS = {
+    "carbon-plate": [("wa-stack-height", "러닝화 밑창 두께 규정 — 로드 40mm 제한"),
+                     ("wa-rigid-plate", "러닝화 플레이트 규정 — 강성 판 개수"),
+                     ("shoe-mass", "신발 무게가 기록에 주는 영향")],
+    "wa-stack-height": [("carbon-plate", "카본화 효과, 속도별 근거 등급")],
+    "wa-rigid-plate": [("carbon-plate", "카본화 효과, 속도별 근거 등급")],
+    "wa-availability": [("carbon-plate", "카본화 효과, 속도별 근거 등급")],
+    "shoe-mass": [("carbon-plate", "카본화 효과, 속도별 근거 등급"),
+                  ("wa-stack-height", "러닝화 밑창 두께 규정")],
+    "utmb-kit": [("trail-pack-weight", "배낭 무게가 기록에 주는 영향"),
+                 ("trail-poles", "트레일 폴 효과와 근거 등급")],
+    "utmb-jacket": [("utmb-kit", "UTMB 필수 장비 목록"),
+                    ("trail-pack-weight", "배낭 무게가 기록에 주는 영향")],
+    "trail-pack-weight": [("utmb-kit", "UTMB 필수 장비 목록 규정"),
+                          ("utmb-jacket", "UTMB 방수 재킷 규정")],
+    "wetsuit-by-temp": [("wt-wetsuit-temp", "웻슈트 착용 수온 기준 규정"),
+                        ("wetsuit", "웻슈트 효과와 근거 등급")],
+    "trail-poles-by-gradient": [("trail-poles", "트레일 폴 효과와 근거 등급"),
+                                ("utmb-kit", "UTMB 필수 장비 규정")],
+    "trail-poles": [("utmb-kit", "UTMB 필수 장비와 폴 규정"),
+                    ("trail-poles-by-gradient", "경사도별 트레일 폴 효과")],
+    "uci-min-weight": [("aero-wheel", "에어로 휠 효과"), ("tyre-rolling", "타이어와 구름저항")],
+    "uci-saddle-setback": [("uci-frame-approval", "UCI 승인 프레임 규정"), ("uci-min-weight", "UCI 최소 중량 규정")],
+    "uci-frame-approval": [("aero-wheel", "에어로 휠 효과"), ("aero-helmet", "에어로 헬멧 효과")],
+    "aero-wheel": [("uci-min-weight", "UCI 자전거 최소 중량 규정"),
+                   ("uci-frame-approval", "UCI 승인 프레임 규정"),
+                   ("tyre-rolling", "타이어와 구름저항")],
+    "tyre-rolling": [("aero-wheel", "에어로 휠 효과"), ("uci-min-weight", "UCI 최소 중량 규정")],
+    "aero-helmet": [("uci-saddle-setback", "UCI 안장 위치 규정"),
+                    ("wt-bike-agegroup", "철인3종 에이지그룹 자전거 규정")],
+    "wt-wetsuit-thickness": [("wetsuit", "웻슈트 효과와 근거 등급"),
+                             ("wetsuit-by-temp", "수온별 웻슈트 착용 기준")],
+    "wt-wetsuit-temp": [("wetsuit", "웻슈트 효과와 근거 등급"),
+                        ("wetsuit-by-temp", "수온별 웻슈트 착용 기준")],
+    "wt-bike-agegroup": [("aero-helmet", "에어로 헬멧 효과"), ("aero-wheel", "에어로 휠 효과")],
+    "wetsuit": [("wt-wetsuit-thickness", "웻슈트 두께 규정"),
+                ("wt-wetsuit-temp", "웻슈트 착용 수온 기준")],
+    "ws-wheel-diameter": [("inline-bearings", "인라인 베어링 등급이 속도에 주는 영향")],
+    "inline-bearings": [("ws-wheel-diameter", "인라인 바퀴 지름 규정")],
+}
+
+
+def pair_html(item_id, self_slug=""):
+    rows = [(slug_for("x", i), lab) for i, lab in PAIRS.get(item_id, [])]
+    rows = [(h, l) for h, l in rows if h != self_slug]
+    if not rows:
+        return ""
+    li = "".join(f'<li><a href="{esc(h)}">{esc(l)}</a></li>' for h, l in rows)
+    return ('<section class="gi-sec gi-pair"><h2>규정과 효과를 같이 보세요</h2>'
+            '<p>규정은 연맹 문서에서, 효과는 논문에서 따로 정리했습니다. '
+            f'함께 읽으면 쓸 수 있는지와 얼마나 도움이 되는지가 이어집니다.</p><ul>{li}</ul></section>')
+
+
 def faq_html(item):
     faqs = item.get("faq") or []
     if not faqs:
@@ -361,7 +416,7 @@ def build_page(kind, item, bodies, siblings, tables=None):
     if tables:
         links = " · ".join(f'<a href="{esc(h)}">{esc(l)}</a>' for h, l in tables)
         body = (f'<p class="gi-tablinks">기록별로 미리 보기 · {links}</p>' + body)
-    body += faq_html(item)
+    body += faq_html(item) + pair_html(item["id"], slug)
     attr = f' data-gear-{kind}="{esc(item["id"])}"'
     return slug, PAGE.format(
         title=esc(title), desc=esc(desc), base=BASE, slug=slug,
@@ -633,6 +688,17 @@ def build_table_page(claim, ctx, bodies):
             '내 값으로 바꿔 넣을 수 있습니다.</p>')
         body = f'<p class="gi-headline">{esc(lead)}</p>' + table_html(rows, "bike") + note
 
+    sibs = []
+    if claim["id"] in RUN_TABLES:
+        sibs = [(f'gear-{claim["id"]}-{k}.html', f'{lab} {claim.get("short_label") or claim["label"]} 효과')
+                for (k, _, _, lab) in RUN_DISTS if f'gear-{claim["id"]}-{k}.html' != slug]
+    else:
+        sibs = [(f'gear-{claim["id"]}-{km}km.html', f'{lab} {claim.get("short_label") or claim["label"]} 효과')
+                for km, lab in BIKE_DISTS if f'gear-{claim["id"]}-{km}km.html' != slug]
+    if sibs:
+        body += ('<p class="gi-links">다른 거리 표 · '
+                 + " · ".join(f'<a href="{esc(h)}">{esc(l)}</a>' for h, l in sibs) + "</p>")
+    body += pair_html(claim["id"], slug)
     body += (f'<p class="gm-src">근거와 출처는 '
              f'<a href="{esc(slug_for("claim", claim["id"]))}">{esc(claim["label"])} 판정</a>에 '
              f'자세히 적어 두었습니다.</p>')
@@ -805,7 +871,7 @@ def wetsuit_temp_page(rules, claims):
                            "headline": desc}, slug, h1, desc, "철인3종"),
         nav=nav_html(active_for("gear.html")), sport="철인3종",
         h1=esc(h1), question=esc("내 대회 수온에서는 어떻게 되나?"),
-        body=body, related="", bodyattr="")
+        body=body + pair_html("wetsuit-by-temp"), related="", bodyattr="")
 
 
 # ── 경사표: 한 장비의 효과가 서로 반대로 간다 ────────────────────
@@ -878,7 +944,7 @@ def pole_gradient_page(claims):
                           slug, h1, desc, "트레일러닝"),
         nav=nav_html(active_for("gear.html")), sport="트레일러닝",
         h1=esc(h1), question=esc("경사에 따라 얼마나 달라지나?"),
-        body=body, related="", bodyattr="")
+        body=body + pair_html("trail-poles-by-gradient"), related="", bodyattr="")
 
 
 def update_sitemap(slugs):
