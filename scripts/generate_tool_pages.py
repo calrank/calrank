@@ -285,6 +285,71 @@ def standards_page(sid):
     return slug, page(slug, title, desc, h1, sub, body, ["source-watch.js"], faq)
 
 
+# ── 코스 페이지 (data/courses.json 의 코스마다 한 장) ─────────────────────────
+import os as _os
+COURSES = json.loads(Path(_os.environ.get("CALRANK_COURSES") or (ROOT / "data/courses.json")).read_text(encoding="utf-8")).get("courses", [])
+TECH = [
+    (1, "넓고 평탄한 길", "임도나 포장길처럼 폭이 넓고 노면이 고릅니다."),
+    (2, "정리된 산길", "잔돌이나 작은 계단이 있지만 걸음을 크게 바꾸지 않아도 됩니다."),
+    (3, "좁은 산길", "돌과 뿌리가 있어 한 줄로 달리고, 보폭을 조절해야 합니다."),
+    (4, "거칠고 미끄러운 길", "젖으면 미끄러운 바위나 흙, 가파른 내리막이 있어 조심해서 내려가야 합니다."),
+    (5, "손을 써야 하는 길", "바위 구간이나 노출된 곳이 있어 손을 짚거나 집중해서 이동해야 합니다."),
+]
+CHK_ITEMS = [("parking", "주차"), ("toilet", "화장실"), ("water", "식수"), ("signal", "휴대폰 신호"), ("escape", "하산로·탈출로"), ("transit", "대중교통")]
+CHK_POINTS = [("start", "출발 지점"), ("mid", "중간 지점"), ("finish", "도착 지점")]
+
+
+def course_page(c):
+    cid = c["id"]; slug = f"course-{cid}.html"
+    prof = c["profile"]
+    km = prof[-1][0] / 1000
+    gain = sum(max(0, b[1] - a[1]) for a, b in zip(prof, prof[1:]))
+    loss = sum(max(0, a[1] - b[1]) for a, b in zip(prof, prof[1:]))
+    tech = c.get("technical") or {}
+    lv = tech.get("level")
+    if lv:
+        name, desc_ = [(n, d) for l, n, d in TECH if l == lv][0]
+        tech_html = (f'<p class="cp-lv"><b>{lv}단계</b> · {esc(name)}</p><p class="tp-p">{esc(desc_)}</p>'
+                     f'<p class="tp-small">정한 근거: {esc(tech.get("basis", ""))} {esc(tech.get("note", ""))}</p>')
+    else:
+        tech_html = '<p class="tp-p">아직 평가하지 않았습니다.</p>'
+    legend = "".join(f"<li><b>{l}단계 {esc(n)}</b> — {esc(d)}</li>" for l, n, d in TECH)
+    rows = ""
+    for pk, plabel in CHK_POINTS:
+        pc = (c.get("checks") or {}).get(pk, {})
+        cells = ""
+        for ik, ilabel in CHK_ITEMS:
+            it = pc.get(ik) or {}
+            if it.get("status") == "확인":
+                cells += f'<li><b>{ilabel}</b> {esc(it.get("text", ""))} <span class="cp-v">{esc(it.get("verified", ""))} 확인 · {esc(it.get("source", ""))}</span></li>'
+            else:
+                cells += f'<li class="cp-un"><b>{ilabel}</b> 미확인</li>'
+        rows += f'<div class="dq-card"><h3 class="dq-title">{plabel}</h3><ul class="cp-list">{cells}</ul></div>'
+    s = c.get("source", {})
+    data = json.dumps({"profile": prof}, ensure_ascii=False, separators=(",", ":"))
+    body = f"""<section class="tp-card"><div class="tp-grid">
+<label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
+<label class="cv-check"><input type="checkbox" id="cpDown"> 내리막에서 빨라지는 것까지 반영</label></div>
+<p id="cpMsg" class="tp-small" role="status" aria-live="polite"></p>
+<p class="tp-small">거리 {km:.1f}km · 누적 상승 {gain:.0f}m · 누적 하강 {loss:.0f}m</p>
+<p class="cv-big"><b id="cpIndex">1.00</b><span> 코스 부하 지수 · <span id="cpBand"></span></span></p>
+<table class="cv-table"><tbody id="cpTable"></tbody></table><div id="cpChart"></div></section>
+<section class="tp-sec"><h2 class="tp-h2">기술 난이도 (칼랭크 구분)</h2>{tech_html}
+<details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
+<p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>
+<p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 체력 부하 계산 근거: Minetti 등, J Appl Physiol 93:1039–1046, 2002.</p>
+<script type="application/json" id="cpData">{data}</script>"""
+    faq = [("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다.")]
+    nm = c["name"]; base = nm if nm.endswith("코스") else nm + " 코스"
+    h1 = f"{base} 판정"
+    return slug, page(slug, f"{h1} — 체력 부하와 현장 확인표",
+                      f'{c["name"]}({c.get("region", "")})의 체력 부하, 기술 난이도, 출발·중간·도착 지점 확인 사항을 정리했습니다.',
+                      h1, f'{c.get("region", "")} · 거리 {km:.1f}km', body, ["course.js", "course-page.js"], faq)
+
+
+COURSE_PAGES = [course_page(c) for c in COURSES]
+
 STANDARDS = [standards_page(s) for s in SPORT_META]
 
 
@@ -304,6 +369,7 @@ def changes_page():
 
 
 STANDARDS.append(changes_page())
+STANDARDS += COURSE_PAGES
 
 for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name
@@ -315,7 +381,7 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html"):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
