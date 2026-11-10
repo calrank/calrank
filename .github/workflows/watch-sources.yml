@@ -1,0 +1,33 @@
+name: Watch rule sources
+
+# 장비 규정 원문(연맹 PDF·안내 페이지)이 바뀌었는지 매주 확인해 data/source_watch.json 에 남긴다.
+# 화면은 이 파일을 읽어 "원문 마지막 확인"과 "원문이 바뀌었을 수 있음"을 보여 준다.
+
+on:
+  schedule:
+    - cron: "20 20 * * 1"  # 매주 화요일 05:20 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: watch-sources
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/watch_sources.py
+      - name: Commit if changed
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add data/source_watch.json
+          git diff --quiet --cached || (git commit -m "chore: watch rule sources" && git pull --rebase && git push)
