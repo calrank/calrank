@@ -4,9 +4,18 @@
   <link>https://calrank.vercel.app/index.html</link>
   <description>마라톤·자전거·트레일러닝·철인3종·인라인 대회 일정과 새 칼럼을 알려드립니다.</description>
   <language>ko</language>
-  <lastBuildDate>Mon, 09 Nov 2026 00:25:20 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 09 Nov 2026 15:02:23 +0000</lastBuildDate>
   <atom:link href="https://calrank.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
   <generator>calrank</generator>
+  <item>
+    <title>화성레이스 — 2026.12.12 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%ED%99%94%EC%84%B1%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-12.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%ED%99%94%EC%84%B1%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-12.html</guid>
+    <pubDate>Mon, 09 Nov 2026 15:02:23 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>화성레이스 — 2026.12.12 대회 일정·접수 | calrank</description>
+  </item>
   <item>
     <title>2026 나주 금성산 메디오폰도 — 2026.11.14 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</link>
@@ -15,15 +24,6 @@
     <author>calrank</author>
     <category>자전거</category>
     <description>2026 나주 금성산 메디오폰도 — 2026.11.14 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
-    <title>WALK WALK 2026 연수구청장배 송도 WALK &amp; RUN — 2026.11.15 인천 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rm-walk-walk-2026-%EC%97%B0%EC%88%98%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%86%A1%EB%8F%84-walk-run-2026-11-15.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-walk-walk-2026-%EC%97%B0%EC%88%98%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%86%A1%EB%8F%84-walk-run-2026-11-15.html</guid>
-    <pubDate>Mon, 09 Nov 2026 00:25:20 +0000</pubDate>
-    <author>calrank</author>
-    <category>마라톤</category>
-    <description>WALK WALK 2026 연수구청장배 송도 WALK &amp; RUN — 2026.11.15 인천 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>2026 국민건강 리부트! 마음건강 걷기대회 — 2026.11.14 세종 대회 일정·접수 | calrank</title>
@@ -233,22 +233,13 @@
     <description>2026 모악트레일런 — 2026.12.05 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>제6회 2026 청춘런 — 2026.12.06 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C6%ED%9A%8C-2026-%EC%B2%AD%EC%B6%98%EB%9F%B0-2026-12-06.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C6%ED%9A%8C-2026-%EC%B2%AD%EC%B6%98%EB%9F%B0-2026-12-06.html</guid>
-    <pubDate>Tue, 27 Oct 2026 00:12:52 +0000</pubDate>
-    <author>calrank</author>
-    <category>마라톤</category>
-    <description>제6회 2026 청춘런 — 2026.12.06 서울 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
-    <title>2026 평창 스노우런 — 2026.12.12 대회 일정·접수 | calrank</title>
+    <title>2026 평창 스노우런 — 2026.12.12 강원 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rr-2026-%ED%8F%89%EC%B0%BD-%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%9F%B0-2026-12-12.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%8F%89%EC%B0%BD-%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%9F%B0-2026-12-12.html</guid>
     <pubDate>Tue, 27 Oct 2026 00:12:52 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>2026 평창 스노우런 — 2026.12.12 대회 일정·접수 | calrank</description>
+    <description>2026 평창 스노우런 — 2026.12.12 강원 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>전환(트랜지션)과 훈련 방법이 궁금해요 — 철인3종 노하우 총정리 — calrank</title>
@@ -269,13 +260,13 @@
     <description>달리기가 뼈에 어떤 자극을 주는지, 발 근육과 뼈는 어떻게 달라지는지 체계적 문헌고찰로 정리했습니다. 왜 뼈 적응은 심폐보다 훨씬 느린지도 함께 다룹니다.</description>
   </item>
   <item>
-    <title>2026 성남 헤리티지 런 — 2026.12.12 대회 일정·접수 | calrank</title>
+    <title>2026 성남 헤리티지 런 — 2026.12.12 경기 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</guid>
     <pubDate>Wed, 21 Oct 2026 23:54:05 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>2026 성남 헤리티지 런 — 2026.12.12 대회 일정·접수 | calrank</description>
+    <description>2026 성남 헤리티지 런 — 2026.12.12 경기 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>2026 시즌마감마라톤대회 — 2026.12.13 인천 대회 일정·접수 | calrank</title>
@@ -404,15 +395,6 @@
     <description>조끼, 물, 헤드램프, 보온의류, 응급키트. 귀찮아 보이는 필수장비 목록이 사실은 저체온증 대비라는 걸 알면 빼먹지 않게 됩니다.</description>
   </item>
   <item>
-    <title>제3회 무등산더블하트국제트레일런대회 추가접수 — 2026.11.15 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-%EC%B6%94%EA%B0%80%EC%A0%91%EC%88%98-2026-11-15.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C3%ED%9A%8C-%EB%AC%B4%EB%93%B1%EC%82%B0%EB%8D%94%EB%B8%94%ED%95%98%ED%8A%B8%EA%B5%AD%EC%A0%9C%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EB%8C%80%ED%9A%8C-%EC%B6%94%EA%B0%80%EC%A0%91%EC%88%98-2026-11-15.html</guid>
-    <pubDate>Fri, 16 Oct 2026 23:13:19 +0000</pubDate>
-    <author>calrank</author>
-    <category>트레일</category>
-    <description>제3회 무등산더블하트국제트레일런대회 추가접수 — 2026.11.15 대회 일정·접수 | calrank</description>
-  </item>
-  <item>
     <title>2026 착한서구 공부방 기부앤런 — 2026.11.28 광주 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rr-2026-%EC%B0%A9%ED%95%9C%EC%84%9C%EA%B5%AC-%EA%B3%B5%EB%B6%80%EB%B0%A9-%EA%B8%B0%EB%B6%80%EC%95%A4%EB%9F%B0-2026-11-28.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%B0%A9%ED%95%9C%EC%84%9C%EA%B5%AC-%EA%B3%B5%EB%B6%80%EB%B0%A9-%EA%B8%B0%EB%B6%80%EC%95%A4%EB%9F%B0-2026-11-28.html</guid>
@@ -440,13 +422,13 @@
     <description>제19회 대구광역시장기 생활체육 육상대회 — 2026.11.22 대구 대회 일정·접수 | calrank</description>
   </item>
   <item>
-    <title>2026 화순고인돌마라톤 — 2026.12.06 대회 일정·접수 | calrank</title>
+    <title>2026 화순고인돌마라톤 — 2026.12.06 전남 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rr-2026-%ED%99%94%EC%88%9C%EA%B3%A0%EC%9D%B8%EB%8F%8C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-06.html</link>
     <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%99%94%EC%88%9C%EA%B3%A0%EC%9D%B8%EB%8F%8C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-06.html</guid>
     <pubDate>Wed, 14 Oct 2026 23:37:48 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
-    <description>2026 화순고인돌마라톤 — 2026.12.06 대회 일정·접수 | calrank</description>
+    <description>2026 화순고인돌마라톤 — 2026.12.06 전남 대회 일정·접수 | calrank</description>
   </item>
   <item>
     <title>2026 허그런(HUG RUN) — 2026.12.05 서울 대회 일정·접수 | calrank</title>
@@ -456,5 +438,23 @@
     <author>calrank</author>
     <category>마라톤</category>
     <description>2026 허그런(HUG RUN) — 2026.12.05 서울 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>제2회 일자산TRAL RUNNING — 2026.12.13 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</guid>
+    <pubDate>Sat, 10 Oct 2026 00:29:36 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>제2회 일자산TRAL RUNNING — 2026.12.13 대회 일정·접수 | calrank</description>
+  </item>
+  <item>
+    <title>2026 하남 미사 대회 취소 — 2026.12.05 대회 일정·접수 | calrank</title>
+    <link>https://calrank.vercel.app/e/rr-2026-%ED%95%98%EB%82%A8-%EB%AF%B8%EC%82%AC-%EB%8C%80%ED%9A%8C-%EC%B7%A8%EC%86%8C-2026-12-05.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%95%98%EB%82%A8-%EB%AF%B8%EC%82%AC-%EB%8C%80%ED%9A%8C-%EC%B7%A8%EC%86%8C-2026-12-05.html</guid>
+    <pubDate>Fri, 09 Oct 2026 00:57:18 +0000</pubDate>
+    <author>calrank</author>
+    <category>마라톤</category>
+    <description>2026 하남 미사 대회 취소 — 2026.12.05 대회 일정·접수 | calrank</description>
   </item>
 </channel></rss>
