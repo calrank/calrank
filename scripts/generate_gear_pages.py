@@ -36,7 +36,8 @@ from site_nav import nav_html, active_for  # noqa: E402
 import wma_standards as wma  # noqa: E402
 from gear_table_data import (  # noqa: E402
     RUN_DISTS, RUN_GOALS, BIKE_SPEEDS, BIKE_DISTS, RUN_TABLES, BIKE_TABLES,
-    REF_AGE, REF_GENDER, tier_bounds, tier_of, run_model)
+    REF_AGE, REF_GENDER, tier_bounds, tier_of, run_model,
+    WETSUIT_TEMPS, POLE_GRADIENTS)
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://calrank.vercel.app"
@@ -676,6 +677,186 @@ def findc(data, cid):
     return None
 
 
+# ── 수온표: 규정과 효과가 한 화면에 ──────────────────────────────
+
+def wetsuit_temp_page(rules, claims):
+    rule = None
+    for r in rules.get("rules", []):
+        if r["id"] == "wt-wetsuit-temp":
+            rule = r
+            break
+    claim = findc(claims, "wetsuit")
+    if not rule or not claim:
+        return None
+
+    opts = (rule.get("check", {}).get("extra") or [{}])[0].get("options") or []
+    if not opts:
+        return None
+
+    # 가로줄은 수온, 세로칸은 참가 구분. 자기 칸을 찾으면 그 자리에 답이 있다.
+    head = "<tr><th>수온</th>" + "".join(
+        f'<th>{esc(o["label"].replace(" — ", "<br>").replace("·U23·주니어·유스", ""))}</th>'
+        for o in opts) + "</tr>"
+    head = head.replace("&lt;br&gt;", "<br>")
+
+    rows = []
+    for t in WETSUIT_TEMPS:
+        cells = []
+        for o in opts:
+            if t >= o["forbidden_at"]:
+                cells.append('<td class="wt-no">금지</td>')
+            elif t <= o["mandatory_at"]:
+                cells.append('<td class="wt-must">의무</td>')
+            else:
+                cells.append('<td class="wt-ok">선택</td>')
+        label = f"{t:g}℃"
+        mark = ""
+        if t == 15.9:
+            mark = '<span class="wt-edge">이 아래는 전원 의무</span>'
+        elif t == 24.6:
+            mark = '<span class="wt-edge">동호인 상한</span>'
+        rows.append(f'<tr><th>{esc(label)}{mark}</th>' + "".join(cells) + "</tr>")
+
+    table = ('<div class="gt-wrap"><table class="gt wt-grid"><thead>' + head
+             + "</thead><tbody>" + "".join(rows) + "</tbody></table></div>")
+
+    # 효과 쪽. 규정이 이렇게 촘촘한데 효과 근거는 어떤지 바로 옆에 붙인다.
+    eff = None
+    for e in claim.get("effects", []):
+        if e["id"] == "race_time":
+            eff = e
+            break
+    ev_rows = ""
+    if eff:
+        for ev in eff.get("evidence", []):
+            a = (ev.get("applies") or {}).get("swim_distance_km") or [None, None]
+            scope = ("10km 이상" if a[0] else "10km 미만")
+            pct = ev.get("effect_pct")
+            val = (f'0 ~ {pct:.1f}% 빠름' if ev.get("significant") is False
+                   else f'{pct:.1f}% 빠름')
+            ev_rows += (f'<tr><th>{esc(scope)}</th><td>'
+                        f'<span class="ge-grade ge-{esc(ev["grade"])}">{esc(ev["grade"])}</span> '
+                        f'{esc(val)}'
+                        + ('<span class="gt-ns">유의하지 않음</span>'
+                           if ev.get("significant") is False else "")
+                        + f'<span class="gm-note">참가자 {ev.get("n", 0)}명</span></td></tr>')
+
+    body = (
+        '<p class="gi-headline">규정은 0.1℃ 단위로 촘촘한데, 정작 '
+        '효과 쪽 근거는 유의하지 않습니다.</p>'
+        '<h2>이 수온에서 입어도 되나 — World Triathlon 규정</h2>'
+        + table
+        + '<p class="gm-measure">같은 물에서 엘리트는 못 입고 동호인은 입을 수 있는 구간이 '
+          '있습니다. 1500m 이하에서 엘리트는 20℃부터 금지인데 동호인은 22℃까지 입을 수 있고, '
+          '60세 이상은 거리와 무관하게 24.6℃까지 허용됩니다. 반대쪽 끝은 모두 같습니다 — '
+          '15.9℃ 이하에서는 전원 의무입니다. 기술대표가 조건에 따라 따로 금지할 수 있습니다.</p>'
+        '<h2>입으면 빨라지나 — 실제 대회 기록</h2>'
+        '<div class="gt-wrap"><table class="gt"><thead>'
+        '<tr><th>수영 거리</th><th>웻슈트 쪽이</th></tr></thead><tbody>'
+        + ev_rows + '</tbody></table></div>'
+        '<p class="gm-measure">완주자 584명의 실제 대회 기록을 모아 견준 결과입니다. '
+        '남녀 모두, 두 거리 모두에서 통계적으로 유의한 차이가 나오지 않았습니다. '
+        '다만 같은 사람에게 둘 다 입혀 본 실험이 아니라 선수가 스스로 고른 결과를 나중에 '
+        '모은 자료이고, 두 대회 모두 수온이 20℃를 넘었습니다. 웻슈트가 가장 크게 도움이 될 '
+        '찬물 조건은 이 자료에 들어 있지 않습니다.</p>'
+        '<h2>두 표를 겹쳐 읽으면</h2>'
+        '<p class="gm-measure">규정은 수온을 0.1℃ 단위로 갈라 놓았습니다. 그만큼 '
+        '안전과 공정성에 민감한 장비라는 뜻입니다. 그런데 기록이 얼마나 빨라지는지에 대한 '
+        '근거는 그만큼 단단하지 않습니다. 규정이 촘촘한 것과 효과가 큰 것은 다른 얘기입니다 — '
+        '웻슈트 규정은 주로 저체온을 막으려고 있는 것이지 기록을 공정하게 맞추려고 있는 것이 '
+        '아니기 때문입니다.</p>'
+        f'<p class="gm-src">규정 원문과 효과 근거는 '
+        f'<a href="{esc(slug_for("rule", rule["id"]))}">웻슈트 수온 기준</a>과 '
+        f'<a href="{esc(slug_for("claim", claim["id"]))}">웻슈트 효과 판정</a>에 '
+        f'자세히 적어 두었습니다.</p>')
+
+    slug = "gear-wetsuit-by-temp.html"
+    h1 = "수온별 웻슈트 — 입어도 되나, 빨라지나"
+    title = "수온별 웻슈트 착용 기준과 효과 — 입어도 되나, 빨라지나 | 칼랭크"
+    desc = ("수온별로 웻슈트가 금지·선택·의무 중 무엇인지 참가 구분까지 나눠 정리하고, "
+            "실제 대회 기록에서 웻슈트가 얼마나 빨랐는지 함께 봅니다.")[:155]
+    return slug, PAGE.format(
+        title=esc(title), desc=esc(desc), base=BASE, slug=slug,
+        jsonld=jsonld_for({"question": "이 수온에서 웻슈트를 입어도 되나?",
+                           "headline": desc}, slug, h1, desc, "철인3종"),
+        nav=nav_html(active_for("gear.html")), sport="철인3종",
+        h1=esc(h1), question=esc("내 대회 수온에서는 어떻게 되나?"),
+        body=body, related="", bodyattr="")
+
+
+# ── 경사표: 한 장비의 효과가 서로 반대로 간다 ────────────────────
+
+def pole_gradient_page(claims):
+    claim = findc(claims, "trail-poles")
+    if not claim:
+        return None
+    reqs = [{"claim": "trail-poles", "input": {"gradient_pct": g}}
+            for g in POLE_GRADIENTS]
+    res = run_model(reqs)
+
+    rows = ""
+    for g, r in zip(POLE_GRADIENTS, res):
+        if not r:
+            continue
+        cells = ""
+        for e in r["effects"]:
+            if not e["hasEvidence"]:
+                cells += '<td><em>근거 없음</em></td>'
+                continue
+            rg = e["range"]
+            ns = e.get("significant") is False
+            lo = 0.0 if ns else rg["lo"]
+            word = "늘어남" if e["direction"] == "worse" else "줄어듦"
+            if abs(rg["hi"]) < 0.05:
+                txt = "차이 없음"
+            elif abs(rg["hi"] - lo) < 0.05:
+                txt = f'{rg["hi"]:.0f}% {word}'
+            else:
+                txt = f'{lo:.0f} ~ {rg["hi"]:.0f}% {word}'
+            cells += (f'<td><span class="ge-grade ge-{esc(e["grade"])}">{esc(e["grade"])}</span> '
+                      f'{esc(txt)}'
+                      + ('<span class="gt-ns">유의하지 않음</span>' if ns else "")
+                      + "</td>")
+        rows += f'<tr><th>{g}%</th>{cells}</tr>'
+
+    labels = [e["label"] for e in res[0]["effects"]] if res and res[0] else []
+    head = "<tr><th>경사</th>" + "".join(f"<th>{esc(l)}</th>" for l in labels) + "</tr>"
+    table = (f'<div class="gt-wrap"><table class="gt"><thead>{head}</thead>'
+             f"<tbody>{rows}</tbody></table></div>")
+
+    body = (
+        '<p class="gi-headline">같은 폴인데 두 효과가 서로 반대로 갑니다. '
+        '에너지는 더 쓰고, 다리 부담은 줄어듭니다.</p>'
+        + table
+        + '<h2>표를 읽을 때</h2>'
+          '<p class="gm-measure">산소 소모는 평지에서 가장 불리하고 경사가 가팔라질수록 '
+          '불리함이 줄어듭니다. 25도가 넘는 구간에서는 수직 이동 비용이 오히려 낮아졌다는 '
+          '보고도 있지만 근거가 얇습니다. 다리에 걸리는 힘은 경사와 무관하게 줄어드는 쪽으로 '
+          '보고됐습니다 — 다만 측정 방식이 제각각이라 한데 묶기 어렵고, 러닝 쪽 근거에는 '
+          '참가자 한 명짜리 연구가 섞여 있을 만큼 얇습니다.</p>'
+          '<p class="gm-measure">그래서 폴은 "빨라지려고" 드는 물건이 아닙니다. '
+          '에너지를 더 쓰면서 다리를 아끼는 맞바꿈이고, 긴 대회에서 다리가 먼저 무너지는 '
+          '사람에게 그 맞바꿈이 유리해집니다. UTMB 는 폴을 선택으로 두되 한번 들면 전 구간 '
+          '들고 가게 합니다.</p>'
+        + f'<p class="gm-src">근거와 출처는 '
+          f'<a href="{esc(slug_for("claim", claim["id"]))}">트레일 폴 판정</a>에 '
+          f'자세히 적어 두었습니다. 필수 장비 기준은 '
+          f'<a href="gear-utmb-kit.html">UTMB 필수 장비</a>에서 볼 수 있습니다.</p>')
+
+    slug = "gear-trail-poles-by-gradient.html"
+    h1 = "경사별 트레일 폴 효과"
+    title = "경사별 트레일 폴 효과 — 에너지는 더 쓰고 다리는 아낀다 | 칼랭크"
+    desc = ("경사에 따라 트레일 폴의 효과가 어떻게 달라지는지 연구 근거 등급과 함께 "
+            "정리했습니다. 산소 소모와 다리 부담이 서로 반대로 움직입니다.")[:155]
+    return slug, PAGE.format(
+        title=esc(title), desc=esc(desc), base=BASE, slug=slug,
+        jsonld=jsonld_for({"question": "폴을 쓰면 정말 덜 힘들까?", "headline": desc},
+                          slug, h1, desc, "트레일러닝"),
+        nav=nav_html(active_for("gear.html")), sport="트레일러닝",
+        h1=esc(h1), question=esc("경사에 따라 얼마나 달라지나?"),
+        body=body, related="", bodyattr="")
+
+
 def update_sitemap(slugs):
     path = ROOT / "sitemap.xml"
     if not path.exists():
@@ -720,9 +901,15 @@ def main():
                         tidx.get(it["id"]) if kind == "claim" else None)
              for kind, it in items]
     pages += build_tables(claims, bodies)
+    for fn in (lambda: wetsuit_temp_page(rules, claims), lambda: pole_gradient_page(claims)):
+        r = fn()
+        if r:
+            pages.append(r)
 
     written, same, slugs = 0, 0, []
+    from gear_images import add_image
     for slug, content in pages:
+        content = add_image(slug, content)
         slugs.append(slug)
         p = ROOT / slug
         if p.exists() and p.read_text(encoding="utf-8") == content:
