@@ -33,6 +33,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_nav import nav_html, active_for  # noqa: E402
+import wma_standards as wma  # noqa: E402
+from gear_table_data import (  # noqa: E402
+    RUN_DISTS, RUN_GOALS, BIKE_SPEEDS, BIKE_DISTS, RUN_TABLES, BIKE_TABLES,
+    REF_AGE, REF_GENDER, tier_bounds, tier_of, run_model)
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://calrank.vercel.app"
@@ -145,7 +149,9 @@ def claim_body(claim):
             else:
                 scope = f"{num(lo)} ~ {num(hi)}"
 
-            if ev.get("no_data"):
+            if ev.get("caveat") or eff.get("kind") == "caveat":
+                val = "효과 수치가 아니라 주의사항입니다"
+            elif ev.get("no_data"):
                 val = "연구 없음"
             elif ev.get("model"):
                 val = "검증된 모델로 계산"
@@ -304,19 +310,39 @@ def jsonld_for(item, slug, title, desc, sport):
     return dump(faq) + "\n" + dump(crumb)
 
 
-def build_page(kind, item, bodies, siblings):
+def build_page(kind, item, bodies, siblings, tables=None):
     slug = slug_for(kind, item["id"])
     sport = SPORT_LABEL.get(item.get("sport"), "")
     q = item.get("question") or item["label"]
-    title = f"{item['label']} — {q} | 칼랭크 기어 판정"
-    desc = (item.get("headline") or q)[:155]
+
+    # 제목과 설명은 자료 쪽 seo 칸에서 가져온다. 코드에 박아 두면 스무 장을
+    # 손으로 고치게 되고, 주장을 더할 때마다 또 손이 간다.
+    #
+    # H1 은 제목의 앞토막(— 앞)을 쓴다. 검색어가 앞에 오고 길이도 적당하다.
+    # 사이트 안에서 쓰는 짧은 이름(label)은 목차와 관련 링크에 그대로 두고,
+    # 검색에서 들어온 사람에게는 자기가 친 말이 제목으로 보이게 한다.
+    seo = item.get("seo") or {}
+    seo_title = seo.get("title")
+    if seo_title:
+        title = f"{seo_title} | 칼랭크"
+        h1 = seo_title.split("—")[0].strip()
+    else:
+        title = f"{item['label']} — {q} | 칼랭크 기어 판정"
+        h1 = item["label"]
+    desc = (seo.get("description") or item.get("headline") or q)[:155]
     body = rule_body(item, bodies) if kind == "rule" else claim_body(item)
+
+    # 기록별·평속별 표로 보내는 길. 머리 가까이 둔다 — 자기 숫자를 넣기
+    # 전에 "남들은 어떤가"를 먼저 보고 싶어 하는 사람이 많다.
+    if tables:
+        links = " · ".join(f'<a href="{esc(h)}">{esc(l)}</a>' for h, l in tables)
+        body = (f'<p class="gi-tablinks">기록별로 미리 보기 · {links}</p>' + body)
     attr = f' data-gear-{kind}="{esc(item["id"])}"'
     return slug, PAGE.format(
         title=esc(title), desc=esc(desc), base=BASE, slug=slug,
-        jsonld=jsonld_for(item, slug, item["label"], desc, sport),
+        jsonld=jsonld_for(item, slug, h1, desc, sport),
         nav=nav_html(active_for("gear.html")), sport=esc(sport),
-        h1=esc(item["label"]), question=esc(q), body=body,
+        h1=esc(h1), question=esc(q), body=body,
         related=related_block(item.get("sport"), siblings, slug),
         bodyattr=attr)
 
@@ -371,14 +397,283 @@ def update_hub(rules, claims, check=False):
         return False
     src = path.read_text(encoding="utf-8")
     block = build_hub(rules, claims)
-    new = re.sub(r'(<div id="gearHub" class="gi-hub">).*?(</div>)',
-                 lambda m: m.group(1) + "\n" + block + "\n" + m.group(2),
-                 src, count=1, flags=re.S)
+    # 표식 사이만 바꾼다. 전에는 여는 div 와 "그 다음 </div>" 사이를 비탐욕으로
+    # 잡았는데, 넣은 블록 안에도 </div> 가 있어서 두 번째 실행부터 블록 안쪽
+    # 첫 </div> 에 걸렸다. 그래서 돌릴 때마다 목록이 통째로 덧붙었다 —
+    # 다섯 번 돌리니 종목이 25개, 항목이 100개가 됐다. 경계는 눈에 보이는
+    # 표식으로 두는 편이 안전하다.
+    pat = re.compile(r"(<!-- gear-hub:start[^>]*-->).*?(<!-- gear-hub:end -->)", re.S)
+    if not pat.search(src):
+        print("  gear.html 에 gear-hub 표식이 없습니다 — 허브 목록을 건너뜁니다.")
+        return False
+    new = pat.sub(lambda m: m.group(1) + "\n" + block + "\n" + m.group(2), src, count=1)
     if new == src:
         return False
     if not check:
         path.write_text(new, encoding="utf-8")
     return True
+
+
+# ── 기록별·평속별 효과표 ──────────────────────────────────────────
+#
+# 목표 시간 페이지가 먹힌 구조를 그대로 쓴다. 숫자 하나를 주면 여러 틀로
+# 되돌려 주고, 읽는 사람이 표에서 자기 줄을 찾는다. 다만 줄이 서로 다른
+# 답을 낼 때만 페이지를 만든다 — 카본화는 한 표 안에서 근거가 A 에서 C 로
+# 뒤집히고, 타이어는 평속에 따라 단축이 3.5배 벌어진다. 웻슈트는 철인
+# 전 거리가 한 근거 구간에 들어가 줄마다 같은 숫자가 나오므로 만들지 않는다.
+
+def _clock(sec):
+    sec = int(round(abs(sec)))
+    h, m, r = sec // 3600, (sec % 3600) // 60, sec % 60
+    return f"{h}:{m:02d}:{r:02d}" if h else f"{m}:{r:02d}"
+
+
+def _gap(sec):
+    sec = int(round(abs(sec)))
+    m, r = sec // 60, sec % 60
+    if not m:
+        return f"{r}초"
+    return f"{m}분 {r}초" if r else f"{m}분"
+
+
+def _cut_text(eff):
+    """단축 구간. 한 점으로만 보고된 근거는 범위로 적지 않는다."""
+    if not eff.get("cutSec"):
+        return "—"
+    lo, hi = abs(eff["cutSec"]["lo"]), abs(eff["cutSec"]["hi"])
+    if eff.get("significant") is False:
+        lo = 0.0
+    lo, hi = min(lo, hi), max(lo, hi)
+    if abs(hi - lo) < 1:
+        return _gap(hi)
+    return f"{_gap(lo)} ~ {_gap(hi)}"
+
+
+def run_table(claim, dist_key, dist_km, dist_label, bounds):
+    goals = RUN_GOALS[dist_key]
+    res = run_model([{"claim": claim["id"],
+                      "input": {"finishSec": sec, "distanceKm": dist_km}}
+                     for sec, _ in goals])
+    rows, grades_seen = [], set()
+    for (sec, label), r in zip(goals, res):
+        if not r or not r["effects"]:
+            continue
+        e = r["effects"][0]
+        if not e["hasEvidence"]:
+            continue
+        grades_seen.add(e["grade"])
+        pct0 = wma.age_grade(sec, REF_GENDER, dist_key, REF_AGE)
+        best = max(abs(e["cutSec"]["lo"]), abs(e["cutSec"]["hi"]))
+        pct1 = wma.age_grade(max(1, sec - best), REF_GENDER, dist_key, REF_AGE)
+        t0, t1 = tier_of(pct0, bounds), tier_of(pct1, bounds)
+        pace = sec / dist_km
+        rows.append({
+            "label": label, "pace": f"{int(pace)//60}:{int(pace)%60:02d}",
+            "speed": f"{r['speedKmh']:.1f}", "grade": e["grade"],
+            "ns": e.get("significant") is False,
+            "cut": _cut_text(e), "tier0": t0, "tier1": t1, "moved": t0 != t1,
+        })
+    return rows, grades_seen
+
+
+def bike_table(claim, dist_km, bounds):
+    res = run_model([{"claim": claim["id"],
+                      "input": {"speed_kmh": v, "distanceKm": dist_km}}
+                     for v in BIKE_SPEEDS])
+    rows = []
+    for v, r in zip(BIKE_SPEEDS, res):
+        if not r:
+            continue
+        timed = [e for e in r["effects"] if e.get("cutSec")]
+        if not timed:
+            continue
+        e = timed[0]
+        base = dist_km * 1000 / (v / 3.6)
+        rows.append({
+            "label": f"{v}㎞/h", "speed": v,
+            "cutSec": abs(e["cutSec"]["point"]),
+            "watts": f"{round(r['effects'][0].get('watts') or 0)}",
+            "share": r["effects"][0].get("sharePct"),
+            "roll": r["effects"][0].get("rollSharePct"),
+            "grade": e["grade"], "cut": _cut_text(e),
+            "before": _clock(base), "after": _clock(base - e["cutSec"]["point"]),
+        })
+    return rows
+
+
+def table_html(rows, kind):
+    if kind == "run":
+        head = ("<tr><th>목표 기록</th><th>페이스</th><th>속도</th>"
+                "<th>근거</th><th>단축</th><th>등급</th></tr>")
+        body = "".join(
+            f'<tr><th>{esc(r["label"])}</th>'
+            f'<td>{esc(r["pace"])}/km</td><td>{esc(r["speed"])}㎞/h</td>'
+            f'<td><span class="ge-grade ge-{esc(r["grade"])}">{esc(r["grade"])}</span>'
+            + ('<span class="gt-ns">유의하지 않음</span>' if r["ns"] else "")
+            + f'</td><td>{esc(r["cut"])}</td>'
+            f'<td>{esc(r["tier0"])}'
+            + (f' → <b>{esc(r["tier1"])}</b>' if r["moved"] else " <em>그대로</em>")
+            + "</td></tr>"
+            for r in rows)
+    else:
+        head = ("<tr><th>평속</th><th>필요 출력</th><th>근거</th>"
+                "<th>단축</th><th>완주 시간</th></tr>")
+        body = "".join(
+            f'<tr><th>{esc(r["label"])}</th><td>{esc(r["watts"])}W</td>'
+            f'<td><span class="ge-grade ge-{esc(r["grade"])}">{esc(r["grade"])}</span></td>'
+            f'<td>{esc(r["cut"])}</td>'
+            f'<td>{esc(r["before"])} → <b>{esc(r["after"])}</b></td></tr>'
+            for r in rows)
+    return f'<div class="gt-wrap"><table class="gt"><thead>{head}</thead><tbody>{body}</tbody></table></div>'
+
+
+def build_table_page(claim, ctx, bodies):
+    """ctx: run 이면 (key, km, label), bike 이면 (km, label)"""
+    bounds = tier_bounds()
+    if ctx["kind"] == "run":
+        rows, grades = run_table(claim, ctx["key"], ctx["km"], ctx["label"], bounds)
+        if len(rows) < 2:
+            return None
+        slug = f'gear-{claim["id"]}-{ctx["key"]}.html'
+        short = claim.get("short_label") or claim["label"]
+        h1 = f'{ctx["label"]} {short} 효과'
+        title = f'{h1} — 기록별로 몇 초 줄어드나 | 칼랭크'
+        flip = len(grades) > 1
+        moved = [r for r in rows if r["moved"]]
+
+        # 글머리가 표에서 읽히는 것을 먼저 말한다. 등급이 하나도 안 움직이면
+        # 그게 이 표의 결론이다 — 빈칸처럼 보이는 칸이 사실은 답이다.
+        if moved:
+            names = ", ".join(r["label"] for r in moved)
+            lead = (f'{ctx["label"]} {len(rows)}줄 가운데 등급이 바뀌는 건 '
+                    f'{names} 한 줄뿐입니다.' if len(moved) == 1 else
+                    f'{ctx["label"]} {len(rows)}줄 가운데 {len(moved)}줄에서 등급이 바뀝니다 — {names}.')
+        else:
+            lead = f'{ctx["label"]}에서는 어느 줄도 등급이 바뀌지 않습니다.'
+
+        # 근거가 갈리는 것은 등급이 움직이는 줄이 있을 때만 덧붙인다.
+        # 위에서 이미 "근거가 갈린다"는 뜻을 전한 경우 같은 말을 두 번 하게 된다.
+        if flip and moved:
+            lead += " 게다가 같은 신발인데 표 윗줄과 아랫줄의 근거가 다릅니다."
+        elif flip:
+            lead += " 근거의 단단함만 기록에 따라 갈립니다."
+        desc = (f'{ctx["label"]} 목표 기록별 {short} 효과를 연구 근거 등급과 함께 '
+                f'정리했습니다. 단축 초와 등급 변화까지 한 표로 봅니다.')[:155]
+        note = (
+            '<h2>표를 읽을 때</h2>'
+            '<p class="gm-measure">단축 초는 나이·성별과 무관합니다. 다만 그 초가 '
+            '등급을 바꾸는지는 나이에 달려 있어서, 등급 칸은 '
+            f'<b>{REF_AGE}세 {"남성" if REF_GENDER == "male" else "여성"}</b> 기준으로 적었습니다. '
+            '내 나이로 보려면 <a href="level.html">등급 계산기</a>에서 기록을 넣어 보세요.</p>'
+            '<p class="gm-measure">단축 초가 위에서 아래로 줄곧 늘거나 줄지 않습니다. '
+            '같은 근거 구간 안에서는 느릴수록 더 많은 초를 받습니다 — 같은 비율이 더 긴 '
+            '시간에 걸리기 때문입니다. 그런데 구간이 바뀌면 근거가 통째로 달라져서 '
+            '숫자가 꺾입니다. 꺾이는 자리가 바로 연구가 갈리는 자리입니다.</p>')
+        goal_links = " · ".join(
+            f'<a href="goal-{ctx["key"]}-{sl}.html">{ctx["label"]} {nm}</a>'
+            for sl, nm in ctx.get("goals", []))
+        extra = (f'<p class="gi-links">목표 기록별 페이스와 구간 통과 시간 · {goal_links}</p>'
+                 if goal_links else "")
+        body = (f'<p class="gi-headline">{esc(lead)}</p>'
+                + table_html(rows, "run") + note + extra)
+    else:
+        rows = bike_table(claim, ctx["km"], bounds)
+        if len(rows) < 2:
+            return None
+        slug = f'gear-{claim["id"]}-{ctx["km"]}km.html'
+        short = claim.get("short_label") or claim["label"]
+        h1 = f'{ctx["label"]} {short} 효과'
+        title = f'{h1} — 평속별로 몇 초 줄어드나 | 칼랭크'
+        # 글머리가 표의 폭을 먼저 말한다. 느린 쪽이 더 받는지 덜 받는지가
+        # 이 표에서 읽히는 유일한 결론이고, 장비마다 방향이 다르다.
+        lo, hi = rows[0], rows[-1]
+        wider = "느릴수록" if lo["cutSec"] > hi["cutSec"] else "빠를수록"
+        a, b2 = (lo, hi) if lo["cutSec"] > hi["cutSec"] else (hi, lo)
+        ratio = a["cutSec"] / b2["cutSec"] if b2["cutSec"] else 0
+        lead = (f'{ctx["label"]}에서 {lo["label"]}는 {_gap(lo["cutSec"])}, '
+                f'{hi["label"]}는 {_gap(hi["cutSec"])}를 돌려받습니다 — '
+                + (f'{wider} 더 받고, 차이가 {ratio:.1f}배입니다.'
+                   if ratio >= 1.3 else f'{wider} 더 받습니다.'))
+        desc = (f'{ctx["label"]} 주행에서 평속별 {short} 효과를 검증된 출력 모델로 '
+                f'계산했습니다. 필요 출력과 완주 시간 변화까지 한 표로 봅니다.')[:155]
+        note = (
+            '<h2>표를 읽을 때</h2>'
+            '<p class="gm-measure">공기저항은 속도의 세제곱으로, 구름저항은 속도에 비례해 '
+            '커집니다. 그래서 빠를수록 공기저항 몫이 커지고 느릴수록 구름저항 몫이 커집니다. '
+            '같은 퍼센트를 줄여도 빠른 사람은 휠·헬멧에서, 느린 사람은 타이어에서 더 많이 '
+            '돌려받는 이유가 여기 있습니다.</p>'
+            '<p class="gm-measure">필요 출력은 평지·무풍에서 그 평속을 유지하는 데 드는 힘입니다. '
+            '총중량 80㎏, 공기밀도 1.225㎏/㎥, CdA 0.264㎡ 를 기본값으로 썼습니다. '
+            '<a href="' + esc(slug_for("claim", claim["id"])) + '">판정 도구</a>에서 '
+            '내 값으로 바꿔 넣을 수 있습니다.</p>')
+        body = f'<p class="gi-headline">{esc(lead)}</p>' + table_html(rows, "bike") + note
+
+    body += (f'<p class="gm-src">근거와 출처는 '
+             f'<a href="{esc(slug_for("claim", claim["id"]))}">{esc(claim["label"])} 판정</a>에 '
+             f'자세히 적어 두었습니다.</p>')
+
+    sport = SPORT_LABEL.get(claim.get("sport"), "")
+    return slug, PAGE.format(
+        title=esc(title), desc=esc(desc), base=BASE, slug=slug,
+        jsonld=jsonld_for({"question": title, "headline": desc}, slug, h1, desc, sport),
+        nav=nav_html(active_for("gear.html")), sport=esc(sport),
+        h1=esc(h1), question=esc(claim.get("question", "")), body=body,
+        related="", bodyattr="")
+
+
+def table_index(claims_data):
+    """claim 별 표 페이지 목록. 부모 판정 페이지가 이쪽을 가리키게 한다.
+
+    가리키는 링크가 없으면 고아 페이지가 된다. 사이트맵에만 올라가 있고
+    안에서 아무도 가리키지 않는 페이지는 색인에서 뒤로 밀린다.
+    """
+    idx = {}
+    for cid in RUN_TABLES:
+        if findc(claims_data, cid):
+            idx[cid] = [(f"gear-{cid}-{key}.html", label)
+                        for key, _km, _b, label in RUN_DISTS]
+    for cid in BIKE_TABLES:
+        if findc(claims_data, cid):
+            idx[cid] = [(f"gear-{cid}-{km}km.html", label)
+                        for km, label in BIKE_DISTS]
+    return idx
+
+
+def build_tables(claims_data, bodies):
+    out = []
+    goal_slug = {"5km": [("20min", "20분"), ("25min", "25분"), ("30min", "30분")],
+                 "10km": [("40min", "40분"), ("45min", "45분"), ("50min", "50분"),
+                          ("55min", "55분"), ("60min", "1시간")],
+                 "half": [("1h30", "1시간 30분"), ("1h40", "1시간 40분"),
+                          ("1h50", "1시간 50분"), ("2h", "2시간"), ("2h30", "2시간 30분")],
+                 "full": [("3h", "3시간"), ("3h30", "3시간 30분"), ("4h", "4시간"),
+                          ("4h30", "4시간 30분"), ("5h", "5시간")]}
+    for cid in RUN_TABLES:
+        claim = findc(claims_data, cid)
+        if not claim:
+            continue
+        for key, km, slug_bit, label in RUN_DISTS:
+            r = build_table_page(claim, {"kind": "run", "key": key, "km": km,
+                                         "label": label,
+                                         "goals": goal_slug.get(key, [])}, bodies)
+            if r:
+                out.append(r)
+    for cid in BIKE_TABLES:
+        claim = findc(claims_data, cid)
+        if not claim:
+            continue
+        for km, label in BIKE_DISTS:
+            r = build_table_page(claim, {"kind": "bike", "km": km, "label": label}, bodies)
+            if r:
+                out.append(r)
+    return out
+
+
+def findc(data, cid):
+    for c in data.get("claims", []):
+        if c["id"] == cid:
+            return c
+    return None
 
 
 def update_sitemap(slugs):
@@ -420,9 +715,14 @@ def main():
     for kind, it in items:
         by_sport.setdefault(it.get("sport"), []).append((kind, it["id"], it["label"]))
 
+    tidx = table_index(claims)
+    pages = [build_page(kind, it, bodies, by_sport.get(it.get("sport"), []),
+                        tidx.get(it["id"]) if kind == "claim" else None)
+             for kind, it in items]
+    pages += build_tables(claims, bodies)
+
     written, same, slugs = 0, 0, []
-    for kind, it in items:
-        slug, content = build_page(kind, it, bodies, by_sport.get(it.get("sport"), []))
+    for slug, content in pages:
         slugs.append(slug)
         p = ROOT / slug
         if p.exists() and p.read_text(encoding="utf-8") == content:
