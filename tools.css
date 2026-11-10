@@ -124,3 +124,7 @@
 .gv-ck label { display: inline-flex; gap: 8px; align-items: flex-start; font-size: 13.5px; color: var(--ink-soft); cursor: pointer; }
 .gv-ck input { width: 20px; height: 20px; margin-top: 2px; flex: none; }
 .gv-ck a { font-size: 12px; color: var(--accent-ink); margin-left: 4px; }
+
+.dq-fig { margin: 10px 0 0; }
+.dq-fig img { display: block; width: 100%; max-height: 260px; object-fit: cover; border-radius: 8px; background: var(--tint-1); }
+.dq-fig figcaption { font-size: 11.5px; color: var(--ink-faint); margin-top: 4px; line-height: 1.6; }
