@@ -156,6 +156,11 @@ def esc(s):
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 
+import sys as _s; _s.path.insert(0, str(ROOT / "scripts"))
+from gear_images import commons_fig
+FIG = {"wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
+
+
 def standards_page(sid):
     label, body_name, slug, title = SPORT_META[sid]
     items = DQ["sports"][sid]["items"]
@@ -171,7 +176,7 @@ def standards_page(sid):
             cls = "dq-tag dq" if "실격" in it["severity"] else "dq-tag"
             cards += (f'<div class="dq-card" id="{it["id"]}"><div class="dq-top"><h3 class="dq-title">{esc(it["title"])}</h3>'
                       f'<span class="{cls}">{esc(it["severity"])}</span><span class="dq-clause">{esc(it["clause"])}</span></div>'
-                      f'<p class="dq-text">{esc(it["text"])}</p></div>')
+                      f'<p class="dq-text">{esc(it["text"])}</p>{FIG.get(it["id"], "")}</div>')
     links = "".join(f'<a class="dq-link" href="gear-{r["id"]}.html"><b>{esc(r["label"])}</b><span>{esc(r["headline"])}</span></a>' for r in rules)
     srcs = "".join(
         f'<p class="tp-src">출처: {esc(src[k]["label"])} — <a href="{esc(src[k]["url"])}" rel="noopener" target="_blank">원문 열기</a>. '

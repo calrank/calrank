@@ -31,6 +31,30 @@ IMG = {
     "skate2":  ("1571032800240-1cc2e680b00c", "롤러 스케이트 한 짝", "hyvIttJtKPI", "Luke Southern"),
 }
 
+# Wikimedia Commons 사진(공개 도메인·CC BY). 촬영자와 라이선스를 사진 아래에 적는다.
+CC2 = ("CC BY 2.0", "https://creativecommons.org/licenses/by/2.0/")
+PD = ("공개 도메인", "")
+COMMONS = {
+    "tri-helmet": ("Couple_preparing_for_bike_ride.jpg", "자전거 타기 전에 헬멧을 쓴 두 사람", "Bill Branson", PD),
+    "tri-draft":  ("USMC-110925-M-0992R-275.jpg", "철인3종 경기 자전거 구간", "미 해병대", PD),
+    "tri-bib":    ("A_Photo_by_William_W._Ward,_\"Untitled.\"_(15162148422).jpg", "배번을 단 철인3종 선수", "Billie Grace Ward", CC2),
+    "tri-swim":   ("Swim_start_Ironman_Brazil_2011.jpg", "아이언맨 수영 출발 모습", "Arcadiuš", CC2),
+}
+
+def commons_url(k, w):
+    import urllib.parse
+    return "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(COMMONS[k][0]) + f"?width={w}"
+
+def commons_page(k):
+    import urllib.parse
+    return "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(COMMONS[k][0])
+
+def commons_fig(k, cls="gi-hero-img"):
+    f, alt, who, lic = COMMONS[k]
+    l = f'<a href="{lic[1]}" rel="noopener" target="_blank">{lic[0]}</a>' if lic[1] else lic[0]
+    return (f'<figure class="{cls}"><img src="{commons_url(k,960)}" alt="{alt}" loading="lazy" decoding="async">'
+            f'<figcaption>사진 {who} · {l} · <a href="{commons_page(k)}" rel="noopener" target="_blank">Wikimedia Commons</a></figcaption></figure>')
+
 # 페이지마다 그 페이지가 다루는 물건이 보이는 사진을 따로 고른다.
 SLUG = {
     "gear-wa-stack-height": "plate", "gear-wa-rigid-plate": "sole", "gear-wa-availability": "store",
@@ -42,7 +66,7 @@ SLUG = {
     "gear-tyre-rolling": "tyre", "gear-tyre-rolling-40km": "tyre", "gear-tyre-rolling-100km": "tyre",
     "gear-aero-helmet": "helmet", "gear-aero-helmet-40km": "helmet", "gear-aero-helmet-100km": "helmet",
     "gear-uci-min-weight": "road", "gear-uci-saddle-setback": "saddle", "gear-uci-frame-approval": "frame",
-    "gear-wt-bike-agegroup": "tribike", "gear-wt-wetsuit-thickness": "wetsuit", "gear-wetsuit": "wetbeach",
+    "gear-wt-bike-agegroup": "tribike", "gear-wt-wetsuit-thickness": "tri-swim", "gear-wetsuit": "wetbeach",
     "gear-wt-wetsuit-temp": "openwater", "gear-wetsuit-by-temp": "swimstart",
     "gear-ws-wheel-diameter": "skate", "gear-inline-bearings": "skate",
 }
@@ -51,10 +75,12 @@ SLUG = {
 POS = {}
 
 def group_of(s):
-    return SLUG.get(s.replace(".html", ""))
+    g = SLUG.get(s.replace(".html", ""))
+    return g
 
 def image_url(slug):
     g = group_of(slug)
+    if g in COMMONS: return commons_url(g, 1200)
     return url(g, 1200) if g else None
 
 def url(g, w):
@@ -64,6 +90,10 @@ def add_image(slug, html):
     g = group_of(slug)
     if not g or "gi-hero-img" in html:
         return html
+    if g in COMMONS:
+        og = f'<meta property="og:image" content="{commons_url(g,1200)}">\n<meta name="twitter:image" content="{commons_url(g,1200)}">\n'
+        html = html.replace('<meta name="twitter:card"', og + '<meta name="twitter:card"', 1)
+        return html.replace("</section>\n", "</section>\n\n" + commons_fig(g) + "\n", 1)
     pid, alt, ph, who = IMG[g]
     og = f'<meta property="og:image" content="{url(g,1200)}">\n<meta name="twitter:image" content="{url(g,1200)}">\n'
     html = html.replace('<meta name="twitter:card"', og + '<meta name="twitter:card"', 1)
