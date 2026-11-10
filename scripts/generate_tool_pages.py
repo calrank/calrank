@@ -149,6 +149,8 @@ DQ = json.loads((ROOT / "data/gear_dq.json").read_text(encoding="utf-8"))
 SPORT_META = {
     "triathlon": ("철인3종", "World Triathlon", "standards-triathlon.html",
                   "철인3종 장비·규칙 기준 — 실격되는 것과 벌칙 정리"),
+    "running": ("러닝", "World Athletics", "standards-running.html",
+                "러닝화 규칙 기준 — 밑창 두께 40mm와 플레이트 규정"),
     "cycling": ("사이클", "UCI", "standards-cycling.html",
                 "사이클 장비·규칙 기준 — 최소 무게와 안장 위치"),
 }
@@ -160,10 +162,15 @@ def esc(s):
 
 import sys as _s; _s.path.insert(0, str(ROOT / "scripts"))
 from gear_images import commons_fig
-FIG = {"uci-setback": commons_fig("uci-saddle", "dq-fig"), "wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
+FIG = {"wa-stack": commons_fig("shoe-section", "dq-fig"), "uci-setback": commons_fig("uci-saddle", "dq-fig"), "wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
 
 
-FAQS = {"cycling": [
+FAQS = {"running": [
+    ("마라톤 러닝화 두께 한도는 몇 mm인가요?", "부칙 2에 따라 도로 달리기는 40mm입니다. 신발 안쪽 윗면에서 바깥 밑면까지를 앞꿈치 중심과 뒤꿈치 중심에서 재고(8.3–8.4), 기준 크기는 270mm(US 8.5)입니다."),
+    ("카본 플레이트가 있는 러닝화도 괜찮나요?", "8.5.1에 따라 스파이크 없는 신발은 단단한 구조물을 하나까지만 넣을 수 있습니다. 두 개 이상이면 안 됩니다."),
+    ("트레일 러닝화에도 40mm 한도가 있나요?", "3.3과 부칙 2에서 산·트레일 경주와 크로스컨트리는 두께 한도 표에서 빠져 있습니다. 대회 요강이 따로 정한 것이 있는지는 확인해 주세요."),
+    ("시중에 팔지 않는 신발은 신어도 되나요?", "세계랭킹 대회에서는 신발을 살 수 있어야 합니다(11.1). 개발 중인 신발은 세계육상 시리즈와 올림픽에서는 안 되고, 다른 세계랭킹 대회에서는 사전 서면 승인을 받아 최대 12개월까지 신을 수 있습니다(7.1–7.3). 동호인 대회에 같은 기준이 적용되는지는 요강을 확인해 주세요."),
+], "cycling": [
     ("UCI 자전거 최소 무게는 몇 kg인가요?", "1.3.019에 따라 자전거 무게는 6.8kg보다 가벼울 수 없습니다. UCI 규정의 조항입니다. 동호인 대회에 그대로 적용되는지는 대회 요강을 확인해 주세요."),
     ("UCI 안장은 크랭크 축에서 얼마나 뒤에 있어야 하나요?", "1.3.013에 따라 안장 끝점이 크랭크 축 수직면보다 최소 5cm 뒤에 있어야 합니다. 체형 때문에 필요하면 경기 전 장비 검사에서 알리고 예외를 요청할 수 있습니다."),
     ("안장은 얼마나 기울여도 되나요?", "1.3.014에 따라 안장의 가장 높은 앞·뒤 점을 지나는 면이 수평에서 최대 9도까지 기울 수 있습니다."),
@@ -192,7 +199,10 @@ def standards_page(sid):
         f'{esc(src[k].get("note", ""))}<br><span class="dq-watch" data-watch="{esc(src[k]["url"])}">원문 확인 현황은 매주 자동으로 갱신됩니다.</span></p>'
         for k in used)
     edited = DQ["sports"][sid].get("edited", "")
-    if sid == "cycling":
+    if sid == "running":
+        h2 = "신발 기준"
+        intro = "World Athletics 신발 규정 원문에서 조항 번호와 함께 옮겼습니다. 이 규정은 세계랭킹 대회와 국제 대회를 대상으로 하므로, 동호인 대회에 그대로 적용되는지는 대회 요강으로 먼저 확인해 주세요."
+    elif sid == "cycling":
         h2 = "장비 기준"
         intro = "UCI 규정 원문에서 조항 번호와 함께 옮겼습니다. UCI 규정이라 동호인 대회에 그대로 적용되는지는 대회 요강으로 먼저 확인해 주세요. 현장 판정은 심판단이 합니다."
     else:
@@ -218,6 +228,9 @@ def standards_page(sid):
     h1 = f"{label} 장비·규칙 기준"
     sub = f"{body_name} 규정에서 실격이 되는 것, 시간 벌칙이 붙는 것, 장비 수치 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
     desc = f"{label} 에이지그룹 규정의 실격 사유와 벌칙을 조항 번호와 함께 정리했습니다. 헬멧, 드래프팅 12m와 벌칙 시간, 헤드폰, 배번, 웻슈트 기준까지."
+    if sid == "running":
+        sub = "World Athletics 신발 규정에서 밑창 두께 한도, 플레이트 규정, 시판·개발 신발, 스파이크 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
+        desc = "World Athletics 러닝화 규정의 도로 40mm 두께 한도, 단단한 구조물 하나 제한, 시판·개발 신발, 스파이크 기준을 조항 번호와 함께 정리했습니다."
     if sid == "cycling":
         sub = "UCI 규정에서 자전거 최소 무게, 안장 위치와 각도, 장비 승인 기준을 한곳에 모았습니다. 판정마다 조항 번호와 원문 링크를 달았습니다."
         desc = "UCI 규정의 자전거 최소 무게 6.8kg, 안장 5cm 뒤 위치, 안장 각도 9도, 장비 승인 기준을 조항 번호와 함께 정리했습니다."
@@ -254,7 +267,7 @@ for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", L
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "gear-changes.html"):
+for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "gear-changes.html"):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:

@@ -447,6 +447,8 @@ def build_hub(rules, claims):
         '<span class="gh-q">같은 기록이면 몇 살에 어느 등급일까?</span></a>'
         '<a class="gh-item" href="standards-triathlon.html"><b>철인3종 규칙 기준</b>'
         '<span class="gh-q">헬멧, 드래프팅, 헤드폰… 뭐가 실격일까?</span></a>'
+        '<a class="gh-item" href="standards-running.html"><b>러닝화 규칙 기준</b>'
+        '<span class="gh-q">도로 40mm, 플레이트는 하나… 세계육상 신발 규정은?</span></a>'
         '<a class="gh-item" href="standards-cycling.html"><b>사이클 규칙 기준</b>'
         '<span class="gh-q">최소 6.8kg, 안장은 5cm 뒤… UCI 기준은?</span></a></div></div></section>']
     for sp in claims.get("sports", []):
