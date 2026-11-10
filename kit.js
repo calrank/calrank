@@ -86,6 +86,17 @@
     });
     if (Object.keys(first).length) L.setSeen(first);
     var box = $("kitChanges");
+    if (window.CalrankWatch) {
+      window.CalrankWatch.load().then(function (w) {
+        var hit = DATA.rules.filter(function (r) { return r.url && window.CalrankWatch.recent(w[r.url], 60); });
+        if (!hit.length) return;
+        var p = document.createElement("div"); p.className = "tp-alert";
+        p.innerHTML = "규정 원문(연맹 문서)이 최근 바뀌었을 수 있는 항목: <b>" +
+          hit.map(function (r) { return esc(r.check ? r.check.label : r.label); }).join(", ") +
+          "</b>. 자동 확인에서 문서 내용이 지난번과 달랐다는 뜻이라, 어디가 달라졌는지는 원문에서 확인해 주세요.";
+        box.parentNode.insertBefore(p, box);
+      });
+    }
     if (!changed.length) { box.hidden = true; return; }
     box.hidden = false;
     box.innerHTML = "칼랭크가 가진 규정 값이 지난번 이후 바뀐 항목이 있습니다: <b>" +
