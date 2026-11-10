@@ -34,10 +34,14 @@ IMG = {
 # Wikimedia Commons 사진(공개 도메인·CC BY). 촬영자와 라이선스를 사진 아래에 적는다.
 CC2 = ("CC BY 2.0", "https://creativecommons.org/licenses/by/2.0/")
 PD = ("공개 도메인", "")
+CC0 = ("CC0", "https://creativecommons.org/publicdomain/zero/1.0/")
 COMMONS = {
     "tri-helmet": ("Couple_preparing_for_bike_ride.jpg", "자전거 타기 전에 헬멧을 쓴 두 사람", "Bill Branson", PD),
     "tri-draft":  ("USMC-110925-M-0992R-275.jpg", "철인3종 경기 자전거 구간", "미 해병대", PD),
     "tri-bib":    ("A_Photo_by_William_W._Ward,_\"Untitled.\"_(15162148422).jpg", "배번을 단 철인3종 선수", "Billie Grace Ward", CC2),
+    "shoe-section": ("Nike_Running_Shoe_Dissected_Rear.jpg", "반으로 잘라 밑창 단면이 보이는 러닝화 뒤꿈치", "Yottanesia", CC0),
+    "uci-saddle": ("Koersfiets_Scott,_Annemiek_van_Vleuten,_2020_-_detailopname_zadel_rechts_(R0629_-_collectie_KOERS._Museum_van_de_Wielersport).jpg", "도로 사이클 경기용 안장 옆면", "Scott USA / Syncros", CC0),
+    "ccc-gear": ("CCC_Gears.jpg", "트레일 대회 필수 장비를 펼쳐 놓은 모습", "mako10", CC2),
     "tri-swim":   ("Swim_start_Ironman_Brazil_2011.jpg", "아이언맨 수영 출발 모습", "Arcadiuš", CC2),
 }
 
@@ -57,15 +61,15 @@ def commons_fig(k, cls="gi-hero-img"):
 
 # 페이지마다 그 페이지가 다루는 물건이 보이는 사진을 따로 고른다.
 SLUG = {
-    "gear-wa-stack-height": "plate", "gear-wa-rigid-plate": "sole", "gear-wa-availability": "store",
+    "gear-wa-stack-height": "shoe-section", "gear-wa-rigid-plate": "sole", "gear-wa-availability": "store",
     "gear-carbon-plate": "shoe", "gear-carbon-plate-5km": "race5", "gear-carbon-plate-10km": "race5",
     "gear-carbon-plate-half": "half", "gear-carbon-plate-full": "full", "gear-shoe-mass": "shoe2",
-    "gear-utmb-jacket": "jacket", "gear-utmb-kit": "kit", "gear-trail-poles": "poles",
-    "gear-trail-poles-by-gradient": "pack", "gear-trail-pack-weight": "kit",
+    "gear-utmb-jacket": "jacket", "gear-utmb-kit": "ccc-gear", "gear-trail-poles": "poles",
+    "gear-trail-poles-by-gradient": "pack", "gear-trail-pack-weight": "ccc-gear",
     "gear-aero-wheel": "wheel", "gear-aero-wheel-40km": "wheel", "gear-aero-wheel-100km": "wheel",
     "gear-tyre-rolling": "tyre", "gear-tyre-rolling-40km": "tyre", "gear-tyre-rolling-100km": "tyre",
     "gear-aero-helmet": "helmet", "gear-aero-helmet-40km": "helmet", "gear-aero-helmet-100km": "helmet",
-    "gear-uci-min-weight": "road", "gear-uci-saddle-setback": "saddle", "gear-uci-frame-approval": "frame",
+    "gear-uci-min-weight": "road", "gear-uci-saddle-setback": "uci-saddle", "gear-uci-frame-approval": "frame",
     "gear-wt-bike-agegroup": "tribike", "gear-wt-wetsuit-thickness": "tri-swim", "gear-wetsuit": "wetbeach",
     "gear-wt-wetsuit-temp": "openwater", "gear-wetsuit-by-temp": "swimstart",
     "gear-ws-wheel-diameter": "skate", "gear-inline-bearings": "skate",
