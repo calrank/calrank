@@ -1,0 +1,157 @@
+"""도구 페이지 세 개를 만든다: kit.html(내 장비 서랍), age-curve.html(나이 곡선), ledger.html(예측 장부).
+
+머리말·바닥글은 gear-prices.html 에서 그대로 가져온다. 끝낸 뒤 sync_all.py 를 돌려야 한다.
+여러 번 돌려도 같은 결과가 나온다.
+"""
+import json, re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+BASE = "https://calrank.vercel.app/"
+SRC = (ROOT / "gear-prices.html").read_text(encoding="utf-8")
+HEAD_COMMON = SRC[SRC.find('<link rel="preconnect"'):SRC.find('<link rel="stylesheet" href="style.css">')]
+HEADER = SRC[SRC.find('<header class="site-header">'):SRC.find('</header>') + 9]
+FOOTER = SRC[SRC.find('<footer class="site-footer">'):SRC.find('</footer>') + 9]
+HEADER = HEADER.replace('class="nav-link active"', 'class="nav-link"').replace(
+    '<a href="gear.html" class="nav-link">', '<a href="gear.html" class="nav-link active">')
+
+
+def ld(o):
+    return '<script type="application/ld+json">' + json.dumps(o, ensure_ascii=False, separators=(",", ":")) + "</script>"
+
+
+def faq_ld(items):
+    return ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", a)}} for q, a in items]})
+
+
+def page(slug, title, desc, h1, sub, body, scripts, faq):
+    app_name = h1
+    url = BASE + slug
+    crumbs = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "calrank", "item": BASE + "index.html"},
+        {"@type": "ListItem", "position": 2, "name": "기어", "item": BASE + "gear.html"},
+        {"@type": "ListItem", "position": 3, "name": app_name}]})
+    app = ld({"@context": "https://schema.org", "@type": "WebApplication", "name": app_name, "url": url,
+              "applicationCategory": "HealthApplication", "operatingSystem": "All", "inLanguage": "ko-KR",
+              "description": desc, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
+              "isPartOf": {"@type": "WebSite", "name": "calrank", "url": BASE}})
+    faq_html = '<section class="tp-sec tp-faq"><h2 class="tp-h2">자주 묻는 것</h2>' + "".join(
+        f"<h3>{q}</h3><p>{a}</p>" for q, a in faq) + "</section>"
+    scr = "\n".join(f'<script src="{s}"></script>' for s in scripts)
+    return f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} | 칼랭크 CALRANK</title>
+<meta name="description" content="{desc}">
+{HEAD_COMMON}<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="tools.css">
+<script defer src="/_vercel/insights/script.js"></script>
+<link rel="canonical" href="{url}">
+<meta property="og:title" content="{title} | 칼랭크 CALRANK">
+{app}
+{faq_ld(faq)}
+{crumbs}
+</head>
+<body>
+
+{HEADER}
+
+<main class="tp">
+<h1 class="tp-title">{h1}</h1>
+<p class="tp-sub">{sub}</p>
+{body}
+{faq_html}
+</main>
+
+{FOOTER}
+{scr}
+</body>
+</html>
+'''
+
+
+KIT = page(
+    "kit.html", "내 장비 서랍 — 가진 장비가 연맹 규정에 맞는지 한 번에",
+    "신발 두께, 자전거 무게, 웻슈트 두께 같은 내 장비 수치를 한 번 적어 두면 세계육상·UCI·월드트라이애슬론·UTMB 규정에 맞는지 바로 판정합니다. 값은 내 기기에만 저장됩니다.",
+    "내 장비 서랍",
+    "가진 장비의 수치를 한 번 적어 두면, 연맹 규정에 맞는지 한 화면에서 봅니다. 적은 값은 이 기기의 브라우저에만 저장되고 서버로 가지 않습니다.",
+    '''<div id="kitChanges" class="tp-alert" hidden></div>
+<p id="kitSummary" class="tp-note" role="status" aria-live="polite">불러오는 중입니다.</p>
+<div id="kitList"></div>
+<p class="tp-small" id="kitStore"></p>
+<p><button type="button" class="tp-btn ghost" id="kitClear">저장된 수치 지우기</button></p>
+<p class="tp-src">규정의 출처와 기준 시점은 각 항목의 &lsquo;판정 자세히&rsquo;에서 원문 링크와 함께 확인할 수 있습니다. 대회 요강이 연맹 규정보다 엄격할 수 있어, 출전 전에는 요강도 확인해 주세요.</p>''',
+    ["gear-rules.js", "calrank-local.js", "kit.js"],
+    [("적은 수치는 어디에 저장되나요?", "이 기기의 브라우저 안(localStorage)에만 저장됩니다. 칼랭크 서버로 보내지 않아서 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다."),
+     ("규정이 바뀌면 알려 주나요?", "칼랭크가 가진 규정 값이 지난번에 본 때와 달라졌으면 이 페이지를 열었을 때 알려 드립니다. 연맹이 규정을 고친 경우일 수도 있고 칼랭크가 값을 바로잡은 경우일 수도 있어서, '바뀐 항목이 있으니 다시 확인하세요'까지만 말씀드립니다. 푸시 알림은 보내지 않습니다."),
+     ("여기서 통과하면 대회에서도 통과인가요?", "연맹 규정 기준으로는 그렇습니다. 다만 대회 요강이 규정보다 엄격한 경우가 있고, 현장 검사 방식도 대회마다 다릅니다. 출전 전에 요강을 함께 확인해 주세요.")])
+
+AGE = page(
+    "age-curve.html", "나이 곡선 — 같은 기록이면 몇 살에 어느 등급인가",
+    "내 기록을 그대로 유지한다고 가정하고 나이별 연령등급(WMA 2025 기준표)을 곡선과 표로 보여 줍니다. 예측이 아니라 환산이며, 지금 등급을 지키는 데 필요한 기록도 함께 계산합니다.",
+    "나이 곡선",
+    "5km·10km·하프·풀코스 기록 하나를 넣으면, 같은 기록을 나이별로 환산한 연령등급과 지금 등급을 지키는 데 필요한 기록을 보여 줍니다. 앞날의 기록을 맞히는 도구는 아니고, 기준표를 따라 환산한 값입니다.",
+    '''<section class="tp-card"><div class="tp-grid">
+<label class="tp-field">성별<select id="acGender"><option value="male">남성</option><option value="female">여성</option></select></label>
+<label class="tp-field">거리<select id="acDist"><option value="5km">5km</option><option value="10km" selected>10km</option><option value="half">하프</option><option value="full">풀코스</option></select></label>
+<label class="tp-field">기록<input id="acTime" type="text" inputmode="numeric" placeholder="52:30" autocomplete="off"></label>
+<label class="tp-field">지금 나이<input id="acAge" type="number" inputmode="numeric" min="15" max="95" placeholder="40"></label>
+</div></section>
+<div id="acOut" hidden>
+<p id="acSummary" class="tp-p" role="status" aria-live="polite"></p>
+<section class="tp-card ac-wrap"><figure class="ac-fig"><div id="acChart"></div>
+<figcaption>같은 기록을 유지한다고 가정한 값입니다. 점선은 등급 경계입니다.</figcaption></figure></section>
+<div id="acTable"></div>
+</div>
+<p class="tp-src">기준: WMA(World Masters Athletics) 2025 도로 연령 기준표(CC0). 연령등급 = 그 나이·성별의 기준기록 ÷ 내 기록 × 100. 나이에 따른 실제 기록 저하 속도는 사람마다 크게 달라서 곡선은 예측으로 읽으면 안 됩니다. 참고: Tanaka &amp; Seals, 2008, J Physiol 586(1):55–63.</p>''',
+    ["wma-standards.js", "grade-model.js", "calrank-local.js", "age-curve.js"],
+    [("연령등급은 어떻게 계산하나요?", "WMA가 내는 기준표에서 내 나이·성별·거리의 기준기록을 찾아 내 기록으로 나눈 뒤 100을 곱합니다. 나이가 들수록 기준기록이 느려지므로 같은 기록의 연령등급은 올라갑니다."),
+     ("이 곡선이 내 미래 기록 예측인가요?", "아닙니다. 같은 기록을 유지한다고 가정하고 기준표로 환산한 값입니다. 나이 들면서 실제로 얼마나 느려지는지는 훈련량과 부상 이력에 따라 사람마다 크게 다릅니다."),
+     ("'지금 등급을 지키는 기록'은 무엇인가요?", "그 나이의 기준기록으로 거꾸로 계산해서, 지금 등급의 경계에 해당하는 기록입니다. 이 시간 안쪽이면 그 나이에도 같은 등급입니다.")])
+
+LEDGER = page(
+    "ledger.html", "예측 장부 — 대회 전에 적고, 끝난 뒤 맞춰 보기",
+    "대회 전에 내 예상 기록을 적어 두고 끝난 뒤 실제 기록과 비교합니다. 카본화 효과를 연구 근거 범위로 환산해 적을 수도 있습니다. 기록은 내 기기에만 저장됩니다.",
+    "예측 장부",
+    "대회 전에 예상 기록을 적어 두고, 끝난 뒤 실제 기록과 맞춰 봅니다. 맞히는 쪽은 칼랭크가 아니라 나입니다. 몇 번 쌓이면 내 예측이 어느 쪽으로 치우치는지 보입니다.",
+    '''<section class="tp-card">
+<div class="tp-grid">
+<label class="tp-field">대회 이름<input id="lgName" type="text" list="lgNames" autocomplete="off" placeholder="대회 이름"></label>
+<label class="tp-field">대회 날짜<input id="lgDate" type="date"></label>
+<label class="tp-field">거리<select id="lgDist"><option value="5km">5km</option><option value="10km">10km</option><option value="half">하프</option><option value="full" selected>풀코스</option></select></label>
+<label class="tp-field">예측 방식<select id="lgBasis"><option value="gut">내 감으로</option><option value="carbon">카본화 효과 환산</option></select></label>
+<label class="tp-field" id="lgPredWrap">예측 기록<input id="lgPred" type="text" inputmode="numeric" placeholder="3:45:00"></label>
+<label class="tp-field" id="lgBaseWrap" hidden>지금 신발로 낸 최근 기록<input id="lgBase" type="text" inputmode="numeric" placeholder="3:50:00"></label>
+</div>
+<datalist id="lgNames"></datalist>
+<p class="tp-small" id="lgCarbonNote" hidden>카본화 신발을 신었을 때 줄어드는 시간의 범위를 연구 근거로 환산해 함께 저장합니다. 대회 뒤에는 실제로 줄어든 시간이 그 범위 안이었는지 봅니다. 연구는 대부분 남성 엘리트·상급자 대상이고, 시간으로 옮기는 비율(0.70)은 칼랭크의 가정입니다.</p>
+<p style="margin-top:12px"><button type="button" class="tp-btn" id="lgAdd">장부에 적기</button></p>
+<p class="tp-note" id="lgMsg" role="status" aria-live="polite"></p>
+</section>
+<div id="lgSum" hidden class="tp-card"></div>
+<section class="tp-card"><h2 class="tp-h2">내 장부</h2><div id="lgList"></div></section>
+<p class="tp-small" id="lgStore"></p>''',
+    ["wma-standards.js", "grade-model.js", "gear-model.js", "calrank-local.js", "ledger.js"],
+    [("기록은 어디에 저장되나요?", "이 기기의 브라우저 안에만 저장됩니다. 서버로 보내지 않으므로 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다."),
+     ("카본화 효과는 어떤 근거로 계산하나요?", "동료 심사를 거친 연구들의 결과를 모아 근거 등급(A–D)을 매긴 칼랭크의 장비 판정 자료를 씁니다. 연구 대부분이 남성 엘리트·상급자 대상이라 동호회 선수에게는 범위가 달라질 수 있고, 근거가 없는 속도 구간에서는 환산을 하지 않습니다."),
+     ("칼랭크가 예측해 주나요?", "아닙니다. 예측은 내가 적고, 칼랭크는 끝난 뒤 실제 기록과 비교만 합니다. 환산 방식을 고르면 연구 범위를 계산해 줄 뿐입니다.")])
+
+for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", LEDGER)]:
+    p = ROOT / name
+    if not p.exists() or p.read_text(encoding="utf-8") != html:
+        p.write_text(html, encoding="utf-8")
+        print("wrote", name)
+
+# sitemap
+sm = ROOT / "sitemap.xml"
+t = sm.read_text(encoding="utf-8")
+add = ""
+for n in ("kit.html", "age-curve.html", "ledger.html"):
+    if f"/{n}</loc>" not in t:
+        add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
+if add:
+    sm.write_text(t.replace("</urlset>", add + "</urlset>"), encoding="utf-8")
+    print("sitemap +3")
