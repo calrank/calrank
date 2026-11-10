@@ -83,6 +83,9 @@ KIT = page(
 <div id="kitList"></div>
 <p class="tp-small" id="kitStore"></p>
 <p><button type="button" class="tp-btn ghost" id="kitClear">저장된 수치 지우기</button></p>
+<section class="tp-card"><h2 class="tp-h2">내 신발이 공식 목록에 있는지</h2>
+<p class="tp-p">월드애슬레틱스는 2024년 6월에 신발 확인 웹앱을 열어 승인된 대회용 신발을 검색할 수 있게 했고, 승인되면 바로 목록에 추가된다고 밝혔습니다(700종 이상 등재, 월드애슬레틱스 보도자료). 연맹 규정이 적용되는 대회에 나간다면 신발 모델명을 한 번 확인해 보세요. 동호인 대회에는 적용되지 않는 경우가 많으니 대회 요강을 먼저 보시면 됩니다.</p>
+<p class="tp-p"><a href="https://certcheck.worldathletics.org/" rel="noopener" target="_blank">World Athletics 신발 확인 열기</a> · <a href="https://worldathletics.org/news/press-releases/world-athletics-launches-shoe-check-application" rel="noopener" target="_blank">출시 보도자료</a></p></section>
 <p class="tp-src">규정의 출처와 기준 시점은 각 항목의 &lsquo;판정 자세히&rsquo;에서 원문 링크와 함께 확인할 수 있습니다. 대회 요강이 연맹 규정보다 엄격할 수 있어, 출전 전에는 요강도 확인해 주세요.</p>''',
     ["gear-rules.js", "calrank-local.js", "source-watch.js", "kit.js"],
     [("적은 수치는 어디에 저장되나요?", "이 기기의 브라우저 안(localStorage)에만 저장됩니다. 칼랭크 서버로 보내지 않아서 다른 기기에서는 보이지 않고, 브라우저 데이터를 지우면 함께 지워집니다."),
@@ -117,7 +120,8 @@ LEDGER = page(
     "대회 전에 내 예상 기록을 적어 두고 끝난 뒤 실제 기록과 비교합니다. 카본화 효과를 연구 근거 범위로 환산해 적을 수도 있습니다. 기록은 내 기기에만 저장됩니다.",
     "예상 기록 노트",
     "대회 전에 예상 기록을 적어 두고, 끝난 뒤 실제 기록과 맞춰 봅니다. 맞히는 쪽은 칼랭크가 아니라 나입니다. 몇 번 쌓이면 내 예측이 어느 쪽으로 치우치는지 보입니다.",
-    '''<section class="tp-card">
+    '''<p id="lgNudge" class="tp-alert" hidden role="status"></p>
+<section class="tp-card">
 <div class="tp-grid">
 <label class="tp-field">대회 이름<input id="lgName" type="text" list="lgNames" autocomplete="off" placeholder="대회 이름"></label>
 <label class="tp-field">대회 날짜<input id="lgDate" type="date"></label>
@@ -173,7 +177,9 @@ def standards_page(sid):
         f'<p class="tp-src">출처: {esc(src[k]["label"])} — <a href="{esc(src[k]["url"])}" rel="noopener" target="_blank">원문 열기</a>. '
         f'{esc(src[k].get("note", ""))}<br><span class="dq-watch" data-watch="{esc(src[k]["url"])}">원문 확인 현황은 매주 자동으로 갱신됩니다.</span></p>'
         for k in used)
-    body = f"""<section class="tp-sec"><h2 class="tp-h2">실격과 벌칙</h2>
+    edited = DQ["sports"][sid].get("edited", "")
+    body = f"""<p class="tp-small">내용 수정 {edited} · 고친 내용은 <a href="gear-changes.html">변경 기록</a>에 남깁니다.</p>
+<section class="tp-sec"><h2 class="tp-h2">실격과 벌칙</h2>
 <p class="tp-p">에이지그룹(동호인) 경기에 적용되는 조항을 규정 원문에서 조항 번호와 함께 옮겼습니다. 대회 요강이 더 엄격할 수 있고, 현장 판정은 심판장이 합니다.</p>
 {cards}</section>
 <section class="tp-sec"><h2 class="tp-h2">내 장비가 기준에 맞는지 보기</h2>{links}
@@ -197,6 +203,24 @@ def standards_page(sid):
 
 STANDARDS = [standards_page(s) for s in SPORT_META]
 
+
+def changes_page():
+    rows = "".join(
+        f'<div class="dq-card"><div class="dq-top"><h3 class="dq-title">{esc(c["title"])}</h3><span class="dq-clause">{esc(c["date"])}</span></div>'
+        f'<p class="dq-text">{esc(c["text"])}</p></div>' for c in sorted(DQ["changelog"], key=lambda c: c["date"], reverse=True))
+    body = f"""<section class="tp-sec"><p class="tp-p">기어 판정 페이지에는 날짜가 두 가지 나옵니다.
+<b>원문 마지막 확인</b>은 연맹 문서가 지난번과 같은지 자동으로 살펴본 날이고, <b>내용 수정</b>은 칼랭크가 판정 내용을 실제로 고친 날입니다. 확인만 하고 고친 것이 없으면 수정일은 바뀌지 않습니다.</p>
+<p class="tp-p">고친 내용과 이유는 여기에 남깁니다. 잘못된 곳을 발견하셨다면 <a href="contact.html">문의 페이지</a>로 알려 주세요.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">변경 기록</h2>{rows}</section>"""
+    faq = [("'원문 마지막 확인'과 '내용 수정'은 무엇이 다른가요?", "확인은 연맹 원문이 지난번과 같은지 본 날이고, 수정은 칼랭크 페이지의 내용을 고친 날입니다. 원문이 그대로면 확인일만 바뀝니다."),
+           ("원문이 바뀌면 어떻게 알 수 있나요?", "매주 자동으로 원문을 받아 지난번과 내용이 달랐는지 비교합니다. 달랐다는 것만 알 수 있어서, 페이지에 '원문이 바뀌었을 수 있으니 다시 확인해 주세요'라고 표시합니다.")]
+    return "gear-changes.html", page("gear-changes.html", "기어 판정 변경 기록 — 무엇을 언제 고쳤는지",
+        "칼랭크 기어 판정 페이지에서 고친 내용과 날짜를 남깁니다. 원문 확인일과 내용 수정일이 어떻게 다른지도 설명합니다.",
+        "기어 판정 변경 기록", "규정 원문을 언제 확인했고, 칼랭크가 내용을 언제 고쳤는지 기록합니다.", body, [], faq)
+
+
+STANDARDS.append(changes_page())
+
 for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name
     if not p.exists() or p.read_text(encoding="utf-8") != html:
@@ -207,7 +231,7 @@ for name, html in [("kit.html", KIT), ("age-curve.html", AGE), ("ledger.html", L
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html"):
+for n in ("kit.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "gear-changes.html"):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
