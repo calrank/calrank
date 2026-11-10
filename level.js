@@ -791,9 +791,9 @@ async function paintGearLift(inputs) {
             <b>${tierBest.label}</b>까지 갈 수 있습니다`;
   } else if (gap) {
     head = `다음 등급 <b>${gap.label}</b>까지는 <b>${fmtGap(gap.diff)}</b>가 필요한데,
-            카본화가 돌려주는 건 많아야 <b>${fmtGap(best)}</b>입니다`;
+            카본화로 줄일 수 있는 시간은 최대 <b>${fmtGap(best)}</b>입니다`;
   } else {
-    head = `카본화를 신어도 등급은 <b>${tierNow.label}</b> 그대로입니다`;
+    head = `카본화를 신어도 등급은 <b>${tierNow.label}</b>로 그대로입니다`;
   }
 
   const span = ns
@@ -809,23 +809,22 @@ async function paintGearLift(inputs) {
       <span class="lv-gear-cut">${span} 단축</span>
     </div>
     <p class="lv-gear-why">
-      당신 페이스는 <b>${res.speedKmh.toFixed(1)}㎞/h</b>입니다.
+      입력하신 평균 속도는 <b>${res.speedKmh.toFixed(1)}㎞/h</b>입니다.
       ${ns
-        ? `이 속도 구간을 다룬 연구는 참가자 16명짜리 하나뿐이고, 그나마
-           통계적으로 유의하지 않았습니다(p=0.065). 효과가 0일 가능성을
-           배제하지 못한다는 뜻이라 아래끝을 0으로 적었습니다.`
+        ? `이 속도 구간을 다룬 연구는 참가자 16명 규모의 연구 하나이고,
+           결과가 통계적으로 유의하지 않았습니다(p=0.065). 효과가 0일 가능성을
+           배제할 수 없어서 아래끝을 0으로 표시했습니다.`
         : `이 속도 구간은 연구 ${e.evidence.studies}편, 참가자
            ${e.evidence.n}명을 통합한 메타분석이 뒷받침합니다.`}
       ${moves ? "" : gap
-        ? ` 장비보다는 훈련이 그 ${fmtGap(gap.diff)}를 메우는 길입니다.`
-        : " 등급 경계를 넘기에는 모자랍니다."}
+        ? ` 이 차이는 장비보다 훈련으로 줄이는 쪽이 현실적입니다.`
+        : " 등급이 바뀔 정도의 차이는 아닙니다."}
     </p>
     <p class="lv-gear-note">
-      이코노미가 좋아진 만큼 그대로 기록이 줄지는 않아서, 보수적으로
+      이코노미가 좋아진 만큼 기록이 그대로 줄지는 않아서 보수적으로
       70%만 반영했습니다. 이 70%는 연구에서 나온 값이 아니라 칼랭크가
-      고른 가정입니다. 여러 장비의 효과를 더하지도 않았습니다 —
-      서로 다른 조건에서 따로 잰 숫자라 더하면 어느 연구에도 없는
-      값이 됩니다.
+      정한 가정입니다. 여러 장비의 효과는 서로 다른 조건에서 따로 측정한
+      값이라 합산하지 않았습니다.
     </p>
     <p class="lv-gear-links">
       <a href="gear-carbon-plate.html">카본화 판정 자세히</a> ·

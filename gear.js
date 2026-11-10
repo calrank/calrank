@@ -102,7 +102,7 @@
               "<b>" + esc(c.label) + "</b>" +
               '<span class="gh-q">' + esc(c.question || "") + "</span></a>";
           }).join("")
-        : '<p class="gh-empty">연구 자료를 모으는 중입니다. 숫자가 설 때까지 비워 둡니다.</p>';
+        : '<p class="gh-empty">연구 자료를 정리하는 중입니다.</p>';
 
       return '<section class="gh-sport">' +
         '<h2>' + esc(s.label) +
@@ -327,13 +327,13 @@
     if (e.noData) {
       return '<section class="ge-eff ge-empty"><h3>' + esc(e.label) + "</h3>" +
         '<p class="ge-gap"><b>이 구간에는 연구가 없습니다.</b> 효과가 없다는 뜻이 아니라, ' +
-        '얼마인지 아무도 재 보지 않았다는 뜻입니다.</p>' +
+        '얼마인지 측정한 연구가 아직 없다는 뜻입니다.</p>' +
         (e.gap && e.gap.note ? '<p class="ge-note">' + esc(e.gap.note) + "</p>" : "") +
         "</section>";
     }
     if (!e.hasEvidence) {
       return '<section class="ge-eff ge-empty"><h3>' + esc(e.label) + "</h3>" +
-        '<p class="ge-none">이 조건에서는 근거가 없습니다. 다른 구간의 숫자를 끌어다 쓰지 않았습니다.</p></section>';
+        '<p class="ge-none">이 조건에서는 근거가 없습니다. 다른 구간의 숫자는 가져다 쓰지 않았습니다.</p></section>';
     }
 
     // 모델로 계산한 효과. 보고된 구간이 아니라 식을 푼 결과라서 "0~X%" 꼴이
