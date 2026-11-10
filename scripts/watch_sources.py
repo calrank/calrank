@@ -54,11 +54,14 @@ def main() -> int:
     prev = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
     today = datetime.now(KST).date().isoformat()
     res = {}
+    # 쿠키를 주고받아야 풀리는 리다이렉트(UCI 등)가 있어 세션 하나로 받는다.
+    sess = requests.Session()
+    sess.headers.update({"User-Agent": UA, "Accept": "*/*"})
     for u in urls():
         old = prev.get(u, {})
         rec = dict(old)
         try:
-            r = requests.get(u, headers={"User-Agent": UA}, timeout=60)
+            r = sess.get(u, timeout=60)
             r.raise_for_status()
             fp = fingerprint(r)
             rec["checked"] = today
@@ -69,8 +72,9 @@ def main() -> int:
             print("ok  ", fp, "CHANGED" if rec.get("changed") == today else "", u[:80])
         except Exception as e:  # 받지 못하면 지난 값 유지
             rec["ok"] = False
-            rec["error"] = type(e).__name__
-            print("fail", type(e).__name__, u[:80])
+            code = getattr(getattr(e, "response", None), "status_code", "")
+            rec["error"] = type(e).__name__ + (f" {code}" if code else "")
+            print("fail", rec["error"], u[:80])
         res[u] = rec
         time.sleep(1)
     out = json.dumps(res, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
