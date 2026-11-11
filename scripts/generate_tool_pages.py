@@ -686,6 +686,25 @@ def grade_bar(S):
     return f'<div class="gb-bar" role="img" aria-label="구간 평균 경사별 길이 비율">{parts}</div><ul class="gp-leg">{leg}</ul>'
 
 
+MT_SIDO = {"서울특별시": ("서울", "seoul"), "부산광역시": ("부산", "busan"), "대구광역시": ("대구", "daegu"), "인천광역시": ("인천", "incheon"),
+           "광주광역시": ("광주", "gwangju"), "대전광역시": ("대전", "daejeon"), "울산광역시": ("울산", "ulsan"), "세종특별자치시": ("세종", "sejong"),
+           "경기도": ("경기", "gyeonggi"), "강원특별자치도": ("강원", "gangwon"), "강원도": ("강원", "gangwon"), "충청북도": ("충북", "chungbuk"),
+           "충청남도": ("충남", "chungnam"), "전북특별자치도": ("전북", "jeonbuk"), "전라북도": ("전북", "jeonbuk"), "전라남도": ("전남", "jeonnam"),
+           "경상북도": ("경북", "gyeongbuk"), "경상남도": ("경남", "gyeongnam"), "제주도": ("제주", "jeju"), "제주특별자치도": ("제주", "jeju")}
+
+
+def mt_sido(m):
+    r = (m.get("region") or "").split()
+    return MT_SIDO.get(r[0]) if r else None
+
+
+_mg = {}
+for _m in MOUNTAINS:
+    _k = mt_sido(_m)
+    if _k:
+        _mg.setdefault(_k, []).append(_m)
+
+
 def mountain_page(m):
     mid = m["id"]; slug = f"mountain-{mid}.html"
     S = m["sections"]; nm = m["name"]
@@ -715,6 +734,8 @@ def mountain_page(m):
     if all(s.get("path") for s in S):
         mt_map = map_block({"secs": [{"p": s["path"], "g": s["meanGrade"]} for s in S]},
                            '<p class="tp-small">선의 색은 구간 평균 경사입니다. 연두 5% 미만, 노랑 5~10%, 주황 10~15%, 빨강 15% 이상.</p>')
+    _sd = mt_sido(m)
+    area_link = (f'<p class="tp-small"><a href="mountainarea-{_sd[1]}.html">{_sd[0]} 지역 산 모아 보기</a></p>' if _sd and len(_mg.get(_sd, [])) >= 3 else "")
     same = [o for o in MOUNTAINS if o["id"] != mid and m.get("region") and o.get("region") == m["region"]][:6]
     rel = ""
     if same:
@@ -728,6 +749,7 @@ def mountain_page(m):
 <section class="tp-sec"><h2 class="tp-h2">가파른 구간 12곳</h2>{table}
 <p class="tp-small">구간은 산림청이 나눈 단위이고, 한 구간이 하나의 산행 코스는 아닙니다. 평균 경사는 구간의 낮은 끝과 높은 끝을 이은 값입니다. 고도는 30m 간격의 고도 자료로 읽은 값이라 몇 m에서 십수 m까지 다를 수 있습니다.</p></section>
 {rel}
+{area_link}
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털, 이용허락범위 제한 없음){(' — <a href="' + esc(m["info"]) + '" rel="noopener" target="_blank">산림청 안내</a>') if m.get("info") else ""}. 고도: {COPDEM} 계산과 표시는 칼랭크가 했고, 현장 상황과 다를 수 있으니 산행 전 안내를 확인해 주세요. <a href="mountains.html">다른 산 보기</a></p>"""
     faq = [(f"{nm}의 가파른 구간은 어디인가요?", f"산림청 구간 중 평균 경사가 가장 큰 곳은 약 {abs(top[0]['meanGrade']):.0f}%입니다(구간 길이 {top[0]['lenM']}m)."),
            ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
@@ -740,6 +762,27 @@ def mountain_page(m):
 
 
 MOUNTAIN_PAGES = [mountain_page(m) for m in MOUNTAINS]
+
+
+# ── 시도별 산 모음 ─────────────────────────────────────────────────────────
+def mt_group_page(short, slug, ms):
+    ms = sorted(ms, key=lambda m: -mt_stats(m)[2])
+    tot = sum(mt_stats(m)[0] for m in ms)
+    def li(m):
+        tt, steep, hi, lo = mt_stats(m)
+        return f'<li><a href="mountain-{m["id"]}.html">{esc(mt_title(m))}</a> · 구간 {len(m["sections"])}개 · {tt:.1f}km · 최고 약 {hi:.0f}m</li>'
+    body = f"""<section class="tp-sec"><p class="tp-p">{short} 지역에서 산림청 등산로 자료로 정리한 산은 {len(ms)}곳입니다. 등산로 구간을 모두 합치면 {tot:.0f}km이고, 구간 최고 고도가 가장 높은 산은 {esc(ms[0]["name"])}(약 {mt_stats(ms[0])[2]:.0f}m)입니다.</p>
+<p class="tp-small">위치를 확인할 수 있는 산만 실었습니다. 같은 이름의 산이 다른 지역에도 있을 수 있습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 순</h2><ul class="cp-list">{"".join(li(m) for m in ms)}</ul></section>
+<p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털). 고도: {COPDEM} <a href="mountains.html">전체 산 보기</a></p>"""
+    faq = [(f"{short} 지역에서 가장 높은 산은 어디인가요?", f"칼랭크에 실린 {short} 지역 산 중에서는 {ms[0]['name']}이(가) 구간 최고 고도 약 {mt_stats(ms[0])[2]:.0f}m로 가장 높습니다.")]
+    return f"mountainarea-{slug}.html", page(f"mountainarea-{slug}.html", f"{short} 산 등산로 모음 — 경사와 가파른 구간",
+        f"{short} 지역 산 {len(ms)}곳의 등산로 구간 길이, 경사, 구간 최고 고도를 정리했습니다.", f"{short} 지역 산 등산로", f"{len(ms)}개 산 · 구간 합계 {tot:.0f}km",
+        body, [], faq, crumb=("산", "mountains.html"))
+
+
+MT_GROUP_PAGES = [mt_group_page(k[0], k[1], v) for k, v in sorted(_mg.items(), key=lambda kv: kv[0][1]) if len(v) >= 3]
+MT_GROUP_LINKS = [(f"mountainarea-{k[1]}.html", k[0], len(v)) for k, v in sorted(_mg.items(), key=lambda kv: kv[0][1]) if len(v) >= 3]
 
 
 def mountains_hub():
@@ -760,6 +803,7 @@ def mountains_hub():
     tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
     body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
+<section class="tp-sec"><h2 class="tp-h2">지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 산</li>' for sl, nm_, n_ in MT_GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 산</h2><ul class="cp-list">{tall}</ul></section>
 {secs}
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털). 고도: {COPDEM}</p>"""
@@ -791,6 +835,7 @@ def changes_page():
 STANDARDS.append(changes_page())
 STANDARDS += COURSE_PAGES
 STANDARDS += GROUP_PAGES
+STANDARDS += MT_GROUP_PAGES
 if COURSES:
     STANDARDS.append(hub_page())
 STANDARDS += MOUNTAIN_PAGES
@@ -804,8 +849,8 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
         print("wrote", name)
 
 # 자료에서 빠진 코스·산의 페이지는 지운다(고도 고정 코스 제외, 산 이름 정리 등으로 사라진 것)
-_live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES} | {s for s, _ in GROUP_PAGES}
-_stale = [f.name for pat in ("course-dr-*.html", "mountain-*.html", "trailroute-*.html", "trailarea-*.html") for f in ROOT.glob(pat) if f.name not in _live]
+_live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES} | {s for s, _ in GROUP_PAGES} | {s for s, _ in MT_GROUP_PAGES}
+_stale = [f.name for pat in ("course-dr-*.html", "mountain-*.html", "trailroute-*.html", "trailarea-*.html", "mountainarea-*.html") for f in ROOT.glob(pat) if f.name not in _live]
 for _n in _stale:
     (ROOT / _n).unlink()
     print("지움", _n)
@@ -819,7 +864,7 @@ if _stale:
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
