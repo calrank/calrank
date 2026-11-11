@@ -21120,13 +21120,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://maplerun.kr",
     "forecast": {
-      "tmn": 10.0,
+      "tmn": 11.0,
       "tmx": 14.0,
-      "morningTa": 10.5,
+      "morningTa": 11.2,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21168,13 +21168,13 @@
       "stationKm": 16
     },
     "forecast": {
-      "tmn": 12.0,
-      "tmx": 16.0,
-      "morningTa": 12.5,
+      "tmn": 13.0,
+      "tmx": 17.0,
+      "morningTa": 13.8,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21213,11 +21213,11 @@
     "forecast": {
       "tmn": 9.0,
       "tmx": 16.0,
-      "morningTa": 11.0,
+      "morningTa": 11.6,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21245,11 +21245,11 @@
     "forecast": {
       "tmn": 9.0,
       "tmx": 14.0,
-      "morningTa": 10.5,
+      "morningTa": 10.4,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21289,13 +21289,13 @@
       "stationKm": 7
     },
     "forecast": {
-      "tmn": 10.0,
+      "tmn": 11.0,
       "tmx": 14.0,
-      "morningTa": 10.5,
+      "morningTa": 11.4,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21327,11 +21327,11 @@
     "forecast": {
       "tmn": 10.0,
       "tmx": 14.0,
-      "morningTa": 10.5,
+      "morningTa": 10.8,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21362,11 +21362,11 @@
     "forecast": {
       "tmn": 10.0,
       "tmx": 13.0,
-      "morningTa": 10.5,
+      "morningTa": 11.2,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21396,11 +21396,11 @@
     "forecast": {
       "tmn": 10.0,
       "tmx": 14.0,
-      "morningTa": 10.5,
+      "morningTa": 11.0,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21450,13 +21450,13 @@
     "sourceUrl": "https://cyclo.kr/schedule",
     "applyUrl": "https://www.thebike.co.kr/race/view.php?r_idx=346",
     "forecast": {
-      "tmn": 10.0,
+      "tmn": 11.0,
       "tmx": 15.0,
-      "morningTa": 11.5,
+      "morningTa": 12.4,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21482,13 +21482,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://reboot-walk-2026.netlify.app/",
     "forecast": {
-      "tmn": 10.0,
-      "tmx": 13.0,
-      "morningTa": 10.5,
+      "tmn": 11.0,
+      "tmx": 14.0,
+      "morningTa": 11.2,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21517,11 +21517,11 @@
     "forecast": {
       "tmn": 11.0,
       "tmx": 17.0,
-      "morningTa": 12.5,
+      "morningTa": 12.8,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21547,13 +21547,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://daegu6k-social-welfare.vercel.app/",
     "forecast": {
-      "tmn": 9.0,
-      "tmx": 14.0,
-      "morningTa": 10.0,
+      "tmn": 10.0,
+      "tmx": 15.0,
+      "morningTa": 11.0,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21581,12 +21581,12 @@
     "applyUrl": "https://n-runplus.co.kr/Jeungpyeong",
     "forecast": {
       "tmn": 9.0,
-      "tmx": 13.0,
-      "morningTa": 10.5,
+      "tmx": 14.0,
+      "morningTa": 10.4,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21658,13 +21658,13 @@
     "sourceUrl": "https://cyclo.kr/schedule",
     "applyUrl": "https://soomagency.kr/shop/item.php?it_id=1792321545",
     "forecast": {
-      "tmn": 12.0,
+      "tmn": 13.0,
       "tmx": 17.0,
-      "morningTa": 13.0,
+      "morningTa": 14.4,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-11 10:12"
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21692,7 +21692,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://kjmarathon.com/"
+    "applyUrl": "https://kjmarathon.com/",
+    "forecast": {
+      "tmn": 15.0,
+      "tmx": 20.0,
+      "morningTa": 15.5,
+      "pop": 60,
+      "sky": "비",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rm-제주감귤마라톤-2026-11-15",
@@ -21729,6 +21738,15 @@
       "hottestMax": 26.7,
       "station": "제주",
       "stationKm": 11
+    },
+    "forecast": {
+      "tmn": 15.0,
+      "tmx": 18.0,
+      "morningTa": 16.0,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21756,7 +21774,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://sjrun.com"
+    "applyUrl": "http://sjrun.com",
+    "forecast": {
+      "tmn": 11.0,
+      "tmx": 18.0,
+      "morningTa": 11.5,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-가민런-코리아-2026-11-15",
@@ -21781,7 +21808,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runable.me/product/18977?comp=18962"
+    "applyUrl": "http://runable.me/product/18977?comp=18962",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 18.0,
+      "morningTa": 10.0,
+      "pop": 10,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-mbn-서울마라톤-2026-11-15",
@@ -21806,7 +21842,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://mbn-seoulmarathon.com"
+    "applyUrl": "http://mbn-seoulmarathon.com",
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 18.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-제17회-행복트레일런-축제-2026-11-15",
@@ -21832,7 +21877,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://happytrailrun.com"
+    "applyUrl": "http://happytrailrun.com",
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 19.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rm-제4회-영남알프스-전국-마라톤-2026-11-15",
@@ -21858,7 +21912,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://xn--q20bn3kn1bg9oekd84a785cnfg.kr/"
+    "applyUrl": "http://xn--q20bn3kn1bg9oekd84a785cnfg.kr/",
+    "forecast": {
+      "tmn": 13.0,
+      "tmx": 19.0,
+      "morningTa": 14.0,
+      "pop": 60,
+      "sky": "비",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-제24회-상주-곶감-마라톤-대회-2026-11-15",
@@ -21886,7 +21949,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.mara1080.com/event/c8dc2c22-a83a-4743-9e34-c884e9809dbb"
+    "applyUrl": "http://www.mara1080.com/event/c8dc2c22-a83a-4743-9e34-c884e9809dbb",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 19.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rm-9회-서울평화마라톤-2026-11-15",
@@ -21922,6 +21994,15 @@
       "hottestMax": 22.6,
       "station": "서울",
       "stationKm": 10
+    },
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 19.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
     }
   },
   {
@@ -21949,7 +22030,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.gcrun.com"
+    "applyUrl": "http://www.gcrun.com",
+    "forecast": {
+      "tmn": 11.0,
+      "tmx": 16.0,
+      "morningTa": 11.0,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rm-제3회-무등산더블하트국제트레일런대회-2026-11-15",
@@ -21976,7 +22066,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://www.cuk-sports.com/"
+    "applyUrl": "http://www.cuk-sports.com/",
+    "forecast": {
+      "tmn": 12.0,
+      "tmx": 19.0,
+      "morningTa": 13.5,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-제24회-대모산-구룡산-트레일런-2026-11-15",
@@ -21999,7 +22098,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20241014202801&csno=20200702232740#baseline"
+    "applyUrl": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20241014202801&csno=20200702232740#baseline",
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 19.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-나눔레이스-인-용인-2026-11-15",
@@ -22026,7 +22134,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://nanumrun.or.kr"
+    "applyUrl": "http://nanumrun.or.kr",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 18.0,
+      "morningTa": 10.0,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-제16회-대전서구청장배-마라톤대회-2026-11-15",
@@ -22054,7 +22171,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://JGMRUN.COM"
+    "applyUrl": "http://JGMRUN.COM",
+    "forecast": {
+      "tmn": 11.0,
+      "tmx": 18.0,
+      "morningTa": 11.5,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-fila-run-espresso-2026-11-15",
@@ -22077,7 +22203,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.fila.co.kr/pages/fila-run-espresso-10k-seoul"
+    "applyUrl": "http://www.fila.co.kr/pages/fila-run-espresso-10k-seoul",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 19.0,
+      "morningTa": 10.0,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-손기정평화마라톤-2026-11-15",
@@ -22106,7 +22241,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://sonkeechungrun.com"
+    "applyUrl": "http://sonkeechungrun.com",
+    "forecast": {
+      "tmn": 7.0,
+      "tmx": 18.0,
+      "morningTa": 8.5,
+      "pop": 10,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-제12회-창원특례시장배-광려천마라톤-2026-11-15",
@@ -22132,7 +22276,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.cwaaf.kr/bbs/board.php?bo_table=rally&wr_id=3"
+    "applyUrl": "http://www.cwaaf.kr/bbs/board.php?bo_table=rally&wr_id=3",
+    "forecast": {
+      "tmn": 13.0,
+      "tmx": 20.0,
+      "morningTa": 14.0,
+      "pop": 60,
+      "sky": "비",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-26회-창원통일마라톤-2026-11-15",
@@ -22155,7 +22308,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.tongilmarathon.kr"
+    "applyUrl": "http://www.tongilmarathon.kr",
+    "forecast": {
+      "tmn": 12.0,
+      "tmx": 19.0,
+      "morningTa": 14.0,
+      "pop": 60,
+      "sky": "비",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-에코나우런-2026-11-15",
@@ -22179,7 +22341,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://econow.campaignus.me/econow_run"
+    "applyUrl": "http://econow.campaignus.me/econow_run",
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 19.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-영남일보-혁신도시-마라톤-2026-11-15",
@@ -22205,7 +22376,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://inno.ynmarathon.kr"
+    "applyUrl": "http://inno.ynmarathon.kr",
+    "forecast": {
+      "tmn": 11.0,
+      "tmx": 18.0,
+      "morningTa": 11.5,
+      "pop": 60,
+      "sky": "비",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-우리함께런-with-빗썸나눔-2026-11-15",
@@ -22230,7 +22410,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://bithumbnanumrun.com"
+    "applyUrl": "http://bithumbnanumrun.com",
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 19.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-청춘레이스-2026-11-15",
@@ -22257,7 +22446,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://youngrace.kr"
+    "applyUrl": "http://youngrace.kr",
+    "forecast": {
+      "tmn": 10.0,
+      "tmx": 18.0,
+      "morningTa": 10.5,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "rr-2026-연수구청장배-송도-walk-run-2026-11-15",
@@ -22286,7 +22484,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://walknrun.kr"
+    "applyUrl": "http://walknrun.kr",
+    "forecast": {
+      "tmn": 9.0,
+      "tmx": 18.0,
+      "morningTa": 10.0,
+      "pop": 20,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-12 02:02"
+    }
   },
   {
     "id": "ro-제28회-부산국제신문마라톤-2026-11-15",
