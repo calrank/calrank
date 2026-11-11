@@ -375,6 +375,24 @@ def profile_svg(prof):
             f'<ul class="gp-leg">{leg}</ul></figure>')
 
 
+ROUTES = {"해파랑길": ("haeparang", "동해안을 따라 부산에서 고성까지 이어지는 길입니다."), "남파랑길": ("nampa", "남해안을 따라 부산에서 해남까지 이어지는 길입니다."),
+          "서해랑길": ("seohae", "서해안을 따라 해남에서 인천 강화까지 이어지는 길입니다."), "DMZ 평화의 길": ("dmz", "비무장지대 접경을 따라 이어지는 길입니다.")}
+SIDO = {"강원": "gangwon", "경기": "gyeonggi", "경남": "gyeongnam", "경북": "gyeongbuk", "부산": "busan", "서울": "seoul",
+        "울산": "ulsan", "인천": "incheon", "전남": "jeonnam", "전북": "jeonbuk", "충남": "chungnam", "충북": "chungbuk",
+        "대구": "daegu", "광주": "gwangju", "대전": "daejeon", "세종": "sejong", "제주": "jeju"}
+
+
+def route_of(c):
+    for k in ROUTES:
+        if c["name"].startswith(k):
+            return k
+    return ""
+
+
+def sido_of(c):
+    return (c.get("region") or "").split()[0] if c.get("region") else ""
+
+
 def course_stats(c):
     prof = c["profile"]
     km = prof[-1][0] / 1000
@@ -479,8 +497,17 @@ def course_page(c):
                 f'이 페이지는 약 100m 구간으로 다듬어 {q["smoothGainM"]}m로 계산했습니다.</p>')
     same = [o for o in COURSES if o["id"] != cid and region and o.get("region") == region][:6]
     rel = ""
+    _lk = []
+    _r = route_of(c)
+    if _r:
+        _lk.append(f'<li><a href="trailroute-{ROUTES[_r][0]}.html">{esc(_r)} 코스 모음</a></li>')
+    _s = sido_of(c)
+    if _s in SIDO:
+        _lk.append(f'<li><a href="trailarea-{SIDO[_s]}.html">{esc(_s)} 지역 코스 모음</a></li>')
+    if _lk:
+        rel += '<section class="tp-sec"><h2 class="tp-h2">같은 길·지역의 코스 모음</h2><ul class="cp-list">' + "".join(_lk) + "</ul></section>"
     if same:
-        rel = ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 코스</h2><ul class="cp-list">' +
+        rel += ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 코스</h2><ul class="cp-list">' +
                "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km</li>' for o in same) +
                '</ul></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
@@ -517,6 +544,55 @@ def course_page(c):
 COURSE_PAGES = [course_page(c) for c in COURSES]
 
 
+# ── 길 이름별·시도별 모음 (코스가 속한 긴 길 4곳, 시도) ───────────────────────
+import re as _re2
+def _num(c):
+    m = _re2.search(r"(\d+)(?:-(\d+))?\s*코스", c["name"]) or _re2.search(r"(\d+)", c["name"])
+    return (int(m.group(1)) if m else 999, int(m.group(2)) if (m and m.lastindex and m.lastindex > 1 and m.group(2)) else 0, c["name"])
+
+
+def group_page(slug, name, intro, cs):
+    stats = [course_stats(c) for c in cs]
+    km = sum(s[0] for s in stats); gain = sum(s[1] for s in stats)
+    lv = {1: 0, 2: 0, 3: 0}
+    for c in cs:
+        l_ = (c.get("official") or {}).get("level")
+        if l_ in lv:
+            lv[l_] += 1
+    def per(c):
+        k_, g_, _, _ = course_stats(c)
+        return g_ / max(k_, 0.1)
+    hardest = sorted(cs, key=lambda c: -per(c))[:5]
+    def li(c):
+        k_, g_, _, _ = course_stats(c)
+        l2 = (c.get("official") or {}).get("level")
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m'
+                + (f' · 두루누비 난이도 {l2}' if l2 else "") + "</li>")
+    lead = (f"{name}에서 칼랭크에 실린 코스는 {len(cs)}개입니다. 모두 합치면 {km:.0f}km이고 누적 오르막은 {gain:.0f}m입니다. "
+            f"두루누비 난이도로는 1단계 {lv[1]}개, 2단계 {lv[2]}개, 3단계 {lv[3]}개입니다.")
+    body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p>
+<p class="tp-small">경로 파일의 거리가 공식 거리와 맞는 코스만 실었습니다. 빠진 코스는 아직 검증하지 못한 것입니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 코스</h2><ul class="cp-list">{"".join(li(c) for c in hardest)}</ul></section>
+<section class="tp-sec"><h2 class="tp-h2">전체 코스</h2><ul class="cp-list">{"".join(li(c) for c in sorted(cs, key=_num))}</ul></section>
+<p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API). 계산과 표시는 칼랭크가 했습니다. <a href="trailroot.html">전체 코스 보기</a></p>"""
+    faq = [(f"{name}에서 오르막이 가장 많은 코스는 어디인가요?", f"1km당 오르막으로 보면 {hardest[0]['name']}({per(hardest[0]):.0f}m/km)가 가장 높습니다.")]
+    return slug, page(slug, f"{name} 코스 모음 — 난이도와 오르막", f"{name}의 코스 {len(cs)}개: 거리, 누적 오르막, 난이도를 코스별로 정리했습니다. 코스마다 경로 지도와 경사 단면도가 있습니다.",
+                      f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+
+
+_groups = []
+for _r, (_sl, _in) in ROUTES.items():
+    _cs = [c for c in COURSES if route_of(c) == _r]
+    if len(_cs) >= 3:
+        _groups.append((f"trailroute-{_sl}.html", _r, _in, _cs))
+for _s, _sl in SIDO.items():
+    _cs = [c for c in COURSES if sido_of(c) == _s]
+    if len(_cs) >= 3:
+        _groups.append((f"trailarea-{_sl}.html", f"{_s} 지역", "", _cs))
+GROUP_PAGES = [group_page(sl, nm_, it_, cs_) for sl, nm_, it_, cs_ in _groups]
+GROUP_LINKS = [(sl, nm_, len(cs_)) for sl, nm_, it_, cs_ in _groups]
+
+
 def hub_page():
     by = {}
     for c in COURSES:
@@ -543,6 +619,7 @@ def hub_page():
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 {lvtab}
+<section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
 {secs}
 <p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API). 계산과 표시는 칼랭크가 했습니다.</p>"""
@@ -713,6 +790,7 @@ def changes_page():
 
 STANDARDS.append(changes_page())
 STANDARDS += COURSE_PAGES
+STANDARDS += GROUP_PAGES
 if COURSES:
     STANDARDS.append(hub_page())
 STANDARDS += MOUNTAIN_PAGES
@@ -726,8 +804,8 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
         print("wrote", name)
 
 # 자료에서 빠진 코스·산의 페이지는 지운다(고도 고정 코스 제외, 산 이름 정리 등으로 사라진 것)
-_live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES}
-_stale = [f.name for pat in ("course-dr-*.html", "mountain-*.html") for f in ROOT.glob(pat) if f.name not in _live]
+_live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES} | {s for s, _ in GROUP_PAGES}
+_stale = [f.name for pat in ("course-dr-*.html", "mountain-*.html", "trailroute-*.html", "trailarea-*.html") for f in ROOT.glob(pat) if f.name not in _live]
 for _n in _stale:
     (ROOT / _n).unlink()
     print("지움", _n)
@@ -741,7 +819,7 @@ if _stale:
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
