@@ -16,18 +16,21 @@
 # 더 많이 친다. 둘 다 챙기려면 부르는 이름과 적는 이름을 갈라 두는 게 낫다. 기록등급이 전에는 여섯째라 스크롤하지
 # 않으면 보이지 않았다. 둘을 붙여 두면 첫 화면이 "일정 사이트"가 아니라
 # "판정하는 곳"으로 읽힌다.
-NAV_ITEMS = [
-    ("index.html", "캘린더", "calendar"),
-    ("grade.html", "기록등급", "grade"),
-    ("gear.html", "기어", "gear"),
-    ("trailroot.html", "트레일루트", "trailroot"),
-    ("myrank.html", "내 랭크", "myrank"),
-    ("ranking.html", "대회랭킹", "ranking"),
-    ("regions.html", "지역별", "regions"),
-    ("running-weather.html", "러닝날씨", "weather"),
-    ("news.html", "종목뉴스", "news"),
-    ("column.html", "칼럼", "column"),
+# 묶음 순서가 곧 안내 순서다: 대회를 찾고 → 내 기록·장비·길을 판정하고 → 읽는다.
+# 모바일에서는 묶음 단위로 줄이 바뀌어, 한 줄에 같은 종류끼리 모인다.
+NAV_GROUPS = [
+    [("index.html", "캘린더", "calendar"),
+     ("regions.html", "지역별", "regions"),
+     ("ranking.html", "대회랭킹", "ranking")],
+    [("grade.html", "기록등급", "grade"),
+     ("myrank.html", "내 랭크", "myrank"),
+     ("gear.html", "기어", "gear"),
+     ("trailroot.html", "트레일루트", "trailroot")],
+    [("running-weather.html", "러닝날씨", "weather"),
+     ("news.html", "종목뉴스", "news"),
+     ("column.html", "칼럼", "column")],
 ]
+NAV_ITEMS = [it for g in NAV_GROUPS for it in g]
 
 # 어느 페이지가 어느 메뉴에 속하는지. 파일 이름 앞부분으로 찾는다.
 ACTIVE_BY_PREFIX = [
@@ -93,15 +96,18 @@ HIDE_SCRIPT = '<script defer src="/header-hide.js"></script>'
 
 def nav_html(active: str = "") -> str:
     """<nav class="main-nav"> … </nav>"""
-    rows = []
-    for href, label, key in NAV_ITEMS:
-        cls = "nav-link active" if key == active else "nav-link"
-        rows.append(f'<a href="{href}" class="{cls}">{label}</a>')
+    grps = []
+    for g in NAV_GROUPS:
+        rows = []
+        for href, label, key in g:
+            cls = "nav-link active" if key == active else "nav-link"
+            rows.append(f'<a href="{href}" class="{cls}">{label}</a>')
+        grps.append('<span class="nav-grp">' + "".join(rows) + "</span>")
     saved_cls = "nav-link nav-link-saved" + (" active" if active == "saved" else "")
-    rows.append(f'<a href="saved-events.html" class="{saved_cls}">'
-                '❤️<span class="nav-text-full"> 찜한 대회</span></a>')
-    rows.append('<a href="contact.html" class="nav-contact-link">제휴문의</a>')
-    return '<nav class="main-nav">\n' + "\n".join(rows) + "\n</nav>\n" + HIDE_SCRIPT
+    util = (f'<span class="nav-grp nav-util"><a href="saved-events.html" class="{saved_cls}">'
+            '❤️<span class="nav-text-full"> 찜한 대회</span></a>'
+            '<a href="contact.html" class="nav-contact-link">제휴문의</a></span>')
+    return '<nav class="main-nav">\n' + "\n".join(grps) + "\n" + util + "\n</nav>\n" + HIDE_SCRIPT
 
 
 def site_header(active: str = "") -> str:

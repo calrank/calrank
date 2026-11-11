@@ -113,7 +113,10 @@ body{
 .wm-a path{fill:currentColor;}
 .wm-a .wm-top{fill:var(--accent);}
 .wordmark:hover .wm-a .wm-top{fill:var(--accent);opacity:.82;}
-.main-nav{display:flex;gap:22px;}
+.main-nav{display:flex;align-items:center;gap:0 26px;}
+/* 메뉴는 세 묶음(대회 · 판정과 도구 · 읽을거리)과 오른쪽 도우미 묶음으로 나눈다. */
+.nav-grp{display:flex;align-items:center;gap:0 20px;}
+.nav-grp + .nav-grp{border-left:1px solid var(--border);padding-left:26px;}
 .nav-link{font-size:12px;font-weight:700;color:var(--ink-faint);text-decoration:none;position:relative;padding:4px 0;letter-spacing:0.2px;}
 .nav-link.active{color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:4px;}
 .soon-tag{font-size:12px;font-weight:700;color:var(--ink-faint);border:1px solid var(--border);padding:1px 5px;margin-left:4px;vertical-align:2px;}
@@ -327,7 +330,9 @@ body{
      로고를 윗줄에 두고 메뉴를 아랫줄에 접어 전부 보이게 한다. */
   .header-inner{flex-wrap:wrap;height:auto;padding:10px 0;row-gap:6px;}
   .wordmark{flex:0 0 auto;}
-  .main-nav{width:100%;flex-wrap:wrap;gap:4px 16px;overflow:visible;}
+  .main-nav{width:100%;flex-wrap:wrap;gap:0 22px;overflow:visible;}
+  .nav-grp{gap:0 16px;flex:0 0 auto;}
+  .nav-grp + .nav-grp{border-left:0;padding-left:0;}
   .main-nav .nav-link,.main-nav .nav-contact-link{white-space:nowrap;flex:0 0 auto;padding:7px 0;}
   .nav-link.active{padding-bottom:5px;}
   /* 메뉴를 접고 나니 둘째 줄에 자리가 남는다. 하트만 있으면 뜻을
@@ -347,6 +352,14 @@ body{
 .nav-contact-link:hover{color:var(--ink-soft);}
 @media (max-width:600px){
   .nav-contact-link{display:none;}
+}
+/* 태블릿 폭: 한 줄에 다 안 들어가므로 로고 아래로 내리고 묶음 단위로 줄을 바꾼다. */
+@media (max-width:1020px){
+  .header-inner{flex-wrap:wrap;height:auto;padding:10px 0;row-gap:6px;}
+  .main-nav{width:100%;flex-wrap:wrap;gap:0 22px;}
+  .nav-grp{gap:0 16px;flex:0 0 auto;}
+  .nav-grp + .nav-grp{border-left:0;padding-left:0;}
+  .main-nav .nav-link,.main-nav .nav-contact-link{white-space:nowrap;flex:0 0 auto;padding:7px 0;}
 }
 
 
