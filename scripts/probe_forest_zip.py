@@ -4,7 +4,7 @@
 - 파일은 저장소에 저장하지 않는다(실행 중 임시 폴더에서만 연다). 확인하려는 것:
   1) 건수와 산 이름  2) 압축파일 안에 어떤 파일이 있는지  3) 도형 종류, 좌표계 파일, 고도(Z) 유무
 """
-import io, os, re, sys, urllib.parse, zipfile
+import io, os, re, struct, sys, urllib.parse, zipfile
 import requests
 
 RAW = os.environ.get("DURUNUBI_API_KEY", "").strip()
@@ -30,7 +30,7 @@ for it in items:
 for x in rows[:10]:
     print(" -", x["nm"], x["file"])
 
-for x in rows[:2]:
+for x in rows[:3]:
     if not x["file"]:
         continue
     print("== 내려받기:", x["nm"], x["file"])
@@ -48,7 +48,6 @@ for x in rows[:2]:
     for i in zf.infolist():
         if i.filename.lower().endswith(".shp"):
             b = zf.read(i)
-            import struct
             stype = struct.unpack("<i", b[32:36])[0]
             names = {1: "Point", 3: "PolyLine", 5: "Polygon", 8: "MultiPoint", 11: "PointZ", 13: "PolyLineZ", 15: "PolygonZ", 18: "MultiPointZ", 21: "PointM", 23: "PolyLineM", 25: "PolygonM"}
             xmin, ymin, xmax, ymax = struct.unpack("<4d", b[36:68])
