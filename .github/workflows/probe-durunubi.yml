@@ -1,0 +1,23 @@
+name: Probe Durunubi API
+
+# 두루누비 API 가 응답하는지, GPX 에 좌표와 고도가 들어 있는지 한 번 확인한다.
+# 결과는 실행 로그에만 남고 저장소에는 아무것도 쓰지 않는다. 인증키는 로그에 나오지 않는다.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python scripts/probe_durunubi.py
+        env:
+          DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}

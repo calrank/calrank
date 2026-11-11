@@ -137,7 +137,8 @@ COURSE = page(
 <div id="cvOut" hidden>
 <section class="tp-card"><p class="tp-small">기준: <span id="cvSource"></span></p>
 <p class="cv-big"><b id="cvIndex">1.00</b><span> 코스 부하 지수 · <span id="cvBand"></span></span></p>
-<table class="cv-table"><tbody id="cvTable"></tbody></table></section>
+<table class="cv-table"><tbody id="cvTable"></tbody></table>
+<p class="tp-small" id="cvRawNote" hidden></p></section>
 <section class="tp-card" id="cvChartWrap" hidden><div id="cvChart"></div></section>
 </div>
 <section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>

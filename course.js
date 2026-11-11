@@ -104,7 +104,13 @@
     });
     var segs = [];
     for (i = 1; i < sm.length; i++) segs.push({ d: step, g: Math.max(-LIM, Math.min(LIM, (sm[i] - sm[i - 1]) / step)) });
-    return { segs: segs, profile: sm.map(function (e, idx) { return { x: idx * step, y: e }; }) };
+    // 파일에 적힌 고도를 그대로 더한 값. 화면에서 다듬은 값과 나란히 보여 주기 위해 함께 돌려준다.
+    var rawGain = 0, rawLoss = 0, dz;
+    for (i = 1; i < good.length; i++) { dz = good[i].ele - good[i - 1].ele; if (dz > 0) rawGain += dz; else rawLoss -= dz; }
+    return {
+      segs: segs, profile: sm.map(function (e, idx) { return { x: idx * step, y: e }; }),
+      raw: { gainM: rawGain, lossM: rawLoss, points: good.length, distM: total }
+    };
   }
 
   // [[누적거리 m, 고도 m], ...] → 구간 목록 (저장된 코스 단면용)
@@ -134,7 +140,7 @@
   // ── 화면 ────────────────────────────────────────────────
   if (typeof document === "undefined") return;
   var $ = function (id) { return document.getElementById(id); };
-  var profile = null, segs = null, source = "예시 값";
+  var profile = null, segs = null, source = "예시 값", raw = null;
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function fmtTime(sec) {
@@ -179,14 +185,26 @@
     $("cvSource").textContent = source;
     $("cvIndex").textContent = r.index.toFixed(2);
     $("cvBand").textContent = band(r.index);
-    $("cvTable").innerHTML = [
+    var rows = [
       ["거리", km.toFixed(1) + " km"],
-      ["누적 상승 / 하강", Math.round(r.gainM) + " m / " + Math.round(r.lossM) + " m"],
+      ["누적 상승 / 하강", Math.round(r.gainM) + " m / " + Math.round(r.lossM) + " m"]
+    ];
+    if (raw && raw.gainM > 0) {
+      rows.push(["파일에 적힌 고도를 그대로 더하면", Math.round(raw.gainM) + " m / " + Math.round(raw.lossM) + " m"]);
+    }
+    $("cvTable").innerHTML = rows.concat([
       ["1km당 상승", (r.gainM / km).toFixed(0) + " m"],
       ["100m 구간 최대 경사", (r.maxGrade * 100).toFixed(0) + " %"],
       ["평지로 환산한 거리", (r.equivM / 1000).toFixed(1) + " km"],
       ["이 페이스로 걸리는 시간", fmtTime(r.timeSec)]
-    ].map(function (x) { return "<tr><th>" + x[0] + "</th><td>" + x[1] + "</td></tr>"; }).join("");
+    ]).map(function (x) { return "<tr><th>" + x[0] + "</th><td>" + x[1] + "</td></tr>"; }).join("");
+    var note = $("cvRawNote");
+    if (note) {
+      if (raw && raw.gainM > r.gainM * 1.25) {
+        note.hidden = false;
+        note.textContent = "GPS 고도는 작게 흔들려서, 그대로 더하면 오르막이 실제보다 크게 나올 수 있어요. 계산에는 흔들림을 다듬은 값을 썼습니다.";
+      } else { note.hidden = true; }
+    }
     $("cvChart").innerHTML = profile ? drawProfile(profile) : "";
     $("cvChartWrap").hidden = !profile;
   }
@@ -194,7 +212,7 @@
   function manual() {
     var km = parseFloat($("cvDist").value), gn = parseFloat($("cvGain").value), ls = parseFloat($("cvLoss").value), g = parseFloat($("cvUpg").value);
     if (!(km > 0) || !(gn >= 0) || !(ls >= 0)) { $("cvMsg").textContent = "거리와 누적 상승, 누적 하강을 적어 주세요."; return; }
-    segs = fromTotals(km, gn, ls, g); profile = null; source = "직접 입력한 값(오르막·내리막이 일정한 경사라고 가정)";
+    segs = fromTotals(km, gn, ls, g); profile = null; raw = null; source = "직접 입력한 값(오르막·내리막이 일정한 경사라고 가정)";
     render();
   }
 
@@ -204,7 +222,7 @@
     rd.onload = function () {
       var res = segsFromPoints(parseGpx(String(rd.result)));
       if (!res) { $("cvMsg").textContent = "고도가 들어 있는 GPX 파일이 아니거나 점이 너무 적습니다."; return; }
-      segs = res.segs; profile = res.profile; source = "불러온 GPX 파일 (이 브라우저 안에서만 읽었습니다)";
+      segs = res.segs; profile = res.profile; raw = res.raw; source = "불러온 GPX 파일 (이 브라우저 안에서만 읽었습니다)";
       render();
     };
     rd.readAsText(f);
