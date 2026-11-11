@@ -1,0 +1,22 @@
+name: Probe Forest Spatial Zip
+
+# 산림청 산림공간정보 압축파일에 등산로 좌표·고도가 있는지 한 번 확인한다. 로그에만 남는다.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python scripts/probe_forest_zip.py
+        env:
+          DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}
