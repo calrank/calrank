@@ -1,0 +1,22 @@
+name: Probe Forest Trail Elevation
+
+# 산림청 등산로 선에 30m 고도 자료를 입혀 산 높이와 맞는지 한 번 확인한다. 로그에만 남는다.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests numpy pyshp rasterio pyproj
+      - run: python scripts/probe_forest_dem.py
+        env:
+          DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}
