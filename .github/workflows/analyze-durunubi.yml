@@ -1,0 +1,29 @@
+name: Analyze Durunubi GPX
+
+# 두루누비 코스 전체의 GPX 품질을 점검한다. 결과는 실행 로그와 artifact 로만 남고
+# 저장소에는 아무것도 쓰지 않는다. 인증키는 로그에 나오지 않는다.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/analyze_durunubi.js
+        env:
+          DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: durunubi-quality
+          path: durunubi_quality.json
+          if-no-files-found: ignore
+          retention-days: 7
