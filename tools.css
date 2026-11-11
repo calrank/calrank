@@ -158,3 +158,13 @@
 .gp-sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
 .gp-sw.gp-d { background: #8fb3c9; } .gp-sw.gp-0 { background: #b9c7a0; } .gp-sw.gp-1 { background: #e3c46a; }
 .gp-sw.gp-2 { background: #e08a45; } .gp-sw.gp-3 { background: #c4433a; }
+
+/* 산 페이지: 경사 비율 막대, 구간 표 */
+.gb-bar { display: flex; height: 18px; border-radius: 6px; overflow: hidden; margin: 8px 0; }
+.gb-seg { display: block; height: 100%; }
+.gb-seg.gp-0 { background: #b9c7a0; } .gb-seg.gp-1 { background: #e3c46a; }
+.gb-seg.gp-2 { background: #e08a45; } .gb-seg.gp-3 { background: #c4433a; }
+.mt-wrap { overflow-x: auto; }
+.mt-table { border-collapse: collapse; font-size: 13px; min-width: 100%; }
+.mt-table th, .mt-table td { padding: 7px 10px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.mt-table th { color: var(--ink-soft); font-weight: 400; }

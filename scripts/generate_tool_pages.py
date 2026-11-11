@@ -477,6 +477,118 @@ def hub_page():
         "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, [], faq, crumb=("트레일루트", "trailroot.html"))
 
 
+
+# ── 산 페이지 (data/mountains.json 의 산마다 한 장) ──────────────────────────
+MOUNTAINS = []
+_mp = Path(_os.environ.get("CALRANK_MOUNTAINS") or (ROOT / "data/mountains.json"))
+if _mp.exists():
+    MOUNTAINS = json.loads(_mp.read_text(encoding="utf-8")).get("mountains", [])
+MT_VERIFIED = False  # 산림청 구간 속성(상행·하행 시간, 난이도)의 뜻을 문서로 확인하면 True 로 바꾼다.
+COPDEM = ("produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 "
+          "provided under COPERNICUS by the European Union and ESA; all rights reserved.")
+G_BANDS = [(5, "gp-0", "5% 미만"), (10, "gp-1", "5~10%"), (15, "gp-2", "10~15%"), (999, "gp-3", "15% 이상")]
+
+
+def mt_title(m):
+    return f'{m["name"]}({m["region"]})' if m.get("region") else m["name"]
+
+
+def mt_stats(m):
+    S = m["sections"]
+    tot = sum(s["lenM"] for s in S) / 1000
+    steep = sum(s["steepKm"] for s in S)
+    hi = max(s["endM"] for s in S); lo = min(s["startM"] for s in S)
+    return tot, steep, hi, lo
+
+
+def grade_bar(S):
+    tot = sum(s["lenM"] for s in S) or 1
+    parts, leg = "", ""
+    for i, (lim, cl, nm) in enumerate(G_BANDS):
+        lo_ = G_BANDS[i - 1][0] if i else 0
+        L = sum(s["lenM"] for s in S if lo_ <= abs(s["meanGrade"]) < lim)
+        pct = L / tot * 100
+        if pct >= 0.5:
+            parts += f'<span class="gb-seg {cl}" style="width:{pct:.1f}%"></span>'
+        leg += f'<li><i class="gp-sw {cl}"></i>구간 평균 경사 {nm} · {pct:.0f}%</li>'
+    return f'<div class="gb-bar" role="img" aria-label="구간 평균 경사별 길이 비율">{parts}</div><ul class="gp-leg">{leg}</ul>'
+
+
+def mountain_page(m):
+    mid = m["id"]; slug = f"mountain-{mid}.html"
+    S = m["sections"]; nm = m["name"]
+    tot, steep, hi, lo = mt_stats(m)
+    off = m.get("officialHeightM")
+    where = f'{m["region"]}에 있는 ' if m.get("region") else ""
+    lead = (f"{nm}{josa(nm, '은', '는')} {where}산입니다. 산림청 자료에는 등산로 구간이 {len(S)}개 있고, 모두 합치면 {tot:.1f}km입니다. "
+            f"구간 중 가장 높은 곳은 해발 약 {hi:.0f}m이고, 평균 경사가 15%를 넘는 구간이 {sum(s['lenM'] for s in S if abs(s['meanGrade']) >= 15) / 1000:.1f}km 있습니다.")
+    rows = [("등산로 구간 수", f"{len(S)}개"), ("구간 길이 합계", f"{tot:.1f} km"),
+            ("구간 최고 고도(30m 고도 자료)", f"{hi:.0f} m"), ("구간 최저 고도", f"{lo:.0f} m")]
+    if off:
+        rows.append(("산림청 산 높이", f"{off:.0f} m"))
+    rows.append(("경사 12% 넘는 길", f"{steep:.1f} km"))
+    stat_html = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in rows)
+    top = sorted(S, key=lambda s: -abs(s["meanGrade"]))[:12]
+    th = ["구간 길이", "고도(낮은 곳→높은 곳)", "평균 경사", "가장 가파른 곳", "오르막 합"]
+    if MT_VERIFIED:
+        th += ["산림청 상행", "산림청 하행", "산림청 난이도"]
+    trs = ""
+    for s in top:
+        tds = [f'{s["lenM"]}m', f'{s["startM"]}→{s["endM"]}m', f'{abs(s["meanGrade"]):.0f}%', f'{s["maxGrade"]:.0f}%', f'{s["gainM"]}m']
+        if MT_VERIFIED:
+            tds += [f'{s["upln"]:.0f}분', f'{s["gngd"]:.0f}분', f'{s["dgdf"]}']
+        trs += "<tr>" + "".join(f"<td>{t}</td>" for t in tds) + "</tr>"
+    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr>' + "".join(f"<th>{t}</th>" for t in th) + f"</tr></thead><tbody>{trs}</tbody></table></div>")
+    same = [o for o in MOUNTAINS if o["id"] != mid and m.get("region") and o.get("region") == m["region"]][:6]
+    rel = ""
+    if same:
+        rel = ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 산</h2><ul class="cp-list">' +
+               "".join(f'<li><a href="mountain-{o["id"]}.html">{esc(mt_title(o))}</a></li>' for o in same) + "</ul></section>")
+    body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
+<table class="cv-table"><tbody>{stat_html}</tbody></table></section>
+<section class="tp-sec"><h2 class="tp-h2">길의 경사는 이렇게 나뉩니다</h2>{grade_bar(S)}
+<p class="tp-small">구간마다 낮은 쪽 끝에서 높은 쪽 끝까지 평균 경사를 잰 뒤, 경사별로 길이를 더했습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">가파른 구간 12곳</h2>{table}
+<p class="tp-small">구간은 산림청이 나눈 단위이고, 한 구간이 하나의 산행 코스는 아닙니다. 고도는 30m 간격의 고도 자료로 읽은 값이라 몇 m에서 십수 m까지 다를 수 있습니다.</p></section>
+{rel}
+<p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털, 이용허락범위 제한 없음){(' — <a href="' + esc(m["info"]) + '" rel="noopener" target="_blank">산림청 안내</a>') if m.get("info") else ""}. 고도: {COPDEM} 계산과 표시는 칼랭크가 했고, 현장 상황과 다를 수 있으니 산행 전 안내를 확인해 주세요. <a href="mountains.html">다른 산 보기</a></p>"""
+    faq = [(f"{nm}의 가파른 구간은 어디인가요?", f"산림청 구간 중 평균 경사가 가장 큰 곳은 약 {abs(top[0]['meanGrade']):.0f}%입니다(구간 길이 {top[0]['lenM']}m)."),
+           ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
+    desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.')
+    return slug, page(slug, f"{mt_title(m)} 등산로 경사와 가파른 구간", desc, f"{mt_title(m)} 등산로",
+                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, [], faq, crumb=("산", "mountains.html"))
+
+
+MOUNTAIN_PAGES = [mountain_page(m) for m in MOUNTAINS]
+
+
+def mountains_hub():
+    CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ"
+    def cho(s):
+        c = s[:1]
+        if "가" <= c <= "힣":
+            i = (ord(c) - 0xAC00) // 588
+            return {"ㄲ": "ㄱ", "ㄸ": "ㄷ", "ㅃ": "ㅂ", "ㅆ": "ㅅ", "ㅉ": "ㅈ"}.get(CHO[i], CHO[i])
+        return "기타"
+    by = {}
+    for m in sorted(MOUNTAINS, key=lambda m: m["name"]):
+        by.setdefault(cho(m["name"]), []).append(m)
+    def li(m):
+        tot, steep, hi, lo = mt_stats(m)
+        return f'<li><a href="mountain-{m["id"]}.html">{esc(mt_title(m))}</a> · 구간 {len(m["sections"])}개 · {tot:.1f}km · 최고 약 {hi:.0f}m</li>'
+    secs = "".join(f'<section class="tp-sec"><h2 class="tp-h2">{k} ({len(v)})</h2><ul class="cp-list">{"".join(li(m) for m in v)}</ul></section>' for k, v in by.items())
+    tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
+    body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 산</h2><ul class="cp-list">{tall}</ul></section>
+{secs}
+<p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털). 고도: {COPDEM}</p>"""
+    faq = [("같은 이름의 산이 여러 곳인가요?", "이름이 같은 산이 전국에 여럿 있어서, 위치를 알 수 있는 산은 이름 옆에 지역을 적었습니다."),
+           ("등산로 길이는 어디까지 포함하나요?", "산림청 등산로 구간을 모두 더한 값이라, 한 번의 산행 거리와는 다릅니다.")]
+    return "mountains.html", page("mountains.html", "산별 등산로 경사와 가파른 구간 모음",
+        f"산림청 등산로 자료로 {len(MOUNTAINS)}개 산의 구간 길이, 경사, 가파른 곳을 정리했습니다.",
+        "산별 등산로", f"{len(MOUNTAINS)}개 산 · 구간별 경사", body, [], faq, crumb=("산", "mountains.html"))
+
+
 STANDARDS = [standards_page(s) for s in SPORT_META]
 
 
@@ -499,6 +611,9 @@ STANDARDS.append(changes_page())
 STANDARDS += COURSE_PAGES
 if COURSES:
     STANDARDS.append(hub_page())
+STANDARDS += MOUNTAIN_PAGES
+if MOUNTAINS:
+    STANDARDS.append(mountains_hub())
 
 for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name
@@ -510,7 +625,7 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
