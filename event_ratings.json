@@ -80600,9 +80600,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-제9회-광진구청장배-육상대회-2026-11-29": {
-    "indexScore": 24,
+    "indexScore": 29,
     "tier": "브론즈",
-    "score": 25,
+    "score": 30,
     "maxScore": 105,
     "criteria": [
       {
@@ -80672,7 +80672,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -83408,9 +83408,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-성남-헤리티지-런-2026-12-12": {
-    "indexScore": 10,
+    "indexScore": 14,
     "tier": "일반",
-    "score": 10,
+    "score": 15,
     "maxScore": 105,
     "criteria": [
       {
@@ -83480,7 +83480,7 @@
       },
       {
         "label": "수도권·광역시 개최",
-        "achieved": false,
+        "achieved": true,
         "weight": 5
       },
       {
@@ -83512,9 +83512,9 @@
     "disclaimer": "이 지수는 공개된 정보만으로 추정한 참고 지표이며, 실제 대회 운영·안전·참가자 만족도를 보장하지 않습니다."
   },
   "rr-2026-평창-스노우런-2026-12-12": {
-    "indexScore": 10,
+    "indexScore": 13,
     "tier": "일반",
-    "score": 10,
+    "score": 14,
     "maxScore": 105,
     "criteria": [
       {
@@ -83529,7 +83529,7 @@
       },
       {
         "label": "코스 3종 이상 다양성",
-        "achieved": false,
+        "achieved": true,
         "weight": 4
       },
       {
