@@ -526,6 +526,7 @@ def course_page(c):
 <details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
 <p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>
+<section class="tp-sec" id="trMark" data-href="course-{c["id"]}.html" data-name="{esc(c["name"])}"><h2 class="tp-h2">내 목록에 담기</h2></section>
 {rel}
 <p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 오르막·경사는 경로 파일의 고도로 칼랭크가 계산했습니다. <a href="trailroot.html">다른 코스 보기</a></p>
 <script type="application/json" id="cpData">{data}</script>"""
@@ -536,7 +537,7 @@ def course_page(c):
     desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.')
     return slug, page(slug, f"{nm} 난이도·소요시간·오르막·지도", desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
-                      ["calrank-local.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"),
+                      ["calrank-local.js", "trail-mark.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"),
                       place=({"type": "Place", "name": nm, "lat": c["path"][0][0], "lon": c["path"][0][1], "region": region} if c.get("path") else None),
                       modified=s.get("fetched") or None)
 
@@ -617,6 +618,7 @@ def hub_page():
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
+<section class="tp-sec" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 {lvtab}
 <section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
@@ -627,7 +629,7 @@ def hub_page():
            ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
     return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
         f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있어요.",
-        "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, ["list-filter.js"], faq, crumb=("트레일루트", "trailroot.html"))
+        "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, ["calrank-local.js", "trail-mark.js", "list-filter.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 
@@ -760,6 +762,7 @@ def mountain_page(m):
 <p class="tp-small">구간마다 낮은 쪽 끝에서 높은 쪽 끝까지 평균 경사를 잰 뒤, 경사별로 길이를 더했습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">가파른 구간 12곳</h2>{table}
 <p class="tp-small">구간은 산림청이 나눈 단위이고, 한 구간이 하나의 산행 코스는 아닙니다. 평균 경사는 구간의 낮은 끝과 높은 끝을 이은 값입니다. 고도는 30m 간격의 고도 자료로 읽은 값이라 몇 m에서 십수 m까지 다를 수 있습니다.</p></section>
+<section class="tp-sec" id="trMark" data-href="{slug}" data-name="{esc(mt_title(m))}"><h2 class="tp-h2">내 목록에 담기</h2></section>
 {rel}
 {area_link}
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털, 이용허락범위 제한 없음){(' — <a href="' + esc(m["info"]) + '" rel="noopener" target="_blank">산림청 안내</a>') if m.get("info") else ""}. 고도: {COPDEM} 계산과 표시는 칼랭크가 했고, 현장 상황과 다를 수 있으니 산행 전 안내를 확인해 주세요. <a href="mountains.html">다른 산 보기</a></p>"""
@@ -767,7 +770,7 @@ def mountain_page(m):
            ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
     desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.')
     return slug, page(slug, f"{mt_title(m)} 등산로 경사와 가파른 구간", desc, f"{mt_title(m)} 등산로",
-                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, ["route-map.js"], faq, crumb=("산", "mountains.html"),
+                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, ["calrank-local.js", "trail-mark.js", "route-map.js"], faq, crumb=("산", "mountains.html"),
                       place={"type": "Mountain", "name": nm, "lat": S[0].get("lat"), "lon": S[0].get("lon"), "ele": off if off else hi,
                              "region": (m.get("region") or "").split()[0] if m.get("region") else ""},
                       modified=MT_FETCHED or None)
@@ -814,6 +817,7 @@ def mountains_hub():
     secs = "".join(f'<section class="tp-sec"><h2 class="tp-h2">{k} ({len(v)})</h2><ul class="cp-list">{"".join(li(m) for m in v)}</ul></section>' for k, v in by.items())
     tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
     body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
+<section class="tp-sec" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 <section class="tp-sec"><h2 class="tp-h2">지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 산</li>' for sl, nm_, n_ in MT_GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 산</h2><ul class="cp-list">{tall}</ul></section>
@@ -823,7 +827,7 @@ def mountains_hub():
            ("등산로 길이는 어디까지 포함하나요?", "산림청 등산로 구간을 모두 더한 값이라, 한 번의 산행 거리와는 다릅니다.")]
     return "mountains.html", page("mountains.html", "산별 등산로 경사와 가파른 구간 모음",
         f"산림청 등산로 자료로 {len(MOUNTAINS)}개 산의 구간 길이, 경사, 가파른 곳을 정리했습니다.",
-        "산별 등산로", f"{len(MOUNTAINS)}개 산 · 구간별 경사", body, ["list-filter.js"], faq, crumb=("산", "mountains.html"))
+        "산별 등산로", f"{len(MOUNTAINS)}개 산 · 구간별 경사", body, ["calrank-local.js", "trail-mark.js", "list-filter.js"], faq, crumb=("산", "mountains.html"))
 
 
 STANDARDS = [standards_page(s) for s in SPORT_META]

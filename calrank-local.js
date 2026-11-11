@@ -9,6 +9,7 @@
 //   kit      장비 서랍 (규정 항목별 내 수치)
 //   seen     규정 값의 지문 (칼랭크의 규정 값이 바뀌었는지 알아보는 용도)
 //   ledger   예상 기록 노트 (대회 전 예측과 대회 뒤 실제 기록)
+//   trails   트레일루트에서 '가 보고 싶어요'·'다녀왔어요'로 표시한 코스·산 (주소, 이름, 상태, 날짜)
 (function (g) {
   "use strict";
   var KEY = "calrank.me.v1";
@@ -121,6 +122,16 @@
     update(function (o) { o.ledger = (o.ledger || []).filter(function (p) { return p.id !== id; }); });
   }
 
+  function trails() { return (read().trails || []).slice(); }
+  // state: "want" | "done" | "" (빈 값이면 표시를 지운다)
+  function setTrail(href, name, state) {
+    update(function (o) {
+      var list = (o.trails || []).filter(function (x) { return x.href !== href; });
+      if (state === "want" || state === "done") list.push({ href: String(href), name: String(name).slice(0, 80), state: state, t: today() });
+      o.trails = list.slice(-300);
+    });
+  }
+
   function clearAll() {
     mem = {};
     try { g.localStorage.removeItem(KEY); } catch (e) {}
@@ -131,6 +142,7 @@
     kit: kit, setKit: setKit,
     fingerprint: fingerprint, seen: seen, setSeen: setSeen,
     ledger: ledger, addPrediction: addPrediction, settle: settle, removePrediction: removePrediction,
+    trails: trails, setTrail: setTrail,
     clearAll: clearAll, today: today,
     isPersistent: function () { read(); return persistent; }
   };
