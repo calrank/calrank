@@ -423,13 +423,14 @@ def course_page(c):
                '</ul></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
-<section class="tp-card"><h2 class="tp-h2">내 페이스로 걸리면</h2><div class="tp-grid">
-<label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="10:00" autocomplete="off"></label>
+<section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
+<label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
 <label class="cv-check"><input type="checkbox" id="cpDown"> 내리막에서 빨라지는 것까지 반영</label></div>
+<p><button type="button" class="tp-btn ghost" id="cpMine" hidden>내 최근 기록의 페이스로 채우기</button></p>
 <p id="cpMsg" class="tp-small" role="status" aria-live="polite"></p>
 <p class="cv-big"><b id="cpIndex">1.00</b><span> 코스 부하 지수 · <span id="cpBand"></span></span></p>
 <table class="cv-table"><tbody id="cpTable"></tbody></table>
-<p class="tp-small">이 계산은 달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)을 걷기에 그대로 쓴 값이라, 걷는 속도와는 다를 수 있습니다. 걷기 기준의 검증은 아직 못 했습니다.</p></section>
+<p class="tp-small">달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)으로 계산합니다. 걷는 시간은 위의 두루누비 표기 소요시간을 참고해 주세요. 걷기에 이 식이 맞는지는 아직 검증하지 못했습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">기술 난이도 (칼랭크 구분)</h2>{tech_html}
 <details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
 <p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
@@ -444,7 +445,7 @@ def course_page(c):
     desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경사 색 단면도와 내 페이스로 걸리는 시간, 현장 확인표를 정리했습니다.')
     return slug, page(slug, f"{nm} 난이도·소요시간·오르막", desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
-                      ["course.js", "course-page.js"], faq, crumb=("트레일루트", "trailroot.html"))
+                      ["calrank-local.js", "course.js", "course-page.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 COURSE_PAGES = [course_page(c) for c in COURSES]
@@ -466,6 +467,7 @@ def hub_page():
     steepest = sorted(COURSES, key=lambda c: -course_stats(c)[1] / max(course_stats(c)[0], 0.1))[:10]
     top = "".join(li(c) for c in steepest)
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
+{('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
 {secs}

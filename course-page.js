@@ -23,7 +23,19 @@
     ].map(function (x) { return "<tr><th>" + x[0] + "</th><td>" + x[1] + "</td></tr>"; }).join("");
     if ($("cpChart")) $("cpChart").innerHTML = C.drawProfile(prof);
   }
+  // 이 기기에 저장된 최근 등급 계산 결과(거리·기록)로 평지 페이스를 채운다. 기기 밖으로 나가지 않는다.
+  function mine() {
+    var L = window.CalrankLocal, rs; if (!L || !$("cpMine")) return;
+    try { rs = L.results().filter(function (x) { return x.km >= 5 && x.sec > 0; }); } catch (e) { return; }
+    if (!rs.length) return;
+    var r = rs[rs.length - 1], p = Math.round(r.sec / r.km);
+    $("cpMine").hidden = false;
+    var m = Math.floor(p / 60), s = p % 60, txt = m + ":" + (s < 10 ? "0" : "") + s;
+    $("cpMine").textContent = "내 최근 기록(" + r.km + "km)의 페이스 " + txt + "로 채우기";
+    $("cpMine").addEventListener("click", function () { $("cpPace").value = txt; render(); });
+  }
   document.addEventListener("DOMContentLoaded", function () {
+    mine();
     $("cpPace").addEventListener("change", render);
     $("cpDown").addEventListener("change", render);
     render();
