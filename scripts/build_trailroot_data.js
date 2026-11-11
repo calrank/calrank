@@ -120,7 +120,7 @@ const slugId = (idx) => {
         source: {
           label: "한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API)",
           url: "https://www.durunubi.kr",
-          license: "이용 조건 확인 중",
+          license: "이용허락범위 제한 없음(공공데이터포털 표기)",
           fetched: today
         },
         profile: prof,
