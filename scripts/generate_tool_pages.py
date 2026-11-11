@@ -725,6 +725,18 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
         p.write_text(html, encoding="utf-8")
         print("wrote", name)
 
+# 자료에서 빠진 코스·산의 페이지는 지운다(고도 고정 코스 제외, 산 이름 정리 등으로 사라진 것)
+_live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES}
+_stale = [f.name for pat in ("course-dr-*.html", "mountain-*.html") for f in ROOT.glob(pat) if f.name not in _live]
+for _n in _stale:
+    (ROOT / _n).unlink()
+    print("지움", _n)
+if _stale:
+    _t = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    for _n in _stale:
+        _t = __import__("re").sub(r"\s*<url>\s*<loc>[^<]*/" + __import__("re").escape(_n) + r"</loc>.*?</url>", "", _t, flags=__import__("re").S)
+    (ROOT / "sitemap.xml").write_text(_t, encoding="utf-8")
+
 # sitemap
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
