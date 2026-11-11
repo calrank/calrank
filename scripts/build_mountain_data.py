@@ -4,8 +4,12 @@
 - 구간 선의 방향은 자료마다 제멋대로라서, 항상 '낮은 쪽 끝 → 높은 쪽 끝'으로 맞춰 오르막을 잰다.
 - 산림청 속성값(SECTN_UPLN/GNGD/DGDF)은 뜻을 문서로 확인하기 전이라 이름 그대로 저장한다.
 """
-import io, json, math, os, re, sys, tempfile, time, urllib.parse, zipfile
+import io, json, math, os, re, signal, sys, tempfile, time, urllib.parse, zipfile
 from pathlib import Path
+os.environ.setdefault("GDAL_HTTP_TIMEOUT", "30")
+os.environ.setdefault("GDAL_HTTP_MAX_RETRY", "3")
+os.environ.setdefault("GDAL_HTTP_RETRY_DELAY", "2")
+os.environ.setdefault("CPL_VSIL_CURL_ALLOWED_EXTENSIONS", ".tif")
 import numpy as np
 import requests
 import shapefile
@@ -135,6 +139,8 @@ def main():
     out, fails, cmp_ = [], [], []
     for n, it in enumerate(items, 1):
         nm, url, info = field(it, "mntnnm"), field(it, "mntnfile"), field(it, "mntninfourl")
+        signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(TimeoutError("산 하나가 4분을 넘김")))
+        signal.alarm(240)
         try:
             z = get(url)
             zf = zipfile.ZipFile(io.BytesIO(z.content))
@@ -165,8 +171,12 @@ def main():
                 height, region = None, ""
             out.append({"id": code, "name": nm, "info": info, "officialHeightM": height, "region": region.strip(),
                         "demMaxM": hi, "sections": secs})
-        except Exception as e:
+        except BaseException as e:
+            if isinstance(e, KeyboardInterrupt): raise
             fails.append((nm, mask(type(e).__name__ + ": " + str(e))[:120]))
+            tiles.clear()
+        finally:
+            signal.alarm(0)
         if n % 25 == 0: print(f"  {n}/{len(items)} 처리, 실린 {len(out)}, 실패 {len(fails)}", flush=True)
         time.sleep(0.4)
     print("실린 산:", len(out), "실패:", len(fails))
