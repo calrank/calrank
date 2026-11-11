@@ -103,5 +103,22 @@ const pct = (arr, p) => { const s = arr.slice().sort((a, b) => a - b); return s.
   console.log("공식 거리 / 공식 소요시간 (km/h): 중앙값", pct(spd, 0.5).toFixed ? pct(spd, 0.5).toFixed(2) : pct(spd, 0.5), " 10%~90%", pct(spd, 0.1).toFixed(2), "~", pct(spd, 0.9).toFixed(2));
   console.log("고도 흔들림이 큰 코스(원본/다듬은 > 2):", rows.filter((r) => r.gainRatio > 2).length);
   console.log("거리 차이 10% 초과 코스:", rows.filter((r) => r.distRatio && Math.abs(r.distRatio - 1) > 0.1).length);
+  // 4) 공식 난이도와 우리 지수가 같은 방향인지
+  const rank = (a) => { const o = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0]); const r = new Array(a.length); let i = 0; while (i < o.length) { let j = i; while (j + 1 < o.length && o[j + 1][0] === o[i][0]) j++; const avg = (i + j) / 2 + 1; for (let k = i; k <= j; k++) r[o[k][1]] = avg; i = j + 1; } return r; };
+  const corr = (x, y) => { const n = x.length, mx = x.reduce((a, b) => a + b) / n, my = y.reduce((a, b) => a + b) / n; let sxy = 0, sxx = 0, syy = 0; for (let i = 0; i < n; i++) { sxy += (x[i] - mx) * (y[i] - my); sxx += (x[i] - mx) ** 2; syy += (y[i] - my) ** 2; } return sxy / Math.sqrt(sxx * syy); };
+  const lvRows = rows.filter((r) => isFinite(+r.level));
+  for (const L of [1, 2, 3]) {
+    const g = lvRows.filter((r) => +r.level === L);
+    if (!g.length) continue;
+    const idx = g.map((r) => r.index), per = g.map((r) => r.smoothGainM / (r.gpxKm || 1)), km = g.map((r) => r.officialKm).filter((x) => x);
+    console.log(`공식 난이도 ${L}: ${g.length}개, 지수 중앙값 ${pct(idx, 0.5)}, km당 상승(다듬은) 중앙값 ${pct(per, 0.5).toFixed(1)} m, 공식 거리 중앙값 ${pct(km, 0.5)} km`);
+  }
+  console.log("순위 상관(공식 난이도 vs 우리 지수):", corr(rank(lvRows.map((r) => +r.level)), rank(lvRows.map((r) => r.index))).toFixed(2));
+  const withMin = rows.filter((r) => r.officialMin && r.officialKm);
+  console.log("순위 상관(공식 소요시간÷거리 vs 우리 지수):", corr(rank(withMin.map((r) => r.officialMin / r.officialKm)), rank(withMin.map((r) => r.index))).toFixed(2));
+  // 5) 거리가 크게 다른 코스 (코스 이름은 공개 정보)
+  const bad = rows.filter((r) => r.distRatio && Math.abs(r.distRatio - 1) > 0.1).sort((a, b) => Math.abs(b.distRatio - 1) - Math.abs(a.distRatio - 1)).slice(0, 12);
+  console.log("거리 차이가 큰 코스(상위 12):");
+  bad.forEach((r) => console.log(`  ${r.name} | 공식 ${r.officialKm}km, GPX ${r.gpxKm}km (x${r.distRatio}), 점 ${r.points}개`));
   fs.writeFileSync("durunubi_quality.json", JSON.stringify(rows));
 })().catch((e) => { console.log("실패:", mask(e && e.message ? e.message : e)); process.exit(1); });
