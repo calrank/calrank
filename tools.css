@@ -168,3 +168,6 @@
 .mt-table { border-collapse: collapse; font-size: 13px; min-width: 100%; }
 .mt-table th, .mt-table td { padding: 7px 10px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .mt-table th { color: var(--ink-soft); font-weight: 400; }
+
+/* 경로 지도 */
+.rm-box { height: 340px; max-width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid var(--line); }

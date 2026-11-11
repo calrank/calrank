@@ -40,6 +40,25 @@ function haversine(a, b) {
   const x = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(x));
 }
+// Douglas-Peucker. 위경도를 미터 평면으로 바꿔 허용 오차(tolM)보다 벗어난 점만 남긴다.
+function simplify(pts, tolM) {
+  const k = Math.cos(pts[0].lat * Math.PI / 180), X = (p) => p.lon * 111320 * k, Y = (p) => p.lat * 110540;
+  const keep = new Uint8Array(pts.length); keep[0] = keep[pts.length - 1] = 1;
+  const st = [[0, pts.length - 1]];
+  while (st.length) {
+    const [a, b] = st.pop();
+    const ax = X(pts[a]), ay = Y(pts[a]), dx = X(pts[b]) - ax, dy = Y(pts[b]) - ay, L = Math.hypot(dx, dy) || 1;
+    let mx = 0, mi = -1;
+    for (let i = a + 1; i < b; i++) {
+      const d = Math.abs((X(pts[i]) - ax) * dy - (Y(pts[i]) - ay) * dx) / L;
+      if (d > mx) { mx = d; mi = i; }
+    }
+    if (mx > tolM && mi > 0) { keep[mi] = 1; st.push([a, mi], [mi, b]); }
+  }
+  const out = [];
+  pts.forEach((p, i) => { if (keep[i]) out.push([+p.lat.toFixed(5), +p.lon.toFixed(5)]); });
+  return out;
+}
 const slugId = (idx) => {
   const m = /(\d+)\s*$/.exec(String(idx));
   return "dr-" + (m ? String(+m[1]) : String(idx).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""));
@@ -61,7 +80,7 @@ const slugId = (idx) => {
   try { JSON.parse(fs.readFileSync(OUT, "utf8")).courses.forEach((c) => { prev[c.id] = c; }); } catch (e) { /* 처음 */ }
 
   const today = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
-  const out = [], skip = { noGpx: 0, fail: 0, noEle: 0, dist: 0, short: 0, dup: 0 };
+  const out = [], skip = { noGpx: 0, fail: 0, noEle: 0, dist: 0, short: 0, dup: 0, flat: 0 };
   const seen = new Set();
   for (const c of courses) {
     if (!c.gpxpath) { skip.noGpx++; continue; }
@@ -86,6 +105,10 @@ const slugId = (idx) => {
       const stride = Math.ceil(res.profile.length / 300);
       const prof = [];
       res.profile.forEach((p, i) => { if (i % stride === 0 || i === res.profile.length - 1) prof.push([Math.round(p.x), Math.round(p.y * 10) / 10]); });
+      const ys = res.profile.map((q) => q.y);
+      if (Math.max(...ys) - Math.min(...ys) < 5 && dist > 3000) { skip.flat++; continue; }   // 고도가 한 값으로 고정된 파일
+      let tol = 12, path = simplify(good, tol);
+      while (path.length > 400) { tol *= 1.5; path = simplify(good, tol); }
       let gain = 0;
       for (let i = 1; i < res.profile.length; i++) { const dz = res.profile[i].y - res.profile[i - 1].y; if (dz > 0) gain += dz; }
       const old = prev[id] || {};
@@ -101,6 +124,7 @@ const slugId = (idx) => {
           fetched: today
         },
         profile: prof,
+        path,
         technical: old.technical || { level: null, note: "", basis: "" },
         checks: old.checks || {},
         edited: old.edited || ""

@@ -379,6 +379,15 @@ for _lv in (1, 2, 3):
         LV_MED[_lv] = (_med(_g), len(_g))
 
 
+def map_block(data, legend=""):
+    j = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    return ('<section class="tp-sec"><h2 class="tp-h2">지도</h2>'
+            '<p class="tp-small">버튼을 누르면 OpenStreetMap 지도를 불러옵니다. 누르기 전에는 지도 서버로 아무것도 보내지 않아요.</p>'
+            '<p><button type="button" class="tp-btn ghost" id="mapBtn">지도 보기</button></p>'
+            f'<div id="mapBox" class="rm-box" hidden></div>{legend}'
+            f'<script type="application/json" id="mapData">{j}</script></section>')
+
+
 def course_page(c):
     cid = c["id"]; slug = f"course-{cid}.html"
     prof = c["profile"]
@@ -437,6 +446,7 @@ def course_page(c):
                '</ul></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
+{map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
 <label class="cv-check"><input type="checkbox" id="cpDown"> 내리막에서 빨라지는 것까지 반영</label></div>
@@ -459,7 +469,7 @@ def course_page(c):
     desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경사 색 단면도와 내 페이스로 걸리는 시간, 현장 확인표를 정리했습니다.')
     return slug, page(slug, f"{nm} 난이도·소요시간·오르막", desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
-                      ["calrank-local.js", "course.js", "course-page.js"], faq, crumb=("트레일루트", "trailroot.html"))
+                      ["calrank-local.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 COURSE_PAGES = [course_page(c) for c in COURSES]
@@ -579,6 +589,10 @@ def mountain_page(m):
             tds += [f'{s["upln"]:.0f}분', f'{s["gngd"]:.0f}분', f'{s["dgdf"]}']
         trs += "<tr>" + "".join(f"<td>{t}</td>" for t in tds) + "</tr>"
     table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr>' + "".join(f"<th>{t}</th>" for t in th) + f"</tr></thead><tbody>{trs}</tbody></table></div>")
+    mt_map = ""
+    if all(s.get("path") for s in S):
+        mt_map = map_block({"secs": [{"p": s["path"], "g": s["meanGrade"]} for s in S]},
+                           '<p class="tp-small">선의 색은 구간 평균 경사입니다. 연두 5% 미만, 노랑 5~10%, 주황 10~15%, 빨강 15% 이상.</p>')
     same = [o for o in MOUNTAINS if o["id"] != mid and m.get("region") and o.get("region") == m["region"]][:6]
     rel = ""
     if same:
@@ -586,6 +600,7 @@ def mountain_page(m):
                "".join(f'<li><a href="mountain-{o["id"]}.html">{esc(mt_title(o))}</a></li>' for o in same) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
+{mt_map}
 <section class="tp-sec"><h2 class="tp-h2">길의 경사는 이렇게 나뉩니다</h2>{grade_bar(S)}
 <p class="tp-small">구간마다 낮은 쪽 끝에서 높은 쪽 끝까지 평균 경사를 잰 뒤, 경사별로 길이를 더했습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">가파른 구간 12곳</h2>{table}
@@ -596,7 +611,7 @@ def mountain_page(m):
            ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
     desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.')
     return slug, page(slug, f"{mt_title(m)} 등산로 경사와 가파른 구간", desc, f"{mt_title(m)} 등산로",
-                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, [], faq, crumb=("산", "mountains.html"))
+                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, ["route-map.js"], faq, crumb=("산", "mountains.html"))
 
 
 MOUNTAIN_PAGES = [mountain_page(m) for m in MOUNTAINS]

@@ -96,6 +96,24 @@ def smooth(v, k=5):
     p = np.pad(v, pad, mode="edge")
     return np.convolve(p, np.ones(k) / k, mode="valid")
 
+def dp(pts, tol):
+    """Douglas-Peucker (평면 좌표, 미터)."""
+    n = len(pts)
+    if n < 3: return list(range(n))
+    keep = [False] * n; keep[0] = keep[-1] = True
+    st = [(0, n - 1)]
+    while st:
+        a, b = st.pop()
+        ax, ay = pts[a]; dx, dy = pts[b][0] - ax, pts[b][1] - ay; L = math.hypot(dx, dy) or 1.0
+        mx, mi = 0.0, -1
+        for i in range(a + 1, b):
+            d = abs((pts[i][0] - ax) * dy - (pts[i][1] - ay) * dx) / L
+            if d > mx: mx, mi = d, i
+        if mx > tol and mi > 0:
+            keep[mi] = True; st += [(a, mi), (mi, b)]
+    return [i for i, k in enumerate(keep) if k]
+
+
 def section_stats(pts):
     rs = resample(pts)
     if len(rs) < 4: return None
@@ -109,7 +127,10 @@ def section_stats(pts):
     g = d / step * 100
     gain = float(np.clip(d, 0, None).sum()); loss = float(np.clip(-d, 0, None).sum())
     L = step * (len(s) - 1)
-    return {"lenM": round(L), "startM": round(float(s[0])), "endM": round(float(s[-1])), "gainM": round(gain), "lossM": round(loss),
+    idx = dp(pts, 8.0)
+    ll = tf.transform([pts[i][0] for i in idx], [pts[i][1] for i in idx])
+    path = [[round(float(la), 5), round(float(lo), 5)] for lo, la in zip(ll[0], ll[1])]
+    return {"path": path, "lenM": round(L), "startM": round(float(s[0])), "endM": round(float(s[-1])), "gainM": round(gain), "lossM": round(loss),
             "meanGrade": round(float((s[-1] - s[0]) / L * 100), 1), "maxGrade": round(float(np.abs(g).max()), 1),
             "steepKm": round(float((np.abs(g) >= 12).sum() * step / 1000), 2),
             "lat": round(float(lats[0]), 5), "lon": round(float(lons[0]), 5)}
