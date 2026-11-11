@@ -623,3 +623,6 @@ p,li,dd,figcaption,summary{text-wrap:pretty;}
 .column-next p{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:0 0 6px;}
 .column-next ul{margin:0;padding-left:18px;}
 .column-next li{line-height:1.9;font-size:15px;}
+
+.foot-links { margin-top: 8px; font-size: 13px; }
+.foot-links a { color: inherit; text-decoration: underline; }

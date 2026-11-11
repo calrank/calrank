@@ -50,6 +50,15 @@ def sync(path: Path) -> bool:
     new = MARK_RE.sub(lambda _m: WORDMARK, new, count=1)
     for _o, _n in BRAND_SUBS:
         new = new.replace(_o, _n)
+    # 트레일루트·산 허브로 가는 링크를 모든 페이지 꼬리말의 '소개 · 약관…' 줄에 잇는다
+    # (검색 로봇과 방문자 모두 어느 페이지에서든 닿게). 그 줄이 없으면 같은 이름의 줄을 새로 둔다.
+    new = re.sub(r'<p class="foot-links">.*?</p>\n?', "", new, flags=re.S)  # 먼저 쓰던 별도 줄은 걷어낸다
+    if (ROOT / "trailroot.html").exists() and 'href="trailroot.html">트레일루트 코스' not in new:
+        links = '<a href="trailroot.html">트레일루트 코스</a>' + (' · <a href="mountains.html">산별 등산로</a>' if (ROOT / "mountains.html").exists() else "")
+        if 'class="footer-links">' in new:
+            new = re.sub(r'(<p class="footer-links">.*?)(</p>)', lambda m_: m_.group(1) + " · " + links + m_.group(2), new, count=1, flags=re.S)
+        else:
+            new = re.sub(r"(</p>\s*)(</div>\s*</footer>)", lambda m_: m_.group(1) + '<p class="footer-links">' + links + "</p>\n" + m_.group(2), new, count=1)
     if new == html:
         return False
     path.write_text(new, encoding="utf-8")

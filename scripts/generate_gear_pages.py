@@ -270,7 +270,7 @@ PAGE = """<!DOCTYPE html>
 <footer class="site-footer">
 <div class="wrap">
 <p>장비 규정은 각 연맹이 수시로 개정합니다. 칼랭크의 판정은 참고용이며, 대회 출전 전에는 반드시 해당 대회 요강과 연맹 규정 원문을 확인하세요. 효과 수치는 연구에서 보고된 값으로, 개인의 결과를 보장하지 않습니다.</p>
-<p class="footer-links"><a href="about.html">소개</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+<p class="footer-links"><a href="about.html">소개</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a> · <a href="trailroot.html">트레일루트 코스</a> · <a href="mountains.html">산별 등산로</a></p>
 </div>
 </footer>
 

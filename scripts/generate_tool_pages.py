@@ -25,17 +25,30 @@ def faq_ld(items):
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", a)}} for q, a in items]})
 
 
-def page(slug, title, desc, h1, sub, body, scripts, faq, crumb=("기어", "gear.html")):
+def page(slug, title, desc, h1, sub, body, scripts, faq, crumb=("기어", "gear.html"), place=None, modified=None):
     app_name = h1
     url = BASE + slug
     crumbs = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "calrank", "item": BASE + "index.html"},
         {"@type": "ListItem", "position": 2, "name": crumb[0], "item": BASE + crumb[1]},
         {"@type": "ListItem", "position": 3, "name": app_name}]})
-    app = ld({"@context": "https://schema.org", "@type": "WebApplication", "name": app_name, "url": url,
-              "applicationCategory": "HealthApplication", "operatingSystem": "All", "inLanguage": "ko-KR",
-              "description": desc, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
-              "isPartOf": {"@type": "WebSite", "name": "calrank", "url": BASE}})
+    if place:
+        pl = {"@type": place["type"], "name": place["name"],
+              "geo": {"@type": "GeoCoordinates", "latitude": place["lat"], "longitude": place["lon"]}}
+        if place.get("ele") is not None:
+            pl["geo"]["elevation"] = place["ele"]
+        if place.get("region"):
+            pl["address"] = {"@type": "PostalAddress", "addressCountry": "KR", "addressRegion": place["region"]}
+        wp = {"@context": "https://schema.org", "@type": "WebPage", "name": app_name, "url": url, "inLanguage": "ko-KR",
+              "description": desc, "about": pl, "isPartOf": {"@type": "WebSite", "name": "칼랭크", "url": BASE}}
+        if modified:
+            wp["dateModified"] = modified
+        app = ld(wp)
+    else:
+        app = ld({"@context": "https://schema.org", "@type": "WebApplication", "name": app_name, "url": url,
+                  "applicationCategory": "HealthApplication", "operatingSystem": "All", "inLanguage": "ko-KR",
+                  "description": desc, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
+                  "isPartOf": {"@type": "WebSite", "name": "calrank", "url": BASE}})
     faq_html = '<section class="tp-sec tp-faq"><h2 class="tp-h2">자주 묻는 것</h2>' + "".join(
         f"<h3>{q}</h3><p>{a}</p>" for q, a in faq) + "</section>"
     scr = "\n".join(f'<script src="{s}"></script>' for s in scripts)
@@ -51,6 +64,13 @@ def page(slug, title, desc, h1, sub, body, scripts, faq, crumb=("기어", "gear.
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="canonical" href="{url}">
 <meta property="og:title" content="{title} | 칼랭크 CALRANK">
+<meta property="og:description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{BASE}og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="칼랭크 CALRANK">
+<meta name="twitter:card" content="summary">
 {app}
 {faq_ld(faq)}
 {crumbs}
@@ -433,6 +453,25 @@ def course_page(c):
     if t_off:
         stat_rows.append(("두루누비 표기 소요시간", t_off))
     stat_html = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in stat_rows)
+    # 코스마다 달라지는 문장: 가장 크게 이어서 오르는 구간과 가장 높은 지점
+    notable = ""
+    e = [p_[1] for p_ in prof]; d_ = [p_[0] for p_ in prof]
+    parts_ = []
+    best = (0.0, 0, 0); j = 0
+    for i_ in range(len(d_)):
+        if j < i_: j = i_
+        while j < len(d_) - 1 and d_[j] - d_[i_] < 1000:
+            j += 1
+        if d_[j] - d_[i_] >= 800 and e[j] - e[i_] > best[0]:
+            best = (e[j] - e[i_], i_, j)
+    if best[0] >= 15:
+        a_, b_ = best[1], best[2]
+        parts_.append(f"가장 가파르게 오르는 1km는 {d_[a_] / 1000:.1f}km 지점부터 {d_[b_] / 1000:.1f}km 지점까지입니다. 고도가 {e[a_]:.0f}m에서 {e[b_]:.0f}m로 {best[0]:.0f}m 올라가 평균 경사는 약 {best[0] / max(d_[b_] - d_[a_], 1) * 100:.0f}%입니다.")
+    hi_i = e.index(max(e))
+    if max(e) - min(e) >= 15:
+        parts_.append(f"코스에서 가장 높은 곳은 {d_[hi_i] / 1000:.1f}km 지점의 약 {max(e):.0f}m이고, 가장 낮은 곳은 약 {min(e):.0f}m입니다.")
+    if parts_:
+        notable = '<section class="tp-sec"><h2 class="tp-h2">눈여겨볼 곳</h2><p class="tp-p">' + esc(" ".join(parts_)) + "</p></section>"
     qual = ""
     if q.get("rawGainM") and q.get("smoothGainM"):
         qual = (f'<p class="tp-small">자료 점검: 경로 파일의 거리는 공식 거리의 {q.get("distRatio", 1) * 100:.0f}%였습니다. '
@@ -446,6 +485,7 @@ def course_page(c):
                '</ul></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
+{notable}
 {map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
@@ -466,10 +506,12 @@ def course_page(c):
            (f"{nm}의 오르막은 얼마나 되나요?", f"경로 파일의 고도를 약 100m 구간으로 다듬어 계산하면 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다.")]
     base = nm if nm.endswith("코스") else nm + " 코스"
     h1 = f"{base} 난이도와 오르막"
-    desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경사 색 단면도와 내 페이스로 걸리는 시간, 현장 확인표를 정리했습니다.')
-    return slug, page(slug, f"{nm} 난이도·소요시간·오르막", desc, h1,
+    desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.')
+    return slug, page(slug, f"{nm} 난이도·소요시간·오르막·지도", desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
-                      ["calrank-local.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"))
+                      ["calrank-local.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"),
+                      place=({"type": "Place", "name": nm, "lat": c["path"][0][0], "lon": c["path"][0][1], "region": region} if c.get("path") else None),
+                      modified=s.get("fetched") or None)
 
 
 COURSE_PAGES = [course_page(c) for c in COURSES]
@@ -517,6 +559,9 @@ MOUNTAINS = []
 _mp = Path(_os.environ.get("CALRANK_MOUNTAINS") or (ROOT / "data/mountains.json"))
 if _mp.exists():
     MOUNTAINS = json.loads(_mp.read_text(encoding="utf-8")).get("mountains", [])
+MT_FETCHED = ""
+if _mp.exists():
+    MT_FETCHED = json.loads(_mp.read_text(encoding="utf-8")).get("fetched", "")
 MT_VERIFIED = False  # 산림청 구간 속성(상행·하행 시간, 난이도)의 뜻을 문서로 확인하면 True 로 바꾼다.
 COPDEM = ("produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 "
           "provided under COPERNICUS by the European Union and ESA; all rights reserved.")
@@ -611,7 +656,10 @@ def mountain_page(m):
            ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
     desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.')
     return slug, page(slug, f"{mt_title(m)} 등산로 경사와 가파른 구간", desc, f"{mt_title(m)} 등산로",
-                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, ["route-map.js"], faq, crumb=("산", "mountains.html"))
+                      f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, ["route-map.js"], faq, crumb=("산", "mountains.html"),
+                      place={"type": "Mountain", "name": nm, "lat": S[0].get("lat"), "lon": S[0].get("lon"), "ele": off if off else hi,
+                             "region": (m.get("region") or "").split()[0] if m.get("region") else ""},
+                      modified=MT_FETCHED or None)
 
 
 MOUNTAIN_PAGES = [mountain_page(m) for m in MOUNTAINS]
@@ -685,5 +733,19 @@ for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
-    sm.write_text(t.replace("</urlset>", add + "</urlset>"), encoding="utf-8")
+    t = t.replace("</urlset>", add + "</urlset>")
+    sm.write_text(t, encoding="utf-8")
     print("sitemap 추가")
+# 코스·산 페이지에 lastmod (자료를 받은 날)
+import re as _re
+_dc = (COURSES[0].get("source", {}).get("fetched") if COURSES else "") or ""
+_dm = MT_FETCHED
+t = sm.read_text(encoding="utf-8")
+def _lm(m_):
+    loc = m_.group(1)
+    day = _dc if ("/course-dr-" in loc or loc.endswith("/trailroot.html")) else (_dm if ("/mountain-" in loc or loc.endswith("/mountains.html")) else "")
+    return m_.group(0) if not day else f"<loc>{loc}</loc>\n    <lastmod>{day}</lastmod>"
+t2 = _re.sub(r"<loc>([^<]+)</loc>(?!\s*<lastmod>)", _lm, t)
+if t2 != t:
+    sm.write_text(t2, encoding="utf-8")
+    print("sitemap lastmod")
