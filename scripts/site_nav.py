@@ -20,6 +20,7 @@ NAV_ITEMS = [
     ("index.html", "캘린더", "calendar"),
     ("grade.html", "기록등급", "grade"),
     ("gear.html", "기어", "gear"),
+    ("trailroot.html", "트레일루트", "trailroot"),
     ("regions.html", "지역별", "regions"),
     ("ranking.html", "대회랭킹", "ranking"),
     ("news.html", "종목뉴스", "news"),
@@ -52,6 +53,9 @@ ACTIVE_BY_PREFIX = [
     ("aquathlon", "calendar"),
     ("index", "calendar"),
     ("gear", "gear"),
+    ("trailroot", "trailroot"),
+    ("course", "trailroot"),
+    ("mountain", "trailroot"),
     # 기록증 판독·등급 계산기는 등급표 묶음이다
     ("cert", "grade"),
     ("level", "grade"),
