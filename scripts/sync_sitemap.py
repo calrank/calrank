@@ -23,6 +23,19 @@ def main():
         if "noindex" in f.read_text(encoding="utf-8")[:4000]:
             continue
         add.append(f.name)
+    # 날짜(lastmod)가 없는 항목은 그 파일을 마지막으로 고친 커밋 날짜로 채운다.
+    def fill(m):
+        block = m.group(0)
+        if "<lastmod>" in block:
+            return block
+        name = re.search(r"<loc>(.*?)</loc>", block).group(1).rsplit("/", 1)[-1] or "index.html"
+        d = subprocess.run(["git", "log", "-1", "--format=%cs", "--", name], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        return block.replace("</loc>", f"</loc>\n    <lastmod>{d}</lastmod>", 1) if d else block
+    filled = re.sub(r"<url>.*?</url>", fill, xml, flags=re.S)
+    if filled != xml:
+        sm.write_text(filled, encoding="utf-8")
+        xml = filled
+        print("사이트맵: 날짜 없는 항목에 lastmod 채움")
     if not add:
         print("사이트맵: 빠진 페이지 없음")
         return
