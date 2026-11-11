@@ -367,6 +367,18 @@ def course_stats(c):
     return km, gain, loss, steep / 1000
 
 
+def _med(v):
+    v = sorted(v); n = len(v)
+    return 0 if not n else (v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2)
+
+
+LV_MED = {}
+for _lv in (1, 2, 3):
+    _g = [course_stats(c)[1] / course_stats(c)[0] for c in COURSES if (c.get("official") or {}).get("level") == _lv and course_stats(c)[0] > 0]
+    if _g:
+        LV_MED[_lv] = (_med(_g), len(_g))
+
+
 def course_page(c):
     cid = c["id"]; slug = f"course-{cid}.html"
     prof = c["profile"]
@@ -407,6 +419,8 @@ def course_page(c):
                  ("1km당 오르막", f"{gain / km:.0f} m"), ("7% 넘게 가파른 구간", f"{steep_km:.1f} km")]
     if off.get("level"):
         stat_rows.append(("두루누비 표기 난이도", f'{off["level"]} (1~3 중)'))
+        if off["level"] in LV_MED:
+            stat_rows.append((f'같은 난이도 코스의 1km당 오르막(중앙값, {LV_MED[off["level"]][1]}개)', f'{LV_MED[off["level"]][0]:.0f} m'))
     if t_off:
         stat_rows.append(("두루누비 표기 소요시간", t_off))
     stat_html = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in stat_rows)
@@ -466,9 +480,16 @@ def hub_page():
         secs += f'<section class="tp-sec"><h2 class="tp-h2">{esc(reg)} ({len(cs)})</h2><ul class="cp-list">{"".join(li(c) for c in cs)}</ul></section>'
     steepest = sorted(COURSES, key=lambda c: -course_stats(c)[1] / max(course_stats(c)[0], 0.1))[:10]
     top = "".join(li(c) for c in steepest)
+    lvtab = ""
+    if LV_MED:
+        rows_ = "".join(f"<tr><th>두루누비 난이도 {lv}</th><td>{v[0]:.0f} m ({v[1]}개)</td></tr>" for lv, v in sorted(LV_MED.items()))
+        lvtab = ('<section class="tp-sec"><h2 class="tp-h2">두루누비 난이도별 1km당 오르막</h2>'
+                 f'<table class="cv-table"><tbody>{rows_}</tbody></table>'
+                 '<p class="tp-small">여기 실린 코스의 중앙값입니다. 난이도 숫자가 클수록 1km당 오르막이 많은 경향이 있습니다.</p></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
+{lvtab}
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
 {secs}
 <p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API). 계산과 표시는 칼랭크가 했습니다.</p>"""
