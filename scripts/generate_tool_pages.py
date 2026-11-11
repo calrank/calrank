@@ -489,6 +489,7 @@ def hub_page():
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
+<section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 {lvtab}
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
 {secs}
@@ -497,7 +498,7 @@ def hub_page():
            ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
     return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
         f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있어요.",
-        "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+        "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, ["list-filter.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 
@@ -618,6 +619,7 @@ def mountains_hub():
     secs = "".join(f'<section class="tp-sec"><h2 class="tp-h2">{k} ({len(v)})</h2><ul class="cp-list">{"".join(li(m) for m in v)}</ul></section>' for k, v in by.items())
     tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
     body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
+<section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 <section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 산</h2><ul class="cp-list">{tall}</ul></section>
 {secs}
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털). 고도: {COPDEM}</p>"""
@@ -625,7 +627,7 @@ def mountains_hub():
            ("등산로 길이는 어디까지 포함하나요?", "산림청 등산로 구간을 모두 더한 값이라, 한 번의 산행 거리와는 다릅니다.")]
     return "mountains.html", page("mountains.html", "산별 등산로 경사와 가파른 구간 모음",
         f"산림청 등산로 자료로 {len(MOUNTAINS)}개 산의 구간 길이, 경사, 가파른 곳을 정리했습니다.",
-        "산별 등산로", f"{len(MOUNTAINS)}개 산 · 구간별 경사", body, [], faq, crumb=("산", "mountains.html"))
+        "산별 등산로", f"{len(MOUNTAINS)}개 산 · 구간별 경사", body, ["list-filter.js"], faq, crumb=("산", "mountains.html"))
 
 
 STANDARDS = [standards_page(s) for s in SPORT_META]
