@@ -25,12 +25,12 @@ def faq_ld(items):
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", a)}} for q, a in items]})
 
 
-def page(slug, title, desc, h1, sub, body, scripts, faq):
+def page(slug, title, desc, h1, sub, body, scripts, faq, crumb=("기어", "gear.html")):
     app_name = h1
     url = BASE + slug
     crumbs = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "calrank", "item": BASE + "index.html"},
-        {"@type": "ListItem", "position": 2, "name": "기어", "item": BASE + "gear.html"},
+        {"@type": "ListItem", "position": 2, "name": crumb[0], "item": BASE + crumb[1]},
         {"@type": "ListItem", "position": 3, "name": app_name}]})
     app = ld({"@context": "https://schema.org", "@type": "WebApplication", "name": app_name, "url": url,
               "applicationCategory": "HealthApplication", "operatingSystem": "All", "inLanguage": "ko-KR",
@@ -300,20 +300,89 @@ CHK_ITEMS = [("parking", "주차"), ("toilet", "화장실"), ("water", "식수")
 CHK_POINTS = [("start", "출발 지점"), ("mid", "중간 지점"), ("finish", "도착 지점")]
 
 
-def course_page(c):
-    cid = c["id"]; slug = f"course-{cid}.html"
+def josa(word, a, b):
+    """받침이 있으면 a, 없으면 b (예: 이/가, 은/는)."""
+    ch = word.strip()[-1:] if word.strip() else ""
+    if "가" <= ch <= "힣":
+        return a if (ord(ch) - 0xAC00) % 28 else b
+    return b
+
+
+def fmt_min(m):
+    if not m:
+        return ""
+    h, mm = divmod(int(round(m)), 60)
+    return f"{h}시간 {mm}분" if h and mm else (f"{h}시간" if h else f"{mm}분")
+
+
+GRADE_BANDS = [  # (상한 %, 클래스, 이름)
+    (-1.0, "gp-d", "내리막"), (3.0, "gp-0", "완만(3% 미만)"), (7.0, "gp-1", "오르막 3~7%"),
+    (12.0, "gp-2", "가파름 7~12%"), (999, "gp-3", "매우 가파름 12% 이상")]
+
+
+def grade_cls(g):
+    for lim, cl, _ in GRADE_BANDS:
+        if g < lim:
+            return cl
+    return "gp-3"
+
+
+def profile_svg(prof):
+    """경사 색 단면도. 스크립트 없이도 보이도록 서버에서 SVG 로 그린다(색만으로 구분하지 않게 범례 글자도 함께)."""
+    W, H, PAD = 640, 170, 6
+    total = prof[-1][0] or 1
+    es = [p[1] for p in prof]
+    lo, hi = min(es), max(es)
+    span = max(hi - lo, 20.0)
+    top = hi + span * 0.05
+    bot = lo - span * 0.05
+    def X(d): return PAD + (W - 2 * PAD) * d / total
+    def Y(e): return PAD + (H - 2 * PAD) * (top - e) / (top - bot)
+    cols = []
+    for a, b in zip(prof, prof[1:]):
+        d = b[0] - a[0]
+        if d <= 0:
+            continue
+        g = (b[1] - a[1]) / d * 100
+        x0, x1 = X(a[0]), X(b[0])
+        cols.append(f'<path class="{grade_cls(g)}" d="M{x0:.1f},{H - PAD} L{x0:.1f},{Y(a[1]):.1f} L{x1:.1f},{Y(b[1]):.1f} L{x1:.1f},{H - PAD}Z"/>')
+    line = "M" + " L".join(f"{X(p[0]):.1f},{Y(p[1]):.1f}" for p in prof)
+    leg = "".join(f'<li><i class="gp-sw {cl}"></i>{nm}</li>' for _, cl, nm in GRADE_BANDS)
+    return (f'<figure class="gp-fig"><svg class="gp-svg" viewBox="0 0 {W} {H}" role="img" '
+            f'aria-label="고도 단면도. 낮은 곳 {lo:.0f}m, 높은 곳 {hi:.0f}m, 전체 {total / 1000:.1f}km">'
+            f'{"".join(cols)}<path class="gp-line" d="{line}" fill="none"/></svg>'
+            f'<figcaption class="tp-small">가로는 거리 0~{total / 1000:.1f}km, 세로는 고도 {lo:.0f}~{hi:.0f}m입니다. 색은 그 구간의 경사입니다.</figcaption>'
+            f'<ul class="gp-leg">{leg}</ul></figure>')
+
+
+def course_stats(c):
     prof = c["profile"]
     km = prof[-1][0] / 1000
     gain = sum(max(0, b[1] - a[1]) for a, b in zip(prof, prof[1:]))
     loss = sum(max(0, a[1] - b[1]) for a, b in zip(prof, prof[1:]))
+    steep = 0.0
+    for a, b in zip(prof, prof[1:]):
+        if b[0] > a[0] and (b[1] - a[1]) / (b[0] - a[0]) >= 0.07:
+            steep += b[0] - a[0]
+    return km, gain, loss, steep / 1000
+
+
+def course_page(c):
+    cid = c["id"]; slug = f"course-{cid}.html"
+    prof = c["profile"]
+    km, gain, loss, steep_km = course_stats(c)
+    off = c.get("official") or {}
+    q = c.get("quality") or {}
     tech = c.get("technical") or {}
     lv = tech.get("level")
+    region = c.get("region") or ""
+    nm = c["name"]
     if lv:
         name, desc_ = [(n, d) for l, n, d in TECH if l == lv][0]
         tech_html = (f'<p class="cp-lv"><b>{lv}단계</b> · {esc(name)}</p><p class="tp-p">{esc(desc_)}</p>'
                      f'<p class="tp-small">정한 근거: {esc(tech.get("basis", ""))} {esc(tech.get("note", ""))}</p>')
     else:
-        tech_html = '<p class="tp-p">아직 평가하지 않았습니다.</p>'
+        tech_html = '<p class="tp-p">노면 같은 기술 난이도는 아직 평가하지 않았습니다. 현장을 확인한 뒤에만 단계를 적습니다.</p>'
     legend = "".join(f"<li><b>{l}단계 {esc(n)}</b> — {esc(d)}</li>" for l, n, d in TECH)
     rows = ""
     for pk, plabel in CHK_POINTS:
@@ -328,28 +397,85 @@ def course_page(c):
         rows += f'<div class="dq-card"><h3 class="dq-title">{plabel}</h3><ul class="cp-list">{cells}</ul></div>'
     s = c.get("source", {})
     data = json.dumps({"profile": prof}, ensure_ascii=False, separators=(",", ":"))
-    body = f"""<section class="tp-card"><div class="tp-grid">
-<label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
+    where = f"{region}에 있는 " if region else ""
+    t_off = fmt_min(off.get("min"))
+    lead = (f"{nm}{josa(nm, '은', '는')} {where}{km:.1f}km 코스입니다. 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m이고, "
+            f"7% 넘게 가파른 구간은 모두 합쳐 {steep_km:.1f}km입니다.")
+    if t_off:
+        lead += f" 두루누비가 적은 소요시간은 {t_off}입니다."
+    stat_rows = [("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
+                 ("1km당 오르막", f"{gain / km:.0f} m"), ("7% 넘게 가파른 구간", f"{steep_km:.1f} km")]
+    if off.get("level"):
+        stat_rows.append(("두루누비 표기 난이도", f'{off["level"]} (1~3 중)'))
+    if t_off:
+        stat_rows.append(("두루누비 표기 소요시간", t_off))
+    stat_html = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in stat_rows)
+    qual = ""
+    if q.get("rawGainM") and q.get("smoothGainM"):
+        qual = (f'<p class="tp-small">자료 점검: 경로 파일의 거리는 공식 거리의 {q.get("distRatio", 1) * 100:.0f}%였습니다. '
+                f'GPS 고도는 작게 흔들려서 파일에 적힌 값을 그대로 더하면 오르막이 {q["rawGainM"]}m로 나옵니다. '
+                f'이 페이지는 약 100m 구간으로 다듬어 {q["smoothGainM"]}m로 계산했습니다.</p>')
+    same = [o for o in COURSES if o["id"] != cid and region and o.get("region") == region][:6]
+    rel = ""
+    if same:
+        rel = ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 코스</h2><ul class="cp-list">' +
+               "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km</li>' for o in same) +
+               '</ul></section>')
+    body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
+<table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
+<section class="tp-card"><h2 class="tp-h2">내 페이스로 걸리면</h2><div class="tp-grid">
+<label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="10:00" autocomplete="off"></label>
 <label class="cv-check"><input type="checkbox" id="cpDown"> 내리막에서 빨라지는 것까지 반영</label></div>
 <p id="cpMsg" class="tp-small" role="status" aria-live="polite"></p>
-<p class="tp-small">거리 {km:.1f}km · 누적 상승 {gain:.0f}m · 누적 하강 {loss:.0f}m</p>
 <p class="cv-big"><b id="cpIndex">1.00</b><span> 코스 부하 지수 · <span id="cpBand"></span></span></p>
-<table class="cv-table"><tbody id="cpTable"></tbody></table><div id="cpChart"></div></section>
+<table class="cv-table"><tbody id="cpTable"></tbody></table>
+<p class="tp-small">이 계산은 달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)을 걷기에 그대로 쓴 값이라, 걷는 속도와는 다를 수 있습니다. 걷기 기준의 검증은 아직 못 했습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">기술 난이도 (칼랭크 구분)</h2>{tech_html}
 <details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
 <p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>
-<p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 체력 부하 계산 근거: Minetti 등, J Appl Physiol 93:1039–1046, 2002.</p>
+{rel}
+<p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 오르막·경사는 경로 파일의 고도로 칼랭크가 계산했습니다. <a href="trailroot.html">다른 코스 보기</a></p>
 <script type="application/json" id="cpData">{data}</script>"""
-    faq = [("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다.")]
-    nm = c["name"]; base = nm if nm.endswith("코스") else nm + " 코스"
-    h1 = f"{base} 판정"
-    return slug, page(slug, f"{h1} — 체력 부하와 현장 확인표",
-                      f'{c["name"]}({c.get("region", "")})의 체력 부하, 기술 난이도, 출발·중간·도착 지점 확인 사항을 정리했습니다.',
-                      h1, f'{c.get("region", "")} · 거리 {km:.1f}km', body, ["course.js", "course-page.js"], faq)
+    faq = [("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다."),
+           (f"{nm}의 오르막은 얼마나 되나요?", f"경로 파일의 고도를 약 100m 구간으로 다듬어 계산하면 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다.")]
+    base = nm if nm.endswith("코스") else nm + " 코스"
+    h1 = f"{base} 난이도와 오르막"
+    desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경사 색 단면도와 내 페이스로 걸리는 시간, 현장 확인표를 정리했습니다.')
+    return slug, page(slug, f"{nm} 난이도·소요시간·오르막", desc, h1,
+                      f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
+                      ["course.js", "course-page.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 COURSE_PAGES = [course_page(c) for c in COURSES]
+
+
+def hub_page():
+    by = {}
+    for c in COURSES:
+        by.setdefault(c.get("region") or "지역 미표기", []).append(c)
+    def li(c):
+        km, gain, _, _ = course_stats(c)
+        lv = (c.get("official") or {}).get("level")
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {km:.1f}km · 오르막 {gain:.0f}m'
+                + (f' · 두루누비 난이도 {lv}' if lv else "") + "</li>")
+    secs = ""
+    for reg in sorted(by, key=lambda r: (r == "지역 미표기", r)):
+        cs = sorted(by[reg], key=lambda c: c["name"])
+        secs += f'<section class="tp-sec"><h2 class="tp-h2">{esc(reg)} ({len(cs)})</h2><ul class="cp-list">{"".join(li(c) for c in cs)}</ul></section>'
+    steepest = sorted(COURSES, key=lambda c: -course_stats(c)[1] / max(course_stats(c)[0], 0.1))[:10]
+    top = "".join(li(c) for c in steepest)
+    body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
+<p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
+{secs}
+<p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API). 계산과 표시는 칼랭크가 했습니다.</p>"""
+    faq = [("거리가 같아도 힘든 정도가 왜 다른가요?", "오르막이 많으면 같은 거리도 더 힘듭니다. 그래서 거리와 함께 누적 오르막, 가파른 구간 길이를 같이 보여 드립니다."),
+           ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
+    return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
+        f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있어요.",
+        "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+
 
 STANDARDS = [standards_page(s) for s in SPORT_META]
 
@@ -371,6 +497,8 @@ def changes_page():
 
 STANDARDS.append(changes_page())
 STANDARDS += COURSE_PAGES
+if COURSES:
+    STANDARDS.append(hub_page())
 
 for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name
@@ -382,7 +510,7 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:

@@ -21,7 +21,7 @@
       ["100m 구간 최대 경사", (r.maxGrade * 100).toFixed(0) + " %"],
       ["이 페이스로 걸리는 시간", C.fmtTime(r.timeSec)]
     ].map(function (x) { return "<tr><th>" + x[0] + "</th><td>" + x[1] + "</td></tr>"; }).join("");
-    $("cpChart").innerHTML = C.drawProfile(prof);
+    if ($("cpChart")) $("cpChart").innerHTML = C.drawProfile(prof);
   }
   document.addEventListener("DOMContentLoaded", function () {
     $("cpPace").addEventListener("change", render);
