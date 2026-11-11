@@ -1,0 +1,37 @@
+name: Build Mountain trails
+
+# 산림청 등산로 구간에 30m 고도 자료를 입혀 data/mountains.json 을 만든다.
+# 인증키는 로그에 나오지 않는다. 내려받은 압축파일은 저장하지 않는다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "시험용: 앞의 N개 산만 처리 (0 이면 전체)"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests numpy pyshp rasterio pyproj
+      - name: Build
+        run: python scripts/build_mountain_data.py
+        env:
+          DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+      - name: Commit data
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add data/mountains.json
+          git diff --quiet --cached || (git commit -m "data: update mountain trails" && git pull --rebase && git push)
