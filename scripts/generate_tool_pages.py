@@ -453,11 +453,11 @@ COURSE_PAGES = [course_page(c) for c in COURSES]
 def hub_page():
     by = {}
     for c in COURSES:
-        by.setdefault(c.get("region") or "지역 미표기", []).append(c)
+        by.setdefault((c.get("region") or "지역 미표기").split()[0], []).append(c)
     def li(c):
         km, gain, _, _ = course_stats(c)
         lv = (c.get("official") or {}).get("level")
-        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {km:.1f}km · 오르막 {gain:.0f}m'
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {km:.1f}km · 오르막 {gain:.0f}m'
                 + (f' · 두루누비 난이도 {lv}' if lv else "") + "</li>")
     secs = ""
     for reg in sorted(by, key=lambda r: (r == "지역 미표기", r)):
