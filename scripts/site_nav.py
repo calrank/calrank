@@ -21,12 +21,12 @@ NAV_ITEMS = [
     ("grade.html", "기록등급", "grade"),
     ("gear.html", "기어", "gear"),
     ("trailroot.html", "트레일루트", "trailroot"),
-    ("regions.html", "지역별", "regions"),
+    ("myrank.html", "내 랭크", "myrank"),
     ("ranking.html", "대회랭킹", "ranking"),
+    ("regions.html", "지역별", "regions"),
+    ("running-weather.html", "러닝날씨", "weather"),
     ("news.html", "종목뉴스", "news"),
     ("column.html", "칼럼", "column"),
-    ("running-weather.html", "러닝날씨", "weather"),
-    ("myrank.html", "내 랭크", "myrank"),
 ]
 
 # 어느 페이지가 어느 메뉴에 속하는지. 파일 이름 앞부분으로 찾는다.
@@ -88,6 +88,9 @@ def active_for(filename: str) -> str:
     return ""
 
 
+HIDE_SCRIPT = '<script defer src="/header-hide.js"></script>'
+
+
 def nav_html(active: str = "") -> str:
     """<nav class="main-nav"> … </nav>"""
     rows = []
@@ -98,7 +101,7 @@ def nav_html(active: str = "") -> str:
     rows.append(f'<a href="saved-events.html" class="{saved_cls}">'
                 '❤️<span class="nav-text-full"> 찜한 대회</span></a>')
     rows.append('<a href="contact.html" class="nav-contact-link">제휴문의</a>')
-    return '<nav class="main-nav">\n' + "\n".join(rows) + "\n</nav>"
+    return '<nav class="main-nav">\n' + "\n".join(rows) + "\n</nav>\n" + HIDE_SCRIPT
 
 
 def site_header(active: str = "") -> str:
