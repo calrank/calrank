@@ -777,7 +777,7 @@ def mt_group_page(short, slug, ms):
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털). 고도: {COPDEM} <a href="mountains.html">전체 산 보기</a></p>"""
     faq = [(f"{short} 지역에서 가장 높은 산은 어디인가요?", f"칼랭크에 실린 {short} 지역 산 중에서는 {ms[0]['name']}이(가) 구간 최고 고도 약 {mt_stats(ms[0])[2]:.0f}m로 가장 높습니다.")]
     return f"mountainarea-{slug}.html", page(f"mountainarea-{slug}.html", f"{short} 산 등산로 모음 — 경사와 가파른 구간",
-        f"{short} 지역 산 {len(ms)}곳의 등산로 구간 길이, 경사, 구간 최고 고도를 정리했습니다.", f"{short} 지역 산 등산로", f"{len(ms)}개 산 · 구간 합계 {tot:.0f}km",
+        f"{short} 지역 산 {len(ms)}곳의 등산로 구간 길이, 경사, 구간 최고 고도를 산림청 산림공간정보 등산로 자료와 코페르니쿠스 DEM으로 정리했습니다.", f"{short} 지역 산 등산로", f"{len(ms)}개 산 · 구간 합계 {tot:.0f}km",
         body, [], faq, crumb=("산", "mountains.html"))
 
 
