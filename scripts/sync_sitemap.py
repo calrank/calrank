@@ -1,0 +1,40 @@
+"""사이트맵에 빠진 색인 대상 페이지를 채운다.
+
+칼럼 20여 개가 생성기별로 사이트맵 갱신을 빠뜨려 검색엔진에 알려지지 않고 있었다.
+noindex 페이지, 인증 파일, 동적 페이지는 넣지 않는다. 이미 있는 항목은 건드리지 않는다.
+"""
+import re
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SKIP = {"profile.html", "event.html", "index.html", "terms.html", "privacy.html", "reset.html",
+        "contact.html", "welcome.html", "greeting.html", "widget.html", "saved-events.html"}
+
+
+def main():
+    sm = ROOT / "sitemap.xml"
+    xml = sm.read_text(encoding="utf-8")
+    have = {u.rsplit("/", 1)[-1] for u in re.findall(r"<loc>(.*?)</loc>", xml)}
+    add = []
+    for f in sorted(ROOT.glob("*.html")):
+        if f.name in SKIP or f.name in have or f.name.startswith("naver"):
+            continue
+        if "noindex" in f.read_text(encoding="utf-8")[:4000]:
+            continue
+        add.append(f.name)
+    if not add:
+        print("사이트맵: 빠진 페이지 없음")
+        return
+    out = ""
+    for n in add:
+        d = subprocess.run(["git", "log", "-1", "--format=%cs", "--", n], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        out += (f"  <url>\n    <loc>https://calrank.vercel.app/{n}</loc>\n"
+                + (f"    <lastmod>{d}</lastmod>\n" if d else "")
+                + "    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n")
+    sm.write_text(xml.replace("</urlset>", out + "</urlset>"), encoding="utf-8")
+    print("사이트맵에 추가:", len(add), add[:5])
+
+
+if __name__ == "__main__":
+    main()
