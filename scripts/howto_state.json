@@ -3,7 +3,8 @@
     "marathon:injury",
     "marathon:women-runners",
     "marathon:weather-heat",
-    "marathon:shoe-selection"
+    "marathon:shoe-selection",
+    "trail:injury-ankle-knee"
   ],
   "cycle": 1
 }
