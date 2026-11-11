@@ -309,6 +309,77 @@ def standards_page(sid):
 # ── 코스 페이지 (data/courses.json 의 코스마다 한 장) ─────────────────────────
 import os as _os
 COURSES = json.loads(Path(_os.environ.get("CALRANK_COURSES") or (ROOT / "data/courses.json")).read_text(encoding="utf-8")).get("courses", [])
+
+# ── 코스와 산 잇기 ─────────────────────────────────────────────────────────
+# 사람들은 코스 이름보다 "OO산 둘레길"처럼 산 이름으로 찾는다. 코스 경로에서 1km 안에
+# 산림청 등산로가 지나는 산을 찾아 서로 잇는다. 경로 좌표끼리의 거리일 뿐, 공식 연결이 아니다.
+import math as _math
+
+
+def _mt_raw():
+    _p = Path(_os.environ.get("CALRANK_MOUNTAINS") or (ROOT / "data/mountains.json"))
+    try:
+        return json.loads(_p.read_text(encoding="utf-8")).get("mountains", [])
+    except Exception:
+        return []
+
+
+def _link_courses_mountains(courses, mts, radius_km=1.0):
+    def _pts(m):
+        out = []
+        for sc in m["sections"]:
+            out += sc.get("path") or ([[sc["lat"], sc["lon"]]] if sc.get("lat") is not None else [])
+        return out
+    mp = {m["id"]: _pts(m) for m in mts}
+    box = {}
+    for mid, P in mp.items():
+        if P:
+            box[mid] = (min(q[0] for q in P), max(q[0] for q in P), min(q[1] for q in P), max(q[1] for q in P))
+    cn, mn = {}, {}
+    pad = 0.02
+    for c in courses:
+        cp = c.get("path") or []
+        if not cp:
+            continue
+        clo = (min(q[0] for q in cp) - pad, max(q[0] for q in cp) + pad, min(q[1] for q in cp) - pad, max(q[1] for q in cp) + pad)
+        hits = []
+        for m in mts:
+            b = box.get(m["id"])
+            if not b or b[1] < clo[0] or b[0] > clo[1] or b[3] < clo[2] or b[2] > clo[3]:
+                continue
+            best = min(_math.hypot((a[0] - q[0]) * 111.0, (a[1] - q[1]) * 111.0 * _math.cos(_math.radians(a[0])))
+                       for a in mp[m["id"]][::2] for q in cp[::2])
+            if best <= radius_km:
+                hits.append((best, m))
+        hits.sort(key=lambda t: (t[0], t[1]["id"]))
+        if hits:
+            cn[c["id"]] = hits[:4]
+            for d_, m in hits[:4]:
+                mn.setdefault(m["id"], []).append((d_, c))
+    return cn, mn
+
+
+def _mt_label(m):
+    r = (m.get("region") or "").split()
+    return f'{m["name"]}' + (f' ({r[1]})' if len(r) > 1 else "")
+
+
+COURSE_NEAR, MT_NEAR_COURSES = _link_courses_mountains(COURSES, _mt_raw())
+
+
+def _near_li(d_, m):
+    S = m["sections"]
+    tot = sum(x["lenM"] for x in S) / 1000
+    hi = max(max(x["startM"], x["endM"]) for x in S)
+    steep = sum(x["lenM"] for x in S if abs(x["meanGrade"]) >= 15) / 1000
+    steep_txt = f"평균 경사 15%를 넘는 구간이 {steep:.1f}km 있습니다." if steep >= 0.1 else "평균 경사 15%를 넘는 구간은 거의 없습니다."
+    return (f'<li><a href="mountain-{m["id"]}.html">{esc(_mt_label(m))}</a> <span class="tp-small">경로에서 약 {max(d_*1000, 10):.0f}m</span><br>'
+            f'<span class="tp-small">산림청 등산로 구간 {len(S)}개, 합계 {tot:.1f}km, 구간 최고 해발 약 {hi:.0f}m. {steep_txt}</span></li>')
+
+
+def _near_txt(c):
+    h = COURSE_NEAR.get(c["id"])
+    return (" · 근처 산 " + ", ".join(esc(m["name"]) for _, m in h[:3])) if h else ""
 TECH = [
     (1, "넓고 평탄한 길", "임도나 포장길처럼 폭이 넓고 노면이 고릅니다."),
     (2, "정리된 산길", "잔돌이나 작은 계단이 있지만 걸음을 크게 바꾸지 않아도 됩니다."),
@@ -443,6 +514,12 @@ def course_page(c):
     else:
         tech_html = '<p class="tp-p">노면 같은 기술 난이도는 아직 평가하지 않았습니다. 현장을 확인한 뒤에만 단계를 적습니다.</p>'
     legend = "".join(f"<li><b>{l}단계 {esc(n)}</b> — {esc(d)}</li>" for l, n, d in TECH)
+    _nm = COURSE_NEAR.get(cid, [])
+    mt_near_html = ""
+    if _nm:
+        mt_near_html = ('<section class="tp-sec"><h2 class="tp-h2">근처 산</h2><p class="tp-p">이 코스 경로 가까이에 산림청 등산로가 지나는 산입니다. '
+                        '가까운 순이고, 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
+                        "".join(_near_li(d_, m) for d_, m in _nm) + "</ul></section>")
     rows = ""
     for pk, plabel in CHK_POINTS:
         pc = (c.get("checks") or {}).get(pk, {})
@@ -526,6 +603,7 @@ def course_page(c):
 <details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
 <p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>
+{mt_near_html}
 <section class="tp-sec" id="trMark" data-href="course-{c["id"]}.html" data-name="{esc(c["name"])}"><h2 class="tp-h2">내 목록에 담기</h2></section>
 {rel}
 <p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 오르막·경사는 경로 파일의 고도로 칼랭크가 계산했습니다. <a href="trailroot.html">다른 코스 보기</a></p>
@@ -534,8 +612,11 @@ def course_page(c):
            (f"{nm}의 오르막은 얼마나 되나요?", f"경로 파일의 고도를 약 100m 구간으로 다듬어 계산하면 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다.")]
     base = nm if nm.endswith("코스") else nm + " 코스"
     h1 = f"{base} 난이도와 오르막"
-    desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.')
-    return slug, page(slug, f"{nm} 난이도·소요시간·오르막·지도", desc, h1,
+    desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
+    _tt = f"{nm} 난이도·소요시간·오르막·지도"
+    if _nm:
+        _tt = f"{nm} ({_nm[0][1]['name']} 근처) 난이도·소요시간·지도"
+    return slug, page(slug, _tt, desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
                       ["calrank-local.js", "trail-mark.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"),
                       place=({"type": "Place", "name": nm, "lat": c["path"][0][0], "lon": c["path"][0][1], "region": region} if c.get("path") else None),
@@ -568,7 +649,7 @@ def group_page(slug, name, intro, cs):
         k_, g_, _, _ = course_stats(c)
         l2 = (c.get("official") or {}).get("level")
         return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m'
-                + (f' · 두루누비 난이도 {l2}' if l2 else "") + "</li>")
+                + (f' · 두루누비 난이도 {l2}' if l2 else "") + _near_txt(c) + "</li>")
     lead = (f"{name}에서 칼랭크에 실린 코스는 {len(cs)}개입니다. 모두 합치면 {km:.0f}km이고 누적 오르막은 {gain:.0f}m입니다. "
             f"두루누비 난이도로는 1단계 {lv[1]}개, 2단계 {lv[2]}개, 3단계 {lv[3]}개입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p>
@@ -602,7 +683,7 @@ def hub_page():
         km, gain, _, _ = course_stats(c)
         lv = (c.get("official") or {}).get("level")
         return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {km:.1f}km · 오르막 {gain:.0f}m'
-                + (f' · 두루누비 난이도 {lv}' if lv else "") + "</li>")
+                + (f' · 두루누비 난이도 {lv}' if lv else "") + _near_txt(c) + "</li>")
     secs = ""
     for reg in sorted(by, key=lambda r: (r == "지역 미표기", r)):
         cs = sorted(by[reg], key=lambda c: c["name"])
@@ -755,6 +836,11 @@ def mountain_page(m):
     if near:
         rel = ('<section class="tp-sec"><h2 class="tp-h2">가까운 다른 산</h2><ul class="cp-list">' +
                "".join(f'<li><a href="mountain-{o["id"]}.html">{esc(mt_title(o))}</a> <span class="tp-small">직선 약 {dk:.0f}km</span></li>' for dk, o in near[:6]) + "</ul></section>")
+    _cn = MT_NEAR_COURSES.get(mid, [])
+    mt_courses_html = ""
+    if _cn:
+        mt_courses_html = ('<section class="tp-sec"><h2 class="tp-h2">근처 걷기 코스</h2><p class="tp-p">이 산의 등산로 가까이를 지나는 두루누비 코스입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
+                           "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> <span class="tp-small">{esc(c.get("region") or "")} · 약 {max(d_*1000, 10):.0f}m 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
 {mt_map}
@@ -762,6 +848,7 @@ def mountain_page(m):
 <p class="tp-small">구간마다 낮은 쪽 끝에서 높은 쪽 끝까지 평균 경사를 잰 뒤, 경사별로 길이를 더했습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">가파른 구간 12곳</h2>{table}
 <p class="tp-small">구간은 산림청이 나눈 단위이고, 한 구간이 하나의 산행 코스는 아닙니다. 평균 경사는 구간의 낮은 끝과 높은 끝을 이은 값입니다. 고도는 30m 간격의 고도 자료로 읽은 값이라 몇 m에서 십수 m까지 다를 수 있습니다.</p></section>
+{mt_courses_html}
 <section class="tp-sec" id="trMark" data-href="{slug}" data-name="{esc(mt_title(m))}"><h2 class="tp-h2">내 목록에 담기</h2></section>
 {rel}
 {area_link}
