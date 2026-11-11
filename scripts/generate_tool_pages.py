@@ -736,11 +736,23 @@ def mountain_page(m):
                            '<p class="tp-small">선의 색은 구간 평균 경사입니다. 연두 5% 미만, 노랑 5~10%, 주황 10~15%, 빨강 15% 이상.</p>')
     _sd = mt_sido(m)
     area_link = (f'<p class="tp-small"><a href="mountainarea-{_sd[1]}.html">{_sd[0]} 지역 산 모아 보기</a></p>' if _sd and len(_mg.get(_sd, [])) >= 3 else "")
-    same = [o for o in MOUNTAINS if o["id"] != mid and m.get("region") and o.get("region") == m["region"]][:6]
+    import math
+    def _ll(o):
+        t = next((x for x in o["sections"] if x.get("lat") is not None and x.get("lon") is not None), None)
+        return (t["lat"], t["lon"]) if t else None
+    me = _ll(m)
+    near = []
+    if me:
+        for o in MOUNTAINS:
+            q = _ll(o) if o["id"] != mid else None
+            if not q: continue
+            dk = math.hypot((q[0] - me[0]) * 111.0, (q[1] - me[1]) * 111.0 * math.cos(math.radians(me[0])))
+            if dk <= 40: near.append((dk, o))
+        near.sort(key=lambda t: (t[0], t[1]["id"]))
     rel = ""
-    if same:
-        rel = ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 산</h2><ul class="cp-list">' +
-               "".join(f'<li><a href="mountain-{o["id"]}.html">{esc(mt_title(o))}</a></li>' for o in same) + "</ul></section>")
+    if near:
+        rel = ('<section class="tp-sec"><h2 class="tp-h2">가까운 다른 산</h2><ul class="cp-list">' +
+               "".join(f'<li><a href="mountain-{o["id"]}.html">{esc(mt_title(o))}</a> <span class="tp-small">직선 약 {dk:.0f}km</span></li>' for dk, o in near[:6]) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
 {mt_map}
