@@ -26,18 +26,54 @@
 
   var mine = document.getElementById("trMine");
   if (mine) {
-    var list = L.trails();
-    if (list.length) {
-      mine.hidden = false;
+    var draw = function () {
+      var list = L.trails();
+      while (mine.children.length > 1) mine.removeChild(mine.lastChild);   // 제목만 남기고 다시 그린다
+      mine.hidden = !list.length && !mine.getAttribute("data-open");
+      if (!list.length) return;
       [["want", "가 보고 싶은 곳"], ["done", "다녀온 곳"]].forEach(function (d) {
         var items = list.filter(function (x) { return x.state === d[0]; }).reverse();
         if (!items.length) return;
         mine.appendChild(el("h3", "tp-h3", d[1] + " (" + items.length + ")"));
         var ul = el("ul", "cp-list");
-        items.forEach(function (x) { var li = el("li"), a = el("a", "", x.name); a.href = x.href; li.appendChild(a); ul.appendChild(li); });
+        items.forEach(function (x) {
+          var li = el("li"), a = el("a", "", x.name); a.href = x.href; li.appendChild(a); li.appendChild(document.createTextNode(" "));
+          var mv = el("button", "tp-btn ghost", d[0] === "want" ? "다녀왔어요로 옮기기" : "가 보고 싶어요로 옮기기"); mv.type = "button";
+          mv.addEventListener("click", function () { L.setTrail(x.href, x.name, d[0] === "want" ? "done" : "want"); draw(); });
+          var rm = el("button", "tp-btn ghost", "지우기"); rm.type = "button";
+          rm.addEventListener("click", function () { L.setTrail(x.href, x.name, ""); draw(); });
+          li.appendChild(mv); li.appendChild(document.createTextNode(" ")); li.appendChild(rm); ul.appendChild(li);
+        });
         mine.appendChild(ul);
       });
-      mine.appendChild(el("p", "tp-small", "이 목록은 이 기기의 브라우저에만 있어요. 칼랭크 서버로 보내지 않습니다."));
-    }
+      var bar = el("p"), sv = el("button", "tp-btn ghost", "백업 파일 저장"); sv.type = "button";
+      sv.addEventListener("click", function () {
+        try {
+          var blob = new Blob([JSON.stringify({ calrankTrails: 1, items: L.trails() })], { type: "application/json" });
+          var u = URL.createObjectURL(blob), a2 = document.createElement("a"); a2.href = u; a2.download = "calrank-trails.json";
+          document.body.appendChild(a2); a2.click(); document.body.removeChild(a2); setTimeout(function () { URL.revokeObjectURL(u); }, 1000);
+        } catch (e) {}
+      });
+      bar.appendChild(sv); mine.appendChild(bar);
+      mine.appendChild(el("p", "tp-small", "이 목록은 이 기기의 브라우저에만 있어요. 칼랭크 서버로 보내지 않아요. 브라우저 데이터를 지우거나 다른 기기로 옮기면 사라지니, 백업 파일을 저장해 두세요."));
+    };
+    draw();
+    var imp = document.getElementById("trImport");
+    if (imp) imp.addEventListener("change", function () {
+      var f = imp.files && imp.files[0]; if (!f) return;
+      var r = new FileReader();
+      r.onload = function () {
+        try {
+          var o = JSON.parse(String(r.result)), n = 0;
+          (o.items || []).forEach(function (x) {
+            if (x && /^(course|mountain)-[\w.-]+\.html$/.test(x.href) && (x.state === "want" || x.state === "done")) { L.setTrail(x.href, x.name, x.state); n++; }
+          });
+          mine.setAttribute("data-open", "1"); draw();
+          var m = document.getElementById("trImportMsg"); if (m) m.textContent = n + "곳을 불러왔어요.";
+        } catch (e) { var m2 = document.getElementById("trImportMsg"); if (m2) m2.textContent = "읽을 수 없는 파일이에요."; }
+        imp.value = "";
+      };
+      r.readAsText(f);
+    });
   }
 })();
