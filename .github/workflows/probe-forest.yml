@@ -1,0 +1,21 @@
+name: Probe Forest API
+
+# 산림청 산·등산로 API 의 응답 모양을 한 번 확인한다. 로그에만 남고 저장소에는 아무것도 쓰지 않는다.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/probe_forest.js
+        env:
+          DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}
