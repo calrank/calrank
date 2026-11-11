@@ -491,8 +491,24 @@ COPDEM = ("produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Ai
 G_BANDS = [(5, "gp-0", "5% 미만"), (10, "gp-1", "5~10%"), (15, "gp-2", "10~15%"), (999, "gp-3", "15% 이상")]
 
 
+_NAME_N = {}
+for _m in MOUNTAINS:
+    _k = (_m["name"], _m.get("region") or "")
+    _NAME_N[_k] = _NAME_N.get(_k, 0) + 1
+_NAME_ANY = {}
+for _m in MOUNTAINS:
+    _NAME_ANY[_m["name"]] = _NAME_ANY.get(_m["name"], 0) + 1
+
+
 def mt_title(m):
-    return f'{m["name"]}({m["region"]})' if m.get("region") else m["name"]
+    """같은 이름의 산이 여럿이면 지역을, 지역을 모르면 구간 최고 고도를 붙여 구분한다."""
+    nm = m["name"]
+    if m.get("region") and _NAME_N.get((nm, m["region"]), 0) <= 1:
+        return f'{nm}({m["region"]})'
+    hi = max(s["endM"] for s in m["sections"])
+    if m.get("region"):
+        return f'{nm}({m["region"]}, 약 {hi:.0f}m)'
+    return f'{nm}(약 {hi:.0f}m)' if _NAME_ANY.get(nm, 0) > 1 else nm
 
 
 def mt_stats(m):
@@ -531,12 +547,12 @@ def mountain_page(m):
     rows.append(("경사 12% 넘는 길", f"{steep:.1f} km"))
     stat_html = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in rows)
     top = sorted(S, key=lambda s: -abs(s["meanGrade"]))[:12]
-    th = ["구간 길이", "고도(낮은 곳→높은 곳)", "평균 경사", "가장 가파른 곳", "오르막 합"]
+    th = ["구간 길이", "고도(낮은 곳→높은 곳)", "평균 경사", "오르막 합"]
     if MT_VERIFIED:
         th += ["산림청 상행", "산림청 하행", "산림청 난이도"]
     trs = ""
     for s in top:
-        tds = [f'{s["lenM"]}m', f'{s["startM"]}→{s["endM"]}m', f'{abs(s["meanGrade"]):.0f}%', f'{s["maxGrade"]:.0f}%', f'{s["gainM"]}m']
+        tds = [f'{s["lenM"]}m', f'{s["startM"]}→{s["endM"]}m', f'{abs(s["meanGrade"]):.0f}%', f'{s["gainM"]}m']
         if MT_VERIFIED:
             tds += [f'{s["upln"]:.0f}분', f'{s["gngd"]:.0f}분', f'{s["dgdf"]}']
         trs += "<tr>" + "".join(f"<td>{t}</td>" for t in tds) + "</tr>"
@@ -551,7 +567,7 @@ def mountain_page(m):
 <section class="tp-sec"><h2 class="tp-h2">길의 경사는 이렇게 나뉩니다</h2>{grade_bar(S)}
 <p class="tp-small">구간마다 낮은 쪽 끝에서 높은 쪽 끝까지 평균 경사를 잰 뒤, 경사별로 길이를 더했습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">가파른 구간 12곳</h2>{table}
-<p class="tp-small">구간은 산림청이 나눈 단위이고, 한 구간이 하나의 산행 코스는 아닙니다. 고도는 30m 간격의 고도 자료로 읽은 값이라 몇 m에서 십수 m까지 다를 수 있습니다.</p></section>
+<p class="tp-small">구간은 산림청이 나눈 단위이고, 한 구간이 하나의 산행 코스는 아닙니다. 평균 경사는 구간의 낮은 끝과 높은 끝을 이은 값입니다. 고도는 30m 간격의 고도 자료로 읽은 값이라 몇 m에서 십수 m까지 다를 수 있습니다.</p></section>
 {rel}
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털, 이용허락범위 제한 없음){(' — <a href="' + esc(m["info"]) + '" rel="noopener" target="_blank">산림청 안내</a>') if m.get("info") else ""}. 고도: {COPDEM} 계산과 표시는 칼랭크가 했고, 현장 상황과 다를 수 있으니 산행 전 안내를 확인해 주세요. <a href="mountains.html">다른 산 보기</a></p>"""
     faq = [(f"{nm}의 가파른 구간은 어디인가요?", f"산림청 구간 중 평균 경사가 가장 큰 곳은 약 {abs(top[0]['meanGrade']):.0f}%입니다(구간 길이 {top[0]['lenM']}m)."),
