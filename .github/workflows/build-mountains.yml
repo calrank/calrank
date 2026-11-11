@@ -10,6 +10,10 @@ on:
         description: "시험용: 앞의 N개 산만 처리 (0 이면 전체)"
         required: false
         default: "0"
+      only:
+        description: "다시 받을 산 이름(쉼표 구분). 비우면 전체"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -29,6 +33,7 @@ jobs:
         env:
           DURUNUBI_API_KEY: ${{ secrets.DURUNUBI_API_KEY }}
           LIMIT: ${{ inputs.limit }}
+          ONLY: ${{ inputs.only }}
       - name: Commit data
         run: |
           git config user.name "calrank-bot"

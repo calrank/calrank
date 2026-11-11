@@ -136,6 +136,13 @@ def main():
     print("산 수:", len(items))
     limit = int(os.environ.get("LIMIT", "0") or 0)
     if limit: items = items[:limit]
+    # ONLY 가 있으면 그 이름의 산만 다시 받아 기존 파일에 합친다(실패한 산 재시도용).
+    only = [x.strip() for x in os.environ.get("ONLY", "").split(",") if x.strip()]
+    prev = []
+    if only:
+        items = [it for it in items if field(it, "mntnnm") in only]
+        prev = [m for m in json.loads(OUT.read_text(encoding="utf-8"))["mountains"] if m["name"] not in only]
+        print("다시 받을 산:", len(items))
     out, fails, cmp_ = [], [], []
     for n, it in enumerate(items, 1):
         nm, url, info = field(it, "mntnnm"), field(it, "mntnfile"), field(it, "mntninfourl")
@@ -143,6 +150,8 @@ def main():
         signal.alarm(240)
         try:
             z = get(url)
+            if z.content[:2] != b"PK":
+                print("  zip 아님:", nm, z.status_code, z.headers.get("content-type"), len(z.content), "bytes, 앞부분:", mask(z.content[:120].decode("utf-8", "ignore")).replace("\n", " "))
             zf = zipfile.ZipFile(io.BytesIO(z.content))
             d = tempfile.mkdtemp(); zf.extractall(d)
             shp = next((os.path.join(r, f) for r, _, fs in os.walk(d) for f in fs if f.lower().endswith(".shp") and "WG_MT_WAY" in f), None)
@@ -192,6 +201,8 @@ def main():
             print(f"  DGDF={lv}: {len(g)}구간, 평균경사 중앙값 {np.median([abs(s['meanGrade']) for s in g]):.1f}%, 구간길이 중앙값 {np.median([s['lenM'] for s in g]):.0f}m")
         up = np.array([s["upln"] for s in allsec], float); dn = np.array([s["gngd"] for s in allsec], float); L = np.array([s["lenM"] for s in allsec], float)
         print(f"  UPLN > GNGD 인 구간 비율 {np.mean(up > dn) * 100:.0f}%, UPLN 상관(길이) {np.corrcoef(up, L)[0, 1]:.2f}, (오르막) {np.corrcoef(up, [s['gainM'] for s in allsec])[0, 1]:.2f}")
+    if only:
+        out = prev + out
     if len(out) < 20:
         print("실린 산이 너무 적어 파일을 바꾸지 않습니다."); sys.exit(1)
     out.sort(key=lambda m: m["name"])
