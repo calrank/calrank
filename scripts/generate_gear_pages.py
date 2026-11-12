@@ -282,6 +282,7 @@ PAGE = """<!DOCTYPE html>
 <script src="gear-rules.js"></script>
 <script src="gear.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/track.js"></script>
 </body>
 </html>
 """

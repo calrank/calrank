@@ -301,6 +301,7 @@ def render(upcoming, entries, events, today) -> str:
 </div>
 </footer>
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/track.js"></script>
 </body>
 </html>
 """

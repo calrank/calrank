@@ -62,6 +62,7 @@ def page(slug, title, desc, h1, sub, body, scripts, faq, crumb=("기어", "gear.
 {HEAD_COMMON}<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="tools.css">
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/track.js"></script>
 <link rel="canonical" href="{url}">
 <meta property="og:title" content="{title} | 칼랭크 CALRANK">
 <meta property="og:description" content="{desc}">

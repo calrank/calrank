@@ -244,6 +244,7 @@ PAGE = """<!DOCTYPE html>
 </footer>
 
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/track.js"></script>
 </body>
 </html>
 """

@@ -139,12 +139,17 @@ FONT_NEW = "css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&displ
 # 동의 배너 없이 쓸 수 있다. 스크립트는 배포본이 알아서 내주므로 키가 필요 없다.
 # 붙이는 자리는 </head> 바로 앞. defer 라 그리는 일을 막지 않는다.
 ANALYTICS = '<script defer src="/_vercel/insights/script.js"></script>'
+TRACK = '<script defer src="/track.js"></script>'
 
 
 def _with_analytics(html: str) -> str:
-    if "_vercel/insights" in html or "</head>" not in html:
+    if "</head>" not in html:
         return html
-    return html.replace("</head>", ANALYTICS + "\n</head>", 1)
+    if "_vercel/insights" not in html:
+        html = html.replace("</head>", ANALYTICS + "\n</head>", 1)
+    if "/track.js" not in html:
+        html = html.replace(ANALYTICS, ANALYTICS + "\n" + TRACK, 1)
+    return html
 
 
 # 주소창 색. 한 줄짜리 고정값이면 바탕 두 벌에 맞춰 두 줄로 바꾼다.
