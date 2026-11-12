@@ -231,18 +231,18 @@ def render(upcoming, entries, events, today) -> str:
   .aq-status {{ padding: 14px 16px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; margin: 18px 0; }}
   .aq-open {{ border-color: var(--accent); }}
   .aq-scroll {{ overflow-x: auto; }}
-  .aq-table {{ width: 100%; border-collapse: collapse; font-size: 14px; }}
+  .aq-table {{ width: 100%; border-collapse: collapse; font-size: 15px; }}
   .aq-table th, .aq-table td {{ padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }}
   .aq-table th {{ color: #fff; background: rgba(255,255,255,0.03); white-space: nowrap; }}
   .aq-date {{ color: var(--accent); font-weight: 700; white-space: nowrap; }}
-  .aq-note {{ color: #B8B0AC; font-size: 13px; }}
+  .aq-note {{ color: #B8B0AC; font-size: 14.5px; }}
   .aq-table a {{ color: #E8E4E1; }}
-  .aq-next {{ padding: 16px 18px; background: var(--surface, #141414); border-radius: 10px; margin-top: 12px; line-height: 1.9; font-size: 14.5px; }}
+  .aq-next {{ padding: 16px 18px; background: var(--surface, #141414); border-radius: 10px; margin-top: 12px; line-height: 1.9; font-size: 15.5px; }}
   .aq-next a {{ color: var(--accent); font-weight: 700; }}
   .aq-tools {{ margin: 34px 0 10px; }}
-  .aq-tools-lead {{ font-size: 13.5px; line-height: 1.8; color: #B8B0AC; margin: 0 0 14px; }}
+  .aq-tools-lead {{ font-size: 15px; line-height: 1.8; color: #B8B0AC; margin: 0 0 14px; }}
   .aq-tools-lead strong {{ color: #fff; }}
-  .aq-disclaimer {{ font-size: 12.5px !important; color: #8E8884 !important; margin-top: 32px; }}
+  .aq-disclaimer {{ font-size: 13.5px !important; color: #8E8884 !important; margin-top: 32px; }}
 </style>
 </head>
 <body>

@@ -44,35 +44,35 @@
                   object-position: 50% 22%; display: block; }
   @media (min-width: 720px) { .gr-photo img { height: 210px; } }
   .gr-switch { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 26px; }
-  .gr-switch a { font-size: 13px; padding: 7px 14px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink); text-decoration: none; }
+  .gr-switch a { font-size: 14.5px; padding: 7px 14px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink); text-decoration: none; }
   .gr-switch a:hover { border-color: var(--accent); }
   .gr-switch a.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
   .gr-tablebox { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border, var(--border)); border-radius: 10px; }
-  table.gr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 13px; }
+  table.gr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 14.5px; }
   table.gr-table th, table.gr-table td { padding: 10px 8px; text-align: center; white-space: nowrap; border-bottom: 1px solid var(--tint-2); }
-  table.gr-table thead th { background: var(--surface); color: var(--ink); font-weight: 700; font-size: 12px; line-height: 1.4; }
+  table.gr-table thead th { background: var(--surface); color: var(--ink); font-weight: 700; font-size: 13.5px; line-height: 1.4; }
   /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
   table.gr-table tbody th { background: var(--surface); color:var(--accent-ink); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid var(--tint-3); }
   table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid var(--tint-3); }
   table.gr-table tbody tr:nth-child(even) td { background: var(--tint-1); }
-  .gr-swipe { display: none; font-size: 12px; color: var(--ink-faint); margin: 8px 2px 0; }
+  .gr-swipe { display: none; font-size: 13.5px; color: var(--ink-faint); margin: 8px 2px 0; }
   @media (max-width: 680px) {
     .gr-wrap { padding: 32px 14px 70px; }
-    table.gr-table { font-size: 12.5px; }
+    table.gr-table { font-size: 13.5px; }
     table.gr-table th, table.gr-table td { padding: 9px 7px; }
     .gr-swipe { display: block; }
   }
-  .gr-note { font-size: 13px; line-height: 1.8; color: var(--ink-soft); margin-top: 14px; }
+  .gr-note { font-size: 14.5px; line-height: 1.8; color: var(--ink-soft); margin-top: 14px; }
   .gr-h2 { font-size: 18px; margin: 38px 0 12px; }
-  .gr-p { font-size: 14.5px; line-height: 1.85; color: var(--ink-soft); }
+  .gr-p { font-size: 15.5px; line-height: 1.85; color: var(--ink-soft); }
   .gr-faq { margin-top: 10px; }
   .gr-faq details { border: 1px solid var(--border, var(--border)); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
-  .gr-faq summary { cursor: pointer; font-size: 14px; font-weight: 700; color: var(--ink); }
-  .gr-faq p { margin-top: 9px; font-size: 14px; line-height: 1.8; color: var(--ink-soft); }
+  .gr-faq summary { cursor: pointer; font-size: 15px; font-weight: 700; color: var(--ink); }
+  .gr-faq p { margin-top: 9px; font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
   .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; text-align: center; }
-  .gr-cta p { font-size: 14.5px; color: var(--ink-soft); }
+  .gr-cta p { font-size: 15.5px; color: var(--ink-soft); }
   .gr-cta a { display: inline-block; margin-top: 12px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
-  .gr-links { margin-top: 26px; font-size: 13.5px; line-height: 2; }
+  .gr-links { margin-top: 26px; font-size: 15px; line-height: 2; }
   .gr-links a { color: var(--ink); text-decoration: none; border-bottom: 1px dashed var(--ink-faint); }
   .gr-links a:hover { color:var(--accent-ink); border-color: var(--accent); }
 </style>
@@ -83,10 +83,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link active">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>

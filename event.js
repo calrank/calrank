@@ -356,7 +356,7 @@ async function init() {
       <div class="modal-field-row"><span class="k">종목/거리</span><span class="v">${ev.distances.join(" / ")}</span></div>
       <div class="modal-field-row"><span class="k">주최</span><span class="v">${ev.organizer || "미확인"}${ev.organizerPhone ? " · " + ev.organizerPhone : ""}</span></div>
     </div>
-    <div class="event-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">${buildEventTags(ev).map(tag => `<a href="${tag.href}" class="chip" style="text-decoration:none; font-size:12px; padding:4px 10px;">#${tag.label}</a>`).join("")}</div>
+    <div class="event-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">${buildEventTags(ev).map(tag => `<a href="${tag.href}" class="chip" style="text-decoration:none; font-size:13.5px; padding:4px 10px;">#${tag.label}</a>`).join("")}</div>
     <div id="weatherWidget"></div>
     <div id="gearVerdict"></div>
     <a class="modal-apply-btn" style="display:inline-block;text-decoration:none;margin-top:24px;" href="${ev.applyUrl || ev.sourceUrl || "#"}" target="_blank" rel="noopener">신청하기 ↗</a>
@@ -488,7 +488,7 @@ async function renderWeatherWidget(ev) {
       <div style="margin-top:16px; padding:14px; border-radius:10px; background:var(--surface,#141414); border:1px solid var(--border,#2A2A2A); display:flex; align-items:center; gap:12px;">
         <div style="font-size:32px;">${icon}</div>
         <div>
-          <p style="margin:0; font-size:13px; color:var(--ink-faint,#8E8E8E);">대회 당일 예상 날씨</p>
+          <p style="margin:0; font-size:14.5px; color:var(--ink-faint,#8E8E8E);">대회 당일 예상 날씨</p>
           <p style="margin:2px 0 0; font-size:16px; font-weight:700;">${tMin}° / ${tMax}°C · 강수확률 ${rain}%</p>
         </div>
       </div>

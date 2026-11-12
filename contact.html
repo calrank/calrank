@@ -23,10 +23,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -60,12 +64,12 @@ calrank는 마라톤·자전거·트레일러닝·철인3종 등 전 종목 대�
 calrank에 없는 대회를 알고 계신가요? <a href="submit-event.html" style="color:inherit; text-decoration:underline;">대회 정보 제보하기</a>에서 알려주시면 확인 후 캘린더에 반영해드립니다.
 </p>
 
-<h2>대회 일정 위젯 무료 제공 <span style="font-size:12px; font-weight:400; color:var(--ink-faint); border:1px solid var(--border); border-radius:4px; padding:2px 8px; vertical-align:middle;">🔧 웹사이트 운영자용</span></h2>
+<h2>대회 일정 위젯 무료 제공 <span style="font-size:13.5px; font-weight:400; color:var(--ink-faint); border:1px solid var(--border); border-radius:4px; padding:2px 8px; vertical-align:middle;">🔧 웹사이트 운영자용</span></h2>
 <p class="legal-placeholder">
 대회 주최사/운영진이신가요? 아래 코드를 귀 사이트에 붙여넣으면 다가오는 대회 일정이 자동으로 표시됩니다 (무료, 매일 자동 갱신).<br>
 <strong>※ 일반 방문자시라면 이 섹션은 신경 쓰지 않으셔도 됩니다.</strong> 아래는 다른 웹사이트에 삽입하는 개발 코드입니다.
 </p>
-<pre style="background:var(--surface); padding:12px; border-radius:8px; overflow-x:auto; font-size:12px; user-select:all;">&lt;iframe src="https://calrank.vercel.app/widget.html?sport=marathon&amp;limit=5" width="100%" height="360" frameborder="0"&gt;&lt;/iframe&gt;</pre>
+<pre style="background:var(--surface); padding:12px; border-radius:8px; overflow-x:auto; font-size:13.5px; user-select:all;">&lt;iframe src="https://calrank.vercel.app/widget.html?sport=marathon&amp;limit=5" width="100%" height="360" frameborder="0"&gt;&lt;/iframe&gt;</pre>
 <p class="legal-placeholder" style="font-size:13px;">
 sport 값은 marathon/cycling/trail/triathlon 중 선택, limit으로 표시 개수를 조절할 수 있습니다.
 </p>

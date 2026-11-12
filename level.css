@@ -4,10 +4,10 @@
   padding:24px 22px;
 }
 .level-form{display:flex;flex-direction:column;gap:10px;}
-.level-form label{font-size:12px;color:var(--ink-faint);margin-top:4px;}
+.level-form label{font-size:13.5px;color:var(--ink-faint);margin-top:4px;}
 .level-form input,.level-form select{
   padding:11px 12px;border:1px solid var(--border);border-radius:2px;
-  background:var(--bg);color:var(--ink);font-size:14px;font-family:var(--font-body);
+  background:var(--bg);color:var(--ink);font-size:15px;font-family:var(--font-body);
 }
 
 .level-result{
@@ -20,22 +20,22 @@
   color:var(--accent-ink);border:2px solid var(--accent);border-radius:2px;
   padding:8px 20px;margin-bottom:12px;
 }
-.level-tier-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;margin:0 0 20px;}
+.level-tier-desc{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin:0 0 20px;}
 
 .level-stats{display:flex;justify-content:space-around;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:20px;}
 .level-stat{display:flex;flex-direction:column;gap:4px;}
-.level-stat-label{font-size:12px;color:var(--ink-faint);}
+.level-stat-label{font-size:13.5px;color:var(--ink-faint);}
 .level-stat-value{font-size:16px;font-weight:900;color:var(--ink);}
 
-.level-tier-table-title{font-size:12px;color:var(--ink-faint);margin:0 0 8px;text-align:left;}
+.level-tier-table-title{font-size:13.5px;color:var(--ink-faint);margin:0 0 8px;text-align:left;}
 .level-tier-table{display:flex;flex-direction:column;gap:1px;background:var(--line);text-align:left;}
-.level-tier-row{background:var(--bg);padding:9px 12px;font-size:12.5px;color:var(--ink-faint);}
+.level-tier-row{background:var(--bg);padding:9px 12px;font-size:13.5px;color:var(--ink-faint);}
 .level-tier-step{display:inline-block;min-width:18px;margin-right:9px;font-weight:900;color:var(--ink-faint);text-align:center;}
 .level-tier-row.current .level-tier-step{color:var(--accent-ink);}
 .level-tier-row.current{background:var(--surface);color:var(--accent-ink);font-weight:900;border-left:3px solid var(--accent);padding-left:9px;}
 
 .level-disclaimer{
-  max-width:420px;margin:16px auto 0;font-size:12px;color:var(--ink-faint);
+  max-width:420px;margin:16px auto 0;font-size:13.5px;color:var(--ink-faint);
   line-height:1.6;text-align:center;
   /* 가운데 정렬은 줄 끝이 양쪽 다 보여서 길이가 다르면 바로 티가 난다.
      pretty 는 마지막 줄에 한 단어만 남을 때만 손대서, 두 단어(12자)로
@@ -49,7 +49,7 @@
 
 /* 기록증 입구와 직접 입력 사이의 구분선 */
 .lv-or{
-  position:relative;text-align:center;font-size:12px;color:var(--ink-faint,var(--ink-faint));
+  position:relative;text-align:center;font-size:13.5px;color:var(--ink-faint,var(--ink-faint));
   margin:16px 0 12px;
 }
 .lv-or::before,.lv-or::after{
@@ -72,26 +72,26 @@
 }
 .lv-grade-pct{font-size:38px;font-weight:900;color:var(--ink);line-height:1;letter-spacing:-1px;}
 .lv-grade-pct i{font-size:20px;font-style:normal;margin-left:2px;color:var(--accent-ink);}
-.lv-grade-cap{font-size:12px;color:var(--ink-soft,var(--ink-faint));margin-top:7px;line-height:1.5;}
+.lv-grade-cap{font-size:13.5px;color:var(--ink-soft,var(--ink-faint));margin-top:7px;line-height:1.5;}
 .lv-grade-next{
   flex:1 1 170px;display:flex;flex-direction:column;justify-content:center;gap:4px;
   padding:16px 18px;border-radius:10px;
   background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));
 }
-.lv-next-l{font-size:12px;color:var(--ink-soft,var(--ink-faint));}
+.lv-next-l{font-size:13.5px;color:var(--ink-soft,var(--ink-faint));}
 .lv-next-l b{color:var(--ink);}
 .lv-next-v{font-size:22px;font-weight:900;color:var(--accent-ink);line-height:1.2;}
-.lv-next-t{font-size:12px;color:var(--ink-faint,var(--ink-faint));}
+.lv-next-t{font-size:13.5px;color:var(--ink-faint,var(--ink-faint));}
 
 /* ── 줄이면 어떻게 바뀌나 ────────────────────────────────── */
 .lv-what{border:1px solid var(--border,var(--border));border-radius:10px;overflow:hidden;margin-bottom:20px;}
 .lv-what-row{
   display:grid;grid-template-columns:1fr 1.3fr 1fr 1.6fr;gap:6px;
-  padding:11px 14px;font-size:13px;color:var(--ink);
+  padding:11px 14px;font-size:14.5px;color:var(--ink);
   border-bottom:1px solid var(--border,var(--border));
 }
 .lv-what-row:last-child{border-bottom:none;}
-.lv-what-head{background:var(--surface,var(--surface));font-size:12px;font-weight:700;color:var(--ink-faint,var(--ink-faint));}
+.lv-what-head{background:var(--surface,var(--surface));font-size:13.5px;font-weight:700;color:var(--ink-faint,var(--ink-faint));}
 .lv-what-row.up{background:rgba(255,61,26,.07);}
 .lv-what-row.up span:last-child{color:var(--accent-ink);font-weight:700;}
 
@@ -102,13 +102,13 @@
   padding:13px 8px;border-radius:9px;
   background:var(--surface,var(--surface));border:1px solid var(--border,var(--border));
 }
-.lv-equiv-d{font-size:12px;color:var(--ink-faint,var(--ink-faint));}
+.lv-equiv-d{font-size:13.5px;color:var(--ink-faint,var(--ink-faint));}
 .lv-equiv-t{font-size:16px;font-weight:700;color:var(--ink);}
-.lv-equiv-note{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:0 0 20px;}
+.lv-equiv-note{font-size:13.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:0 0 20px;}
 
 @media (max-width:520px){
   .lv-grade-pct{font-size:32px;}
-  .lv-what-row{grid-template-columns:.8fr 1.2fr .9fr 1.4fr;font-size:12px;padding:10px;}
+  .lv-what-row{grid-template-columns:.8fr 1.2fr .9fr 1.4fr;font-size:13.5px;padding:10px;}
 }
 
 /* ── 거리별 강점 ─────────────────────────────────────────── */
@@ -117,35 +117,35 @@
   background:var(--surface,var(--surface));margin:0 0 20px;
 }
 .lv-dna summary{
-  padding:14px 16px;font-size:13.5px;font-weight:700;color:var(--ink);
+  padding:14px 16px;font-size:15px;font-weight:700;color:var(--ink);
   cursor:pointer;list-style:none;
 }
 .lv-dna summary::-webkit-details-marker{display:none;}
 .lv-dna summary::before{content:"▸ ";color:var(--accent-ink);}
 .lv-dna[open] summary::before{content:"▾ ";}
 .lv-dna-in{padding:0 16px 16px;}
-.lv-dna-help{font-size:12px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:0 0 12px;}
+.lv-dna-help{font-size:13.5px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:0 0 12px;}
 .lv-dna-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.lv-dna-row label{flex:0 0 86px;font-size:12.5px;color:var(--ink-soft,var(--ink-faint));}
+.lv-dna-row label{flex:0 0 86px;font-size:13.5px;color:var(--ink-soft,var(--ink-faint));}
 .lv-dna-row input{
   flex:1 1 auto;min-width:0;padding:9px 11px;border-radius:7px;
   background:var(--bg,var(--bg));border:1px solid var(--border,var(--border));
-  color:var(--ink);font-family:inherit;font-size:13.5px;
+  color:var(--ink);font-family:inherit;font-size:15px;
 }
 .lv-dna-row input.err{border-color:var(--accent,#FF3D1A);}
 .lv-dna-go{
-  width:100%;margin-top:6px;font-family:inherit;font-size:13.5px;font-weight:700;
+  width:100%;margin-top:6px;font-family:inherit;font-size:15px;font-weight:700;
   padding:11px;border-radius:8px;border:1px solid var(--border,var(--border));
   background:transparent;color:var(--ink);cursor:pointer;
 }
 .lv-dna-go:hover{border-color:var(--accent,#FF3D1A);color:var(--accent-ink);}
-.lv-dna-msg{font-size:12.5px;color:var(--accent-ink);margin:12px 0 0;line-height:1.7;}
+.lv-dna-msg{font-size:13.5px;color:var(--accent-ink);margin:12px 0 0;line-height:1.7;}
 .lv-dna-verdict{margin:16px 0 12px;padding:14px 16px;border-radius:9px;
   background:linear-gradient(135deg,rgba(255,61,26,.12),rgba(255,61,26,.03));
   border:1px solid rgba(255,61,26,.3);}
 .lv-dna-v{font-size:15px;font-weight:900;color:var(--ink);margin:0 0 6px;}
-.lv-dna-d{font-size:12.5px;line-height:1.8;color:var(--ink-soft);margin:0;}
-.lv-dna-note{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;}
+.lv-dna-d{font-size:13.5px;line-height:1.8;color:var(--ink-soft);margin:0;}
+.lv-dna-note{font-size:13.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;}
 
 @media (max-width:520px){
   .lv-dna-row label{flex:0 0 70px;}
@@ -165,7 +165,7 @@
   margin:4px 0 0;
 }
 .lv-dp-cap{
-  font-size:12px;color:var(--ink-faint,var(--ink-faint));margin:0 0 10px;letter-spacing:.2px;
+  font-size:13.5px;color:var(--ink-faint,var(--ink-faint));margin:0 0 10px;letter-spacing:.2px;
   display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;
 }
 .lv-dp-cap span{opacity:.75;}
@@ -190,8 +190,8 @@
   gap:var(--gap);align-items:center;
   height:30px;
 }
-.lv-dp-lbl{font-size:12px;color:var(--ink-soft,var(--ink-faint));white-space:nowrap;}
-.lv-dp-time{font-size:12px;white-space:nowrap;color:var(--ink-faint,var(--ink-faint));font-variant-numeric:tabular-nums;}
+.lv-dp-lbl{font-size:13.5px;color:var(--ink-soft,var(--ink-faint));white-space:nowrap;}
+.lv-dp-time{font-size:13.5px;white-space:nowrap;color:var(--ink-faint,var(--ink-faint));font-variant-numeric:tabular-nums;}
 .lv-dp-track{position:relative;height:100%;}
 .lv-dp-dot{
   position:absolute;top:50%;width:9px;height:9px;border-radius:50%;
@@ -204,7 +204,7 @@
   width:11px;height:11px;
 }
 .lv-dp-val{
-  font-size:12.5px;font-weight:700;color:var(--ink);text-align:right;
+  font-size:13.5px;font-weight:700;color:var(--ink);text-align:right;
   font-variant-numeric:tabular-nums;
 }
 
@@ -217,13 +217,13 @@
 }
 .lv-dp-t{
   position:absolute;top:6px;transform:translateX(-50%);white-space:nowrap;
-  font-size:11px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
+  font-size:12.5px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
   font-variant-numeric:tabular-nums;
 }
 
 @media (max-width:520px){
   .lv-dp{--lbl:42px;--time:52px;--val:46px;--gap:7px;}
-  .lv-dp-lbl,.lv-dp-time{font-size:12px;}
+  .lv-dp-lbl,.lv-dp-time{font-size:13.5px;}
 }
 
 /* ── 이 기록 하나가 말해 주는 폭 ───────────────────────────
@@ -236,14 +236,14 @@
 }
 .lv-band>summary{
   list-style:none;cursor:pointer;padding:13px 15px;
-  font-size:13px;color:var(--ink-soft,var(--ink-faint));
+  font-size:14.5px;color:var(--ink-soft,var(--ink-faint));
 }
 .lv-band>summary::-webkit-details-marker{display:none;}
 .lv-band>summary::after{content:"＋";float:right;color:var(--ink-faint,var(--ink-faint));}
 .lv-band[open]>summary::after{content:"－";}
 .lv-band>summary:hover{color:var(--ink);}
 .lv-band-in{padding:0 15px 16px;text-align:left;}
-.lv-band-lead{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 18px;text-align:left;}
+.lv-band-lead{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 18px;text-align:left;}
 .lv-band-lead b{color:var(--ink);}
 
 .lv-band-plot{position:relative;height:34px;}
@@ -271,7 +271,7 @@
 .lv-band-axis{position:relative;height:22px;border-top:1px solid var(--border,var(--border));margin-top:2px;}
 .lv-band-t{
   position:absolute;top:5px;transform:translateX(-50%);white-space:nowrap;
-  font-size:11px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
+  font-size:12.5px;font-weight:700;color:var(--ink-faint,var(--ink-faint));
   font-variant-numeric:tabular-nums;
 }
 
@@ -280,18 +280,18 @@
   display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:baseline;
   padding:9px 0;border-top:1px solid var(--border,var(--border));
 }
-.lv-band-row span{font-size:12px;color:var(--ink-soft,var(--ink-faint));}
-.lv-band-row b{font-size:13.5px;color:var(--ink);font-variant-numeric:tabular-nums;}
-.lv-band-row em{font-size:12px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
+.lv-band-row span{font-size:13.5px;color:var(--ink-soft,var(--ink-faint));}
+.lv-band-row b{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.lv-band-row em{font-size:13.5px;font-style:normal;color:var(--ink-faint,var(--ink-faint));min-width:104px;text-align:right;}
 
 .lv-band-verdict{
-  font-size:12.5px;line-height:1.85;margin:14px 0 0;
+  font-size:13.5px;line-height:1.85;margin:14px 0 0;
   padding:11px 13px;border-radius:8px;text-align:left;
 }
 .lv-band-verdict b{color:var(--ink);}
 .lv-band-verdict.edge{background:rgba(255,61,26,.08);border:1px solid rgba(255,61,26,.3);color:var(--ink-soft);}
 .lv-band-verdict.solid{background:var(--tint-1);border:1px solid var(--border,var(--border));color:var(--ink-soft);}
-.lv-band-src{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;text-align:left;}
+.lv-band-src{font-size:13.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:12px 0 0;text-align:left;}
 .lv-band-src a{color:var(--ink-soft,var(--ink-faint));text-decoration:underline;text-underline-offset:2px;}
 
 @media (max-width:520px){
@@ -308,26 +308,26 @@
   border:1px solid var(--border,var(--border));border-radius:10px;
   background:var(--tint-1);
 }
-.lv-give-head{font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px;}
-.lv-give-body{font-size:12.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
+.lv-give-head{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 8px;}
+.lv-give-body{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
 .lv-give-what{
-  font-size:12px;line-height:1.9;color:var(--ink-soft,var(--ink-faint));margin:0 0 14px;
+  font-size:13.5px;line-height:1.9;color:var(--ink-soft,var(--ink-faint));margin:0 0 14px;
   padding:11px 12px;border-radius:8px;background:var(--tint-1);
 }
 .lv-give-what b{color:var(--ink);}
 .lv-give-ck{display:flex;gap:9px;align-items:flex-start;cursor:pointer;margin:0 0 12px;}
 .lv-give-ck input{margin-top:2px;flex:0 0 auto;width:16px;height:16px;accent-color:var(--accent,#FF3D1A);}
-.lv-give-ck span{font-size:12.5px;line-height:1.7;color:var(--ink-soft);}
+.lv-give-ck span{font-size:13.5px;line-height:1.7;color:var(--ink-soft);}
 .lv-give-go{
   width:100%;padding:11px;border-radius:8px;cursor:pointer;
-  font-family:inherit;font-size:13.5px;font-weight:700;
+  font-family:inherit;font-size:15px;font-weight:700;
   color:var(--ink);background:var(--bg,var(--bg));
   border:1px solid var(--border,var(--border));
 }
 .lv-give-go:enabled:hover{border-color:var(--accent,#FF3D1A);color:var(--accent-ink);}
 .lv-give-go:disabled{opacity:.45;cursor:default;}
-.lv-give-msg{font-size:12px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:10px 0 0;}
-.lv-give-thanks{font-size:12.5px;line-height:1.75;color:var(--ink-soft,var(--ink-faint));margin:0;}
+.lv-give-msg{font-size:13.5px;line-height:1.75;color:var(--ink-faint,var(--ink-faint));margin:10px 0 0;}
+.lv-give-thanks{font-size:13.5px;line-height:1.75;color:var(--ink-soft,var(--ink-faint));margin:0;}
 
 /* ── 등급 사다리 ───────────────────────────────────────────
    구간 이름만 1~7로 늘어놓고 시간을 안 적어 놨었다.
@@ -340,18 +340,18 @@
 }
 .lv-ladder-row:last-child{border-bottom:0;}
 .lv-ladder-step{
-  font-size:12px;color:var(--ink-faint,var(--ink-faint));text-align:center;
+  font-size:13.5px;color:var(--ink-faint,var(--ink-faint));text-align:center;
   font-variant-numeric:tabular-nums;
 }
-.lv-ladder-label{font-size:13px;color:var(--ink-soft);}
+.lv-ladder-label{font-size:14.5px;color:var(--ink-soft);}
 .lv-ladder-cut{
-  font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;
+  font-size:14.5px;font-weight:700;color:var(--ink);white-space:nowrap;
   font-variant-numeric:tabular-nums;
 }
 .lv-ladder-row.current{background:rgba(255,61,26,.10);}
 .lv-ladder-row.current .lv-ladder-label{color:var(--accent-ink);font-weight:700;}
 .lv-ladder-row.current .lv-ladder-step{color:var(--accent-ink);}
-.lv-ladder-note{font-size:12px;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
+.lv-ladder-note{font-size:13.5px;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
 
 /* ── 폼 옆 미리보기 ────────────────────────────────────────
    넓은 화면에서 폼 오른쪽이 텅 비어 있었다. 검색해서 들어온 사람이
@@ -363,8 +363,8 @@
   padding:15px;border:1px solid var(--border,var(--border));border-radius:12px;
   background:var(--surface,var(--surface));
 }
-.lv-pv-title{font-size:12.5px;color:var(--ink-soft,var(--ink-faint));margin:0 0 11px;}
-.lv-pv-note{font-size:12px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
+.lv-pv-title{font-size:13.5px;color:var(--ink-soft,var(--ink-faint));margin:0 0 11px;}
+.lv-pv-note{font-size:13.5px;line-height:1.7;color:var(--ink-faint,var(--ink-faint));margin:9px 0 0;}
 
 @media (min-width:860px){
   .lv-twocol{
@@ -378,7 +378,7 @@
 /* 등급 바로 아래 한 줄 — 다른 계산기에 없는 말.
    접어 두면 아무도 못 본다. */
 .lv-verdict{
-  font-size:13px;line-height:1.75;margin:12px 0 0;
+  font-size:14.5px;line-height:1.75;margin:12px 0 0;
   padding:11px 14px;border-radius:9px;text-align:left;
 }
 .lv-verdict b{color:var(--ink);font-weight:700;}
@@ -420,23 +420,23 @@
   border:1px solid var(--border);border-left:3px solid var(--accent);
   border-radius:8px;text-align:left;
 }
-.lv-gm-ask{font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 8px;line-height:1.6;}
+.lv-gm-ask{font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px;line-height:1.6;}
 .lv-gm-ck{display:flex;gap:9px;align-items:flex-start;cursor:pointer;margin:0 0 10px;}
 .lv-gm-ck input{margin:2px 0 0;width:16px;height:16px;flex:none;accent-color:var(--accent);}
-.lv-gm-ck span{font-size:12px;line-height:1.7;color:var(--ink-soft);}
+.lv-gm-ck span{font-size:13.5px;line-height:1.7;color:var(--ink-soft);}
 .lv-gm-ck b{color:var(--ink);font-weight:700;}
 .lv-gm-more{color:var(--accent-ink);text-decoration:underline;white-space:nowrap;}
 .lv-gm-go{
   padding:8px 16px;border-radius:999px;
   background:transparent;border:1px solid var(--border);
-  color:var(--ink-soft);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;
+  color:var(--ink-soft);font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;
 }
 .lv-gm-go:enabled{border-color:var(--accent);color:var(--accent-ink);}
 .lv-gm-go:enabled:hover{background:var(--accent-fill);color:var(--on-accent);}
 .lv-gm-go:disabled{opacity:.55;cursor:default;}
-.lv-gm-msg{font-size:12px;line-height:1.65;color:var(--ink-soft);margin:9px 0 0;}
+.lv-gm-msg{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:9px 0 0;}
 .lv-gm-done{
-  margin:14px 0 4px;padding:11px 15px;font-size:12.5px;color:var(--ink-soft);
+  margin:14px 0 4px;padding:11px 15px;font-size:13.5px;color:var(--ink-soft);
   background:var(--tint-1);border:1px solid var(--border);border-radius:8px;text-align:left;
 }
 
@@ -450,7 +450,7 @@
 .lv-wx-link{
   margin:14px 0 0;padding:11px 13px;border-radius:8px;
   background:var(--tint-1);border:1px solid var(--border);
-  font-size:12.5px;line-height:1.75;color:var(--ink-soft);text-align:left;
+  font-size:13.5px;line-height:1.75;color:var(--ink-soft);text-align:left;
 }
 .lv-wx-link b{color:var(--ink);}
 .lv-wx-link a{color:var(--accent-ink);font-weight:700;white-space:nowrap;}
@@ -461,15 +461,15 @@
 
 /* 거리별 강점 판정의 근거. 주장에는 출처를 붙인다는 원칙을 여기에도 건다.
    읽는 글이라 12px 바닥을 지킨다. */
-.lv-dna-src{margin:12px 0 0;font-size:12px;line-height:1.8;
+.lv-dna-src{margin:12px 0 0;font-size:13.5px;line-height:1.8;
   color:var(--ink-soft,var(--ink-faint));text-align:left;
   padding-top:11px;border-top:1px solid var(--border);}
 .lv-dna-src b{color:var(--ink);}
-.lv-dna-cite{display:block;margin-top:7px;font-size:12px;line-height:1.7;
+.lv-dna-cite{display:block;margin-top:7px;font-size:13.5px;line-height:1.7;
   color:var(--ink-faint);}
 
 /* 모은 정도를 보여 주는 줄. 부탁만 하고 끝나지 않게. */
-.lv-prog{font-size:12.5px;line-height:1.65;color:var(--ink-soft);
+.lv-prog{font-size:13.5px;line-height:1.65;color:var(--ink-soft);
   margin:0 0 10px;min-height:1px;}
 .lv-prog:empty{display:none;}
 .lv-prog.lv-prog-open{color:var(--ink);font-weight:700;}
@@ -488,22 +488,22 @@
   text-align:left;
 }
 .lv-adj-head{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--ink);line-height:1.5;}
-.lv-adj-body{margin:0;font-size:14px;line-height:1.8;color:var(--ink-soft);}
+.lv-adj-body{margin:0;font-size:15px;line-height:1.8;color:var(--ink-soft);}
 .lv-adj-body strong{font-size:16px;font-weight:900;color:var(--accent-ink);}
-.lv-adj-tier{margin:8px 0 0;font-size:14px;line-height:1.7;color:var(--ink-soft);}
+.lv-adj-tier{margin:8px 0 0;font-size:15px;line-height:1.7;color:var(--ink-soft);}
 .lv-adj-tier strong{color:var(--ink);font-weight:900;}
-.lv-adj-note{margin:10px 0 0;font-size:12.5px;line-height:1.7;color:var(--ink-faint);}
+.lv-adj-note{margin:10px 0 0;font-size:13.5px;line-height:1.7;color:var(--ink-faint);}
 .lv-adj-src{
   margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line);
-  font-size:11.5px;line-height:1.75;color:var(--ink-faint);
+  font-size:13px;line-height:1.75;color:var(--ink-faint);
 }
 .lv-adj-none{background:transparent;}
 @media (max-width:520px){
   .lv-adj{padding:14px 14px 12px;}
-  .lv-adj-head{font-size:14.5px;}
-  .lv-adj-body{font-size:13.5px;}
+  .lv-adj-head{font-size:15.5px;}
+  .lv-adj-body{font-size:15px;}
   .lv-adj-body strong{font-size:15.5px;}
-  .lv-adj-tier{font-size:13.5px;}
+  .lv-adj-tier{font-size:15px;}
 }
 /* <strong> 은 환산 기록 한 곳에만 쓴다. 문장 안의 작은 강조는 <b>. */
 .lv-adj-body b{font-weight:900;color:var(--ink);}
@@ -519,7 +519,7 @@
   background: var(--surface);
 }
 .lv-gear-h {
-  font-size: 13px; font-weight: 700; color: var(--ink-faint);
+  font-size: 14.5px; font-weight: 700; color: var(--ink-faint);
   margin: 0 0 8px; letter-spacing: .01em;
 }
 .lv-gear-head {
@@ -531,24 +531,24 @@
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
   padding: 11px 13px; border-radius: 8px; background: var(--tint-1);
 }
-.lv-gear-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+.lv-gear-name { font-size: 15px; font-weight: 700; color: var(--ink); }
 .lv-gear-grade {
-  font-size: 11px; font-weight: 900; padding: 2px 7px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 900; padding: 2px 7px; border-radius: 999px;
   color: var(--on-accent); background: var(--ink-faint);
 }
 .lv-g-A { background: var(--trail); }
 .lv-g-B { background: var(--forecast); }
 .lv-g-C { background: var(--warn-ink); color: var(--bg); }
 .lv-g-D { background: var(--ink-faint); }
-.lv-gear-cut { font-size: 13.5px; color: var(--ink-soft); margin-left: auto; }
+.lv-gear-cut { font-size: 15px; color: var(--ink-soft); margin-left: auto; }
 .lv-gear-why {
-  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin: 11px 0 0;
+  font-size: 15px; line-height: 1.8; color: var(--ink-soft); margin: 11px 0 0;
 }
 .lv-gear-why b { color: var(--ink); }
 .lv-gear-note {
-  font-size: 12px; line-height: 1.75; color: var(--ink-faint); margin: 9px 0 0;
+  font-size: 13.5px; line-height: 1.75; color: var(--ink-faint); margin: 9px 0 0;
 }
-.lv-gear-links { font-size: 13px; line-height: 1.9; margin: 12px 0 0; }
+.lv-gear-links { font-size: 14.5px; line-height: 1.9; margin: 12px 0 0; }
 .lv-gear-links a {
   color: var(--ink); text-decoration: none;
   border-bottom: 1px dashed var(--ink-faint);

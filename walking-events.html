@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://calrank.vercel.app/walking-events.html">
 <link rel="stylesheet" href="style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "걷기 대회 일정 | 전국 워킹·둘레길 걷기 행사 - calrank", "description": "기록 경쟁 없이 완주가 목표인 국내 걷기 대회와 워킹 행사를 모았습니다. 마라톤 대회의 걷기 부문까지 함께 담았습니다. 앞으로 예정된 대회 4개와 지난 대회 23개의 일정, 장소, 코스 거리를 확인하세요.", "url": "https://calrank.vercel.app/walking-events.html", "dateModified": "2026-11-11", "inLanguage": "ko"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "걷기 대회 일정 | 전국 워킹·둘레길 걷기 행사 - calrank", "description": "기록 경쟁 없이 완주가 목표인 국내 걷기 대회와 워킹 행사를 모았습니다. 마라톤 대회의 걷기 부문까지 함께 담았습니다. 앞으로 예정된 대회 4개와 지난 대회 23개의 일정, 장소, 코스 거리를 확인하세요.", "url": "https://calrank.vercel.app/walking-events.html", "dateModified": "2026-11-12", "inLanguage": "ko"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "걷기 대회는 마라톤 대회와 어떻게 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "순위를 가리지 않고 제한 시간 안에 완주하는 데 초점을 둡니다. 다만 국내에서는 마라톤 대회가 5km 안팎의 걷기 부문을 함께 여는 경우가 많아, 이 목록에는 그런 대회도 들어 있습니다."}}, {"@type": "Question", "name": "달리기를 못 해도 참가할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "걷기 부문은 보통 연령 제한 없이 누구나 신청할 수 있습니다. 다만 제한 시간이 있는 대회가 있으므로 신청 전에 공식 안내를 확인하세요."}}, {"@type": "Question", "name": "가족이 함께 참가할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "걷기 부문은 가족 단위 참가를 받는 대회가 많습니다. 어린이 참가 가능 여부와 보호자 동반 규정은 대회마다 다릅니다."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"}, {"@type": "ListItem", "position": 2, "name": "걷기 대회 일정"}]}</script>
 <style>
@@ -40,17 +40,17 @@
     border:1px solid var(--border,var(--border));border-radius:8px;margin:18px 0;}
   .tp-open{border-color:var(--accent);}
   .tp-scroll{overflow-x:auto;}
-  .tp-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .tp-table{width:100%;border-collapse:collapse;font-size:15px;}
   .tp-table th,.tp-table td{padding:10px 8px;text-align:left;
     border-bottom:1px solid var(--tint-2);vertical-align:top;}
   .tp-table th{color:var(--ink);background:var(--tint-1);white-space:nowrap;}
   .tp-date{color:var(--accent-ink);font-weight:700;white-space:nowrap;}
-  .tp-note{color:var(--ink-soft);font-size:13px;}
+  .tp-note{color:var(--ink-soft);font-size:14.5px;}
   .tp-table a{color:var(--ink);}
   .tp-next{padding:16px 18px;background:var(--surface,var(--surface));border-radius:10px;
-    margin-top:12px;line-height:1.9;font-size:14.5px;}
+    margin-top:12px;line-height:1.9;font-size:15.5px;}
   .tp-next a{color:var(--accent-ink);font-weight:700;}
-  .tp-disclaimer{font-size:12.5px !important;color:var(--ink-faint) !important;margin-top:32px;}
+  .tp-disclaimer{font-size:13.5px !important;color:var(--ink-faint) !important;margin-top:32px;}
 </style>
 </head>
 <body>
@@ -58,10 +58,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link active">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -84,7 +88,7 @@
 <span class="cc-txt"><b>기록증 사진 한 장으로 내 러닝 등급 확인</b><span>완주 시간을 읽어 나이·성별을 보정한 등급과 다음 목표까지 남은 시간을 알려드립니다. 로그인도 타이핑도 필요 없습니다.</span></span>
 <span class="cc-go">바로 확인 →</span>
 </a>
-<p class="tp-disclaimer">이 페이지는 대회 주최측이 공개한 일정을 모아 자동으로 만들어집니다. 일정과 접수 조건은 변경될 수 있으니 참가 전 공식 안내를 다시 확인해 주세요. 마지막 갱신 기준일: 2026년 11월 11일</p>
+<p class="tp-disclaimer">이 페이지는 대회 주최측이 공개한 일정을 모아 자동으로 만들어집니다. 일정과 접수 조건은 변경될 수 있으니 참가 전 공식 안내를 다시 확인해 주세요. 마지막 갱신 기준일: 2026년 11월 12일</p>
 </main>
 <footer class="site-footer">
 <div class="wrap">

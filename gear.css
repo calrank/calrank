@@ -24,24 +24,24 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 }
 .gi-intro {
   max-width: 640px; margin: 20px auto 0;
-  font-size: 14.5px; line-height: 1.85; color: var(--ink-soft);
+  font-size: 15.5px; line-height: 1.85; color: var(--ink-soft);
 }
 .gi-intro p + p { margin-top: 12px; }
 .gi-intro b { color: var(--ink); }
 
 .gi-back { max-width: 640px; margin: 34px auto 0; }
 .gi-back a {
-  font-size: 13.5px; color: var(--ink-faint); text-decoration: none;
+  font-size: 15px; color: var(--ink-faint); text-decoration: none;
 }
 .gi-back a:hover { color: var(--accent-ink); }
 
 .gi-sec { max-width: 640px; margin: 46px auto 0; }
 .gi-sec h2 { font-size: 18px; margin-bottom: 10px; }
-.gi-sec p { font-size: 14.5px; line-height: 1.85; color: var(--ink-soft); }
+.gi-sec p { font-size: 15.5px; line-height: 1.85; color: var(--ink-soft); }
 .gi-sec p + p { margin-top: 11px; }
 .gi-sec b { color: var(--ink); }
 
-.gi-links { max-width: 640px; margin: 34px auto 0; font-size: 13.5px; line-height: 2; }
+.gi-links { max-width: 640px; margin: 34px auto 0; font-size: 15px; line-height: 2; }
 .gi-links a {
   color: var(--ink); text-decoration: none;
   border-bottom: 1px dashed var(--ink-faint);
@@ -51,7 +51,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 /* 빵부스러기 — 생성기가 찍는 정적 페이지에만 있다. 검색 결과에서 바로
    들어온 사람이 "여기가 어디의 무엇인지"를 첫 줄에서 알게 한다. */
 .gi-crumb {
-  max-width: 760px; margin: 0 auto 4px; font-size: 12.5px; color: var(--ink-faint);
+  max-width: 760px; margin: 0 auto 4px; font-size: 13.5px; color: var(--ink-faint);
 }
 .gi-crumb a { color: var(--ink-faint); text-decoration: none; }
 .gi-crumb a:hover { color: var(--accent-ink); }
@@ -67,16 +67,16 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
 }
 .gh-body {
-  font-size: 11.5px; font-weight: 400; color: var(--ink-faint);
+  font-size: 13px; font-weight: 400; color: var(--ink-faint);
   letter-spacing: .01em;
 }
 .gh-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .gh-col h3 {
-  font-size: 12.5px; color: var(--ink-faint); font-weight: 700;
+  font-size: 13.5px; color: var(--ink-faint); font-weight: 700;
   margin: 0 0 9px; padding-bottom: 7px; border-bottom: 1px solid var(--line);
   display: flex; flex-direction: column; gap: 2px;
 }
-.gh-col h3 small { font-size: 11px; font-weight: 400; color: var(--ink-faint); }
+.gh-col h3 small { font-size: 12.5px; font-weight: 400; color: var(--ink-faint); }
 
 .gh-item {
   display: block; text-decoration: none; padding: 10px 11px;
@@ -84,18 +84,18 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   background: var(--tint-1);
 }
 .gh-item:hover { border-color: var(--accent); background: var(--tint-2); }
-.gh-item b { display: block; font-size: 14px; color: var(--ink); }
+.gh-item b { display: block; font-size: 15px; color: var(--ink); }
 .gh-q {
-  display: block; font-size: 12px; line-height: 1.6;
+  display: block; font-size: 13.5px; line-height: 1.6;
   color: var(--ink-soft); margin-top: 4px;
 }
 .gh-tag {
-  display: inline-block; font-size: 10.5px; font-weight: 700;
+  display: inline-block; font-size: 12px; font-weight: 700;
   color: var(--on-accent); background: var(--accent-fill);
   padding: 1px 6px; border-radius: 999px; margin-top: 5px;
 }
 .gh-empty {
-  font-size: 12px; line-height: 1.7; color: var(--ink-faint);
+  font-size: 13.5px; line-height: 1.7; color: var(--ink-faint);
   padding: 10px 2px; margin: 0;
 }
 
@@ -106,7 +106,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   align-items: center; border: 1px solid var(--border); border-radius: 12px;
   padding: 16px 18px; background: var(--surface);
 }
-.gi-form label { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.gi-form label { font-size: 15px; font-weight: 700; color: var(--ink); }
 .gf-unit { font-weight: 400; color: var(--ink-faint); }
 .gi-form input, .gi-form select {
   width: 100%; font: inherit; font-size: 15px; padding: 9px 11px;
@@ -120,7 +120,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 /* ── 규정 판정 결과 ─────────────────────────────────────────── */
 .gi-result { max-width: 640px; margin: 20px auto 0; }
 .gr-hint, .ge-cond {
-  font-size: 13.5px; line-height: 1.8; color: var(--ink-faint);
+  font-size: 15px; line-height: 1.8; color: var(--ink-faint);
   text-align: center; margin: 0;
 }
 .ge-cond { color: var(--ink-soft); }
@@ -133,7 +133,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   padding: 18px 20px; background: var(--surface);
 }
 .gr-word { font-size: 28px; font-weight: 900; letter-spacing: -.01em; }
-.gr-input { font-size: 14px; color: var(--ink-faint); }
+.gr-input { font-size: 15px; color: var(--ink-faint); }
 .gr-ok  { border-color: var(--trail); }
 .gr-ok  .gr-word { color: var(--trail); }
 .gr-no  { border-color: var(--accent); }
@@ -143,7 +143,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gr-un  .gr-word { color: var(--ink-faint); }
 
 .gr-band {
-  font-size: 14px; line-height: 1.8; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.8; color: var(--ink-soft);
   margin: 13px 0 0; padding: 12px 14px;
   border-left: 3px solid var(--warn-ink); background: var(--tint-1);
 }
@@ -155,22 +155,22 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   padding: 11px 13px; border: 1px solid var(--line);
   border-radius: 8px; margin-bottom: 7px; background: var(--surface);
 }
-.gr-scope { font-size: 13.5px; font-weight: 700; color: var(--ink); }
-.gr-mark { font-size: 13px; font-weight: 700; text-align: right; }
+.gr-scope { font-size: 15px; font-weight: 700; color: var(--ink); }
+.gr-mark { font-size: 14.5px; font-weight: 700; text-align: right; }
 .gr-rows li.gr-ok  .gr-mark { color: var(--trail); }
 .gr-rows li.gr-no  .gr-mark { color: var(--accent-ink); }
 .gr-rows li.gr-un  .gr-mark { color: var(--ink-faint); }
 .gr-rows li.gr-no  { border-color: var(--accent); }
 .gr-lim, .gr-free {
-  grid-column: 1 / -1; font-size: 12.5px; color: var(--ink-soft);
+  grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-soft);
 }
 .gr-lim em { font-style: normal; color: var(--accent-ink); font-weight: 700; }
 .gr-rnote {
-  grid-column: 1 / -1; font-size: 12px; line-height: 1.7;
+  grid-column: 1 / -1; font-size: 13.5px; line-height: 1.7;
   color: var(--ink-faint); margin-top: 3px;
 }
 .gr-mixnote {
-  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.8; color: var(--ink-soft);
   margin: 12px 0 0; padding: 12px 14px;
   border-left: 3px solid var(--warn-ink); background: var(--tint-1);
 }
@@ -183,12 +183,12 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 }
 .gi-meta h2:first-child { margin-top: 0; }
 .gm-surprise {
-  font-size: 14.5px; line-height: 1.9; color: var(--ink-soft);
+  font-size: 15.5px; line-height: 1.9; color: var(--ink-soft);
   margin: 0 0 4px; padding: 14px 16px;
   border-left: 3px solid var(--accent); background: var(--tint-1);
   border-radius: 0 8px 8px 0;
 }
-.gm-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.gm-table { width: 100%; border-collapse: collapse; font-size: 15px; }
 .gm-table th, .gm-table td {
   text-align: left; vertical-align: top; padding: 10px 12px 10px 0;
   border-bottom: 1px solid var(--line);
@@ -196,14 +196,14 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gm-table th { font-weight: 700; color: var(--ink); width: 42%; }
 .gm-table td { color: var(--ink-soft); }
 .gm-note {
-  display: block; font-size: 12px; line-height: 1.7;
+  display: block; font-size: 13.5px; line-height: 1.7;
   color: var(--ink-faint); margin-top: 4px;
 }
 .gm-measure, .gm-body, .gm-src {
-  font-size: 13.5px; line-height: 1.85; color: var(--ink-soft); margin: 0;
+  font-size: 15px; line-height: 1.85; color: var(--ink-soft); margin: 0;
 }
 .gm-body b { color: var(--ink); }
-.gm-src { font-size: 12.5px; color: var(--ink-faint); margin-top: 24px; }
+.gm-src { font-size: 13.5px; color: var(--ink-faint); margin-top: 24px; }
 .gm-src a { color: var(--accent-ink); }
 
 /* ── 효과 판정 ─────────────────────────────────────────────── */
@@ -215,23 +215,23 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   font-size: 15px; margin: 0 0 10px;
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px;
 }
-.ge-detail { font-size: 12px; font-weight: 400; color: var(--ink-faint); }
+.ge-detail { font-size: 13.5px; font-weight: 400; color: var(--ink-faint); }
 .ge-big { font-size: 15px; line-height: 1.7; margin: 0; color: var(--ink-soft); }
 .ge-big strong { font-size: 22px; font-weight: 900; color: var(--ink); }
 .ge-ns {
-  display: block; font-style: normal; font-size: 12px; line-height: 1.7;
+  display: block; font-style: normal; font-size: 13.5px; line-height: 1.7;
   color: var(--warn-ink); font-weight: 700; margin-top: 5px;
 }
 .ge-time, .ge-grade-move, .ge-value {
-  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin: 9px 0 0;
+  font-size: 15px; line-height: 1.8; color: var(--ink-soft); margin: 9px 0 0;
 }
 .ge-time strong, .ge-grade-move b, .ge-value b { color: var(--ink); }
 .ge-note, .ge-none {
-  font-size: 12px; line-height: 1.75; color: var(--ink-faint); margin: 10px 0 0;
+  font-size: 13.5px; line-height: 1.75; color: var(--ink-faint); margin: 10px 0 0;
 }
 .ge-empty { border-style: dashed; }
 .ge-gap {
-  font-size: 13.5px; line-height: 1.85; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.85; color: var(--ink-soft);
   margin: 0; padding: 13px 15px;
   border-left: 3px solid var(--warn-ink); background: var(--tint-1);
 }
@@ -241,7 +241,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line);
 }
 .ge-grade {
-  display: inline-block; font-size: 11.5px; font-weight: 900;
+  display: inline-block; font-size: 13px; font-weight: 900;
   padding: 2px 8px; border-radius: 999px; margin-right: 7px;
   color: var(--on-accent); background: var(--ink-faint);
 }
@@ -249,9 +249,9 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .ge-B { background: var(--forecast); }
 .ge-C { background: var(--warn-ink); color: var(--bg); }
 .ge-D { background: var(--ink-faint); }
-.ge-meta { font-size: 12px; color: var(--ink-soft); }
+.ge-meta { font-size: 13.5px; color: var(--ink-soft); }
 .ge-cite {
-  font-size: 11.5px; line-height: 1.7; color: var(--ink-faint); margin: 9px 0 0;
+  font-size: 13px; line-height: 1.7; color: var(--ink-faint); margin: 9px 0 0;
 }
 .ge-cite a { color: var(--accent-ink); white-space: nowrap; }
 
@@ -262,8 +262,8 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gc-ytick, .gc-xtick, .gc-badge, .gc-melabel {
   font-family: var(--font-body); fill: var(--ink-faint);
 }
-.gc-ytick { font-size: 10px; text-anchor: end; }
-.gc-xtick { font-size: 10px; text-anchor: start; }
+.gc-ytick { font-size: 12px; text-anchor: end; }
+.gc-xtick { font-size: 12px; text-anchor: start; }
 .gc-xtick.gc-end { text-anchor: end; }
 .gc-badge { font-size: 11px; font-weight: 900; text-anchor: middle; fill: var(--ink-soft); }
 .gc-melabel { font-size: 10.5px; font-weight: 700; text-anchor: middle; fill: var(--accent-ink); }
@@ -275,7 +275,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gc-ns { fill-opacity: .22; stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 2; }
 .gc-me { stroke: var(--accent); stroke-width: 2; }
 .gc-cap {
-  font-size: 11.5px; line-height: 1.7; color: var(--ink-faint); margin-top: 8px;
+  font-size: 13px; line-height: 1.7; color: var(--ink-faint); margin-top: 8px;
 }
 
 /* ── 모바일 ────────────────────────────────────────────────── */
@@ -297,7 +297,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
    바로 아래 본문에 있으니, 여기서는 등급만 달고 그쪽을 가리킨다. */
 .ge-mini-src {
   margin: 12px 0 0; padding-top: 11px; border-top: 1px solid var(--line);
-  font-size: 12px; color: var(--ink-faint);
+  font-size: 13.5px; color: var(--ink-faint);
 }
 
 /* 주의사항 칸 — 효과가 아니라서 숫자를 내지 않는다. */
@@ -312,11 +312,11 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   -webkit-overflow-scrolling: touch;
 }
 .gt {
-  width: 100%; border-collapse: collapse; font-size: 13.5px;
+  width: 100%; border-collapse: collapse; font-size: 15px;
   min-width: 460px;
 }
 .gt thead th {
-  text-align: left; font-size: 12px; color: var(--ink-faint);
+  text-align: left; font-size: 13.5px; color: var(--ink-faint);
   font-weight: 700; padding: 0 12px 8px 0;
   border-bottom: 1px solid var(--border); white-space: nowrap;
 }
@@ -332,7 +332,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gt tbody td em { font-style: normal; color: var(--ink-faint); }
 .gt .ge-grade { margin-right: 0; }
 .gt-ns {
-  display: block; font-size: 11px; color: var(--warn-ink);
+  display: block; font-size: 12.5px; color: var(--warn-ink);
   font-weight: 700; margin-top: 3px; white-space: nowrap;
 }
 
@@ -341,16 +341,16 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
      그 칸이 이 표의 요점이다 — 몇 초 줄어드는지보다 등급이 바뀌는지가
      사람들이 알고 싶은 것이다. 속도는 페이스에서 바로 나오는 값이라
      여기서만 접는다. 그러면 나머지가 화면 안에 들어온다. */
-  .gt { font-size: 12.5px; min-width: 0; }
+  .gt { font-size: 13.5px; min-width: 0; }
   .gt thead th, .gt tbody th, .gt tbody td { padding-right: 8px; }
   .gt thead th:nth-child(3), .gt tbody td:nth-child(3) { display: none; }
-  .gt-ns { font-size: 10.5px; }
+  .gt-ns { font-size: 12px; }
 }
 
 /* 표 페이지로 보내는 줄. 판정 머리 가까이 둔다. */
 .gi-tablinks {
   margin: 0 0 16px; padding: 11px 14px; border-radius: 8px;
-  background: var(--tint-1); font-size: 13.5px; line-height: 1.9;
+  background: var(--tint-1); font-size: 15px; line-height: 1.9;
   color: var(--ink-faint);
 }
 .gi-tablinks a {
@@ -361,12 +361,12 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 
 .gi-hero-img { margin: 0 0 20px; }
 .gi-hero-img img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: contain; border-radius: 12px; background: var(--tint-1); }
-.gi-hero-img figcaption { margin-top: 6px; font-size: 12px; color: var(--ink-faint); }
+.gi-hero-img figcaption { margin-top: 6px; font-size: 13.5px; color: var(--ink-faint); }
 .gi-hero-img figcaption a { color: inherit; }
 
 /* 자주 묻는 질문 · 규정과 효과 연결 */
 .gi-faq h3 { font-size: 15px; margin: 18px 0 4px; color: var(--ink); }
 .gi-pair ul { margin: 8px 0 0; padding-left: 18px; }
-.gi-pair li { font-size: 14.5px; line-height: 1.9; }
+.gi-pair li { font-size: 15.5px; line-height: 1.9; }
 .gi-pair a { color: var(--ink); border-bottom: 1px dashed var(--ink-faint); text-decoration: none; }
 .gi-pair a:hover { color: var(--accent-ink); border-color: var(--accent); }

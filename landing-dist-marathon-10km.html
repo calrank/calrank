@@ -30,15 +30,15 @@
   .landing-title { font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }
   .landing-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; }
   .landing-list { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
-  .landing-row { display: flex; gap: 14px; padding: 12px 14px; background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 6px; text-decoration: none; color: var(--ink); font-size: 14px; align-items: center; }
+  .landing-row { display: flex; gap: 14px; padding: 12px 14px; background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 6px; text-decoration: none; color: var(--ink); font-size: 15px; align-items: center; }
   .landing-row:hover { border-color: var(--accent); }
   .landing-date { color:var(--accent-ink); font-weight: 700; flex-shrink: 0; width: 80px; }
   .landing-name { flex: 1; }
-  .landing-region { color: var(--ink-faint, var(--ink-faint)); font-size: 12px; flex-shrink: 0; }
+  .landing-region { color: var(--ink-faint, var(--ink-faint)); font-size: 13.5px; flex-shrink: 0; }
   .landing-h2 { font-size: 17px; margin: 34px 0 10px; }
-  .landing-note { font-size: 12.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }
+  .landing-note { font-size: 13.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }
   .landing-facts { margin: 0 0 6px; padding-left: 18px; }
-  .landing-facts li { font-size: 13.5px; line-height: 1.9; color: var(--ink-soft); }
+  .landing-facts li { font-size: 15px; line-height: 1.9; color: var(--ink-soft); }
   .landing-cta { margin-top: 32px; padding: 20px; background: var(--surface, var(--surface)); border-radius: 10px; text-align: center; }
   .landing-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
 </style>
@@ -49,10 +49,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link active">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -119,7 +123,7 @@
 <a href="e/rr-2026-%EC%B2%9C%EC%95%88-%ED%9D%AC%EB%A7%9D%EB%82%98%EB%88%94-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29.html" class="landing-row"><span class="landing-date">2026-11-29</span><span class="landing-name">2026 천안 희망나눔 마라톤</span><span class="landing-region">충남</span></a>
 <a href="e/rr-2026-%EC%9B%90%EC%A3%BC-%EC%B9%98%EC%95%85%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29.html" class="landing-row"><span class="landing-date">2026-11-29</span><span class="landing-name">2026 원주 치악마라톤</span><span class="landing-region">강원</span></a>
 <a href="e/rr-2026-%EC%84%9C%EC%9A%B8%EC%82%AC%EB%9E%91%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-29.html" class="landing-row"><span class="landing-date">2026-11-29</span><span class="landing-name">2026 서울사랑마라톤</span><span class="landing-region">서울</span></a>
-<a href="e/rr-%EC%A0%9C9%ED%9A%8C-%EA%B4%91%EC%A7%84%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-11-29.html" class="landing-row"><span class="landing-date">2026-11-29</span><span class="landing-name">제9회 광진구청장배 육상대회</span><span class="landing-region">전국</span></a>
+<a href="e/rr-%EC%A0%9C9%ED%9A%8C-%EA%B4%91%EC%A7%84%EA%B5%AC%EC%B2%AD%EC%9E%A5%EB%B0%B0-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-11-29.html" class="landing-row"><span class="landing-date">2026-11-29</span><span class="landing-name">제9회 광진구청장배 육상대회</span><span class="landing-region">서울</span></a>
 <a href="e/rm-%ED%95%98%EB%82%A8-%EB%AF%B8%EC%82%AC-%ED%98%B8%EC%88%98-%EC%97%90%EB%84%88%EC%A7%80%EB%9F%B0-2026-12-05.html" class="landing-row"><span class="landing-date">2026-12-05</span><span class="landing-name">하남 미사 호수 에너지런</span><span class="landing-region">경기</span></a>
 <a href="e/rr-%EC%A0%9C23%ED%9A%8C-%ED%95%9C%EA%B0%95%EC%8B%9C%EB%AF%BC%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-05.html" class="landing-row"><span class="landing-date">2026-12-05</span><span class="landing-name">제23회 한강시민마라톤</span><span class="landing-region">서울</span></a>
 </div>
@@ -189,7 +193,7 @@
 </div><h2 class="landing-h2">10km 마라톤 대회, 이런 모습입니다</h2>
 <ul class="landing-facts">
 <li>가장 많이 열리는 달은 10월 106개 · 11월 102개 · 4월 58개 입니다. 올해 508개 기준입니다.</li>
-<li>지역으로는 서울 167개 · 경기 65개 · 경북 32개 · 인천 27개 순으로 많습니다.</li>
+<li>지역으로는 서울 168개 · 경기 66개 · 경북 32개 · 인천 27개 순으로 많습니다.</li>
 <li>다음 대회는 2026-11-14 제2회 안양천 단풍길 마라톤 입니다.</li>
 </ul>
 <p class="landing-note">저희가 모은 10km 마라톤 대회 508개를 센 숫자입니다. 공개되지 않은 대회는 빠져 있을 수 있습니다.</p>
@@ -197,7 +201,7 @@
 <p>다른 거리·지역 조건으로도 찾아보고 싶다면?</p>
 <a href="index.html?sport=marathon">캘린더에서 필터링해서 보기 →</a>
 </div>
-<p style="margin-top:16px;"><a href="distances.html" style="color:var(--ink-soft); font-size:13px;">← 거리별 대회 전체 보기</a> · <a href="regions.html" style="color:var(--ink-soft); font-size:13px;">지역별로 보기 →</a></p>
+<p style="margin-top:16px;"><a href="distances.html" style="color:var(--ink-soft); font-size:14.5px;">← 거리별 대회 전체 보기</a> · <a href="regions.html" style="color:var(--ink-soft); font-size:14.5px;">지역별로 보기 →</a></p>
 </main>
 <footer class="site-footer">
 <div class="wrap">

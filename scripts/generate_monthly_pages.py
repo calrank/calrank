@@ -136,17 +136,17 @@ def build_body(sport: str, label: str, events) -> str:
 CSS = """
 <style id="moStatic">
   .mo-h2{font-size:17px;margin:30px 0 10px;}
-  .mo-note{font-size:13px;line-height:1.8;color:var(--ink-faint);margin:0 0 12px;}
+  .mo-note{font-size:14.5px;line-height:1.8;color:var(--ink-faint);margin:0 0 12px;}
   .mo-list{display:flex;flex-direction:column;gap:1px;background:var(--border);
            border:1px solid var(--border);border-radius:8px;overflow:hidden;}
   .mo-row{display:block;padding:11px 13px;background:var(--surface);text-decoration:none;}
   .mo-row:hover{background:var(--tint-1);}
-  .mo-date{display:inline-block;min-width:62px;font-size:12.5px;font-weight:700;
+  .mo-date{display:inline-block;min-width:62px;font-size:13.5px;font-weight:700;
            color:var(--accent-ink);}
-  .mo-name{font-size:13.5px;font-weight:700;color:var(--ink);}
-  .mo-meta{display:block;margin-top:3px;font-size:12px;color:var(--ink-faint);}
+  .mo-name{font-size:15px;font-weight:700;color:var(--ink);}
+  .mo-meta{display:block;margin-top:3px;font-size:13.5px;color:var(--ink-faint);}
   .mo-chart{display:flex;flex-direction:column;gap:4px;margin:0 0 10px;}
-  .mo-bar{display:flex;align-items:center;gap:8px;font-size:12px;}
+  .mo-bar{display:flex;align-items:center;gap:8px;font-size:13.5px;}
   .mo-bar-m{width:30px;color:var(--ink-faint);text-align:right;flex:none;}
   .mo-bar-f{height:12px;background:var(--accent);border-radius:2px;}
   .mo-bar-n{color:var(--ink-soft);}

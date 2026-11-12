@@ -24,7 +24,7 @@
   .column-meta { font-size: 13px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 12px; }
   .column-title { font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }
   .tool-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; }
-  .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 14px 18px; margin: 0 0 24px; font-size: 12px; line-height: 1.7; color: var(--ink-soft); }
+  .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 14px 18px; margin: 0 0 24px; font-size: 13.5px; line-height: 1.7; color: var(--ink-soft); }
 
   .progress-bar-wrap { position: sticky; top: 0; z-index: 10; background: var(--bg); padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border, var(--border)); }
   .progress-label { display:flex; justify-content:space-between; font-size:13px; color:var(--ink); margin-bottom:8px; font-weight:700; }
@@ -42,11 +42,11 @@
   .check-item.checked { opacity: 0.5; }
   .check-item.checked .check-text { text-decoration: line-through; }
   .check-text { font-size: 14px; color: var(--ink); line-height: 1.6; }
-  .check-tip { font-size: 12px; color: var(--ink-faint, var(--ink-faint)); margin-top: 2px; }
+  .check-tip { font-size: 13.5px; color: var(--ink-faint, var(--ink-faint)); margin-top: 2px; }
   .weather-only { display: none; }
   .weather-only.show { display: flex; }
 
-  .reset-btn { font-size: 12px; color: var(--ink-faint,var(--ink-faint)); background:none; border:none; text-decoration: underline; cursor: pointer; margin-top: 8px; }
+  .reset-btn { font-size: 13.5px; color: var(--ink-faint,var(--ink-faint)); background:none; border:none; text-decoration: underline; cursor: pointer; margin-top: 8px; }
   .column-cta { margin-top: 32px; padding: 22px; background: var(--surface, var(--surface)); border-radius: 10px; text-align: center; }
   .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
 </style>
@@ -59,10 +59,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link active">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -105,19 +109,19 @@
 </div>
 
 <div class="checklist-section">
-<h2 style="display:flex; align-items:center; gap:8px;">☀️ 더운 날씨 준비물 <span style="font-size:11px; color:var(--ink-faint,#6A6A6A); font-weight:400;">(선택 시 표시)</span></h2>
+<h2 style="display:flex; align-items:center; gap:8px;">☀️ 더운 날씨 준비물 <span style="font-size:12.5px; color:var(--ink-faint,#6A6A6A); font-weight:400;">(선택 시 표시)</span></h2>
 <label class="check-item weather-only" data-weather-item="hot"><input type="checkbox" data-key="hot-cap"><span><span class="check-text">밝은색 러닝모자·자외선 차단제</span><br><span class="check-tip">기온이 가장 낮은 이른 아침·해질녘 시간대를 고려해 배번 수령 시간을 조정하세요.</span></span></label>
 <label class="check-item weather-only" data-weather-item="hot"><input type="checkbox" data-key="hot-electrolyte"><span><span class="check-text">전해질 음료</span><br><span class="check-tip">다리 경련이 반복되면 전해질 부족 신호이므로 즉시 멈춰야 합니다.</span></span></label>
 </div>
 
 <div class="checklist-section">
-<h2 style="display:flex; align-items:center; gap:8px;">❄️ 추운 날씨 준비물 <span style="font-size:11px; color:var(--ink-faint,#6A6A6A); font-weight:400;">(선택 시 표시)</span></h2>
+<h2 style="display:flex; align-items:center; gap:8px;">❄️ 추운 날씨 준비물 <span style="font-size:12.5px; color:var(--ink-faint,#6A6A6A); font-weight:400;">(선택 시 표시)</span></h2>
 <label class="check-item weather-only" data-weather-item="cold"><input type="checkbox" data-key="cold-layer"><span><span class="check-text">겹쳐 입을 수 있는 방한 레이어</span><br><span class="check-tip">현재 온도에 10도를 더한 체감으로 옷을 준비하는 것이 요령입니다.</span></span></label>
 <label class="check-item weather-only" data-weather-item="cold"><input type="checkbox" data-key="cold-gloves"><span><span class="check-text">장갑·넥워머(출발 전 버릴 수 있는 것)</span><br><span class="check-tip">출발 대기 중 체온 유지용, 몸이 풀리면 버려도 되는 여벌로 준비하세요.</span></span></label>
 </div>
 
 <div class="checklist-section">
-<h2 style="display:flex; align-items:center; gap:8px;">🌧️ 비 예보 준비물 <span style="font-size:11px; color:var(--ink-faint,#6A6A6A); font-weight:400;">(선택 시 표시)</span></h2>
+<h2 style="display:flex; align-items:center; gap:8px;">🌧️ 비 예보 준비물 <span style="font-size:12.5px; color:var(--ink-faint,#6A6A6A); font-weight:400;">(선택 시 표시)</span></h2>
 <label class="check-item weather-only" data-weather-item="rain"><input type="checkbox" data-key="rain-shoes"><span><span class="check-text">방수 또는 배수 잘 되는 메시 소재 신발</span><br><span class="check-tip">빗길에서는 신발-발 마찰이 평소와 달라 물집이 더 쉽게 생깁니다.</span></span></label>
 <label class="check-item weather-only" data-weather-item="rain"><input type="checkbox" data-key="rain-poncho"><span><span class="check-text">출발 대기용 우비·비닐 판초</span><br><span class="check-tip">우천 러닝의 핵심 위험은 지면 마찰력·체온 손실·시야 저하 3가지입니다.</span></span></label>
 <label class="check-item weather-only" data-weather-item="rain"><input type="checkbox" data-key="rain-bag"><span><span class="check-text">방수 지퍼백(휴대폰·배번 보관용)</span></span></label>

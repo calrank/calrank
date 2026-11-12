@@ -24,7 +24,7 @@
   .column-meta { font-size: 13px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 12px; letter-spacing: 0.02em; }
   .column-title { font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.32; margin-bottom: 12px; }
   .tool-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 32px; line-height: 1.6; }
-  .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 14px 18px; margin: 0 0 32px; font-size: 12px; line-height: 1.7; color: var(--ink-soft); }
+  .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 14px 18px; margin: 0 0 32px; font-size: 13.5px; line-height: 1.7; color: var(--ink-soft); }
 
   .situation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
   @media (max-width: 520px) { .situation-grid { grid-template-columns: 1fr; } }
@@ -34,7 +34,7 @@
   .situation-card.active { border-color: var(--accent); background: linear-gradient(160deg, rgba(255,107,74,0.10), rgba(255,107,74,0.02)); }
   .situation-icon { font-size: 26px; margin-bottom: 10px; display: block; }
   .situation-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
-  .situation-desc { font-size: 12.5px; color: var(--ink-faint, var(--ink-faint)); line-height: 1.5; }
+  .situation-desc { font-size: 13.5px; color: var(--ink-faint, var(--ink-faint)); line-height: 1.5; }
 
   .diagnosis-panel { margin-top: 24px; padding: 26px 24px; background: var(--surface, var(--surface)); border: 1px solid var(--accent); border-radius: 14px; display: none; animation: fadeIn 0.35s ease; }
   .diagnosis-panel.show { display: block; }
@@ -46,16 +46,16 @@
   .step-list { counter-reset: step; }
   .step-item { position: relative; padding: 4px 0 20px 34px; }
   .step-item:last-child { padding-bottom: 4px; }
-  .step-item::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .step-item::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 13.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
   .step-item::after { content: ""; position: absolute; left: 11px; top: 28px; bottom: 0; width: 1px; background: var(--tint-3); }
   .step-item:last-child::after { display: none; }
   .step-title { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
   .step-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
 
-  .sport-note { margin-top: 18px; padding: 12px 14px; background: var(--tint-1); border-radius: 8px; font-size: 12.5px; color: var(--ink-faint, var(--ink-faint)); line-height: 1.6; }
-  .diagnosis-source { margin-top: 16px; font-size: 11.5px; color: var(--ink-faint, var(--ink-faint)); }
+  .sport-note { margin-top: 18px; padding: 12px 14px; background: var(--tint-1); border-radius: 8px; font-size: 13.5px; color: var(--ink-faint, var(--ink-faint)); line-height: 1.6; }
+  .diagnosis-source { margin-top: 16px; font-size: 13px; color: var(--ink-faint, var(--ink-faint)); }
 
-  .reset-link { display: inline-block; margin-top: 14px; font-size: 12.5px; color: var(--ink-soft, var(--ink-soft)); text-decoration: none; border-bottom: 1px dashed var(--ink-faint, var(--ink-faint)); cursor: pointer; }
+  .reset-link { display: inline-block; margin-top: 14px; font-size: 13.5px; color: var(--ink-soft, var(--ink-soft)); text-decoration: none; border-bottom: 1px dashed var(--ink-faint, var(--ink-faint)); cursor: pointer; }
   .column-cta { margin-top: 36px; padding: 22px; background: var(--surface, var(--surface)); border-radius: 10px; text-align: center; }
   .column-cta a { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }
 </style>
@@ -68,10 +68,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link active">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>

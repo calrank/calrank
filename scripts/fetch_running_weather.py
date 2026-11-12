@@ -246,25 +246,25 @@ def build_page(data) -> str:
 <style>
   .rw-wrap{{max-width:760px;margin:0 auto;padding:44px 20px 80px;}}
   .rw-title{{font-family:var(--font-display);font-size:clamp(23px,3.4vw,32px);line-height:1.3;margin-bottom:12px;}}
-  .rw-lead{{font-size:14.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 6px;}}
-  .rw-when{{font-size:12.5px;color:var(--ink-faint);margin:0 0 26px;}}
+  .rw-lead{{font-size:15.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 6px;}}
+  .rw-when{{font-size:13.5px;color:var(--ink-faint);margin:0 0 26px;}}
   .rw-city{{border:1px solid var(--border);border-radius:10px;padding:14px 15px;margin:0 0 10px;background:var(--surface);}}
   .rw-head{{display:flex;align-items:center;gap:9px;margin:0 0 6px;}}
   .rw-head h3{{font-size:15.5px;margin:0;}}
-  .rw-badge{{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid var(--border);color:var(--ink-soft);}}
+  .rw-badge{{font-size:13.5px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid var(--border);color:var(--ink-soft);}}
   .rw-ok{{border-color:var(--accent);color:var(--accent-ink);}}
   .rw-hot,.rw-vhot{{border-color:var(--accent);background:rgba(255,61,26,.10);color:var(--accent-ink);}}
-  .rw-best{{font-size:13.5px;margin:0 0 4px;color:var(--ink);}}
-  .rw-note{{font-size:12.5px;line-height:1.7;color:var(--ink-faint);margin:0 0 10px;}}
+  .rw-best{{font-size:15px;margin:0 0 4px;color:var(--ink);}}
+  .rw-note{{font-size:13.5px;line-height:1.7;color:var(--ink-faint);margin:0 0 10px;}}
   .rw-hours{{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px;}}
   .rw-h{{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;
          min-width:40px;padding:6px 4px;border-radius:7px;background:var(--tint-1);}}
-  .rw-h i{{font-style:normal;font-size:12px;color:var(--ink-faint);}}
-  .rw-h b{{font-size:13px;color:var(--ink);}}
+  .rw-h i{{font-style:normal;font-size:13.5px;color:var(--ink-faint);}}
+  .rw-h b{{font-size:14.5px;color:var(--ink);}}
   .rw-pick{{background:var(--accent);}}
   .rw-pick i,.rw-pick b{{color:var(--on-accent);}}
   .rw-src{{margin-top:30px;padding:16px 18px;border:1px solid var(--border);border-radius:10px;
-           font-size:12.5px;line-height:1.85;color:var(--ink-faint);background:var(--surface);}}
+           font-size:13.5px;line-height:1.85;color:var(--ink-faint);background:var(--surface);}}
   .rw-src b{{color:var(--ink);}}
   @media(max-width:680px){{.rw-wrap{{padding:30px 14px 70px;}}}}
 </style>
@@ -320,7 +320,7 @@ performance.</em> Medicine &amp; Science in Sports &amp; Exercise 39(3):487-493.
 몸 상태와 안전이 먼저입니다.
 </div>
 
-<p style="margin-top:26px;font-size:13.5px;">
+<p style="margin-top:26px;font-size:15px;">
 <a href="level.html" style="color:var(--accent-ink);">내 기록이 어느 등급인지 확인하기 →</a><br>
 <a href="index.html" style="color:var(--accent-ink);">다가오는 대회 일정 보기 →</a></p>
 </main>

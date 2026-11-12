@@ -291,7 +291,7 @@ def decade_links(dist: str) -> str:
     items = " · ".join(
         f'<a href="grade-{key}-{d}s.html" style="color:var(--accent-ink);">{d}대</a>'
         for d in (20, 30, 40, 50, 60, 70))
-    return f'<p style="font-size:14px;line-height:2;">{items}</p>'
+    return f'<p style="font-size:15px;line-height:2;">{items}</p>'
 
 
 def tier_table(dist: str, gender: str) -> str:
@@ -318,7 +318,7 @@ def series_links(current: str) -> str:
             items.append(f'<strong style="color:var(--ink,#fff);">{name}</strong>')
         else:
             items.append(f'<a href="{slug}" style="color:var(--accent,#FF3D1A);">{name}</a>')
-    return ('<p style="font-size:13.5px;line-height:1.9;color:var(--ink-soft,#9A9A9A);'
+    return ('<p style="font-size:15px;line-height:1.9;color:var(--ink-soft,#9A9A9A);'
             'margin:28px 0 0;padding-top:18px;border-top:1px solid var(--border,#2A2A2A);">'
             '다른 거리의 등급표 · ' + " · ".join(items) + "</p>")
 
@@ -374,9 +374,9 @@ GAP_CONCL = {
 WIDGET_CSS = """.tenk-box{margin:18px 0 24px;padding:18px;border:1px solid var(--line);
   border-radius:14px;background:var(--tint-1);}
 .tenk-h{margin:0 0 6px;font-size:17px;font-weight:900;color:var(--ink);}
-.tenk-sub{margin:0 0 14px;font-size:13.5px;line-height:1.7;color:var(--ink-soft);}
+.tenk-sub{margin:0 0 14px;font-size:15px;line-height:1.7;color:var(--ink-soft);}
 .tenk-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
-.tenk-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;
+.tenk-form label{display:flex;flex-direction:column;gap:5px;font-size:13.5px;
   font-weight:700;color:var(--ink-soft);flex:1 1 92px;}
 .tenk-form input,.tenk-form select{padding:10px;min-height:24px;font-size:15px;
   border-radius:8px;border:1px solid var(--line);background:var(--surface);
@@ -384,35 +384,35 @@ WIDGET_CSS = """.tenk-box{margin:18px 0 24px;padding:18px;border:1px solid var(-
 .tenk-go{flex:1 1 100%;padding:12px;min-height:24px;border:0;border-radius:8px;
   background:var(--accent-fill);color:var(--ink);font-size:15px;font-weight:900;
   font-family:inherit;cursor:pointer;}
-.tenk-err{margin:10px 0 0;font-size:13px;color:var(--accent-ink);}
+.tenk-err{margin:10px 0 0;font-size:14.5px;color:var(--accent-ink);}
 .tenk-out{margin:16px 0 0;}
 .tenk-two{display:flex;flex-wrap:wrap;gap:10px;}
 .tenk-card{flex:1 1 150px;padding:13px;border-radius:10px;
   border:1px solid var(--line);background:var(--surface);}
-.tenk-card h3{margin:0 0 3px;font-size:11.5px;font-weight:700;color:var(--ink-faint);letter-spacing:.3px;}
+.tenk-card h3{margin:0 0 3px;font-size:13px;font-weight:700;color:var(--ink-faint);letter-spacing:.3px;}
 .tenk-card b{display:block;font-size:20px;font-weight:900;color:var(--ink);line-height:1.3;}
-.tenk-card span{display:block;margin-top:4px;font-size:12.5px;line-height:1.6;color:var(--ink-soft);}
+.tenk-card span{display:block;margin-top:4px;font-size:13.5px;line-height:1.6;color:var(--ink-soft);}
 .tenk-why{margin:13px 0 0;padding:13px;border-radius:10px;
-  background:var(--tint-2);font-size:13.5px;line-height:1.75;color:var(--ink-soft);}
+  background:var(--tint-2);font-size:15px;line-height:1.75;color:var(--ink-soft);}
 .tenk-why b{color:var(--ink);}
-.tenk-eq{margin:11px 0 0;font-size:13px;line-height:1.8;color:var(--ink-soft);}
+.tenk-eq{margin:11px 0 0;font-size:14.5px;line-height:1.8;color:var(--ink-soft);}
 .tenk-eq b{color:var(--ink);}
 .gap-fig{margin:18px 0 22px;padding:0;}
 .gap-svg{display:block;width:100%;height:auto;overflow:visible;}
 .gap-grid line{stroke:var(--line);stroke-width:1;opacity:.55;}
-.gap-ax text{font-size:13px;fill:var(--ink-faint);font-family:inherit;}
+.gap-ax text{font-size:14.5px;fill:var(--ink-faint);font-family:inherit;}
 .gap-ref{stroke:var(--ink-faint);stroke-width:1.5;stroke-dasharray:5 5;opacity:.8;}
-.gap-reft{font-size:12.5px;fill:var(--ink-faint);font-family:inherit;}
+.gap-reft{font-size:13.5px;fill:var(--ink-faint);font-family:inherit;}
 .gap-m{fill:none;stroke:#C42808;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
 .gap-f{fill:none;stroke:#2F5FBF;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
 .gap-dot-m circle,circle.gap-dot-m{fill:#C42808;stroke:var(--surface);stroke-width:2;}
 .gap-dot-f circle,circle.gap-dot-f{fill:#2F5FBF;stroke:var(--surface);stroke-width:2;}
-.gap-lbl{font-size:14px;font-weight:700;font-family:inherit;}
+.gap-lbl{font-size:15px;font-weight:700;font-family:inherit;}
 .gap-tm{fill:#C42808;}
 .gap-tf{fill:#2F5FBF;}
-.gap-leg text{font-size:13px;fill:var(--ink-soft);font-family:inherit;}
-.gap-leg .gap-unit{font-size:11.5px;fill:var(--ink-faint);}
-.gap-fig figcaption{margin-top:10px;font-size:12.5px;line-height:1.75;color:var(--ink-faint);}
+.gap-leg text{font-size:14.5px;fill:var(--ink-soft);font-family:inherit;}
+.gap-leg .gap-unit{font-size:13px;fill:var(--ink-faint);}
+.gap-fig figcaption{margin-top:10px;font-size:13.5px;line-height:1.75;color:var(--ink-faint);}
 @media (prefers-color-scheme: dark){
   .gap-m{stroke:#FF3D1A;} .gap-f{stroke:#5B8DEF;}
   .gap-dot-m circle,circle.gap-dot-m{fill:#FF3D1A;}
@@ -490,7 +490,7 @@ document.getElementById("tenkForm").addEventListener("submit", function(e){
     });
     if(eq.length) h+='<p class="tenk-eq">같은 연령등급이라면 '+eq.join(" · ")+' 입니다.</p>';
   }
-  h+='<p class="tenk-eq" style="color:var(--ink-faint);font-size:12px;">계산은 이 페이지 안에서 끝납니다. 기록은 저장되지 않습니다.</p>';
+  h+='<p class="tenk-eq" style="color:var(--ink-faint);font-size:13.5px;">계산은 이 페이지 안에서 끝납니다. 기록은 저장되지 않습니다.</p>';
   out.innerHTML=h; out.hidden=false;
 });"""
 
@@ -678,17 +678,17 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <link rel="stylesheet" href="style.css">
 <style>
   .column-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
-  .column-meta {{ font-size: 13px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
+  .column-meta {{ font-size: 14.5px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.8vw, 36px); line-height: 1.3; margin-bottom: 20px; }}
   .column-body {{ font-size: 16px; line-height: 1.9; color: #E8E4E1; }}
   .column-body h2 {{ font-size: 20px; margin: 36px 0 12px; color: #fff; }}
   .column-body p {{ margin-bottom: 16px; }}
   .column-tags {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }}
-  .column-tag {{ font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }}
+  .column-tag {{ font-size: 13.5px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }}
   .column-tag:hover {{ border-color: var(--accent); color: #fff; }}
-  .source-box {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 18px 20px; margin: 20px 0 28px; font-size: 13px; line-height: 1.8; color: #B8B0AC; }}
+  .source-box {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 18px 20px; margin: 20px 0 28px; font-size: 14.5px; line-height: 1.8; color: #B8B0AC; }}
   .source-box strong {{ color: #fff; }}
-  .tier-data-table {{ width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0 28px; }}
+  .tier-data-table {{ width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 16px 0 28px; }}
   .tier-data-table th, .tier-data-table td {{ padding: 8px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }}
   .tier-data-table th {{ color: #fff; font-weight: 700; background: rgba(255,255,255,0.03); }}
   .tier-data-table td:first-child, .tier-data-table th:first-child {{ text-align: left; color: #fff; font-weight: 600; }}
@@ -699,7 +699,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
     .column-wrap {{ padding: 32px 14px 70px; }}
     .column-body {{ font-size: 15.5px; line-height: 1.85; }}
     .column-body h2 {{ font-size: 18px; margin: 30px 0 10px; }}
-    .tier-data-table {{ font-size: 12.5px; }}
+    .tier-data-table {{ font-size: 13.5px; }}
     .tier-data-table th, .tier-data-table td {{ padding: 7px 5px; }}
     /* 가로로 미는 표에서 나이대 칸은 붙잡아 둔다. 안 그러면 어느 줄인지 잃는다. */
     /* 고정 칸이 좁으면 "3시간 30분" 이 네 줄로 접혀 행이 길어진다. 줄바꿈을 막는다. */
@@ -760,8 +760,8 @@ def build(dist: str) -> tuple[str, str, str, str]:
 
 <h2>여성 {esc(c['label'])} 기록 등급표 (나이대별)</h2>
 {tier_table(dist, "female")}
-<p style="font-size:13px; color:var(--ink-faint,#8E8E8E);">※ 10대는 아직 성장기라 성인 기준 등급을 그대로 적용하기는 조심스럽습니다. 참고용으로만 봐주세요. 데이터는 5세 단위로 제공되어, 각 나이대의 대표 구간 값을 사용했습니다.</p>
-<p style="font-size:13px; color:var(--ink-faint,#8E8E8E);">※ {esc(c['note'])}</p>
+<p style="font-size:14.5px; color:var(--ink-faint,#8E8E8E);">※ 10대는 아직 성장기라 성인 기준 등급을 그대로 적용하기는 조심스럽습니다. 참고용으로만 봐주세요. 데이터는 5세 단위로 제공되어, 각 나이대의 대표 구간 값을 사용했습니다.</p>
+<p style="font-size:14.5px; color:var(--ink-faint,#8E8E8E);">※ {esc(c['note'])}</p>
 
 <h2>{esc(c['label'])} 평균 기록은 얼마일까 — 나이대별 중앙값</h2>
 <p>"평균"을 찾는 분이 많은데, 러닝 기록은 느린 쪽 꼬리가 길어서 산술 평균이 실제 체감과 어긋납니다.
@@ -779,7 +779,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 아래는 목표 기록을 일정한 페이스로 나눈 통과 시간입니다. 대회 당일 시계와 맞춰 보기 좋게
 구간마다 적어 두었습니다.</p>
 {split_table(dist)}
-<p style="font-size:13px; color:var(--ink-faint);">※ 일정 페이스를 가정한 산술 값입니다.
+<p style="font-size:14.5px; color:var(--ink-faint);">※ 일정 페이스를 가정한 산술 값입니다.
 실제로는 오르막·급수대·초반 혼잡 때문에 구간마다 달라집니다. 특히 초반 5km는 사람에 밀려
 계획보다 느려지는 경우가 많으니, 그걸 만회하려고 무리하게 당기지 않는 편이 낫습니다.</p>
 
@@ -791,7 +791,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 지수가 1보다 큰 이유는 거리가 늘면 페이스가 떨어지기 때문이고, 단순히 거리를 곱하는 것보다
 현실에 가깝습니다.</p>
 {riegel_table(dist)}
-<p style="font-size:13px; color:var(--ink-faint); line-height:1.8;">
+<p style="font-size:14.5px; color:var(--ink-faint); line-height:1.8;">
 ※ 표에서 <strong>*</strong> 가 붙은 값은 Riegel 본인이 밝힌 적용 범위
 (<strong>3분 30초~230분</strong>, 즉 3시간 50분)를 넘어선 예측입니다. 그 구간에서는 공식이
 실제보다 빠른 값을 내놓는 것으로 알려져 있으니 참고만 하세요.<br>
@@ -831,7 +831,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <p>두 기준은 출처가 달라 같은 기록이라도 결과가 다를 수 있습니다. 둘 다 보시는 편이 정확합니다.</p>
 
 <div style="margin:30px 0 34px;">
-<p style="font-size:13.5px; line-height:1.8; color:var(--ink-soft,#9A9A9A); margin:0 0 14px;">
+<p style="font-size:15px; line-height:1.8; color:var(--ink-soft,#9A9A9A); margin:0 0 14px;">
 위 표는 <strong style="color:var(--ink,#fff);">Running Level</strong>(해외 공개 데이터) 기준 5단계입니다.
 calrank는 나이·성별 보정 방식이 다른 <strong style="color:var(--ink,#fff);">자체 7단계 등급</strong>도 함께 제공합니다 —
 같은 기록이라도 두 기준의 결과가 다를 수 있으니, 둘 다 보시는 편이 정확합니다.

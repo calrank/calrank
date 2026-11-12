@@ -815,19 +815,19 @@ EXTRA_CSS = """
 <style>
   .ev-extra{margin-top:40px;}
   .ev-h2{font-size:17px;margin:32px 0 10px;}
-  .ev-p{font-size:14px;line-height:1.8;color:var(--ink-soft);margin:0 0 12px;}
-  .ev-src{font-size:12px;line-height:1.7;color:var(--ink-faint);margin:6px 0 0;}
-  .ev-pace{width:100%;max-width:420px;border-collapse:collapse;font-size:14px;}
+  .ev-p{font-size:15px;line-height:1.8;color:var(--ink-soft);margin:0 0 12px;}
+  .ev-src{font-size:13.5px;line-height:1.7;color:var(--ink-faint);margin:6px 0 0;}
+  .ev-pace{width:100%;max-width:420px;border-collapse:collapse;font-size:15px;}
   .ev-pace th,.ev-pace td{padding:8px 10px;text-align:left;
     border-bottom:1px solid rgba(255,255,255,.08);}
   .ev-pace th{color:#fff;background:rgba(255,255,255,.03);}
   .ev-pace td:first-child{color:var(--ink-soft);}
   .ev-list{list-style:none;margin:0;padding:0;}
   .ev-list li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
-    font-size:14px;line-height:1.6;}
+    font-size:15px;line-height:1.6;}
   .ev-list a{color:inherit;text-decoration:none;}
   .ev-list a:hover b{text-decoration:underline;}
-  .ev-list span{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}
+  .ev-list span{display:block;color:var(--ink-faint);font-size:13.5px;margin-top:2px;}
 </style>"""
 
 
@@ -883,10 +883,10 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
         f'<p style="margin-top:10px;">{standards}</p>' if standards else ""
     )
     summary_block = (
-        '<section id="eventSummary" style="margin-top:20px;line-height:1.8;color:var(--ink-soft);font-size:14px;">'
+        '<section id="eventSummary" style="margin-top:20px;line-height:1.8;color:var(--ink-soft);font-size:15px;">'
         f"<p>{esc(summary)}</p>"
         f"{standards_html}"
-        f'<p style="margin-top:8px;font-size:13px;">{build_related_links(ev)}</p>'
+        f'<p style="margin-top:8px;font-size:14.5px;">{build_related_links(ev)}</p>'
         "</section>\n"
     )
     marker = '<div id="saveWidget"'
@@ -977,16 +977,16 @@ def write_event_index(wanted: dict) -> None:
 <link rel="stylesheet" href="style.css">
 <style>
   .ei-wrap{{max-width:860px;margin:0 auto;padding:32px 18px 80px;}}
-  .ei-lead{{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}}
+  .ei-lead{{font-size:15px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}}
   .ei-month{{margin:0 0 34px;}}
   .ei-month h2{{font-size:16px;margin:0 0 12px;padding-bottom:8px;
     border-bottom:1px solid var(--line,#222);}}
   .ei-list{{list-style:none;margin:0;padding:0;}}
   .ei-list li{{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
-    font-size:13.5px;line-height:1.6;}}
+    font-size:15px;line-height:1.6;}}
   .ei-list a{{color:inherit;text-decoration:none;}}
   .ei-list a:hover b{{text-decoration:underline;}}
-  .ei-list span{{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}}
+  .ei-list span{{display:block;color:var(--ink-faint);font-size:13.5px;margin-top:2px;}}
 </style>
 </head>
 <body>
@@ -1033,7 +1033,7 @@ ARCHIVE_MONTH_MIN = 20
 
 ARCHIVE_CSS = """
   .ei-wrap{max-width:860px;margin:0 auto;padding:32px 18px 80px;}
-  .ei-lead{font-size:13.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}
+  .ei-lead{font-size:15px;line-height:1.85;color:var(--ink-soft);margin:0 0 28px;}
   .ei-lead a{color:var(--accent,#FF3D1A);text-decoration:none;border-bottom:1px solid rgba(255,61,26,.4);}
   .ei-lead a:hover{border-bottom-color:var(--accent,#FF3D1A);}
   .ei-month{margin:0 0 34px;}
@@ -1041,19 +1041,19 @@ ARCHIVE_CSS = """
     border-bottom:1px solid var(--line,#222);}
   .ei-list{list-style:none;margin:0;padding:0;}
   .ei-list li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
-    font-size:13.5px;line-height:1.6;}
+    font-size:15px;line-height:1.6;}
   .ei-list a{color:inherit;text-decoration:none;}
   .ei-list a:hover b{text-decoration:underline;}
-  .ei-list span{display:block;color:var(--ink-faint);font-size:12px;margin-top:2px;}
+  .ei-list span{display:block;color:var(--ink-faint);font-size:13.5px;margin-top:2px;}
   .ar-months{list-style:none;margin:0 0 34px;padding:0;
     display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
   .ar-months li{border:1px solid var(--line,#222);border-radius:10px;padding:14px 16px;}
   .ar-months a{color:inherit;text-decoration:none;display:block;}
   .ar-months a:hover strong{text-decoration:underline;}
-  .ar-months strong{display:block;font-size:14.5px;margin-bottom:4px;}
-  .ar-months em{font-style:normal;color:var(--ink-faint);font-size:12px;line-height:1.6;}
+  .ar-months strong{display:block;font-size:15.5px;margin-bottom:4px;}
+  .ar-months em{font-style:normal;color:var(--ink-faint);font-size:13.5px;line-height:1.6;}
   .ar-pager{display:flex;justify-content:space-between;gap:12px;margin:34px 0 0;
-    padding-top:18px;border-top:1px solid var(--line,#222);font-size:13px;}
+    padding-top:18px;border-top:1px solid var(--line,#222);font-size:14.5px;}
   .ar-pager a{color:var(--ink-soft);text-decoration:none;}
   .ar-pager a:hover{text-decoration:underline;}
 """

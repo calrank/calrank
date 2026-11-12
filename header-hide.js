@@ -8,6 +8,20 @@
   var reduce = false;
   try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
   if (!reduce) h.style.transition = "transform .25s ease";
+  var nav = h.querySelector(".main-nav"), btn = h.querySelector(".nav-toggle");
+  function isOpen() { return !!(nav && nav.classList.contains("is-open")); }
+  function toggle(v) {
+    if (!nav || !btn) return;
+    nav.classList.toggle("is-open", v);
+    btn.setAttribute("aria-expanded", v ? "true" : "false");
+    btn.textContent = v ? "닫기" : "메뉴";
+  }
+  if (btn) {
+    btn.addEventListener("click", function () { toggle(!isOpen()); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && isOpen()) { toggle(false); btn.focus(); } });
+    document.addEventListener("click", function (e) { if (isOpen() && !h.contains(e.target)) toggle(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 1020 && isOpen()) toggle(false); });
+  }
   var last = window.pageYOffset || 0, hidden = false, ticking = false;
   function set(v) {
     if (v === hidden) return;
@@ -16,6 +30,7 @@
   }
   function onFrame() {
     ticking = false;
+    if (isOpen()) { last = window.pageYOffset || 0; return; }   // 메뉴가 열려 있으면 그대로 둔다
     var y = Math.max(0, window.pageYOffset || 0), d = y - last;
     if (y <= 8) set(false);                                   // 맨 위
     else if (Math.abs(d) >= 6) {                              // 손 떨림은 무시

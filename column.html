@@ -30,7 +30,7 @@
   .column-list-wrap { max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }
   .column-card { display: block; padding: 24px; background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; margin-bottom: 16px; text-decoration: none; transition: border-color 0.15s ease; }
   .column-card:hover { border-color: var(--accent); }
-  .column-card-meta { font-size: 12px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 8px; }
+  .column-card-meta { font-size: 13.5px; color: var(--ink-faint, var(--ink-faint)); margin-bottom: 8px; }
   .column-card-title { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
   .column-card-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
 </style>
@@ -43,10 +43,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link active">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -62,24 +66,24 @@
 <p style="font-size:13px;font-weight:700;color:var(--ink);margin:0 0 6px;">📘 대회 준비 가이드</p>
 <p style="font-size:13px;line-height:1.75;color:var(--ink-soft);margin:0 0 12px;">대회 전날 식사부터 완주 후 근육통까지, 미국스포츠의학회 공식 입장문과 코크란 문헌고찰을 근거로 정리했습니다. 각 글 아래에 원문 링크와 확인 날짜가 있습니다.</p>
 <div style="display:flex;flex-wrap:wrap;gap:8px;">
-<a href="guides.html" style="font-size:12px;font-weight:700;padding:6px 14px;background:var(--marathon);border-radius:999px;color:var(--ink);text-decoration:none;">가이드 전체 보기 →</a>
-<a href="guide-marathon-eve-meal.html" style="font-size:12px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">마라톤 전날 식사</a>
-<a href="guide-marathon-hydration.html" style="font-size:12px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">물 얼마나 마실까</a>
-<a href="guide-marathon-recovery.html" style="font-size:12px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">완주 후 근육통 회복</a>
-<a href="guide-marathon-checklist.html" style="font-size:12px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">준비물 체크리스트</a>
+<a href="guides.html" style="font-size:13.5px;font-weight:700;padding:6px 14px;background:var(--marathon);border-radius:999px;color:var(--ink);text-decoration:none;">가이드 전체 보기 →</a>
+<a href="guide-marathon-eve-meal.html" style="font-size:13.5px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">마라톤 전날 식사</a>
+<a href="guide-marathon-hydration.html" style="font-size:13.5px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">물 얼마나 마실까</a>
+<a href="guide-marathon-recovery.html" style="font-size:13.5px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">완주 후 근육통 회복</a>
+<a href="guide-marathon-checklist.html" style="font-size:13.5px;padding:6px 13px;border:1px solid var(--border);border-radius:999px;color:var(--ink-soft);text-decoration:none;">준비물 체크리스트</a>
 </div>
 </div>
 <div class="popular-tags-box" style="margin:24px 0 8px; padding:16px 18px; background:var(--surface,#141414); border:1px solid var(--border,#2A2A2A); border-radius:10px;">
 <p style="font-size:13px; font-weight:700; color:var(--ink); margin-bottom:10px;">🔥 인기 태그</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px;">
-<a href="column-10km-age-gender-tier.html" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#러닝등급표</a>
-<a href="column-10km-age-gender-tier.html" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#나이별기록</a>
-<a href="index.html?sport=marathon" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#마라톤</a>
-<a href="index.html?sport=trail" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#트레일러닝</a>
-<a href="index.html?sport=cycling" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#자전거대회</a>
-<a href="regions.html" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#지역별대회</a>
-<a href="distances.html" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#거리별대회</a>
-<a href="myrank.html" style="font-size:12px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#내기록등급</a>
+<a href="column-10km-age-gender-tier.html" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#러닝등급표</a>
+<a href="column-10km-age-gender-tier.html" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#나이별기록</a>
+<a href="index.html?sport=marathon" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#마라톤</a>
+<a href="index.html?sport=trail" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#트레일러닝</a>
+<a href="index.html?sport=cycling" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#자전거대회</a>
+<a href="regions.html" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#지역별대회</a>
+<a href="distances.html" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#거리별대회</a>
+<a href="myrank.html" style="font-size:13.5px; padding:5px 12px; border:1px solid var(--border,#2A2A2A); border-radius:999px; color:var(--ink-soft); text-decoration:none;">#내기록등급</a>
 </div>
 </div>
 
@@ -408,7 +412,7 @@
 .column-toc a{font-size:13px;padding:7px 16px;border:1px solid var(--border,var(--border));border-radius:999px;color:var(--ink-soft,var(--ink-soft));text-decoration:none;font-weight:600;}
 .column-toc a:hover{border-color:var(--accent);color:var(--ink);}
 .column-section-title{font-size:18px;font-weight:800;color:var(--ink);margin:40px 0 14px;padding-top:8px;scroll-margin-top:90px;display:flex;align-items:center;gap:8px;}
-.column-section-count{font-size:12px;font-weight:600;color:var(--ink-faint,var(--ink-faint));background:var(--tint-2);padding:2px 9px;border-radius:999px;}
+.column-section-count{font-size:13.5px;font-weight:600;color:var(--ink-faint,var(--ink-faint));background:var(--tint-2);padding:2px 9px;border-radius:999px;}
 </style>
 <script>
 (function() {

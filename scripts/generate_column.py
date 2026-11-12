@@ -239,7 +239,7 @@ def build_html(stats, content, slug, rng):
 <link rel="stylesheet" href="style.css">
 <style>
   .column-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
-  .column-meta {{ font-size: 13px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
+  .column-meta {{ font-size: 14.5px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); line-height: 1.3; margin-bottom: 24px; }}
   .column-body {{ font-size: 16px; line-height: 1.9; color: #E8E4E1; }}
   .column-body h2 {{ font-size: 21px; margin: 40px 0 14px; color: #fff; }}
@@ -247,11 +247,11 @@ def build_html(stats, content, slug, rng):
   .stat-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 24px 0 32px; }}
   .stat-box {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 16px; text-align: center; }}
   .stat-box b {{ display: block; font-size: 22px; color: var(--accent); font-family: var(--font-display); margin-bottom: 4px; }}
-  .stat-box span {{ font-size: 12px; color: var(--ink-faint, #8E8E8E); }}
+  .stat-box span {{ font-size: 13.5px; color: var(--ink-faint, #8E8E8E); }}
   .column-cta {{ margin-top: 40px; padding: 24px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .column-cta a {{ display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 28px; border-radius: 6px; text-decoration: none; }}
   .column-tags {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }}
-  .column-tag {{ font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }}
+  .column-tag {{ font-size: 13.5px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }}
 </style>
 </head>
 <body>

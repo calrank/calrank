@@ -167,15 +167,15 @@ def build_page(sport, dist_label, events):
   .landing-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }}
   .landing-sub {{ font-size: 15px; color: #B8B0AC; margin-bottom: 24px; }}
   .landing-list {{ display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }}
-  .landing-row {{ display: flex; gap: 14px; padding: 12px 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 6px; text-decoration: none; color: #E8E4E1; font-size: 14px; align-items: center; }}
+  .landing-row {{ display: flex; gap: 14px; padding: 12px 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 6px; text-decoration: none; color: #E8E4E1; font-size: 15px; align-items: center; }}
   .landing-row:hover {{ border-color: var(--accent); }}
   .landing-date {{ color: var(--accent); font-weight: 700; flex-shrink: 0; width: 80px; }}
   .landing-name {{ flex: 1; }}
-  .landing-region {{ color: var(--ink-faint, #8E8E8E); font-size: 12px; flex-shrink: 0; }}
+  .landing-region {{ color: var(--ink-faint, #8E8E8E); font-size: 13.5px; flex-shrink: 0; }}
   .landing-h2 {{ font-size: 17px; margin: 34px 0 10px; }}
-  .landing-note {{ font-size: 12.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
+  .landing-note {{ font-size: 13.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
   .landing-facts {{ margin: 0 0 6px; padding-left: 18px; }}
-  .landing-facts li {{ font-size: 13.5px; line-height: 1.9; color: var(--ink-soft); }}
+  .landing-facts li {{ font-size: 15px; line-height: 1.9; color: var(--ink-soft); }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
 </style>
@@ -202,7 +202,7 @@ def build_page(sport, dist_label, events):
 <p>다른 거리·지역 조건으로도 찾아보고 싶다면?</p>
 <a href="index.html?sport={sport}">캘린더에서 필터링해서 보기 →</a>
 </div>
-<p style="margin-top:16px;"><a href="distances.html" style="color:var(--ink-soft); font-size:13px;">← 거리별 대회 전체 보기</a> · <a href="regions.html" style="color:var(--ink-soft); font-size:13px;">지역별로 보기 →</a></p>
+<p style="margin-top:16px;"><a href="distances.html" style="color:var(--ink-soft); font-size:14.5px;">← 거리별 대회 전체 보기</a> · <a href="regions.html" style="color:var(--ink-soft); font-size:14.5px;">지역별로 보기 →</a></p>
 </main>
 <footer class="site-footer">
 <div class="wrap">
@@ -277,10 +277,10 @@ def build_index(pages):
   .landing-wrap {{ max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }}
   .landing-wrap h2 {{ margin-top: 32px; font-size: 18px; }}
   .landing-index-grid {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }}
-  .landing-index-item {{ font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #E8E4E1; text-decoration: none; }}
+  .landing-index-item {{ font-size: 14.5px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #E8E4E1; text-decoration: none; }}
   .landing-index-item span {{ color: var(--accent); margin-left: 4px; }}
   .landing-index-item:hover {{ border-color: var(--accent); }}
-  .cross-link {{ display: inline-block; margin-top: 16px; font-size: 13px; color: var(--ink-soft); text-decoration: none; border-bottom: 1px dashed var(--ink-faint); }}
+  .cross-link {{ display: inline-block; margin-top: 16px; font-size: 14.5px; color: var(--ink-soft); text-decoration: none; border-bottom: 1px dashed var(--ink-faint); }}
 </style>
 </head>
 <body>

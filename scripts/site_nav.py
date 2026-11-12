@@ -107,7 +107,11 @@ def nav_html(active: str = "") -> str:
     util = (f'<span class="nav-grp nav-util"><a href="saved-events.html" class="{saved_cls}">'
             '❤️<span class="nav-text-full"> 찜한 대회</span></a>'
             '<a href="contact.html" class="nav-contact-link">제휴문의</a></span>')
-    return '<nav class="main-nav">\n' + "\n".join(grps) + "\n" + util + "\n</nav>\n" + HIDE_SCRIPT
+    return ('<nav class="main-nav">\n'
+            '<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>\n'
+            '<div class="nav-menu" id="navMenu">\n' + "\n".join(grps) + "\n" + util + "\n</div>\n"
+            '<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>\n'
+            "</nav>\n" + HIDE_SCRIPT)
 
 
 def site_header(active: str = "") -> str:

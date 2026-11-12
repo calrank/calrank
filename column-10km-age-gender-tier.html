@@ -27,7 +27,7 @@
   .column-body h3 { font-size: 16px; margin: 24px 0 8px; color: var(--ink); }
   .column-body p { margin-bottom: 16px; }
   .column-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
-  .column-tag { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink-soft); text-decoration: none; }
+  .column-tag { font-size: 13.5px; padding: 5px 12px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink-soft); text-decoration: none; }
   .column-tag:hover { border-color: var(--accent); color: var(--ink); }
   .source-box { background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; padding: 18px 20px; margin: 20px 0 28px; font-size: 13px; line-height: 1.8; color: var(--ink-soft); }
   .source-box strong { color: var(--ink); }
@@ -48,7 +48,7 @@
 .tenk-h{margin:0 0 6px;font-size:17px;font-weight:900;color:var(--ink);}
 .tenk-sub{margin:0 0 14px;font-size:13.5px;line-height:1.7;color:var(--ink-soft);}
 .tenk-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
-.tenk-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;
+.tenk-form label{display:flex;flex-direction:column;gap:5px;font-size:13.5px;
   font-weight:700;color:var(--ink-soft);flex:1 1 92px;}
 .tenk-form input,.tenk-form select{padding:10px;min-height:24px;font-size:15px;
   border-radius:8px;border:1px solid var(--line);background:var(--surface);
@@ -61,9 +61,9 @@
 .tenk-two{display:flex;flex-wrap:wrap;gap:10px;}
 .tenk-card{flex:1 1 150px;padding:13px;border-radius:10px;
   border:1px solid var(--line);background:var(--surface);}
-.tenk-card h3{margin:0 0 3px;font-size:11.5px;font-weight:700;color:var(--ink-faint);letter-spacing:.3px;}
+.tenk-card h3{margin:0 0 3px;font-size:13px;font-weight:700;color:var(--ink-faint);letter-spacing:.3px;}
 .tenk-card b{display:block;font-size:20px;font-weight:900;color:var(--ink);line-height:1.3;}
-.tenk-card span{display:block;margin-top:4px;font-size:12.5px;line-height:1.6;color:var(--ink-soft);}
+.tenk-card span{display:block;margin-top:4px;font-size:13.5px;line-height:1.6;color:var(--ink-soft);}
 .tenk-why{margin:13px 0 0;padding:13px;border-radius:10px;
   background:var(--tint-2);font-size:13.5px;line-height:1.75;color:var(--ink-soft);}
 .tenk-why b{color:var(--ink);}
@@ -74,7 +74,7 @@
 .gap-grid line{stroke:var(--line);stroke-width:1;opacity:.55;}
 .gap-ax text{font-size:13px;fill:var(--ink-faint);font-family:inherit;}
 .gap-ref{stroke:var(--ink-faint);stroke-width:1.5;stroke-dasharray:5 5;opacity:.8;}
-.gap-reft{font-size:12.5px;fill:var(--ink-faint);font-family:inherit;}
+.gap-reft{font-size:13.5px;fill:var(--ink-faint);font-family:inherit;}
 .gap-m{fill:none;stroke:#C42808;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
 .gap-f{fill:none;stroke:#2F5FBF;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
 .gap-dot-m circle,circle.gap-dot-m{fill:#C42808;stroke:var(--surface);stroke-width:2;}
@@ -83,8 +83,8 @@
 .gap-tm{fill:#C42808;}
 .gap-tf{fill:#2F5FBF;}
 .gap-leg text{font-size:13px;fill:var(--ink-soft);font-family:inherit;}
-.gap-leg .gap-unit{font-size:11.5px;fill:var(--ink-faint);}
-.gap-fig figcaption{margin-top:10px;font-size:12.5px;line-height:1.75;color:var(--ink-faint);}
+.gap-leg .gap-unit{font-size:13px;fill:var(--ink-faint);}
+.gap-fig figcaption{margin-top:10px;font-size:13.5px;line-height:1.75;color:var(--ink-faint);}
 @media (prefers-color-scheme: dark){
   .gap-m{stroke:#FF3D1A;} .gap-f{stroke:#5B8DEF;}
   .gap-dot-m circle,circle.gap-dot-m{fill:#FF3D1A;}
@@ -99,10 +99,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link active">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -495,7 +499,7 @@ document.getElementById("tenkForm").addEventListener("submit", function(e){
     });
     if(eq.length) h+='<p class="tenk-eq">같은 연령등급이라면 '+eq.join(" · ")+' 입니다.</p>';
   }
-  h+='<p class="tenk-eq" style="color:var(--ink-faint);font-size:12px;">계산은 이 페이지 안에서 끝납니다. 기록은 저장되지 않습니다.</p>';
+  h+='<p class="tenk-eq" style="color:var(--ink-faint);font-size:13.5px;">계산은 이 페이지 안에서 끝납니다. 기록은 저장되지 않습니다.</p>';
   out.innerHTML=h; out.hidden=false;
 });
 </script>

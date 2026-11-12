@@ -26,7 +26,7 @@
 
   .gsec { margin-bottom: 34px; }
   .gh2 { font-size: 16px; font-weight: 800; color: var(--ink); margin: 0 0 12px; }
-  .gnote { font-size: 12px; color: var(--ink-faint); margin: -6px 0 12px; }
+  .gnote { font-size: 13.5px; color: var(--ink-faint); margin: -6px 0 12px; }
 
   .gcats { display: grid; gap: 10px; }
   .gcat { display: block; padding: 15px 16px; border-radius: 10px;
@@ -35,7 +35,7 @@
   .gcat:hover { border-color: var(--accent); }
   .gcat-n { display: block; font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 5px; }
   .gcat-d { display: block; font-size: 13px; line-height: 1.7; color: var(--ink-soft); }
-  .gcat-go { display: block; margin-top: 9px; font-size: 12.5px; font-weight: 700; color: var(--accent-ink); }
+  .gcat-go { display: block; margin-top: 9px; font-size: 13.5px; font-weight: 700; color: var(--accent-ink); }
 
   .gbrands { display: flex; flex-wrap: wrap; gap: 8px; }
   .gbrand { display: inline-flex; align-items: center; min-height: 34px; padding: 6px 14px;
@@ -51,7 +51,7 @@
     border-bottom: 1px solid var(--border); }
   .gmore a:hover { border-bottom-color: var(--accent); }
 
-  .gdisclosure { margin-top: 34px; font-size: 12px; color: var(--ink-faint); line-height: 1.75; }
+  .gdisclosure { margin-top: 34px; font-size: 13.5px; color: var(--ink-faint); line-height: 1.75; }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
   <link rel="canonical" href="https://calrank.vercel.app/gear-prices.html">
@@ -63,10 +63,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link active">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>

@@ -21,17 +21,17 @@
 <link rel="stylesheet" href="style.css">
 <style>
   .g-wrap{max-width:760px;margin:0 auto;padding:44px 20px 80px;}
-  .g-eyebrow{font-size:13px;color:var(--ink-faint,var(--ink-faint));margin-bottom:10px;}
+  .g-eyebrow{font-size:14.5px;color:var(--ink-faint,var(--ink-faint));margin-bottom:10px;}
   .g-title{font-family:var(--font-display);font-size:clamp(23px,3.6vw,34px);line-height:1.3;margin:0 0 18px;}
   .g-body{font-size:16px;line-height:1.9;color:var(--ink);}
   .g-body h2{font-size:20px;margin:36px 0 12px;color:var(--ink);}
   .g-body p{margin-bottom:16px;}
   .g-key{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 28px;}
   .g-key div{border:1px solid var(--border,var(--border));border-radius:10px;padding:16px 18px;}
-  .g-key span{display:block;font-size:12.5px;color:var(--ink-faint,var(--ink-faint));margin-bottom:6px;}
+  .g-key span{display:block;font-size:13.5px;color:var(--ink-faint,var(--ink-faint));margin-bottom:6px;}
   .g-key b{font-size:26px;font-family:var(--font-display);color:var(--accent-ink);}
-  .g-key b small{font-size:13px;color:var(--ink-soft,var(--ink-faint));font-weight:400;margin-left:3px;}
-  .g-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0 10px;}
+  .g-key b small{font-size:14.5px;color:var(--ink-soft,var(--ink-faint));font-weight:400;margin-left:3px;}
+  .g-table{width:100%;border-collapse:collapse;font-size:15px;margin:14px 0 10px;}
   .g-table th,.g-table td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--tint-2);}
   .g-table th{color:var(--ink);font-weight:700;background:var(--tint-1);}
   .g-table td:first-child,.g-table th:first-child{text-align:left;color:var(--ink);font-weight:600;}
@@ -39,9 +39,9 @@
   .g-scroll{overflow-x:auto;}
   .g-tier td.t-엘리트{color:var(--elite-line);font-weight:700;}
   .g-tier tr:last-child td{color:inherit;font-weight:inherit;}
-  .g-note{font-size:13px;color:var(--ink-faint,var(--ink-faint));line-height:1.8;}
+  .g-note{font-size:14.5px;color:var(--ink-faint,var(--ink-faint));line-height:1.8;}
   .g-others{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;}
-  .g-others a{font-size:13px;padding:7px 14px;border:1px solid var(--border,var(--border));
+  .g-others a{font-size:14.5px;padding:7px 14px;border:1px solid var(--border,var(--border));
     border-radius:999px;color:var(--ink-soft);text-decoration:none;}
   .g-others a:hover{border-color:var(--accent);color:var(--ink);}
   .g-others a.cur{background:var(--accent,#FF3D1A);border-color:var(--accent,#FF3D1A);color:var(--on-accent);font-weight:700;}
@@ -54,10 +54,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>

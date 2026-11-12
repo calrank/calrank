@@ -1883,9 +1883,9 @@ function ensurePreviewStyle() {
   .lvp-share{background:#fff;color:#111;}
   .lvp-copy{background:#2A2A2A;color:#fff;}
   .lvp-kakao{background:#FEE500;color:#191600;}
-  .lvp-hint{font-size:12.5px;line-height:1.7;color:#B8B0AC;margin:14px 0 0;}
+  .lvp-hint{font-size:13.5px;line-height:1.7;color:#B8B0AC;margin:14px 0 0;}
   .lvp-close{margin:12px 0 0;background:none;border:0;color:#9A9A9A;
-    font-size:14px;cursor:pointer;font-family:inherit;padding:8px 14px;}
+    font-size:15px;cursor:pointer;font-family:inherit;padding:8px 14px;}
   `;
   document.head.appendChild(st);
 }

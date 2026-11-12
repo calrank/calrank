@@ -22,7 +22,7 @@
   .landing-wrap { max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }
   .landing-wrap h2 { margin-top: 32px; font-size: 18px; }
   .landing-index-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .landing-index-item { font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink); text-decoration: none; }
+  .landing-index-item { font-size: 14.5px; padding: 8px 14px; border: 1px solid var(--border, var(--border)); border-radius: 999px; color: var(--ink); text-decoration: none; }
   .landing-index-item span { color:var(--accent-ink); margin-left: 4px; }
   .landing-index-item:hover { border-color: var(--accent); }
 </style>
@@ -34,10 +34,14 @@
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark" aria-label="CALRANK">C<svg class="wm-a" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M0,30 L0,21 L6,21 L6,11 L11.5,11 L11.5,0 L22.5,0 L22.5,11 L28,11 L28,21 L34,21 L34,30 Z M12.4,22.6 L21.6,22.6 L19.4,11.4 L14.6,11.4 Z"/><rect class="wm-top" x="11.5" y="0" width="11" height="4.4"/></svg>LRANK</a>
 <nav class="main-nav">
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
+<div class="nav-menu" id="navMenu">
 <span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link active">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
 <span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
 <span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
 <span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+</div>
+<noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
 <script defer src="/header-hide.js"></script>
 </div>
@@ -45,13 +49,13 @@
 <main class="landing-wrap">
 <h1>지역별 대회 일정</h1>
 <p>지역과 종목을 선택해서 해당 대회 목록을 바로 확인하세요.</p>
-<a href="distances.html" style="display:inline-block;margin-top:6px;padding-block:4px;min-height:24px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
+<a href="distances.html" style="display:inline-block;margin-top:6px;padding-block:4px;min-height:24px;font-size:14.5px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
 <h2>강원</h2>
-<div class="landing-index-grid"><a href="landing-gangwon-marathon.html" class="landing-index-item">강원 마라톤 <span>30개</span></a>
+<div class="landing-index-grid"><a href="landing-gangwon-marathon.html" class="landing-index-item">강원 마라톤 <span>31개</span></a>
 <a href="landing-gangwon-trail.html" class="landing-index-item">강원 트레일러닝 <span>8개</span></a>
 <a href="landing-gangwon-cycling.html" class="landing-index-item">강원 자전거 <span>7개</span></a></div>
 <h2>경기</h2>
-<div class="landing-index-grid"><a href="landing-gyeonggi-marathon.html" class="landing-index-item">경기 마라톤 <span>73개</span></a>
+<div class="landing-index-grid"><a href="landing-gyeonggi-marathon.html" class="landing-index-item">경기 마라톤 <span>74개</span></a>
 <a href="landing-gyeonggi-trail.html" class="landing-index-item">경기 트레일러닝 <span>8개</span></a>
 <a href="landing-gyeonggi-triathlon.html" class="landing-index-item">경기 철인3종 <span>5개</span></a></div>
 <h2>경남</h2>
@@ -74,7 +78,7 @@
 <div class="landing-index-grid"><a href="landing-busan-marathon.html" class="landing-index-item">부산 마라톤 <span>28개</span></a>
 <a href="landing-busan-trail.html" class="landing-index-item">부산 트레일러닝 <span>3개</span></a></div>
 <h2>서울</h2>
-<div class="landing-index-grid"><a href="landing-seoul-marathon.html" class="landing-index-item">서울 마라톤 <span>207개</span></a>
+<div class="landing-index-grid"><a href="landing-seoul-marathon.html" class="landing-index-item">서울 마라톤 <span>208개</span></a>
 <a href="landing-seoul-trail.html" class="landing-index-item">서울 트레일러닝 <span>13개</span></a></div>
 <h2>세종</h2>
 <div class="landing-index-grid"><a href="landing-sejong-marathon.html" class="landing-index-item">세종 마라톤 <span>12개</span></a></div>
@@ -83,7 +87,7 @@
 <h2>인천</h2>
 <div class="landing-index-grid"><a href="landing-incheon-marathon.html" class="landing-index-item">인천 마라톤 <span>31개</span></a></div>
 <h2>전남</h2>
-<div class="landing-index-grid"><a href="landing-jeonnam-marathon.html" class="landing-index-item">전남 마라톤 <span>27개</span></a>
+<div class="landing-index-grid"><a href="landing-jeonnam-marathon.html" class="landing-index-item">전남 마라톤 <span>28개</span></a>
 <a href="landing-jeonnam-trail.html" class="landing-index-item">전남 트레일러닝 <span>5개</span></a></div>
 <h2>전북</h2>
 <div class="landing-index-grid"><a href="landing-jeonbuk-marathon.html" class="landing-index-item">전북 마라톤 <span>19개</span></a>

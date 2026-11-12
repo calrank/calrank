@@ -350,35 +350,35 @@ PAGE_CSS = """  .gr-wrap { max-width: 860px; margin: 0 auto; padding: 44px 20px 
                   object-position: 50% 22%; display: block; }
   @media (min-width: 720px) { .gr-photo img { height: 210px; } }
   .gr-switch { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 26px; }
-  .gr-switch a { font-size: 13px; padding: 7px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #D6D1CD; text-decoration: none; }
+  .gr-switch a { font-size: 14.5px; padding: 7px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #D6D1CD; text-decoration: none; }
   .gr-switch a:hover { border-color: var(--accent); }
   .gr-switch a.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
   .gr-tablebox { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border, #2A2A2A); border-radius: 10px; }
-  table.gr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 13px; }
+  table.gr-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 640px; font-size: 14.5px; }
   table.gr-table th, table.gr-table td { padding: 10px 8px; text-align: center; white-space: nowrap; border-bottom: 1px solid rgba(255,255,255,0.07); }
-  table.gr-table thead th { background: #171514; color: #E8E4E1; font-weight: 700; font-size: 12px; line-height: 1.4; }
+  table.gr-table thead th { background: #171514; color: #E8E4E1; font-weight: 700; font-size: 13.5px; line-height: 1.4; }
   /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
   table.gr-table tbody th { background: #121010; color: var(--accent); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid rgba(255,255,255,0.09); }
   table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid rgba(255,255,255,0.09); }
   table.gr-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-  .gr-swipe { display: none; font-size: 12px; color: #8E8884; margin: 8px 2px 0; }
+  .gr-swipe { display: none; font-size: 13.5px; color: #8E8884; margin: 8px 2px 0; }
   @media (max-width: 680px) {
     .gr-wrap { padding: 32px 14px 70px; }
-    table.gr-table { font-size: 12.5px; }
+    table.gr-table { font-size: 13.5px; }
     table.gr-table th, table.gr-table td { padding: 9px 7px; }
     .gr-swipe { display: block; }
   }
-  .gr-note { font-size: 13px; line-height: 1.8; color: #A9A29E; margin-top: 14px; }
+  .gr-note { font-size: 14.5px; line-height: 1.8; color: #A9A29E; margin-top: 14px; }
   .gr-h2 { font-size: 18px; margin: 38px 0 12px; }
-  .gr-p { font-size: 14.5px; line-height: 1.85; color: #C3BDB9; }
+  .gr-p { font-size: 15.5px; line-height: 1.85; color: #C3BDB9; }
   .gr-faq { margin-top: 10px; }
   .gr-faq details { border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
-  .gr-faq summary { cursor: pointer; font-size: 14px; font-weight: 700; color: #E8E4E1; }
-  .gr-faq p { margin-top: 9px; font-size: 14px; line-height: 1.8; color: #B5AFAB; }
+  .gr-faq summary { cursor: pointer; font-size: 15px; font-weight: 700; color: #E8E4E1; }
+  .gr-faq p { margin-top: 9px; font-size: 15px; line-height: 1.8; color: #B5AFAB; }
   .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; text-align: center; }
-  .gr-cta p { font-size: 14.5px; color: #C9C3BF; }
+  .gr-cta p { font-size: 15.5px; color: #C9C3BF; }
   .gr-cta a { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
-  .gr-links { margin-top: 26px; font-size: 13.5px; line-height: 2; }
+  .gr-links { margin-top: 26px; font-size: 15px; line-height: 2; }
   .gr-links a { color: #D6D1CD; text-decoration: none; border-bottom: 1px dashed #5E5A57; }
   .gr-links a:hover { color: var(--accent); border-color: var(--accent); }"""
 

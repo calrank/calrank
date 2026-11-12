@@ -215,17 +215,17 @@ STYLE = """
     border:1px solid var(--border,#2A2A2A);border-radius:8px;margin:18px 0;}
   .tp-open{border-color:var(--accent);}
   .tp-scroll{overflow-x:auto;}
-  .tp-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .tp-table{width:100%;border-collapse:collapse;font-size:15px;}
   .tp-table th,.tp-table td{padding:10px 8px;text-align:left;
     border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;}
   .tp-table th{color:#fff;background:rgba(255,255,255,.03);white-space:nowrap;}
   .tp-date{color:var(--accent);font-weight:700;white-space:nowrap;}
-  .tp-note{color:#B8B0AC;font-size:13px;}
+  .tp-note{color:#B8B0AC;font-size:14.5px;}
   .tp-table a{color:#E8E4E1;}
   .tp-next{padding:16px 18px;background:var(--surface,#141414);border-radius:10px;
-    margin-top:12px;line-height:1.9;font-size:14.5px;}
+    margin-top:12px;line-height:1.9;font-size:15.5px;}
   .tp-next a{color:var(--accent);font-weight:700;}
-  .tp-disclaimer{font-size:12.5px !important;color:#8E8884 !important;margin-top:32px;}
+  .tp-disclaimer{font-size:13.5px !important;color:#8E8884 !important;margin-top:32px;}
 """
 
 

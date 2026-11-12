@@ -232,15 +232,15 @@ def build_page(region, sport, events):
   .landing-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }}
   .landing-sub {{ font-size: 15px; color: #B8B0AC; margin-bottom: 24px; }}
   .landing-list {{ display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }}
-  .landing-row {{ display: flex; gap: 16px; padding: 12px 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 6px; text-decoration: none; color: #E8E4E1; font-size: 14px; }}
+  .landing-row {{ display: flex; gap: 16px; padding: 12px 14px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 6px; text-decoration: none; color: #E8E4E1; font-size: 15px; }}
   .landing-row:hover {{ border-color: var(--accent); }}
   .landing-date {{ color: var(--accent); font-weight: 700; flex-shrink: 0; width: 82px; }}
-  .landing-empty {{ padding: 20px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; font-size: 14.5px; line-height: 1.9; color: #B8B0AC; }}
+  .landing-empty {{ padding: 20px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; font-size: 15.5px; line-height: 1.9; color: #B8B0AC; }}
   .landing-empty a {{ color: var(--accent); font-weight: 700; }}
   .landing-h2 {{ font-size: 17px; margin: 34px 0 10px; }}
-  .landing-note {{ font-size: 12.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
+  .landing-note {{ font-size: 13.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
   .landing-facts {{ margin: 0 0 6px; padding-left: 18px; }}
-  .landing-facts li {{ font-size: 13.5px; line-height: 1.9; color: var(--ink-soft); }}
+  .landing-facts li {{ font-size: 15px; line-height: 1.9; color: var(--ink-soft); }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
 </style>
@@ -322,7 +322,7 @@ def build_index(pages):
   .landing-wrap {{ max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }}
   .landing-wrap h2 {{ margin-top: 32px; font-size: 18px; }}
   .landing-index-grid {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }}
-  .landing-index-item {{ font-size: 13px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #E8E4E1; text-decoration: none; }}
+  .landing-index-item {{ font-size: 14.5px; padding: 8px 14px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #E8E4E1; text-decoration: none; }}
   .landing-index-item span {{ color: var(--accent); margin-left: 4px; }}
   .landing-index-item:hover {{ border-color: var(--accent); }}
 </style>
@@ -344,7 +344,7 @@ def build_index(pages):
 <main class="landing-wrap">
 <h1>지역별 대회 일정</h1>
 <p>지역과 종목을 선택해서 해당 대회 목록을 바로 확인하세요.</p>
-<a href="distances.html" style="display:inline-block;margin-top:6px;padding-block:4px;min-height:24px;font-size:13px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
+<a href="distances.html" style="display:inline-block;margin-top:6px;padding-block:4px;min-height:24px;font-size:14.5px;color:var(--ink-soft, #B8B0AC);text-decoration:none;border-bottom:1px dashed var(--ink-faint, #8E8E8E);">거리별로 찾아보기 →</a>
 {body}
 </main>
 <footer class="site-footer">
