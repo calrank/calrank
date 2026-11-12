@@ -159,7 +159,7 @@ COURSE = page(
 <section class="tp-card"><p class="tp-small">기준: <span id="cvSource"></span></p>
 <p class="cv-big"><b id="cvIndex">1.00</b><span> 코스 부하 지수 · <span id="cvBand"></span></span></p>
 <table class="cv-table"><tbody id="cvTable"></tbody></table>
-<p class="tp-small" id="cvRawNote" hidden></p><p class="tp-small">칼랭크 난이도와 Km-effort는 거리와 누적 오르막으로만 계산한 값입니다. <a href="dg-method.html">계산 방법과 근거</a></p></section>
+<p class="tp-small" id="cvRawNote" hidden></p><p class="tp-small">칼랭크 난이도와 Km-effort는 거리와 누적 오르막으로만 계산한 값입니다. <a href="dg-method.html">계산 방법과 근거</a></p><p class="tp-small">마라톤 대회 코스라면 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별 오르막과 보정 페이스를 볼 수 있어요.</p></section>
 <section class="tp-card" id="cvChartWrap" hidden><div id="cvChart"></div></section>
 </div>
 <section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>
@@ -998,7 +998,7 @@ def hub_page():
                  '<p class="tp-small">여기 실린 코스의 중앙값입니다. 난이도 숫자가 클수록 1km당 오르막이 많은 경향이 있습니다.</p></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었어요.</p>' if MOUNTAINS else "")}
-<p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
+<p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <p class="tp-small"><label>저장해 둔 백업 불러오기 <input type="file" id="trImport" accept="application/json,.json"></label> <span id="trImportMsg" role="status"></span></p>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
