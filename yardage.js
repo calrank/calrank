@@ -64,7 +64,7 @@
       var sec = r.eq / 1000 * p0, pace = sec / (r.d / 1000); t += sec;
       var avg = (r.up - r.dn) / r.d * 100, cls = avg > 1.5 ? "yd-up" : avg < -1.5 ? "yd-dn" : "";
       var to = (r.from + r.d) / 1000;
-      html += '<tr class="' + cls + '"><th>' + (r.from / 1000).toFixed(r.from % 1000 ? 1 : 0).replace(/\.0$/, "") + "–" + (Math.abs(to - Math.round(to)) < 0.01 ? Math.round(to) : to.toFixed(1)) + "</th><td>+" + Math.round(r.up) + " / −" + Math.round(r.dn) + " m</td><td>" +
+      html += '<tr class="' + cls + '"><th>' + (r.from / 1000).toFixed(r.from % 1000 ? 1 : 0).replace(/\.0$/, "") + "–" + (Math.abs(to - Math.round(to)) < 0.01 ? Math.round(to) : to.toFixed(1)) + "</th><td>+" + Math.round(r.up) + "/−" + Math.round(r.dn) + "</td><td>" +
         (avg > 0 ? "+" : "") + avg.toFixed(1) + "%</td><td>" + fmt(pace) + "</td><td>" + fmt(t) + "</td></tr>";
     });
     $("ydBody").innerHTML = html;
