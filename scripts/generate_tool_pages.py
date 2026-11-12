@@ -694,7 +694,7 @@ def course_page(c):
                '50 미만 쉬움, 50~100 보통, 100~150 조금 힘듦, 150~200 힘듦, 200 이상 매우 힘듦이고, 이름은 한국어로 옮겼습니다. '
                '거리와 오르막만 보는 식이라 노면, 날씨, 짧고 가파른 구간은 반영하지 못합니다. 공원관리청도 이 식이 "완벽하지 않다"고 밝혔습니다. '
                '그래서 위의 경사 단면도와 7% 넘게 가파른 구간 길이를 함께 보세요. 걷기 기준이며 달리기 난이도와는 다릅니다.</p>'
-               '<p class="tp-small">출처: <a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">NPS, How to Determine Hiking Difficulty</a></p></details></section>')
+               '<p class="tp-small">출처: <a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">NPS, How to Determine Hiking Difficulty</a> · <a href="dg-method.html">계산 과정과 근거 자세히 보기</a></p></details></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p></section>
 {dg_html}
 <section class="tp-sec">{profile_svg(prof)}
@@ -763,6 +763,91 @@ def course_page(c):
 
 
 COURSE_PAGES = [course_page(c) for c in COURSES]
+
+
+def dg_method_page():
+    """칼랭크 난이도의 근거를 한곳에 모은 페이지. 숫자는 모두 코스 자료에서 그때그때 계산한다."""
+    import statistics as _st
+    cnt = [0] * 5
+    for c in COURSES:
+        cnt[dg_of(c)[1]] += 1
+    n_all = len(COURSES)
+    # 예시: 실제 코스 하나로 계산 과정을 보여 준다
+    ex = next((c for c in COURSES if c["name"].startswith("해파랑길 5코스")), COURSES[0])
+    ek, eg, _l, _s = course_stats(ex)
+    e_ft = eg * 3.28084; e_mi = ek * 0.621371
+    e_score, e_i, e_nm = diff_grade(ek, eg)
+    # 두루누비 단계별 점수 분포 (공식 단계가 있는 코스만)
+    byl = {1: [], 2: [], 3: []}
+    for c in COURSES:
+        lv = (c.get("official") or {}).get("level")
+        if lv in byl:
+            byl[lv].append(dg_of(c)[0])
+    def _rk(v):
+        o = sorted(range(len(v)), key=lambda i: v[i]); r = [0.0] * len(v); i = 0
+        while i < len(o):
+            j = i
+            while j + 1 < len(o) and v[o[j + 1]] == v[o[i]]:
+                j += 1
+            for k in range(i, j + 1):
+                r[o[k]] = (i + j) / 2 + 1
+            i = j + 1
+        return r
+    _sc = []; _lv = []
+    for c in COURSES:
+        lv = (c.get("official") or {}).get("level")
+        if lv in byl:
+            _sc.append(dg_of(c)[0]); _lv.append(lv)
+    _ra, _rb = _rk(_sc), _rk(_lv); _ma, _mb = _st.mean(_ra), _st.mean(_rb)
+    rho = sum((x - _ma) * (y - _mb) for x, y in zip(_ra, _rb)) / (sum((x - _ma) ** 2 for x in _ra) * sum((y - _mb) ** 2 for y in _rb)) ** 0.5
+    lvname = {1: "1단계(쉬움)", 2: "2단계(보통)", 3: "3단계(어려움)"}
+    lv_rows = "".join(f"<tr><th>{lvname[k]}</th><td>{len(v)}개</td><td>{_st.median(v):.0f}점</td></tr>" for k, v in byl.items() if v)
+    # 거리×오르막 환산표
+    dists = [5, 10, 15, 20, 30]; gains = [100, 300, 500, 800, 1200]
+    grid_head = "<tr><th>거리＼오르막</th>" + "".join(f"<th>{g}m</th>" for g in gains) + "</tr>"
+    grid_rows = ""
+    for d_ in dists:
+        cells = "".join(f"<td>{diff_grade(d_, g_)[0]:.0f}점<br><span class=\"tp-small\">{diff_grade(d_, g_)[2]}</span></td>" for g_ in gains)
+        grid_rows += f"<tr><th>{d_}km</th>{cells}</tr>"
+    who = ["처음 걷는 분도 부담이 적은 편입니다.", "평소 걷는 분이라면 무리 없이 걸을 수 있는 정도입니다.",
+           "오르막이 꽤 있어서 물과 간식, 쉬는 시간을 넉넉히 잡는 편이 좋습니다.", "체력이 필요한 코스입니다. 시간을 넉넉히 잡고 이른 시간에 출발하세요.",
+           "매우 힘든 편입니다. 걷기에 익숙하고 체력이 충분할 때 도전하세요."]
+    ranges = ["50점 미만", "50~100점", "100~150점", "150~200점", "200점 이상"]
+    band_rows = "".join(f"<tr><th>{DG_BANDS[i][1]}</th><td>{ranges[i]}</td><td>{who[i]}</td><td>{cnt[i]}개</td></tr>" for i in range(5))
+    body = f"""<section class="tp-sec"><p class="tp-p">칼랭크 난이도는 코스의 거리와 누적 오르막, 이 두 숫자로 계산합니다. 식은 미국 국립공원관리청(NPS)이 셰넌도어 국립공원 안내에서 하이킹 난이도를 가늠할 때 쓰는 것을 그대로 따랐고, 점수 구간의 이름만 한국어로 옮겼습니다. 사람이 느낌으로 나눈 단계가 아니라 같은 숫자를 넣으면 누구나 같은 점수가 나오는 식입니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">계산은 이렇게 합니다</h2>
+<p class="tp-p">누적 오르막(피트)에 2를 곱하고, 거리(마일)를 곱한 뒤 제곱근을 취합니다. 국립공원관리청 안내의 예시는 거리 10마일에 오르막 2,200피트인 코스로, 2,200 × 2 × 10 = 44,000이고 제곱근은 약 209.8이라 가장 높은 단계인 '매우 힘듦'에 해당합니다.</p>
+<p class="tp-p">우리 코스로 해 보면 이렇습니다. {esc(ex["name"])}는 거리 {ek:.1f}km, 누적 오르막 {eg:.0f}m입니다. 단위를 바꾸면 {ek:.1f}km는 약 {e_mi:.1f}마일, {eg:.0f}m는 약 {e_ft:.0f}피트입니다. {e_ft:.0f} × 2 × {e_mi:.1f} = {e_ft * 2 * e_mi:,.0f}이고 제곱근은 {e_score:.0f}이므로 "{e_nm}"입니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">왜 거리와 오르막을 함께 보나</h2>
+<p class="tp-p">오르막이 같아도 거리가 길면 그만큼 오래 걷고, 거리가 같아도 오르막이 많으면 한 걸음마다 더 힘이 듭니다. 곱셈으로 묶으면 둘 중 하나만 큰 코스보다 둘 다 큰 코스가 훨씬 높게 나옵니다. 제곱근은 점수가 너무 빨리 커지지 않게 눈금을 고르게 펴 주는 역할이라, 거리가 두 배가 되면 점수는 약 1.4배가 됩니다.</p>
+<p class="tp-p">오르막이 얼마나 부담이 되는지는 생리학 측정으로도 확인됩니다. 이탈리아 연구진이 트레드밀의 경사를 -45%에서 +45%까지 바꿔 가며 에너지 소모를 잰 연구(Minetti 외, 2002)에서, 걷기에 드는 에너지는 +45% 오르막에서 평지 최소치의 약 10배까지 올라갔습니다. 반대로 -10% 안팎의 내리막에서 가장 적게 들었습니다. 다만 이 연구는 경사와 에너지의 관계를 잰 것이고, 위의 식과 직접 이어서 검증한 연구는 아닙니다. 식이 가진 한계는 아래에 따로 적었습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">다섯 단계의 뜻</h2>
+<div class="mt-wrap"><table class="mt-table"><thead><tr><th>단계</th><th>점수</th><th>이런 정도입니다</th><th>칼랭크 코스 수</th></tr></thead><tbody>{band_rows}</tbody></table></div>
+<p class="tp-small">칼랭크에 실린 코스 {n_all}개를 같은 식으로 계산한 분포입니다. 걷기 기준이고, 달리기 난이도와는 다릅니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">거리와 오르막으로 보는 점수표</h2>
+<p class="tp-p">내가 가려는 길의 거리와 오르막을 알면 코스를 찾지 않아도 대략의 단계를 알 수 있습니다.</p>
+<div class="mt-wrap"><table class="mt-table"><thead>{grid_head}</thead><tbody>{grid_rows}</tbody></table></div>
+<p class="tp-small">같은 식으로 계산한 값이고, 거리는 km, 오르막은 m입니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">공식 난이도와 맞춰 봤습니다</h2>
+<p class="tp-p">한국관광공사 두루누비에는 코스마다 1~3단계 난이도가 붙어 있습니다. 두루누비 단계가 있는 코스에서 칼랭크 점수의 중앙값을 단계별로 나눠 보면 단계가 올라갈수록 점수도 올라갑니다.</p>
+<div class="mt-wrap"><table class="mt-table"><thead><tr><th>두루누비 단계</th><th>코스 수</th><th>칼랭크 점수 중앙값</th></tr></thead><tbody>{lv_rows}</tbody></table></div>
+<p class="tp-small">순위를 매겨 견준 상관계수(스피어만)는 {rho:.2f}였습니다. 방향은 같지만 완전히 같은 기준은 아닙니다. 두루누비 단계를 어떻게 정했는지는 이 비교에서 확인하지 못했습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">이 식이 못 보는 것</h2>
+<p class="tp-p">국립공원관리청도 이 식이 "완벽하지 않다"고 밝혔습니다. 안내에 나온 예로 Dark Hollow Falls는 점수가 36.3이라 가장 쉬운 단계에 들지만, 짧은 거리에 경사가 가팔라서 공원은 한 단계 위인 '보통'으로 따로 분류합니다. 그래서 점수만 보지 말고 거리와 오르막을 함께 보라고 안내합니다.</p>
+<p class="tp-p">칼랭크도 같은 이유로 코스 페이지에 경사 단면도와 7% 넘게 가파른 구간의 길이를 점수 옆에 나란히 둡니다. 노면, 날씨, 배낭 무게, 개인의 체력은 점수에 들어 있지 않습니다. 걷기 기준이라 달릴 때의 난이도와도 다릅니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">출처</h2>
+<ul class="cp-list"><li><a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">미국 국립공원관리청 셰넌도어 국립공원, How to Determine Hiking Difficulty</a></li>
+<li><a href="https://iris.unibs.it/handle/11379/540545" rel="noopener" target="_blank">Minetti AE 외, Energy cost of walking and running at extreme uphill and downhill slopes, Journal of Applied Physiology 93(3), 2002</a></li></ul>
+<p class="tp-small">코스 거리와 오르막은 두루누비와 산림청 자료를 바탕으로 칼랭크가 계산했고, 코스 페이지마다 출처를 적었습니다.</p></section>"""
+    faq = [("칼랭크 난이도는 누가 정했나요?", "미국 국립공원관리청이 하이킹 난이도를 가늠할 때 쓰는 식을 그대로 따랐습니다. 칼랭크가 만든 식이 아니고, 점수 구간의 이름만 한국어로 옮겼습니다."),
+           ("난이도 점수는 어떻게 계산하나요?", "누적 오르막(피트)에 2를 곱하고 거리(마일)를 곱한 뒤 제곱근을 취합니다. 50 미만 쉬움, 50~100 보통, 100~150 조금 힘듦, 150~200 힘듦, 200 이상 매우 힘듦입니다."),
+           ("점수가 낮으면 쉬운 길이라고 믿어도 되나요?", "짧은 거리에 가파른 구간이 있으면 점수는 낮아도 힘들 수 있습니다. 국립공원관리청도 같은 한계를 밝히고 있어, 코스 페이지의 경사 단면도와 가파른 구간 길이를 함께 보시길 권합니다.")]
+    return page("dg-method.html", "코스 난이도 계산 방법 — 거리와 오르막으로 매기는 칼랭크 난이도",
+                "코스 난이도를 거리와 누적 오르막으로 계산하는 방법을 모두 공개합니다. 미국 국립공원관리청 식, 점수 구간, 두루누비 난이도와 맞춰 본 결과, 식이 못 보는 것까지 적었습니다.",
+                "칼랭크 난이도는 어떻게 매기나", "거리와 누적 오르막으로 계산하고, 계산 과정과 근거, 한계를 모두 적었습니다.", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+
+
+DGM = dg_method_page() if COURSES else None
 
 
 # ── 길 이름별·시도별 모음 (코스가 속한 긴 길 4곳, 시도) ───────────────────────
@@ -879,7 +964,7 @@ def hub_page():
                  f'<table class="cv-table"><tbody>{rows_}</tbody></table>'
                  '<p class="tp-small">여기 실린 코스의 중앙값입니다. 난이도 숫자가 클수록 1km당 오르막이 많은 경향이 있습니다.</p></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
-{('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요.</p>' if MOUNTAINS else "")}
+{('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었어요.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <p class="tp-small"><label>저장해 둔 백업 불러오기 <input type="file" id="trImport" accept="application/json,.json"></label> <span id="trImportMsg" role="status"></span></p>
@@ -1229,7 +1314,7 @@ def _decorate(name, html):
 KIT, COURSE, AGE, LEDGER = (_decorate(n, h) for n, h in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)])
 STANDARDS = [(n, _decorate(n, h)) for n, h in STANDARDS]
 
-for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
+for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS + ([("dg-method.html", DGM)] if DGM else []):
     p = ROOT / name
     if not p.exists() or p.read_text(encoding="utf-8") != html:
         p.write_text(html, encoding="utf-8")
@@ -1251,7 +1336,7 @@ if _stale:
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html", "dg-method.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
