@@ -525,6 +525,16 @@ def diff_grade(km, gain):
     return score, 4, "매우 힘듦"
 
 
+# ITRA(국제트레일러닝협회)의 Km-effort: 거리 1km = 1, 누적 오르막 100m = 1. 0~6점 구간 경계.
+KE_BANDS = [25, 45, 75, 115, 155, 210]
+
+
+def km_effort(km, gain):
+    ke = km + gain / 100.0
+    pts = sum(1 for b in KE_BANDS if ke >= b)
+    return ke, pts
+
+
 def dg_of(c):
     k_, g_, _l, _s = course_stats(c)
     return diff_grade(k_, g_)
@@ -602,7 +612,8 @@ def course_page(c):
         if wt:
             lead += f" 걸어서 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))} 정도로 가늠합니다."
     dg_score, dg_i, dg_name = diff_grade(km, gain)
-    stat_rows = [("칼랭크 난이도", f"{dg_name} (점수 {dg_score:.0f})"), ("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
+    ke, ke_pts = km_effort(km, gain)
+    stat_rows = [("칼랭크 난이도", f"{dg_name} (점수 {dg_score:.0f})"), ("Km-effort(ITRA식)", f"{ke:.0f} (0~6점 중 {ke_pts}점)"), ("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
                  ("1km당 오르막", f"{gain / km:.0f} m"), ("7% 넘게 가파른 구간", f"{steep_km:.1f} km")]
     if off.get("level"):
         stat_rows.append(("두루누비 표기 난이도", f'{off["level"]} (1~3 중)'))
@@ -689,6 +700,7 @@ def course_page(c):
     dg_html = (f'<section class="tp-sec dg"><p class="dg-top"><span class="dg-lab">칼랭크 난이도</span><b class="dg-name">{dg_name}</b>'
                f'<span class="dg-score">점수 {dg_score:.0f}</span></p><ol class="dg-scale" aria-label="난이도 5단계 중 {dg_i + 1}단계">{_seg}</ol>'
                f'<p class="tp-p">{esc(nm)}의 거리 {km:.1f}km와 누적 오르막 {gain:.0f}m로 계산한 점수는 {dg_score:.0f}점으로 "{dg_name}"입니다. {_who}{esc(_rank)}</p>'
+               f'<p class="tp-small">트레일러닝 대회에서 쓰는 방식(ITRA)으로 환산하면 Km-effort는 {ke:.0f}(거리 {km:.1f}km + 오르막 {gain:.0f}m÷100)이고, 0~6점 중 {ke_pts}점에 해당합니다. <a href="dg-method.html#km-effort">환산 방법</a></p>'
                '<details class="tp-p"><summary>이 난이도는 어떻게 매겼나요</summary>'
                '<p class="tp-small">미국 국립공원관리청(셰넌도어 국립공원)이 하이킹 난이도를 가늠할 때 쓰는 식입니다. 누적 오르막(피트)에 2를 곱하고 거리(마일)를 곱한 뒤 제곱근을 취합니다. '
                '50 미만 쉬움, 50~100 보통, 100~150 조금 힘듦, 150~200 힘듦, 200 이상 매우 힘듦이고, 이름은 한국어로 옮겼습니다. '
@@ -832,11 +844,15 @@ def dg_method_page():
 <p class="tp-p">한국관광공사 두루누비에는 코스마다 1~3단계 난이도가 붙어 있습니다. 두루누비 단계가 있는 코스에서 칼랭크 점수의 중앙값을 단계별로 나눠 보면 단계가 올라갈수록 점수도 올라갑니다.</p>
 <div class="mt-wrap"><table class="mt-table"><thead><tr><th>두루누비 단계</th><th>코스 수</th><th>칼랭크 점수 중앙값</th></tr></thead><tbody>{lv_rows}</tbody></table></div>
 <p class="tp-small">순위를 매겨 견준 상관계수(스피어만)는 {rho:.2f}였습니다. 방향은 같지만 완전히 같은 기준은 아닙니다. 두루누비 단계를 어떻게 정했는지는 이 비교에서 확인하지 못했습니다.</p></section>
+<section class="tp-sec" id="km-effort"><h2 class="tp-h2">트레일러닝 대회식(Km-effort)으로도 환산합니다</h2>
+<p class="tp-p">국제트레일러닝협회(ITRA)는 대회 코스의 난이도를 Km-effort로 나타냅니다. 거리 1km를 1로 치고, 누적 오르막 100m마다 1을 더하는 단순한 환산입니다. 이 값을 0~6점으로 나눠 대회에 붙이는데, 경계는 25, 45, 75, 115, 155, 210입니다. 칼랭크는 이 방식을 참고용으로 코스 페이지에 함께 적습니다. 예를 들어 {esc(ex["name"])}는 {ek:.1f} + {eg:.0f}÷100 = {km_effort(ek, eg)[0]:.0f}이고 {km_effort(ek, eg)[1]}점입니다.</p>
+<p class="tp-p">두 방식은 보는 눈이 다릅니다. 칼랭크 난이도는 걷는 하이킹의 부담을, Km-effort는 달리는 대회의 환산 거리를 말합니다. 그래서 같은 코스라도 단계가 다르게 나올 수 있고, 하나가 틀리고 하나가 맞는 관계는 아닙니다. 이 페이지의 칼랭크 난이도는 걷기 기준입니다. 산 페이지에는 Km-effort를 적지 않습니다. 산 하나의 등산로를 모두 더한 값은 한 번에 걷는 한 코스가 아니라서, 합쳐서 환산하면 실제 산행과 다른 숫자가 나오기 때문입니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">이 식이 못 보는 것</h2>
 <p class="tp-p">국립공원관리청도 이 식이 "완벽하지 않다"고 밝혔습니다. 안내에 나온 예로 Dark Hollow Falls는 점수가 36.3이라 가장 쉬운 단계에 들지만, 짧은 거리에 경사가 가팔라서 공원은 한 단계 위인 '보통'으로 따로 분류합니다. 그래서 점수만 보지 말고 거리와 오르막을 함께 보라고 안내합니다.</p>
 <p class="tp-p">칼랭크도 같은 이유로 코스 페이지에 경사 단면도와 7% 넘게 가파른 구간의 길이를 점수 옆에 나란히 둡니다. 노면, 날씨, 배낭 무게, 개인의 체력은 점수에 들어 있지 않습니다. 걷기 기준이라 달릴 때의 난이도와도 다릅니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">출처</h2>
 <ul class="cp-list"><li><a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">미국 국립공원관리청 셰넌도어 국립공원, How to Determine Hiking Difficulty</a></li>
+<li>국제트레일러닝협회(ITRA), Discover Trail Running의 Km-effort와 코스 난이도 점수 안내(itra.run)</li>
 <li><a href="https://iris.unibs.it/handle/11379/540545" rel="noopener" target="_blank">Minetti AE 외, Energy cost of walking and running at extreme uphill and downhill slopes, Journal of Applied Physiology 93(3), 2002</a></li></ul>
 <p class="tp-small">코스 거리와 오르막은 두루누비와 산림청 자료를 바탕으로 칼랭크가 계산했고, 코스 페이지마다 출처를 적었습니다.</p></section>"""
     faq = [("칼랭크 난이도는 누가 정했나요?", "미국 국립공원관리청이 하이킹 난이도를 가늠할 때 쓰는 식을 그대로 따랐습니다. 칼랭크가 만든 식이 아니고, 점수 구간의 이름만 한국어로 옮겼습니다."),
