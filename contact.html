@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>제휴·광고 문의 — calrank</title>
-<meta name="description" content="calrank 광고·제휴·후원 문의 안내">
+<meta name="description" content="calrank 제휴·광고·후원 문의와 방문 현황(누적 방문자·페이지뷰·유입 구성). 국내 아마추어 지구력 스포츠 등급 판정 플랫폼.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -17,6 +17,18 @@
 <script defer src="/track.js"></script>
   <link rel="canonical" href="https://calrank.vercel.app/contact.html">
   <meta property="og:title" content="제휴·광고 문의 — calrank">
+<style>
+.vis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 10px}
+.vis-n{border:1px solid var(--border);background:var(--surface);border-radius:14px;padding:18px 16px;min-width:0}
+.vis-n b{display:block;font-size:clamp(34px,10vw,52px);line-height:1.1;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}
+.vis-n span{display:block;margin-top:8px;font-size:15px;color:var(--ink-soft,var(--ink-faint))}
+.vis-note{font-size:13.5px;color:var(--ink-faint);line-height:1.6;margin:0 0 8px}
+.vis-bars{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:14px}
+.vis-bars li{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:baseline;font-size:16px}
+.vis-bars b{font-variant-numeric:tabular-nums}
+.vis-bars i{grid-column:1/-1;height:10px;border-radius:5px;background:var(--border);overflow:hidden}
+.vis-bars em{display:block;height:100%;background:var(--accent);border-radius:5px}
+</style>
 </head>
 <body>
 
@@ -41,16 +53,32 @@
 
 <section class="hero">
 <h1>제휴·광고 문의</h1>
-<p class="hero-sub">calrank와 함께할 파트너를 찾습니다.</p>
+<p class="hero-sub">국내 아마추어 지구력 스포츠의 기준을 만드는 calrank와 함께합니다.</p>
 </section>
 
 <div class="legal-doc">
 
 <p class="legal-lead">
-calrank는 마라톤·자전거·트레일러닝·철인3종 등 전 종목 대회 정보를 매일 자동으로 모아
-전달하는 서비스입니다. 대회 주최사, 스포츠 브랜드, 러닝·사이클 관련 제품/서비스와의 제휴를
-환영합니다.
+calrank는 국내 아마추어 지구력 스포츠를 위한 대회 일정과 등급 판정 플랫폼입니다.
+기록, 코스, 장비를 공식 규정과 국제 기준에 맞춰 하나의 잣대로 판정하고, 모든 수치에 근거와 한계를 함께 밝힙니다.
+대회 주최사, 스포츠 브랜드, 러닝·사이클·산행 관련 제품과 서비스와의 제휴를 환영합니다.
 </p>
+
+<h2>방문 현황</h2>
+<div class="vis" id="vis">
+<div class="vis-n"><b id="visV" data-n="1576">1,576</b><span>누적 방문자</span></div>
+<div class="vis-n"><b id="visP" data-n="3807">3,807</b><span>누적 페이지뷰</span></div>
+</div>
+<p class="vis-note" id="visNote">2026년 11월 12일까지는 Vercel Web Analytics 기준이고, 이후는 날짜별 집계를 더해 갑니다. 광고비 없이 검색으로 들어온 방문입니다.</p>
+
+<h2>누가 보나</h2>
+<ul class="vis-bars">
+<li><span>네이버 검색</span><b>약 80%</b><i><em style="width:80%"></em></i></li>
+<li><span>구글 검색</span><b>1%</b><i><em style="width:1%"></em></i></li>
+<li><span>모바일</span><b>74%</b><i><em style="width:74%"></em></i></li>
+<li><span>한국 접속</span><b>96%</b><i><em style="width:96%"></em></i></li>
+</ul>
+<p class="vis-note">최근 30일 기준(2026년 11월 12일 확인)입니다. 기록과 대회를 검색해서 찾는 국내 아마추어 선수와 동호인이 중심입니다.</p>
 
 <h2>이런 제휴가 가능합니다</h2>
 <ul class="legal-list">
@@ -98,5 +126,18 @@ calrank는 개인이 운영하는 서비스로, 별도의 영업팀 없이 직�
 </div>
 </footer>
 
+<script>
+/* 누적 방문: 기준값(Vercel, 2026-11-12) + 이후 날짜별 집계. 집계 호출이 실패하면 기준값만 보인다. */
+(function(){
+  var K="sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
+  fetch("https://mlbzsqeoqlyvnyzeegeu.supabase.co/rest/v1/rpc/get_traffic_totals",{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json"},body:"{}"})
+  .then(function(r){return r.ok?r.json():[]}).then(function(rows){
+    var v=0,p=0;(rows||[]).forEach(function(r){if(r.day>"2026-11-12"){v+=Number(r.visitors)||0;p+=Number(r.views)||0;}});
+    var a=document.getElementById("visV"),b=document.getElementById("visP");
+    a.textContent=(Number(a.dataset.n)+v).toLocaleString("ko-KR");
+    b.textContent=(Number(b.dataset.n)+p).toLocaleString("ko-KR");
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
