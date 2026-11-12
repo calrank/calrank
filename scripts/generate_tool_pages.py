@@ -310,10 +310,38 @@ def standards_page(sid):
 import os as _os
 COURSES = json.loads(Path(_os.environ.get("CALRANK_COURSES") or (ROOT / "data/courses.json")).read_text(encoding="utf-8")).get("courses", [])
 
+# 둘레길(한국등산트레킹지원센터 GPX) — 고도를 채운 코스만 싣는다. 경로만 있고 고도가 아직 없는 코스는 건너뛴다.
+_ftp = Path(_os.environ.get("CALRANK_FOREST") or (ROOT / "data/forest_trails.json"))
+try:
+    FOREST = [c for c in json.loads(_ftp.read_text(encoding="utf-8")).get("courses", []) if not c.get("needsDem") and len(c.get("profile") or []) >= 20]
+except Exception:
+    FOREST = []
+COURSES = COURSES + FOREST
+COPDEM_FT = ("produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 "
+             "provided under COPERNICUS by the European Union and ESA; all rights reserved.")
+
+
+def walk_time(prof):
+    """걷는 시간 가늠(분). Naismith 규칙(5km/h + 오르막 600m당 1시간)과 Tobler 하이킹 함수의 두 값을 돌려준다."""
+    km = prof[-1][0] / 1000.0
+    gain = sum(max(0.0, b_[1] - a_[1]) for a_, b_ in zip(prof, prof[1:]))
+    nais = (km / 5.0 + gain / 600.0) * 60.0
+    tob = 0.0
+    for a_, b_ in zip(prof, prof[1:]):
+        d = b_[0] - a_[0]
+        if d <= 0:
+            continue
+        sl = (b_[1] - a_[1]) / d
+        v = 6.0 * _math_exp(-3.5 * abs(sl + 0.05))
+        tob += (d / 1000.0) / max(v, 0.3) * 60.0
+    return nais, tob
+
 # ── 코스와 산 잇기 ─────────────────────────────────────────────────────────
 # 사람들은 코스 이름보다 "OO산 둘레길"처럼 산 이름으로 찾는다. 코스 경로에서 1km 안에
 # 산림청 등산로가 지나는 산을 찾아 서로 잇는다. 경로 좌표끼리의 거리일 뿐, 공식 연결이 아니다.
 import math as _math
+import re as _re2
+from math import exp as _math_exp
 
 
 def _mt_raw():
@@ -447,7 +475,15 @@ def profile_svg(prof):
 
 
 ROUTES = {"해파랑길": ("haeparang", "동해안을 따라 부산에서 고성까지 이어지는 길입니다."), "남파랑길": ("nampa", "남해안을 따라 부산에서 해남까지 이어지는 길입니다."),
-          "서해랑길": ("seohae", "서해안을 따라 해남에서 인천 강화까지 이어지는 길입니다."), "DMZ 평화의 길": ("dmz", "비무장지대 접경을 따라 이어지는 길입니다.")}
+          "서해랑길": ("seohae", "서해안을 따라 해남에서 인천 강화까지 이어지는 길입니다."), "DMZ 평화의 길": ("dmz", "비무장지대 접경을 따라 이어지는 길입니다."),
+          "서울둘레길": ("seoul-dulle", "서울의 산과 하천, 공원을 이어 한 바퀴 도는 둘레길입니다."),
+          "지리산둘레길": ("jirisan-dulle", "지리산 자락의 마을과 숲을 잇는 둘레길로, 전남·전북·경남에 걸쳐 있습니다."),
+          "한라산둘레길": ("hallasan-dulle", "제주 한라산 중산간의 숲길을 걷는 둘레길입니다."),
+          "DMZ펀치볼둘레길": ("dmz-punchbowl", "강원 양구 펀치볼 분지를 둘러싼 국가숲길입니다."),
+          "내포문화숲길": ("naepo", "충남 내포 지역의 역사와 종교 이야기를 따라 걷는 국가숲길입니다."),
+          "대관령숲길": ("daegwallyeong", "강원 대관령 일대의 숲길과 백두대간 구간을 모은 국가숲길입니다."),
+          "백두대간트레일": ("baekdudaegan", "백두대간을 따라 이어지는 국가숲길입니다."),
+          "울진금강소나무숲길": ("uljin", "경북 울진의 금강소나무 숲을 지나는 국가숲길입니다.")}
 SIDO = {"강원": "gangwon", "경기": "gyeonggi", "경남": "gyeongnam", "경북": "gyeongbuk", "부산": "busan", "서울": "seoul",
         "울산": "ulsan", "인천": "incheon", "전남": "jeonnam", "전북": "jeonbuk", "충남": "chungnam", "충북": "chungbuk",
         "대구": "daegu", "광주": "gwangju", "대전": "daejeon", "세종": "sejong", "제주": "jeju"}
@@ -539,6 +575,14 @@ def course_page(c):
             f"7% 넘게 가파른 구간은 모두 합쳐 {steep_km:.1f}km입니다.")
     if t_off:
         lead += f" 두루누비가 적은 소요시간은 {t_off}입니다."
+    _ft = c.get("trail")
+    wt = walk_time(prof) if _ft else None
+    if _ft:
+        _sib = [o for o in COURSES if o.get("trail") == _ft]
+        lead = (f"{nm}{josa(nm, '은', '는')} {_ft}의 한 코스입니다. 거리는 {km:.1f}km이고, 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다. "
+                f"7% 넘게 가파른 구간은 모두 합쳐 {steep_km:.1f}km입니다.")
+        if wt:
+            lead += f" 걸어서 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))} 정도로 가늠합니다."
     stat_rows = [("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
                  ("1km당 오르막", f"{gain / km:.0f} m"), ("7% 넘게 가파른 구간", f"{steep_km:.1f} km")]
     if off.get("level"):
@@ -547,6 +591,13 @@ def course_page(c):
             stat_rows.append((f'같은 난이도 코스의 1km당 오르막(중앙값, {LV_MED[off["level"]][1]}개)', f'{LV_MED[off["level"]][0]:.0f} m'))
     if t_off:
         stat_rows.append(("두루누비 표기 소요시간", t_off))
+    if _ft and wt:
+        stat_rows.append(("걷는 시간 가늠(공식 시간 아님)", f"{fmt_min(round(min(wt)))} ~ {fmt_min(round(max(wt)))}"))
+        _ks = sorted(_sib, key=lambda o: -course_stats(o)[0]); _gs = sorted(_sib, key=lambda o: -course_stats(o)[1])
+        _ps = sorted(_sib, key=lambda o: -(course_stats(o)[1] / max(course_stats(o)[0], 0.1)))
+        stat_rows.append((f"{_ft} {len(_sib)}개 코스 중 거리 순위", f"{_ks.index(c) + 1}번째로 긺"))
+        stat_rows.append((f"{_ft} {len(_sib)}개 코스 중 오르막 순위", f"{_gs.index(c) + 1}번째로 많음"))
+        stat_rows.append((f"{_ft} {len(_sib)}개 코스 중 1km당 오르막", f"{_ps.index(c) + 1}번째로 가파름"))
     stat_html = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in stat_rows)
     # 코스마다 달라지는 문장: 가장 크게 이어서 오르는 구간과 가장 높은 지점
     notable = ""
@@ -569,7 +620,8 @@ def course_page(c):
         notable = '<section class="tp-sec"><h2 class="tp-h2">눈여겨볼 곳</h2><p class="tp-p">' + esc(" ".join(parts_)) + "</p></section>"
     qual = ""
     if q.get("rawGainM") and q.get("smoothGainM"):
-        qual = (f'<p class="tp-small">자료 점검: 경로 파일의 거리는 공식 거리의 {q.get("distRatio", 1) * 100:.0f}%였습니다. '
+        _dist_txt = f'경로 파일의 거리는 공식 거리의 {q["distRatio"] * 100:.0f}%였습니다. ' if q.get("distRatio") else ""
+        qual = ('<p class="tp-small">자료 점검: ' + _dist_txt +
                 f'GPS 고도는 작게 흔들려서 파일에 적힌 값을 그대로 더하면 오르막이 {q["rawGainM"]}m로 나옵니다. '
                 f'이 페이지는 약 100m 구간으로 다듬어 {q["smoothGainM"]}m로 계산했습니다.</p>')
     same = [o for o in COURSES if o["id"] != cid and region and o.get("region") == region][:6]
@@ -587,9 +639,30 @@ def course_page(c):
         rel += ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 코스</h2><ul class="cp-list">' +
                "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km</li>' for o in same) +
                '</ul></section>')
+    ft_extra = ""
+    if _ft:
+        wp = c.get("waypoints") or {}
+        cnt = wp.get("counts") or {}
+        pois = [p_ for p_ in (wp.get("pois") or []) if p_[1].strip() and not _re2.match(r"^[ㄱ-ㅎㅏ-ㅣ]", p_[1].strip()) and not _re2.search(r"직진|방향|^[A-Za-z]\s", p_[1].strip()) and len(p_[1].strip()) >= 2]
+        parts = []
+        order = ["화장실", "쉼터", "전망", "약수터·샘터", "안내소", "주차장", "스탬프", "갈림길"]
+        trs_ = "".join(f"<tr><th>{k}</th><td>{cnt[k]}곳</td></tr>" for k in order if cnt.get(k))
+        if trs_:
+            parts.append(f'<h2 class="tp-h2">길 위의 시설</h2><p class="tp-p">자료에 찍힌 지점 가운데 경로에서 80m 안에 있는 것만 셌습니다. 같은 시설을 두 번 찍은 경우가 있어 실제와 조금 다를 수 있습니다.</p><table class="cv-table"><tbody>{trs_}</tbody></table>')
+        if pois:
+            lis = "".join(f'<li>{p_[0] / 1000:.1f}km 지점 · {esc(p_[1].strip())}' + (f' <span class="tp-small">해발 {p_[2]}m</span>' if p_[2] is not None else "") + "</li>" for p_ in pois)
+            parts.append(f'<h2 class="tp-h2">이름이 있는 지점</h2><ul class="cp-list">{lis}</ul>')
+        if wt:
+            parts.append(f'<h2 class="tp-h2">걷는 시간 가늠</h2><p class="tp-p">고도 단면으로 두 가지 알려진 식에 넣어 보았습니다. Naismith 규칙(평지 시속 5km에 오르막 600m당 1시간 더함)으로는 {fmt_min(round(wt[0]))}, '
+                         f'Tobler의 하이킹 함수(경사에 따라 속도가 달라지는 식, 1993)로는 {fmt_min(round(wt[1]))}입니다. 짐, 쉬는 시간, 노면은 들어 있지 않으니 공식 안내 시간과 다를 수 있습니다.</p>')
+        if c.get("elevSource"):
+            parts.append(f'<p class="tp-small">원본 GPX에는 고도 값이 없어 위성 고도 자료(Copernicus DEM 30m)로 고도를 채웠습니다. 이 자료는 나무 높이가 섞여 있어 숲길의 오르막은 실제보다 조금 크게 나올 수 있습니다. 고도: {COPDEM_FT}</p>')
+        parts.append(f'<p class="tp-small">경로는 한국등산트레킹지원센터가 {"2023년 8월" if "국가숲길" in (s.get("label") or "") else "2022년 1월"} 기준으로 올린 일회성 자료라 현재 노선과 다를 수 있습니다. 출발 전에 관리 기관의 안내를 확인해 주세요.</p>')
+        ft_extra = '<section class="tp-sec">' + "".join(parts) + "</section>"
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
 {notable}
+{ft_extra}
 {map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
@@ -598,11 +671,11 @@ def course_page(c):
 <p id="cpMsg" class="tp-small" role="status" aria-live="polite"></p>
 <p class="cv-big"><b id="cpIndex">1.00</b><span> 코스 부하 지수 · <span id="cpBand"></span></span></p>
 <table class="cv-table"><tbody id="cpTable"></tbody></table>
-<p class="tp-small">달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)으로 계산합니다. 걷는 시간은 위의 두루누비 표기 소요시간을 참고해 주세요. 걷기에 이 식이 맞는지는 아직 검증하지 못했습니다.</p></section>
-<section class="tp-sec"><h2 class="tp-h2">기술 난이도 (칼랭크 구분)</h2>{tech_html}
+<p class="tp-small">달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)으로 계산합니다. {"걷는 시간은 위의 걷는 시간 가늠을 참고해 주세요." if _ft else "걷는 시간은 위의 두루누비 표기 소요시간을 참고해 주세요."} 걷기에 이 식이 맞는지는 아직 검증하지 못했습니다.</p></section>
+{"" if _ft else f'''<section class="tp-sec"><h2 class="tp-h2">기술 난이도 (칼랭크 구분)</h2>{tech_html}
 <details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
 <p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
-<section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>
+<section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>'''}
 {mt_near_html}
 <section class="tp-sec" id="trMark" data-href="course-{c["id"]}.html" data-name="{esc(c["name"])}"><h2 class="tp-h2">내 목록에 담기</h2></section>
 {rel}
@@ -610,11 +683,19 @@ def course_page(c):
 <script type="application/json" id="cpData">{data}</script>"""
     faq = [("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다."),
            (f"{nm}의 오르막은 얼마나 되나요?", f"경로 파일의 고도를 약 100m 구간으로 다듬어 계산하면 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다.")]
-    base = nm if nm.endswith("코스") else nm + " 코스"
+    base = nm if (nm.endswith("코스") or _ft) else nm + " 코스"
     h1 = f"{base} 난이도와 오르막"
-    desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
+    if _ft:
+        _cn = (c.get("waypoints") or {}).get("counts") or {}
+        _fac = ", ".join(f"{k} {_cn[k]}곳" for k in ("화장실", "쉼터", "전망") if _cn.get(k))
+        desc = (f'{nm} {km:.1f}km, 누적 오르막 {gain:.0f}m, 걷는 시간 약 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))}. '
+                f'{_ft} {len(_sib)}개 코스 중 어디쯤 가파른지, 경로 지도와 경사 색 단면도' + (f', {_fac}' if _fac else '') + '까지 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
+    else:
+        desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
     _tt = f"{nm} 난이도·소요시간·오르막·지도"
-    if _nm:
+    if _ft:
+        _tt = f"{nm} 난이도·거리·오르막·소요시간"
+    elif _nm:
         _tt = f"{nm} ({_nm[0][1]['name']} 근처) 난이도·소요시간·지도"
     return slug, page(slug, _tt, desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
@@ -629,8 +710,48 @@ COURSE_PAGES = [course_page(c) for c in COURSES]
 # ── 길 이름별·시도별 모음 (코스가 속한 긴 길 4곳, 시도) ───────────────────────
 import re as _re2
 def _num(c):
+    if c.get("trail"):
+        m_ = _re2.search(r"-(\d+)$", c["id"])
+        return (int(m_.group(1)) if m_ else 999, 0, c["name"])
     m = _re2.search(r"(\d+)(?:-(\d+))?\s*코스", c["name"]) or _re2.search(r"(\d+)", c["name"])
     return (int(m.group(1)) if m else 999, int(m.group(2)) if (m and m.lastindex and m.lastindex > 1 and m.group(2)) else 0, c["name"])
+
+
+def ft_group_page(slug, name, intro, cs):
+    cs = sorted(cs, key=_num)
+    st = {c["id"]: course_stats(c) for c in cs}
+    wt = {c["id"]: walk_time(c["profile"]) for c in cs}
+    km = sum(v[0] for v in st.values()); gain = sum(v[1] for v in st.values())
+    per = lambda c: st[c["id"]][1] / max(st[c["id"]][0], 0.1)
+    easy = sorted(cs, key=per)[:3]; hard = sorted(cs, key=lambda c: -per(c))[:3]
+    short = sorted(cs, key=lambda c: st[c["id"]][0])[:3]
+    longest = max(cs, key=lambda c: st[c["id"]][0])
+    nm_short = lambda c: c["name"].replace(name, "").strip() or c["name"]
+    rows = ""
+    for c in cs:
+        k_, g_, _l, sk = st[c["id"]]; w_ = wt[c["id"]]
+        cn = ((c.get("waypoints") or {}).get("counts") or {})
+        fac = " · ".join(f"{x} {cn[x]}" for x in ("화장실", "쉼터", "전망") if cn.get(x)) or "-"
+        _hm = lambda m_: f"{int(round(m_)) // 60}:{int(round(m_)) % 60:02d}"
+        rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a></td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
+                 f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{fac}</td></tr>')
+    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th class="hide-sm">1km당</th><th>걷는 시간(시:분)</th><th class="hide-sm">시설</th></tr></thead>'
+             f'<tbody>{rows}</tbody></table></div>')
+    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m</li>' for c in lst)
+    lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
+            f"가장 긴 코스는 {nm_short(longest)}({st[longest['id']][0]:.1f}km)입니다. 1km당 오르막으로 가장 가파른 코스는 {nm_short(hard[0])}(약 {per(hard[0]):.0f}m), 가장 완만한 코스는 {nm_short(easy[0])}(약 {per(easy[0]):.0f}m)입니다.")
+    body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p></section>
+<section class="tp-sec"><h2 class="tp-h2">{esc(name)} 코스별 한눈에 보기</h2>{table}
+<p class="tp-small">걷는 시간은 Naismith 규칙과 Tobler 하이킹 함수 두 값의 범위로 가늠한 것이고 공식 시간이 아닙니다. 휴대폰 화면에서는 1km당 오르막과 시설 열을 줄였고, 코스 이름을 누르면 모두 볼 수 있습니다. 시설은 자료에 찍힌 지점 중 경로에서 80m 안에 있는 것의 수이며, 자료에 시설이 없는 코스는 -로 두었습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">처음이라면 완만한 코스부터</h2><ul class="cp-list">{lk(easy)}</ul>
+<p class="tp-small">1km당 오르막이 적은 순입니다. 짧은 코스는 {nm_short(short[0])}({st[short[0]['id']][0]:.1f}km)처럼 반나절 안에 걸을 수 있는지 가늠해 보세요.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">체력이 필요한 코스</h2><ul class="cp-list">{lk(hard)}</ul></section>
+<p class="tp-src">자료: {esc((cs[0].get("source") or {}).get("label", ""))} — <a href="{esc((cs[0].get("source") or {}).get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc((cs[0].get("source") or {}).get("license", ""))}). 일회성으로 올라온 자료라 현재 노선과 다를 수 있습니다. 거리·오르막·시간은 칼랭크가 계산했습니다. <a href="trailroot.html">전체 코스 보기</a></p>"""
+    faq = [(f"{name}에서 가장 가파른 코스는 어디인가요?", f"1km당 오르막으로 보면 {hard[0]['name']}(약 {per(hard[0]):.0f}m)가 가장 높습니다."),
+           (f"{name}에서 초보가 걷기 좋은 코스는 어디인가요?", f"1km당 오르막이 가장 적은 {easy[0]['name']}(약 {per(easy[0]):.0f}m)부터 보시길 권합니다. 거리({st[easy[0]['id']][0]:.1f}km)도 함께 확인하세요."),
+           (f"{name}은 전체 몇 km인가요?", f"칼랭크에 실린 {len(cs)}개 코스를 합치면 약 {km:.0f}km입니다. 코스가 겹치는 구간이 있으면 실제 길이와 다를 수 있습니다.")]
+    return slug, page(slug, f"{name} 코스별 거리·오르막·난이도 정리", f"{name} {len(cs)}개 코스의 거리, 누적 오르막, 걷는 시간 가늠, 화장실·쉼터 수를 표로 모았습니다. 완만한 코스와 힘든 코스를 데이터로 나눠 보았습니다.",
+                      f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, [], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 def group_page(slug, name, intro, cs):
@@ -650,6 +771,8 @@ def group_page(slug, name, intro, cs):
         l2 = (c.get("official") or {}).get("level")
         return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m'
                 + (f' · 두루누비 난이도 {l2}' if l2 else "") + _near_txt(c) + "</li>")
+    if cs and all(c.get("trail") for c in cs):
+        return ft_group_page(slug, name, intro, cs)
     lead = (f"{name}에서 칼랭크에 실린 코스는 {len(cs)}개입니다. 모두 합치면 {km:.0f}km이고 누적 오르막은 {gain:.0f}m입니다. "
             f"두루누비 난이도로는 1단계 {lv[1]}개, 2단계 {lv[2]}개, 3단계 {lv[3]}개입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p>
@@ -955,7 +1078,7 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
 
 # 자료에서 빠진 코스·산의 페이지는 지운다(고도 고정 코스 제외, 산 이름 정리 등으로 사라진 것)
 _live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES} | {s for s, _ in GROUP_PAGES} | {s for s, _ in MT_GROUP_PAGES}
-_stale = [f.name for pat in ("course-dr-*.html", "mountain-*.html", "trailroute-*.html", "trailarea-*.html", "mountainarea-*.html") for f in ROOT.glob(pat) if f.name not in _live]
+_stale = [f.name for pat in ("course-dr-*.html", "course-ft-*.html", "mountain-*.html", "trailroute-*.html", "trailarea-*.html", "mountainarea-*.html") for f in ROOT.glob(pat) if f.name not in _live]
 for _n in _stale:
     (ROOT / _n).unlink()
     print("지움", _n)
@@ -983,7 +1106,7 @@ _dm = MT_FETCHED
 t = sm.read_text(encoding="utf-8")
 def _lm(m_):
     loc = m_.group(1)
-    day = _dc if ("/course-dr-" in loc or loc.endswith("/trailroot.html")) else (_dm if ("/mountain-" in loc or loc.endswith("/mountains.html")) else "")
+    day = _dc if ("/course-dr-" in loc or "/course-ft-" in loc or loc.endswith("/trailroot.html")) else (_dm if ("/mountain-" in loc or loc.endswith("/mountains.html")) else "")
     return m_.group(0) if not day else f"<loc>{loc}</loc>\n    <lastmod>{day}</lastmod>"
 t2 = _re.sub(r"<loc>([^<]+)</loc>(?!\s*<lastmod>)", _lm, t)
 if t2 != t:

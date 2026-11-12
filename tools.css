@@ -171,3 +171,9 @@
 
 /* 경로 지도 */
 .rm-box { height: 340px; max-width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid var(--line); }
+
+/* 목록·본문 속 링크: 기본 파랑 대신 글자색에 포인트 밑줄 */
+.tp a:not(.tp-btn), .cp-list a, .mt-table a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.tp a:not(.tp-btn):hover, .cp-list a:hover, .mt-table a:hover { color:var(--accent-ink); }
+@media (max-width: 480px) { .hide-sm { display: none; } .mt-table th, .mt-table td { padding: 8px 8px; } }
+@media (max-width: 600px) { .tp { padding-left: 16px; padding-right: 16px; } }
