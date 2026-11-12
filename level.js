@@ -219,7 +219,18 @@ function renderResult(result, inputs) {
         <div class="lv-grade-next">
           <span class="lv-next-l">가장 높은 구간입니다</span>
         </div>`}
-      </div>`;
+      </div>
+      ${(() => {
+        // 등급이 어디서 나왔는지 계산을 그대로 보여 준다. 숫자를 믿게 하는 건 설명이 아니라 계산 과정이다.
+        const std = wmaStd(inputs.gender, inputs.distanceKm, inputs.age);
+        if (!std) return "";
+        const bound = TIER_BOUNDS.find((t) => t[1] === tier.label);
+        return `
+      <p class="lv-why">계산은 이렇게 했습니다. ${inputs.age}세 ${genderLabel}의 ${distLabel(inputs.distanceKm)} 기준기록 <b>${fmtClock(std)}</b>
+      ÷ 내 기록 <b>${fmtClock(inputs.finishSec)}</b> × 100 = <b>${agePct.toFixed(1)}%</b>${bound ? `이고, ${bound[0]}% 이상이면 '${tier.label}'입니다` : ""}.
+      기준기록은 세계마스터즈육상연맹(WMA) 2025 연령 기준표입니다.
+      <a href="grade-method.html">계산 근거 자세히 보기</a></p>`;
+      })()}`;
     })()}
 
     ${(() => {

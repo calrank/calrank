@@ -560,3 +560,6 @@
   .lv-gear-head { font-size: 15px; }
   .lv-gear-cut { margin-left: 0; width: 100%; }
 }
+
+.lv-why{font-size:13.5px;line-height:1.75;color:var(--ink-soft);margin:10px 0 0;}
+.lv-why a{color:var(--accent-ink);}
