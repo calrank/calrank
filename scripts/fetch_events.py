@@ -1375,7 +1375,7 @@ def refresh_home_meta(events: list[dict]) -> None:
                if e.get("regDeadline") and str(e["regDeadline"]) >= today_iso]
     year = today.year
 
-    title = (f"{year} 마라톤 대회 일정 | 전국 마라톤·트레일러닝·자전거 접수 캘린더 | 칼랭크 CALRANK")
+    title = (f"{year} 전국 마라톤 대회 일정 | 마라톤·트레일러닝·자전거 접수 캘린더 | 칼랭크 CALRANK")
     # 제목은 사람들이 실제로 치는 말("마라톤 대회 일정")을 지킨다. 아무도
     # "러닝 등급 판정"으로 검색하지 않으니 제목을 그걸로 바꾸면 들어올 문이 닫힌다.
     # 대신 설명문·og는 하는 일을 앞에 둔다. 클릭 직전과 공유될 때 읽히는 자리라,
@@ -1388,7 +1388,7 @@ def refresh_home_meta(events: list[dict]) -> None:
     # 연도를 박으면 해가 바뀔 때마다 틀린 말이 되고, '캘린더'는 화면을 보면
     # 아는 말이라 뺀다. 다만 '대회 일정'은 남긴다 — 사람들이 실제로 치는
     # 검색어고, 이게 빠지면 들어올 문이 좁아진다.
-    h1 = ('전국의 모든 대회 일정'
+    h1 = ('전국 마라톤 대회 일정'
           '<span class="h1-kinds">마라톤 · 자전거 · 트레일러닝 · 철인3종 · 인라인</span>')
 
     with open(path, encoding="utf-8") as f:
@@ -1420,7 +1420,8 @@ def refresh_home_meta(events: list[dict]) -> None:
     # 예전 문단에는 한 단락에 가운뎃점이 여섯 개, 괄호 설명이 겹쳐 있었다.
     # 같은 말을 사람이 하는 방식으로 쓴다. 검색어는 그대로 다 들어 있다.
     lead = ("칼랭크는 기록이 어느 등급인지 읽어 주는 곳입니다. "
-            "10km, 하프, 풀코스 기록을 넣으면 나이와 성별을 반영한 등급이 나옵니다.")
+            "10km, 하프, 풀코스 기록을 넣으면 나이와 성별을 반영한 등급이 나옵니다. "
+            "<b>전국 마라톤 대회 일정</b>도 월별, 지역별로 모아 두었습니다.")
     # id 를 빠뜨리면 script.js 의 setupHeroLead 가 요소를 못 찾고 그냥 빠져나간다.
     # 그러면 접기가 안 걸리는데 '더보기' 버튼은 .hero-more{display:block} 가
     # hidden 속성을 이겨서 그대로 남는다 — 눌러도 아무 일 없는 버튼이 된다.
