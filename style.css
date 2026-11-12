@@ -328,7 +328,7 @@ body{
   /* 가로 스크롤로 두었더니 스크롤바를 숨긴 탓에 더 있다는 표시가 없어
      등급표·내 랭크·찜한 대회·제휴문의 4개가 화면 밖에 묻혔다.
      로고를 윗줄에 두고 메뉴를 아랫줄에 접어 전부 보이게 한다. */
-  .header-inner{flex-wrap:wrap;height:auto;padding:10px 0;row-gap:6px;}
+  .header-inner{flex-wrap:wrap;height:auto;padding-block:10px;row-gap:6px;}
   .wordmark{flex:0 0 auto;}
   .main-nav{width:100%;flex-wrap:wrap;gap:0 22px;overflow:visible;}
   .nav-grp{gap:0 16px;flex:0 0 auto;}
@@ -355,7 +355,7 @@ body{
 }
 /* 태블릿 폭: 한 줄에 다 안 들어가므로 로고 아래로 내리고 묶음 단위로 줄을 바꾼다. */
 @media (max-width:1020px){
-  .header-inner{flex-wrap:wrap;height:auto;padding:10px 0;row-gap:6px;}
+  .header-inner{flex-wrap:wrap;height:auto;padding-block:10px;row-gap:6px;}
   .main-nav{width:100%;flex-wrap:wrap;gap:0 22px;}
   .nav-grp{gap:0 16px;flex:0 0 auto;}
   .nav-grp + .nav-grp{border-left:0;padding-left:0;}

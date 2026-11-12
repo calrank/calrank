@@ -1,0 +1,29 @@
+name: Fill forest trail elevation
+
+# 국가숲길 코스 GPX 는 고도 칸이 전부 0 이라, Copernicus 30m DEM 으로 고도를 채워 data/forest_trails.json 을 갱신한다.
+# 인증키를 쓰지 않는다. 내려받은 고도 타일은 저장하지 않는다.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy rasterio
+      - name: Fill
+        run: python scripts/fill_forest_dem.py
+      - name: Commit data
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add data/forest_trails.json
+          git diff --quiet --cached || (git commit -m "data: forest trail elevation" && git pull --rebase && git push)
