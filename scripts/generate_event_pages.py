@@ -711,6 +711,8 @@ def build_related_links(ev: dict) -> str:
             links.append(f'<a href="{fname}">{esc(region)} {esc(SPORT_LABEL[sport])} 대회 전체 일정</a>')
     if sport in SPORT_LABEL:
         links.append(f'<a href="index.html?sport={esc(sport)}">{esc(SPORT_LABEL[sport])} 대회 캘린더</a>')
+    if sport in ("marathon", "trail"):
+        links.append('<a href="yardage.html">대회 코스 야디지북</a>')
     links.append('<a href="column.html">러닝·사이클 칼럼</a>')
     return " · ".join(links)
 
