@@ -971,6 +971,23 @@ for _m in MOUNTAINS:
         _mg.setdefault(_k, []).append(_m)
 
 
+def _mt_prof(m):
+    S = m["sections"]; tot = sum(x["lenM"] for x in S) or 1
+    r15 = sum(x["lenM"] for x in S if abs(x["meanGrade"]) >= 15) / tot * 100
+    gain = sum(x["gainM"] for x in S)
+    return r15, gain, tot / 1000
+
+
+_MT_R15 = sorted(_mt_prof(o)[0] for o in MOUNTAINS if _mt_prof(o)[2] >= 2)
+_MT_GAIN = sorted(_mt_prof(o)[1] for o in MOUNTAINS if _mt_prof(o)[2] >= 2)
+
+
+def _pct_above(arr, v):
+    """arr 중 v보다 작은 값의 비율(%)"""
+    import bisect
+    return bisect.bisect_left(arr, v) / len(arr) * 100 if arr else 0
+
+
 def mountain_page(m):
     mid = m["id"]; slug = f"mountain-{mid}.html"
     S = m["sections"]; nm = m["name"]
@@ -996,6 +1013,16 @@ def mountain_page(m):
             tds += [f'{s["upln"]:.0f}분', f'{s["gngd"]:.0f}분', f'{s["dgdf"]}']
         trs += "<tr>" + "".join(f"<td>{t}</td>" for t in tds) + "</tr>"
     table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr>' + "".join(f"<th>{t}</th>" for t in th) + f"</tr></thead><tbody>{trs}</tbody></table></div>")
+    _r15, _gain, _km = _mt_prof(m)
+    mt_prof_html = ""
+    if _km >= 2:
+        _pr = _pct_above(_MT_R15, _r15); _pg = _pct_above(_MT_GAIN, _gain)
+        _steep_txt = ("가파른 길이 거의 없는 편" if _r15 < 5 else "가파른 길이 일부 섞인 편" if _r15 < 20 else "가파른 길이 꽤 많은 편" if _r15 < 40 else "가파른 길이 대부분인 편")
+        mt_prof_html = (f'<section class="tp-sec"><h2 class="tp-h2">{esc(nm)} 한눈에 보기</h2>'
+            f'<p class="tp-p">구간 평균 경사로 보면 {esc(nm)}{josa(nm, "은", "는")} {_steep_txt}입니다. 전체 등산로 중 평균 경사 15% 이상인 길이 {_r15:.0f}%이고, '
+            f'이 비율은 칼랭크에 실린 산(등산로 2km 이상)의 {_pr:.0f}%보다 높습니다. '
+            f'구간별 오르막을 전부 더하면 {_gain:,.0f}m입니다. 산 전체 등산로의 합이라, 한 번의 산행에서 오르는 높이와는 다릅니다.</p>'
+            f'<p class="tp-small">경사 15%는 약 8.5도입니다. 구간의 낮은 끝과 높은 끝을 이은 평균값이라, 구간 안의 짧은 급경사는 드러나지 않습니다. 산행 계획에는 아래 가파른 구간과 지도를 함께 보세요.</p></section>')
     mt_map = ""
     if all(s.get("path") for s in S):
         mt_map = map_block({"secs": [{"p": s["path"], "g": s["meanGrade"]} for s in S]},
@@ -1026,6 +1053,7 @@ def mountain_page(m):
                            "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> <span class="tp-small">{esc(c.get("region") or "")} · 약 {max(d_*1000, 10):.0f}m 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
+{mt_prof_html}
 {mt_map}
 <section class="tp-sec"><h2 class="tp-h2">길의 경사는 이렇게 나뉩니다</h2>{grade_bar(S)}
 <p class="tp-small">구간마다 낮은 쪽 끝에서 높은 쪽 끝까지 평균 경사를 잰 뒤, 경사별로 길이를 더했습니다.</p></section>
@@ -1036,7 +1064,9 @@ def mountain_page(m):
 {rel}
 {area_link}
 <p class="tp-src">자료: 산림청 산림공간정보 등산로정보(공공데이터포털, 이용허락범위 제한 없음){(' — <a href="' + esc(m["info"]) + '" rel="noopener" target="_blank">산림청 안내</a>') if m.get("info") else ""}. 고도: {COPDEM} 계산과 표시는 칼랭크가 했고, 현장 상황과 다를 수 있으니 산행 전 안내를 확인해 주세요. <a href="mountains.html">다른 산 보기</a></p>"""
-    faq = [(f"{nm}의 가파른 구간은 어디인가요?", f"산림청 구간 중 평균 경사가 가장 큰 곳은 약 {abs(top[0]['meanGrade']):.0f}%입니다(구간 길이 {top[0]['lenM']}m)."),
+    faq_extra = ([(f"{nm}{josa(nm, '은', '는')} 얼마나 가파른가요?", f"평균 경사 15% 이상인 길이 전체 등산로의 약 {_r15:.0f}%입니다. 구간 평균 기준이라 짧은 급경사는 반영되지 않습니다."),
+                  (f"{nm} 등산로는 모두 몇 km인가요?", f"산림청 등산로 구간을 모두 더하면 {tot:.1f}km입니다. 한 번에 걷는 거리가 아니라 산 전체 등산로의 합입니다.")] if _km >= 2 else [])
+    faq = faq_extra + [(f"{nm}의 가파른 구간은 어디인가요?", f"산림청 구간 중 평균 경사가 가장 큰 곳은 약 {abs(top[0]['meanGrade']):.0f}%입니다(구간 길이 {top[0]['lenM']}m)."),
            ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
     desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.')
     return slug, page(slug, f"{mt_title(m)} 등산로 경사와 가파른 구간", desc, f"{mt_title(m)} 등산로",
