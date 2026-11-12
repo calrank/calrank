@@ -10,7 +10,7 @@
 
 /* 태그 */
 .g-tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 22px;}
-.g-tag{font-size:13.5px;padding:5px 12px;border:1px solid var(--border);border-radius:999px;
+.g-tag{font-size:13.5px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;
   color:var(--ink-soft);text-decoration:none;transition:.15s;}
 .g-tag:hover{border-color:var(--accent);color:var(--accent-ink);}
 
@@ -211,6 +211,6 @@
    24×24px 가 그대로 적용된다. 길잡이줄·목차·각주 번호 모두 높이가 14~15px
    이었다. 글자 크기는 그대로 두고 눌리는 영역만 넓힌다. 각주는 근거로 가는
    링크라 모바일에서 특히 빗나가면 안 된다. */
-.g-crumb a{display:inline-block;padding-block:5px;min-height:24px;}
+.g-crumb a{display:inline-block;padding-block:10px;min-height:40px;box-sizing:border-box;}
 .g-toc-l a{display:inline-block;padding-block:5px;min-height:24px;}
 .g-cite a{display:inline-block;padding:4px 3px;min-width:24px;min-height:24px;text-align:center;}

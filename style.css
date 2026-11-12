@@ -112,6 +112,7 @@ body{
 .wm-a{height:0.72em;width:auto;margin:0 0.03em 0 0.02em;flex:none;}
 .wm-a path{fill:currentColor;}
 .wm-a .wm-top{fill:var(--accent);}
+.wordmark{padding-block:9px;}
 .wordmark:hover .wm-a .wm-top{fill:var(--accent);opacity:.82;}
 .main-nav{display:flex;align-items:center;}
 .nav-menu{display:flex;align-items:center;gap:0 18px;}
@@ -676,3 +677,6 @@ h1 > .emo:first-child,h2 > .emo:first-child{margin:.1em 0 0;margin-top:calc((1lh
 h1 > .emo:first-child{width:1.05em;height:1.05em;}
 h2 > .emo:first-child{width:1.1em;height:1.1em;}
 .gh-sport h2 > .emo:first-child{margin:0;width:26px;height:26px;}
+
+/* 본문 속 접기 요약줄도 손가락으로 누르기 쉽게 */
+main details>summary:not([class]){padding-block:9px;cursor:pointer;}

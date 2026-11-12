@@ -53,7 +53,7 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gi-crumb {
   max-width: 760px; margin: 16px auto 4px; font-size: 13.5px; color: var(--ink-faint);
 }
-.gi-crumb a { color: var(--ink-faint); text-decoration: none; }
+.gi-crumb a { color: var(--ink-faint); text-decoration: none; display: inline-block; padding-block: 11px; }
 .gi-crumb a:hover { color: var(--accent-ink); }
 
 /* ── 허브: 종목 × 두 축 ─────────────────────────────────────── */
