@@ -999,8 +999,8 @@ def hub_page():
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었어요.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
-<section class="tp-sec" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
-<p class="tp-small"><label>저장해 둔 백업 불러오기 <input type="file" id="trImport" accept="application/json,.json"></label> <span id="trImportMsg" role="status"></span></p>
+<section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
+<div class="mn-import"><span class="mn-import-t">다른 기기에서 저장해 둔 백업이 있나요?</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 {lvtab}
 <section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
@@ -1235,8 +1235,8 @@ def mountains_hub():
     secs = "".join(f'<section class="tp-sec"><h2 class="tp-h2">{k} ({len(v)})</h2><ul class="cp-list">{"".join(li(m) for m in v)}</ul></section>' for k, v in by.items())
     tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
     body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
-<section class="tp-sec" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
-<p class="tp-small"><label>저장해 둔 백업 불러오기 <input type="file" id="trImport" accept="application/json,.json"></label> <span id="trImportMsg" role="status"></span></p>
+<section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
+<div class="mn-import"><span class="mn-import-t">다른 기기에서 저장해 둔 백업이 있나요?</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
 <section class="tp-sec"><h2 class="tp-h2">지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 산</li>' for sl, nm_, n_ in MT_GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 산</h2><ul class="cp-list">{tall}</ul></section>
