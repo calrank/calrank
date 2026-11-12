@@ -528,7 +528,7 @@ def build_page(dist, gender):
 <main class="gr-wrap">
 <h1 class="gr-title">{h1}</h1>
 <figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
-<p class="gr-lead">{INTRO[dk]}</p>
+<p class="gr-lead">{INTRO[dk]} 이 표에 나오는 등급이 칼랭크 등급(기록등급)이고, 연령 기준은 WMA 연령 기준표를 씁니다.</p>
 {build_switch(dk, gk)}
 {build_table(dist, gender)}
 <p class="gr-note">{HOW_TO_READ} {ref_line}</p>
@@ -853,7 +853,7 @@ def build_hub():
 <h1 class="gr-title">러닝 기록 등급표</h1>
 <figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">같은 1시간이라도 25세 남성이 뛴 10km와 62세 여성이 뛴 10km는 전혀 다른 의미를 가집니다.
-그래서 절대 기록만 늘어놓은 표는 실제로 내 수준을 알려 주지 못합니다. 칼랭크(CALRANK)의 등급표는 나이와 성별 차이를
+그래서 절대 기록만 늘어놓은 표는 실제로 내 수준을 알려 주지 못합니다. 칼랭크 등급은 나이와 성별 차이를
 먼저 보정한 뒤 같은 조건의 동호인 사이에서 내 기록이 어디쯤인지 보여 줍니다. 거리와 성별을 고르면
 20대부터 75세까지 연령별 기준 기록이 표로 나옵니다.</p>
 
@@ -988,7 +988,7 @@ def build_age_page(dist, decade):
         f"{decade}대에 {rname}을 뛰고 나면 \"이 정도면 괜찮은 건가\" 싶어집니다. "
         f"같은 기록이라도 20대와 {decade}대의 의미가 다르기 때문에, 또래 기준으로 봐야 "
         f"내 위치가 보입니다. {mid}세 기준으로 {ref_m}(남성) · {ref_f}(여성) 안에 "
-        f"들어오면 '꾸준한 러너' 구간입니다."
+        f"들어오면 '꾸준한 러너' 구간입니다. 여기서 말하는 등급이 칼랭크 등급(기록등급)입니다."
     )
 
     faqs = [
