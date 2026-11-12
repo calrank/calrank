@@ -34,7 +34,7 @@ BRAND_SUBS = [
 ]
 
 # 목차가 없는 게 맞는 페이지들
-SKIP = {"widget.html", "greeting.html"}
+SKIP = {"widget.html", "widget-course.html", "greeting.html"}
 
 
 def sync(path: Path) -> bool:

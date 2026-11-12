@@ -24,7 +24,7 @@ ICON_RE = re.compile(
     r'(?:[ \t]*<link[^>]*rel="(?:shortcut )?icon"[^>]*>\s*'
     r'|[ \t]*<link[^>]*rel="apple-touch-icon(?:-precomposed)?"[^>]*>\s*)+')
 
-SKIP = {"widget.html", "greeting.html"}
+SKIP = {"widget.html", "widget-course.html", "greeting.html"}
 
 
 def main() -> None:

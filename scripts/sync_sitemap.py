@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKIP = {"profile.html", "event.html", "index.html", "terms.html", "privacy.html", "reset.html",
-        "contact.html", "welcome.html", "greeting.html", "widget.html", "saved-events.html"}
+        "contact.html", "welcome.html", "greeting.html", "widget.html", "widget-course.html", "saved-events.html"}
 
 
 def main():

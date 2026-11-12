@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>칼랭크 난이도 카드</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#F5F2EF;--ink:#1a1a1a;--faint:#666;--line:#d8d3cc;--on:#1a1a1a;--onink:#F5F2EF}
+@media (prefers-color-scheme:dark){:root{--bg:var(--bg);--ink:#f2f2f2;--faint:#a0a0a0;--line:#333;--on:#f2f2f2;--onink:var(--bg)}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.5 "Noto Sans KR",system-ui,sans-serif}
+a.card{display:block;padding:12px;color:inherit;text-decoration:none;border:1px solid var(--line);border-radius:10px;margin:4px}
+.lab{font-size:12px;color:var(--faint)}
+.name{font-weight:700;font-size:14px;margin:2px 0 8px}
+.top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.band{font-weight:900;font-size:20px}
+.score{color:var(--faint)}
+.scale{display:flex;gap:3px;margin:8px 0;padding:0;list-style:none}
+.scale li{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.scale li.on{background:var(--on)}
+.meta{font-size:12px;color:var(--faint)}
+.brand{font-size:11px;color:var(--faint);margin-top:6px}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/track.js"></script>
+</head>
+<body>
+<a class="card" id="card" href="https://calrank.vercel.app/trailroot.html" target="_blank" rel="noopener"><span class="lab">칼랭크 난이도</span><p class="name" id="nm">불러오는 중…</p></a>
+<script>
+(function () {
+  var id = (new URLSearchParams(location.search).get("c") || "").replace(/[^\w.-]/g, "");
+  var card = document.getElementById("card");
+  fetch("https://calrank.vercel.app/course-diff.json").then(function (r) { return r.json(); }).then(function (d) {
+    var x = d[id];
+    if (!x) { document.getElementById("nm").textContent = "코스를 찾을 수 없어요."; return; }
+    var seg = ""; for (var i = 0; i < 5; i++) seg += '<li class="' + (i === x[4] ? "on" : "") + '"></li>';
+    card.href = "https://calrank.vercel.app/" + id + ".html";
+    card.innerHTML = '<span class="lab">칼랭크 난이도</span><p class="name"></p>' +
+      '<div class="top"><span class="band">' + x[5] + '</span><span class="score">점수 ' + x[3] + '</span></div>' +
+      '<ol class="scale" aria-label="5단계 중 ' + (x[4] + 1) + '단계">' + seg + '</ol>' +
+      '<div class="meta">' + x[1] + 'km · 오르막 ' + x[2] + 'm · Km-effort ' + x[6] + '</div><div class="brand">calrank.vercel.app</div>';
+    card.querySelector(".name").textContent = x[0];
+  }).catch(function () { document.getElementById("nm").textContent = "불러오지 못했어요."; });
+})();
+</script>
+</body>
+</html>

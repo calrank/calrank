@@ -850,6 +850,9 @@ def dg_method_page():
 <section class="tp-sec"><h2 class="tp-h2">이 식이 못 보는 것</h2>
 <p class="tp-p">국립공원관리청도 이 식이 "완벽하지 않다"고 밝혔습니다. 안내에 나온 예로 Dark Hollow Falls는 점수가 36.3이라 가장 쉬운 단계에 들지만, 짧은 거리에 경사가 가팔라서 공원은 한 단계 위인 '보통'으로 따로 분류합니다. 그래서 점수만 보지 말고 거리와 오르막을 함께 보라고 안내합니다.</p>
 <p class="tp-p">칼랭크도 같은 이유로 코스 페이지에 경사 단면도와 7% 넘게 가파른 구간의 길이를 점수 옆에 나란히 둡니다. 노면, 날씨, 배낭 무게, 개인의 체력은 점수에 들어 있지 않습니다. 걷기 기준이라 달릴 때의 난이도와도 다릅니다.</p></section>
+<section class="tp-sec" id="embed"><h2 class="tp-h2">내 블로그·클럽 페이지에 넣기</h2>
+<p class="tp-p">코스 하나의 칼랭크 난이도를 작은 카드로 넣을 수 있습니다. 아래 코드의 <code>course-dr-4190</code> 자리에 코스 페이지 주소의 이름(course-로 시작하는 부분, .html 앞까지)을 넣으면 됩니다. 카드를 누르면 계산 근거가 있는 코스 페이지로 이어집니다.</p>
+<pre class="tp-small" style="overflow-x:auto;white-space:pre-wrap">&lt;iframe src="https://calrank.vercel.app/widget-course.html?c=course-dr-4190" width="320" height="150" style="border:0" loading="lazy" title="칼랭크 난이도"&gt;&lt;/iframe&gt;</pre></section>
 <section class="tp-sec"><h2 class="tp-h2">출처</h2>
 <ul class="cp-list"><li><a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">미국 국립공원관리청 셰넌도어 국립공원, How to Determine Hiking Difficulty</a></li>
 <li>국제트레일러닝협회(ITRA), Discover Trail Running의 Km-effort와 코스 난이도 점수 안내(itra.run)</li>
@@ -1335,6 +1338,20 @@ for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html"
     if not p.exists() or p.read_text(encoding="utf-8") != html:
         p.write_text(html, encoding="utf-8")
         print("wrote", name)
+
+# 임베드 위젯: 코스 한 곳의 칼랭크 난이도 카드. 값은 같은 식으로 계산해 json 한 파일에 둔다.
+if COURSES:
+    import json as _json
+    _cd = {}
+    for _c in COURSES:
+        _k, _g, _l, _s = course_stats(_c)
+        _sc, _i, _nm = diff_grade(_k, _g)
+        _ke, _kp = km_effort(_k, _g)
+        _cd[f"course-{_c['id']}"] = [_c["name"], round(_k, 1), round(_g), round(_sc), _i, _nm, round(_ke), _kp]
+    _txt = _json.dumps(_cd, ensure_ascii=False, separators=(",", ":"))
+    _jp = ROOT / "course-diff.json"
+    if not _jp.exists() or _jp.read_text(encoding="utf-8") != _txt:
+        _jp.write_text(_txt, encoding="utf-8"); print("wrote course-diff.json")
 
 # 자료에서 빠진 코스·산의 페이지는 지운다(고도 고정 코스 제외, 산 이름 정리 등으로 사라진 것)
 _live = {s for s, _ in COURSE_PAGES} | {s for s, _ in MOUNTAIN_PAGES} | {s for s, _ in GROUP_PAGES} | {s for s, _ in MT_GROUP_PAGES}
