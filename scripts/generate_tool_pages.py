@@ -727,6 +727,7 @@ def ft_group_page(slug, name, intro, cs):
     short = sorted(cs, key=lambda c: st[c["id"]][0])[:3]
     longest = max(cs, key=lambda c: st[c["id"]][0])
     nm_short = lambda c: c["name"].replace(name, "").strip() or c["name"]
+    any_fac = any(((c.get("waypoints") or {}).get("counts") or {}).get(x) for c in cs for x in ("화장실", "쉼터", "전망"))
     rows = ""
     for c in cs:
         k_, g_, _l, sk = st[c["id"]]; w_ = wt[c["id"]]
@@ -734,15 +735,15 @@ def ft_group_page(slug, name, intro, cs):
         fac = " · ".join(f"{x} {cn[x]}" for x in ("화장실", "쉼터", "전망") if cn.get(x)) or "-"
         _hm = lambda m_: f"{int(round(m_)) // 60}:{int(round(m_)) % 60:02d}"
         rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a></td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
-                 f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{fac}</td></tr>')
-    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th class="hide-sm">1km당</th><th>걷는 시간(시:분)</th><th class="hide-sm">시설</th></tr></thead>'
+                 f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{max(p_[1] for p_ in c["profile"]):.0f}m</td>' + (f'<td class="hide-sm">{fac}</td>' if any_fac else '') + '</tr>')
+    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th class="hide-sm">1km당</th><th>걷는 시간(시:분)</th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
              f'<tbody>{rows}</tbody></table></div>')
     lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m</li>' for c in lst)
     lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
             f"가장 긴 코스는 {nm_short(longest)}({st[longest['id']][0]:.1f}km)입니다. 1km당 오르막으로 가장 가파른 코스는 {nm_short(hard[0])}(약 {per(hard[0]):.0f}m), 가장 완만한 코스는 {nm_short(easy[0])}(약 {per(easy[0]):.0f}m)입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p></section>
 <section class="tp-sec"><h2 class="tp-h2">{esc(name)} 코스별 한눈에 보기</h2>{table}
-<p class="tp-small">걷는 시간은 Naismith 규칙과 Tobler 하이킹 함수 두 값의 범위로 가늠한 것이고 공식 시간이 아닙니다. 휴대폰 화면에서는 1km당 오르막과 시설 열을 줄였고, 코스 이름을 누르면 모두 볼 수 있습니다. 시설은 자료에 찍힌 지점 중 경로에서 80m 안에 있는 것의 수이며, 자료에 시설이 없는 코스는 -로 두었습니다.</p></section>
+<p class="tp-small">걷는 시간은 Naismith 규칙과 Tobler 하이킹 함수 두 값의 범위로 가늠한 것이고 공식 시간이 아닙니다. 최고점은 고도 자료로 잰 코스 안의 가장 높은 곳입니다. 휴대폰 화면에서는 1km당 오르막, 최고점, 시설 열을 줄였고, 코스 이름을 누르면 모두 볼 수 있습니다. 시설은 자료에 찍힌 지점 중 경로에서 80m 안에 있는 것의 수이며, 자료에 시설 지점이 없는 길은 이 열을 두지 않았습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">처음이라면 완만한 코스부터</h2><ul class="cp-list">{lk(easy)}</ul>
 <p class="tp-small">1km당 오르막이 적은 순입니다. 짧은 코스는 {nm_short(short[0])}({st[short[0]['id']][0]:.1f}km)처럼 반나절 안에 걸을 수 있는지 가늠해 보세요.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">체력이 필요한 코스</h2><ul class="cp-list">{lk(hard)}</ul></section>
@@ -829,7 +830,7 @@ def hub_page():
 <section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
 {secs}
-<p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API). 계산과 표시는 칼랭크가 했습니다.</p>"""
+<p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API), 한국등산트레킹지원센터 오감만족 숲길·국가숲길 코스(공공데이터포털 파일데이터, 둘 다 이용허락범위 제한 없음). 계산과 표시는 칼랭크가 했습니다.</p>"""
     faq = [("거리가 같아도 힘든 정도가 왜 다른가요?", "오르막이 많으면 같은 거리도 더 힘듭니다. 그래서 거리와 함께 누적 오르막, 가파른 구간 길이를 같이 보여 드립니다."),
            ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
     return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
