@@ -7,13 +7,15 @@
   try {
     var ref = document.referrer || "";
     var isSearchEngine = /google\.|naver\.|bing\.|daum\.|yahoo\./i.test(ref);
+    // 검색 로봇은 리퍼러도 저장소도 없이 와서 안내 페이지(noindex)로 보내지면 홈이 색인에서 빠진다.
+    var isBot = /bot|crawl|spider|yeti|daum|slurp|lighthouse|headless|preview|scrap/i.test(navigator.userAgent || "") || navigator.webdriver === true;
     var hasVisited = localStorage.getItem("crVisited");
     // 주소에 조건이 붙어 있으면 보려는 것이 정해진 사람입니다.
     // 카카오톡이나 메신저로 공유된 링크는 리퍼러가 비어서 오는데,
     // 그때 안내 페이지로 보내 버리면 ?sport=cycling 같은 조건이 사라져
     // 자전거 대회를 보려던 사람이 엉뚱한 곳에 떨어집니다.
     var hasIntent = !!(location.search || (location.hash && location.hash !== "#"));
-    if (!isSearchEngine && !hasVisited && ref === "" && !hasIntent) {
+    if (!isBot && !isSearchEngine && !hasVisited && ref === "" && !hasIntent) {
       window.location.replace("welcome.html");
     } else {
       localStorage.setItem("crVisited", "1");
