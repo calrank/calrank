@@ -623,7 +623,7 @@ def course_page(c):
         _dist_txt = f'경로 파일의 거리는 공식 거리의 {q["distRatio"] * 100:.0f}%였습니다. ' if q.get("distRatio") else ""
         qual = ('<p class="tp-small">자료 점검: ' + _dist_txt +
                 f'GPS 고도는 작게 흔들려서 파일에 적힌 값을 그대로 더하면 오르막이 {q["rawGainM"]}m로 나옵니다. '
-                f'이 페이지는 약 100m 구간으로 다듬어 {q["smoothGainM"]}m로 계산했습니다.</p>')
+                f'이 페이지는 약 100m 구간으로 다듬어 {gain:.0f}m로 계산했습니다.</p>')
     same = [o for o in COURSES if o["id"] != cid and region and o.get("region") == region][:6]
     rel = ""
     _lk = []
