@@ -116,6 +116,7 @@ body{
 .main-nav{display:flex;align-items:center;}
 .nav-menu{display:flex;align-items:center;gap:0 26px;}
 .nav-toggle{display:none;}
+.emo.nav-emo{display:none;}
 /* 메뉴는 세 묶음(대회 · 판정과 도구 · 읽을거리)과 오른쪽 도우미 묶음으로 나눈다. */
 .nav-grp{display:flex;align-items:center;gap:0 20px;}
 .nav-grp + .nav-grp{border-left:1px solid var(--border);padding-left:26px;}
@@ -359,6 +360,7 @@ body{
   .nav-link,.nav-contact-link{display:flex;align-items:center;min-height:50px;padding:0;margin:0;
     font-size:17px;font-weight:700;color:var(--ink);border:0;letter-spacing:0;}
   .nav-link.active{border-bottom:0;color:var(--accent-ink,var(--accent));font-weight:800;}
+  .emo.nav-emo{display:block;width:24px;height:24px;margin:0 14px 0 0;vertical-align:baseline;}
   .nav-link.active::after{content:"현재 페이지";margin-left:auto;font-size:13px;font-weight:700;color:var(--ink-faint);}
   .nav-contact-link{font-weight:500;color:var(--ink-soft);}
   .nav-link-saved{font-size:17px;}
@@ -643,3 +645,34 @@ p,li,dd,figcaption,summary{text-wrap:pretty;}
 
 .foot-links { margin-top: 8px; font-size: 14.5px; }
 .foot-links a { color: inherit; text-decoration: underline; }
+
+/* ===== 이모지 (Fluent Emoji Color · MIT) — 크기와 정렬은 여기 한 곳에서만 정한다 =====
+   기본은 글자 크기에 비례(1.15em)이고 세로는 글자 가운데에 맞춘다.
+   위치는 항상 글자 왼쪽, 간격은 0.4em 로 같게 둔다. */
+.emo{display:inline-block;width:1.15em;height:1.15em;vertical-align:-0.2em;margin-right:.4em;flex:none;}
+h1 .emo{width:1.05em;height:1.05em;vertical-align:-0.14em;margin-right:.35em;}
+h2 .emo,h3 .emo{width:1.1em;height:1.1em;vertical-align:-0.18em;margin-right:.4em;}
+.chip .emo,.welcome-chip .emo{width:1.3em;height:1.3em;vertical-align:-0.3em;margin:0 .4em 0 -.15em;}
+/* 버튼·카드 안의 이모지: 글자와 같은 선에 두고, 크기는 글자의 1.2배로 맞춘다. */
+button .emo,.submit-record-cta .emo,.sub-go .emo,.tier-guide-toggle .emo{width:1.2em;height:1.2em;vertical-align:-0.25em;margin-right:.45em;}
+.submit-record-cta .emo{margin-right:0;vertical-align:baseline;}
+.cert-cta .cc-ico{display:flex;align-items:center;justify-content:center;width:30px;}
+.cert-cta .cc-ico .emo{width:28px;height:28px;margin:0;vertical-align:baseline;}
+@media (max-width:600px){.cert-cta .cc-ico{width:26px;}.cert-cta .cc-ico .emo{width:24px;height:24px;}}
+.modal-title .emo,.record-form-title .emo,.champion-title .emo{width:1.15em;height:1.15em;vertical-align:-0.2em;margin-right:.4em;}
+.wc-body b .emo{width:1.15em;height:1.15em;vertical-align:-0.22em;margin-right:.4em;}
+/* 모바일: 첫머리 붉은 빛이 글 상자(좌우 16px 안쪽)에서 뚝 잘려 오른쪽에 모서리가 보였다.
+   화면 가로 전체로 번지게 해서 좌우가 같아 보이게 한다. */
+@media (max-width:720px){
+  body{overflow-x:clip;}
+  .hero{overflow:visible;}
+  .hero::before{inset:-20% auto auto 50%;width:100vw;transform:translateX(-50%);}
+}
+
+/* 제목이 두 줄이 되어도 둘째 줄이 이모지 밑으로 말려 들어가지 않게, 이모지 칸을 따로 둔다(걸어 놓은 들여쓰기).
+   이모지는 첫 줄 글자의 세로 가운데에 맞춘다. */
+h1:has(> .emo:first-child),h2:has(> .emo:first-child){display:flex;align-items:flex-start;gap:.38em;}
+h1 > .emo:first-child,h2 > .emo:first-child{margin:.1em 0 0;margin-top:calc((1lh - 1em) / 2);}
+h1 > .emo:first-child{width:1.05em;height:1.05em;}
+h2 > .emo:first-child{width:1.1em;height:1.1em;}
+.gh-sport h2 > .emo:first-child{margin:0;width:26px;height:26px;}

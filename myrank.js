@@ -931,15 +931,15 @@ function drawTrendChart(canvas, records) {
 }
 
 const BADGE_DEFS = [
-  { icon: "🏃", name: "첫 완주", check: recs => recs.length >= 1, prog: recs => [recs.length, 1] },
-  { icon: "🔥", name: "5회 완주", check: recs => recs.length >= 5, prog: recs => [recs.length, 5] },
-  { icon: "💯", name: "10회 완주", check: recs => recs.length >= 10, prog: recs => [recs.length, 10] },
-  { icon: "⚡", name: "풀코스 서브4", check: recs => recs.some(r => r.sport === "marathon" && r.distance_category === "full" && r.finish_time_seconds != null && r.finish_time_seconds < 14400), prog: null },
-  { icon: "🌟", name: "풀코스 서브3", check: recs => recs.some(r => r.sport === "marathon" && r.distance_category === "full" && r.finish_time_seconds != null && r.finish_time_seconds < 10800), prog: null },
-  { icon: "🚴", name: "자전거 5회", check: recs => recs.filter(r => r.sport === "cycling").length >= 5, prog: recs => [recs.filter(r => r.sport === "cycling").length, 5] },
-  { icon: "⛰️", name: "트레일 3회", check: recs => recs.filter(r => r.sport === "trail").length >= 3, prog: recs => [recs.filter(r => r.sport === "trail").length, 3] },
-  { icon: "🏊", name: "철인3종 완주", check: recs => recs.some(r => r.sport === "triathlon"), prog: recs => [recs.filter(r => r.sport === "triathlon").length, 1] },
-  { icon: "🛼", name: "인라인 완주", check: recs => recs.some(r => r.sport === "inline"), prog: recs => [recs.filter(r => r.sport === "inline").length, 1] },
+  { icon: "person-running", name: "첫 완주", check: recs => recs.length >= 1, prog: recs => [recs.length, 1] },
+  { icon: "fire", name: "5회 완주", check: recs => recs.length >= 5, prog: recs => [recs.length, 5] },
+  { icon: "sports-medal", name: "10회 완주", check: recs => recs.length >= 10, prog: recs => [recs.length, 10] },
+  { icon: "stopwatch", name: "풀코스 서브4", check: recs => recs.some(r => r.sport === "marathon" && r.distance_category === "full" && r.finish_time_seconds != null && r.finish_time_seconds < 14400), prog: null },
+  { icon: "star", name: "풀코스 서브3", check: recs => recs.some(r => r.sport === "marathon" && r.distance_category === "full" && r.finish_time_seconds != null && r.finish_time_seconds < 10800), prog: null },
+  { icon: "person-biking", name: "자전거 5회", check: recs => recs.filter(r => r.sport === "cycling").length >= 5, prog: recs => [recs.filter(r => r.sport === "cycling").length, 5] },
+  { icon: "mountain", name: "트레일 3회", check: recs => recs.filter(r => r.sport === "trail").length >= 3, prog: recs => [recs.filter(r => r.sport === "trail").length, 3] },
+  { icon: "person-swimming", name: "철인3종 완주", check: recs => recs.some(r => r.sport === "triathlon"), prog: recs => [recs.filter(r => r.sport === "triathlon").length, 1] },
+  { icon: "roller-skate", name: "인라인 완주", check: recs => recs.some(r => r.sport === "inline"), prog: recs => [recs.filter(r => r.sport === "inline").length, 1] },
 ];
 
 function renderBadges() {
@@ -955,7 +955,7 @@ function renderBadges() {
     const iconStyle = unlocked ? "" : "filter:grayscale(1);opacity:0.35;";
     const textColor = unlocked ? "#FFFFFF" : "var(--ink-faint,#8E8E8E)";
     return `<div style="text-align:center;padding:12px 4px;border-radius:8px;background:${bg};border:1px solid ${border};">
-      <div style="font-size:28px;${iconStyle}">${b.icon}</div>
+      <div style="${iconStyle}"><img src="/emoji/${b.icon}.svg" alt="" width="32" height="32" decoding="async" style="display:block;margin:0 auto;width:32px;height:32px;"></div>
       <div style="font-size:12.5px;margin-top:4px;color:${textColor};">${b.name}</div>
       ${progText}
     </div>`;

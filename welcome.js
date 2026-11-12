@@ -11,8 +11,9 @@
   var LIST = document.getElementById("wcDeadlines");
   if (!LIST) return;
 
+  // 시스템 이모지는 기기마다 모양이 달라 Fluent Emoji 파일(/emoji)로 통일한다.
   var SPORT_EMOJI = {
-    marathon: "🏃", trail: "⛰️", cycling: "🚴", triathlon: "🏊", inline: "⛸️",
+    marathon: "person-running", trail: "mountain", cycling: "person-biking", triathlon: "person-swimming", inline: "roller-skate",
   };
 
   function todayIso() {
@@ -48,7 +49,12 @@
       body.className = "wc-body";
 
       var name = document.createElement("b");
-      name.textContent = (SPORT_EMOJI[ev.sport] || "🏁") + " " + (ev.name || "대회");
+      var emo = document.createElement("img");
+      emo.className = "emo";
+      emo.src = "/emoji/" + (SPORT_EMOJI[ev.sport] || "sports-medal") + ".svg";
+      emo.alt = ""; emo.width = 24; emo.height = 24; emo.setAttribute("aria-hidden", "true");
+      name.appendChild(emo);
+      name.appendChild(document.createTextNode(ev.name || "대회"));
 
       var meta = document.createElement("span");
       var bits = [];

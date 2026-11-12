@@ -22,7 +22,7 @@ HERE = Path(__file__).resolve().parent
 
 # CI 의 update-events.yml 과 같은 순서다. 순서가 뜻이 있다 — 목차를 먼저
 # 맞춰야 새로 생긴 링크까지 색이 입혀지고, 파비콘과 메타는 그다음이다.
-STEPS = ["sync_nav", "sync_theme", "sync_icons", "sync_meta", "sync_sitemap"]
+STEPS = ["sync_nav", "sync_theme", "sync_icons", "sync_meta", "sync_h1_emoji", "sync_sitemap"]
 
 # 스스로 "할 일이 남았다"를 알려 줄 수 있는 단계. 나머지는 돌린 뒤
 # 파일이 바뀌었는지로 판단한다.

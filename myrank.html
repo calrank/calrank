@@ -41,10 +41,10 @@
 <nav class="main-nav">
 <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>
 <div class="nav-menu" id="navMenu">
-<span class="nav-grp"><a href="index.html" class="nav-link">캘린더</a><a href="regions.html" class="nav-link">지역별</a><a href="ranking.html" class="nav-link">대회랭킹</a></span>
-<span class="nav-grp"><a href="grade.html" class="nav-link">기록등급</a><a href="myrank.html" class="nav-link active">내 랭크</a><a href="gear.html" class="nav-link">기어</a><a href="trailroot.html" class="nav-link">트레일루트</a></span>
-<span class="nav-grp"><a href="running-weather.html" class="nav-link">러닝날씨</a><a href="news.html" class="nav-link">종목뉴스</a><a href="column.html" class="nav-link">칼럼</a></span>
-<span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved">❤️<span class="nav-text-full"> 찜한 대회</span></a><a href="contact.html" class="nav-contact-link">제휴문의</a></span>
+<span class="nav-grp"><a href="index.html" class="nav-link"><img class="emo nav-emo" src="/emoji/calendar.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">캘린더</a><a href="regions.html" class="nav-link"><img class="emo nav-emo" src="/emoji/round-pushpin.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">지역별</a><a href="ranking.html" class="nav-link"><img class="emo nav-emo" src="/emoji/trophy.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">대회랭킹</a></span>
+<span class="nav-grp"><a href="grade.html" class="nav-link"><img class="emo nav-emo" src="/emoji/sports-medal.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">기록등급</a><a href="myrank.html" class="nav-link active"><img class="emo nav-emo" src="/emoji/chart-increasing.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">내 랭크</a><a href="gear.html" class="nav-link"><img class="emo nav-emo" src="/emoji/running-shoe.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">기어</a><a href="trailroot.html" class="nav-link"><img class="emo nav-emo" src="/emoji/mountain.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">트레일루트</a></span>
+<span class="nav-grp"><a href="running-weather.html" class="nav-link"><img class="emo nav-emo" src="/emoji/sun-behind-small-cloud.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">러닝날씨</a><a href="news.html" class="nav-link"><img class="emo nav-emo" src="/emoji/newspaper.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">종목뉴스</a><a href="column.html" class="nav-link"><img class="emo nav-emo" src="/emoji/memo.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">칼럼</a></span>
+<span class="nav-grp nav-util"><a href="saved-events.html" class="nav-link nav-link-saved"><img class="emo nav-emo" src="/emoji/red-heart.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true"><span class="nav-text-full">찜한 대회</span></a><a href="contact.html" class="nav-contact-link"><img class="emo nav-emo" src="/emoji/handshake.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">제휴문의</a></span>
 </div>
 <noscript><style>@media (max-width:1020px){.nav-toggle{display:none}.nav-menu{display:flex;position:static;box-shadow:none;padding-inline:0}}</style></noscript>
 </nav>
@@ -55,14 +55,14 @@
 <main class="wrap myrank-wrap">
 
 <section class="hero">
-<h1>내 마라톤 기록 관리 · 페이스 등급 확인</h1>
+<h1><img class="emo" src="/emoji/chart-increasing.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">내 마라톤 기록 관리 · 페이스 등급 확인</h1>
 <p class="hero-sub">내 기록, 내 랭크. 완주한 대회를 기록하고 나의 페이스 등급을 확인하세요.</p>
 </section>
 
 <!-- 로그인 전 -->
 <section id="authSection" class="auth-card">
 <a href="cert.html" class="cert-cta" style="margin-top:0;">
-<span class="cc-ico">📷</span>
+<span class="cc-ico"><img class="emo cc-emo" src="/emoji/camera.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true"></span>
 <span class="cc-txt"><b>가입 전에 먼저 써보셔도 됩니다</b><span>기록증 사진 한 장으로 등급과 공유 카드를 바로 받아보세요. 계정은 그다음에.</span></span>
 <span class="cc-go">먼저 해보기 →</span>
 </a>
@@ -99,7 +99,7 @@
 <p class="dash-welcome">안녕하세요, <span id="displayName"></span>님</p>
 <div class="dash-top-actions">
 <button id="shareBtn" class="share-btn">📤 기록 공유</button>
-<button id="certBtn" class="share-btn">🏅 인증서 만들기</button>
+<button id="certBtn" class="share-btn"><img class="emo" src="/emoji/sports-medal.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">인증서 만들기</button>
 <button id="signOutBtn" class="signout-btn">로그아웃</button>
 </div>
 </div>
@@ -107,11 +107,11 @@
 <div class="tier-grid" id="tierGrid"></div>
 <a href="ranking.html" class="view-full-ranking-link">전체 랭킹 보기 →</a>
 
-<button class="tier-guide-toggle" id="tierGuideToggle" type="button">🏅 전체 등급 안내 보기</button>
+<button class="tier-guide-toggle" id="tierGuideToggle" type="button"><img class="emo" src="/emoji/sports-medal.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">전체 등급 안내 보기</button>
 <div class="tier-guide-panel" id="tierGuidePanel"></div>
 
 <div class="record-form-card">
-<p class="record-form-title">🏆 업적 배지</p>
+<p class="record-form-title"><img class="emo" src="/emoji/trophy.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">업적 배지</p>
 <div id="badgeGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(90px, 1fr)); gap:10px;"></div>
 </div>
 
@@ -148,7 +148,7 @@
 <p class="record-form-title" id="recordFormTitle">대회 기록 추가</p>
 
 <a href="cert.html" class="cert-cta" style="margin:0 0 10px;">
-<span class="cc-ico">📷</span>
+<span class="cc-ico"><img class="emo cc-emo" src="/emoji/camera.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true"></span>
 <span class="cc-txt"><b>기록증 사진으로 채우기</b><span>대회명·거리·완주 시간을 읽어서 넣어 드립니다. 대부분은 이쪽이 제일 빠릅니다.</span></span>
 <span class="cc-go">사진 올리기 →</span>
 </a>
@@ -210,7 +210,7 @@
 <div class="modal-overlay" id="certModalOverlay">
 <div class="modal-card share-modal-card">
 <button class="modal-close" id="certModalClose">×</button>
-<p class="modal-title">🏅 완주 인증서</p>
+<p class="modal-title"><img class="emo" src="/emoji/sports-medal.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">완주 인증서</p>
 <input type="text" id="certNameInput" placeholder="인증서에 표시할 이름 (예: 홍길동)" style="width:100%; margin-bottom:8px; padding:8px; border-radius:6px; background:var(--surface,#141414); color:var(--ink); border:1px solid var(--border,#2A2A2A); box-sizing:border-box;">
 <select id="certRecordSelect" style="width:100%; margin-bottom:8px; padding:8px; border-radius:6px; background:var(--surface,#141414); color:var(--ink); border:1px solid var(--border,#2A2A2A);"></select>
 <label style="display:flex; align-items:center; gap:6px; margin-bottom:10px; font-size:13px; color:var(--ink-soft,#9A9A9A); cursor:pointer;"><input type="checkbox" id="certLangToggle"> English</label>

@@ -736,7 +736,7 @@ def ft_group_page(slug, name, intro, cs):
         _hm = lambda m_: f"{int(round(m_)) // 60}:{int(round(m_)) % 60:02d}"
         rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a></td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
                  f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{max(p_[1] for p_ in c["profile"]):.0f}m</td>' + (f'<td class="hide-sm">{fac}</td>' if any_fac else '') + '</tr>')
-    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th class="hide-sm">1km당</th><th>걷는 시간(시:분)</th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
+    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th class="hide-sm">1km당</th><th>걷는 시간<span class="hide-sm"> (시:분)</span></th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
              f'<tbody>{rows}</tbody></table></div>')
     lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m</li>' for c in lst)
     lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
@@ -1070,6 +1070,75 @@ if COURSES:
 STANDARDS += MOUNTAIN_PAGES
 if MOUNTAINS:
     STANDARDS.append(mountains_hub())
+
+# ---- 이모지 붙이기: 제목 옆에 하나씩, 같은 자리·같은 크기로 (크기는 style.css 의 .emo) ----
+from site_emoji import emo as _emo  # noqa: E402
+
+_H1_EMO = [("course", "hiking-boot"), ("trail", "hiking-boot"), ("mountain", "mountain"),
+           ("kit", "backpack"), ("age-curve", "chart-increasing"), ("ledger", "memo"),
+           ("gear-changes", "memo"), ("standards-triathlon", "person-swimming"),
+           ("standards-trail", "mountain"), ("standards-running", "running-shoe"),
+           ("standards-cycling", "bicycle")]
+# 소제목 글자에 이 말이 들어 있으면 이 이모지. 위에서부터 먼저 맞는 것을 쓴다.
+_H2_EMO = [("지도", "world-map"), ("시간", "stopwatch"), ("처음이라면", "seedling"),
+           ("눈여겨", "mountain"), ("가파른", "mountain"), ("체력이", "mountain"), ("오르막", "mountain"),
+           ("고도", "mountain"), ("경사", "mountain"), ("근처", "round-pushpin"), ("가까운", "round-pushpin"),
+           ("같은 지역", "round-pushpin"), ("지역으로", "round-pushpin"), ("시설", "round-pushpin"),
+           ("이름이 있는 지점", "round-pushpin"), ("같은 길", "footprints"), ("길과 지역", "footprints"),
+           ("전체 코스", "footprints"), ("내 목록", "star"), ("내 노트", "memo"), ("내 신발", "running-shoe"),
+           ("내 장비", "backpack"), ("자주 묻는", "light-bulb"), ("어떻게 계산", "balance-scale"),
+           ("변경 기록", "memo"), ("기술 난이도", "warning"), ("현장 확인", "memo")]
+
+
+_UL_RE = re.compile(r'<ul class="cp-list">(.*?)</ul>', re.S)
+_LI_RE = re.compile(r'<li><a href="([^"]+)">([^<]+)</a>(.*?)</li>', re.S)
+
+
+def _cards(html):
+    """누르는 목록을 카드 한 줄로 바꾼다.
+    이름(굵게) → 수치(항목 단위로만 줄이 바뀜) → 근처 산(따로 한 줄), 오른쪽 끝에 화살표.
+    밑줄 링크를 쭉 이어 쓰면 눌러야 하는 곳인지 모르고, 줄도 항목 한가운데서 끊긴다."""
+    def one(m):
+        href, name, rest = m.group(1), m.group(2).strip(), m.group(3)
+        if "<a " in rest:
+            return m.group(0)
+        parts = [x.strip() for x in re.sub(r"<[^>]+>", "", rest).split(" · ") if x.strip()]
+        addr = re.match(r"^(.+?)\((.+)\)$", name)
+        place = ""
+        if addr:
+            name, place = addr.group(1).strip(), re.sub(r"\s+", " ", addr.group(2)).strip()
+        near = [x for x in parts if x.startswith("근처 산")]
+        meta = [x for x in parts if not x.startswith("근처 산")]
+        inner = '<span class="cp-name">' + name + "</span>"
+        if place:
+            inner += '<span class="cp-near">' + place + "</span>"
+        if meta:
+            inner += '<span class="cp-meta">' + "".join(f"<span>{x}</span>" for x in meta) + "</span>"
+        for x in near:
+            inner += '<span class="cp-near">' + x + "</span>"
+        return f'<li class="cp-card"><a class="cp-row" href="{href}">{inner}</a></li>'
+    return _UL_RE.sub(lambda u: '<ul class="cp-list">' + _LI_RE.sub(one, u.group(1)) + "</ul>", html)
+
+
+def _decorate(name, html):
+    if "tp-title" not in html:
+        return html
+    for key, em in _H1_EMO:
+        if name.startswith(key):
+            html = html.replace('<h1 class="tp-title">', '<h1 class="tp-title">' + _emo(em), 1)
+            break
+
+    def _h2(m):
+        txt = m.group(1)
+        for key, em in _H2_EMO:
+            if key in txt:
+                return '<h2 class="tp-h2">' + _emo(em) + txt + "</h2>"
+        return m.group(0)
+    return _cards(re.sub(r'<h2 class="tp-h2">([^<]*)</h2>', _h2, html))
+
+
+KIT, COURSE, AGE, LEDGER = (_decorate(n, h) for n, h in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)])
+STANDARDS = [(n, _decorate(n, h)) for n, h in STANDARDS]
 
 for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS:
     p = ROOT / name

@@ -33,6 +33,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_nav import nav_html, active_for  # noqa: E402
+from site_emoji import emo  # noqa: E402
+
 import wma_standards as wma  # noqa: E402
 from gear_table_data import (  # noqa: E402
     RUN_DISTS, RUN_GOALS, BIKE_SPEEDS, BIKE_DISTS, RUN_TABLES, BIKE_TABLES,
@@ -389,6 +391,24 @@ def faq_html(item):
     return f'<section class="gi-sec gi-faq"><h2>자주 묻는 질문</h2>{rows}</section>'
 
 
+# 종목·항목마다 대표 이모지를 하나씩 정한다. 같은 항목은 어디서나 같은 그림이다.
+SPORT_EMO = {"running": "person-running", "trail": "mountain", "cycling": "person-biking",
+             "triathlon": "person-swimming", "inline": "roller-skate"}
+ITEM_EMO = {
+    "wa-stack-height": "running-shoe", "wa-rigid-plate": "running-shoe", "wa-availability": "running-shoe",
+    "carbon-plate": "running-shoe", "shoe-mass": "balance-scale",
+    "utmb-jacket": "coat", "utmb-kit": "backpack", "trail-poles": "hiking-boot", "trail-pack-weight": "backpack",
+    "uci-min-weight": "balance-scale", "uci-saddle-setback": "bicycle", "uci-frame-approval": "bicycle",
+    "aero-wheel": "bicycle", "tyre-rolling": "wheel", "aero-helmet": "rescue-workers-helmet",
+    "wt-wetsuit-thickness": "diving-mask", "wt-wetsuit-temp": "thermometer", "wt-bike-agegroup": "bicycle",
+    "wetsuit": "diving-mask", "ws-wheel-diameter": "roller-skate", "inline-bearings": "roller-skate",
+}
+
+
+def item_emo(item):
+    return ITEM_EMO.get(item.get("id"), SPORT_EMO.get(item.get("sport"), "sparkles"))
+
+
 def build_page(kind, item, bodies, siblings, tables=None):
     slug = slug_for(kind, item["id"])
     sport = SPORT_LABEL.get(item.get("sport"), "")
@@ -422,7 +442,7 @@ def build_page(kind, item, bodies, siblings, tables=None):
         title=esc(title), desc=esc(desc), base=BASE, slug=slug,
         jsonld=jsonld_for(item, slug, h1, desc, sport),
         nav=nav_html(active_for("gear.html")), sport=esc(sport),
-        h1=esc(h1), question=esc(q), body=body,
+        h1=emo(item_emo(item)) + esc(h1), question=esc(q), body=body,
         related=related_block(item.get("sport"), siblings, slug),
         bodyattr=attr)
 
@@ -436,24 +456,24 @@ def build_hub(rules, claims):
     """
     bodies = rules.get("bodies", {})
     out = [
-        '<section class="gh-sport"><h2>내 도구<span class="gh-body">이 기기에만 저장</span></h2>'
+        '<section class="gh-sport"><h2>' + emo("sparkles") + '내 도구<span class="gh-body">이 기기에만 저장</span></h2>'
         '<div class="gh-cols"><div class="gh-col">'
-        '<a class="gh-item" href="kit.html"><b>내 장비 서랍</b><span class="gh-tag">내 수치로 확인</span>'
+        '<a class="gh-item" href="kit.html"><b>' + emo("backpack", "gh-emo") + '<span>내 장비 서랍</span></b><span class="gh-tag">내 수치로 확인</span>'
         '<span class="gh-q">가진 장비가 규정에 맞는지 한 화면에서 보고 싶다면</span></a>'
-        '<a class="gh-item" href="ledger.html"><b>예상 기록 노트</b>'
+        '<a class="gh-item" href="ledger.html"><b>' + emo("memo", "gh-emo") + '<span>예상 기록 노트</span></b>'
         '<span class="gh-q">대회 전에 적은 예상 기록은 얼마나 맞았을까?</span></a></div>'
         '<div class="gh-col">'
-        '<a class="gh-item" href="' + ("trailroot.html" if (ROOT / "trailroot.html").exists() else "course.html") + '"><b>트레일루트</b><span class="gh-tag">새로 나왔어요</span>'
+        '<a class="gh-item" href="' + ("trailroot.html" if (ROOT / "trailroot.html").exists() else "course.html") + '"><b>' + emo("mountain", "gh-emo") + '<span>트레일루트</span></b><span class="gh-tag">새로 나왔어요</span>'
         '<span class="gh-q">이 길은 오르막이 얼마나 될까? 내 페이스로는?</span></a>'
-        '<a class="gh-item" href="age-curve.html"><b>나이 곡선</b>'
+        '<a class="gh-item" href="age-curve.html"><b>' + emo("chart-increasing", "gh-emo") + '<span>나이 곡선</span></b>'
         '<span class="gh-q">같은 기록이면 몇 살에 어느 등급일까?</span></a>'
-        '<a class="gh-item" href="standards-triathlon.html"><b>철인3종 규칙 기준</b>'
+        '<a class="gh-item" href="standards-triathlon.html"><b>' + emo("person-swimming", "gh-emo") + '<span>철인3종 규칙 기준</span></b>'
         '<span class="gh-q">헬멧, 드래프팅, 헤드폰… 뭐가 실격일까?</span></a>'
-        '<a class="gh-item" href="standards-trail.html"><b>트레일 벌칙 예시</b>'
+        '<a class="gh-item" href="standards-trail.html"><b>' + emo("warning", "gh-emo") + '<span>트레일 벌칙 예시</span></b>'
         '<span class="gh-q">필수 장비가 없으면 실격일까, 시간 벌칙일까?</span></a>'
-        '<a class="gh-item" href="standards-running.html"><b>러닝화 규칙 기준</b>'
+        '<a class="gh-item" href="standards-running.html"><b>' + emo("running-shoe", "gh-emo") + '<span>러닝화 규칙 기준</span></b>'
         '<span class="gh-q">도로 40mm, 플레이트는 하나… 세계육상 신발 규정은?</span></a>'
-        '<a class="gh-item" href="standards-cycling.html"><b>사이클 규칙 기준</b>'
+        '<a class="gh-item" href="standards-cycling.html"><b>' + emo("bicycle", "gh-emo") + '<span>사이클 규칙 기준</span></b>'
         '<span class="gh-q">최소 6.8kg, 안장은 5cm 뒤… UCI 기준은?</span></a></div></div></section>']
     for sp in claims.get("sports", []):
         sid = sp["id"]
@@ -475,12 +495,12 @@ def build_hub(rules, claims):
                        if tag == "rule" and it.get("checkable") else "")
                 bits.append(
                     f'<a class="gh-item" href="{esc(slug_for(tag, it["id"]))}">'
-                    f'<b>{esc(it["label"])}</b>{chk}'
+                    f'<b>{emo(item_emo(it), "gh-emo")}<span>{esc(it["label"])}</span></b>{chk}'
                     f'<span class="gh-q">{esc(it.get("question", ""))}</span></a>')
             return "".join(bits)
 
         out.append(
-            f'<section class="gh-sport"><h2>{esc(sp["label"])}{bodytxt}</h2>'
+            f'<section class="gh-sport"><h2>{emo(SPORT_EMO.get(sid, "sparkles"))}{esc(sp["label"])}{bodytxt}</h2>'
             '<div class="gh-cols">'
             '<div class="gh-col"><h3>규정 <small>세계 최고 대회에서 쓸 수 있나</small></h3>'
             + items(rs, "rule") + "</div>"

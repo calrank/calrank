@@ -8,6 +8,8 @@
 부르고, 손으로 만든 페이지는 scripts/sync_nav.py 로 한꺼번에 맞춘다.
 """
 
+from site_emoji import emo
+
 # (링크, 글자, 활성 표시에 쓰는 이름)
 # 순서가 곧 소개문이다. 모바일에서는 목차가 옆으로 밀려서 앞의 두세 개만
 # 먼저 보이니, 이 사이트를 다른 일정 사이트와 가르는 판정 둘 — "기록등급"과
@@ -31,6 +33,14 @@ NAV_GROUPS = [
      ("column.html", "칼럼", "column")],
 ]
 NAV_ITEMS = [it for g in NAV_GROUPS for it in g]
+
+# 모바일 메뉴 목록 앞에 붙는 이모지(Fluent Emoji). 데스크톱 가로 메뉴에서는 CSS 로 숨긴다.
+NAV_EMOJI = {
+    "calendar": "calendar", "regions": "round-pushpin", "ranking": "trophy",
+    "grade": "sports-medal", "myrank": "chart-increasing", "gear": "running-shoe",
+    "trailroot": "mountain", "weather": "sun-behind-small-cloud", "news": "newspaper",
+    "column": "memo", "saved": "red-heart", "contact": "handshake",
+}
 
 # 어느 페이지가 어느 메뉴에 속하는지. 파일 이름 앞부분으로 찾는다.
 ACTIVE_BY_PREFIX = [
@@ -101,12 +111,12 @@ def nav_html(active: str = "") -> str:
         rows = []
         for href, label, key in g:
             cls = "nav-link active" if key == active else "nav-link"
-            rows.append(f'<a href="{href}" class="{cls}">{label}</a>')
+            rows.append(f'<a href="{href}" class="{cls}">{emo(NAV_EMOJI[key], "nav-emo")}{label}</a>')
         grps.append('<span class="nav-grp">' + "".join(rows) + "</span>")
     saved_cls = "nav-link nav-link-saved" + (" active" if active == "saved" else "")
     util = (f'<span class="nav-grp nav-util"><a href="saved-events.html" class="{saved_cls}">'
-            '❤️<span class="nav-text-full"> 찜한 대회</span></a>'
-            '<a href="contact.html" class="nav-contact-link">제휴문의</a></span>')
+            + emo("red-heart", "nav-emo") + '<span class="nav-text-full">찜한 대회</span></a>'
+            '<a href="contact.html" class="nav-contact-link">' + emo("handshake", "nav-emo") + '제휴문의</a></span>')
     return ('<nav class="main-nav">\n'
             '<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="navMenu">메뉴</button>\n'
             '<div class="nav-menu" id="navMenu">\n' + "\n".join(grps) + "\n" + util + "\n</div>\n"
