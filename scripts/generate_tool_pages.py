@@ -1097,7 +1097,7 @@ def mountains_hub():
     faq = [("같은 이름의 산이 여러 곳인가요?", "이름이 같은 산이 전국에 여럿 있어서, 위치를 알 수 있는 산은 이름 옆에 지역을 적었습니다."),
            ("등산로 길이는 어디까지 포함하나요?", "산림청 등산로 구간을 모두 더한 값이라, 한 번의 산행 거리와는 다릅니다.")]
     return "mountains.html", page("mountains.html", "산별 등산로 경사와 가파른 구간 모음",
-        f"산림청 등산로 자료로 {len(MOUNTAINS)}개 산의 구간 길이, 경사, 가파른 곳을 정리했습니다.",
+        f"산림청 등산로 자료로 {len(MOUNTAINS)}개 산의 구간 길이, 경사, 가파른 곳을 정리했습니다. 산 이름이나 지역으로 찾고, 오르막이 가파른 구간을 미리 확인하세요.",
         "산별 등산로", f"{len(MOUNTAINS)}개 산 · 구간별 경사", body, ["calrank-local.js", "trail-mark.js", "list-filter.js"], faq, crumb=("산", "mountains.html"))
 
 

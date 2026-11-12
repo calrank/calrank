@@ -16,15 +16,16 @@
 .legal-doc p{font-size:13.5px;color:var(--ink-soft);line-height:1.8;margin:0 0 14px;}
 
 .legal-list{margin:0 0 14px;padding-left:18px;}
-.legal-list li{font-size:13.5px;color:var(--ink-soft);line-height:1.8;margin-bottom:6px;}
+.legal-list li{font-size:15px;color:var(--ink-soft);line-height:1.8;margin-bottom:6px;}
 
 .legal-table{
-  width:100%;border-collapse:collapse;margin:0 0 20px;
-  font-size:13px;
+  width:100%;border-collapse:collapse;margin:0 0 20px;table-layout:fixed;
+  font-size:14px;line-height:1.6;
 }
 .legal-table th,.legal-table td{
-  padding:10px 12px;border:1px solid var(--border);text-align:left;
+  padding:10px 12px;border:1px solid var(--border);text-align:left;overflow-wrap:anywhere;word-break:keep-all;
 }
+@media (max-width:480px){.legal-table th,.legal-table td{padding:9px 8px;}}
 .legal-table th{background:var(--surface);color:var(--ink);font-weight:700;}
 .legal-table td{color:var(--ink-soft);}
 
