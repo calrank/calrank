@@ -13,7 +13,10 @@
     var row = el("p"), btns = {};
     [["want", "가 보고 싶어요"], ["done", "다녀왔어요"]].forEach(function (d) {
       var b = el("button", "tp-btn ghost", d[1]); b.type = "button"; btns[d[0]] = b; row.appendChild(b); row.appendChild(document.createTextNode(" "));
-      b.addEventListener("click", function () { L.setTrail(href, name, stateOf(href) === d[0] ? "" : d[0]); paint(); });
+      b.addEventListener("click", function () {
+        var km = parseFloat(box.getAttribute("data-km")), gain = parseFloat(box.getAttribute("data-gain"));
+        L.setTrail(href, name, stateOf(href) === d[0] ? "" : d[0], isNaN(km) ? null : km, isNaN(gain) ? null : gain); paint();
+      });
     });
     var paint = function () {
       var s = stateOf(href);
@@ -35,6 +38,11 @@
         var items = list.filter(function (x) { return x.state === d[0]; }).reverse();
         if (!items.length) return;
         mine.appendChild(el("h3", "tp-h3", d[1] + " (" + items.length + ")"));
+        if (d[0] === "done") {
+          var withKm = items.filter(function (x) { return x.km > 0; }), tk = 0, tg = 0;
+          withKm.forEach(function (x) { tk += x.km; tg += x.gain || 0; });
+          if (withKm.length) mine.appendChild(el("p", "tp-small", "코스 " + withKm.length + "곳을 합치면 " + tk.toFixed(1) + "km를 걸었고, 누적 오르막은 " + Math.round(tg).toLocaleString("ko-KR") + "m입니다. (코스 기준, 산은 합치지 않습니다)"));
+        }
         var ul = el("ul", "cp-list");
         items.forEach(function (x) {
           var li = el("li"), a = el("a", "", x.name); a.href = x.href; li.appendChild(a); li.appendChild(document.createTextNode(" "));

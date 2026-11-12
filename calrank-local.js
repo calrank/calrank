@@ -124,10 +124,18 @@
 
   function trails() { return (read().trails || []).slice(); }
   // state: "want" | "done" | "" (빈 값이면 표시를 지운다)
-  function setTrail(href, name, state) {
+  // km·gain(m)은 코스 한 곳일 때만 함께 적는다(다녀온 곳의 누적 거리·오르막을 셈하는 용도).
+  function setTrail(href, name, state, km, gain) {
     update(function (o) {
+      var prev = (o.trails || []).filter(function (x) { return x.href === href; })[0];
       var list = (o.trails || []).filter(function (x) { return x.href !== href; });
-      if (state === "want" || state === "done") list.push({ href: String(href), name: String(name).slice(0, 80), state: state, t: today() });
+      if (state === "want" || state === "done") {
+        var rec = { href: String(href), name: String(name).slice(0, 80), state: state, t: today() };
+        var k = km != null ? km : prev && prev.km, g = gain != null ? gain : prev && prev.gain;
+        if (isFinite(k) && k > 0) rec.km = Math.round(k * 10) / 10;
+        if (isFinite(g) && g >= 0) rec.gain = Math.round(g);
+        list.push(rec);
+      }
       o.trails = list.slice(-300);
     });
   }
