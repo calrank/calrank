@@ -137,10 +137,10 @@ AGE = page(
      ("'지금 등급을 지키는 기록'은 무엇인가요?", "그 나이의 기준기록으로 거꾸로 계산해서, 지금 등급의 경계에 해당하는 기록입니다. 이 시간 안쪽이면 그 나이에도 같은 등급입니다.")])
 
 COURSE = page(
-    "course.html", "코스 판정 — 이 코스는 평지 몇 km에 해당할까",
-    "코스의 거리와 오르내림(또는 GPX 파일)으로 평지 몇 km에 해당하는지 환산하고, 내 평지 페이스로 걸리는 시간을 계산합니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.",
+    "course.html", "코스 판정 — GPX 올리면 난이도와 평지 환산 거리",
+    "GPX 파일이나 거리·오르막을 넣으면 칼랭크 난이도, Km-effort, 평지 몇 km에 해당하는지를 계산하고, 내 평지 페이스로 걸리는 시간을 알려 줍니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.",
     "코스 판정",
-    "거리와 누적 상승·하강, 또는 GPX 파일을 넣으면 코스를 평지 거리로 환산하고 내 평지 페이스로 걸리는 시간을 계산합니다. GPX 파일은 서버로 보내지 않고 이 브라우저 안에서만 읽습니다.",
+    "거리와 누적 상승·하강, 또는 GPX 파일을 넣으면 칼랭크 난이도와 Km-effort를 매기고, 코스를 평지 거리로 환산해 내 평지 페이스로 걸리는 시간을 계산합니다. GPX 파일은 서버로 보내지 않고 이 브라우저 안에서만 읽습니다.",
     '''<section class="tp-card"><div class="tp-grid">
 <label class="tp-field">GPX 파일(선택)<input id="cvFile" type="file" accept=".gpx,application/gpx+xml,text/xml"></label>
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cvPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
@@ -159,7 +159,7 @@ COURSE = page(
 <section class="tp-card"><p class="tp-small">기준: <span id="cvSource"></span></p>
 <p class="cv-big"><b id="cvIndex">1.00</b><span> 코스 부하 지수 · <span id="cvBand"></span></span></p>
 <table class="cv-table"><tbody id="cvTable"></tbody></table>
-<p class="tp-small" id="cvRawNote" hidden></p></section>
+<p class="tp-small" id="cvRawNote" hidden></p><p class="tp-small">칼랭크 난이도와 Km-effort는 거리와 누적 오르막으로만 계산한 값입니다. <a href="dg-method.html">계산 방법과 근거</a></p></section>
 <section class="tp-card" id="cvChartWrap" hidden><div id="cvChart"></div></section>
 </div>
 <section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>
@@ -821,6 +821,13 @@ def dg_method_page():
     for d_ in dists:
         cells = "".join(f"<td>{diff_grade(d_, g_)[0]:.0f}점<br><span class=\"tp-small\">{diff_grade(d_, g_)[2]}</span></td>" for g_ in gains)
         grid_rows += f"<tr><th>{d_}km</th>{cells}</tr>"
+    # 두루누비 단계와 크게 어긋나는 코스(단계 1인데 칼랭크는 '힘듦' 이상, 단계 3인데 칼랭크는 '보통' 이하)
+    _hi = [c for c in COURSES if (c.get("official") or {}).get("level") == 1 and dg_of(c)[1] >= 3]
+    _lo = [c for c in COURSES if (c.get("official") or {}).get("level") == 3 and dg_of(c)[1] <= 1]
+    def _mm_rows(lst, k=6):
+        lst = sorted(lst, key=lambda c: -abs(dg_of(c)[0] - 100))[:k]
+        return "".join(f'<tr><th><a href="course-{c["id"]}.html">{esc(c["name"])}</a></th><td>{course_stats(c)[0]:.1f}km · {course_stats(c)[1]:.0f}m</td><td>{dg_of(c)[2]} ({dg_of(c)[0]:.0f}점)</td></tr>' for c in lst)
+    n_lv = sum(len(v) for v in byl.values())
     who = ["처음 걷는 분도 부담이 적은 편입니다.", "평소 걷는 분이라면 무리 없이 걸을 수 있는 정도입니다.",
            "오르막이 꽤 있어서 물과 간식, 쉬는 시간을 넉넉히 잡는 편이 좋습니다.", "체력이 필요한 코스입니다. 시간을 넉넉히 잡고 이른 시간에 출발하세요.",
            "매우 힘든 편입니다. 걷기에 익숙하고 체력이 충분할 때 도전하세요."]
@@ -844,6 +851,13 @@ def dg_method_page():
 <p class="tp-p">한국관광공사 두루누비에는 코스마다 1~3단계 난이도가 붙어 있습니다. 두루누비 단계가 있는 코스에서 칼랭크 점수의 중앙값을 단계별로 나눠 보면 단계가 올라갈수록 점수도 올라갑니다.</p>
 <div class="mt-wrap"><table class="mt-table"><thead><tr><th>두루누비 단계</th><th>코스 수</th><th>칼랭크 점수 중앙값</th></tr></thead><tbody>{lv_rows}</tbody></table></div>
 <p class="tp-small">순위를 매겨 견준 상관계수(스피어만)는 {rho:.2f}였습니다. 방향은 같지만 완전히 같은 기준은 아닙니다. 두루누비 단계를 어떻게 정했는지는 이 비교에서 확인하지 못했습니다.</p></section>
+<section class="tp-sec" id="mismatch"><h2 class="tp-h2">두 기준이 크게 어긋나는 코스</h2>
+<p class="tp-p">두루누비 단계가 있는 코스 {n_lv}개 가운데, 두루누비는 1단계(쉬움)인데 칼랭크 점수는 '힘듦' 이상인 코스가 {len(_hi)}개, 두루누비는 3단계(어려움)인데 칼랭크는 '보통' 이하인 코스가 {len(_lo)}개입니다. 거의 모든 코스에서 두 기준이 크게 벌어지지 않고, 벌어진 코스는 아래에 모두 적었습니다.</p>
+<h3 class="tp-h3">두루누비 1단계인데 칼랭크는 힘듦 이상</h3>
+<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리·오르막</th><th>칼랭크 난이도</th></tr></thead><tbody>{_mm_rows(_hi)}</tbody></table></div>
+<h3 class="tp-h3">두루누비 3단계인데 칼랭크는 보통 이하</h3>
+<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리·오르막</th><th>칼랭크 난이도</th></tr></thead><tbody>{_mm_rows(_lo)}</tbody></table></div>
+<p class="tp-small">칼랭크 점수는 거리와 오르막만 보므로 노면이나 길찾기 같은 요소는 들어 있지 않습니다. 두루누비가 그런 요소를 반영했는지는 기준 문서를 찾지 못해 확인하지 못했고, 어느 쪽이 맞는지는 이 비교만으로 알 수 없습니다.</p></section>
 <section class="tp-sec" id="km-effort"><h2 class="tp-h2">트레일러닝 대회식(Km-effort)으로도 환산합니다</h2>
 <p class="tp-p">국제트레일러닝협회(ITRA)는 대회 코스의 난이도를 Km-effort로 나타냅니다. 거리 1km를 1로 치고, 누적 오르막 100m마다 1을 더하는 단순한 환산입니다. 이 값을 0~6점으로 나눠 대회에 붙이는데, 경계는 25, 45, 75, 115, 155, 210입니다. 칼랭크는 이 방식을 참고용으로 코스 페이지에 함께 적습니다. 예를 들어 {esc(ex["name"])}는 {ek:.1f} + {eg:.0f}÷100 = {km_effort(ek, eg)[0]:.0f}이고 {km_effort(ek, eg)[1]}점입니다.</p>
 <p class="tp-p">두 방식은 보는 눈이 다릅니다. 칼랭크 난이도는 걷는 하이킹의 부담을, Km-effort는 달리는 대회의 환산 거리를 말합니다. 그래서 같은 코스라도 단계가 다르게 나올 수 있고, 하나가 틀리고 하나가 맞는 관계는 아닙니다. 이 페이지의 칼랭크 난이도는 걷기 기준입니다. 산 페이지에는 Km-effort를 적지 않습니다. 산 하나의 등산로를 모두 더한 값은 한 번에 걷는 한 코스가 아니라서, 합쳐서 환산하면 실제 산행과 다른 숫자가 나오기 때문입니다.</p></section>

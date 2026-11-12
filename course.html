@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>코스 판정 — 이 코스는 평지 몇 km에 해당할까 | 칼랭크 CALRANK</title>
-<meta name="description" content="코스의 거리와 오르내림(또는 GPX 파일)으로 평지 몇 km에 해당하는지 환산하고, 내 평지 페이스로 걸리는 시간을 계산합니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.">
+<title>코스 판정 — GPX 올리면 난이도와 평지 환산 거리 | 칼랭크 CALRANK</title>
+<meta name="description" content="GPX 파일이나 거리·오르막을 넣으면 칼랭크 난이도, Km-effort, 평지 몇 km에 해당하는지를 계산하고, 내 평지 페이스로 걸리는 시간을 알려 줍니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
@@ -20,15 +20,15 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/track.js"></script>
 <link rel="canonical" href="https://calrank.vercel.app/course.html">
-<meta property="og:title" content="코스 판정 — 이 코스는 평지 몇 km에 해당할까 | 칼랭크 CALRANK">
-<meta property="og:description" content="코스의 거리와 오르내림(또는 GPX 파일)으로 평지 몇 km에 해당하는지 환산하고, 내 평지 페이스로 걸리는 시간을 계산합니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.">
+<meta property="og:title" content="코스 판정 — GPX 올리면 난이도와 평지 환산 거리 | 칼랭크 CALRANK">
+<meta property="og:description" content="GPX 파일이나 거리·오르막을 넣으면 칼랭크 난이도, Km-effort, 평지 몇 km에 해당하는지를 계산하고, 내 평지 페이스로 걸리는 시간을 알려 줍니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://calrank.vercel.app/course.html">
 <meta property="og:image" content="https://calrank.vercel.app/og-image.png">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="칼랭크 CALRANK">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"코스 판정","url":"https://calrank.vercel.app/course.html","applicationCategory":"HealthApplication","operatingSystem":"All","inLanguage":"ko-KR","description":"코스의 거리와 오르내림(또는 GPX 파일)으로 평지 몇 km에 해당하는지 환산하고, 내 평지 페이스로 걸리는 시간을 계산합니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"isPartOf":{"@type":"WebSite","name":"calrank","url":"https://calrank.vercel.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"코스 판정","url":"https://calrank.vercel.app/course.html","applicationCategory":"HealthApplication","operatingSystem":"All","inLanguage":"ko-KR","description":"GPX 파일이나 거리·오르막을 넣으면 칼랭크 난이도, Km-effort, 평지 몇 km에 해당하는지를 계산하고, 내 평지 페이스로 걸리는 시간을 알려 줍니다. 산악 러너 실험(Minetti 2002)의 에너지 비용 식을 씁니다.","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"isPartOf":{"@type":"WebSite","name":"calrank","url":"https://calrank.vercel.app/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"코스 부하 지수는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같고, 1.40이면 같은 거리를 평지에서 1.4배 달리는 정도의 에너지가 든다는 뜻입니다."}},{"@type":"Question","name":"GPX 파일을 올리면 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 파일은 이 브라우저 안에서만 읽고, 서버로 보내지 않으며 저장하지 않습니다."}},{"@type":"Question","name":"가파른 오르막에서 걷는 것은 반영되나요?","acceptedAnswer":{"@type":"Answer","text":"반영되지 않습니다. 달리는 비용으로 계산하므로, 실제로 걷는 구간이 많은 코스에서는 계산보다 시간이 다르게 나올 수 있습니다."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"calrank","item":"https://calrank.vercel.app/index.html"},{"@type":"ListItem","position":2,"name":"기어","item":"https://calrank.vercel.app/gear.html"},{"@type":"ListItem","position":3,"name":"코스 판정"}]}</script>
 </head>
@@ -53,7 +53,7 @@
 
 <main class="tp">
 <h1 class="tp-title"><img class="emo" src="/emoji/hiking-boot.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true">코스 판정</h1>
-<p class="tp-sub">거리와 누적 상승·하강, 또는 GPX 파일을 넣으면 코스를 평지 거리로 환산하고 내 평지 페이스로 걸리는 시간을 계산합니다. GPX 파일은 서버로 보내지 않고 이 브라우저 안에서만 읽습니다.</p>
+<p class="tp-sub">거리와 누적 상승·하강, 또는 GPX 파일을 넣으면 칼랭크 난이도와 Km-effort를 매기고, 코스를 평지 거리로 환산해 내 평지 페이스로 걸리는 시간을 계산합니다. GPX 파일은 서버로 보내지 않고 이 브라우저 안에서만 읽습니다.</p>
 <section class="tp-card"><div class="tp-grid">
 <label class="tp-field">GPX 파일(선택)<input id="cvFile" type="file" accept=".gpx,application/gpx+xml,text/xml"></label>
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cvPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
@@ -72,7 +72,7 @@
 <section class="tp-card"><p class="tp-small">기준: <span id="cvSource"></span></p>
 <p class="cv-big"><b id="cvIndex">1.00</b><span> 코스 부하 지수 · <span id="cvBand"></span></span></p>
 <table class="cv-table"><tbody id="cvTable"></tbody></table>
-<p class="tp-small" id="cvRawNote" hidden></p></section>
+<p class="tp-small" id="cvRawNote" hidden></p><p class="tp-small">칼랭크 난이도와 Km-effort는 거리와 누적 오르막으로만 계산한 값입니다. <a href="dg-method.html">계산 방법과 근거</a></p></section>
 <section class="tp-card" id="cvChartWrap" hidden><div id="cvChart"></div></section>
 </div>
 <section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>

@@ -175,6 +175,16 @@
 
   api.drawProfile = drawProfile; api.fmtTime = fmtTime; api.parsePace = parsePace;
 
+  // 칼랭크 난이도(NPS 식)와 ITRA식 Km-effort. 구간 기준은 dg-method.html 과 같다.
+  var DG = [[50, "쉬움"], [100, "보통"], [150, "조금 힘듦"], [200, "힘듦"], [1e9, "매우 힘듦"]], KE = [25, 45, 75, 115, 155, 210];
+  function diffOf(km, gain) {
+    var sc = Math.sqrt(2 * gain * 3.28084 * km * 0.621371), i = 0;
+    while (sc >= DG[i][0]) i++;
+    var ke = km + gain / 100, pts = 0;
+    KE.forEach(function (b) { if (ke >= b) pts++; });
+    return { score: sc, name: DG[i][1], ke: ke, pts: pts };
+  }
+
   function render() {
     var pace = parsePace($("cvPace").value);
     if (!pace) { $("cvMsg").textContent = "평지 페이스를 6:30 처럼 적어 주세요."; return; }
@@ -192,6 +202,8 @@
     if (raw && raw.gainM > 0) {
       rows.push(["파일에 적힌 고도를 그대로 더하면", Math.round(raw.gainM) + " m / " + Math.round(raw.lossM) + " m"]);
     }
+    var dg = diffOf(km, r.gainM);
+    rows.unshift(["칼랭크 난이도(걷기 기준)", dg.name + " (점수 " + Math.round(dg.score) + ")"], ["Km-effort(ITRA식)", Math.round(dg.ke) + " (0~6점 중 " + dg.pts + "점)"]);
     $("cvTable").innerHTML = rows.concat([
       ["1km당 상승", (r.gainM / km).toFixed(0) + " m"],
       ["100m 구간 최대 경사", (r.maxGrade * 100).toFixed(0) + " %"],
