@@ -512,6 +512,23 @@ def course_stats(c):
     return km, gain, loss, steep / 1000
 
 
+DG_BANDS = [(50, "쉬움"), (100, "보통"), (150, "조금 힘듦"), (200, "힘듦"), (1e9, "매우 힘듦")]
+
+
+def diff_grade(km, gain):
+    """미국 국립공원관리청(Shenandoah) 식: sqrt(오르막(ft) x 2 x 거리(mile)). 구간 50/100/150/200."""
+    score = (2 * gain * 3.28084 * km * 0.621371) ** 0.5
+    for i, (lim, nm_) in enumerate(DG_BANDS):
+        if score < lim:
+            return score, i, nm_
+    return score, 4, "매우 힘듦"
+
+
+def dg_of(c):
+    k_, g_, _l, _s = course_stats(c)
+    return diff_grade(k_, g_)
+
+
 def _med(v):
     v = sorted(v); n = len(v)
     return 0 if not n else (v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2)
@@ -583,7 +600,8 @@ def course_page(c):
                 f"7% 넘게 가파른 구간은 모두 합쳐 {steep_km:.1f}km입니다.")
         if wt:
             lead += f" 걸어서 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))} 정도로 가늠합니다."
-    stat_rows = [("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
+    dg_score, dg_i, dg_name = diff_grade(km, gain)
+    stat_rows = [("칼랭크 난이도", f"{dg_name} (점수 {dg_score:.0f})"), ("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
                  ("1km당 오르막", f"{gain / km:.0f} m"), ("7% 넘게 가파른 구간", f"{steep_km:.1f} km")]
     if off.get("level"):
         stat_rows.append(("두루누비 표기 난이도", f'{off["level"]} (1~3 중)'))
@@ -637,7 +655,7 @@ def course_page(c):
         rel += '<section class="tp-sec"><h2 class="tp-h2">같은 길·지역의 코스 모음</h2><ul class="cp-list">' + "".join(_lk) + "</ul></section>"
     if same:
         rel += ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 코스</h2><ul class="cp-list">' +
-               "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km</li>' for o in same) +
+               "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km · 난이도 {dg_of(o)[2]}</li>' for o in same) +
                '</ul></section>')
     ft_extra = ""
     if _ft:
@@ -659,7 +677,26 @@ def course_page(c):
             parts.append(f'<p class="tp-small">원본 GPX에는 고도 값이 없어 위성 고도 자료(Copernicus DEM 30m)로 고도를 채웠습니다. 이 자료는 나무 높이가 섞여 있어 숲길의 오르막은 실제보다 조금 크게 나올 수 있습니다. 고도: {COPDEM_FT}</p>')
         parts.append(f'<p class="tp-small">경로는 한국등산트레킹지원센터가 {"2023년 8월" if "국가숲길" in (s.get("label") or "") else "2022년 1월"} 기준으로 올린 일회성 자료라 현재 노선과 다를 수 있습니다. 출발 전에 관리 기관의 안내를 확인해 주세요.</p>')
         ft_extra = '<section class="tp-sec">' + "".join(parts) + "</section>"
-    body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>{profile_svg(prof)}
+    _who = {0: "처음 걷는 분도 부담이 적은 편입니다.", 1: "평소 걷는 분이라면 무리 없이 걸을 수 있는 정도입니다.",
+            2: "오르막이 꽤 있어서 물과 간식, 쉬는 시간을 넉넉히 잡는 편이 좋습니다.", 3: "체력이 필요한 코스입니다. 시간을 넉넉히 잡고 이른 시간에 출발하세요.",
+            4: "매우 힘든 편입니다. 걷기에 익숙하고 체력이 충분할 때 도전하세요."}[dg_i]
+    _rank = ""
+    if _ft and len(_sib) > 1:
+        _ds = sorted(_sib, key=lambda o: -dg_of(o)[0])
+        _rank = f" {_ft} {len(_sib)}개 코스 중 난이도 점수는 {_ds.index(c) + 1}번째로 높습니다."
+    _seg = "".join(f'<li class="{"on" if i == dg_i else ""}"><span>{n}</span></li>' for i, (_l, n) in enumerate(DG_BANDS))
+    dg_html = (f'<section class="tp-sec dg"><p class="dg-top"><span class="dg-lab">칼랭크 난이도</span><b class="dg-name">{dg_name}</b>'
+               f'<span class="dg-score">점수 {dg_score:.0f}</span></p><ol class="dg-scale" aria-label="난이도 5단계 중 {dg_i + 1}단계">{_seg}</ol>'
+               f'<p class="tp-p">{esc(nm)}의 거리 {km:.1f}km와 누적 오르막 {gain:.0f}m로 계산한 점수는 {dg_score:.0f}점으로 "{dg_name}"입니다. {_who}{esc(_rank)}</p>'
+               '<details class="tp-p"><summary>이 난이도는 어떻게 매겼나요</summary>'
+               '<p class="tp-small">미국 국립공원관리청(셰넌도어 국립공원)이 하이킹 난이도를 가늠할 때 쓰는 식입니다. 누적 오르막(피트)에 2를 곱하고 거리(마일)를 곱한 뒤 제곱근을 취합니다. '
+               '50 미만 쉬움, 50~100 보통, 100~150 조금 힘듦, 150~200 힘듦, 200 이상 매우 힘듦이고, 이름은 한국어로 옮겼습니다. '
+               '거리와 오르막만 보는 식이라 노면, 날씨, 짧고 가파른 구간은 반영하지 못합니다. 공원관리청도 이 식이 "완벽하지 않다"고 밝혔습니다. '
+               '그래서 위의 경사 단면도와 7% 넘게 가파른 구간 길이를 함께 보세요. 걷기 기준이며 달리기 난이도와는 다릅니다.</p>'
+               '<p class="tp-small">출처: <a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">NPS, How to Determine Hiking Difficulty</a></p></details></section>')
+    body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p></section>
+{dg_html}
+<section class="tp-sec">{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
 {notable}
 {ft_extra}
@@ -681,22 +718,27 @@ def course_page(c):
 {rel}
 <p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 오르막·경사는 경로 파일의 고도로 칼랭크가 계산했습니다. <a href="trailroot.html">다른 코스 보기</a></p>
 <script type="application/json" id="cpData">{data}</script>"""
-    faq = [("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다."),
+    _tm = (f"걸어서 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))} 정도로 가늠합니다(Naismith 규칙과 Tobler 함수 기준, 공식 시간 아님)." if wt else
+           (f"두루누비가 적은 소요시간은 {t_off}입니다." if t_off else "경로 거리와 오르막으로 가늠한 시간은 페이지의 계산기에서 내 페이스로 확인할 수 있습니다."))
+    faq = [(f"{nm} 난이도는 어느 정도인가요?", f"칼랭크 기준으로 \"{dg_name}\"입니다. 거리 {km:.1f}km, 누적 오르막 {gain:.0f}m로 미국 국립공원관리청의 하이킹 난이도 식에 넣으면 {dg_score:.0f}점입니다. {_who}"),
+           (f"{nm} 소요시간은 얼마나 걸리나요?", _tm),
+           (f"{nm} 초보도 갈 수 있나요?", f"{_who} 다만 노면과 날씨는 점수에 들어 있지 않으니 출발 전에 관리 기관 안내를 확인해 주세요."),
+           ("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다."),
            (f"{nm}의 오르막은 얼마나 되나요?", f"경로 파일의 고도를 약 100m 구간으로 다듬어 계산하면 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다.")]
     base = nm if (nm.endswith("코스") or _ft) else nm + " 코스"
     h1 = f"{base} 난이도와 오르막"
     if _ft:
         _cn = (c.get("waypoints") or {}).get("counts") or {}
         _fac = ", ".join(f"{k} {_cn[k]}곳" for k in ("화장실", "쉼터", "전망") if _cn.get(k))
-        desc = (f'{nm} {km:.1f}km, 누적 오르막 {gain:.0f}m, 걷는 시간 약 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))}. '
+        desc = (f'{nm} 난이도 {dg_name}, {km:.1f}km, 누적 오르막 {gain:.0f}m, 걷는 시간 약 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))}. '
                 f'{_ft} {len(_sib)}개 코스 중 어디쯤 가파른지, 경로 지도와 경사 색 단면도' + (f', {_fac}' if _fac else '') + '까지 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
     else:
-        desc = (f'{nm}{"(" + region + ")" if region else ""} {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
-    _tt = f"{nm} 난이도·소요시간·오르막·지도"
+        desc = (f'{nm}{"(" + region + ")" if region else ""} 난이도 {dg_name}, {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
+    _tt = f"{nm} 난이도 {dg_name}·소요시간·오르막·지도"
     if _ft:
-        _tt = f"{nm} 난이도·거리·오르막·소요시간"
+        _tt = f"{nm} 난이도 {dg_name}·거리·오르막·소요시간"
     elif _nm:
-        _tt = f"{nm} ({_nm[0][1]['name']} 근처) 난이도·소요시간·지도"
+        _tt = f"{nm} ({_nm[0][1]['name']} 근처) 난이도 {dg_name}·소요시간"
     return slug, page(slug, _tt, desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
                       ["calrank-local.js", "trail-mark.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"),
@@ -734,11 +776,11 @@ def ft_group_page(slug, name, intro, cs):
         cn = ((c.get("waypoints") or {}).get("counts") or {})
         fac = " · ".join(f"{x} {cn[x]}" for x in ("화장실", "쉼터", "전망") if cn.get(x)) or "-"
         _hm = lambda m_: f"{int(round(m_)) // 60}:{int(round(m_)) % 60:02d}"
-        rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a></td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
+        rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a></td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td>{diff_grade(k_, g_)[2]}</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
                  f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{max(p_[1] for p_ in c["profile"]):.0f}m</td>' + (f'<td class="hide-sm">{fac}</td>' if any_fac else '') + '</tr>')
-    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th class="hide-sm">1km당</th><th>걷는 시간<span class="hide-sm"> (시:분)</span></th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
+    table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th>난이도</th><th class="hide-sm">1km당</th><th>걷는 시간<span class="hide-sm"> (시:분)</span></th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
              f'<tbody>{rows}</tbody></table></div>')
-    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m</li>' for c in lst)
+    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m · 난이도 {dg_of(c)[2]}</li>' for c in lst)
     lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
             f"가장 긴 코스는 {nm_short(longest)}({st[longest['id']][0]:.1f}km)입니다. 1km당 오르막으로 가장 가파른 코스는 {nm_short(hard[0])}(약 {per(hard[0]):.0f}m), 가장 완만한 코스는 {nm_short(easy[0])}(약 {per(easy[0]):.0f}m)입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p></section>
@@ -770,7 +812,7 @@ def group_page(slug, name, intro, cs):
     def li(c):
         k_, g_, _, _ = course_stats(c)
         l2 = (c.get("official") or {}).get("level")
-        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m'
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m · 난이도 {dg_of(c)[2]}'
                 + (f' · 두루누비 난이도 {l2}' if l2 else "") + _near_txt(c) + "</li>")
     if cs and all(c.get("trail") for c in cs):
         return ft_group_page(slug, name, intro, cs)
@@ -806,7 +848,7 @@ def hub_page():
     def li(c):
         km, gain, _, _ = course_stats(c)
         lv = (c.get("official") or {}).get("level")
-        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {km:.1f}km · 오르막 {gain:.0f}m'
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {km:.1f}km · 오르막 {gain:.0f}m · 난이도 {dg_of(c)[2]}'
                 + (f' · 두루누비 난이도 {lv}' if lv else "") + _near_txt(c) + "</li>")
     secs = ""
     for reg in sorted(by, key=lambda r: (r == "지역 미표기", r)):
