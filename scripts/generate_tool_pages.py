@@ -1344,10 +1344,38 @@ def _decorate(name, html):
     return _cards(html)
 
 
+YARD = page(
+    "yardage.html", "대회 코스 야디지북 — 공식 GPX로 구간별 오르막과 페이스 계획",
+    "마라톤 대회 코스의 공식 GPX를 올리면 구간(km)마다 오르막·내리막·경사와, 목표 기록에 맞춘 구간별 보정 페이스를 표로 보여 줍니다. 파일은 내 기기 안에서만 읽습니다.",
+    "대회 코스 야디지북",
+    "주최측이 공개한 코스 GPX를 올리고 목표 기록을 적으면, 구간마다 오르막과 내리막, 평균 경사, 같은 노력으로 달릴 때의 페이스를 계산합니다. 파일은 서버로 보내지 않고 이 브라우저 안에서만 읽습니다.",
+    '''<section class="tp-card"><div class="tp-grid">
+<label class="tp-field">대회 코스 GPX 파일<input id="ydFile" type="file" accept=".gpx,application/gpx+xml,text/xml"></label>
+<label class="tp-field">목표 기록 (시:분:초)<input id="ydTime" type="text" inputmode="numeric" value="3:30:00" autocomplete="off"></label>
+<label class="tp-field">공식 거리<select id="ydDist"><option value="42.195" selected>풀 42.195km</option><option value="21.0975">하프 21.0975km</option><option value="10">10km</option><option value="5">5km</option><option value="0">파일 그대로</option></select></label>
+<label class="tp-field">구간 단위<select id="ydUnit"><option value="1">1km</option><option value="5" selected>5km</option></select></label>
+</div>
+<p class="tp-small">대회 홈페이지가 코스 GPX를 공개한 경우에만 쓸 수 있습니다. 칼랭크는 대회 코스 파일을 보관하거나 나눠 주지 않습니다.</p>
+<p id="ydMsg" class="tp-small" role="status" aria-live="polite"></p></section>
+<div id="ydOut" hidden>
+<section class="tp-card"><p class="tp-small" id="ydSum"></p><p class="tp-small" id="ydNote"></p>
+<div class="mt-wrap"><table class="mt-table"><thead><tr><th>구간(km)</th><th>오르막/내리막</th><th>평균 경사</th><th>보정 페이스(/km)</th><th>누적 시간</th></tr></thead><tbody id="ydBody"></tbody></table></div></section>
+<section class="tp-card"><h2 class="tp-h2">큰 오르막</h2><ul class="cp-list" id="ydClimbs"></ul></section>
+</div>
+<section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>
+<p class="tp-p">경사에 따라 달릴 때 드는 에너지가 달라진다는 실험 결과(Minetti 외, 2002)를 구간마다 적용해, 같은 노력으로 달릴 때 구간별 속도가 얼마나 달라지는지 계산합니다. 목표 기록을 코스 전체에 이 비율대로 나누기 때문에, 오르막 구간의 페이스는 느려지고 평지 구간은 그보다 빨라집니다. 내리막은 평지와 같다고 봅니다. 평지 대회에서 두 효과는 대체로 상쇄되고, 코스 시간을 이런 에너지 모델로 어림하면 대체로 10~20% 안에서 맞았다는 보고가 있습니다(Crowell, bioRxiv 프리프린트, 동료 심사 전).</p>
+<p class="tp-p"><b>이 계산이 모르는 것</b>: 바람, 기온, 노면, 급수대 혼잡, 곡선 구간, 피로는 들어 있지 않습니다. GPS 고도는 흔들려서 파일에 따라 오르막 값이 달라질 수 있어 고도를 다듬어 계산합니다. 보정 페이스는 계획을 세울 때의 참고이고, 공식 코스도와 거리 표지판이 우선입니다.</p>
+<p class="tp-src">근거: Minetti AE 외, J Appl Physiol 93:1039–1046, 2002. Crowell B, From treadmill to trails: predicting performance of runners (bioRxiv 2021, 프리프린트).</p></section>''',
+    ["course.js", "yardage.js"],
+    [("대회 코스 GPX는 어디서 받나요?", "대회 홈페이지가 공개한 경우에만 받을 수 있습니다. 공개하지 않는 대회도 많고, 칼랭크는 대회 코스 파일을 보관하거나 나눠 주지 않습니다."),
+     ("파일이 서버에 저장되나요?", "아닙니다. 파일은 이 브라우저 안에서만 읽고 서버로 보내지 않습니다."),
+     ("보정 페이스는 어떻게 나오나요?", "경사별 에너지 비용 식으로 구간마다 같은 노력의 속도를 계산한 뒤, 목표 기록에 맞게 전체를 맞춥니다. 오르막은 느려지고 평지는 상대적으로 빨라집니다.")],
+    crumb=("코스 판정", "course.html"))
+
 KIT, COURSE, AGE, LEDGER = (_decorate(n, h) for n, h in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)])
 STANDARDS = [(n, _decorate(n, h)) for n, h in STANDARDS]
 
-for name, html in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS + ([("dg-method.html", DGM)] if DGM else []):
+for name, html in [("yardage.html", YARD), ("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS + ([("dg-method.html", DGM)] if DGM else []):
     p = ROOT / name
     if not p.exists() or p.read_text(encoding="utf-8") != html:
         p.write_text(html, encoding="utf-8")
@@ -1383,7 +1411,7 @@ if _stale:
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html", "dg-method.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "yardage.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html", "dg-method.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:
