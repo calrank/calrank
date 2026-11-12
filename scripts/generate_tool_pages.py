@@ -1134,7 +1134,8 @@ def _decorate(name, html):
             if key in txt:
                 return '<h2 class="tp-h2">' + _emo(em) + txt + "</h2>"
         return m.group(0)
-    return _cards(re.sub(r'<h2 class="tp-h2">([^<]*)</h2>', _h2, html))
+    # 소제목(h2)에는 이모지를 붙이지 않는다. 섹션마다 다른 그림이 붙으면 어수선해진다. 이모지는 페이지 제목에만 둔다.
+    return _cards(html)
 
 
 KIT, COURSE, AGE, LEDGER = (_decorate(n, h) for n, h in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)])

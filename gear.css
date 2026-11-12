@@ -84,13 +84,11 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
   background: var(--tint-1);
 }
 .gh-item:hover { border-color: var(--accent); background: var(--tint-2); }
-.gh-item b { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink); }
+.gh-item b { display: block; font-size: 15px; color: var(--ink); }
 /* 목록 카드의 이모지는 칸을 같은 크기로 고정해, 이름 글자가 항상 같은 선에서 시작하게 한다. */
 .gh-item b .gh-emo.emo { width: 24px; height: 24px; margin: 0; vertical-align: baseline; }
 .gh-sport h2 { align-items: center; }
 /* 설명과 태그도 제목 글자와 같은 왼쪽 선에서 시작하게 한다(이모지 24px + 간격 10px). */
-.gh-item .gh-tag, .gh-item .gh-q { margin-left: 34px; }
-.gh-item .gh-tag { margin-top: 6px; }
 .gh-sport h2 .emo { align-self: center; margin-right: 0; width: 26px; height: 26px; vertical-align: baseline; }
 .gh-q {
   display: block; font-size: 13.5px; line-height: 1.6;
