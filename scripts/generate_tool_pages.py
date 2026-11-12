@@ -721,7 +721,7 @@ def course_page(c):
 <p id="cpMsg" class="tp-small" role="status" aria-live="polite"></p>
 <p class="cv-big"><b id="cpIndex">1.00</b><span> 코스 부하 지수 · <span id="cpBand"></span></span></p>
 <table class="cv-table"><tbody id="cpTable"></tbody></table>
-<p class="tp-small">달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)으로 계산합니다. {"걷는 시간은 위의 걷는 시간 가늠을 참고해 주세요." if _ft else "걷는 시간은 위의 두루누비 표기 소요시간을 참고해 주세요."} 걷기에 이 식이 맞는지는 아직 검증하지 못했습니다.</p></section>
+<p class="tp-small">달리는 사람의 에너지 비용 식(Minetti 등, J Appl Physiol 93:1039–1046, 2002)으로 계산합니다. {"걷는 시간은 위의 걷는 시간 가늠을 참고해 주세요." if _ft else "걷는 시간은 위의 두루누비 표기 소요시간을 참고해 주세요."} 걷기에 이 식이 맞는지는 아직 검증하지 못했습니다. 평지 기록으로 언덕 코스 시간을 어림한 연구(Crowell, bioRxiv 프리프린트, 동료 심사 전)에서도 대체로 10~20% 안에서 맞았고, 가파른 오르막 코스는 시간을 짧게 예측했습니다. 개인차와 노면에 따라 더 벌어질 수 있으니 여유를 두고 보세요.</p></section>
 {"" if _ft else f'''<section class="tp-sec"><h2 class="tp-h2">기술 난이도 (칼랭크 구분)</h2>{tech_html}
 <details class="tp-p"><summary>단계 설명</summary><ul class="cp-list">{legend}</ul></details>
 <p class="tp-small">이 단계는 SAC 등급, Maverick 등 해외 사례를 참고해 칼랭크가 나눈 의견이고, 계산으로 나온 값이 아닙니다.</p></section>
