@@ -725,6 +725,21 @@ def course_page(c):
            (f"{nm} 초보도 갈 수 있나요?", f"{_who} 다만 노면과 날씨는 점수에 들어 있지 않으니 출발 전에 관리 기관 안내를 확인해 주세요."),
            ("코스 부하 지수는 무엇인가요?", "코스를 평지 거리로 환산한 값을 실제 거리로 나눈 수입니다. 1.00이면 평지와 같습니다. 노면과 날씨는 들어 있지 않습니다."),
            (f"{nm}의 오르막은 얼마나 되나요?", f"경로 파일의 고도를 약 100m 구간으로 다듬어 계산하면 누적 오르막은 {gain:.0f}m, 내리막은 {loss:.0f}m입니다.")]
+    faq.append((f"{nm}{josa(nm, '은', '는')} 몇 km인가요?", f"경로 파일 기준 {km:.1f}km입니다." + (f" 두루누비 표기 소요시간은 {t_off}입니다." if t_off else "")))
+    if _ft:
+        _cn2 = (c.get("waypoints") or {}).get("counts") or {}
+        _has = [f"{k} {_cn2[k]}곳" for k in ("화장실", "쉼터", "전망", "약수터·샘터", "주차장") if _cn2.get(k)]
+        faq.append((f"{nm}에 화장실이나 쉼터가 있나요?",
+                    (f"자료에 찍힌 지점 가운데 경로에서 80m 안에 있는 것은 {', '.join(_has)}입니다. 같은 시설이 두 번 찍힌 경우가 있어 실제와 조금 다를 수 있습니다."
+                     if _has else "자료에서 경로 80m 안의 화장실·쉼터 지점을 찾지 못했습니다. 자료에 없다는 뜻일 뿐 실제로 없다는 뜻은 아니니 출발 전에 관리 기관 안내를 확인해 주세요.")))
+        _easy = [o for o in sorted(_sib, key=lambda o: dg_of(o)[0]) if o is not c and dg_of(o)[0] < dg_score][:2]
+        if _easy:
+            faq.append((f"{_ft}에서 {nm}보다 쉬운 코스는 어디인가요?",
+                        "칼랭크 난이도 점수로 " + ", ".join(f"{o['name']}({dg_of(o)[2]}, {course_stats(o)[0]:.1f}km)" for o in _easy) + "가 더 쉽습니다."))
+    elif _nm:
+        faq.append((f"{nm} 근처에 있는 산은 어디인가요?", "경로 가까이를 지나는 산림청 등산로는 " + ", ".join(m["name"] for _, m in _nm[:3]) + "입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다."))
+    if off.get("level"):
+        faq.append((f"{nm}의 두루누비 난이도는 몇 단계인가요?", f"두루누비는 이 코스를 {off['level']}단계(1~3단계 중)로 적었습니다. 칼랭크 난이도 \"{dg_name}\"은 거리와 오르막으로 따로 계산한 값이라 두 표기가 다를 수 있습니다."))
     base = nm if (nm.endswith("코스") or _ft) else nm + " 코스"
     h1 = f"{base} 난이도와 오르막"
     if _ft:
