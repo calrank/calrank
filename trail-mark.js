@@ -25,6 +25,33 @@
         : s === "done" ? "다녀온 곳으로 표시했어요." : "표시는 이 기기에만 저장되고 서버로 보내지 않아요.";
     };
     box.appendChild(row); box.appendChild(msg); paint();
+
+    // 오프라인 저장: 연결이 약한 산에 들어가기 전에 이 페이지와 쓰는 파일을 서비스 워커 저장소에 미리 받아 둔다.
+    // 지도 타일 같은 외부 이미지는 저장되지 않고, 글·숫자·경사 단면도는 저장된다.
+    if ("caches" in window && "serviceWorker" in navigator) {
+      var ob = el("button", "tp-btn ghost", "오프라인으로 저장"); ob.type = "button";
+      var om = el("p", "tp-small"); om.setAttribute("role", "status"); om.setAttribute("aria-live", "polite");
+      var PAGES = "cr-v1-pages", ASSETS = "cr-v1-assets";
+      caches.open(PAGES).then(function (c) { return c.match(location.pathname); }).then(function (hit) {
+        if (hit) { ob.textContent = "오프라인 저장됨 · 다시 저장"; om.textContent = "연결이 없어도 이 페이지를 열 수 있어요."; }
+      }).catch(function () {});
+      ob.addEventListener("click", function () {
+        ob.disabled = true; om.textContent = "저장하는 중…";
+        var urls = [].slice.call(document.querySelectorAll('link[rel="stylesheet"][href], script[src], img[src]'))
+          .map(function (n) { return n.href || n.src; }).filter(function (u) { return u.indexOf(location.origin) === 0; });
+        Promise.all([caches.open(PAGES), caches.open(ASSETS)]).then(function (cs) {
+          return fetch(location.pathname, { cache: "reload" }).then(function (r) {
+            if (!r.ok) throw new Error("page");
+            return cs[0].put(location.pathname, r);
+          }).then(function () {
+            return Promise.all(urls.map(function (u) { return cs[1].add(u).catch(function () {}); }));
+          });
+        }).then(function () {
+          ob.disabled = false; ob.textContent = "오프라인 저장됨 · 다시 저장"; om.textContent = "저장했어요. 연결이 없어도 이 페이지를 열 수 있어요. (지도 타일은 저장되지 않아요)";
+        }).catch(function () { ob.disabled = false; om.textContent = "저장하지 못했어요. 연결을 확인하고 다시 눌러 주세요."; });
+      });
+      var orow = el("p"); orow.appendChild(ob); box.appendChild(orow); box.appendChild(om);
+    }
   }
 
   var mine = document.getElementById("trMine");
@@ -62,7 +89,29 @@
           document.body.appendChild(a2); a2.click(); document.body.removeChild(a2); setTimeout(function () { URL.revokeObjectURL(u); }, 1000);
         } catch (e) {}
       });
-      bar.appendChild(sv); mine.appendChild(bar);
+      bar.appendChild(sv);
+      var dn = list.filter(function (x) { return x.state === "done"; });
+      if (dn.length) {
+        var cb = el("button", "tp-btn ghost", "다녀온 곳 카드 저장"); cb.type = "button";
+        cb.addEventListener("click", function () {
+          cb.disabled = true;
+          var go = function () {
+            var km = 0, gn = 0; dn.forEach(function (x) { km += x.km || 0; gn += x.gain || 0; });
+            return window.CalrankTrailCard.build({ n: dn.length, km: km, gain: gn, date: L.today(), names: dn.slice().reverse().map(function (x) { return x.name; }) });
+          };
+          var ready = window.CalrankTrailCard ? Promise.resolve() : new Promise(function (ok, no) {
+            var sc = document.createElement("script"); sc.src = "trail-card.js"; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc);
+          });
+          ready.then(go).then(function (blob) {
+            var f = new File([blob], "calrank-trails.png", { type: "image/png" });
+            if (navigator.canShare && navigator.canShare({ files: [f] })) return navigator.share({ files: [f] }).catch(function () {});
+            var u = URL.createObjectURL(blob), a3 = document.createElement("a"); a3.href = u; a3.download = "calrank-trails.png";
+            document.body.appendChild(a3); a3.click(); document.body.removeChild(a3); setTimeout(function () { URL.revokeObjectURL(u); }, 1000);
+          }).catch(function () {}).then(function () { cb.disabled = false; });
+        });
+        bar.appendChild(document.createTextNode(" ")); bar.appendChild(cb);
+      }
+      mine.appendChild(bar);
       mine.appendChild(el("p", "tp-small", "이 목록은 이 기기의 브라우저에만 있어요. 칼랭크 서버로 보내지 않아요. 브라우저 데이터를 지우거나 다른 기기로 옮기면 사라지니, 백업 파일을 저장해 두세요."));
     };
     draw();
