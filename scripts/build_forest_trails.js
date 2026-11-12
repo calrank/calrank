@@ -166,5 +166,19 @@ const geoOut = {};
 Object.keys(byTrail).forEach((t) => byTrail[t].forEach((r) => { const k = Object.keys(GEO).find((g) => g.startsWith(r.trailSlug + '|') && GEO[g]._for === undefined && g === r.trailSlug + '|' + r._n); if (k) geoOut[r.id] = GEO[k]; }));
 if (rows.length < 20) { console.log("너무 적어 쓰지 않습니다."); process.exit(1); }
 rows.forEach((r) => { delete r._n; });
+// 다시 돌려도 DEM 으로 채운 고도(profile)를 잃지 않게, 이전 결과에서 같은 id 의 채워진 값을 옮겨 둔다.
+try {
+  const prev = JSON.parse(fs.readFileSync(OUT, "utf8")).courses || [];
+  const pm = {}; prev.forEach((c) => { if (!c.needsDem && c.elevSource && Array.isArray(c.profile) && c.profile.length >= 20) pm[c.id] = c; });
+  let kept = 0;
+  rows.forEach((r) => {
+    const o = pm[r.id];
+    if (r.needsDem && o && Math.abs((o.lengthM || 0) - (r.lengthM || 0)) < 50) {
+      r.profile = o.profile; r.needsDem = false; r.elevSource = o.elevSource;
+      if (o.quality) r.quality = Object.assign({}, r.quality, o.quality); kept++;
+    }
+  });
+  if (kept) console.log("이전 DEM 고도 유지:", kept);
+} catch (e) { /* 이전 파일이 없으면 건너뜀 */ }
 fs.writeFileSync(path.join(__dirname, "..", "data", "forest_trails_geo.json"), JSON.stringify(geoOut) + "\n");
 fs.writeFileSync(OUT, JSON.stringify({ note: "한국등산트레킹지원센터 둘레길 GPX에서 계산한 코스. 원본 GPX는 저장하지 않았습니다.", courses: rows }, null, 1) + "\n");
