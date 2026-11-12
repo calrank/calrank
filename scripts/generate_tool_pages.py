@@ -700,7 +700,7 @@ def course_page(c):
     dg_html = (f'<section class="tp-sec dg"><p class="dg-top"><span class="dg-lab">칼랭크 난이도</span><b class="dg-name">{dg_name}</b>'
                f'<span class="dg-score">점수 {dg_score:.0f}</span></p><ol class="dg-scale" aria-label="난이도 5단계 중 {dg_i + 1}단계">{_seg}</ol>'
                f'<p class="tp-p">{esc(nm)}의 거리 {km:.1f}km와 누적 오르막 {gain:.0f}m로 계산한 점수는 {dg_score:.0f}점으로 "{dg_name}"입니다. {_who}{esc(_rank)}</p>'
-               f'<p class="tp-small">트레일러닝 대회에서 쓰는 방식(ITRA)으로 환산하면 Km-effort는 {ke:.0f}(거리 {km:.1f}km + 오르막 {gain:.0f}m÷100)이고, 0~6점 중 {ke_pts}점에 해당합니다. <a href="dg-method.html#km-effort">환산 방법</a></p>'
+               f'<p class="tp-small">트레일러닝 대회에서 쓰는 방식(ITRA)으로 환산하면 Km-effort는 {ke:.0f}(거리 {km:.1f}km + 오르막 {gain:.0f}m÷100)이고, 0~6점 중 {ke_pts}점에 해당합니다(이 점수의 범위는 Km-effort {("24 이하" if ke_pts == 0 else (f"{KE_BANDS[ke_pts-1]} 이상" if ke_pts == 6 else f"{KE_BANDS[ke_pts-1]}~{KE_BANDS[ke_pts]-1}"))}). {"트레일러닝 대회로 치면 가장 낮은 구간이라, 입문 거리에 가깝습니다. " if ke_pts == 0 else ""}<a href="dg-method.html#km-effort">환산 방법</a></p>'
                '<details class="tp-p"><summary>이 난이도는 어떻게 매겼나요</summary>'
                '<p class="tp-small">미국 국립공원관리청(셰넌도어 국립공원)이 하이킹 난이도를 가늠할 때 쓰는 식입니다. 누적 오르막(피트)에 2를 곱하고 거리(마일)를 곱한 뒤 제곱근을 취합니다. '
                '50 미만 쉬움, 50~100 보통, 100~150 조금 힘듦, 150~200 힘듦, 200 이상 매우 힘듦이고, 이름은 한국어로 옮겼습니다. '
