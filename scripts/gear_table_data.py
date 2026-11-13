@@ -110,6 +110,7 @@ const out = reqs.map(function (q) {
         n: e.evidence ? e.evidence.n : null,
         range: e.range || null, cutSec: e.cutSec || null,
         adjustedSec: e.adjustedSec || null,
+        aero: e.aero || null,
         watts: e.aero ? e.aero.watts : null,
         sharePct: e.aero ? e.aero.sharePct : null,
         rollSharePct: e.aero ? e.aero.rollSharePct : null

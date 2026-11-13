@@ -260,7 +260,7 @@ def build(dist: str, goal: int, frag: str, name: str, alias: str):
 <p class="g-note">※ 실제 레이스에서는 오르막·급수대·혼잡 구간 때문에 구간마다 편차가 생깁니다.
 초반 구간을 표보다 빠르게 통과하고 있다면 속도를 줄이는 편이 안전합니다.</p>
 
-<h2>{esc(alias)}는 또래에서 어느 수준일까</h2>
+<h2>{esc(alias)}의 연령대별 수준</h2>
 <p>{esc(tier_sentence(dist, goal))}</p>
 {tier_table(dist, goal)}
 <p class="g-note">Running Level(runninglevel.com) 공개 데이터의 5단계 기준입니다.

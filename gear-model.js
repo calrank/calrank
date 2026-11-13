@@ -96,14 +96,19 @@
     return o;
   }
 
+  // o.grade 는 경사(소수, 0.07 = 7%). 안 넣으면 평지다. 경사 항은 논문 식의
+  // 중력 항 m·g·sinθ·v 이고, 구름저항은 노면에 수직인 힘(cosθ)에 걸린다.
   function martinPower(v, o) {
     o = o || MARTIN;
     if (!isNum(v) || v <= 0) return null;
+    var th = isNum(o.grade) ? Math.atan(o.grade) : 0;
     var aero = 0.5 * o.rho * o.cda * v * v * v;
-    var roll = o.crr * o.mass * o.g * v;
+    var roll = o.crr * o.mass * o.g * Math.cos(th) * v;
+    var grav = o.mass * o.g * Math.sin(th) * v;
     var bear = (91 + 8.7 * v) * 1e-3 * v;
-    return { total: (aero + roll + bear) / o.ec, aero: aero, roll: roll, bear: bear,
-             share: aero / (aero + roll + bear) };
+    var sum = aero + roll + grav + bear;
+    return { total: sum / o.ec, aero: aero, roll: roll, grav: grav, bear: bear,
+             share: aero / sum, gravShare: grav / sum };
   }
 
   // 같은 출력에서 CdA 만 바뀌면 속도가 어디로 가는지. 이분법으로 푼다.
@@ -193,6 +198,38 @@
     return out;
   }
 
+  // 오르막에서 무게가 줄면 같은 힘으로 얼마나 빨라지나.
+  //   gradientPct 경사(%), lengthKm 오르막 길이, powerW 내 출력(W),
+  //   massKg 사람+자전거+짐 총중량, deltaKg 줄어드는 무게.
+  // 평지 식과 같은 모델에 경사 항만 더했다. 출력을 고정하고 속도를 다시 푼다.
+  function massTimeGain(gradientPct, lengthKm, powerW, massKg, deltaKg, opts) {
+    if (!isNum(gradientPct) || gradientPct < 0 || gradientPct > 30) return null;
+    if (!isNum(lengthKm) || lengthKm <= 0) return null;
+    if (!isNum(powerW) || powerW <= 0) return null;
+    if (!isNum(massKg) || massKg <= 0) return null;
+    if (!isNum(deltaKg) || deltaKg <= 0 || deltaKg >= massKg) return null;
+    var o = withOpts(MARTIN, opts);
+    if (!isNum(o.cda)) o.cda = 0.35;
+    o.grade = gradientPct / 100;
+    o.mass = massKg;
+    var v0 = martinSpeed(powerW, o);
+    var o2 = Object.assign({}, o, { mass: massKg - deltaKg });
+    var v1 = martinSpeed(powerW, o2);
+    if (!isNum(v0) || !isNum(v1) || v0 <= 0 || v1 <= 0) return null;
+    var p0 = martinPower(v0, o);
+    var out = { gradientPct: gradientPct, powerW: powerW, massKg: massKg, deltaKg: deltaKg,
+                speedBefore: v0 * 3.6, speedAfter: v1 * 3.6,
+                gainPct: (v1 / v0 - 1) * 100,
+                gravSharePct: p0 ? p0.gravShare * 100 : null,
+                aeroSharePct: p0 ? p0.share * 100 : null };
+    out.secBefore = lengthKm * 1000 / v0;
+    out.secAfter = lengthKm * 1000 / v1;
+    out.cutSec = out.secBefore - out.secAfter;
+    out.cutSecPerKg = out.cutSec / deltaKg;
+    out.wattsPerKg = powerW / massKg;
+    return out;
+  }
+
   // input: { claim, finishSec, distanceKm, age, gender, priceKrw, [조건값] }
   function judge(input) {
     input = input || {};
@@ -253,6 +290,20 @@
           row.aero = cdaTimeGain(spd, delta, input.distanceKm, { cda: input.cda });
           row.hasEvidence = !!row.aero;
           if (row.aero && isNum(row.aero.cutSec)) {
+            row.cutSec = { point: row.aero.cutSec, lo: row.aero.cutSec, hi: row.aero.cutSec };
+            row.adjustedSec = Math.max(1, Math.round(row.aero.secAfter));
+            if (isNum(input.priceKrw) && input.priceKrw > 0 && row.aero.cutSec > 0) {
+              row.wonPerSecond = input.priceKrw / row.aero.cutSec;
+              row.priceKrw = input.priceKrw;
+            }
+          }
+        } else if (eff.computed === "mass_time") {
+          var dk = isNum(input.deltaKg) ? input.deltaKg : ev.delta_kg;
+          var pw = isNum(input.powerW) ? input.powerW : 200;
+          var mk = isNum(input.massKg) ? input.massKg : 80;
+          row.aero = massTimeGain(cond, input.distanceKm, pw, mk, dk, { cda: input.cda });
+          row.hasEvidence = !!row.aero;
+          if (row.aero) {
             row.cutSec = { point: row.aero.cutSec, lo: row.aero.cutSec, hi: row.aero.cutSec };
             row.adjustedSec = Math.max(1, Math.round(row.aero.secAfter));
             if (isNum(input.priceKrw) && input.priceKrw > 0 && row.aero.cutSec > 0) {
@@ -352,6 +403,7 @@
     martinSpeed: martinSpeed,
     aeroShareAt: aeroShareAt,
     cdaTimeGain: cdaTimeGain,
+    massTimeGain: massTimeGain,
     resistTimeGain: resistTimeGain,
     pickEvidence: pickEvidence,
     effectRange: effectRange,

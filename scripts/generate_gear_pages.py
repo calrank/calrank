@@ -113,13 +113,13 @@ def rule_body(rule, bodies):
                    f'<table class="gm-table"><tbody>{"".join(rows)}</tbody></table>')
 
     if rule.get("measure_note"):
-        out.append("<h2>재는 방법과 덧붙는 조건</h2>"
+        out.append("<h2>측정 방법과 부가 조건</h2>"
                    f'<p class="gm-measure">{esc(rule["measure_note"])}</p>')
 
     b = bodies.get(rule.get("body"))
     if b:
         note = f'<span class="gm-note">{esc(b["note"])}</span>' if b.get("note") else ""
-        out.append("<h2>이 규정을 쓰는 곳</h2>"
+        out.append("<h2>적용 대회·기관</h2>"
                    f'<p class="gm-body"><b>{esc(b["label"])}</b> ({esc(b["label_ko"])})<br>'
                    f'{esc(b["governs"])}{note}</p>')
 
@@ -129,6 +129,75 @@ def rule_body(rule, bodies):
                '<span class="gm-note">장비 규정은 거의 매년 바뀝니다. '
                '중요한 결정 전에는 원문을 한 번 더 확인해 주세요.</span></p>')
     return "\n".join(out)
+
+
+def _fine_gap(sec):
+    """10초 아래는 소수 한 자리. 0.6초가 1초로 반올림되면 판정이 부풀어 보인다."""
+    sec = abs(sec)
+    if sec < 10:
+        return f"{sec:.1f}초"
+    return _gap(sec)
+
+
+def groupset_tables():
+    """구동계 등급 판정의 정적 표. 화면이 쓰는 gear-model.js 를 그대로 돌린다."""
+    grades = [0, 3, 5, 7, 10]
+    watts = [150, 200, 250, 300]
+    reqs = [{"claim": "groupset-tier",
+             "input": {"gradient_pct": g, "distanceKm": 5, "powerW": w,
+                       "massKg": 78, "deltaKg": 0.278}}
+            for g in grades for w in watts]
+    res = run_model(reqs)
+    cell = {}
+    for (g, w), r in zip([(g, w) for g in grades for w in watts], res):
+        a = (r or {}).get("effects", [{}])[0].get("aero") if r else None
+        cell[(g, w)] = a
+    head = "<tr><th>경사</th>" + "".join(f"<th>{w}W</th>" for w in watts) + "</tr>"
+    rows = ""
+    for g in grades:
+        tds = ""
+        for w in watts:
+            a = cell[(g, w)]
+            tds += f"<td>{_fine_gap(a['cutSec'])}</td>" if a else "<td>—</td>"
+        rows += f"<tr><th>{g}%</th>{tds}</tr>"
+    t1 = (f'<div class="gt-wrap"><table class="gt"><thead>{head}</thead>'
+          f"<tbody>{rows}</tbody></table></div>")
+
+    deltas = [100, 278, 500, 1000, 2000]
+    reqs2 = [{"claim": "groupset-tier",
+              "input": {"gradient_pct": 7, "distanceKm": 5, "powerW": 250,
+                        "massKg": 78, "deltaKg": d / 1000}} for d in deltas]
+    res2 = run_model(reqs2)
+    rows2 = ""
+    for d, r in zip(deltas, res2):
+        a = (r or {}).get("effects", [{}])[0].get("aero") if r else None
+        if a:
+            rows2 += f"<tr><th>{d:,}g</th><td>{_fine_gap(a['cutSec'])}</td></tr>"
+    t2 = ('<div class="gt-wrap"><table class="gt"><thead><tr><th>줄어드는 무게</th>'
+          '<th>5km·7%·250W에서 줄어드는 시간</th></tr></thead>'
+          f"<tbody>{rows2}</tbody></table></div>")
+    return t1, t2
+
+
+def groupset_extra():
+    t1, t2 = groupset_tables()
+    return (
+        '<h2>경사·출력별 단축 시간 <span class="ge-detail">278g이 줄어들 때(Ultegra→Dura-Ace 매체 표기 차이), 5km 오르막</span></h2>'
+        + t1 +
+        '<p class="gm-measure">경사가 0%이면 오르막이 아니라 평지 5km입니다. '
+        '무게가 기록에 영향을 주는 건 중력과 싸우는 구간이라서, 경사가 가팔라질수록 같은 무게가 더 많은 초가 되고 '
+        '출력이 낮은 사람일수록(속도가 느려 그 구간에 오래 머물수록) 더 많은 초를 돌려받습니다. '
+        '총중량 78㎏(사람 70+자전거 8)을 가정했고 CdA는 0.35㎡입니다.</p>'
+        '<h2>무게 변화량별 단축 시간</h2>'
+        + t2 +
+        '<p class="gm-measure">이 표는 어느 부품에서 무게를 빼든 같습니다. 구동계 한 등급 차이는 매체 표기로 약 280g이고, '
+        '같은 크기를 몸에서 줄이거나 물통에서 물 300ml를 덜어내도 똑같이 줄어듭니다. '
+        '1㎏이면 같은 오르막에서 약 13초입니다(총중량 78㎏ 기준, 모델 계산).</p>'
+        '<h2>근거가 확인되지 않은 항목</h2>'
+        '<p class="gm-measure">이 판정소가 찾은 문헌에는 등급 간 구동 효율 차이, 변속 정확도, 내구성을 '
+        '독립적으로 재어 비교한 연구가 없습니다. 위 표는 무게만 계산한 것이어서 그 세 가지는 '
+        '수치로 판정하지 않았고, 비어 있는 칸으로 남겼습니다. 등급을 고르는 이유가 변속감이나 오래 쓰는 것이라면 '
+        '직접 타 보고 정하는 것이 이 근거 수준에서 가장 정직한 방법입니다.</p>')
 
 
 def claim_body(claim):
@@ -184,11 +253,13 @@ def claim_body(claim):
         out.append(f"<h2>{esc(eff['label'])}{detail}</h2>"
                    f'<table class="gm-table"><tbody>{"".join(rows)}</tbody></table>')
 
+    if claim.get("id") == "groupset-tier":
+        out.append(groupset_extra())
     if claim.get("model_note"):
-        out.append("<h2>이 숫자를 어떻게 냈나</h2>"
+        out.append("<h2>산출 방법</h2>"
                    f'<p class="gm-measure">{esc(claim["model_note"])}</p>')
     if claim.get("transfer_note"):
-        out.append("<h2>기록으로 바꿀 때의 가정</h2>"
+        out.append("<h2>기록 환산 가정</h2>"
                    f'<p class="gm-measure">{esc(claim["transfer_note"])}</p>')
     out.append('<p class="gm-src">연구에서 보고된 값이며, 개인의 결과를 보장하지 않습니다.'
                '<span class="gm-note">새 연구가 나오면 이 판정도 함께 갱신합니다.</span></p>')
@@ -272,7 +343,7 @@ PAGE = """<!DOCTYPE html>
 <footer class="site-footer">
 <div class="wrap">
 <p>장비 규정은 각 연맹이 수시로 개정합니다. 칼랭크의 판정은 참고용이며, 대회 출전 전에는 반드시 해당 대회 요강과 연맹 규정 원문을 확인하세요. 효과 수치는 연구에서 보고된 값으로, 개인의 결과를 보장하지 않습니다.</p>
-<p class="footer-links"><a href="about.html">소개</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a> · <a href="trailroot.html">트레일루트 코스</a> · <a href="mountains.html">산별 등산로</a></p>
+<p class="footer-links"><a href="about.html">소개</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>
 
@@ -379,7 +450,7 @@ def pair_html(item_id, self_slug=""):
     if not rows:
         return ""
     li = "".join(f'<li><a href="{esc(h)}">{esc(l)}</a></li>' for h, l in rows)
-    return ('<section class="gi-sec gi-pair"><h2>규정과 효과를 같이 보세요</h2>'
+    return ('<section class="gi-sec gi-pair"><h2>관련 규정과 효과 연구</h2>'
             '<p>규정은 연맹 문서에서, 효과는 논문에서 따로 정리했습니다. '
             f'함께 읽으면 쓸 수 있는지와 얼마나 도움이 되는지가 이어집니다.</p><ul>{li}</ul></section>')
 
@@ -462,20 +533,20 @@ def build_hub(rules, claims):
         '<a class="gh-item" href="kit.html"><b>내 장비 서랍</b><span class="gh-tag">내 수치로 확인</span>'
         '<span class="gh-q">가진 장비가 규정에 맞는지 한 화면에서 보고 싶다면</span></a>'
         '<a class="gh-item" href="ledger.html"><b>예상 기록 노트</b>'
-        '<span class="gh-q">대회 전에 적은 예상 기록은 얼마나 맞았을까?</span></a></div>'
+        '<span class="gh-q">사전 예상 기록과 실제 기록의 차이 비교</span></a></div>'
         '<div class="gh-col">'
-        '<a class="gh-item" href="' + ("trailroot.html" if (ROOT / "trailroot.html").exists() else "course.html") + '"><b>트레일루트</b><span class="gh-tag">새로 나왔어요</span>'
-        '<span class="gh-q">이 길은 오르막이 얼마나 될까? 내 페이스로는?</span></a>'
+        '<a class="gh-item" href="' + ("trailroot.html" if (ROOT / "trailroot.html").exists() else "course.html") + '"><b>트레일루트</b><span class="gh-tag">새로 나왔습니다</span>'
+        '<span class="gh-q">코스 오르막 누적 고도와 페이스별 예상 소요시간</span></a>'
         '<a class="gh-item" href="age-curve.html"><b>나이 곡선</b>'
-        '<span class="gh-q">같은 기록이면 몇 살에 어느 등급일까?</span></a>'
+        '<span class="gh-q">나이·성별 보정 연령등급 판정</span></a>'
         '<a class="gh-item" href="standards-triathlon.html"><b>철인3종 규칙 기준</b>'
-        '<span class="gh-q">헬멧, 드래프팅, 헤드폰… 뭐가 실격일까?</span></a>'
+        '<span class="gh-q">트라이애슬론 실격·벌칙 규정 (헬멧·드래프팅·헤드폰)</span></a>'
         '<a class="gh-item" href="standards-trail.html"><b>트레일 벌칙 예시</b>'
-        '<span class="gh-q">필수 장비가 없으면 실격일까, 시간 벌칙일까?</span></a>'
+        '<span class="gh-q">트레일 필수 장비 미소지 시 실격·시간 벌칙 기준</span></a>'
         '<a class="gh-item" href="standards-running.html"><b>러닝화 규칙 기준</b>'
-        '<span class="gh-q">도로 40mm, 플레이트는 하나… 세계육상 신발 규정은?</span></a>'
+        '<span class="gh-q">세계육상 신발 규정 (도로 40mm, 플레이트 1개)</span></a>'
         '<a class="gh-item" href="standards-cycling.html"><b>사이클 규칙 기준</b>'
-        '<span class="gh-q">최소 6.8kg, 안장은 5cm 뒤… UCI 기준은?</span></a></div></div></section>']
+        '<span class="gh-q">UCI 장비 규정 (최소 6.8kg, 안장 후방 5cm)</span></a></div></div></section>']
     for sp in claims.get("sports", []):
         sid = sp["id"]
         rs = [r for r in rules.get("rules", []) if r.get("sport") == sid]
@@ -503,9 +574,9 @@ def build_hub(rules, claims):
         out.append(
             f'<section class="gh-sport"><h2>{emo(SPORT_EMO.get(sid, "sparkles"))}{esc(sp["label"])}{bodytxt}</h2>'
             '<div class="gh-cols">'
-            '<div class="gh-col"><h3>규정 <small>세계 최고 대회에서 쓸 수 있나</small></h3>'
+            '<div class="gh-col"><h3>대회 사용 규정 <small>대회 사용 가능 여부</small></h3>'
             + items(rs, "rule") + "</div>"
-            '<div class="gh-col"><h3>효과 <small>연구가 뭐라고 하나</small></h3>'
+            '<div class="gh-col"><h3>사용 효과 <small>연구 결과와 근거 등급</small></h3>'
             + items(cs, "claim") + "</div>"
             "</div></section>")
     return "\n".join(out)
@@ -765,7 +836,7 @@ def build_table_page(claim, ctx, bodies):
         desc = (f'{ctx["label"]} {rows[0]["label"]}~{rows[-1]["label"]} 기록에서 {short}로 몇 초를 줄일 수 있는지 '
                 f'연구 근거 등급(A~D)과 함께 표로 정리했습니다. {lead}')[:155]
         note = (
-            '<h2>표를 읽을 때</h2>'
+            '<h2>표의 해석</h2>'
             '<p class="gm-measure">단축 초는 나이·성별과 무관합니다. 다만 그 초가 '
             '등급을 바꾸는지는 나이에 달려 있어서, 등급 칸은 '
             f'<b>{REF_AGE}세 {"남성" if REF_GENDER == "male" else "여성"}</b> 기준으로 적었습니다. '
@@ -803,7 +874,7 @@ def build_table_page(claim, ctx, bodies):
         desc = (f'{ctx["label"]} 주행에서 평속 {BIKE_SPEEDS[0]}~{BIKE_SPEEDS[-1]}㎞/h별로 {short}이 몇 초를 줄이는지 '
                 f'검증된 출력 모델로 계산했습니다. {lead}')[:155]
         note = (
-            '<h2>표를 읽을 때</h2>'
+            '<h2>표의 해석</h2>'
             '<p class="gm-measure">공기저항은 속도의 세제곱으로, 구름저항은 속도에 비례해 '
             '커집니다. 그래서 빠를수록 공기저항 몫이 커지고 느릴수록 구름저항 몫이 커집니다. '
             '같은 퍼센트를 줄여도 빠른 사람은 휠·헬멧에서, 느린 사람은 타이어에서 더 많이 '
@@ -960,13 +1031,13 @@ def wetsuit_temp_page(rules, claims):
     body = (
         '<p class="gi-headline">규정은 수온을 세밀하게 나눠 두었지만, '
         '실제 대회 기록에서는 웻슈트 효과가 통계적으로 확인되지 않았습니다.</p>'
-        '<h2>이 수온에서 입어도 되나 — World Triathlon 규정</h2>'
+        '<h2>수온별 착용 규정 — World Triathlon</h2>'
         + table
         + '<p class="gm-measure">같은 물에서 엘리트는 못 입고 동호인은 입을 수 있는 구간이 '
           '있습니다. 1500m 이하에서 엘리트는 20℃부터 금지이고 동호인은 22℃까지 입을 수 있으며, '
           '60세 이상은 거리와 상관없이 24.6℃까지 허용됩니다. 낮은 쪽은 모두 같아서 '
           '15.9℃ 이하에서는 전원이 착용해야 합니다. 기술대표가 대회 조건에 따라 따로 금지할 수도 있습니다.</p>'
-        '<h2>입으면 빨라지나 — 실제 대회 기록</h2>'
+        '<h2>착용 효과 — 실제 대회 기록 분석</h2>'
         '<div class="gt-wrap"><table class="gt"><thead>'
         '<tr><th>수영 거리</th><th>웻슈트 쪽이</th></tr></thead><tbody>'
         + ev_rows + '</tbody></table></div>'
@@ -975,7 +1046,7 @@ def wetsuit_temp_page(rules, claims):
         '다만 같은 사람에게 둘 다 입혀 본 실험이 아니라 선수가 스스로 고른 결과를 나중에 '
         '모은 자료이고, 두 대회 모두 수온이 20℃를 넘었습니다. 웻슈트가 가장 크게 도움이 될 '
         '찬물 조건은 이 자료에 들어 있지 않습니다.</p>'
-        '<h2>두 표를 함께 보면</h2>'
+        '<h2>종합</h2>'
         '<p class="gm-measure">규정은 수온을 구간별로 나누어 금지·선택·의무를 정해 두었습니다. '
         '반면 기록이 얼마나 줄어드는지에 대한 근거는 이 규정만큼 세밀하지 않습니다. '
         '두 표는 서로 다른 질문에 답합니다. 규정은 입어도 되는지를, 연구는 입으면 빨라지는지를 다룹니다. '
@@ -1044,7 +1115,7 @@ def pole_gradient_page(claims):
         '<p class="gi-headline">트레일 폴은 에너지 소모를 늘리는 대신 '
         '다리에 걸리는 부담을 줄여 줍니다.</p>'
         + table
-        + '<h2>표를 읽을 때</h2>'
+        + '<h2>표의 해석</h2>'
           '<p class="gm-measure">산소 소모는 평지에서 가장 불리하고, 경사가 가팔라질수록 '
           '불리함이 줄어듭니다. 25도가 넘는 구간에서는 수직 이동 비용이 낮아졌다는 '
           '보고도 있지만 근거가 많지 않습니다. 다리에 걸리는 힘은 경사와 상관없이 '

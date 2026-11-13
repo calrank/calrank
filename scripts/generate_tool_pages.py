@@ -159,10 +159,10 @@ COURSE = page(
 <section class="tp-card"><p class="tp-small">기준: <span id="cvSource"></span></p>
 <p class="cv-big"><b id="cvIndex">1.00</b><span> 코스 부하 지수 · <span id="cvBand"></span></span></p>
 <table class="cv-table"><tbody id="cvTable"></tbody></table>
-<p class="tp-small" id="cvRawNote" hidden></p><p class="tp-small">칼랭크 난이도와 Km-effort는 거리와 누적 오르막으로만 계산한 값입니다. <a href="dg-method.html">계산 방법과 근거</a></p><p class="tp-small">마라톤 대회 코스라면 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별 오르막과 보정 페이스를 볼 수 있어요.</p></section>
+<p class="tp-small" id="cvRawNote" hidden></p><p class="tp-small">칼랭크 난이도와 Km-effort는 거리와 누적 오르막으로만 계산한 값입니다. <a href="dg-method.html">계산 방법과 근거</a></p><p class="tp-small">마라톤 대회 코스라면 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별 오르막과 보정 페이스를 볼 수 있습니다.</p></section>
 <section class="tp-card" id="cvChartWrap" hidden><div id="cvChart"></div></section>
 </div>
-<section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>
+<section class="tp-sec"><h2 class="tp-h2">산출 방법</h2>
 <p class="tp-p">경사에 따라 달릴 때 쓰는 에너지가 달라진다는 연구 결과를 구간마다 적용합니다. 평지에서 같은 힘을 낸다고 보고, 오르막에서는 더 느려지고 내리막에서는 덜 힘들다고 계산합니다. 그 합이 "평지로 환산한 거리"이고, 코스 부하 지수는 환산한 거리를 실제 거리로 나눈 값입니다. 1.00이면 평지와 같습니다.</p>
 <p class="tp-p">내리막은 처음에는 평지와 같다고 계산합니다. 실험에서는 내리막이 덜 힘들게 나오지만, 코스가 거칠면 실제로 그만큼 빨리 내려가기 어렵기 때문입니다. 위 체크 상자를 켜면 그 이득까지 넣습니다.</p>
 <p class="tp-p"><b>이 계산이 모르는 것</b>: 바위·뿌리·진흙 같은 노면, 날씨, 고도, 피로, 가파른 구간에서 걷는 것은 들어 있지 않습니다. 실험 참가자는 남성 엘리트 산악 러너 10명이라 모든 사람에게 그대로 맞는다고 할 수 없습니다. 부하 지수의 구분(평지에 가까움, 오르내림 있는 코스, 산악 코스, 매우 힘든 산악 코스)은 연구가 정한 기준이 아니라 칼랭크가 나눈 것입니다. 시간은 예측이 아니라 이 가정 아래의 환산값입니다.</p></section>
@@ -624,7 +624,7 @@ for _lv in (1, 2, 3):
 def map_block(data, legend=""):
     j = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     return ('<section class="tp-sec"><h2 class="tp-h2">지도</h2>'
-            '<p class="tp-small">버튼을 누르면 OpenStreetMap 지도를 불러옵니다. 누르기 전에는 지도 서버로 아무것도 보내지 않아요.</p>'
+            '<p class="tp-small">버튼을 누르면 OpenStreetMap 지도를 불러옵니다. 누르기 전에는 지도 서버로 아무것도 보내지 않습니다.</p>'
             '<p><button type="button" class="tp-btn ghost" id="mapBtn">지도 보기</button></p>'
             f'<div id="mapBox" class="rm-box" hidden></div>{legend}'
             f'<script type="application/json" id="mapData">{j}</script></section>')
@@ -692,7 +692,7 @@ def course_gear_html(c, km):
     if sh["down10"] >= 0.03:
         down = (f" 내리막이 가파른 구간(경사 -10% 이하)은 전체의 {pct(sh['down10'])}입니다. 폴이 다리에 걸리는 힘을 평균 11% 줄였다는 보고가 있어 "
                 f"이 구간에서는 에너지보다 다리 부담 쪽 이점을 기대할 수 있습니다(근거 C, 연구마다 측정 방식이 다름).")
-    return ('<section class="tp-sec"><h2 class="tp-h2">이 코스에 폴이 필요할까</h2>'
+    return ('<section class="tp-sec"><h2 class="tp-h2">트레일 폴 사용 적합성</h2>'
             f'<p class="tp-p">{esc(verdict)}{esc(down)}</p>'
             f'<ul class="cp-list">{tr}</ul>'
             '<p class="tp-small">경사는 약 200m 구간으로 다듬은 평균입니다. 폴 연구는 대부분 참가자 9~29명의 소규모 실험이라 근거 등급은 C입니다. '
@@ -874,7 +874,7 @@ def course_page(c):
                f'<span class="dg-score">점수 {dg_score:.0f}</span></p><ol class="dg-scale" aria-label="난이도 5단계 중 {dg_i + 1}단계">{_seg}</ol>'
                f'<p class="tp-p">{esc(nm)}의 거리 {km:.1f}km와 누적 오르막 {gain:.0f}m로 계산한 점수는 {dg_score:.0f}점으로 "{dg_name}"입니다. {_who}{esc(_rank)}</p>'
                f'<p class="tp-small">트레일러닝 대회에서 쓰는 방식(ITRA)으로 환산하면 Km-effort는 {ke:.0f}(거리 {km:.1f}km + 오르막 {gain:.0f}m÷100)이고, 0~6점 중 {ke_pts}점에 해당합니다(이 점수의 범위는 Km-effort {("24 이하" if ke_pts == 0 else (f"{KE_BANDS[ke_pts-1]} 이상" if ke_pts == 6 else f"{KE_BANDS[ke_pts-1]}~{KE_BANDS[ke_pts]-1}"))}). {"트레일러닝 대회로 치면 가장 낮은 구간이라, 입문 거리에 가깝습니다. " if ke_pts == 0 else ""}<a href="dg-method.html#km-effort">환산 방법</a></p>'
-               '<details class="tp-p"><summary>이 난이도는 어떻게 매겼나요</summary>'
+               '<details class="tp-p"><summary>난이도 산정 방법</summary>'
                '<p class="tp-small">미국 국립공원관리청(셰넌도어 국립공원)이 하이킹 난이도를 가늠할 때 쓰는 식입니다. 누적 오르막(피트)에 2를 곱하고 거리(마일)를 곱한 뒤 제곱근을 취합니다. '
                '50 미만 쉬움, 50~100 보통, 100~150 조금 힘듦, 150~200 힘듦, 200 이상 매우 힘듦이고, 이름은 한국어로 옮겼습니다. '
                '거리와 오르막만 보는 식이라 노면, 날씨, 짧고 가파른 구간은 반영하지 못합니다. 공원관리청도 이 식이 "완벽하지 않다"고 밝혔습니다. '
@@ -1020,7 +1020,7 @@ def dg_method_page():
 <section class="tp-sec"><h2 class="tp-h2">계산은 이렇게 합니다</h2>
 <p class="tp-p">누적 오르막(피트)에 2를 곱하고, 거리(마일)를 곱한 뒤 제곱근을 취합니다. 국립공원관리청 안내의 예시는 거리 10마일에 오르막 2,200피트인 코스로, 2,200 × 2 × 10 = 44,000이고 제곱근은 약 209.8이라 가장 높은 단계인 '매우 힘듦'에 해당합니다.</p>
 <p class="tp-p">우리 코스로 해 보면 이렇습니다. {esc(ex["name"])}는 거리 {ek:.1f}km, 누적 오르막 {eg:.0f}m입니다. 단위를 바꾸면 {ek:.1f}km는 약 {e_mi:.1f}마일, {eg:.0f}m는 약 {e_ft:.0f}피트입니다. {e_ft:.0f} × 2 × {e_mi:.1f} = {e_ft * 2 * e_mi:,.0f}이고 제곱근은 {e_score:.0f}이므로 "{e_nm}"입니다.</p></section>
-<section class="tp-sec"><h2 class="tp-h2">왜 거리와 오르막을 함께 보나</h2>
+<section class="tp-sec"><h2 class="tp-h2">거리와 오르막을 함께 반영하는 이유</h2>
 <p class="tp-p">오르막이 같아도 거리가 길면 그만큼 오래 걷고, 거리가 같아도 오르막이 많으면 한 걸음마다 더 힘이 듭니다. 곱셈으로 묶으면 둘 중 하나만 큰 코스보다 둘 다 큰 코스가 훨씬 높게 나옵니다. 제곱근은 점수가 너무 빨리 커지지 않게 눈금을 고르게 펴 주는 역할이라, 거리가 두 배가 되면 점수는 약 1.4배가 됩니다.</p>
 <p class="tp-p">오르막이 얼마나 부담이 되는지는 생리학 측정으로도 확인됩니다. 이탈리아 연구진이 트레드밀의 경사를 -45%에서 +45%까지 바꿔 가며 에너지 소모를 잰 연구(Minetti 외, 2002)에서, 걷기에 드는 에너지는 +45% 오르막에서 평지 최소치의 약 10배까지 올라갔습니다. 반대로 -10% 안팎의 내리막에서 가장 적게 들었습니다. 다만 이 연구는 경사와 에너지의 관계를 잰 것이고, 위의 식과 직접 이어서 검증한 연구는 아닙니다. 식이 가진 한계는 아래에 따로 적었습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">다섯 단계의 뜻</h2>
@@ -1060,7 +1060,7 @@ def dg_method_page():
            ("점수가 낮으면 쉬운 길이라고 믿어도 되나요?", "짧은 거리에 가파른 구간이 있으면 점수는 낮아도 힘들 수 있습니다. 국립공원관리청도 같은 한계를 밝히고 있어, 코스 페이지의 경사 단면도와 가파른 구간 길이를 함께 보시길 권합니다.")]
     return page("dg-method.html", "코스 난이도 계산 방법 — 거리와 오르막으로 매기는 칼랭크 난이도",
                 "코스 난이도를 거리와 누적 오르막으로 계산하는 방법을 모두 공개합니다. 미국 국립공원관리청 식, 점수 구간, 두루누비 난이도와 맞춰 본 결과, 식이 못 보는 것까지 적었습니다.",
-                "칼랭크 난이도는 어떻게 매기나", "거리와 누적 오르막으로 계산하고, 계산 과정과 근거, 한계를 모두 적었습니다.", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+                "칼랭크 난이도 산정 방법", "거리와 누적 오르막으로 계산하고, 계산 과정과 근거, 한계를 모두 적었습니다.", body, [], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 DGM = dg_method_page() if COURSES else None
@@ -1182,8 +1182,8 @@ def hub_page():
                  f'<table class="cv-table"><tbody>{rows_}</tbody></table>'
                  '<p class="tp-small">여기 실린 코스의 중앙값입니다. 난이도 숫자가 클수록 1km당 오르막이 많은 경향이 있습니다.</p></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
-{('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있어요. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었어요.</p>' if MOUNTAINS else "")}
-<p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있어요. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있어요. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
+{('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있습니다. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었습니다.</p>' if MOUNTAINS else "")}
+<p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있습니다. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있습니다. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <div class="mn-import"><span class="mn-import-t">다른 기기에서 저장해 둔 백업이 있나요?</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
 <section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
@@ -1195,7 +1195,7 @@ def hub_page():
     faq = [("거리가 같아도 힘든 정도가 왜 다른가요?", "오르막이 많으면 같은 거리도 더 힘듭니다. 그래서 거리와 함께 누적 오르막, 가파른 구간 길이를 같이 보여 드립니다."),
            ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
     return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
-        f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있어요.",
+        f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있습니다.",
         "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, ["calrank-local.js", "trail-mark.js", "list-filter.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
@@ -1547,7 +1547,7 @@ YARD = page(
 <div class="mt-wrap"><table class="mt-table yd-table"><thead><tr><th>구간 km</th><th>오르/내리 m</th><th>경사</th><th>페이스 /km</th><th>누적</th></tr></thead><tbody id="ydBody"></tbody></table></div><p class="tp-small">오르/내리는 구간의 누적 오르막과 내리막(m), 페이스는 보정 페이스입니다.</p></section>
 <section class="tp-card"><h2 class="tp-h2">큰 오르막</h2><ul class="cp-list" id="ydClimbs"></ul></section>
 </div>
-<section class="tp-sec"><h2 class="tp-h2">어떻게 계산하나요</h2>
+<section class="tp-sec"><h2 class="tp-h2">산출 방법</h2>
 <p class="tp-p">경사에 따라 달릴 때 드는 에너지가 달라진다는 실험 결과(Minetti 외, 2002)를 구간마다 적용해, 같은 노력으로 달릴 때 구간별 속도가 얼마나 달라지는지 계산합니다. 목표 기록을 코스 전체에 이 비율대로 나누기 때문에, 오르막 구간의 페이스는 느려지고 평지 구간은 그보다 빨라집니다. 내리막은 평지와 같다고 봅니다. 평지 대회에서 두 효과는 대체로 상쇄되고, 코스 시간을 이런 에너지 모델로 어림하면 대체로 10~20% 안에서 맞았다는 보고가 있습니다(Crowell, bioRxiv 프리프린트, 동료 심사 전).</p>
 <p class="tp-p"><b>이 계산이 모르는 것</b>: 바람, 기온, 노면, 급수대 혼잡, 곡선 구간, 피로는 들어 있지 않습니다. GPS 고도는 흔들려서 파일에 따라 오르막 값이 달라질 수 있어 고도를 다듬어 계산합니다. 보정 페이스는 계획을 세울 때의 참고이고, 공식 코스도와 거리 표지판이 우선입니다.</p>
 <p class="tp-src">근거: Minetti AE 외, J Appl Physiol 93:1039–1046, 2002. Crowell B, From treadmill to trails: predicting performance of runners (bioRxiv 2021, 프리프린트).</p></section>''',

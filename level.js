@@ -6,13 +6,13 @@
 //
 // 내림차순(빠른 순). 값은 그 등급을 받기 위한 연령등급 % 하한.
 const TIER_BOUNDS = [
-  [72, "상당한 러너", "동호인 최상위권입니다. 이 페이스를 꾸준히 유지하는 것 자체가 훈련이 잘 되어 있다는 뜻이에요.", "동호인 최상위권입니다. 훈련이 잘 되어 있다는 뜻이에요."],
-  [65, "러닝 상급자", "동호인 사이에서도 확실히 빠른 편입니다. 대회에서 상위권을 노려볼 만한 수준이에요.", "동호인 사이에서도 확실히 빠른 편입니다. 대회 상위권을 노려볼 만해요."],
-  [59, "매우 좋은 편", "평균을 크게 웃도는 체력입니다. 꾸준한 훈련이 실제 기록으로 잘 전환되고 있어요.", "평균을 크게 웃도는 체력입니다. 훈련이 기록으로 잘 전환되고 있어요."],
-  [51, "상당히 좋은 편", "일반적인 동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이라고 볼 수 있어요.", "동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이에요."],
-  [45, "꾸준한 러너", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달리고 계신 게 기록으로 드러나고 있어요.", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달린 게 드러나고 있어요."],
+  [72, "상당한 러너", "동호인 최상위권입니다. 이 페이스를 꾸준히 유지하는 것 자체가 훈련이 잘 되어 있다는 뜻입니다.", "동호인 최상위권입니다. 훈련이 잘 되어 있다는 뜻입니다."],
+  [65, "러닝 상급자", "동호인 사이에서도 확실히 빠른 편입니다. 대회에서 상위권을 노려볼 만한 수준입니다.", "동호인 사이에서도 확실히 빠른 편입니다. 대회 상위권을 노려볼 만합니다."],
+  [59, "매우 좋은 편", "평균을 크게 웃도는 체력입니다. 꾸준한 훈련이 실제 기록으로 잘 전환되고 있습니다.", "평균을 크게 웃도는 체력입니다. 훈련이 기록으로 잘 전환되고 있습니다."],
+  [51, "상당히 좋은 편", "일반적인 동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편이라고 볼 수 있습니다.", "동호인 평균을 확실히 넘어선 수준입니다. 운동을 꽤 하는 편입니다."],
+  [45, "꾸준한 러너", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달리고 계신 게 기록으로 드러나고 있습니다.", "또래·동성 평균보다 좋은 편입니다. 꾸준히 달린 게 드러나고 있습니다."],
   [39, "보통", "일반적인 체력 수준입니다. 지금의 페이스도 꾸준히 유지하면 좋은 기반이 됩니다.", "일반적인 체력 수준입니다. 지금 페이스를 유지하면 좋은 기반이 돼요."],
-  [0, "이제 시작", "이제 막 시작하는 단계이거나 기초체력을 다지는 중이에요. 완주 자체가 의미 있는 시작입니다.", "기초체력을 다지는 단계입니다. 완주 자체가 의미 있는 시작이에요."],
+  [0, "이제 시작", "이제 막 시작하는 단계이거나 기초체력을 다지는 중입니다. 완주 자체가 의미 있는 시작입니다.", "기초체력을 다지는 단계입니다. 완주 자체가 의미 있는 시작입니다."],
 ];
 
 // WMA가 보간 없이 직접 산출하는 네 거리.
@@ -170,7 +170,7 @@ function renderResult(result, inputs) {
         return `
       <div class="lv-adj lv-adj-none">
         <p class="lv-adj-head">${nm ? `${nm}, ` : "그날 "}당일 평균기온 <span class="nw">${adj.avgTa.toFixed(1)}℃</span> — 달리기 좋은 쪽이었습니다</p>
-        <p class="lv-adj-body">연구들이 꼽는 최적 구간(대략 <span class="nw">4~15℃</span>)에 들어가서 더위 보정은 하지 않았습니다. 위 등급이 그대로예요.</p>
+        <p class="lv-adj-body">연구들이 꼽는 최적 구간(대략 <span class="nw">4~15℃</span>)에 들어가서 더위 보정은 하지 않았습니다. 위 등급이 그대로입니다.</p>
         <p class="lv-adj-src">최적 기온 3.8~9.9℃ — El Helou 등(2012) PLoS ONE 7(5):e37407, 완주자 1,791,972명. 기온은 기상청 ASOS 실측 일평균.</p>
       </div>`;
       }
@@ -180,7 +180,7 @@ function renderResult(result, inputs) {
       if (adj.upperBound) notes.push(
         `보정 계수는 풀코스 자료에서 나온 값이라 ${distLabel(inputs.distanceKm)}에서는 영향이 이보다 작을 수 있습니다. 최대치로 보시면 돼요.`);
       if (adj.capped) notes.push(
-        `보정은 <span class="nw">23℃</span>까지만 반영했습니다. 그 위 구간은 원자료 관측이 20건뿐이라 논문도 결론을 내지 않았어요.`);
+        `보정은 <span class="nw">23℃</span>까지만 반영했습니다. 그 위 구간은 원자료 관측이 20건뿐이라 논문도 결론을 내지 않았습니다.`);
       const note = notes.join(" ");
       return `
       <div class="lv-adj">
@@ -188,7 +188,7 @@ function renderResult(result, inputs) {
         <p class="lv-adj-body">기준으로 삼는 <span class="nw">15℃</span>보다 <span class="nw">${adj.over.toFixed(1)}℃</span> 높습니다. 같은 몸으로 <span class="nw">15℃</span>에서 뛰었다면 대략 <span class="nw"><strong>${fmtClock(adj.adjustedSec)}</strong>,</span> ${fmtMinSec(adj.gainSec)} 빠른 기록이 되고${adjTier
           ? ` 연령등급은 ${result.agePct.toFixed(1)}%에서 <b>${result.adjPct.toFixed(1)}%</b>로 올라갑니다. ${moved
               ? `등급도 ${t0.label}에서 <b>${adjTier.label}</b>으로 올라가고요.`
-              : `등급은 <b>${t0.label}</b> 그대로예요.`}`
+              : `등급은 <b>${t0.label}</b> 그대로입니다.`}`
           : `요.`}</p>
         ${note ? `<p class="lv-adj-note">${note}</p>` : ""}
         <p class="lv-adj-src">보스턴마라톤 완주 기록 383,982건에서 평균기온이 1℃ 오를 때 전체 완주자가 1분 53초 느려졌습니다(그 표의 평균 완주시간 3:40:29 대비 0.85%). 독립된 다른 자료(580,990건)에서는 1분 47초였고, 여기서는 둘보다 보수적인 0.8%/℃를 씁니다. · Nikolaidis 등(2019) IJERPH 16:614 · Knechtle 등(2019) PLoS ONE 14(3):e0212797 · 기온은 기상청 ASOS 실측 일평균</p>
@@ -363,7 +363,7 @@ function renderResult(result, inputs) {
 
           <p class="lv-band-verdict ${b.crosses ? "edge" : "solid"}">${b.crosses
             ? `지금은 <b>${b.tierLo.label}</b>과 <b>${b.tierHi.label}</b>의 경계에 있습니다.
-               다음 대회에서 등급이 바뀔 수 있는 자리예요.`
+               다음 대회에서 등급이 바뀔 수 있는 자리입니다.`
             : `흔들려도 <b>${b.tierHi.label}</b>에 머무는 자리입니다.
                이 등급은 운이 아니라 실력으로 보셔도 됩니다.`}</p>
 
@@ -821,7 +821,7 @@ async function paintGearLift(inputs) {
     : `${fmtGap(Math.min(Math.abs(e.cutSec.lo), Math.abs(e.cutSec.hi)))} ~ ${fmtGap(best)}`;
 
   box.innerHTML = `
-    <h3 class="lv-gear-h">장비로는 얼마나 줄일 수 있을까</h3>
+    <h3 class="lv-gear-h">장비 사용에 따른 기록 단축 추정</h3>
     <p class="lv-gear-head">${head}</p>
     <div class="lv-gear-row">
       <span class="lv-gear-name">카본 플레이트 레이싱화</span>
@@ -1082,7 +1082,7 @@ function paintProgress(inputs) {
     if (n < POOL_MIN) throw new Error("적음");
     const r = poolRank(hist, row.age_grade_pct);
     if (!r) throw new Error("자리 못 셈");
-    const mid = sum.median_pct ? `가운데는 연령등급 ${sum.median_pct}%예요. ` : "";
+    const mid = sum.median_pct ? `가운데는 연령등급 ${sum.median_pct}%입니다. ` : "";
     const text = r.ahead === 0
       ? `지금까지 ${r.total}명이 보탰는데, 그중 당신보다 앞선 기록은 없습니다. ` + mid
         + `아직 표본이 작아 참고로만 보세요.`
@@ -1116,13 +1116,13 @@ function giveMini(inputs) {
   return `
   <div class="lv-gm" id="lvGiveMini">
     <p class="lv-gm-ask">방금 등급은 <b>세계 기준</b>으로 매긴 것입니다.
-    국내에서 어디쯤인지는 아무도 공개하지 않아서, 여기서 직접 모으는 중이에요.
+    국내에서 어디쯤인지는 아무도 공개하지 않아서, 여기서 직접 모으는 중입니다.
     한 줄 보태 주시겠어요? <a href="distribution.html">얼마나 모였는지 보기</a></p>
     <p class="lv-prog" id="lvProgMini"></p>
     <label class="lv-gm-ck">
       <input type="checkbox" id="lvConsentMini">
       <span>보내는 건 <b>거리, 완주 시간, 연령대, 성별</b> 넷뿐입니다.
-      이름도 대회도 계정도 보내지 않아요. 누구 기록인지 저희도 알 수 없어서,
+      이름도 대회도 계정도 보내지 않습니다. 누구 기록인지 저희도 알 수 없어서,
       나중에 지워 달라고 하셔도 찾을 수가 없습니다.
       <a href="#lvGive" class="lv-gm-more">자세히</a></span>
     </label>
@@ -1145,7 +1145,7 @@ function giveBlock(inputs) {
   }
   return `
   <div class="lv-give" id="lvGive">
-    <p class="lv-give-head">같은 또래는 보통 몇 분에 뛸까요</p>
+    <p class="lv-give-head">동일 연령·성별의 기준 기록</p>
     <p class="lv-prog" id="lvProg"></p>
     <p class="lv-give-body">한국 동호인의 기록 분포는 아무도 공개하지 않습니다.
     타이밍 업체가 올린 결과에는 이름과 배번이 같이 적혀 있어 가져오지
@@ -1291,7 +1291,7 @@ function fillNextRace(result, inputs) {
         <li><a href="e/${encodeURIComponent(e.id)}.html"><span class="lv-nr-d">${e.date.slice(5).replace("-", ".")}</span>
         <span class="lv-nr-n">${esc(e.name)}</span><span class="lv-nr-r">${esc(e.region || "")}</span></a></li>`).join("")}
       </ul>
-      <p class="lv-nextrace-n">준비할 시간을 생각해 4주 뒤부터의 대회를 날짜순으로 보여 드립니다. 신청 마감과 그날의 예상 기온, 기록 보정은 대회 페이지에서 볼 수 있어요.</p>`;
+      <p class="lv-nextrace-n">준비할 시간을 생각해 4주 뒤부터의 대회를 날짜순으로 보여 드립니다. 신청 마감과 그날의 예상 기온, 기록 보정은 대회 페이지에서 볼 수 있습니다.</p>`;
     box.hidden = false;
   });
 }

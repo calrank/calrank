@@ -1307,7 +1307,7 @@ def build_archive_month(key, rows, prev_key, next_key) -> str:
     label = month_label(key)
     mix = archive_month_mix(rows)
     desc = (f"{label}에 열린 국내 대회 {len(rows)}개를 모았습니다. "
-            f"마라톤과 트레일러닝, 자전거, 철인3종까지 들어 있어요."
+            f"마라톤과 트레일러닝, 자전거, 철인3종까지 들어 있습니다."
             + (f" {mix}." if mix else "")
             + " 대회마다 코스 거리와 장소, 열린 날짜를 볼 수 있습니다.")
     pager = []

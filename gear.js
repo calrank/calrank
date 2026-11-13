@@ -64,6 +64,11 @@
     if (!m) return s + "초";
     return s ? m + "분 " + s + "초" : m + "분";
   }
+  // 1초 안팎의 차이가 핵심인 판정에서는 정수로 반올림하면 0.6초가 1초로 부풀어 보인다.
+  function fineSec(sec) {
+    sec = Math.abs(sec);
+    return sec < 10 ? (Math.round(sec * 10) / 10).toFixed(1) + "초" : minSec(sec);
+  }
   function parseTime(text) {
     var p = String(text || "").trim().split(":").map(Number);
     if (!p.length || p.some(function (n) { return !isFinite(n) || n < 0; })) return 0;
@@ -108,9 +113,9 @@
         '<h2>' + esc(s.label) +
         (bodies ? '<span class="gh-body">' + bodies + "</span>" : "") + "</h2>" +
         '<div class="gh-cols">' +
-          '<div class="gh-col"><h3>규정 <small>세계 최고 대회에서 쓸 수 있나</small></h3>' +
+          '<div class="gh-col"><h3>대회 사용 규정 <small>대회 사용 가능 여부</small></h3>' +
             ruleList + "</div>" +
-          '<div class="gh-col"><h3>효과 <small>연구가 뭐라고 하나</small></h3>' +
+          '<div class="gh-col"><h3>사용 효과 <small>연구 결과와 근거 등급</small></h3>' +
             claimList + "</div>" +
         "</div></section>";
     }).join("");
@@ -355,6 +360,22 @@
           body += '<p class="ge-value">' + num(e.priceKrw) + "원이면 <b>1초에 " +
             num(Math.round(e.wonPerSecond)) + "원</b>입니다.</p>";
         }
+      } else if (e.computed === "mass_time") {
+        body = '<p class="ge-big"><strong>' + fineSec(a.cutSec) + "</strong> 빨라집니다</p>" +
+          '<p class="ge-time">같은 힘 <b>' + Math.round(a.powerW) + "W</b>로 " +
+          (a.gradientPct > 0 ? a.gradientPct.toFixed(1) + "% 오르막을 오르면 " : "평지를 달리면 ") +
+          "<b>" + a.speedBefore.toFixed(2) + " → " +
+          a.speedAfter.toFixed(2) + "㎞/h</b> (" + a.gainPct.toFixed(2) + "%)입니다. " +
+          (a.gradientPct > 0
+            ? "이 경사에서 페달 힘의 <b>" + a.gravSharePct.toFixed(0) + "%</b>가 중력을 이기는 데 쓰입니다."
+            : "평지라서 중력과 싸우는 몫이 없고, 힘의 <b>" + a.aeroSharePct.toFixed(0) + "%</b>가 공기저항에 쓰입니다.") +
+          "</p>" +
+          '<p class="ge-time">무게 1㎏당 <b>' + a.cutSecPerKg.toFixed(1) + "초</b> — 사람 몸에서 빼든 장비에서 빼든 " +
+          "같은 크기입니다.</p>";
+        if (e.wonPerSecond) {
+          body += '<p class="ge-value">' + num(e.priceKrw) + "원이면 <b>1초에 " +
+            num(Math.round(e.wonPerSecond)) + "원</b>입니다.</p>";
+        }
       } else if (e.computed === "crr_time" || e.computed === "cda_pct_time") {
         // 손해 보는 쪽(공기압 낮추기, 바이저 빼기)은 "느려집니다"로 적어야 한다.
         // 저항이 몇 % 줄었는지가 아니라 기록이 어느 쪽으로 가는지가 답이다.
@@ -442,6 +463,26 @@
     var by = parseInt($("geBirthYear") && $("geBirthYear").value, 10);
     var price = parseInt(($("gePrice") && $("gePrice").value || "").replace(/\D/g, ""), 10);
 
+    if (CLAIM.model && CLAIM.condition === "gradient_pct") {
+      var gp = parseFloat($("geCond") && $("geCond").value);
+      var len = parseFloat($("geDistance") && $("geDistance").value);
+      var pw = parseFloat($("gePower") && $("gePower").value);
+      var ms = parseFloat($("geMass") && $("geMass").value);
+      var dg = parseFloat($("geDeltaG") && $("geDeltaG").value);
+      if (!isFinite(gp) || gp < 0 || ![len, pw, ms, dg].every(function (x) { return isFinite(x) && x > 0; })) {
+        out.innerHTML = '<p class="gr-hint">경사·길이·출력·총중량·무게 차이를 넣으면 판정이 나옵니다.</p>'; return;
+      }
+      input.gradient_pct = gp; input.distanceKm = len; input.powerW = pw;
+      input.massKg = ms; input.deltaKg = dg / 1000;
+      if (isFinite(price) && price > 0) input.priceKrw = price;
+      var gres = window.calrankGear.judge(input);
+      if (!gres) { out.innerHTML = '<p class="gr-hint">입력을 확인해 주세요. 경사는 0~30%, 무게 차이는 총중량보다 작아야 합니다.</p>'; return; }
+      out.innerHTML = '<p class="ge-cond">' + (gp > 0 ? "<b>" + gp.toFixed(1) + "%</b> 오르막 " : "평지 ") + len + "km를 <b>" +
+        Math.round(pw) + "W</b>로 오를 때 (" + (pw / ms).toFixed(1) + "W/㎏)</p>" +
+        gres.effects.map(function (e) { return effectBlock(e, CLAIM, gp, "%"); }).join("");
+      return;
+    }
+
     if (CLAIM.model) {
       var kmh = parseFloat($("geCond") && $("geCond").value);
       if (!isFinite(kmh) || kmh <= 0) {
@@ -501,6 +542,28 @@
 
     // 모델로 푸는 주장은 기록이 아니라 평속과 거리를 받는다. 자전거는
     // 기록을 외우는 사람보다 평속을 외우는 사람이 훨씬 많다.
+    if (modelled && CLAIM.condition === "gradient_pct") {
+      rows.push(
+        '<label for="geCond">오르막 경사 <span class="gf-unit">(%)</span></label>' +
+        '<input id="geCond" type="number" step="0.5" min="0" max="30" value="7">',
+        '<label for="geDistance">오르막 길이 <span class="gf-unit">(km)</span></label>' +
+        '<input id="geDistance" type="number" step="0.5" min="0.2" max="50" value="5">',
+        '<label for="gePower">내 출력 <span class="gf-unit">(W, 그 오르막을 오르는 평균)</span></label>' +
+        '<input id="gePower" type="number" step="5" min="50" max="600" value="250">',
+        '<label for="geMass">총중량 <span class="gf-unit">(㎏, 사람+자전거+짐)</span></label>' +
+        '<input id="geMass" type="number" step="0.5" min="30" max="200" value="78">',
+        '<label for="geDeltaG">무게 차이 <span class="gf-unit">(g, 모르면 그대로 — 매체 표기 Ultegra→Dura-Ace)</span></label>' +
+        '<input id="geDeltaG" type="number" step="10" min="10" max="5000" value="278">',
+        '<label for="gePrice">가격 차이 (원)</label>' +
+        '<input id="gePrice" type="text" inputmode="numeric" placeholder="1000000" value="1000000">'
+      );
+      box.innerHTML = rows.join("");
+      box.querySelectorAll("input,select").forEach(function (el) {
+        el.addEventListener("input", renderClaim);
+        el.addEventListener("change", renderClaim);
+      });
+      return;
+    }
     if (modelled) {
       var needsDelta = CLAIM.effects.some(function (e) { return e.computed === "cda_time"; });
       rows.push(
@@ -570,7 +633,7 @@
       html += '<p class="gm-surprise">' + esc(CLAIM.surprise) + "</p>";
     }
     if (CLAIM.model_note) {
-      html += "<h2>이 숫자를 어떻게 냈나</h2><p class=\"gm-measure\">" +
+      html += "<h2>산출 방법</h2><p class=\"gm-measure\">" +
         esc(CLAIM.model_note) + "</p>";
     }
     if (CLAIM.transfer_note) {

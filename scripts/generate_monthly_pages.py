@@ -120,7 +120,7 @@ def build_body(sport: str, label: str, events) -> str:
                if months[i] else '')
             + f'<span class="mo-bar-n">{months[i]}</span></div>'
             for i in range(1, 13))
-        out.append(f'<h2 class="mo-h2">{y}년 {label} 대회는 언제 많을까</h2>')
+        out.append(f'<h2 class="mo-h2">{y}년 {label} 대회 개최 분포</h2>')
         out.append(f'<p class="mo-note">저희가 모은 {y}년 {label} 대회 {sum(months)}개를 달별로 센 것입니다. '
                    f'가장 많은 달은 ' + " · ".join(f"{i}월 {months[i]}개" for i in peak) + ' 입니다. '
                    f'주최측이 공개하지 않은 대회는 빠져 있을 수 있습니다.</p>')

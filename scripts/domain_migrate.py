@@ -10,7 +10,8 @@ NEW_HOST 는 https:// 없이 호스트만 적는다 (예: calrank.kr).
 하는 일
   1. 사이트 안의 모든 텍스트 파일에서 calrank.vercel.app 을 NEW_HOST 로 바꾼다.
      (canonical, og:url, sitemap, robots, rss, ics, 생성기 상수, IndexNow 호스트 포함)
-  2. 바꾸지 않는 곳: .git, node_modules, __pycache__, 이 스크립트 자체, README 의 설명 문장.
+  2. 바꾸지 않는 곳: .git, node_modules, __pycache__, 이 스크립트 자체, README 의 설명 문장,
+     캘린더 UID(@calrank.vercel.app).
   3. vercel.json 에 옛 호스트 → 새 호스트 301 리다이렉트를 넣는다 (이미 있으면 건너뜀).
      모든 경로를 그대로 넘기는 규칙이라 색인된 주소가 새 주소로 이어진다.
 
@@ -28,6 +29,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OLD = "calrank.vercel.app"
+# 캘린더 일정의 UID("<id>@calrank.vercel.app")는 주소가 아니라 식별자다. 바꾸면 이미 캘린더에 담은
+# 사람이 다시 담을 때 일정이 겹쳐 생기므로, 앞에 @ 가 붙은 것은 그대로 둔다.
+PAT = re.compile(r"(?<!@)" + re.escape(OLD))
 SKIP_DIRS = {".git", "node_modules", "__pycache__"}
 SKIP_FILES = {"scripts/domain_migrate.py", "README.md"}
 TEXT_EXT = {".html", ".js", ".json", ".xml", ".txt", ".ics", ".py", ".yml", ".yaml", ".md", ".css", ".webmanifest"}
@@ -60,7 +64,7 @@ def main():
             txt = p.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
-        n = txt.count(OLD)
+        n = len(PAT.findall(txt))
         if not n:
             continue
         # vercel.json 의 리다이렉트 규칙에 쓰는 옛 호스트는 건드리지 않는다
@@ -69,7 +73,7 @@ def main():
         key = "e/ (대회 페이지)" if rel.parts[0] == "e" else ("scripts/" if rel.parts[0] == "scripts" else "그 외")
         groups[key] = groups.get(key, 0) + 1
         if apply:
-            p.write_text(txt.replace(OLD, new), encoding="utf-8")
+            p.write_text(PAT.sub(new, txt), encoding="utf-8")
 
     print(f"{'적용' if apply else '점검'}: {changed}개 파일, {total}곳")
     for k, v in groups.items():
