@@ -984,6 +984,12 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
     sub_tag(r'<meta id="twTitle" name="twitter:title" content=".*?">', f'<meta id="twTitle" name="twitter:title" content="{esc(title)}">')
     sub_tag(r'<meta id="twDesc" name="twitter:description" content=".*?">', f'<meta id="twDesc" name="twitter:description" content="{esc(desc)}">')
 
+    # 템플릿(event.html)의 공용 canonical(event.html)과 숨김 h1은 정적 페이지에서 빼야 한다.
+    # 남겨 두면 canonical 이 두 개가 되어 구글이 둘 다 무시할 수 있다.
+    out = re.sub(r'[ \t]*<link rel="canonical" href="[^"]*event\.html">\n?', "", out)
+    out = out.replace('<meta name="robots" content="noindex,follow">\n', "", 1)   # event.html 템플릿 자체는 noindex
+    out = re.sub(r'<h1 style="position:absolute;width:1px;[^>]*>[^<]*</h1>\n?', "", out)
+
     head_extra = "\n".join([
         *(['<meta name="robots" content="noindex,follow">'] if is_thin_event(ev) else []),
         f'<link rel="canonical" href="{esc(url)}">',
