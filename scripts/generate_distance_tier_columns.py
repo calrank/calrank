@@ -677,7 +677,7 @@ def build(dist: str) -> tuple[str, str, str, str]:
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="style.css">
 <style>
-  .column-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
+  .column-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
   .column-meta {{ font-size: 14.5px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.8vw, 36px); line-height: 1.3; margin-bottom: 20px; }}
   .column-body {{ font-size: 16px; line-height: 1.9; color: #E8E4E1; }}

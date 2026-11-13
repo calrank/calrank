@@ -338,7 +338,7 @@ FOOTER = """<footer class="site-footer">
 </div>
 </footer>"""
 
-PAGE_CSS = """  .gr-wrap { max-width: 860px; margin: 0 auto; padding: 44px 20px 80px; }
+PAGE_CSS = """  .gr-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 80px; }
   .gr-title { font-family: var(--font-display); font-size: clamp(23px, 3.4vw, 33px); line-height: 1.3; margin-bottom: 12px; }
   .gr-lead { font-size: 15px; line-height: 1.8; color: #C9C3BF; margin-bottom: 22px; }
   /* 검색 결과 썸네일은 og:image 만으로 안 잡힐 때가 있다. 네이버는 본문

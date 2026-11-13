@@ -104,7 +104,7 @@ def split_marks(dist_km: float, step: float) -> list[float]:
 
 
 CSS = """
-  .g-wrap{max-width:760px;margin:0 auto;padding:44px 20px 80px;}
+  .g-wrap{max-width:720px;margin:0 auto;padding:44px 20px 80px;}
   .g-eyebrow{font-size:14.5px;color:var(--ink-faint,#8E8E8E);margin-bottom:10px;}
   .g-title{font-family:var(--font-display);font-size:clamp(23px,3.6vw,34px);line-height:1.3;margin:0 0 18px;}
   .g-body{font-size:16px;line-height:1.9;color:#E8E4E1;}

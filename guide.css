@@ -1,5 +1,5 @@
 /* calrank 대회 가이드 — guide-*.html, guides.html 전용 */
-.g-wrap{max-width:760px;margin:0 auto;padding:0 20px 72px;}
+.g-wrap{max-width:720px;margin:0 auto;padding:0 20px 72px;}
 .g-crumb{font-size:13.5px;color:var(--ink-faint);padding:18px 0 4px;}
 .g-crumb a{color:var(--ink-faint);text-decoration:none;}
 .g-crumb a:hover{color:var(--ink-soft);}

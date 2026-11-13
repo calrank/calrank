@@ -125,13 +125,15 @@ body{
 .nav-link.active{color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:4px;}
 .soon-tag{font-size:13.5px;font-weight:700;color:var(--ink-faint);border:1px solid var(--border);padding:1px 5px;margin-left:4px;vertical-align:2px;}
 
-.hero{padding:48px 0 20px;position:relative;overflow:hidden;}
+body{overflow-x:clip;}
+.hero{padding:48px 0 20px;position:relative;}
 .hero::before{
   content:"";
   position:absolute;
-  inset:-20% -10% auto -10%;
-  height:220px;
+  inset:-20% auto auto 50%;width:100vw;transform:translateX(-50%);
+  height:240px;
   background:radial-gradient(ellipse at 85% 0%, rgba(255,61,26,0.16) 0%, rgba(255,61,26,0) 60%);
+  -webkit-mask-image:linear-gradient(transparent,#000 28%,#000 45%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 45%,transparent);
   pointer-events:none;
   z-index:0;
 }
@@ -168,8 +170,8 @@ body{
 .lv-share-btn:hover{filter:brightness(1.08);}
 .lv-share-btn:disabled{opacity:.6;cursor:default;}
 .lv-share-hint{font-size:13.5px;line-height:1.7;color:var(--ink-faint);margin:0 0 4px;text-align:center;}
-.hero-lead{max-width:760px;margin:10px auto 0;font-size:15px;line-height:1.85;
-  color:var(--ink-soft);text-align:center;}
+.hero-lead{max-width:760px;margin:10px 0 0;font-size:15px;line-height:1.85;
+  color:var(--ink-soft);text-align:left;}
 .hero-lead b{color:var(--ink);font-weight:700;}
 .hero-stats{position:relative;z-index:1;}
 .hero-stats{
@@ -415,7 +417,7 @@ body{
   overflow:hidden;
 }
 .hero-more{
-  display:block;margin:6px auto 0;background:none;border:0;cursor:pointer;
+  display:block;margin:6px 0 0;background:none;border:0;cursor:pointer;
   font-family:inherit;font-size:13.5px;color:var(--ink-soft,var(--ink-faint));
   text-decoration:underline;text-underline-offset:3px;padding:4px 8px;
 }
@@ -664,11 +666,7 @@ button .emo,.submit-record-cta .emo,.sub-go .emo,.tier-guide-toggle .emo{width:1
 .wc-body b .emo{width:1.15em;height:1.15em;vertical-align:-0.22em;margin-right:.4em;}
 /* 모바일: 첫머리 붉은 빛이 글 상자(좌우 16px 안쪽)에서 뚝 잘려 오른쪽에 모서리가 보였다.
    화면 가로 전체로 번지게 해서 좌우가 같아 보이게 한다. */
-@media (max-width:720px){
-  body{overflow-x:clip;}
-  .hero{overflow:visible;}
-  .hero::before{inset:-20% auto auto 50%;width:100vw;transform:translateX(-50%);}
-}
+
 
 /* 제목이 두 줄이 되어도 둘째 줄이 이모지 밑으로 말려 들어가지 않게, 이모지 칸을 따로 둔다(걸어 놓은 들여쓰기).
    이모지는 첫 줄 글자의 세로 가운데에 맞춘다. */
@@ -680,3 +678,8 @@ h2 > .emo:first-child{width:1.1em;height:1.1em;}
 
 /* 본문 속 접기 요약줄도 손가락으로 누르기 쉽게 */
 main details>summary:not([class]){padding-block:9px;cursor:pointer;}
+
+/* 글 속 링크 — 클래스가 없는 링크가 브라우저 기본 파란색으로 나왔다 */
+main p a:not([class]),main li a:not([class]),main td a:not([class]){color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
+main p a:not([class]):hover,main li a:not([class]):hover,main td a:not([class]):hover{text-decoration-thickness:2px;}
+.modal-apply-btn{text-align:center;}

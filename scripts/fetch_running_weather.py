@@ -244,7 +244,7 @@ def build_page(data) -> str:
 <meta name="theme-color" content="#0B0B0B">
 <link rel="stylesheet" href="style.css">
 <style>
-  .rw-wrap{{max-width:760px;margin:0 auto;padding:44px 20px 80px;}}
+  .rw-wrap{{max-width:720px;margin:0 auto;padding:44px 20px 80px;}}
   .rw-title{{font-family:var(--font-display);font-size:clamp(23px,3.4vw,32px);line-height:1.3;margin-bottom:12px;}}
   .rw-lead{{font-size:15.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 6px;}}
   .rw-when{{font-size:13.5px;color:var(--ink-faint);margin:0 0 26px;}}

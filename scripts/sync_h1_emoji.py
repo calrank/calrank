@@ -39,6 +39,13 @@ def apply(html: str, name: str) -> str:
     em = pick(name)
     if not em:
         return html
+    # 종목 엠블럼(SVG)이 이미 제목 앞에 있는 지역 랜딩은 아이콘이 둘이 되므로 이모지를 붙이지 않고, 붙어 있으면 뗀다.
+    if name.startswith("landing-"):
+        emb = re.search(r'</svg>(<h1 class="landing-title">)<img class="emo"[^>]*>', html)
+        if emb:
+            return html[:emb.start()] + "</svg>" + emb.group(1) + html[emb.end():]
+        if re.search(r'</svg><h1 class="landing-title">', html):
+            return html
     m = H1_RE.search(html)
     if not m or '<img class="emo"' in m.group(2):
         return html

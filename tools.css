@@ -25,7 +25,7 @@
 .gv-out { font-size: 15px !important; color: var(--ink) !important; }
 
 /* ── 도구 페이지 ───────────────────────────────────────────── */
-.tp { max-width: 760px; margin: 0 auto; padding: 48px 20px 90px; }
+.tp { max-width: 720px; margin: 0 auto; padding: 48px 20px 90px; }
 .tp-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 7vw, 38px); line-height: 1.28; margin: 0 0 12px; color: var(--ink); letter-spacing: -0.01em; }
 .tp-sub { font-size: 17px; line-height: 1.8; color: var(--ink-soft); margin: 0 0 28px; }
 .tp-sec { margin: 44px 0 0; }
@@ -142,7 +142,7 @@
 .cv-check input { width: 20px; height: 20px; min-height: 0; margin: 0; }
 .tp-card .kit-row { margin-top: 14px; }
 .cp-lv { font-size: 18px; color: var(--ink); margin: 0 0 4px; }
-.cp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+.cp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
 .cp-list b { color: var(--ink); }
 .cp-un { color: var(--ink-faint); }
 .cp-v { display: block; font-size: 13px; color: var(--ink-faint); }
@@ -200,7 +200,8 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .tp .cp-list a.cp-row:active{transform:translateY(1px);box-shadow:0 1px 2px rgba(0,0,0,.08);}
 .cp-name{grid-column:1;font-size:17px;font-weight:800;line-height:1.4;color:var(--ink);}
 .cp-meta{grid-column:1;margin-top:3px;display:flex;flex-wrap:wrap;gap:0 14px;font-size:14.5px;line-height:1.6;color:var(--ink-soft);}
-.cp-meta > span{white-space:nowrap;}
+/* 긴 설명 한 줄이 칸을 밀어 모바일에서 가로로 넘쳤다. 줄은 바꾸되 단어 가운데서는 끊지 않는다 */
+.cp-meta > span{white-space:normal;word-break:keep-all;overflow-wrap:anywhere;}
 .cp-near{grid-column:1;margin-top:3px;font-size:13.5px;line-height:1.55;color:var(--ink-faint);}
 /* 표 안의 코스 이름 링크도 누르는 곳임을 알리는 화살표를 붙인다. */
 .mt-table a::after{content:" ›";color:var(--accent-ink);font-weight:800;}

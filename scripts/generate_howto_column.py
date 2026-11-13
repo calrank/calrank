@@ -183,7 +183,7 @@ def build_page(sport_label, sport, concern, cycle_count):
 <script type="application/ld+json">{article_ld}</script>
 <script type="application/ld+json">{breadcrumb_ld}</script>
 <style>
-  .column-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
+  .column-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
   .column-meta {{ font-size: 14.5px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(22px, 3.6vw, 32px); line-height: 1.35; margin-bottom: 20px; }}
   .howto-refresh-note {{ font-size: 13.5px; color: var(--accent); margin-bottom: 20px; }}

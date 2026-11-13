@@ -163,7 +163,7 @@ def build_page(sport, dist_label, events):
 <script type="application/ld+json">{collection_ld}</script>
 <script type="application/ld+json">{breadcrumb_ld}</script>
 <style>
-  .landing-wrap {{ max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }}
+  .landing-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
   .landing-title {{ font-family: var(--font-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.3; margin-bottom: 12px; }}
   .landing-sub {{ font-size: 15px; color: #B8B0AC; margin-bottom: 24px; }}
   .landing-list {{ display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }}
