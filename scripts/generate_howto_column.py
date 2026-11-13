@@ -235,7 +235,7 @@ def update_sitemap(slug):
         f"    <priority>0.6</priority>\n"
         f"  </url>\n"
     )
-    if entry not in xml and marker in xml:
+    if f"<loc>https://calrank.vercel.app/{slug}</loc>" not in xml and marker in xml:
         xml = xml.replace(marker, entry + marker)
         path.write_text(xml, encoding="utf-8")
 

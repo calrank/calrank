@@ -225,6 +225,7 @@ def build_html(stats, content, slug, rng):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,follow">
 <title>{title} — calrank</title>
 <meta name="description" content="{desc}">
 <meta property="og:type" content="article">
@@ -343,7 +344,8 @@ def main():
 
     (ROOT / slug).write_text(html, encoding="utf-8")
     update_column_list(title, desc, slug, month_label)
-    update_sitemap(slug)
+    # 월별 통계 칼럼은 숫자만 갈아 끼우는 같은 틀이라 검색 대상에서 뺀다(noindex).
+    # 같은 내용이 월별 대회 페이지(monthly.html 등)에 이미 있다. 사이트맵에도 넣지 않는다.
 
     state["last_sport_index"] = idx
     state.setdefault("published", []).append(topic_key)

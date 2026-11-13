@@ -621,6 +621,91 @@ def bike_table(claim, dist_km, bounds):
     return rows
 
 
+_ZONE_PEOPLE = [("male", 30, "30세 남성"), ("male", 40, "40세 남성"), ("male", 50, "50세 남성"), ("male", 60, "60세 남성"),
+                ("female", 30, "30세 여성"), ("female", 40, "40세 여성"), ("female", 50, "50세 여성"), ("female", 60, "60세 여성")]
+
+
+def _zones(secs, tiers):
+    """기록(초) 순서대로 등급이 '바뀌는' 연속 구간을 모은다. [(lo, hi, 전 등급, 후 등급), ...]"""
+    out, cur = [], None
+    for sec, (t0, t1) in zip(secs, tiers):
+        if t0 != t1:
+            if cur and cur[2] == t0 and cur[3] == t1:
+                cur[1] = sec
+            else:
+                cur = [sec, sec, t0, t1]
+                out.append(cur)
+        else:
+            cur = None
+    return out
+
+
+def moved_zone_rows(claim, dist_key, dist_km, bounds):
+    """나이·성별마다, 이 장비가 등급을 한 칸 바꿀 수 있는 기록대를 찾는다.
+
+    표의 등급 칸은 한 사람(40세 남성) 기준이라, 나이가 다르면 결론이 달라진다.
+    같은 신발이 어느 나이·성별의 어느 기록대에서만 등급을 바꾸는지를
+    기록을 촘촘히 훑어 계산한다. 근거 모델(run_model)과 연령 환산(wma)을 그대로 쓴다.
+    """
+    goals = RUN_GOALS[dist_key]
+    lo = int(goals[0][0] * 0.7)
+    hi = int(goals[-1][0] * 1.4)
+    step = max(1, (hi - lo) // 400)
+    secs = list(range(lo, hi, step))
+    res = run_model([{"claim": claim["id"], "input": {"finishSec": x, "distanceKm": dist_km}} for x in secs])
+    cut_mean, cut_max = [], []
+    for r in res:
+        e = r["effects"][0] if r and r.get("effects") and r["effects"][0].get("hasEvidence") else None
+        if not e or not e.get("cutSec"):
+            cut_mean.append(0.0); cut_max.append(0.0); continue
+        pt = abs(e["cutSec"].get("point") or 0.0)
+        cut_mean.append(0.0 if e.get("significant") is False else pt)
+        cut_max.append(max(abs(e["cutSec"]["lo"]), abs(e["cutSec"]["hi"])))
+    rows = []
+    for gender, age, name in _ZONE_PEOPLE:
+        per = {}
+        for tag, cuts in (("mean", cut_mean), ("max", cut_max)):
+            tiers = []
+            for x, c in zip(secs, cuts):
+                t0 = tier_of(wma.age_grade(x, gender, dist_key, age), bounds)
+                t1 = tier_of(wma.age_grade(max(1, x - c), gender, dist_key, age), bounds)
+                tiers.append((t0, t1))
+            per[tag] = _zones(secs, tiers)
+        rows.append((name, per["mean"], per["max"]))
+    return rows
+
+
+def _zone_text(zs):
+    if not zs:
+        return "이 거리 표의 기록 범위에서는 바뀌는 구간 없음"
+    return "<br>".join(f'{_clock(a)}~{_clock(b + 0)} · {esc(t0)} → <b>{esc(t1)}</b>' for a, b, t0, t1 in zs)
+
+
+def zones_html(rows, label, short):
+    """평균 효과로 등급이 바뀌는 기록대만 보여 준다(최대 효과는 폭만 문장으로)."""
+    widths = [b - a for _, m, _ in rows for a, b, _, _ in m]
+    if not widths:
+        return ""
+    widths.sort()
+    med = widths[len(widths) // 2]
+    wide = [b - a for _, _, x in rows for a, b, _, _ in x]
+    body = "".join(
+        f'<tr><th>{esc(n)}</th><td>{_zone_text(m)}</td></tr>' for n, m, _ in rows)
+    # 구간의 폭은 계산 간격(5초 안팎) 때문에 최소 한 칸은 있다. 그보다 좁게는 말하지 않는다.
+    return (f'<h2>나이·성별별로 등급이 바뀌는 기록대</h2>'
+            f'<p class="gm-measure">같은 {esc(short)}도 나이와 성별에 따라 등급이 바뀌는 기록대가 다릅니다. '
+            f'아래 구간 안에 있을 때만 단축 시간이 등급 한 칸으로 이어지고, 구간 밖에서는 신어도 등급은 그대로입니다. '
+            f'구간 하나의 폭은 보통 {_gap(max(med, 1))} 안팎으로 좁습니다. '
+            f'등급 경계 바로 아래에 있는 사람에게만 해당하는 이야기입니다.</p>'
+            '<div class="gt-wrap"><table class="gt"><thead><tr><th>나이·성별</th>'
+            '<th>등급이 바뀌는 기록대</th></tr></thead>'
+            f'<tbody>{body}</tbody></table></div>'
+            f'<p class="gm-measure">{esc(label)} 기록을 촘촘히 훑어 계산했습니다. 단축 폭은 연구가 보고한 대표값(평균 효과)이고, '
+            '통계적으로 유의하지 않은 속도 구간은 0으로 두었습니다. 보고된 범위의 위쪽 끝을 가정하면 '
+            '구간이 더 넓어질 수 있습니다. 등급 경계는 칼랭크 등급표, 나이 환산은 WMA 연령계수를 씁니다. '
+            '연구 결과는 평균이라 개인에게 같은 폭으로 나타난다는 보장은 없습니다.</p>')
+
+
 def table_html(rows, kind):
     if kind == "run":
         head = ("<tr><th>목표 기록</th><th>페이스</th><th>속도</th>"
@@ -694,8 +779,9 @@ def build_table_page(claim, ctx, bodies):
             for sl, nm in ctx.get("goals", []))
         extra = (f'<p class="gi-links">목표 기록별 페이스와 구간 통과 시간 · {goal_links}</p>'
                  if goal_links else "")
+        zones = zones_html(moved_zone_rows(claim, ctx["key"], ctx["km"], bounds), ctx["label"], short)
         body = (f'<p class="gi-headline">{esc(lead)}</p>'
-                + table_html(rows, "run") + note + extra)
+                + table_html(rows, "run") + zones + note + extra)
     else:
         rows = bike_table(claim, ctx["km"], bounds)
         if len(rows) < 2:

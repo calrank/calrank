@@ -227,7 +227,7 @@ def update_sitemap(slugs):
             f"    <priority>0.6</priority>\n"
             f"  </url>\n"
         )
-        if entry not in xml:
+        if f"<loc>https://calrank.vercel.app/{slug}</loc>" not in xml:   # lastmod 가 채워져도 중복되지 않게 <loc> 로 비교
             added += entry
     if added and marker in xml:
         xml = xml.replace(marker, added + marker)

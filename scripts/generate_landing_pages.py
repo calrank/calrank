@@ -35,6 +35,11 @@ REGION_SLUG = {
     "제주": "jeju",
 }
 MIN_EVENTS = 3
+# 검색에 내놓을 만큼 내용이 찬 목록 페이지의 최소 대회 수.
+# 대회가 한두 개뿐인 지역 목록은 날짜·이름만 나열한 얇은 페이지라, 같은 틀로 수십 장이
+# 색인되면 사이트 전체의 품질 평가를 깎는다. 페이지는 두고(이동·탐색에는 쓴다)
+# noindex,follow 로 검색에서만 빼고 사이트맵에서도 뺀다. 대회가 늘면 자동으로 풀린다.
+INDEX_MIN_EVENTS = 6
 # 자전거·인라인은 이벤트 소스가 아직 1개뿐이라 지역당 데이터가 적다.
 # 마라톤과 같은 기준(3개)을 쓰면 페이지가 거의 안 생기므로 종목별로 완화한다.
 MIN_EVENTS_BY_SPORT = {"cycling": 2, "inline": 1}
@@ -180,6 +185,8 @@ def build_page(region, sport, events):
                 '둘러보세요.</p>')
 
     slug = slugify(region, sport)
+    robots_meta = ('<meta name="robots" content="noindex,follow">\n'
+                   if total < INDEX_MIN_EVENTS else "")
     canonical_url = f"https://calrank.vercel.app/{slug}"
     collection_ld = json.dumps({
         "@context": "https://schema.org", "@type": "CollectionPage",
@@ -201,7 +208,7 @@ def build_page(region, sport, events):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} — calrank</title>
+{robots_meta}<title>{title} — calrank</title>
 <meta name="description" content="{desc}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
@@ -357,9 +364,13 @@ def build_index(pages):
 '''
 
 
-def update_sitemap(slugs):
+def update_sitemap(slugs, thin=()):
     path = ROOT / "sitemap.xml"
     xml = path.read_text(encoding="utf-8")
+    # noindex 로 돌린 얇은 목록은 사이트맵에서 뺀다(사이트맵에 noindex 페이지를 두면 모순 신호).
+    import re as _re
+    for slug in thin:
+        xml = _re.sub(r"  <url>\s*<loc>https://calrank\.vercel\.app/" + _re.escape(slug) + r"</loc>.*?</url>\n", "", xml, flags=_re.S)
     marker = "</urlset>"
     added = ""
     for slug in slugs:
@@ -370,11 +381,13 @@ def update_sitemap(slugs):
             f"    <priority>0.6</priority>\n"
             f"  </url>\n"
         )
-        if entry not in xml:
+        # 이미 있는지는 <loc> 로 본다. sync_sitemap 이 항목에 lastmod 를 채워 넣어
+        # 항목 전체 문자열이 달라지므로, 통째로 비교하면 매번 중복으로 쌓였다.
+        if f"<loc>https://calrank.vercel.app/{slug}</loc>" not in xml:
             added += entry
     if added and marker in xml:
         xml = xml.replace(marker, added + marker)
-        path.write_text(xml, encoding="utf-8")
+    path.write_text(xml, encoding="utf-8")
 
 
 def main():
@@ -405,6 +418,7 @@ def main():
 
     pages = []
     slugs = []
+    thin = []
     for (region, sport), evs in combos.items():
         min_events = MIN_EVENTS_BY_SPORT.get(sport, MIN_EVENTS)
         slug_now = slugify(region, sport)
@@ -417,14 +431,17 @@ def main():
         html, title, desc, slug = build_page(region, sport, evs)
         (ROOT / slug).write_text(html, encoding="utf-8")
         pages.append((region, sport, slug, len(evs)))
-        slugs.append(slug)
+        if len(evs) >= INDEX_MIN_EVENTS:
+            slugs.append(slug)
+        else:
+            thin.append(slug)
 
     index_html = build_index(pages)
     (ROOT / "regions.html").write_text(index_html, encoding="utf-8")
     slugs.append("regions.html")
 
-    update_sitemap(slugs)
-    print(f"Generated {len(pages)} landing pages + regions.html index.")
+    update_sitemap(slugs, thin)
+    print(f"Generated {len(pages)} landing pages + regions.html index. (noindex {len(thin)})")
 
 
 if __name__ == "__main__":

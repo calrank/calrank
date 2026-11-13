@@ -713,6 +713,24 @@ def build_related_links(ev: dict) -> str:
         links.append(f'<a href="index.html?sport={esc(sport)}">{esc(SPORT_LABEL[sport])} 대회 캘린더</a>')
     if sport in ("marathon", "trail"):
         links.append('<a href="yardage.html">대회 코스 야디지북</a>')
+    # 이 대회 거리에서 장비가 기록에 주는 영향 — 기어 판정의 거리별 표로 이어 준다.
+    # 표를 여기에 복제하지 않고 링크만 둔다(같은 표가 수백 장에 복제되면 한 장처럼 보인다).
+    kms = _parse_km(ev.get("distances"))
+    if sport == "marathon" and kms:
+        gear_slug = {5.0: "5km", 10.0: "10km", 21.0975: "half", 42.195: "full"}
+        pick = next((k for k in (42.195, 21.0975, 10.0, 5.0) if k in kms), None)
+        if pick and (ROOT / f"gear-carbon-plate-{gear_slug[pick]}.html").exists():
+            links.append(f'<a href="gear-carbon-plate-{gear_slug[pick]}.html">{esc(_km_label(pick))} 카본화 효과</a>')
+    elif sport == "cycling":
+        # _parse_km 는 러닝 환산용이라 42km 를 넘는 거리를 버린다. 자전거는 따로 읽는다.
+        cyc = [float(m) for item in (ev.get("distances") or []) for m in re.findall(r"(\d+(?:\.\d+)?)\s*km", str(item).lower())]
+        far = max(cyc) if cyc else 0
+        kms = [far] if far >= 20 else []
+    if sport == "cycling" and kms:
+        far = max(kms)
+        sfx = "100km" if far >= 70 else "40km"
+        if (ROOT / f"gear-aero-wheel-{sfx}.html").exists():
+            links.append(f'<a href="gear-aero-wheel-{sfx}.html">{sfx.replace("km", "")}㎞ 에어로 장비 효과</a>')
     links.append('<a href="column.html">러닝·사이클 칼럼</a>')
     return " · ".join(links)
 
