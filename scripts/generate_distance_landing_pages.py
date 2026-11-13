@@ -337,6 +337,11 @@ def main():
     count = 0
     for (sport, dist_label), evs in combos.items():
         if len(evs) < MIN_EVENTS:
+            # 대회가 모자라 더 이상 만들지 않는 페이지가 옛 내용으로 남지 않게 지운다.
+            old = ROOT / slugify(sport, dist_label)
+            if old.exists():
+                old.unlink()
+                print(f"Removed stale landing: {old.name} ({len(evs)} events)")
             continue
         html = build_page(sport, dist_label, evs)
         slug = slugify(sport, dist_label)
