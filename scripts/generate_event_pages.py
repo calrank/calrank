@@ -796,6 +796,91 @@ def build_pace_table(ev: dict) -> str:
     )
 
 
+_TR_DG = [(50, "쉬움"), (100, "보통"), (150, "조금 힘듦"), (200, "힘듦"), (1e9, "매우 힘듦")]
+_TR_KE = [25, 45, 75, 115, 155, 210]
+_TR_GAINS = [500, 1000, 2000, 3500]
+
+
+def _tr_diff(km: float, gain: float):
+    sc = (2 * gain * 3.28084 * km * 0.621371) ** 0.5
+    name = next(n for b, n in _TR_DG if sc < b)
+    ke = km + gain / 100.0
+    return sc, name, ke, sum(1 for b in _TR_KE if ke >= b)
+
+
+def _trail_kms(ev: dict) -> list:
+    raw = ev.get("distances")
+    items = raw if isinstance(raw, list) else [raw]
+    out = []
+    for item in items:
+        for m in re.finditer(r"(\d+(?:\.\d+)?)\s*(km|k)(?![a-z])", str(item).lower()):
+            v = float(m.group(1))
+            if 5 <= v <= 330 and v not in out:
+                out.append(v)
+    return sorted(out)[:5]
+
+
+def _trail_gain_override(ev: dict):
+    try:
+        with open(ROOT / "data" / "trail_event_gain.json", encoding="utf-8") as f:
+            return (json.load(f).get("events") or {}).get(str(ev.get("id")))
+    except (OSError, ValueError):
+        return None
+
+
+def build_trail_difficulty(ev: dict) -> str:
+    """트레일 대회 난이도 판정. 누적 오르막이 공개되지 않은 대회는 오르막별 표로 보여 준다."""
+    if ev.get("sport") != "trail":
+        return ""
+    kms = _trail_kms(ev)
+    if not kms:
+        return ""
+    ov = _trail_gain_override(ev)
+    head = '<h2 class="ev-h2">코스 난이도 판정</h2>'
+    note = ('<p class="ev-p">칼랭크 난이도는 거리와 누적 오르막으로 계산합니다. '
+            '미국 국립공원관리청이 하이킹 난이도에 쓰는 식(오르막 피트×2×거리 마일의 제곱근)이고, '
+            'Km-effort는 트레일러닝 대회 인증기관 ITRA가 쓰는 환산(거리 km + 오르막 m÷100)입니다. '
+            '<a href="/dg-method.html">구간 기준과 근거</a></p>')
+    parts = [head, note]
+    if ov:
+        rows = []
+        for k, g in sorted((ov.get("gains") or {}).items(), key=lambda x: float(x[0])):
+            sc, name, ke, pts = _tr_diff(float(k), float(g))
+            rows.append(f"<tr><th>{float(k):g}km</th><td>{float(g):,.0f}m</td><td>{ke:.0f} ({pts}점)</td><td>{name} (점수 {sc:.0f})</td></tr>")
+        src = ov.get("src", "")
+        parts.append('<div style="overflow-x:auto"><table class="cv-table"><thead><tr><th>거리</th><th>누적 오르막</th><th>Km-effort</th><th>칼랭크 난이도</th></tr></thead><tbody>'
+                     + "".join(rows) + "</tbody></table></div>"
+                     + (f'<p class="ev-p">오르막 수치 출처: <a href="{esc(src)}" rel="noopener" target="_blank">{esc(ov.get("src_name") or "공식 요강")}</a></p>' if src else ""))
+    else:
+        head_cells = "".join(f"<th>오르막 {g:,}m</th>" for g in _TR_GAINS)
+        rows = []
+        for k in kms:
+            cells = ""
+            for g in _TR_GAINS:
+                sc, name, ke, pts = _tr_diff(k, g)
+                cells += f"<td>{name}<br><small>KE {ke:.0f}</small></td>"
+            rows.append(f"<tr><th>{k:g}km</th>{cells}</tr>")
+        parts.append('<p class="ev-p">이 대회의 공식 누적 오르막 수치는 자료에서 확인되지 않았습니다. '
+                     '그래서 수치를 추정하지 않고, 오르막이 얼마일 때 난이도가 어디에 놓이는지를 거리별로 계산해 두었습니다. '
+                     '요강이나 GPX에 적힌 누적 오르막을 아래 칸에 넣으면 바로 판정됩니다.</p>')
+        parts.append('<div style="overflow-x:auto"><table class="cv-table"><thead><tr><th>거리</th>' + head_cells
+                     + "</tr></thead><tbody>" + "".join(rows) + "</tbody></table></div>"
+                     '<p class="ev-p" style="font-size:13.5px">KE는 Km-effort입니다. 표의 난이도는 걷기 기준 칼랭크 난이도입니다.</p>')
+    opts = "".join(f'<option value="{k:g}">{k:g}km</option>' for k in kms)
+    parts.append(
+        '<form class="ev-tdj" onsubmit="return false" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0">'
+        f'<select id="tdjKm" aria-label="거리">{opts}</select>'
+        '<input id="tdjGain" type="number" inputmode="numeric" min="0" max="20000" placeholder="누적 오르막(m)" aria-label="누적 오르막 미터" style="width:150px">'
+        '<output id="tdjOut" style="font-weight:600"></output></form>'
+        '<script>(function(){var D=[[50,"쉬움"],[100,"보통"],[150,"조금 힘듦"],[200,"힘듦"],[1e9,"매우 힘듦"]],K=[25,45,75,115,155,210];'
+        'var k=document.getElementById("tdjKm"),g=document.getElementById("tdjGain"),o=document.getElementById("tdjOut");'
+        'function r(){var gv=parseFloat(g.value),kv=parseFloat(k.value);if(!(gv>=0)){o.textContent="";return}'
+        'var s=Math.sqrt(2*gv*3.28084*kv*0.621371),i=0;while(s>=D[i][0])i++;var e=kv+gv/100,p=0;K.forEach(function(b){if(e>=b)p++});'
+        'o.textContent=D[i][1]+" (점수 "+Math.round(s)+") · Km-effort "+Math.round(e)+" ("+p+"점)"}'
+        'g.addEventListener("input",r);k.addEventListener("change",r)})();</script>')
+    return "".join(parts)
+
+
 def _norm_name(name: str) -> str:
     s = re.sub(r"^\s*20\d{2}\s*년?\s*", "", str(name or ""))
     s = re.sub(r"제?\s*\d+\s*회", "", s)
@@ -942,6 +1027,7 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
     extra = "".join(filter(None, [
         build_climate(ev),
         build_day_context(ev, ctx.get("by_date", {})),
+        build_trail_difficulty(ev),
         build_pace_table(ev),
         build_other_editions(ev, ctx),
         build_nearby(ev, ctx),
