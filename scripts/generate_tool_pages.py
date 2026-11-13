@@ -358,6 +358,35 @@ def _mt_raw():
         out += json.loads((ROOT / "data/mountains_extra.json").read_text(encoding="utf-8")).get("mountains", [])
     except Exception:
         pass
+    # 산림청 산정보 서비스(전국 산 이름·높이·소재지) + 지오코딩 좌표. 좌표를 찾은 산만 쓰고,
+    # 위 두 자료에 이미 있는 이름은 건너뛴다. 산 하나가 점 하나라서 코스와의 거리를 적어 보여 준다.
+    try:
+        have = {m["name"] for m in out}
+        raw = [m for m in json.loads((ROOT / "data/mountain_names.json").read_text(encoding="utf-8")).get("mountains", [])
+               if m.get("latlng")]
+        # 좌표는 이름 검색으로 얻은 근사값이라 엉뚱한 지방의 같은 이름이 걸릴 수 있다.
+        # 같은 시·군 소재 산들의 중앙값에서 40km 넘게 떨어진 점은 버린다.
+        grp = {}
+        for m in raw:
+            grp.setdefault(" ".join((m.get("addr") or "").split()[:2]), []).append(m["latlng"])
+
+        def _med(v):
+            v = sorted(v)
+            return v[len(v) // 2]
+        cen = {k: (_med([p[0] for p in v]), _med([p[1] for p in v])) for k, v in grp.items() if len(v) >= 3}
+        for m in raw:
+            if m["name"] in have:
+                continue
+            ll = m["latlng"]
+            c = cen.get(" ".join((m.get("addr") or "").split()[:2]))
+            if c and _math.hypot((ll[0] - c[0]) * 111.0, (ll[1] - c[1]) * 111.0 * _math.cos(_math.radians(c[0]))) > 40:
+                continue
+            have.add(m["name"])
+            out.append({"id": "n-" + str(m.get("id") or m["name"]), "name": m["name"], "extra": True, "point": True,
+                        "maxEleM": round(m["heightM"]) if m.get("heightM") else None, "addr": m.get("addr", ""),
+                        "sections": [{"path": [ll]}]})
+    except Exception:
+        pass
     return out
 
 
@@ -388,7 +417,7 @@ def _link_courses_mountains(courses, mts, radius_km=1.0):
                        for a in mp[m["id"]][::2] for q in cp[::2])
             if best <= radius_km:
                 hits.append((best, m))
-        hits.sort(key=lambda t: (t[0], t[1]["id"]))
+        hits.sort(key=lambda t: (bool(t[1].get("point")), t[0], t[1]["id"]))
         if hits:
             cn[c["id"]] = hits[:4]
             for d_, m in hits[:4]:
@@ -416,6 +445,11 @@ def _near_word(d_):
 
 
 def _near_li(d_, m):
+    if m.get("point"):
+        hi_ = f' 높이 약 {m["maxEleM"]}m.' if m.get("maxEleM") else ""
+        ad_ = f' 소재지 {esc(m["addr"])}.' if m.get("addr") else ""
+        return (f'<li>{esc(m["name"])} <span class="tp-small">경로에서 {_mt_dist(d_)}</span><br>'
+                f'<span class="tp-small">산림청 산정보 서비스 기준.{hi_}{ad_}</span></li>')
     if m.get("extra"):
         hi_ = f' 등산로 기록 기준 최고 해발 약 {m["maxEleM"]}m.' if m.get("maxEleM") else ""
         return (f'<li>{esc(m["name"])} <span class="tp-small">경로에서 {_mt_dist(d_)}</span><br>'
@@ -430,7 +464,7 @@ def _near_li(d_, m):
 
 
 def _near_txt(c):
-    h = COURSE_NEAR.get(c["id"])
+    h = [x for x in COURSE_NEAR.get(c["id"], []) if not x[1].get("point")]
     if not h:
         return ""
     return " · " + _near_word(h[0][0]) + " 산 " + ", ".join(esc(m["name"]) for _, m in h[:3])
@@ -714,7 +748,7 @@ def course_page(c):
     _nm = COURSE_NEAR.get(cid, [])
     mt_near_html = ""
     if _nm:
-        mt_near_html = ('<section class="tp-sec"><h2 class="tp-h2">근처·인근 산</h2><p class="tp-p">이 코스 경로 3km 안에 산림청 등산로가 지나는 산입니다. 1km 안은 근처, 그보다 멀면 인근으로 보고 거리를 적었습니다. '
+        mt_near_html = ('<section class="tp-sec"><h2 class="tp-h2">근처·인근 산</h2><p class="tp-p">이 코스 경로 3km 안에 있는 산입니다. 산림청 등산로 자료와 산정보 서비스를 함께 보았습니다. 1km 안은 근처, 그보다 멀면 인근으로 보고 거리를 적었습니다. '
                         '가까운 순이고, 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
                         "".join(_near_li(d_, m) for d_, m in _nm) + "</ul></section>")
     rows = ""
@@ -893,14 +927,17 @@ def course_page(c):
             faq.append((f"{_ft}에서 {nm}보다 쉬운 코스는 어디인가요?",
                         "칼랭크 난이도 점수로 " + ", ".join(f"{o['name']}({dg_of(o)[2]}, {course_stats(o)[0]:.1f}km)" for o in _easy) + "가 더 쉽습니다."))
     elif _nm:
-        faq.append((f"{nm} 근처·인근에 있는 산은 어디인가요?", "경로 3km 안에 산림청 등산로가 지나는 산은 " + ", ".join(m["name"] + "(" + _mt_dist(d_) + ")" for d_, m in _nm[:3]) + "입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다."))
+        faq.append((f"{nm} 근처·인근에 있는 산은 어디인가요?", "경로 3km 안에 있는 산은 " + ", ".join(m["name"] + "(" + _mt_dist(d_) + ")" for d_, m in _nm[:3]) + "입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다."))
     if off.get("level"):
         faq.append((f"{nm}의 두루누비 난이도는 몇 단계인가요?", f"두루누비는 이 코스를 {off['level']}단계(1~3단계 중)로 적었습니다. 칼랭크 난이도 \"{dg_name}\"은 거리와 오르막으로 따로 계산한 값이라 두 표기가 다를 수 있습니다."))
     base = nm if (nm.endswith("코스") or _ft) else nm + " 코스"
     # 제목은 "산 이름 + 근처 + 코스 이름" 순서로 쓴다. 해파랑길·남파랑길 같은 코스 이름은
     # 일반인이 검색하지 않고 "OO산 근처", "강릉 걷기" 처럼 산·동네 이름으로 찾기 때문이다.
-    _mt1 = _nm[0][1]["name"] if _nm and _nm[0][1]["name"] not in nm else ""
-    _mtw = f"{_mt1} {_near_word(_nm[0][0])} " if _mt1 else ""
+    # 이름만 있는 작은 산(좌표 한 점)은 본문에만 쓴다. 제목에 넣으면 지역명을 밀어내는데
+    # 그 이름으로 검색하는 사람은 거의 없고, 좌표도 근사값이다.
+    _tn = [h for h in _nm if not h[1].get("point")]
+    _mt1 = _tn[0][1]["name"] if _tn and _tn[0][1]["name"] not in nm else ""
+    _mtw = f"{_mt1} {_near_word(_tn[0][0])} " if _mt1 else ""
     _rg = " ".join(region.split()[:2])
     _rgw = (_rg + " ") if (_rg and not _mt1 and _rg not in nm) else ""
     h1 = f"{_mtw}{base} 난이도와 오르막"
