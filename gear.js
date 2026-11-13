@@ -389,7 +389,7 @@
         (hasStaticBody() ? "" : evidenceCard(e.evidence)) + "</section>";
     }
     var r = e.range, ns = e.evidence.significant === false;
-    var dirWord = e.direction === "worse" ? "나빠집니다" : "좋아집니다";
+    var dirWord = e.verb || (e.direction === "worse" ? "나빠집니다" : "좋아집니다");
     var headline = ns ? "0 ~ " + r.hi.toFixed(1) + "%"
                       : r.lo.toFixed(1) + " ~ " + r.hi.toFixed(1) + "%";
 
@@ -482,7 +482,7 @@
     if (res.speedKmh && CLAIM.condition === "speed_kmh") {
       head = '<p class="ge-cond">내 페이스 <b>' + clock(res.paceSecPerKm) + "/km</b> · " +
              res.speedKmh.toFixed(1) + unit + "</p>";
-    } else if (isFinite(res.conditionValue)) {
+    } else if (typeof res.conditionValue === "number" && isFinite(res.conditionValue)) {
       head = '<p class="ge-cond">' + esc(CLAIM.condition_label) + " <b>" +
              res.conditionValue + unit + "</b></p>";
     }
@@ -526,7 +526,14 @@
       return;
     }
 
-    if (!speed) {
+    // 모든 조건에 같은 값을 적은 주장(예: 신발 돌려 신기)은 조건칸이 필요 없다.
+    var condFree = CLAIM.effects.every(function (e) {
+      return (e.evidence || []).every(function (ev) {
+        var r = ev.applies && ev.applies[CLAIM.condition];
+        return r && r[0] === null && r[1] === null;
+      });
+    });
+    if (!speed && !condFree) {
       rows.push('<label for="geCond">' + esc(CLAIM.condition_label) + "</label>" +
         '<input id="geCond" type="number" step="1" value="10">');
     }

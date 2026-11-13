@@ -561,6 +561,104 @@ def map_block(data, legend=""):
             f'<script type="application/json" id="mapData">{j}</script></section>')
 
 
+# ── 코스 × 장비: 이 코스의 경사 분포를 폴 연구의 경사 구간에 맞춰 본다 ──
+# 근거 숫자는 data/gear_claims.json(trail-poles)에서 읽는다. 여기에 숫자를 다시 적지 않는다.
+def _gear_claim(cid):
+    try:
+        for x in json.loads((ROOT / "data" / "gear_claims.json").read_text(encoding="utf-8"))["claims"]:
+            if x["id"] == cid:
+                return x
+    except Exception:
+        pass
+    return None
+
+
+def grade_shares(prof, win=200):
+    """고도 단면을 약 win m 창으로 다듬어 경사(%)별 거리 비율을 낸다. 다듬지 않으면 GPS 흔들림이 경사를 부풀린다."""
+    xs = [p_[0] for p_ in prof]; es = [p_[1] for p_ in prof]
+    n = len(xs)
+    if n < 6 or xs[-1] < 1000:
+        return None
+    gs = []
+    for i in range(n):
+        lo = i; hi = i
+        while lo > 0 and xs[i] - xs[lo] < win / 2: lo -= 1
+        while hi < n - 1 and xs[hi] - xs[i] < win / 2: hi += 1
+        if xs[hi] - xs[lo] >= win * 0.6:
+            gs.append((es[hi] - es[lo]) / (xs[hi] - xs[lo]) * 100)
+    if not gs:
+        return None
+    m = len(gs)
+    return {"lt5": sum(1 for g in gs if g < 5) / m, "mid": sum(1 for g in gs if 5 <= g < 20) / m,
+            "ge20": sum(1 for g in gs if g >= 20) / m, "ge28": sum(1 for g in gs if g >= 28) / m, "down10": sum(1 for g in gs if g <= -10) / m,
+            "max_up": max(gs), "max_down": -min(gs)}
+
+
+def course_gear_html(c, km):
+    """폴 연구(Saller 2023 종설, Giovanelli 2019 실험)가 말하는 경사 구간에 이 코스를 올려 본다."""
+    cl = _gear_claim("trail-poles")
+    sh = grade_shares(c["profile"])
+    if not cl or not sh:
+        return ""
+    ox = [e for e in cl["effects"] if e["id"] == "oxygen_cost"][0]
+    ev = {tuple(e["applies"]["gradient_pct"]): e for e in ox["evidence"]}
+    low = ev.get((None, 5)); mid = ev.get((5, 20)); high = ev.get((20, None))
+    if not (low and mid and high):
+        return ""
+    pct = lambda v: f"{v * 100:.0f}%" if v >= 0.005 else "1% 미만"
+    rows = [("5% 미만 (평지·완만)", pct(sh["lt5"]), f"산소 소모가 늘었다는 보고 · 근거 {low['grade']}"),
+            ("5~20%", pct(sh["mid"]), f"차이가 분명하지 않음 · 근거 {mid['grade']}"),
+            ("20% 이상", pct(sh["ge20"]), f"약 47~73%의 아주 가파른 구간에서만 소모가 줄었다는 보고 · 근거 {high['grade']}")]
+    tr = "".join(f"<li><b>경사 {a} · 이 코스의 {b}</b><br>{d}</li>" for a, b, d in rows)
+    if sh["ge20"] < 0.01:
+        verdict = (f"이 코스에는 폴이 에너지를 줄인다는 근거가 있는 가파른 구간이 사실상 없습니다. "
+                   f"200m 구간 평균으로 가장 가파른 곳이 약 {sh['max_up']:.0f}%입니다. 연구에서 에너지 절감은 경사 약 47~73%(25~36도)의 아주 가파른 구간에서만 보고됐습니다.")
+    else:
+        verdict = (f"경사 20% 이상인 구간이 전체의 {pct(sh['ge20'])}({km * sh['ge20']:.1f}km쯤) 있습니다. "
+                   f"다만 연구가 에너지 절감을 확인한 것은 이보다 훨씬 가파른 약 47~73% 구간뿐이라, 이 코스의 가파른 구간에서 폴이 에너지를 줄여 주는지는 아직 알 수 없습니다.")
+        if sh["ge28"] >= 0.005:
+            verdict += (f" 경사 약 28%(15.5도) 이상인 구간은 {pct(sh['ge28'])}입니다. 산악 러너 14명의 실험에서 이 정도 경사부터는 힘들다고 느끼는 정도(RPE)가 "
+                        f"14~19% 낮아졌다고 보고됐습니다.")
+    down = ""
+    if sh["down10"] >= 0.03:
+        down = (f" 내리막이 가파른 구간(경사 -10% 이하)은 전체의 {pct(sh['down10'])}입니다. 폴이 다리에 걸리는 힘을 평균 11% 줄였다는 보고가 있어 "
+                f"이 구간에서는 에너지보다 다리 부담 쪽 이점을 기대할 수 있습니다(근거 C, 연구마다 측정 방식이 다름).")
+    return ('<section class="tp-sec"><h2 class="tp-h2">이 코스에 폴이 필요할까</h2>'
+            f'<p class="tp-p">{esc(verdict)}{esc(down)}</p>'
+            f'<ul class="cp-list">{tr}</ul>'
+            '<p class="tp-small">경사는 약 200m 구간으로 다듬은 평균입니다. 폴 연구는 대부분 참가자 9~29명의 소규모 실험이라 근거 등급은 C입니다. '
+            'Saller 외(2023, Bioengineering 10:497) 종설과 Giovanelli 외(2019, Eur J Appl Physiol 119:1557)를 바탕으로 했고, '
+            '<a href="gear-trail-poles-by-gradient.html">경사별 폴 효과</a>에 근거와 한계를 정리했습니다.</p></section>')
+
+
+def course_fuel_html(c, hours):
+    """걸리는 시간에 맞는 탄수화물 섭취 범위. Burke 2011(IOC 합의문)과 Jeukendrup 2014의 초록에 적힌 수치만 쓴다."""
+    if not hours or hours < 0.5:
+        return ""
+    h = f"{hours:.1f}".rstrip("0").rstrip(".")
+    if hours <= 1.1:
+        body = (f"예상 소요시간은 약 {h}시간입니다. 1시간 안팎의 운동에서는 탄수화물을 많이 먹는 것보다 소량을 먹거나 입을 헹구는 것만으로도 "
+                f"수행에 도움이 된다고 보고됩니다. 먹는 양보다 출발 전 준비가 중요한 시간대입니다.")
+        rng = ""
+    elif hours <= 2.5:
+        lo, hi = round(30 * hours), round(60 * hours)
+        body = (f"예상 소요시간은 약 {h}시간입니다. 이보다 긴 운동에서는 시간당 30~60g이 적절한 목표로 제시됩니다. "
+                f"이 코스에 대입하면 걷는 동안 탄수화물을 대략 {lo}~{hi}g 먹는 계산입니다.")
+        rng = ""
+    else:
+        lo, hi = round(30 * hours), round(60 * hours)
+        body = (f"예상 소요시간은 약 {h}시간입니다. 시간당 30~60g이 목표로 제시되고, 2.5시간을 넘는 운동에서는 최대 90g까지 도움이 될 수 있다고 합니다. "
+                f"30~60g 기준으로 대입하면 이 코스에서 대략 {lo}~{hi}g입니다. 시간당 60g을 넘기려면 서로 다른 종류의 탄수화물을 섞은 제품이 흡수에 유리하다고 합니다.")
+    wp = (c.get("waypoints") or {}).get("counts") or {}
+    water = wp.get("약수터·샘터")
+    water_txt = (f" 자료에 찍힌 지점 가운데 경로에서 80m 안에 약수터·샘터가 {water}곳 있습니다. 마실 수 있는 물인지는 확인된 것이 아니니 물은 넉넉히 챙기세요."
+                 if water else "")
+    return ('<section class="tp-sec"><h2 class="tp-h2">이 코스의 보급 가늠</h2>'
+            f'<p class="tp-p">{esc(body)}{esc(water_txt)}</p>'
+            '<p class="tp-small">소요시간은 두루누비 표기 시간(없으면 고도 단면으로 가늠한 걷는 시간)입니다. 이 권고는 지구력 운동 기준이라 천천히 걷는 낮은 강도에서는 낮춰도 된다고 하며(Jeukendrup 2014), 개인에 맞춰 조정하는 것을 전제로 합니다. 의학적 조언이 아닙니다. '
+            'Burke 외(2011, J Sports Sci 29 Suppl 1:S17-27, 국제올림픽위원회 합의문)와 Jeukendrup(2014, Sports Med 44 Suppl 1:S25-33)을 바탕으로 했습니다.</p></section>')
+
+
 def course_page(c):
     cid = c["id"]; slug = f"course-{cid}.html"
     prof = c["profile"]
@@ -611,6 +709,7 @@ def course_page(c):
                 f"7% 넘게 가파른 구간은 모두 합쳐 {steep_km:.1f}km입니다.")
         if wt:
             lead += f" 걸어서 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))} 정도로 가늠합니다."
+    _fuel_h = (off.get("min") / 60.0) if off.get("min") else ((sum(wt) / len(wt) / 60.0) if wt else None)
     dg_score, dg_i, dg_name = diff_grade(km, gain)
     ke, ke_pts = km_effort(km, gain)
     stat_rows = [("칼랭크 난이도", f"{dg_name} (점수 {dg_score:.0f})"), ("Km-effort(ITRA식)", f"{ke:.0f} (0~6점 중 {ke_pts}점)"), ("거리", f"{km:.1f} km"), ("누적 오르막", f"{gain:.0f} m"), ("누적 내리막", f"{loss:.0f} m"),
@@ -712,6 +811,8 @@ def course_page(c):
 <section class="tp-sec">{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
 {notable}
+{course_gear_html(c, km)}
+{course_fuel_html(c, _fuel_h)}
 {ft_extra}
 {map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">

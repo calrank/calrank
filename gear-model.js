@@ -220,6 +220,7 @@
       var row = {
         id: eff.id, label: eff.label, detail: eff.detail,
         direction: eff.direction || "better",
+        verb: eff.verb || null,
         evidence: ev, hasEvidence: !!ev
       };
       // 모델로 계산하는 효과. 보고된 숫자를 옮기는 대신 식을 돌린다.

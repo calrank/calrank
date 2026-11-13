@@ -135,6 +135,22 @@
     fetch("data/gear_rules.json").then(function (r) { return r.json(); }).then(function (d) {
       DATA = d; renderChanges(); render();
     }).catch(function () { $("kitList").innerHTML = '<p class="tp-p">규정 자료를 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.</p>'; });
+    $("kitCopy").addEventListener("click", function () {
+      var lines = [];
+      [].forEach.call(document.querySelectorAll(".kit-item"), function (el) {
+        var v = el.querySelector("input").value;
+        if (v === "") return;
+        var out = el.querySelector(".kit-v");
+        var st = out ? (out.classList.contains("fail") ? "기준 밖" : out.classList.contains("pass") ? "통과" : "") : "";
+        lines.push(el.querySelector(".kit-name").textContent + " " + v + el.querySelector(".kit-unit").textContent + (st ? " — " + st : ""));
+      });
+      var msg = $("kitCopyMsg");
+      if (!lines.length) { msg.textContent = "복사할 수치가 아직 없습니다."; return; }
+      var text = "내 장비 점검 (칼랭크 · 연맹 규정 기준)\n" + lines.join("\n") + "\n" + location.href.split("#")[0];
+      var done = function (ok) { msg.textContent = ok ? "복사했습니다." : "복사하지 못했습니다. 직접 선택해 복사해 주세요."; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
     $("kitClear").addEventListener("click", function () {
       if (!confirm("이 기기에 저장된 장비 수치를 모두 지울까요?")) return;
       var kit = L.kit(); Object.keys(kit).forEach(function (k) { L.setKit(k, null); }); render();

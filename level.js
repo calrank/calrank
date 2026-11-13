@@ -1115,7 +1115,7 @@ function giveMini(inputs) {
   <div class="lv-gm" id="lvGiveMini">
     <p class="lv-gm-ask">방금 등급은 <b>세계 기준</b>으로 매긴 것입니다.
     국내에서 어디쯤인지는 아무도 공개하지 않아서, 여기서 직접 모으는 중이에요.
-    한 줄 보태 주시겠어요?</p>
+    한 줄 보태 주시겠어요? <a href="distribution.html">얼마나 모였는지 보기</a></p>
     <p class="lv-prog" id="lvProgMini"></p>
     <label class="lv-gm-ck">
       <input type="checkbox" id="lvConsentMini">

@@ -258,3 +258,4 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .mn-import-t { font-size: 14px; color: var(--ink-soft); flex: 1 1 200px; }
 .mn-file { position: relative; display: inline-flex; align-items: center; overflow: hidden; border-radius: 10px; }
 .mn-file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+.kit-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
