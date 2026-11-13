@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -23,6 +24,8 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data/mountain_names.json"
 CACHE = ROOT / "data/mountain_geocache.json"
 KEY = os.environ.get("DATA_GO_KR_KEY", "").strip()
+# 시크릿에 인코딩된 키(%3D%3D 포함)를 넣어 둔 경우가 많다. 한 번 풀고 다시 인코딩해서 이중 인코딩을 막는다.
+KEY = urllib.parse.unquote(KEY)
 LIMIT = int(os.environ.get("LIMIT") or 0)
 SKIP_GEO = os.environ.get("SKIP_GEO") == "1"
 
@@ -59,6 +62,14 @@ def fetch_list():
         url = f"{BASE}/{op}?serviceKey={q}&pageNo=1&numOfRows=100"
         try:
             text = get(url)
+        except urllib.error.HTTPError as e:
+            body = ""
+            try:
+                body = e.read().decode("utf-8", "replace")[:300]
+            except Exception:  # noqa: BLE001
+                pass
+            print(f"[{op}] HTTP {e.code}: {safe(body)}")
+            continue
         except Exception as e:  # noqa: BLE001
             print(f"[{op}] 요청 실패: {safe(str(e))}")
             continue
