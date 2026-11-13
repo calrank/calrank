@@ -806,9 +806,11 @@ async function loadEventRatings() {
 async function init() {
   setupModal();
   try {
+    // 두 파일을 동시에 요청한다. 예전에는 일정을 다 받은 뒤에야 평가 파일을 요청했다.
+    const ratingsReq = loadEventRatings();
     const res = await fetch("events.json");
     state.events = await res.json();
-    await loadEventRatings();
+    await ratingsReq;
     injectEventSchema(state.events);
 
     const urlParams = new URLSearchParams(location.search);

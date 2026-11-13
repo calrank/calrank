@@ -515,7 +515,7 @@ function ensureSupabase() {
   if (!_sbJs) {
     _sbJs = new Promise((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js";
       s.onload = resolve;
       s.onerror = () => { _sbJs = null; reject(new Error("supabase")); };
       document.head.appendChild(s);

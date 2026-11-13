@@ -156,7 +156,9 @@ def main():
             "disclaimer": DISCLAIMER,
         }
 
-    save_json("event_ratings.json", ratings)
+    # 홈 화면이 열릴 때마다 통째로 내려받는 파일이라 들여쓰기를 뺀다 (약 2.0MB → 1.3MB).
+    (ROOT / "event_ratings.json").write_text(
+        json.dumps(ratings, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"Computed scale index for {len(ratings)} events.")
 
 

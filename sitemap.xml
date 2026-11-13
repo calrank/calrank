@@ -104,7 +104,13 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/about.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://calrank.vercel.app/editorial.html</loc>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
