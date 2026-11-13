@@ -24,7 +24,7 @@
       msg.textContent = s === "want" ? "가 보고 싶은 곳에 담았어요. 트레일루트 목록에서 모아 볼 수 있어요."
         : s === "done" ? "다녀온 곳으로 표시했어요." : "표시는 이 기기에만 저장되고 서버로 보내지 않아요.";
     };
-    box.appendChild(row); box.appendChild(msg); paint();
+    box.appendChild(row); box.appendChild(msg); var paint0 = paint; paint = function () { paint0(); if (typeof drawProgs === "function") drawProgs(); }; paint();
 
     // 오프라인 저장: 연결이 약한 산에 들어가기 전에 이 페이지와 쓰는 파일을 서비스 워커 저장소에 미리 받아 둔다.
     // 지도 타일 같은 외부 이미지는 저장되지 않고, 글·숫자·경사 단면도는 저장된다.
@@ -53,6 +53,58 @@
       var orow = el("p"); orow.appendChild(ob); box.appendChild(orow); box.appendChild(om);
     }
   }
+
+  // 카드 한 장을 공유하거나 저장한다. 공유창이 없는 기기에서는 파일로 내려받는다.
+  function shareCard(data, fname, btn) {
+    btn.disabled = true;
+    var ready = window.CalrankTrailCard ? Promise.resolve() : new Promise(function (ok, no) {
+      var sc = document.createElement("script"); sc.src = "trail-card.js"; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc);
+    });
+    ready.then(function () { return window.CalrankTrailCard.build(data); }).then(function (blob) {
+      var f = new File([blob], fname, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [f] })) return navigator.share({ files: [f] }).catch(function () {});
+      var u = URL.createObjectURL(blob), a3 = document.createElement("a"); a3.href = u; a3.download = fname;
+      document.body.appendChild(a3); a3.click(); document.body.removeChild(a3); setTimeout(function () { URL.revokeObjectURL(u); }, 1000);
+    }).catch(function () {}).then(function () { btn.disabled = false; });
+  }
+
+  // 길 하나를 얼마나 걸었는지. 칸 수는 페이지가 적어 두고, 채우는 건 이 기기 안의 '다녀왔어요' 표시다.
+  var progs = [].slice.call(document.querySelectorAll(".tr-prog"));
+  var drawProgs = function () {
+    var done = {}; L.trails().forEach(function (x) { if (x.state === "done") done[x.href] = 1; });
+    progs.forEach(function (sec) {
+      var hs = (sec.getAttribute("data-hrefs") || "").split(",").filter(Boolean);
+      var kms = (sec.getAttribute("data-km") || "").split(",").map(parseFloat);
+      var n = hs.length; if (!n) return;
+      var d = 0, dk = 0, tk = 0;
+      hs.forEach(function (h, i) { var k = kms[i] || 0; tk += k; if (done[h]) { d++; dk += k; } });
+      var name = sec.getAttribute("data-name"), link = sec.getAttribute("data-link");
+      var box = sec.querySelector(".tr-prog-b"); if (!box) return;
+      box.textContent = "";
+      var pct = Math.round(d / n * 100);
+      var big = el("p", "tr-prog-n"); big.appendChild(el("b", "", d + " / " + n)); big.appendChild(document.createTextNode(" 코스 다녀왔어요"));
+      box.appendChild(big);
+      var bar = el("div", "tr-prog-bar"); bar.setAttribute("role", "progressbar"); bar.setAttribute("aria-valuemin", "0"); bar.setAttribute("aria-valuemax", String(n)); bar.setAttribute("aria-valuenow", String(d)); bar.setAttribute("aria-label", name + " 완주 진행");
+      var fill = el("i"); fill.style.width = pct + "%"; bar.appendChild(fill); box.appendChild(bar);
+      var msg = d === n ? name + "을(를) 모두 다녀왔어요. 완주를 축하드려요."
+        : d === 0 ? "코스 페이지에서 '다녀왔어요'를 누르면 이곳이 채워져요."
+        : "걸은 거리 " + dk.toFixed(1) + "km · 남은 코스 " + (n - d) + "개 (" + (tk - dk).toFixed(1) + "km)";
+      box.appendChild(el("p", "tp-small", msg));
+      if (d > 0) {
+        var gains = (sec.getAttribute("data-gain") || "").split(",").map(parseFloat);
+        var names = (sec.getAttribute("data-names") || "").split("|");
+        var dg = 0, dn2 = [];
+        hs.forEach(function (h, i) { if (done[h]) { dg += gains[i] || 0; dn2.push(names[i]); } });
+        var cbtn = el("button", "tp-btn ghost", "완주판 카드 저장"); cbtn.type = "button";
+        cbtn.addEventListener("click", function () {
+          shareCard({ title: name + " 완주판", n: d, total: n, km: dk, gain: dg, date: L.today(), names: dn2.reverse() }, "calrank-" + name + ".png", cbtn);
+        });
+        var cp = el("p"); cp.appendChild(cbtn); box.appendChild(cp);
+      }
+      if (link && location.pathname.split("/").pop() !== link) { var a = el("a", "", name + " 코스 모음 보기"); a.href = link; var pp = el("p", "tp-small"); pp.appendChild(a); box.appendChild(pp); }
+    });
+  };
+  if (progs.length) drawProgs();
 
   var mine = document.getElementById("trMine");
   if (mine) {

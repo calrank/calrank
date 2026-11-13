@@ -259,3 +259,8 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .mn-file { position: relative; display: inline-flex; align-items: center; overflow: hidden; border-radius: 10px; }
 .mn-file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
 .kit-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.tr-prog-n { margin: 0 0 8px; font-size: 15px; color: var(--ink-soft); }
+.tr-prog-n b { font-size: 24px; font-weight: 800; color: var(--ink); }
+.tr-prog-bar { height: 10px; border-radius: 999px; background: var(--line); overflow: hidden; margin: 0 0 10px; }
+.tr-prog-bar i { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
+.cv-scroll { overflow-x: auto; }

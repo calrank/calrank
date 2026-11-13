@@ -52,21 +52,9 @@ margin-left:4px;vertical-align:middle;letter-spacing:0.3px;
 font-size:13.5px;color:var(--ink-faint);margin:0 0 16px;line-height:1.6;
 }
 
-/* 체력등급 확인 CTA 배너 */
-.level-cta-banner{
-display:flex;align-items:center;justify-content:space-between;
-background:var(--surface);border:1px solid var(--border);border-radius:2px;
-padding:14px 18px;margin:20px 0;text-decoration:none;
-transition:border-color 0.15s;
-}
-.level-cta-banner:hover{border-color:var(--accent);}
-.level-cta-text{font-size:14.5px;color:var(--ink);font-weight:700;}
-.level-cta-arrow{font-size:16px;color:var(--accent-ink);flex-shrink:0;margin-left:12px;}
-
 @media (max-width:600px){
 .podium{grid-template-columns:1fr;}
 .podium-first{padding-top:20px;order:-1;}
-.level-cta-banner{flex-direction:column;align-items:flex-start;gap:6px;}
 }
 
 /* ===== 대회랭킹 고도화: 등록 유도 CTA + 챔피언 하이라이트 ===== */

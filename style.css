@@ -683,3 +683,51 @@ main details>summary:not([class]){padding-block:9px;cursor:pointer;}
 main p a:not([class]),main li a:not([class]),main td a:not([class]){color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
 main p a:not([class]):hover,main li a:not([class]):hover,main td a:not([class]):hover{text-decoration-thickness:2px;}
 .modal-apply-btn{text-align:center;}
+
+/* ── 카드 표면: 아주 연한 파스텔 + 살짝 뜬 느낌 ─────────────────────────────
+   흰 상자가 줄지어 있으면 어디까지가 한 칸인지 눈에 안 들어오고, 기계가 찍은 것처럼 보인다.
+   그래서 옆에 붙은 카드끼리는 연한 색을 돌려 가며 구별하고(복숭아·연두·하늘·연보라),
+   혼자 있는 구획은 한 가지 색만 쓴다. 채도는 글자 대비(4.5:1)를 지키는 선까지만 낮췄다.
+   그림자는 한 겹은 가장자리, 한 겹은 아래로 퍼지는 아주 옅은 것 하나뿐이다.
+   바로 앞 규칙들은 페이지마다 따로 있어서, 여기서는 body 를 앞에 붙여 순서와 관계없이 이기게 했다. */
+:root{
+  --pt-peach:#FFF1E8; --pt-sage:#EDF6EE; --pt-sky:#EAF2FA; --pt-lilac:#F2EEFA; --pt-butter:#FBF5E1;
+  --pt-peach-lite:#FFF8F2; --pt-sky-lite:#F4F8FC; --pt-sage-lite:#F5FAF6;
+  --lift:0 1px 2px rgba(80,50,30,.05),0 8px 18px -12px rgba(80,50,30,.24);
+  --lift-hover:0 1px 2px rgba(80,50,30,.06),0 12px 22px -12px rgba(80,50,30,.30);
+  --sheen:linear-gradient(180deg,rgb(255 255 255 / .65),rgb(255 255 255 / 0) 60%);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --pt-peach:#221915; --pt-sage:#151F18; --pt-sky:#141C26; --pt-lilac:#1B1724; --pt-butter:#211D12;
+    --pt-peach-lite:#1B1613; --pt-sky-lite:#121921; --pt-sage-lite:#121A15;
+    --lift:0 0 0 rgba(0,0,0,0); --lift-hover:0 0 0 rgba(0,0,0,0);
+    --sheen:linear-gradient(180deg,rgb(255 255 255 / .035),rgb(255 255 255 / 0) 60%);
+  }
+}
+/* 옆에 붙은 카드: 네 가지를 돌려 쓴다 */
+body .tp .cp-list a.cp-row, body .gh-item, body .dq-card, body .dq-link, body .g-card, body .g-sib, body .g-rel,
+body .g-pn-a, body .rw-city, body .champion-card, body .tier-card{
+  background-color:var(--pt-peach); background-image:var(--sheen); box-shadow:var(--lift);
+}
+body .tp .cp-list > li:nth-child(4n+2) a.cp-row, body .tp .cp-list a.cp-row:nth-child(4n+2),
+body .gh-item:nth-of-type(4n+2), body .dq-card:nth-of-type(4n+2), body .dq-link:nth-of-type(4n+2),
+body .g-card:nth-child(4n+2), body .g-sib:nth-child(4n+2), body .g-rel:nth-child(4n+2), body .rw-city:nth-of-type(4n+2),
+body .champion-card:nth-child(4n+2), body .tier-card:nth-child(4n+2){ background-color:var(--pt-sage); }
+body .tp .cp-list > li:nth-child(4n+3) a.cp-row, body .tp .cp-list a.cp-row:nth-child(4n+3),
+body .gh-item:nth-of-type(4n+3), body .dq-card:nth-of-type(4n+3), body .dq-link:nth-of-type(4n+3),
+body .g-card:nth-child(4n+3), body .g-sib:nth-child(4n+3), body .g-rel:nth-child(4n+3), body .rw-city:nth-of-type(4n+3),
+body .champion-card:nth-child(4n+3), body .tier-card:nth-child(4n+3){ background-color:var(--pt-sky); }
+body .tp .cp-list > li:nth-child(4n+4) a.cp-row, body .tp .cp-list a.cp-row:nth-child(4n+4),
+body .gh-item:nth-of-type(4n+4), body .dq-card:nth-of-type(4n+4), body .dq-link:nth-of-type(4n+4),
+body .g-card:nth-child(4n+4), body .g-sib:nth-child(4n+4), body .g-rel:nth-child(4n+4), body .rw-city:nth-of-type(4n+4),
+body .champion-card:nth-child(4n+4), body .tier-card:nth-child(4n+4){ background-color:var(--pt-lilac); }
+body .tp .cp-list a.cp-row:hover, body .gh-item:hover, body .dq-link:hover, body .g-card:hover, body .g-sib:hover,
+body .g-rel:hover, body .g-pn-a:hover, body .champion-card:hover{ box-shadow:var(--lift-hover); border-color:var(--accent); }
+/* 혼자 있는 구획: 한 가지 색 */
+body .tp-card, body .mn{ background-color:var(--pt-peach-lite); background-image:var(--sheen); box-shadow:var(--lift); }
+body .gv, body .ge-eff, body .gi-form, body .g-series, body .g-toc, body .scale-index-box{ background-color:var(--pt-sky-lite); background-image:var(--sheen); box-shadow:var(--lift); }
+body .mn{ background-color:var(--pt-sage-lite); }
+/* 알약(칩): 하늘색 한 가지, 눌리는 곳이라 살짝만 뜬다 */
+body .gr-switch a:not(.on){ background-color:var(--pt-sky); box-shadow:0 1px 1px rgba(80,50,30,.06); border-color:transparent; }
+body .gr-switch a:not(.on):hover{ box-shadow:var(--lift); border-color:var(--accent); }

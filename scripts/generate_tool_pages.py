@@ -222,6 +222,7 @@ def esc(s):
 
 import sys as _s; _s.path.insert(0, str(ROOT / "scripts"))
 from gear_images import commons_fig
+import course_insights
 FIG = {"tr-safety": commons_fig("ccc-gear", "dq-fig"), "wa-stack": commons_fig("shoe-section", "dq-fig"), "uci-setback": commons_fig("uci-saddle", "dq-fig"), "wt-helmet": commons_fig("tri-helmet", "dq-fig"), "wt-draft-zone": commons_fig("tri-draft", "dq-fig"), "wt-bib": commons_fig("tri-bib", "dq-fig")}
 
 
@@ -393,7 +394,18 @@ def _mt_label(m):
     return f'{m["name"]}' + (f' ({r[1]})' if len(r) > 1 else "")
 
 
-COURSE_NEAR, MT_NEAR_COURSES = _link_courses_mountains(COURSES, _mt_raw())
+# 1km 안은 "근처", 3km까지는 거리를 적어 "인근"으로 쓴다. 산 이름으로 찾는 사람이 많아서
+# 범위를 넓히되, 멀수록 거리를 숫자로 보여 같은 길이라는 인상을 주지 않는다.
+NEAR_KM, WIDE_KM = 1.0, 3.0
+COURSE_NEAR, MT_NEAR_COURSES = _link_courses_mountains(COURSES, _mt_raw(), radius_km=WIDE_KM)
+
+
+def _mt_dist(d_):
+    return f"약 {max(d_ * 1000, 10):.0f}m" if d_ < 1.0 else f"약 {d_:.1f}km"
+
+
+def _near_word(d_):
+    return "근처" if d_ <= NEAR_KM else "인근"
 
 
 def _near_li(d_, m):
@@ -402,13 +414,15 @@ def _near_li(d_, m):
     hi = max(max(x["startM"], x["endM"]) for x in S)
     steep = sum(x["lenM"] for x in S if abs(x["meanGrade"]) >= 15) / 1000
     steep_txt = f"평균 경사 15%를 넘는 구간이 {steep:.1f}km 있습니다." if steep >= 0.1 else "평균 경사 15%를 넘는 구간은 거의 없습니다."
-    return (f'<li><a href="mountain-{m["id"]}.html">{esc(_mt_label(m))}</a> <span class="tp-small">경로에서 약 {max(d_*1000, 10):.0f}m</span><br>'
+    return (f'<li><a href="mountain-{m["id"]}.html">{esc(_mt_label(m))}</a> <span class="tp-small">경로에서 {_mt_dist(d_)}</span><br>'
             f'<span class="tp-small">산림청 등산로 구간 {len(S)}개, 합계 {tot:.1f}km, 구간 최고 해발 약 {hi:.0f}m. {steep_txt}</span></li>')
 
 
 def _near_txt(c):
     h = COURSE_NEAR.get(c["id"])
-    return (" · 근처 산 " + ", ".join(esc(m["name"]) for _, m in h[:3])) if h else ""
+    if not h:
+        return ""
+    return " · " + _near_word(h[0][0]) + " 산 " + ", ".join(esc(m["name"]) for _, m in h[:3])
 TECH = [
     (1, "넓고 평탄한 길", "임도나 포장길처럼 폭이 넓고 노면이 고릅니다."),
     (2, "정리된 산길", "잔돌이나 작은 계단이 있지만 걸음을 크게 바꾸지 않아도 됩니다."),
@@ -488,6 +502,16 @@ ROUTES = {"해파랑길": ("haeparang", "동해안을 따라 부산에서 고성
 SIDO = {"강원": "gangwon", "경기": "gyeonggi", "경남": "gyeongnam", "경북": "gyeongbuk", "부산": "busan", "서울": "seoul",
         "울산": "ulsan", "인천": "incheon", "전남": "jeonnam", "전북": "jeonbuk", "충남": "chungnam", "충북": "chungbuk",
         "대구": "daegu", "광주": "gwangju", "대전": "daejeon", "세종": "sejong", "제주": "jeju"}
+
+
+def _prog_sec(label, cs, href=""):
+    """길 하나의 완주판. 칸 수만 적어 두고 채우는 건 trail-mark.js 가 이 기기 안에서 한다."""
+    hs = ",".join(f"course-{x['id']}.html" for x in cs)
+    kms = ",".join(f"{course_stats(x)[0]:.2f}" for x in cs)
+    gs = ",".join(f"{course_stats(x)[1]:.0f}" for x in cs)
+    ns = "|".join(x["name"].replace("|", " ") for x in cs)
+    return (f'<section class="tp-sec tr-prog" data-name="{esc(label)}" data-hrefs="{hs}" data-km="{kms}" data-gain="{gs}" data-names="{esc(ns)}" data-link="{esc(href)}">'
+            f'<h2 class="tp-h2">내 {esc(label)} 완주판</h2><div class="tr-prog-b"></div></section>')
 
 
 def route_of(c):
@@ -679,7 +703,7 @@ def course_page(c):
     _nm = COURSE_NEAR.get(cid, [])
     mt_near_html = ""
     if _nm:
-        mt_near_html = ('<section class="tp-sec"><h2 class="tp-h2">근처 산</h2><p class="tp-p">이 코스 경로 가까이에 산림청 등산로가 지나는 산입니다. '
+        mt_near_html = ('<section class="tp-sec"><h2 class="tp-h2">근처·인근 산</h2><p class="tp-p">이 코스 경로 3km 안에 산림청 등산로가 지나는 산입니다. 1km 안은 근처, 그보다 멀면 인근으로 보고 거리를 적었습니다. '
                         '가까운 순이고, 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
                         "".join(_near_li(d_, m) for d_, m in _nm) + "</ul></section>")
     rows = ""
@@ -757,6 +781,11 @@ def course_page(c):
     rel = ""
     _lk = []
     _r = route_of(c)
+    _pg = _sib if _ft else ([o for o in COURSES if route_of(o) == _r] if _r else [])
+    _prog_html = _prog_sec(_ft or _r, _pg, (f"trailroute-{ROUTES[_r][0]}.html" if _r else "")) if len(_pg) >= 3 else ""
+    _ins_html = course_insights.build(
+        c, course_stats(c), (_fuel_h * 60 if _fuel_h else None), _pg, (_ft or _r),
+        course_stats, lambda g: f"course-{g['id']}.html")
     if _r:
         _lk.append(f'<li><a href="trailroute-{ROUTES[_r][0]}.html">{esc(_r)} 코스 모음</a></li>')
     _s = sido_of(c)
@@ -813,6 +842,7 @@ def course_page(c):
 {notable}
 {course_gear_html(c, km)}
 {course_fuel_html(c, _fuel_h)}
+{_ins_html}
 {ft_extra}
 {map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
@@ -829,6 +859,7 @@ def course_page(c):
 <section class="tp-sec"><h2 class="tp-h2">현장 확인표</h2><p class="tp-p">확인한 항목만 내용과 확인한 날을 적었습니다. 확인하지 못한 항목은 미확인으로 두었습니다.</p>{rows}</section>'''}
 {mt_near_html}
 <section class="tp-sec" id="trMark" data-href="course-{c["id"]}.html" data-name="{esc(c["name"])}" data-km="{km:.2f}" data-gain="{gain:.0f}"><h2 class="tp-h2">내 목록에 담기</h2></section>
+{_prog_html}
 {rel}
 <p class="tp-src">자료: {esc(s.get("label", ""))} — <a href="{esc(s.get("url", ""))}" rel="noopener" target="_blank">원문</a> ({esc(s.get("license", ""))}, {esc(s.get("fetched", ""))} 받음). 오르막·경사는 경로 파일의 고도로 칼랭크가 계산했습니다. <a href="trailroot.html">다른 코스 보기</a></p>
 <script type="application/json" id="cpData">{data}</script>"""
@@ -851,23 +882,26 @@ def course_page(c):
             faq.append((f"{_ft}에서 {nm}보다 쉬운 코스는 어디인가요?",
                         "칼랭크 난이도 점수로 " + ", ".join(f"{o['name']}({dg_of(o)[2]}, {course_stats(o)[0]:.1f}km)" for o in _easy) + "가 더 쉽습니다."))
     elif _nm:
-        faq.append((f"{nm} 근처에 있는 산은 어디인가요?", "경로 가까이를 지나는 산림청 등산로는 " + ", ".join(m["name"] for _, m in _nm[:3]) + "입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다."))
+        faq.append((f"{nm} 근처·인근에 있는 산은 어디인가요?", "경로 3km 안에 산림청 등산로가 지나는 산은 " + ", ".join(m["name"] + "(" + _mt_dist(d_) + ")" for d_, m in _nm[:3]) + "입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다."))
     if off.get("level"):
         faq.append((f"{nm}의 두루누비 난이도는 몇 단계인가요?", f"두루누비는 이 코스를 {off['level']}단계(1~3단계 중)로 적었습니다. 칼랭크 난이도 \"{dg_name}\"은 거리와 오르막으로 따로 계산한 값이라 두 표기가 다를 수 있습니다."))
     base = nm if (nm.endswith("코스") or _ft) else nm + " 코스"
-    h1 = f"{base} 난이도와 오르막"
+    # 제목은 "산 이름 + 근처 + 코스 이름" 순서로 쓴다. 해파랑길·남파랑길 같은 코스 이름은
+    # 일반인이 검색하지 않고 "OO산 근처", "강릉 걷기" 처럼 산·동네 이름으로 찾기 때문이다.
+    _mt1 = _nm[0][1]["name"] if _nm and _nm[0][1]["name"] not in nm else ""
+    _mtw = f"{_mt1} {_near_word(_nm[0][0])} " if _mt1 else ""
+    _rg = " ".join(region.split()[:2])
+    _rgw = (_rg + " ") if (_rg and not _mt1 and _rg not in nm) else ""
+    h1 = f"{_mtw}{base} 난이도와 오르막"
     if _ft:
         _cn = (c.get("waypoints") or {}).get("counts") or {}
         _fac = ", ".join(f"{k} {_cn[k]}곳" for k in ("화장실", "쉼터", "전망") if _cn.get(k))
         desc = (f'{nm} 난이도 {dg_name}, {km:.1f}km, 누적 오르막 {gain:.0f}m, 걷는 시간 약 {fmt_min(round(min(wt)))}~{fmt_min(round(max(wt)))}. '
-                f'{_ft} {len(_sib)}개 코스 중 어디쯤 가파른지, 경로 지도와 경사 색 단면도' + (f', {_fac}' if _fac else '') + '까지 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
+                f'{_ft} {len(_sib)}개 코스 중 어디쯤 가파른지, 경로 지도와 경사 색 단면도' + (f', {_fac}' if _fac else '') + '까지 정리했습니다.' + (f' {_near_word(_nm[0][0])} 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
     else:
-        desc = (f'{nm}{"(" + region + ")" if region else ""} 난이도 {dg_name}, {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' 근처 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
-    _tt = f"{nm} 난이도 {dg_name}·소요시간·오르막·지도"
-    if _ft:
-        _tt = f"{nm} 난이도 {dg_name}·거리·오르막·소요시간"
-    elif _nm:
-        _tt = f"{nm} ({_nm[0][1]['name']} 근처) 난이도 {dg_name}·소요시간"
+        desc = (f'{nm}{"(" + region + ")" if region else ""} 난이도 {dg_name}, {km:.1f}km, 누적 오르막 {gain:.0f}m. 경로 지도와 경사 색 단면도, 두루누비 표기 소요시간, 내 페이스로 걸리는 시간을 정리했습니다.' + (f' {_near_word(_nm[0][0])} 산: {", ".join(m["name"] for _, m in _nm[:3])}.' if _nm else ''))
+    desc = (_mtw + desc) if _mt1 else (_rgw + desc)
+    _tt = f"{_mtw}{_rgw}{nm} 난이도·소요시간·지도"
     return slug, page(slug, _tt, desc, h1,
                       f'{region + " · " if region else ""}{km:.1f}km · 오르막 {gain:.0f}m', body,
                       ["calrank-local.js", "trail-mark.js", "course.js", "course-page.js", "route-map.js"], faq, crumb=("트레일루트", "trailroot.html"),
@@ -1019,6 +1053,7 @@ def ft_group_page(slug, name, intro, cs):
     lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
             f"가장 긴 코스는 {nm_short(longest)}({st[longest['id']][0]:.1f}km)입니다. 1km당 오르막으로 가장 가파른 코스는 {nm_short(hard[0])}(약 {per(hard[0]):.0f}m), 가장 완만한 코스는 {nm_short(easy[0])}(약 {per(easy[0]):.0f}m)입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p></section>
+{_prog_sec(name, cs)}
 <section class="tp-sec"><h2 class="tp-h2">{esc(name)} 코스별 한눈에 보기</h2>{table}
 <p class="tp-small">걷는 시간은 Naismith 규칙과 Tobler 하이킹 함수 두 값의 범위로 가늠한 것이고 공식 시간이 아닙니다. 최고점은 고도 자료로 잰 코스 안의 가장 높은 곳입니다. 휴대폰 화면에서는 1km당 오르막, 최고점, 시설 열을 줄였고, 코스 이름을 누르면 모두 볼 수 있습니다. 시설은 자료에 찍힌 지점 중 경로에서 80m 안에 있는 것의 수이며, 자료에 시설 지점이 없는 길은 이 열을 두지 않았습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">처음이라면 완만한 코스부터</h2><ul class="cp-list">{lk(easy)}</ul>
@@ -1029,7 +1064,7 @@ def ft_group_page(slug, name, intro, cs):
            (f"{name}에서 초보가 걷기 좋은 코스는 어디인가요?", f"1km당 오르막이 가장 적은 {easy[0]['name']}(약 {per(easy[0]):.0f}m)부터 보시길 권합니다. 거리({st[easy[0]['id']][0]:.1f}km)도 함께 확인하세요."),
            (f"{name}은 전체 몇 km인가요?", f"칼랭크에 실린 {len(cs)}개 코스를 합치면 약 {km:.0f}km입니다. 코스가 겹치는 구간이 있으면 실제 길이와 다를 수 있습니다.")]
     return slug, page(slug, f"{name} 코스별 거리·오르막·난이도 정리", f"{name} {len(cs)}개 코스의 거리, 누적 오르막, 걷는 시간 가늠, 화장실·쉼터 수를 표로 모았습니다. 완만한 코스와 힘든 코스를 데이터로 나눠 보았습니다.",
-                      f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+                      f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, ["calrank-local.js", "trail-mark.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 def group_page(slug, name, intro, cs):
@@ -1055,12 +1090,13 @@ def group_page(slug, name, intro, cs):
             f"두루누비 난이도로는 1단계 {lv[1]}개, 2단계 {lv[2]}개, 3단계 {lv[3]}개입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p>
 <p class="tp-small">경로 파일의 거리가 공식 거리와 맞는 코스만 실었습니다. 빠진 코스는 아직 검증하지 못한 것입니다.</p></section>
+{_prog_sec(name, cs) if name in ROUTES else ""}
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 코스</h2><ul class="cp-list">{"".join(li(c) for c in hardest)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">전체 코스</h2><ul class="cp-list">{"".join(li(c) for c in sorted(cs, key=_num))}</ul></section>
 <p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API). 계산과 표시는 칼랭크가 했습니다. <a href="trailroot.html">전체 코스 보기</a></p>"""
     faq = [(f"{name}에서 오르막이 가장 많은 코스는 어디인가요?", f"1km당 오르막으로 보면 {hardest[0]['name']}({per(hardest[0]):.0f}m/km)가 가장 높습니다.")]
     return slug, page(slug, f"{name} 코스 모음 — 난이도와 오르막", f"{name}의 코스 {len(cs)}개: 거리, 누적 오르막, 난이도를 코스별로 정리했습니다. 코스마다 경로 지도와 경사 단면도가 있습니다.",
-                      f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, [], faq, crumb=("트레일루트", "trailroot.html"))
+                      f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, ["calrank-local.js", "trail-mark.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
 _groups = []
@@ -1269,7 +1305,7 @@ def mountain_page(m):
     mt_courses_html = ""
     if _cn:
         mt_courses_html = ('<section class="tp-sec"><h2 class="tp-h2">근처 걷기 코스</h2><p class="tp-p">이 산의 등산로 가까이를 지나는 두루누비 코스입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
-                           "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> <span class="tp-small">{esc(c.get("region") or "")} · 약 {max(d_*1000, 10):.0f}m 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
+                           "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> <span class="tp-small">{esc(c.get("region") or "")} · {_mt_dist(d_)} 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
 {mt_prof_html}
@@ -1414,8 +1450,8 @@ def _cards(html):
         place = ""
         if addr:
             name, place = addr.group(1).strip(), re.sub(r"\s+", " ", addr.group(2)).strip()
-        near = [x for x in parts if x.startswith("근처 산")]
-        meta = [x for x in parts if not x.startswith("근처 산")]
+        near = [x for x in parts if x.startswith(("근처 산", "인근 산"))]
+        meta = [x for x in parts if not x.startswith(("근처 산", "인근 산"))]
         inner = '<span class="cp-name">' + name + "</span>"
         if place:
             inner += '<span class="cp-near">' + place + "</span>"

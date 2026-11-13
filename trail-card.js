@@ -30,10 +30,10 @@
       c.fillStyle = FAINT; c.font = "700 26px " + KR; c.fillText("CALRANK · 트레일루트", L, 192);
       c.fillStyle = ACCENT; c.fillRect(L, 236, 64, 6);
 
-      c.fillStyle = SOFT; c.font = "700 36px " + KR; c.fillText("내가 다녀온 코스", L, 330);
+      c.fillStyle = SOFT; c.font = "700 36px " + KR; c.fillText(d.title || "내가 다녀온 코스", L, 330);
       c.fillStyle = INK; c.font = "900 260px " + KR; c.fillText(String(d.n), L, 580);
       var nw = c.measureText(String(d.n)).width;
-      c.fillStyle = SOFT; c.font = "700 64px " + KR; c.fillText("곳", L + nw + 20, 580);
+      c.fillStyle = SOFT; c.font = "700 64px " + KR; c.fillText(d.total ? "/ " + d.total + " 코스" : "곳", L + nw + 20, 580);
 
       var rows = [];
       if (d.km > 0) rows.push(["걸은 거리", d.km.toFixed(1) + " km"]);
@@ -47,7 +47,7 @@
       });
       c.textAlign = "left";
       y += 20;
-      c.fillStyle = FAINT; c.font = "700 28px " + KR; c.fillText("최근 다녀온 곳", L, y); y += 22;
+      c.fillStyle = FAINT; c.font = "700 28px " + KR; c.fillText(d.total ? "다녀온 코스" : "최근 다녀온 곳", L, y); y += 22;
       d.names.slice(0, 4).forEach(function (nm) {
         y += 58; c.fillStyle = SOFT; fit(c, nm, "700", 36, R - L); c.fillText(nm, L, y);
       });

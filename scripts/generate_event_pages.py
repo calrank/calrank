@@ -24,6 +24,7 @@ from urllib.parse import quote, unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_nav import site_header  # noqa: E402
+import event_insights  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://calrank.vercel.app"
@@ -1032,9 +1033,11 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
 
     extra = "".join(filter(None, [
         build_climate(ev),
+        *event_insights.build_all(ev, ctx["stats"], ctx["by_norm"], _parse_km(ev.get("distances")))[:1],
         build_day_context(ev, ctx.get("by_date", {})),
         build_trail_difficulty(ev),
         build_pace_table(ev),
+        *event_insights.build_all(ev, ctx["stats"], ctx["by_norm"], _parse_km(ev.get("distances")))[1:],
         build_other_editions(ev, ctx),
         build_nearby(ev, ctx),
     ]))
@@ -1537,6 +1540,10 @@ def main():
             ctx["by_norm"].setdefault(key, []).append(e)
         if e.get("date"):
             ctx["by_date"].setdefault(e["date"], []).append(e)
+
+    for e in wanted.values():
+        e["_norm"] = _norm_name(e.get("name"))
+    ctx["stats"] = event_insights.make_stats(list(wanted.values()))
 
     book = load_lastmod()
     _today_iso = date.today().isoformat()
