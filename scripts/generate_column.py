@@ -293,7 +293,6 @@ def build_html(stats, content, slug, rng):
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="tools.css">
 <style>
   .column-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
   .column-meta {{ font-size: 14.5px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
@@ -305,6 +304,9 @@ def build_html(stats, content, slug, rng):
   .stat-box {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 16px; text-align: center; }}
   .stat-box b {{ display: block; font-size: 22px; color: var(--accent-ink); font-family: var(--font-display); margin-bottom: 4px; }}
   .stat-box span {{ font-size: 13.5px; color: var(--ink-faint, #8E8E8E); }}
+  .cv-table {{ width: 100%; border-collapse: collapse; }}
+  .cv-table th, .cv-table td {{ padding: 8px 6px; border-top: 1px solid var(--line); text-align: left; font-weight: 400; }}
+  .cv-table th {{ color: var(--ink-soft); }}
   .column-cta {{ margin-top: 40px; padding: 24px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .column-cta a {{ display: inline-block; margin-top: 12px; background: var(--accent); color: var(--on-accent); background: var(--accent-fill); font-weight: 700; padding: 12px 28px; border-radius: 6px; text-decoration: none; }}
   .column-tags {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }}

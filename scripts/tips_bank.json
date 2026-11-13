@@ -234,7 +234,8 @@
             "source": "calrank 자체 집계 (2026년 국내 마라톤 대회 683개) · 기온과 기록의 관계는 El Helou N 외 (2012), PLoS ONE 7(5):e37407",
             "confidence": "공식 자료"
           }
-        ]
+        ],
+        "verified": true
       },
       {
         "id": "shoe-selection",

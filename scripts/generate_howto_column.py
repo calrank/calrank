@@ -80,6 +80,40 @@ def next_stop_html(sport, concern_id):
             f'<ul>{items}</ul></div>')
 
 
+def live_extra(sport, concern):
+    """검증을 마친 주제에는 그 시점의 대회 자료로 계산한 표를 붙인다(글을 다시 구울 때마다 갱신)."""
+    if concern["id"] != "weather-heat":
+        return ""
+    try:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import generate_column as gc
+        import generate_event_pages as gep
+        events = load_json("events.json", [])
+        gep.attach_climate(events)
+        today = datetime.now(KST).date()
+        end = today + timedelta(days=45)
+        subset = [e for e in events if e.get("sport") == "marathon" and e.get("date")
+                  and today.isoformat() <= e["date"][:10] <= end.isoformat()]
+        st = {"sport": "marathon", "events": sorted(subset, key=lambda e: e["date"])}
+        h = gc.climate_html(st)
+        if not h:
+            return ""
+        return h.replace("<h2>대회 당일 기온과 기록 보정</h2>",
+                         f'<h2>앞으로 45일, 마라톤 대회의 평년 기온 ({today.strftime("%m.%d")} 기준)</h2>', 1)
+    except Exception:
+        return ""
+
+
+def update_sitemap(slug):
+    path = ROOT / "sitemap.xml"
+    xml = path.read_text(encoding="utf-8")
+    if f"<loc>https://calrank.vercel.app/{slug}</loc>" in xml:
+        return
+    entry = (f"  <url>\n    <loc>https://calrank.vercel.app/{slug}</loc>\n"
+             f"    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n")
+    path.write_text(xml.replace("</urlset>", entry + "</urlset>"), encoding="utf-8")
+
+
 def build_page(sport_label, sport, concern, cycle_count):
     title = f"{concern['title']} — {sport_label} 노하우"
     desc = (f"{concern['title']} {sport_label}에서 알려진 방법을 출처와 함께 정리했습니다. "
@@ -100,6 +134,8 @@ def build_page(sport_label, sport, concern, cycle_count):
     )
 
     slug = slugify(sport, concern["id"])
+    robots = "" if concern.get("verified") else '<meta name="robots" content="noindex,follow">\n'
+    extra_html = live_extra(sport, concern)
     next_stop = next_stop_html(sport, concern["id"])
     canonical_url = f"https://calrank.vercel.app/{slug}"
     date_iso = datetime.now(KST).strftime("%Y-%m-%d")
@@ -124,8 +160,7 @@ def build_page(sport_label, sport, concern, cycle_count):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,follow">
-<title>{title} — calrank</title>
+{robots}<title>{title} — calrank</title>
 <meta name="description" content="{desc}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title}">
@@ -152,16 +187,19 @@ def build_page(sport_label, sport, concern, cycle_count):
   .column-title {{ font-family: var(--font-display); font-size: clamp(22px, 3.6vw, 32px); line-height: 1.35; margin-bottom: 20px; }}
   .howto-refresh-note {{ font-size: 13.5px; color: var(--accent); margin-bottom: 20px; }}
   .howto-tip {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }}
-  .howto-tip-text {{ font-size: 15px; line-height: 1.8; color: #E8E4E1; margin-bottom: 10px; }}
+  .howto-tip-text {{ font-size: 15px; line-height: 1.8; color: var(--ink); margin-bottom: 10px; }}
   .howto-tip-source {{ font-size: 13.5px; color: var(--ink-faint, #8E8E8E); }}
   .conf-badge {{ display:inline-block; font-size:13.5px; padding:2px 8px; border-radius:999px; margin-right:6px; font-weight:700; }}
-  .conf-medical {{ background:rgba(120,190,255,0.15); color:#78beff; }}
-  .conf-official {{ background:rgba(180,140,255,0.15); color:#c9a6ff; }}
-  .conf-press {{ background:rgba(255,255,255,0.08); color:#B8B0AC; }}
-  .conf-community {{ background:rgba(255,170,80,0.15); color:#ffaa50; }}
+  .conf-medical {{ background:#E3EEF9; color:#154C79; }}
+  .conf-official {{ background:#EDE6F7; color:#4B2E83; }}
+  .conf-press {{ background:#ECE8E3; color:#4A4542; }}
+  .conf-community {{ background:#FBEBD5; color:#7A4A00; }}
+  .cv-table {{ width: 100%; border-collapse: collapse; }}
+  .cv-table th, .cv-table td {{ padding: 8px 6px; border-top: 1px solid var(--line); text-align: left; font-weight: 400; }}
+  .cv-table th {{ color: var(--ink-soft); }}
   .source-legend {{ font-size:13.5px; color:var(--ink-faint,#8E8E8E); margin:16px 0 28px; line-height:1.8; }}
   .column-cta {{ margin-top: 32px; padding: 22px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
-  .column-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }}
+  .column-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent-fill); color: var(--on-accent); font-weight: 700; padding: 12px 26px; border-radius: 6px; text-decoration: none; }}
 </style>
 </head>
 <body>
@@ -189,6 +227,7 @@ def build_page(sport_label, sport, concern, cycle_count):
 </p>
 
 {tip_rows}
+{extra_html}
 
 {next_stop}
 
@@ -282,14 +321,22 @@ def main():
             # 왜 내렸는지는 tips_bank.json 의 retired_to / retired_why 에 적어 두었다.
             if concern.get("retired"):
                 continue
+            # 근거를 원 논문·공식 문서까지 확인한 주제(verified)만 발행한다.
+            # 나머지는 출처가 블로그·인터뷰 기사에 머물러 있어 확인이 끝날 때까지 보류.
+            if not concern.get("verified"):
+                continue
             all_combos.append((sport, concern["id"]))
 
     remaining = [c for c in all_combos if f"{c[0]}:{c[1]}" not in state["published"]]
     if not remaining:
-        # 한 바퀴 다 돌았으면 다시 처음부터, cycle 카운트를 올려 "갱신" 표시를 붙인다.
-        state["published"] = []
-        state["cycle"] += 1
-        remaining = all_combos
+        # 새로 낼 주제가 없으면 발행된 검증 글을 다시 굽는다(그 시점 대회 기온 표가 바뀐다).
+        for sport, concern_id in all_combos:
+            concern = next(c for c in bank[sport]["concerns"] if c["id"] == concern_id)
+            slug = slugify(sport, concern_id)
+            (ROOT / slug).write_text(build_page(bank[sport]["label"], sport, concern, state["cycle"]), encoding="utf-8")
+            update_sitemap(slug)
+            print(f"Refreshed: {slug}")
+        return
 
     sport, concern_id = remaining[0]
     concern = next(c for c in bank[sport]["concerns"] if c["id"] == concern_id)
@@ -300,7 +347,7 @@ def main():
     (ROOT / slug).write_text(html, encoding="utf-8")
 
     update_column_list(concern["title"] + f" — {sport_label} 노하우", f"{concern['title']} {sport_label}에서 알려진 방법을 출처와 함께 정리했습니다.", slug, sport_label)
-    # 출처가 커뮤니티 글·블로그에 기대고 분량이 짧아, 근거 기준을 채우기 전까지 검색에서 뺀다(noindex). 사이트맵에도 넣지 않는다.
+    update_sitemap(slug)
 
     state["published"].append(f"{sport}:{concern_id}")
     save_json("scripts/howto_state.json", state)
