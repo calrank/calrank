@@ -238,6 +238,18 @@ def build_record_standards(ev: dict) -> str:
     )
 
 
+def is_thin_event(ev: dict) -> bool:
+    """대회마다 다른 내용(날씨·일출·등급 기준)을 하나도 못 붙이는 페이지.
+
+    좌표가 없으면 날씨와 일출을 못 쓰고, 달리기 거리가 아니면 등급 기준도 못 쓴다.
+    그러면 남는 건 날짜·장소·링크뿐이라 다른 페이지와 구별되지 않는다.
+    이런 페이지는 만들어 두되 noindex,follow 로 검색에서 빼고 사이트맵에서도 뺀다.
+    좌표가 채워지거나(geocode_events.py) 거리가 확인되면 다음 생성 때 저절로 풀린다.
+    """
+    has_geo = isinstance(ev.get("lat"), (int, float)) and isinstance(ev.get("lng"), (int, float))
+    return not has_geo and not _parse_km(ev.get("distances"))
+
+
 def build_meta_description(ev: dict) -> str:
     text = build_summary(ev)
     return text if len(text) <= 150 else text[:147] + "…"
@@ -731,6 +743,18 @@ def build_related_links(ev: dict) -> str:
         sfx = "100km" if far >= 70 else "40km"
         if (ROOT / f"gear-aero-wheel-{sfx}.html").exists():
             links.append(f'<a href="gear-aero-wheel-{sfx}.html">{sfx.replace("km", "")}㎞ 에어로 장비 효과</a>')
+    # 종목별 규정·장비 판정. 대회 요강보다 먼저 "무엇이 실격·벌칙인가"를 확인하는 자리다.
+    rule_link = {
+        "triathlon": ("standards-triathlon.html", "철인3종 실격·벌칙 기준"),
+        "trail": ("standards-trail.html", "트레일 필수 장비·벌칙 예시"),
+        "cycling": ("standards-cycling.html", "사이클 장비·규칙 기준"),
+    }.get(sport)
+    if rule_link and (ROOT / rule_link[0]).exists():
+        links.append(f'<a href="{rule_link[0]}">{rule_link[1]}</a>')
+    if sport == "triathlon" and (ROOT / "gear-wetsuit-by-temp.html").exists():
+        links.append('<a href="gear-wetsuit-by-temp.html">수온별 웻슈트 기준</a>')
+    if sport == "trail" and (ROOT / "gear-utmb-kit.html").exists():
+        links.append('<a href="gear-utmb-kit.html">UTMB 필수 장비 판정</a>')
     links.append('<a href="column.html">러닝·사이클 칼럼</a>')
     return " · ".join(links)
 
@@ -876,6 +900,7 @@ def render_page(template: str, ev: dict, ctx: dict) -> str:
     sub_tag(r'<meta id="twDesc" name="twitter:description" content=".*?">', f'<meta id="twDesc" name="twitter:description" content="{esc(desc)}">')
 
     head_extra = "\n".join([
+        *(['<meta name="robots" content="noindex,follow">'] if is_thin_event(ev) else []),
         f'<link rel="canonical" href="{esc(url)}">',
         EXTRA_CSS,
         ld_script("eventLd", build_event_jsonld(ev, url, desc)),

@@ -1457,6 +1457,13 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
         except (KeyError, ValueError, TypeError):
             continue
         if ev_date >= oldest:
+            # 내용이 얇아 noindex 로 둔 페이지는 사이트맵에 넣지 않는다.
+            try:
+                from generate_event_pages import is_thin_event
+                if is_thin_event(ev):
+                    continue
+            except ImportError:
+                pass
             listed.append((ev, ev_date >= today))
 
     lines = [
