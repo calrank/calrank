@@ -303,7 +303,7 @@ def build(dist: str, goal: int, frag: str, name: str, alias: str):
 <footer class="site-footer">
 <div class="wrap">
 <p>페이스와 구간 시간은 일정한 속도를 가정해 계산한 값입니다. 등급 기준은 외부 공개 데이터(Running Level, 2024)를 바탕으로 하며, 실제 신체 조건·훈련 상태에 따라 개인차가 있을 수 있습니다.</p>
-<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>
 
@@ -389,7 +389,7 @@ def build_hub(rows) -> tuple[str, str]:
 <footer class="site-footer">
 <div class="wrap">
 <p>페이스와 구간 시간은 일정한 속도를 가정해 계산한 값입니다. 등급 기준은 외부 공개 데이터(Running Level, 2024)를 바탕으로 합니다.</p>
-<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>
 

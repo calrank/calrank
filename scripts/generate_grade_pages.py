@@ -334,7 +334,7 @@ NAV = site_header("grade")
 FOOTER = """<footer class="site-footer">
 <div class="wrap">
 <p>기준표는 WMA(세계마스터즈육상연맹) 2025년판이고, 출처와 계산식은 모두 공개돼 있습니다. 다만 공인 기록이나 의학적 판단은 아니고, 코스와 날씨에 따라 체감이 달라질 수 있는 참고용입니다.</p>
-<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>"""
 

@@ -342,7 +342,7 @@ def render(topic, upcoming, past, today) -> str:
 <footer class="site-footer">
 <div class="wrap">
 <p>칼랭크(CALRANK)는 대회 일정을 모으고, 기록에는 칼랭크 등급을, 코스에는 칼랭크 난이도를 매기는 곳입니다. 대회 일정은 주최측이 공개한 내용을 정리한 것입니다. 접수 조건 등 정확한 내용은 신청 페이지에서 다시 확인해주세요.</p>
-<p class="footer-links"><a href="events-index.html">전국 대회 일정 전체 목록</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+<p class="footer-links"><a href="events-index.html">전국 대회 일정 전체 목록</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>
 <script defer src="/_vercel/insights/script.js"></script>

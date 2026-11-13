@@ -1144,7 +1144,7 @@ def write_event_index(wanted: dict) -> None:
 
 <footer class="site-footer">
 <div class="wrap">
-<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">제휴·광고 문의</a></p>
+<p class="footer-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>
 </body>
@@ -1286,7 +1286,7 @@ def archive_shell(title: str, desc: str, canonical: str, body: str) -> str:
 <p class="footer-links"><a href="events-index.html">전국 대회 일정 전체 목록</a> ·
 <a href="events-archive.html">지난 대회 기록</a> ·
 <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> ·
-<a href="contact.html">제휴·광고 문의</a></p>
+<a href="contact.html">문의·제휴</a></p>
 </div>
 </footer>
 </body>
