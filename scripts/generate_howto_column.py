@@ -28,6 +28,7 @@ CONFIDENCE_STYLE = {
     "공식 자료": "conf-official",
     "언론 보도": "conf-press",
     "커뮤니티 경험담": "conf-community",
+    "calrank 계산": "conf-press",
 }
 
 

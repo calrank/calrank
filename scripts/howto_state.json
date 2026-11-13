@@ -1,10 +1,10 @@
 {
   "published": [
-    "marathon:injury",
     "marathon:women-runners",
-    "marathon:shoe-selection",
     "trail:injury-ankle-knee",
-    "marathon:weather-heat"
+    "marathon:weather-heat",
+    "marathon:injury",
+    "marathon:shoe-selection"
   ],
   "cycle": 1
 }
