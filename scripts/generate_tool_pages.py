@@ -349,9 +349,16 @@ from math import exp as _math_exp
 def _mt_raw():
     _p = Path(_os.environ.get("CALRANK_MOUNTAINS") or (ROOT / "data/mountains.json"))
     try:
-        return json.loads(_p.read_text(encoding="utf-8")).get("mountains", [])
+        out = json.loads(_p.read_text(encoding="utf-8")).get("mountains", [])
     except Exception:
         return []
+    # 100대 명산 중 등산로 자료(mountains.json)에 없는 31개(지리산·설악산·한라산·북한산 등).
+    # 산 페이지는 만들지 않고 코스 제목·본문에 이름을 붙이는 데만 쓴다.
+    try:
+        out += json.loads((ROOT / "data/mountains_extra.json").read_text(encoding="utf-8")).get("mountains", [])
+    except Exception:
+        pass
+    return out
 
 
 def _link_courses_mountains(courses, mts, radius_km=1.0):
@@ -409,6 +416,10 @@ def _near_word(d_):
 
 
 def _near_li(d_, m):
+    if m.get("extra"):
+        hi_ = f' 등산로 기록 기준 최고 해발 약 {m["maxEleM"]}m.' if m.get("maxEleM") else ""
+        return (f'<li>{esc(m["name"])} <span class="tp-small">경로에서 {_mt_dist(d_)}</span><br>'
+                f'<span class="tp-small">산림청 100대 명산입니다.{hi_}</span></li>')
     S = m["sections"]
     tot = sum(x["lenM"] for x in S) / 1000
     hi = max(max(x["startM"], x["endM"]) for x in S)

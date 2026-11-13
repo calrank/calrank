@@ -83,6 +83,17 @@
 .lv-next-v{font-size:22px;font-weight:900;color:var(--accent-ink);line-height:1.2;}
 .lv-next-t{font-size:13.5px;color:var(--ink-faint,var(--ink-faint));}
 
+.lv-nextrace{margin:-6px 0 20px;padding:14px 16px;border-radius:10px;border:1px solid var(--border,var(--border));background:var(--surface,var(--surface));}
+.lv-nextrace-h{margin:0 0 8px;font-size:14px;color:var(--ink-soft,var(--ink-faint));}
+.lv-nextrace-h b{color:var(--ink);}
+.lv-nextrace-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+.lv-nextrace-l a{display:grid;grid-template-columns:3.4rem 1fr auto;gap:10px;align-items:baseline;padding:8px 0;color:var(--ink);text-decoration:none;border-top:1px solid var(--border,var(--border));}
+.lv-nextrace-l li:first-child a{border-top:0;}
+.lv-nr-d{font-size:13px;color:var(--accent-ink);font-weight:800;}
+.lv-nr-n{min-width:0;font-size:14.5px;overflow-wrap:anywhere;}
+.lv-nr-r{font-size:12.5px;color:var(--ink-faint);white-space:nowrap;}
+.lv-nextrace-n{margin:8px 0 0;font-size:12.5px;color:var(--ink-faint);line-height:1.55;}
+
 /* ── 줄이면 어떻게 바뀌나 ────────────────────────────────── */
 .lv-what{border:1px solid var(--border,var(--border));border-radius:10px;overflow:hidden;margin-bottom:20px;}
 .lv-what-row{

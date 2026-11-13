@@ -1,0 +1,42 @@
+name: Fetch mountain names
+
+# 산림청 산정보 서비스에서 산 이름·높이·소재지를 받아 좌표를 붙인다.
+# 결과는 data/mountain_names.json. 인증키는 로그에 나오지 않는다.
+# 시험: limit 에 20 정도를 넣고 skip_geo 를 1 로 하면 목록 구조만 빠르게 본다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "시험용: 앞의 N개만 (0 이면 전체)"
+        required: false
+        default: "0"
+      skip_geo:
+        description: "1 이면 좌표 찾기를 건너뜀"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch
+        run: python scripts/fetch_mountain_names.py
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+          LIMIT: ${{ inputs.limit }}
+          SKIP_GEO: ${{ inputs.skip_geo }}
+      - name: Commit data
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add data/mountain_names.json data/mountain_geocache.json
+          git diff --quiet --cached || (git commit -m "data: mountain names" && git pull --rebase && git push)

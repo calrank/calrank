@@ -220,6 +220,7 @@ function renderResult(result, inputs) {
           <span class="lv-next-l">가장 높은 구간입니다</span>
         </div>`}
       </div>
+      ${gap ? `<div id="lvNextRace" class="lv-nextrace" hidden></div>` : ""}
       ${(() => {
         // 등급이 어디서 나왔는지 계산을 그대로 보여 준다. 숫자를 믿게 하는 건 설명이 아니라 계산 과정이다.
         const std = wmaStd(inputs.gender, inputs.distanceKm, inputs.age);
@@ -417,6 +418,7 @@ function renderResult(result, inputs) {
   `;
   el.style.display = "block";
   wireGive(inputs);
+  fillNextRace(result, inputs);
   const shareBtn = document.getElementById("lvShareBtn");
   if (shareBtn) {
     shareBtn.addEventListener("click", () => shareCard(result, inputs, shareBtn));
@@ -1240,6 +1242,59 @@ function wireGiveOne(inputs, ckId, btnId, msgId) {
   });
 }
 
+
+// ── 다음 등급을 시험해 볼 다가오는 대회 ──────────────────────────
+// 목표 기록이 나왔으면 "그럼 어디서 뛰지"가 다음 질문이다. 같은 거리가 있는
+// 가까운 대회를 events.json에서 골라 이어 준다. 신청이 닫힌 대회는 뺀다.
+let _evCache = null;
+function loadEvents() {
+  if (!_evCache) {
+    _evCache = fetch("events.json").then((r) => r.json())
+      .then((d) => (Array.isArray(d) ? d : d.events || [])).catch(() => []);
+  }
+  return _evCache;
+}
+
+function distTokens(km) {
+  if (Math.abs(km - 5) < 0.05) return ["5km"];
+  if (Math.abs(km - 10) < 0.05) return ["10km"];
+  if (Math.abs(km - 21.0975) < 0.05) return ["하프", "하프마라톤"];
+  if (Math.abs(km - 42.195) < 0.05) return ["풀", "풀코스"];
+  return null;
+}
+
+function fillNextRace(result, inputs) {
+  const box = document.getElementById("lvNextRace");
+  const toks = distTokens(inputs.distanceKm);
+  if (!box || !toks) return;
+  const gap = gapToNextTier({ agePct: result.agePct, finishSec: inputs.finishSec,
+    distanceKm: inputs.distanceKm, age: inputs.age, gender: inputs.gender });
+  if (!gap) return;
+  const target = inputs.finishSec - gap.diff;
+  const d = new Date();
+  const ymd = (x) => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`;
+  const today = ymd(d);
+  // 목표를 새로 노리려면 준비할 시간이 있어야 한다. 4주 안의 대회는 뺀다.
+  const from = ymd(new Date(d.getFullYear(), d.getMonth(), d.getDate() + 28));
+  loadEvents().then((evs) => {
+    const hits = evs.filter((e) => {
+      if (e.sport !== "marathon" || !e.date || e.date < from || e.regClosed) return false;
+      if (e.regDeadline && e.regDeadline < today) return false;
+      const ds = Array.isArray(e.distances) ? e.distances : String(e.distances || "").split(/[·,]/);
+      return ds.some((x) => toks.includes(String(x).trim()));
+    }).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3);
+    if (!hits.length) return;
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    box.innerHTML = `
+      <p class="lv-nextrace-h">목표 기록 <b>${fmtClock(target)}</b> — 시험해 볼 ${distLabel(inputs.distanceKm)} 대회</p>
+      <ul class="lv-nextrace-l">${hits.map((e) => `
+        <li><a href="e/${encodeURIComponent(e.id)}.html"><span class="lv-nr-d">${e.date.slice(5).replace("-", ".")}</span>
+        <span class="lv-nr-n">${esc(e.name)}</span><span class="lv-nr-r">${esc(e.region || "")}</span></a></li>`).join("")}
+      </ul>
+      <p class="lv-nextrace-n">준비할 시간을 생각해 4주 뒤부터의 대회를 날짜순으로 보여 드립니다. 신청 마감과 그날의 예상 기온, 기록 보정은 대회 페이지에서 볼 수 있어요.</p>`;
+    box.hidden = false;
+  });
+}
 
 // ── 그리기 도우미 ────────────────────────────────────────────
 function equivTime(finishSec, fromKm, toKm, age, gender) {
