@@ -128,7 +128,61 @@ def compute_stats(events, sport, month_label, now_kst):
         "top_regions": top_regions,
         "top_distances": top_distances,
         "sample_names": sample_names,
+        "events": sorted(subset, key=lambda e: e.get("date") or ""),
     }
+
+
+ADJ_REF_C, ADJ_PER_C, ADJ_MAX_DELTA = 15.0, 0.008, 8.0
+MIN_CLIMATE_ROWS = 5  # 이 수 이상 기온 자료가 붙어야 색인 대상으로 둔다
+
+
+def climate_rows(stats):
+    rows = []
+    for e in stats.get("events", []):
+        c = e.get("climate")
+        if not c or "minAvg" not in c or "maxAvg" not in c:
+            continue
+        mean = (c["minAvg"] + c["maxAvg"]) / 2
+        over = mean - ADJ_REF_C
+        pct = ADJ_PER_C * min(over, ADJ_MAX_DELTA) * 100 if over > 0 else 0.0
+        rows.append((e, c, mean, pct))
+    return rows
+
+
+def climate_html(stats):
+    """대회 당일 기온 평년값과 칼랭크의 더위 보정 폭. 대회마다 값이 달라 월마다 내용이 바뀐다."""
+    from html import escape as esc
+    rows = climate_rows(stats)
+    if len(rows) < 3:
+        return ""
+    cap = 12
+    body = ""
+    for e, c, mean, pct in rows[:cap]:
+        d = (e.get("date") or "")[5:10].replace("-", ".")
+        adj = f"+{pct:.1f}%" if pct > 0 else "보정 없음"
+        body += (f'<tr><td><a href="e/{esc(str(e["id"]))}.html">{esc(e.get("name") or "")}</a></td><td>{d}</td>'
+                 f'<td>{c["minAvg"]:.0f}~{c["maxAvg"]:.0f}℃</td><td>{adj}</td></tr>')
+    hot = [r for r in rows if r[3] > 0]
+    inrng = [r for r in rows if 3.8 <= r[2] <= 9.9]
+    txt = (f'기온 자료가 붙은 {len(rows)}개 대회 가운데 일평균기온이 보정 기준(15℃)을 넘는 대회는 {len(hot)}개입니다. ')
+    if hot:
+        h = max(hot, key=lambda r: r[3])
+        txt += f'가장 더운 날은 {h[0].get("name")}로 일평균 {h[2]:.1f}℃, 같은 실력이라도 기록이 약 {h[3]:.1f}% 느려지는 것으로 계산됩니다. '
+    if stats.get("sport") == "marathon":
+      txt += (f'마라톤 기록이 가장 좋았던 기온대로 보고된 3.8~9.9℃(El Helou 외, 2012, 완주자 1,791,972명 분석)에 일평균이 드는 대회는 {len(inrng)}개입니다. ')
+    return (
+        '<h2>대회 당일 기온과 기록 보정</h2>'
+        f'<p>{txt}</p>'
+        '<div style="overflow-x:auto"><table class="cv-table" style="font-size:14.5px"><colgroup><col><col style="width:3.6em"><col style="width:6em"><col style="width:4.4em"></colgroup>'
+        '<thead><tr><th>대회</th><th>날짜</th><th>평년 최저~최고</th><th>더위 보정</th></tr></thead><tbody>'
+        + body + '</tbody></table></div>'
+        + (f'<p style="font-size:13.5px">날짜순 {cap}개만 실었습니다.</p>' if len(rows) > cap else '')
+        + '<p style="font-size:13.5px;line-height:1.7">기온은 기상청 종관기상관측(ASOS) 최근 10년 같은 날짜 평균이고, 가장 가까운 관측소 값입니다. '
+        '더위 보정은 일평균기온이 15℃를 넘는 만큼 1℃당 0.8%(최대 8℃까지)를 적용한 칼랭크 모델 값이며, '
+        '근거는 Nikolaidis 외(Int J Environ Res Public Health 2019;16:614)와 Knechtle 외(PLoS ONE 2019;14:e0212797)입니다. '
+        '짧은 거리에서는 이 폭이 상한에 가깝습니다. '
+        '<a href="level.html">내 기록의 칼랭크 등급 계산하기</a> · <a href="grade-method.html">등급 산정 방식</a></p>'
+    )
 
 
 def pick_topic(events, state):
@@ -212,7 +266,9 @@ def build_html(stats, content, slug, rng):
     )
     sections_html = "\n".join(
         f'<h2>{sec["heading"]}</h2>\n<p>{sec["body"]}</p>' for sec in content["sections"]
-    )
+    ) + "\n" + climate_html(stats)
+    robots = "" if len(climate_rows(stats)) >= MIN_CLIMATE_ROWS else '<meta name="robots" content="noindex,follow">\n'
+    stats["_indexed"] = not robots
     region_boxes = "".join(
         f'<div class="stat-box"><b>{r}</b><span>{c}개</span></div>' for r, c in [x for x in stats["top_regions"] if x[0] not in ("전국", "미표기", "")][:3]
     )
@@ -225,8 +281,7 @@ def build_html(stats, content, slug, rng):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,follow">
-<title>{title} — calrank</title>
+{robots}<title>{title} — calrank</title>
 <meta name="description" content="{desc}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title}">
@@ -238,21 +293,22 @@ def build_html(stats, content, slug, rng):
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="tools.css">
 <style>
   .column-wrap {{ max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }}
   .column-meta {{ font-size: 14.5px; color: var(--ink-faint, #8E8E8E); margin-bottom: 12px; }}
   .column-title {{ font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); line-height: 1.3; margin-bottom: 24px; }}
-  .column-body {{ font-size: 16px; line-height: 1.9; color: #E8E4E1; }}
-  .column-body h2 {{ font-size: 21px; margin: 40px 0 14px; color: #fff; }}
+  .column-body {{ font-size: 16px; line-height: 1.9; color: var(--ink); }}
+  .column-body h2 {{ font-size: 21px; margin: 40px 0 14px; color: var(--ink); }}
   .column-body p {{ margin-bottom: 18px; }}
   .stat-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 24px 0 32px; }}
   .stat-box {{ background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 16px; text-align: center; }}
-  .stat-box b {{ display: block; font-size: 22px; color: var(--accent); font-family: var(--font-display); margin-bottom: 4px; }}
+  .stat-box b {{ display: block; font-size: 22px; color: var(--accent-ink); font-family: var(--font-display); margin-bottom: 4px; }}
   .stat-box span {{ font-size: 13.5px; color: var(--ink-faint, #8E8E8E); }}
   .column-cta {{ margin-top: 40px; padding: 24px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
-  .column-cta a {{ display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 28px; border-radius: 6px; text-decoration: none; }}
+  .column-cta a {{ display: inline-block; margin-top: 12px; background: var(--accent); color: var(--on-accent); background: var(--accent-fill); font-weight: 700; padding: 12px 28px; border-radius: 6px; text-decoration: none; }}
   .column-tags {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }}
-  .column-tag {{ font-size: 13.5px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: #B8B0AC; text-decoration: none; }}
+  .column-tag {{ font-size: 13.5px; padding: 5px 12px; border: 1px solid var(--border, #2A2A2A); border-radius: 999px; color: var(--ink-soft); text-decoration: none; }}
 </style>
 </head>
 <body>
@@ -330,6 +386,9 @@ def update_sitemap(slug):
 
 def main():
     events = load_json("events.json", [])
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import generate_event_pages as gep
+    gep.attach_climate(events)
     state = load_json("scripts/column_state.json", {"last_sport_index": -1, "published": []})
 
     idx, sport, month_label, topic_key, stats = pick_topic(events, state)
@@ -344,8 +403,10 @@ def main():
 
     (ROOT / slug).write_text(html, encoding="utf-8")
     update_column_list(title, desc, slug, month_label)
-    # 월별 통계 칼럼은 숫자만 갈아 끼우는 같은 틀이라 검색 대상에서 뺀다(noindex).
-    # 같은 내용이 월별 대회 페이지(monthly.html 등)에 이미 있다. 사이트맵에도 넣지 않는다.
+    # 대회 당일 기온·보정 표가 5개 이상 붙은 글만 색인 대상으로 두고 사이트맵에 넣는다.
+    # 나머지는 noindex 로 남긴다(숫자만 바뀌는 얇은 글이 되기 때문).
+    if stats.get("_indexed"):
+        update_sitemap(slug)
 
     state["last_sport_index"] = idx
     state.setdefault("published", []).append(topic_key)
