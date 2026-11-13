@@ -1,10 +1,14 @@
 {
   "published": [
-    "marathon:women-runners",
     "trail:injury-ankle-knee",
     "marathon:weather-heat",
     "marathon:injury",
-    "marathon:shoe-selection"
+    "marathon:shoe-selection",
+    "trail:poles-technique",
+    "triathlon:open-water-fear",
+    "triathlon:transition-training",
+    "triathlon:race-day-pacing",
+    "marathon:women-runners"
   ],
   "cycle": 1
 }
