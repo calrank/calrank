@@ -103,18 +103,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://calrank.vercel.app/column-2026-09-marathon-trend.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-2026-09-trail-running.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://calrank.vercel.app/about.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -343,12 +331,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-injury.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://calrank.vercel.app/column-chuncheon-marathon-course-guide.html</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -397,45 +379,15 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-women-runners.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://calrank.vercel.app/column-bamseom-marathon-course-guide.html</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-weather-heat.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-shoe-selection.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-trail-injury-ankle-knee.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://calrank.vercel.app/landing-gangwon-cycling.html</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-trail-poles-technique.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
@@ -4838,78 +4790,6 @@
   </url>
   <url>
     <loc>https://calrank.vercel.app/mountainarea-ulsan.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-cycling-granfondo-prep.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-cycling-group-ride-etiquette.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-cycling-knee-saddle-pain.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-first-timer.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-goal-time.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-race-day-gi.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-marathon-recovery.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-trail-beginner-gear.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-trail-safety-nutrition.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-open-water-fear.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-race-day-pacing.html</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://calrank.vercel.app/column-howto-triathlon-transition-training.html</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

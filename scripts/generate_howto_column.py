@@ -124,6 +124,7 @@ def build_page(sport_label, sport, concern, cycle_count):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,follow">
 <title>{title} — calrank</title>
 <meta name="description" content="{desc}">
 <meta property="og:type" content="article">
@@ -299,7 +300,7 @@ def main():
     (ROOT / slug).write_text(html, encoding="utf-8")
 
     update_column_list(concern["title"] + f" — {sport_label} 노하우", f"{concern['title']} {sport_label}에서 알려진 방법을 출처와 함께 정리했습니다.", slug, sport_label)
-    update_sitemap(slug)
+    # 출처가 커뮤니티 글·블로그에 기대고 분량이 짧아, 근거 기준을 채우기 전까지 검색에서 뺀다(noindex). 사이트맵에도 넣지 않는다.
 
     state["published"].append(f"{sport}:{concern_id}")
     save_json("scripts/howto_state.json", state)
