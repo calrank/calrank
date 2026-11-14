@@ -1449,7 +1449,9 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
     # "○○마라톤 기록"은 대회가 끝난 뒤에 검색되므로, 지난 대회도 사이트맵에
     # 넣어야 보존한 의미가 있다. (예전에는 예정 대회만 넣어 지난 페이지가
     # 파일로만 존재하고 검색엔진에는 제출되지 않았다.)
-    oldest = today - timedelta(days=1095)
+    # 색인 신호가 약한 신생 도메인에서는 사이트맵이 크면 Google이 "발견됨 - 크롤링 안 됨"으로
+    # 쌓아 두므로, 끝난 대회는 결과 검색이 몰리는 직후 90일만 제출한다. (페이지 자체는 유지)
+    oldest = today - timedelta(days=90)
     listed = []
     for ev in events:
         try:

@@ -67,6 +67,9 @@
         input.finishSec > 0) {
       return input.distanceKm / (input.finishSec / 3600);
     }
+    if (key === "duration_min" && isNum(input.finishSec) && input.finishSec > 0) {
+      return input.finishSec / 60;
+    }
     return null;
   }
 

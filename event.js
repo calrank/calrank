@@ -59,6 +59,18 @@ function getParam(name) {
   return new URLSearchParams(location.search).get(name) || (name === "id" ? (window.EVENT_ID || null) : null);
 }
 
+// 옛 대회 id 로 들어오면 새 주소의 정적 페이지로 보낸다. (Google이 옛 주소를 계속 크롤링한다)
+async function redirectOldId(id) {
+  try {
+    const r = await fetch("/event_aliases.json", { cache: "no-store" });
+    if (!r.ok) return false;
+    const to = (await r.json())[id];
+    if (!to) return false;
+    location.replace(`/e/${encodeURIComponent(to)}.html`);
+    return true;
+  } catch (e) { return false; }
+}
+
 function renderNotFound() {
   document.getElementById("eventContent").innerHTML = `
     <section class="hero">
@@ -287,7 +299,7 @@ async function init() {
   }
 
   const ev = allEvents.find(e => e.id === id);
-  if (!ev) { renderNotFound(); return; }
+  if (!ev) { if (!(await redirectOldId(id))) renderNotFound(); return; }
 
   renderSaveWidget(ev.id);
   renderReviews(ev.id, allEvents, ev.name);

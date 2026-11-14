@@ -238,7 +238,7 @@ def claim_body(claim):
             else:
                 ci = ev.get("ci") or [ev.get("effect_pct"), ev.get("effect_pct")]
                 lo2 = 0.0 if ev.get("significant") is False else ci[0]
-                val = f"{lo2:.1f} ~ {ci[1]:.1f}%"
+                val = f"{lo2:.1f}%" if f"{lo2:.1f}" == f"{ci[1]:.1f}" else f"{lo2:.1f} ~ {ci[1]:.1f}%"
                 if ev.get("significant") is False:
                     val += " <em>유의하지 않음</em>"
             meta = []

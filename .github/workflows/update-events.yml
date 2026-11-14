@@ -99,6 +99,10 @@ jobs:
 
       - name: Sync SEO structured data
         run: python scripts/sync_seo.py
+      - name: Check reference videos
+        # 삭제·비공개된 영상은 status 를 dead 로 바꿔 카드가 빠지게 한다. 접속 실패는 건드리지 않는다.
+        run: python scripts/check_videos.py
+
       - name: Sync reference videos
         run: python scripts/sync_videos.py
 

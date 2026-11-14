@@ -412,7 +412,7 @@
     var r = e.range, ns = e.evidence.significant === false;
     var dirWord = e.verb || (e.direction === "worse" ? "나빠집니다" : "좋아집니다");
     var headline = ns ? "0 ~ " + r.hi.toFixed(1) + "%"
-                      : r.lo.toFixed(1) + " ~ " + r.hi.toFixed(1) + "%";
+                      : (r.lo.toFixed(1) === r.hi.toFixed(1) ? r.lo.toFixed(1) + "%" : r.lo.toFixed(1) + " ~ " + r.hi.toFixed(1) + "%");
 
     var html = '<section class="ge-eff"><h3>' + esc(e.label) +
       (e.detail ? ' <span class="ge-detail">' + esc(e.detail) + "</span>" : "") + "</h3>" +
@@ -425,7 +425,7 @@
       var lo = Math.abs(e.cutSec.lo), hi = Math.abs(e.cutSec.hi);
       html += '<p class="ge-time">기록으로 바꾸면 <strong>' +
         (ns ? "0초 ~ " + minSec(hi)
-            : minSec(Math.min(lo, hi)) + " ~ " + minSec(Math.max(lo, hi))) +
+            : (minSec(Math.min(lo, hi)) === minSec(Math.max(lo, hi)) ? minSec(lo) : minSec(Math.min(lo, hi)) + " ~ " + minSec(Math.max(lo, hi)))) +
         "</strong> " + sign + "</p>";
       if (e.grade) {
         html += '<p class="ge-grade-move">연령등급 ' + e.grade.before.toFixed(1) + "% → <b>" +
@@ -505,7 +505,7 @@
       return;
     }
 
-    if (CLAIM.condition === "speed_kmh") {
+    if (CLAIM.condition === "speed_kmh" || CLAIM.condition === "duration_min") {
       if (!sec) { out.innerHTML = '<p class="gr-hint">완주 기록을 넣으면 판정이 나옵니다.</p>'; return; }
       input.finishSec = sec; input.distanceKm = km;
     } else {
@@ -536,6 +536,7 @@
     var box = $("gearForm");
     if (!box || !CLAIM) return;
     var speed = CLAIM.condition === "speed_kmh";
+    var derived = speed || CLAIM.condition === "duration_min";
     var timed = CLAIM.effects.some(function (e) { return e.affects_time; });
     var modelled = !!CLAIM.model;
     var rows = [];
@@ -578,9 +579,11 @@
         rows.push('<label for="geCdaDelta">휠이 줄여 준다는 CdA <span class="gf-unit">(㎡)</span></label>' +
           '<input id="geCdaDelta" type="number" step="0.001" min="0.001" max="0.1" value="0.010">');
       }
-      rows.push('<label for="gePrice">가격 (원)</label>' +
-        '<input id="gePrice" type="text" inputmode="numeric" placeholder="90000" value="' +
-        (needsDelta ? "1200000" : "90000") + '">');
+      if (!CLAIM.no_price) {
+        rows.push('<label for="gePrice">가격 (원)</label>' +
+          '<input id="gePrice" type="text" inputmode="numeric" placeholder="90000" value="' +
+          (needsDelta ? "1200000" : "90000") + '">');
+      }
       box.innerHTML = rows.join("");
       box.querySelectorAll("input,select").forEach(function (el) {
         el.addEventListener("input", renderClaim);
@@ -596,7 +599,7 @@
         return r && r[0] === null && r[1] === null;
       });
     });
-    if (!speed && !condFree) {
+    if (!derived && !condFree) {
       rows.push('<label for="geCond">' + esc(CLAIM.condition_label) + "</label>" +
         '<input id="geCond" type="number" step="1" value="10">');
     }
@@ -613,7 +616,7 @@
         '<input id="geBirthYear" type="number" min="1930" max="2020" placeholder="1986">'
       );
     }
-    if (timed) {
+    if (timed && !CLAIM.no_price) {
       rows.push('<label for="gePrice">가격 (원)</label>' +
         '<input id="gePrice" type="text" inputmode="numeric" placeholder="300000" value="300000">');
     }
