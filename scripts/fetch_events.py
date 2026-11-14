@@ -1441,6 +1441,15 @@ def refresh_home_meta(events: list[dict]) -> None:
         print(f"[index.html] 제목·설명 갱신 (예정 {len(upcoming)}개, 접수중 {len(opening)}개)")
 
 
+def _indexed_ids() -> set:
+    """서치 콘솔에서 이미 색인된 대회. 오래됐어도 사이트맵에서 빼지 않는다."""
+    try:
+        with open("data/indexed_events.json", encoding="utf-8") as f:
+            return set(json.load(f).get("ids", []))
+    except (OSError, ValueError):
+        return set()
+
+
 def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.xml") -> None:
     """대회별 정적 상세 페이지(e/<id>.html) URL을 모은 sitemap을 자동 생성합니다.
     구글이 개별 대회 페이지를 빠르게 발견할 수 있도록, 매 크롤링마다 최신 상태로 갱신됩니다."""
@@ -1458,7 +1467,7 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
             ev_date = datetime.strptime(ev["date"], "%Y-%m-%d").date()
         except (KeyError, ValueError, TypeError):
             continue
-        if ev_date >= oldest:
+        if ev_date >= oldest or ev.get("id") in _indexed_ids():
             # 내용이 얇아 noindex 로 둔 페이지는 사이트맵에 넣지 않는다.
             try:
                 from generate_event_pages import is_thin_event

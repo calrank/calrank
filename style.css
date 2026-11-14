@@ -731,3 +731,10 @@ body .mn{ background-color:var(--pt-sage-lite); }
 /* 알약(칩): 하늘색 한 가지, 눌리는 곳이라 살짝만 뜬다 */
 body .gr-switch a:not(.on){ background-color:var(--pt-sky); box-shadow:0 1px 1px rgba(80,50,30,.06); border-color:transparent; }
 body .gr-switch a:not(.on):hover{ box-shadow:var(--lift); border-color:var(--accent); }
+
+/* 함께 읽을 글 (scripts/sync_columns.py) */
+.rel-cols{margin:32px 0 8px;padding-top:18px;border-top:1px solid var(--line)}
+.rel-cols h2{font-size:16px;margin:0 0 10px;color:var(--ink)}
+.rel-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rel-cols ul li a{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none!important;font-size:14.5px;line-height:1.5}
+.rel-cols ul li a:hover{border-color:var(--accent);color:var(--accent-ink)}

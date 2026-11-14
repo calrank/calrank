@@ -640,6 +640,24 @@ def diff_grade(km, gain):
 KE_BANDS = [25, 45, 75, 115, 155, 210]
 
 
+
+def sun_block(c, wt):
+    """코스 시작점의 일몰과, 출발 시각에 걷는 시간을 더한 하산 시각을 견주는 칸(sunmargin.js).
+    걷는 시간 가늠(Naismith·Tobler)이 있는 코스에만 붙인다. 계산은 방문자 브라우저에서 한다."""
+    path = c.get("path") or []
+    if not wt or not path:
+        return ""
+    lat, lon = path[0][0], path[0][1]
+    return (f'<section class="tp-card" id="sunMargin" data-lat="{lat:.5f}" data-lon="{lon:.5f}" '
+            f'data-min="{min(wt):.0f}" data-max="{max(wt):.0f}"><h2 class="tp-h2">일몰까지 남는 시간</h2>'
+            '<p class="tp-p">출발 날짜와 시각을 넣으면 걷는 시간 가늠을 더해 하산 시각을 구하고, 그날 일몰과 비교합니다.</p>'
+            '<div class="tp-grid"><label class="tp-field">출발 날짜<input id="smDate" type="date"></label>'
+            '<label class="tp-field">출발 시각<input id="smTime" type="time"></label></div>'
+            '<div id="smOut" role="status" aria-live="polite"></div>'
+            '<p class="tp-small">일몰은 미국 해양대기청(NOAA) 태양 위치 계산식으로 코스 출발점 좌표에서 구했고, 공표 값과 1분 안팎으로 맞습니다. '
+            '걷는 시간은 Naismith 규칙과 Tobler 하이킹 함수 두 값의 범위이며 쉬는 시간, 짐, 노면, 날씨는 들어 있지 않습니다. 공식 시간이 아닙니다.</p>'
+            '<script defer src="/sunmargin.js"></script></section>')
+
 def km_effort(km, gain):
     ke = km + gain / 100.0
     pts = sum(1 for b in KE_BANDS if ke >= b)
@@ -930,7 +948,7 @@ def course_page(c):
 {course_gear_html(c, km)}
 {course_fuel_html(c, _fuel_h)}
 {_ins_html}
-{ft_extra}
+{ft_extra}{sun_block(c, wt)}
 {map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
