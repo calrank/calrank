@@ -22,7 +22,7 @@ KST = timezone(timedelta(hours=9))
 
 BANK_PATH = "scripts/science_columns.json"
 STATE_PATH = "scripts/science_column_state.json"
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 
 
 def esc(t):

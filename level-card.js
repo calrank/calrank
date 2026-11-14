@@ -420,7 +420,7 @@ function drawCard(ctx, d) {
   ctx.letterSpacing = "0px";
   ctx.fillStyle = ACCENT;
   setFont(ctx, 700, 18);
-  ctx.fillText("calrank.vercel.app", L + 92, fY + 98);
+  ctx.fillText("calrank.kr", L + 92, fY + 98);
 
   ctx.fillStyle = INK_FAINT;
   setFont(ctx, 400, 17);

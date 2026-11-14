@@ -7,7 +7,7 @@ import json, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-BASE = "https://calrank.vercel.app/"
+BASE = "https://calrank.kr/"
 SRC = (ROOT / "gear-prices.html").read_text(encoding="utf-8")
 HEAD_COMMON = SRC[SRC.find('<link rel="preconnect"'):SRC.find('<link rel="stylesheet" href="style.css">')]
 HEADER = SRC[SRC.find('<header class="site-header">'):SRC.find('</header>') + 9]
@@ -1109,7 +1109,7 @@ def dg_method_page():
 <p class="tp-p">칼랭크도 같은 이유로 코스 페이지에 경사 단면도와 7% 넘게 가파른 구간의 길이를 점수 옆에 나란히 둡니다. 노면, 날씨, 배낭 무게, 개인의 체력은 점수에 들어 있지 않습니다. 걷기 기준이라 달릴 때의 난이도와도 다릅니다.</p></section>
 <section class="tp-sec" id="embed"><h2 class="tp-h2">내 블로그·클럽 페이지에 넣기</h2>
 <p class="tp-p">코스 하나의 칼랭크 난이도를 작은 카드로 넣을 수 있습니다. 아래 코드의 <code>course-dr-4190</code> 자리에 코스 페이지 주소의 이름(course-로 시작하는 부분, .html 앞까지)을 넣으면 됩니다. 카드를 누르면 계산 근거가 있는 코스 페이지로 이어집니다.</p>
-<pre class="tp-small" style="overflow-x:auto;white-space:pre-wrap">&lt;iframe src="https://calrank.vercel.app/widget-course.html?c=course-dr-4190" width="320" height="150" style="border:0" loading="lazy" title="칼랭크 난이도"&gt;&lt;/iframe&gt;</pre></section>
+<pre class="tp-small" style="overflow-x:auto;white-space:pre-wrap">&lt;iframe src="https://calrank.kr/widget-course.html?c=course-dr-4190" width="320" height="150" style="border:0" loading="lazy" title="칼랭크 난이도"&gt;&lt;/iframe&gt;</pre></section>
 <section class="tp-sec"><h2 class="tp-h2">출처</h2>
 <ul class="cp-list"><li><a href="https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm" rel="noopener" target="_blank">미국 국립공원관리청 셰넌도어 국립공원, How to Determine Hiking Difficulty</a></li>
 <li>국제트레일러닝협회(ITRA), Discover Trail Running의 Km-effort와 코스 난이도 점수 안내(itra.run)</li>

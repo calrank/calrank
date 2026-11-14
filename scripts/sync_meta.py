@@ -23,7 +23,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app/"
+SITE = "https://calrank.kr/"
 
 TITLE_RE = re.compile(r"<title\b[^>]*>(.*?)</title>", re.S | re.I)
 HEAD_END = re.compile(r"</head>", re.I)

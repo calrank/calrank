@@ -20,7 +20,7 @@ from site_nav import site_header  # noqa: E402
 from distance_tier_data import DECADES, TIER_TABLES, DIST_COPY  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 TIER_NAMES = ["비기너", "노비스", "인터미디엇", "어드밴스드", "엘리트"]
 
 # 10km 은 이미 있는 페이지를 쓴다. 링크 묶음에는 함께 넣는다.

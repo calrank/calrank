@@ -27,7 +27,7 @@ from site_nav import site_header  # noqa: E402
 import event_insights  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 OUT_DIR = ROOT / "e"
 # "○○마라톤 기록"은 대회가 끝난 뒤에 검색된다. 60일 만에 페이지를 지우면
 # 검색 수요가 생기는 바로 그 시점에 받을 페이지가 없어지므로 길게 보존한다.

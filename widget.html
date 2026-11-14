@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="wrap">
-<p class="w-title"><span>다가오는 대회 일정</span><a href="https://calrank.vercel.app/" target="_blank" rel="noopener">calrank ↗</a></p>
+<p class="w-title"><span>다가오는 대회 일정</span><a href="https://calrank.kr/" target="_blank" rel="noopener">calrank ↗</a></p>
 <div id="widgetList"><p class="w-empty">불러오는 중…</p></div>
 </div>
 <script>
@@ -39,7 +39,7 @@
   }
 
   try {
-    const res = await fetch("https://calrank.vercel.app/events.json");
+    const res = await fetch("https://calrank.kr/events.json");
     const events = await res.json();
     const today = new Date();
     today.setHours(0,0,0,0);
@@ -59,7 +59,7 @@
       return;
     }
     listEl.innerHTML = filtered.map(ev => `
-      <a class="w-item" href="https://calrank.vercel.app/event.html?id=${encodeURIComponent(ev.id)}" target="_blank" rel="noopener">
+      <a class="w-item" href="https://calrank.kr/event.html?id=${encodeURIComponent(ev.id)}" target="_blank" rel="noopener">
         <p class="w-name">${ev.name}</p>
         <p class="w-meta">${formatDate(ev.date)} · ${ev.location || ""}</p>
       </a>

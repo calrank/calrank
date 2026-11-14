@@ -5,24 +5,24 @@
 모든 판정은 출처를 밝힌 공개 기준과 동료심사 연구에 기대고 있고, 근거가 없는 항목은 숫자를 만들지 않고 비워 둡니다. 인용할 때는 각 페이지의 출처 목록과 근거 등급(A–D)을 함께 옮겨 주세요.
 
 ## 기록 등급
-- [기록 등급 계산기](https://calrank.vercel.app/level.html): 나이·성별·거리별 연령등급(%)과 7단계 등급 판정
-- [러닝 기록 등급표](https://calrank.vercel.app/grade.html): 거리별·나이별·성별 등급 기준 기록
-- [등급 기준과 근거](https://calrank.vercel.app/grade-method.html): 세계기록 대비 연령 보정 방식과 출처(World Masters Athletics 기준표)
-- [나이 곡선](https://calrank.vercel.app/age-curve.html): 나이에 따른 기준 기록 변화
+- [기록 등급 계산기](https://calrank.kr/level.html): 나이·성별·거리별 연령등급(%)과 7단계 등급 판정
+- [러닝 기록 등급표](https://calrank.kr/grade.html): 거리별·나이별·성별 등급 기준 기록
+- [등급 기준과 근거](https://calrank.kr/grade-method.html): 세계기록 대비 연령 보정 방식과 출처(World Masters Athletics 기준표)
+- [나이 곡선](https://calrank.kr/age-curve.html): 나이에 따른 기준 기록 변화
 
 ## 코스 난이도
-- [코스 판정](https://calrank.vercel.app/course.html): GPX 거리·누적 오르막으로 난이도와 평지 환산 거리 계산
-- [난이도 산정 방법](https://calrank.vercel.app/dg-method.html): 미국 국립공원관리청 하이킹 난이도 식을 그대로 적용
-- [트레일루트 코스](https://calrank.vercel.app/trailroot.html)와 [산별 등산로](https://calrank.vercel.app/mountains.html): 코스별 거리·오르막·소요시간
+- [코스 판정](https://calrank.kr/course.html): GPX 거리·누적 오르막으로 난이도와 평지 환산 거리 계산
+- [난이도 산정 방법](https://calrank.kr/dg-method.html): 미국 국립공원관리청 하이킹 난이도 식을 그대로 적용
+- [트레일루트 코스](https://calrank.kr/trailroot.html)와 [산별 등산로](https://calrank.kr/mountains.html): 코스별 거리·오르막·소요시간
 
 ## 장비 판정
-- [기어 판정 허브](https://calrank.vercel.app/gear.html): 대회 사용 규정(세계육상·UCI·World Triathlon·UTMB·World Skate 원문 기준)과 사용 효과 연구 결과
+- [기어 판정 허브](https://calrank.kr/gear.html): 대회 사용 규정(세계육상·UCI·World Triathlon·UTMB·World Skate 원문 기준)과 사용 효과 연구 결과
 - 효과 판정은 근거 등급 A(메타분석·복수 무작위 대조 연구), B(동료심사 단일 연구), C(소규모·초록·관찰), D(제조사 자료·검증되지 않은 주장)로 표기합니다.
-- [구동계 등급 판정](https://calrank.vercel.app/gear-groupset-tier.html): Martin 등(1998) 출력 모델로 계산한 무게 차이의 기록 영향
+- [구동계 등급 판정](https://calrank.kr/gear-groupset-tier.html): Martin 등(1998) 출력 모델로 계산한 무게 차이의 기록 영향
 
 ## 대회 일정
-- [전국 대회 일정](https://calrank.vercel.app/): 마라톤·트레일러닝·자전거·철인3종·인라인 접수 캘린더
-- [목표 기록별 페이스표](https://calrank.vercel.app/goals.html)
+- [전국 대회 일정](https://calrank.kr/): 마라톤·트레일러닝·자전거·철인3종·인라인 접수 캘린더
+- [목표 기록별 페이스표](https://calrank.kr/goals.html)
 
 ## 서비스 정보
-- [소개](https://calrank.vercel.app/about.html): 서비스 소개, 자료 출처, 계산 방식
+- [소개](https://calrank.kr/about.html): 서비스 소개, 자료 출처, 계산 방식

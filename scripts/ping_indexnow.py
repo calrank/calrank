@@ -30,8 +30,8 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
-HOST = "calrank.vercel.app"
+SITE = "https://calrank.kr"
+HOST = "calrank.kr"
 
 # 네이버와 Bing. 한 곳에만 보내도 서로 공유된다고 하지만, 둘 다 보내 둔다.
 # indexnow.org FAQ 기준 공식 주소. 참여 엔진끼리 제출을 공유하므로

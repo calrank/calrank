@@ -20,7 +20,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 PAGE = "aquathlon.html"
 KST = timezone(timedelta(hours=9))
 AQ_RE = re.compile(r"아쿠아슬론|aquathlon", re.I)

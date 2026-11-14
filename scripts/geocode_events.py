@@ -22,7 +22,7 @@ from urllib import request, error, parse
 
 ROOT = Path(__file__).resolve().parent.parent
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
-USER_AGENT = "calrank-geocoder/1.0 (https://calrank.vercel.app; contact via site)"
+USER_AGENT = "calrank-geocoder/1.0 (https://calrank.kr; contact via site)"
 MAX_PER_RUN = 60
 SLEEP_SECONDS = 1.1  # Nominatim 사용정책: 초당 1회 이하
 

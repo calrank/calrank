@@ -78,7 +78,7 @@
      ["organizer", "주최"], ["applyUrl", "신청"]].forEach(function (p) {
       if (meaningful(ev[p[0]])) parts.push(p[1] + ": " + ev[p[0]]);
     });
-    parts.push("https://calrank.vercel.app/e/" + encodeURIComponent(ev.id) + ".html");
+    parts.push("https://calrank.kr/e/" + encodeURIComponent(ev.id) + ".html");
     return parts.join("\n");
   }
 
@@ -89,7 +89,7 @@
 
   function buildIcs(ev) {
     var now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-    var url = "https://calrank.vercel.app/e/" + encodeURIComponent(ev.id) + ".html";
+    var url = "https://calrank.kr/e/" + encodeURIComponent(ev.id) + ".html";
     var desc = icsEscape(describe(ev));
     var name = ev.name || "대회";
 

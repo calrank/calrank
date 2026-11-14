@@ -2,7 +2,7 @@ name: Generate RSS feed
 
 # scripts/generate_rss_feed.py가 calrank 도메인의 새 칼럼·대회 페이지만 담은 rss.xml을 만든다.
 # 발행일을 git 기록에서 읽기 때문에 전체 기록이 필요하다(fetch-depth: 0).
-# 네이버 서치어드바이저 RSS 제출 주소: https://calrank.vercel.app/rss.xml
+# 네이버 서치어드바이저 RSS 제출 주소: https://calrank.kr/rss.xml
 
 on:
   schedule:

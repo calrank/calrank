@@ -52,7 +52,7 @@
         y += 58; c.fillStyle = SOFT; fit(c, nm, "700", 36, R - L); c.fillText(nm, L, y);
       });
 
-      c.fillStyle = FAINT; c.font = "700 28px " + KR; c.textAlign = "left"; c.fillText("calrank.vercel.app", L, H - 96);
+      c.fillStyle = FAINT; c.font = "700 28px " + KR; c.textAlign = "left"; c.fillText("calrank.kr", L, H - 96);
       c.textAlign = "right"; c.fillText(d.date, R, H - 96);
       return new Promise(function (res) { cv.toBlob(function (b) { res(b); }, "image/png"); });
     });

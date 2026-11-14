@@ -1386,7 +1386,7 @@ function withTimeout(p, ms, fallback) {
 // 이 페이지는 유입이 가장 많다. SDK 를 늘 불러오면 쓰지 않는 사람까지
 // 값을 치르므로, 버튼을 누른 순간에만 내려받는다.
 const KAKAO_KEY = "cfdf627cdfe54e49450a13c8ca8109aa";   // 공개용 JavaScript 키
-const PAGE_URL = "https://calrank.vercel.app/level.html";
+const PAGE_URL = "https://calrank.kr/level.html";
 const KAKAO_SDK = "https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js";
 // 카카오가 공개한 2.8.3 의 SRI 해시. 받은 파일이 이 해시와 다르면 브라우저가
 // 실행을 거부한다. CDN 이 뚫리거나 중간에서 바꿔치기돼도 남의 코드가 이

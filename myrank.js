@@ -170,6 +170,23 @@ function computeGlobal10kTier(gender, ageGroup, seconds) {
 }
 
 let currentUser = null;
+
+// ── 기록 저장소: 로그인하면 계정(Supabase), 아니면 이 기기(localStorage) ─────────
+// 기기 저장 기록은 브라우저 데이터를 지우면 사라진다. 화면에 그렇게 알리고, 로그인하면 계정으로 옮길 수 있게 한다.
+const LOCAL_KEY = "calrank_local_records_v1";
+const GUEST_KEY = "calrank_guest_mode";
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
+function localRecords() {
+  try {
+    const a = JSON.parse(lsGet(LOCAL_KEY) || "[]");
+    return Array.isArray(a) ? a : [];
+  } catch (e) { return []; }
+}
+function saveLocalRecords(a) { return lsSet(LOCAL_KEY, JSON.stringify(a)); }
+function sortRecords(a) { return a.slice().sort((x, y) => String(y.race_date).localeCompare(String(x.race_date))); }
+function isGuest() { return !currentUser; }
 let currentRecords = [];
 
 function parseTimeToSeconds(text) {
@@ -430,6 +447,7 @@ async function handleSignOut() {
   await sb.auth.signOut();
   currentUser = null;
   currentRecords = [];
+  lsDel(GUEST_KEY);
   showAuthSection();
 }
 
@@ -499,14 +517,20 @@ async function showDashSection() {
   document.getElementById("authSection").style.display = "none";
   document.getElementById("dashSection").style.display = "block";
 
-  const { data: profile } = await sb
-    .from("profiles")
-    .select("display_name")
-    .eq("id", currentUser.id)
-    .single();
-
-  document.getElementById("displayName").textContent =
-    profile?.display_name || currentUser.email.split("@")[0];
+  const guest = isGuest();
+  document.querySelectorAll("[data-account-only]").forEach(el => { el.style.display = guest ? "none" : ""; });
+  document.querySelectorAll("[data-guest-only]").forEach(el => { el.style.display = guest ? "" : "none"; });
+  if (guest) {
+    document.getElementById("displayName").textContent = "게스트";
+  } else {
+    const { data: profile } = await sb
+      .from("profiles")
+      .select("display_name")
+      .eq("id", currentUser.id)
+      .single();
+    document.getElementById("displayName").textContent =
+      profile?.display_name || currentUser.email.split("@")[0];
+  }
 
   populateDateSelects();
   populateTimeSelects();
@@ -517,8 +541,61 @@ async function showDashSection() {
     if (el) el.addEventListener("change", updateRecordPreview);
   });
   await loadRecords();
+  if (guest) { renderGuestNote(); const ib = document.getElementById("importLocalBox"); if (ib) ib.style.display = "none"; return; }
   setupClaimSearch();
   setupProfileToggle();
+  offerLocalImport();
+}
+
+// ── 게스트(기기 저장) 안내와 계정으로 옮기기 ───────────────────────────────
+function renderGuestNote() {
+  const n = localRecords().length;
+  const el = document.getElementById("guestNoteText");
+  if (el) el.textContent = n
+    ? `기록 ${n}개가 이 기기의 브라우저에만 저장돼 있습니다. 브라우저 데이터를 지우거나 다른 기기에서 열면 보이지 않습니다. 로그인하면 계정으로 옮겨 어디서나 볼 수 있습니다.`
+    : "입력한 기록은 이 기기의 브라우저에만 저장됩니다. 브라우저 데이터를 지우면 사라지고, 다른 기기에서는 보이지 않습니다. 로그인하면 계정에 저장됩니다.";
+}
+
+function offerLocalImport() {
+  const box = document.getElementById("importLocalBox");
+  if (!box) return;
+  const local = localRecords();
+  if (!local.length) { box.style.display = "none"; return; }
+  box.style.display = "";
+  document.getElementById("importLocalText").textContent =
+    `이 기기에 로그인 없이 저장한 기록이 ${local.length}개 있습니다. 계정으로 옮길까요? 이미 계정에 같은 대회·날짜·종목이 있으면 건너뜁니다.`;
+}
+
+async function importLocalToAccount() {
+  const btn = document.getElementById("importLocalBtn");
+  const msg = document.getElementById("importLocalMsg");
+  const local = localRecords();
+  if (!currentUser || !local.length) return;
+  btn.disabled = true;
+  msg.textContent = "옮기는 중...";
+  const key = r => [r.race_name, r.race_date, r.sport, r.distance_category].join("|");
+  const have = new Set(currentRecords.map(key));
+  const rows = local.filter(r => !have.has(key(r))).map(r => ({
+    user_id: currentUser.id,
+    race_name: r.race_name, race_date: r.race_date, sport: r.sport,
+    distance_category: r.distance_category, finish_time_seconds: r.finish_time_seconds, notes: r.notes || null,
+  }));
+  if (rows.length) {
+    const { error } = await sb.from("personal_records").insert(rows);
+    if (error) { msg.textContent = "옮기지 못했습니다: " + error.message + " (기기의 기록은 그대로 남아 있습니다)"; btn.disabled = false; return; }
+  }
+  lsDel(LOCAL_KEY);
+  lsDel(GUEST_KEY);
+  msg.textContent = `완료: ${rows.length}개를 옮겼고 ${local.length - rows.length}개는 이미 있어 건너뛰었습니다.`;
+  btn.disabled = false;
+  await loadRecords();
+  setTimeout(offerLocalImport, 2500);
+}
+
+function startGuest() {
+  lsSet(GUEST_KEY, "1");
+  currentUser = null;
+  showDashSection();
 }
 
 function formatSecondsToTime(sec) {
@@ -601,7 +678,7 @@ async function setupProfileToggle() {
 
   const isPublic = !!(profile && profile.profile_public);
   toggle.checked = isPublic;
-  const profileUrl = `https://calrank.vercel.app/profile.html?id=${currentUser.id}`;
+  const profileUrl = `https://calrank.kr/profile.html?id=${currentUser.id}`;
   if (isPublic) {
     linkBox.style.display = "block";
     linkText.textContent = profileUrl;
@@ -624,26 +701,117 @@ async function refreshSession() {
   if (session?.user) {
     currentUser = session.user;
     await showDashSection();
+  } else if (lsGet(GUEST_KEY) === "1" || localRecords().length) {
+    currentUser = null;
+    await showDashSection();
   } else {
     showAuthSection();
   }
 }
 
 async function loadRecords() {
-  const { data, error } = await sb
-    .from("personal_records")
-    .select("*")
-    .order("race_date", { ascending: false });
+  if (isGuest()) {
+    currentRecords = sortRecords(localRecords());
+  } else {
+    const { data, error } = await sb
+      .from("personal_records")
+      .select("*")
+      .order("race_date", { ascending: false });
 
-  if (error) {
-    console.error(error);
-    return;
+    if (error) {
+      console.error(error);
+      return;
+    }
+    currentRecords = data || [];
   }
-  currentRecords = data || [];
   renderTiers();
   renderRecordList();
   renderPaceTrendChart();
+  renderTierHistory();
+  renderImproveRoom();
   renderBadges();
+}
+
+// ── 등급 여정: 종목·거리별로 기록을 날짜순으로 보고, 최고 기록이 새 등급에 들어선 순간만 뽑는다 ─────────
+// 기준표는 시간만 보는 등급(getTier)이며 기록 당시 나이는 반영하지 않는다.
+function renderTierHistory() {
+  const card = document.getElementById("tierHistoryCard");
+  const box = document.getElementById("tierHistoryList");
+  if (!card || !box) return;
+  const groups = {};
+  currentRecords.forEach(r => {
+    if (!hasTimeTier(r.sport) || r.finish_time_seconds == null || !r.race_date) return;
+    if (!TIER_BENCHMARKS[r.sport]?.[r.distance_category]) return;
+    (groups[r.sport + "|" + r.distance_category] ||= []).push(r);
+  });
+  const html = Object.keys(groups).map(k => {
+    const [sport, dist] = k.split("|");
+    const recs = groups[k].slice().sort((a, b) => String(a.race_date).localeCompare(String(b.race_date)));
+    let best = Infinity, lastTier = null;
+    const steps = [];
+    recs.forEach(r => {
+      if (r.finish_time_seconds < best) {
+        best = r.finish_time_seconds;
+        const t = getTier(sport, dist, best);
+        if (t && t !== lastTier) { steps.push({ r, tier: t, first: lastTier === null }); lastTier = t; }
+      }
+    });
+    if (!steps.length) return "";
+    const nxt = nextTierInfo(sport, dist, best);
+    const rows = steps.map(st => `<li><span class="th-date">${st.r.race_date}</span> <b>${st.tier}</b> <span class="th-sub">${formatSeconds(st.r.finish_time_seconds)} · ${escapeHtml(st.r.race_name || "")}${st.first ? " (첫 기록)" : ""}</span></li>`).join("");
+    const tail = nxt ? `<p class="th-next">현재 최고 ${formatSeconds(best)}. ${nxt.nextLabel}까지 ${formatSeconds(nxt.diffSeconds)} 남았습니다.</p>` : `<p class="th-next">현재 최고 ${formatSeconds(best)}. 이 거리에서 가장 높은 등급입니다.</p>`;
+    return `<div class="th-group"><p class="th-title">${SPORT_LABEL[sport] || sport} · ${distanceLabel(sport, dist)} <span class="th-sub">기록 ${recs.length}개</span></p><ol class="th-list">${rows}</ol>${tail}</div>`;
+  }).join("");
+  card.style.display = html ? "" : "none";
+  box.innerHTML = html;
+}
+
+// ── 개선 여지: 내 최고 기록(마라톤 종목)에 연구 근거가 있는 효과를 시간으로 환산해 큰 순서로 나열한다 ─────────
+// gear-model.js 의 judge 를 그대로 쓴다. 근거 없는 구간은 빠지고, 효과끼리 더하지 않는다.
+const IMPROVE_KM = { "5km": 5, "10km": 10, half: 21.0975, full: 42.195 };
+let gearClaimsCache = null;
+async function loadGearClaims() {
+  if (gearClaimsCache) return gearClaimsCache;
+  try { gearClaimsCache = await (await fetch("data/gear_claims.json")).json(); }
+  catch (e) { gearClaimsCache = { claims: [] }; }
+  return gearClaimsCache;
+}
+function fmtGap(sec) {
+  sec = Math.round(Math.abs(sec)); const m = Math.floor(sec / 60), r = sec % 60;
+  return m ? m + "분" + (r ? " " + r + "초" : "") : r + "초";
+}
+async function renderImproveRoom() {
+  const card = document.getElementById("improveCard");
+  const box = document.getElementById("improveList");
+  if (!card || !box || !window.calrankGear) return;
+  const runs = currentRecords.filter(r => r.sport === "marathon" && IMPROVE_KM[r.distance_category] && r.finish_time_seconds > 0);
+  if (!runs.length) { card.style.display = "none"; return; }
+  // 가장 긴 거리의 최고 기록을 기준으로 삼는다(거리가 길수록 보급·신발 효과가 의미 있다)
+  const order = ["full", "half", "10km", "5km"];
+  const dist = order.find(d => runs.some(r => r.distance_category === d));
+  const best = runs.filter(r => r.distance_category === dist).reduce((a, b) => (b.finish_time_seconds < a.finish_time_seconds ? b : a));
+  const data = await loadGearClaims();
+  const rows = [];
+  ["carbon-plate", "caffeine", "carb-intake"].forEach(id => {
+    const claim = window.calrankGear.findClaim(data, id);
+    if (!claim) return;
+    const res = window.calrankGear.judge({ claim, finishSec: best.finish_time_seconds, distanceKm: IMPROVE_KM[dist] });
+    const e = res && res.effects && res.effects.find(x => x.hasEvidence && x.cutSec && x.direction !== "worse");
+    if (!e) return;
+    const lo = Math.max(0, Math.min(e.cutSec.lo, e.cutSec.hi)), hi = Math.max(e.cutSec.lo, e.cutSec.hi);
+    if (hi <= 0) return;
+    rows.push({ claim, lo: e.evidence.significant === false ? 0 : lo, hi, point: Math.abs(e.cutSec.point), grade: e.evidence.grade });
+  });
+  rows.sort((a, b) => b.point - a.point);
+  if (!rows.length) { card.style.display = "none"; return; }
+  card.style.display = "";
+  const lab = SPORT_LABEL.marathon + " " + distanceLabel("marathon", dist);
+  box.innerHTML = `<p class="import-sub" style="margin:0 0 8px;">기준 기록: ${lab} ${formatSeconds(best.finish_time_seconds)} (${escapeHtml(best.race_name || "")})</p>` +
+    '<ol class="th-list">' + rows.map(r => `<li><b>${escapeHtml(r.claim.short_label || r.claim.label)}</b> <span class="th-sub">${Math.round(r.lo) === Math.round(r.hi) ? "연구 평균 약 " + fmtGap(r.hi) : fmtGap(r.lo) + " ~ " + fmtGap(r.hi)} 단축 · 근거 ${r.grade} · <a href="gear-${r.claim.id}.html">근거 보기</a></span></li>`).join("") + "</ol>";
+}
+
+function escapeHtml(t) {
+  return String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
 let editingRecordId = null;
@@ -988,7 +1156,16 @@ async function handleRecordSubmit(e) {
   };
 
   let error;
-  if (editingRecordId) {
+  if (isGuest()) {
+    const all = localRecords();
+    if (editingRecordId) {
+      const i = all.findIndex(r => String(r.id) === String(editingRecordId));
+      if (i >= 0) all[i] = { ...all[i], ...payload };
+    } else {
+      all.push({ id: "L" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ...payload });
+    }
+    if (!saveLocalRecords(all)) error = { message: "이 브라우저에는 저장할 수 없습니다(사생활 보호 모드이거나 저장이 막혀 있음)." };
+  } else if (editingRecordId) {
     ({ error } = await sb.from("personal_records").update(payload).eq("id", editingRecordId));
   } else {
     ({ error } = await sb.from("personal_records").insert({ user_id: currentUser.id, ...payload }));
@@ -1010,7 +1187,8 @@ async function handleRecordSubmit(e) {
 }
 
 async function handleDeleteRecord(id) {
-  await sb.from("personal_records").delete().eq("id", id);
+  if (isGuest()) saveLocalRecords(localRecords().filter(r => String(r.id) !== String(id)));
+  else await sb.from("personal_records").delete().eq("id", id);
   await loadRecords();
 }
 
@@ -1564,7 +1742,7 @@ async function drawCertificate(canvas, record) {
   ctx.fillText("CALRANK", W - 70, H - 60);
   ctx.fillStyle = INK_SOFT;
   ctx.font = "12px 'Noto Sans KR'";
-  ctx.fillText("calrank.vercel.app", W - 70, H - 42);
+  ctx.fillText("calrank.kr", W - 70, H - 42);
   ctx.textAlign = "left";
 }
 
@@ -1599,7 +1777,7 @@ ctx.fillText("CALRANK", 48, 92);
 
 ctx.fillStyle = "#8E8E8E";
 ctx.font = "13px 'Noto Sans KR'";
-ctx.fillText("calrank.vercel.app", 48, 114);
+ctx.fillText("calrank.kr", 48, 114);
 
 const name = document.getElementById("displayName").textContent || "회원";
 ctx.fillStyle = "#9A9A9A";
@@ -1688,7 +1866,7 @@ try {
 await navigator.share({
 files: [file],
 title: "CALRANK 내 기록",
-text: "내 대회 기록을 확인해보세요! calrank.vercel.app",
+text: "내 대회 기록을 확인해보세요! calrank.kr",
 });
 } catch (e) {
 /* 사용자가 공유를 취소한 경우 */
@@ -1735,11 +1913,17 @@ document.getElementById("shareNativeBtn").addEventListener("click", nativeShareC
     if (session?.user) {
       currentUser = session.user;
       showDashSection();
+    } else if (lsGet(GUEST_KEY) === "1" || localRecords().length) {
+      currentUser = null;
+      showDashSection();
     } else {
       currentUser = null;
       showAuthSection();
     }
   });
+  document.getElementById("guestStartBtn").addEventListener("click", startGuest);
+  document.getElementById("guestLoginBtn").addEventListener("click", () => { currentUser = null; showAuthSection(); });
+  document.getElementById("importLocalBtn").addEventListener("click", importLocalToAccount);
 
   await refreshSession();
 }

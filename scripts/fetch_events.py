@@ -1159,7 +1159,7 @@ def _event_block(ev: dict, now_stamp: str) -> list[str]:
     blocks: list[str] = []
     name = ev.get("name", "대회")
     dt = ev["date"].replace("-", "")
-    url = f"https://calrank.vercel.app/e/{quote(ev['id'])}.html"
+    url = f"https://calrank.kr/e/{quote(ev['id'])}.html"
 
     def val(key):
         """'미확인', '장소 미확인' 같은 자리채움 값은 빼고 돌려준다.
@@ -1269,7 +1269,7 @@ def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
     upcoming.sort(key=lambda e: e["date"])
 
     n = _write_ics(out_path, "calrank 전체 대회 일정",
-                   "calrank.vercel.app — 마라톤·자전거·트레일·철인3종·인라인 대회 일정", upcoming)
+                   "calrank.kr — 마라톤·자전거·트레일·철인3종·인라인 대회 일정", upcoming)
     print(f"[feed.ics] {n}개 대회 캘린더 구독 피드 생성 완료")
 
     # 종목 라벨은 상수로 두지 않고 데이터에서 그대로 읽는다 (새 종목이 생겨도 따라온다)
@@ -1284,7 +1284,7 @@ def generate_ics_feed(events: list[dict], out_path: str = "feed.ics") -> None:
         if not subset:
             continue
         _write_ics(f"feed-{sport}.ics", f"calrank {label} 대회 일정",
-                   f"calrank.vercel.app — {label} 대회 일정과 접수 마감 알림", subset)
+                   f"calrank.kr — {label} 대회 일정과 접수 마감 알림", subset)
         print(f"[feed-{sport}.ics] {len(subset)}개 {label} 대회")
 
 # 첫 화면의 제목·설명은 검색에서 가장 큰 자리다. 경쟁 사이트들은 전부
@@ -1484,7 +1484,7 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
     for ev, is_upcoming in listed:
         # 검색엔진이 내용을 바로 읽을 수 있는 정적 페이지(e/<id>.html)를 가리킨다.
         # (event.html?id=... 는 내용을 JS가 채워서 색인에 불리했다)
-        url = f"https://calrank.vercel.app/e/{quote(ev['id'])}.html"
+        url = f"https://calrank.kr/e/{quote(ev['id'])}.html"
         lines.append("  <url>")
         lines.append(f"    <loc>{url}</loc>")
         # 끝난 대회는 내용이 더 바뀌지 않는다

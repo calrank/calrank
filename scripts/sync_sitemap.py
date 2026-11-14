@@ -42,7 +42,7 @@ def main():
     out = ""
     for n in add:
         d = subprocess.run(["git", "log", "-1", "--format=%cs", "--", n], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-        out += (f"  <url>\n    <loc>https://calrank.vercel.app/{n}</loc>\n"
+        out += (f"  <url>\n    <loc>https://calrank.kr/{n}</loc>\n"
                 + (f"    <lastmod>{d}</lastmod>\n" if d else "")
                 + "    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n")
     sm.write_text(xml.replace("</urlset>", out + "</urlset>"), encoding="utf-8")

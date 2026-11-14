@@ -26,20 +26,20 @@ a.card{display:block;padding:12px;color:inherit;text-decoration:none;border:1px 
 <script defer src="/track.js"></script>
 </head>
 <body>
-<a class="card" id="card" href="https://calrank.vercel.app/trailroot.html" target="_blank" rel="noopener"><span class="lab">칼랭크 난이도</span><p class="name" id="nm">불러오는 중…</p></a>
+<a class="card" id="card" href="https://calrank.kr/trailroot.html" target="_blank" rel="noopener"><span class="lab">칼랭크 난이도</span><p class="name" id="nm">불러오는 중…</p></a>
 <script>
 (function () {
   var id = (new URLSearchParams(location.search).get("c") || "").replace(/[^\w.-]/g, "");
   var card = document.getElementById("card");
-  fetch("https://calrank.vercel.app/course-diff.json").then(function (r) { return r.json(); }).then(function (d) {
+  fetch("https://calrank.kr/course-diff.json").then(function (r) { return r.json(); }).then(function (d) {
     var x = d[id];
     if (!x) { document.getElementById("nm").textContent = "코스를 찾을 수 없어요."; return; }
     var seg = ""; for (var i = 0; i < 5; i++) seg += '<li class="' + (i === x[4] ? "on" : "") + '"></li>';
-    card.href = "https://calrank.vercel.app/" + id + ".html";
+    card.href = "https://calrank.kr/" + id + ".html";
     card.innerHTML = '<span class="lab">칼랭크 난이도</span><p class="name"></p>' +
       '<div class="top"><span class="band">' + x[5] + '</span><span class="score">점수 ' + x[3] + '</span></div>' +
       '<ol class="scale" aria-label="5단계 중 ' + (x[4] + 1) + '단계">' + seg + '</ol>' +
-      '<div class="meta">' + x[1] + 'km · 오르막 ' + x[2] + 'm · Km-effort ' + x[6] + '</div><div class="brand">calrank.vercel.app</div>';
+      '<div class="meta">' + x[1] + 'km · 오르막 ' + x[2] + 'm · Km-effort ' + x[6] + '</div><div class="brand">calrank.kr</div>';
     card.querySelector(".name").textContent = x[0];
   }).catch(function () { document.getElementById("nm").textContent = "불러오지 못했어요."; });
 })();

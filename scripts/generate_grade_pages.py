@@ -130,7 +130,7 @@ GENDERS = [
     {"key": "female", "label": "여성", "josa": "여성"},
 ]
 
-BASE = "https://calrank.vercel.app"
+BASE = "https://calrank.kr"
 
 
 # ---------------------------------------------------------------------------

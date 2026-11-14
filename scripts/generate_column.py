@@ -286,8 +286,8 @@ def build_html(stats, content, slug, rng):
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
-<meta property="og:url" content="https://calrank.vercel.app/{slug}">
+<meta property="og:image" content="https://calrank.kr/og-image.png">
+<meta property="og:url" content="https://calrank.kr/{slug}">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -375,7 +375,7 @@ def update_sitemap(slug):
     xml = path.read_text(encoding="utf-8")
     entry = (
         f"  <url>\n"
-        f"    <loc>https://calrank.vercel.app/{slug}</loc>\n"
+        f"    <loc>https://calrank.kr/{slug}</loc>\n"
         f"    <changefreq>monthly</changefreq>\n"
         f"    <priority>0.6</priority>\n"
         f"  </url>\n"

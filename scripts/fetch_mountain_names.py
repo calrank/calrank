@@ -31,7 +31,7 @@ SKIP_GEO = os.environ.get("SKIP_GEO") == "1"
 
 BASE = "https://apis.data.go.kr/1400000/service/cultureInfoService2"
 OPS = ["mntInfoOpenAPI2", "mntInfoOpenAPI", "mntnInfoOpenAPI2"]
-UA = "calrank-mountain-names/1.0 (https://calrank.vercel.app)"
+UA = "calrank-mountain-names/1.0 (https://calrank.kr)"
 
 
 def get(url, timeout=40):

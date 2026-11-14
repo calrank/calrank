@@ -741,7 +741,7 @@ function injectEventSchema(events) {
       },
       "organizer": ev.organizer ? { "@type": "Organization", "name": ev.organizer } : undefined,
       // 구조화 데이터가 가리키는 주소는 정본과 같아야 한다.
-      "url": `https://calrank.vercel.app/e/${encodeURIComponent(ev.id)}.html`,
+      "url": `https://calrank.kr/e/${encodeURIComponent(ev.id)}.html`,
     },
   }));
 
@@ -905,7 +905,7 @@ function setupCalendarSubscribe() {
   const copyBtn = document.getElementById("subCopy");
   if (!btn || !panel || !wrap || !go || !urlEl) return;
 
-  const origin = "calrank.vercel.app";
+  const origin = "calrank.kr";
   let picked = "";
 
   let apply = function () {

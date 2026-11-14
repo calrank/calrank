@@ -4,8 +4,7 @@ PRODID:-//calrank//KO
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:calrank 자전거 대회 일정
-X-WR-CALDESC:calrank.vercel.app — 자전거 대회 일정과 접수 마
- 감 알림
+X-WR-CALDESC:calrank.kr — 자전거 대회 일정과 접수 마감 알림
 X-WR-TIMEZONE:Asia/Seoul
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
@@ -17,11 +16,11 @@ SUMMARY:2026 완주 만경강 메디오폰도
 LOCATION:고산자연휴양림 다목적캠핑장주차장
 DESCRIPTION:종목: 36.1km\, 93.4km\n시간: 06:30\n장소: 고산자연휴
  양림 다목적캠핑장주차장\n신청: https://www.thebike.co.kr/race
- /view.php?r_idx=346\nhttps://calrank.vercel.app/e/cy-2026-%EC%99%84%EC%A3%
- BC-%EB%A7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%
- 84-2026-11-14.html
-URL:https://calrank.vercel.app/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2
- %BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html
+ /view.php?r_idx=346\nhttps://calrank.kr/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A
+ 7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-
+ 11-14.html
+URL:https://calrank.kr/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2%BD%EA%B
+ 0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -44,10 +43,10 @@ SUMMARY:2026 나주 금성산 메디오폰도
 LOCATION:영산강 둔치체육공원
 DESCRIPTION:종목: 83.8km\n시간: 08:00\n장소: 영산강 둔치체육
  공원\n신청: https://soomagency.kr/shop/item.php?it_id=1792321545\nhttp
- s://calrank.vercel.app/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%
- 82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html
-URL:https://calrank.vercel.app/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84
- %B1%EC%82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html
+ s://calrank.kr/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%82%B0-%E
+ B%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html
+URL:https://calrank.kr/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%8
+ 2%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY

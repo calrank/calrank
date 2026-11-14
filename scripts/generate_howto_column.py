@@ -108,9 +108,9 @@ def live_extra(sport, concern):
 def update_sitemap(slug):
     path = ROOT / "sitemap.xml"
     xml = path.read_text(encoding="utf-8")
-    if f"<loc>https://calrank.vercel.app/{slug}</loc>" in xml:
+    if f"<loc>https://calrank.kr/{slug}</loc>" in xml:
         return
-    entry = (f"  <url>\n    <loc>https://calrank.vercel.app/{slug}</loc>\n"
+    entry = (f"  <url>\n    <loc>https://calrank.kr/{slug}</loc>\n"
              f"    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n")
     path.write_text(xml.replace("</urlset>", entry + "</urlset>"), encoding="utf-8")
 
@@ -138,7 +138,7 @@ def build_page(sport_label, sport, concern, cycle_count):
     robots = "" if concern.get("verified") else '<meta name="robots" content="noindex,follow">\n'
     extra_html = live_extra(sport, concern)
     next_stop = next_stop_html(sport, concern["id"])
-    canonical_url = f"https://calrank.vercel.app/{slug}"
+    canonical_url = f"https://calrank.kr/{slug}"
     date_iso = datetime.now(KST).strftime("%Y-%m-%d")
     article_ld = json.dumps({
         "@context": "https://schema.org", "@type": "Article",
@@ -150,8 +150,8 @@ def build_page(sport_label, sport, concern, cycle_count):
     breadcrumb_ld = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"},
-            {"@type": "ListItem", "position": 2, "name": "칼럼", "item": "https://calrank.vercel.app/column.html"},
+            {"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.kr/index.html"},
+            {"@type": "ListItem", "position": 2, "name": "칼럼", "item": "https://calrank.kr/column.html"},
             {"@type": "ListItem", "position": 3, "name": title},
         ],
     }, ensure_ascii=False)
@@ -166,8 +166,8 @@ def build_page(sport_label, sport, concern, cycle_count):
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
-<meta property="og:url" content="https://calrank.vercel.app/{slug}">
+<meta property="og:image" content="https://calrank.kr/og-image.png">
+<meta property="og:url" content="https://calrank.kr/{slug}">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -271,12 +271,12 @@ def update_sitemap(slug):
     marker = "</urlset>"
     entry = (
         f"  <url>\n"
-        f"    <loc>https://calrank.vercel.app/{slug}</loc>\n"
+        f"    <loc>https://calrank.kr/{slug}</loc>\n"
         f"    <changefreq>monthly</changefreq>\n"
         f"    <priority>0.6</priority>\n"
         f"  </url>\n"
     )
-    if f"<loc>https://calrank.vercel.app/{slug}</loc>" not in xml and marker in xml:
+    if f"<loc>https://calrank.kr/{slug}</loc>" not in xml and marker in xml:
         xml = xml.replace(marker, entry + marker)
         path.write_text(xml, encoding="utf-8")
 

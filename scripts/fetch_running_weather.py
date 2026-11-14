@@ -189,7 +189,7 @@ FOOTER = """<footer class="site-footer">
 # ── 페이지 ────────────────────────────────────────────────
 # monthly 계열에서 배운 것: 자바스크립트로 그리면 크롤러가 본문을 못 본다.
 # 여기서 HTML 까지 구워 둔다.
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 SLUG = "running-weather.html"
 
 

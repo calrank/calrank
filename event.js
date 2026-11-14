@@ -319,7 +319,7 @@ async function init() {
   // 대회 id 에는 영문·숫자·한글·하이픈만 들어가므로 생성 스크립트의
   // quote() 와 encodeURIComponent 의 결과가 같다.
   const pageUrl = window.EVENT_STATIC_URL
-    || `https://calrank.vercel.app/e/${encodeURIComponent(ev.id)}.html`;
+    || `https://calrank.kr/e/${encodeURIComponent(ev.id)}.html`;
 
   document.title = pageTitle;
   document.getElementById("pageTitleTag").textContent = pageTitle;
@@ -439,20 +439,20 @@ async function init() {
   // URL 대신 "calrank > 종목 > 지역 > 대회명" 같은 탐색경로가 표시된다.
   const SPORT_LABEL_MAP = { marathon: "마라톤", cycling: "자전거", trail: "트레일러닝", triathlon: "철인3종", inline: "인라인" };
   const breadcrumbItems = [
-    { "@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html" },
+    { "@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.kr/index.html" },
   ];
   if (SPORT_LABEL_MAP[ev.sport]) {
     breadcrumbItems.push({
       "@type": "ListItem", "position": breadcrumbItems.length + 1,
       "name": SPORT_LABEL_MAP[ev.sport],
-      "item": `https://calrank.vercel.app/index.html?sport=${ev.sport}`,
+      "item": `https://calrank.kr/index.html?sport=${ev.sport}`,
     });
   }
   if (ev.region && !["전국", "미표기"].includes(ev.region)) {
     breadcrumbItems.push({
       "@type": "ListItem", "position": breadcrumbItems.length + 1,
       "name": ev.region,
-      "item": `https://calrank.vercel.app/index.html?region=${encodeURIComponent(ev.region)}`,
+      "item": `https://calrank.kr/index.html?region=${encodeURIComponent(ev.region)}`,
     });
   }
   breadcrumbItems.push({ "@type": "ListItem", "position": breadcrumbItems.length + 1, "name": ev.name });

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
   <title>calrank — 전종목 대회 캘린더 새 소식</title>
-  <link>https://calrank.vercel.app/index.html</link>
+  <link>https://calrank.kr/index.html</link>
   <description>마라톤·자전거·트레일러닝·철인3종·인라인 대회 일정과 새 칼럼을 알려드립니다.</description>
   <language>ko</language>
   <lastBuildDate>Fri, 13 Nov 2026 15:47:33 +0900</lastBuildDate>
-  <atom:link href="https://calrank.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
+  <atom:link href="https://calrank.kr/rss.xml" rel="self" type="application/rss+xml"/>
   <generator>calrank</generator>
   <item>
     <title>달리기를 하면 무릎 연골이 닳을까? 임상·코호트 연구로 확인한 허와 실 — calrank</title>
-    <link>https://calrank.vercel.app/column-running-knee-cartilage-evidence.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-running-knee-cartilage-evidence.html</guid>
+    <link>https://calrank.kr/column-running-knee-cartilage-evidence.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-running-knee-cartilage-evidence.html</guid>
     <pubDate>Fri, 13 Nov 2026 15:47:33 +0900</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -18,8 +18,8 @@
   </item>
   <item>
     <title>2026 한강짐런 (2026 HANGANG GYMRUN) — 2026.11.21 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rw-2026-%ED%95%9C%EA%B0%95%EC%A7%90%EB%9F%B0-2026-hangang-gymrun-2026-11-21.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rw-2026-%ED%95%9C%EA%B0%95%EC%A7%90%EB%9F%B0-2026-hangang-gymrun-2026-11-21.html</guid>
+    <link>https://calrank.kr/e/rw-2026-%ED%95%9C%EA%B0%95%EC%A7%90%EB%9F%B0-2026-hangang-gymrun-2026-11-21.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rw-2026-%ED%95%9C%EA%B0%95%EC%A7%90%EB%9F%B0-2026-hangang-gymrun-2026-11-21.html</guid>
     <pubDate>Thu, 12 Nov 2026 02:07:08 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -27,8 +27,8 @@
   </item>
   <item>
     <title>화성레이스 — 2026.12.12 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%ED%99%94%EC%84%B1%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-12.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%ED%99%94%EC%84%B1%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-12.html</guid>
+    <link>https://calrank.kr/e/rr-%ED%99%94%EC%84%B1%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-12.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%ED%99%94%EC%84%B1%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-12-12.html</guid>
     <pubDate>Mon, 09 Nov 2026 15:02:23 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -36,8 +36,8 @@
   </item>
   <item>
     <title>2026 나주 금성산 메디오폰도 — 2026.11.14 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/cy-2026-%EB%82%98%EC%A3%BC-%EA%B8%88%EC%84%B1%EC%82%B0-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</guid>
     <pubDate>Mon, 09 Nov 2026 00:25:20 +0000</pubDate>
     <author>calrank</author>
     <category>자전거</category>
@@ -45,8 +45,8 @@
   </item>
   <item>
     <title>2026 국민건강 리부트! 마음건강 걷기대회 — 2026.11.14 세종 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rm-2026-%EA%B5%AD%EB%AF%BC%EA%B1%B4%EA%B0%95-%EB%A6%AC%EB%B6%80%ED%8A%B8-%EB%A7%88%EC%9D%8C%EA%B1%B4%EA%B0%95-%EA%B1%B7%EA%B8%B0%EB%8C%80%ED%9A%8C-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-2026-%EA%B5%AD%EB%AF%BC%EA%B1%B4%EA%B0%95-%EB%A6%AC%EB%B6%80%ED%8A%B8-%EB%A7%88%EC%9D%8C%EA%B1%B4%EA%B0%95-%EA%B1%B7%EA%B8%B0%EB%8C%80%ED%9A%8C-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/rm-2026-%EA%B5%AD%EB%AF%BC%EA%B1%B4%EA%B0%95-%EB%A6%AC%EB%B6%80%ED%8A%B8-%EB%A7%88%EC%9D%8C%EA%B1%B4%EA%B0%95-%EA%B1%B7%EA%B8%B0%EB%8C%80%ED%9A%8C-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rm-2026-%EA%B5%AD%EB%AF%BC%EA%B1%B4%EA%B0%95-%EB%A6%AC%EB%B6%80%ED%8A%B8-%EB%A7%88%EC%9D%8C%EA%B1%B4%EA%B0%95-%EA%B1%B7%EA%B8%B0%EB%8C%80%ED%9A%8C-2026-11-14.html</guid>
     <pubDate>Sun, 08 Nov 2026 00:08:50 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -54,8 +54,8 @@
   </item>
   <item>
     <title>굿네이버스 레이스 with 띵크어스 - 부산 레이스 — 2026.11.14 부산 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rm-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EB%A0%88%EC%9D%B4%EC%8A%A4-with-%EB%9D%B5%ED%81%AC%EC%96%B4%EC%8A%A4-%EB%B6%80%EC%82%B0-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EB%A0%88%EC%9D%B4%EC%8A%A4-with-%EB%9D%B5%ED%81%AC%EC%96%B4%EC%8A%A4-%EB%B6%80%EC%82%B0-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/rm-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EB%A0%88%EC%9D%B4%EC%8A%A4-with-%EB%9D%B5%ED%81%AC%EC%96%B4%EC%8A%A4-%EB%B6%80%EC%82%B0-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rm-%EA%B5%BF%EB%84%A4%EC%9D%B4%EB%B2%84%EC%8A%A4-%EB%A0%88%EC%9D%B4%EC%8A%A4-with-%EB%9D%B5%ED%81%AC%EC%96%B4%EC%8A%A4-%EB%B6%80%EC%82%B0-%EB%A0%88%EC%9D%B4%EC%8A%A4-2026-11-14.html</guid>
     <pubDate>Sun, 08 Nov 2026 00:08:50 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -63,8 +63,8 @@
   </item>
   <item>
     <title>2026 GLOBAL FOR WATER 마라톤 대구대회 — 2026.11.14 대구 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rm-2026-global-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-2026-global-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/rm-2026-global-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rm-2026-global-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</guid>
     <pubDate>Sun, 08 Nov 2026 00:08:50 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -72,8 +72,8 @@
   </item>
   <item>
     <title>2026 스타콜 × 롤링스톤 레트로 런 IN 증평 — 2026.11.14 충북 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rm-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/rm-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rm-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</guid>
     <pubDate>Sun, 08 Nov 2026 00:08:50 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -81,8 +81,8 @@
   </item>
   <item>
     <title>2026 스타콜 \xd7 롤링스톤 레트로 런 IN 증평 — 2026.11.14 충북 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/ro-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-xd7-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/ro-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-xd7-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/ro-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-xd7-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/ro-2026-%EC%8A%A4%ED%83%80%EC%BD%9C-xd7-%EB%A1%A4%EB%A7%81%EC%8A%A4%ED%86%A4-%EB%A0%88%ED%8A%B8%EB%A1%9C-%EB%9F%B0-in-%EC%A6%9D%ED%8F%89-2026-11-14.html</guid>
     <pubDate>Sun, 08 Nov 2026 00:08:50 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -90,8 +90,8 @@
   </item>
   <item>
     <title>2026 GLOBAL 6K FOR WATER 마라톤 대구대회 — 2026.11.14 대구 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/ro-2026-global-6k-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/ro-2026-global-6k-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/ro-2026-global-6k-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/ro-2026-global-6k-for-water-%EB%A7%88%EB%9D%BC%ED%86%A4-%EB%8C%80%EA%B5%AC%EB%8C%80%ED%9A%8C-2026-11-14.html</guid>
     <pubDate>Sun, 08 Nov 2026 00:08:50 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -99,8 +99,8 @@
   </item>
   <item>
     <title>2026 대전보문산트레일 — 2026.12.06 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-06.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-06.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-06.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-06.html</guid>
     <pubDate>Sat, 07 Nov 2026 00:34:09 +0000</pubDate>
     <author>calrank</author>
     <category>트레일</category>
@@ -108,8 +108,8 @@
   </item>
   <item>
     <title>부산금정산성트레일 — 2026.12.13 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EB%B6%80%EC%82%B0%EA%B8%88%EC%A0%95%EC%82%B0%EC%84%B1%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-13.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EB%B6%80%EC%82%B0%EA%B8%88%EC%A0%95%EC%82%B0%EC%84%B1%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-13.html</guid>
+    <link>https://calrank.kr/e/rr-%EB%B6%80%EC%82%B0%EA%B8%88%EC%A0%95%EC%82%B0%EC%84%B1%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-13.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EB%B6%80%EC%82%B0%EA%B8%88%EC%A0%95%EC%82%B0%EC%84%B1%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-13.html</guid>
     <pubDate>Sat, 07 Nov 2026 00:34:09 +0000</pubDate>
     <author>calrank</author>
     <category>트레일</category>
@@ -117,8 +117,8 @@
   </item>
   <item>
     <title>경주 통포트레일 — 2026.12.27 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EA%B2%BD%EC%A3%BC-%ED%86%B5%ED%8F%AC%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-27.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EA%B2%BD%EC%A3%BC-%ED%86%B5%ED%8F%AC%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-27.html</guid>
+    <link>https://calrank.kr/e/rr-%EA%B2%BD%EC%A3%BC-%ED%86%B5%ED%8F%AC%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-27.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EA%B2%BD%EC%A3%BC-%ED%86%B5%ED%8F%AC%ED%8A%B8%EB%A0%88%EC%9D%BC-2026-12-27.html</guid>
     <pubDate>Sat, 07 Nov 2026 00:34:09 +0000</pubDate>
     <author>calrank</author>
     <category>트레일</category>
@@ -126,8 +126,8 @@
   </item>
   <item>
     <title>2026 SPOTV NIGHT RUN — 2026.11.28 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-spotv-night-run-2026-11-28.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-spotv-night-run-2026-11-28.html</guid>
+    <link>https://calrank.kr/e/rr-2026-spotv-night-run-2026-11-28.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-spotv-night-run-2026-11-28.html</guid>
     <pubDate>Thu, 05 Nov 2026 01:13:52 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -135,8 +135,8 @@
   </item>
   <item>
     <title>2026이순신런페스타 — 2026.12.13 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026%EC%9D%B4%EC%88%9C%EC%8B%A0%EB%9F%B0%ED%8E%98%EC%8A%A4%ED%83%80-2026-12-13.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026%EC%9D%B4%EC%88%9C%EC%8B%A0%EB%9F%B0%ED%8E%98%EC%8A%A4%ED%83%80-2026-12-13.html</guid>
+    <link>https://calrank.kr/e/rr-2026%EC%9D%B4%EC%88%9C%EC%8B%A0%EB%9F%B0%ED%8E%98%EC%8A%A4%ED%83%80-2026-12-13.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026%EC%9D%B4%EC%88%9C%EC%8B%A0%EB%9F%B0%ED%8E%98%EC%8A%A4%ED%83%80-2026-12-13.html</guid>
     <pubDate>Thu, 05 Nov 2026 01:13:52 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -144,8 +144,8 @@
   </item>
   <item>
     <title>2026년 11월 자전거 대회 현황 — 3개 대회 한눈에 — calrank</title>
-    <link>https://calrank.vercel.app/column-2026-11-cycling-auto.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-2026-11-cycling-auto.html</guid>
+    <link>https://calrank.kr/column-2026-11-cycling-auto.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-2026-11-cycling-auto.html</guid>
     <pubDate>Wed, 04 Nov 2026 00:59:32 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -153,8 +153,8 @@
   </item>
   <item>
     <title>2026년 11월에 열리는 마라톤 대회 138곳 — calrank</title>
-    <link>https://calrank.vercel.app/column-2026-11-marathon-auto.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-2026-11-marathon-auto.html</guid>
+    <link>https://calrank.kr/column-2026-11-marathon-auto.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-2026-11-marathon-auto.html</guid>
     <pubDate>Mon, 02 Nov 2026 00:06:15 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -162,8 +162,8 @@
   </item>
   <item>
     <title>런텐 JUST RUN10 대구 — 2026.11.21 대구 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rw-%EB%9F%B0%ED%85%90-just-run10-%EB%8C%80%EA%B5%AC-2026-11-21.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rw-%EB%9F%B0%ED%85%90-just-run10-%EB%8C%80%EA%B5%AC-2026-11-21.html</guid>
+    <link>https://calrank.kr/e/rw-%EB%9F%B0%ED%85%90-just-run10-%EB%8C%80%EA%B5%AC-2026-11-21.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rw-%EB%9F%B0%ED%85%90-just-run10-%EB%8C%80%EA%B5%AC-2026-11-21.html</guid>
     <pubDate>Sat, 31 Oct 2026 23:55:38 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -171,8 +171,8 @@
   </item>
   <item>
     <title>2026년 11월 트레일러닝 대회 현황 — 20개 대회 한눈에 — calrank</title>
-    <link>https://calrank.vercel.app/column-2026-11-trail-auto.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-2026-11-trail-auto.html</guid>
+    <link>https://calrank.kr/column-2026-11-trail-auto.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-2026-11-trail-auto.html</guid>
     <pubDate>Sat, 31 Oct 2026 23:53:06 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -180,8 +180,8 @@
   </item>
   <item>
     <title>러닝에 관한 흔한 말 7가지 — 근거가 있는 것과 없는 것 — calrank</title>
-    <link>https://calrank.vercel.app/column-running-common-myths-evidence.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-running-common-myths-evidence.html</guid>
+    <link>https://calrank.kr/column-running-common-myths-evidence.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-running-common-myths-evidence.html</guid>
     <pubDate>Sat, 31 Oct 2026 01:26:13 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -189,8 +189,8 @@
   </item>
   <item>
     <title>2026 완주 만경강 메디오폰도 — 2026.11.14 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</guid>
+    <link>https://calrank.kr/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/cy-2026-%EC%99%84%EC%A3%BC-%EB%A7%8C%EA%B2%BD%EA%B0%95-%EB%A9%94%EB%94%94%EC%98%A4%ED%8F%B0%EB%8F%84-2026-11-14.html</guid>
     <pubDate>Fri, 30 Oct 2026 00:34:29 +0000</pubDate>
     <author>calrank</author>
     <category>자전거</category>
@@ -198,8 +198,8 @@
   </item>
   <item>
     <title>레이스 당일 페이싱, 실전에서 뭘 주의해야 할까요 — 철인3종 노하우 — calrank</title>
-    <link>https://calrank.vercel.app/column-howto-triathlon-race-day-pacing.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-howto-triathlon-race-day-pacing.html</guid>
+    <link>https://calrank.kr/column-howto-triathlon-race-day-pacing.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-howto-triathlon-race-day-pacing.html</guid>
     <pubDate>Thu, 29 Oct 2026 01:18:59 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -207,8 +207,8 @@
   </item>
   <item>
     <title>러닝 부상은 왜 아킬레스건과 발에서 날까 — 힘줄 적응의 속도 — calrank</title>
-    <link>https://calrank.vercel.app/column-running-achilles-tendon-injury.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-running-achilles-tendon-injury.html</guid>
+    <link>https://calrank.kr/column-running-achilles-tendon-injury.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-running-achilles-tendon-injury.html</guid>
     <pubDate>Wed, 28 Oct 2026 01:00:07 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -216,8 +216,8 @@
   </item>
   <item>
     <title>대회취소 — 2026.12.28 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</guid>
+    <link>https://calrank.kr/e/rr-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</guid>
     <pubDate>Wed, 28 Oct 2026 00:13:16 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -225,8 +225,8 @@
   </item>
   <item>
     <title>천안시장배 대한독립천안트레일런산악등반대회 — 2026.11.21 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%B2%9C%EC%95%88%EC%8B%9C%EC%9E%A5%EB%B0%B0-%EB%8C%80%ED%95%9C%EB%8F%85%EB%A6%BD%EC%B2%9C%EC%95%88%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EC%82%B0%EC%95%85%EB%93%B1%EB%B0%98%EB%8C%80%ED%9A%8C-2026-11-21.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%B2%9C%EC%95%88%EC%8B%9C%EC%9E%A5%EB%B0%B0-%EB%8C%80%ED%95%9C%EB%8F%85%EB%A6%BD%EC%B2%9C%EC%95%88%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EC%82%B0%EC%95%85%EB%93%B1%EB%B0%98%EB%8C%80%ED%9A%8C-2026-11-21.html</guid>
+    <link>https://calrank.kr/e/rr-%EC%B2%9C%EC%95%88%EC%8B%9C%EC%9E%A5%EB%B0%B0-%EB%8C%80%ED%95%9C%EB%8F%85%EB%A6%BD%EC%B2%9C%EC%95%88%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EC%82%B0%EC%95%85%EB%93%B1%EB%B0%98%EB%8C%80%ED%9A%8C-2026-11-21.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EC%B2%9C%EC%95%88%EC%8B%9C%EC%9E%A5%EB%B0%B0-%EB%8C%80%ED%95%9C%EB%8F%85%EB%A6%BD%EC%B2%9C%EC%95%88%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0%EC%82%B0%EC%95%85%EB%93%B1%EB%B0%98%EB%8C%80%ED%9A%8C-2026-11-21.html</guid>
     <pubDate>Tue, 27 Oct 2026 00:12:52 +0000</pubDate>
     <author>calrank</author>
     <category>트레일</category>
@@ -234,8 +234,8 @@
   </item>
   <item>
     <title>런트립 남해 — 2026.11.21 경남 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rm-%EB%9F%B0%ED%8A%B8%EB%A6%BD-%EB%82%A8%ED%95%B4-2026-11-21.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rm-%EB%9F%B0%ED%8A%B8%EB%A6%BD-%EB%82%A8%ED%95%B4-2026-11-21.html</guid>
+    <link>https://calrank.kr/e/rm-%EB%9F%B0%ED%8A%B8%EB%A6%BD-%EB%82%A8%ED%95%B4-2026-11-21.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rm-%EB%9F%B0%ED%8A%B8%EB%A6%BD-%EB%82%A8%ED%95%B4-2026-11-21.html</guid>
     <pubDate>Tue, 27 Oct 2026 00:12:52 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -243,8 +243,8 @@
   </item>
   <item>
     <title>2026 모악트레일런 — 2026.12.05 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EB%AA%A8%EC%95%85%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-05.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EB%AA%A8%EC%95%85%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-05.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%EB%AA%A8%EC%95%85%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-05.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%EB%AA%A8%EC%95%85%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-05.html</guid>
     <pubDate>Tue, 27 Oct 2026 00:12:52 +0000</pubDate>
     <author>calrank</author>
     <category>트레일</category>
@@ -252,8 +252,8 @@
   </item>
   <item>
     <title>2026 평창 스노우런 — 2026.12.12 강원 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%ED%8F%89%EC%B0%BD-%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%9F%B0-2026-12-12.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%8F%89%EC%B0%BD-%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%9F%B0-2026-12-12.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%ED%8F%89%EC%B0%BD-%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%9F%B0-2026-12-12.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%ED%8F%89%EC%B0%BD-%EC%8A%A4%EB%85%B8%EC%9A%B0%EB%9F%B0-2026-12-12.html</guid>
     <pubDate>Tue, 27 Oct 2026 00:12:52 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -261,8 +261,8 @@
   </item>
   <item>
     <title>전환(트랜지션)과 훈련 방법이 궁금해요 — 철인3종 노하우 — calrank</title>
-    <link>https://calrank.vercel.app/column-howto-triathlon-transition-training.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-howto-triathlon-transition-training.html</guid>
+    <link>https://calrank.kr/column-howto-triathlon-transition-training.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-howto-triathlon-transition-training.html</guid>
     <pubDate>Sun, 25 Oct 2026 23:38:09 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -270,8 +270,8 @@
   </item>
   <item>
     <title>달리기는 뼈를 강하게 할까 — 골밀도와 발에 관한 연구 — calrank</title>
-    <link>https://calrank.vercel.app/column-running-bone-density-foot.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-running-bone-density-foot.html</guid>
+    <link>https://calrank.kr/column-running-bone-density-foot.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-running-bone-density-foot.html</guid>
     <pubDate>Sat, 24 Oct 2026 00:18:42 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -279,8 +279,8 @@
   </item>
   <item>
     <title>2026 성남 헤리티지 런 — 2026.12.12 경기 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%EC%84%B1%EB%82%A8-%ED%97%A4%EB%A6%AC%ED%8B%B0%EC%A7%80-%EB%9F%B0-2026-12-12.html</guid>
     <pubDate>Wed, 21 Oct 2026 23:54:05 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -288,8 +288,8 @@
   </item>
   <item>
     <title>2026 시즌마감마라톤대회 — 2026.12.13 인천 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EC%8B%9C%EC%A6%8C%EB%A7%88%EA%B0%90%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-12-13.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%8B%9C%EC%A6%8C%EB%A7%88%EA%B0%90%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-12-13.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%EC%8B%9C%EC%A6%8C%EB%A7%88%EA%B0%90%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-12-13.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%EC%8B%9C%EC%A6%8C%EB%A7%88%EA%B0%90%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C-2026-12-13.html</guid>
     <pubDate>Wed, 21 Oct 2026 23:54:05 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -297,8 +297,8 @@
   </item>
   <item>
     <title>2026 한강런 (대회취소) — 2026.12.28 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%ED%95%9C%EA%B0%95%EB%9F%B0-%EB%8C%80%ED%9A%8C%EC%B7%A8%EC%86%8C-2026-12-28.html</guid>
     <pubDate>Wed, 21 Oct 2026 06:51:49 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -306,8 +306,8 @@
   </item>
   <item>
     <title>50대에 달리기를 시작해도 몸이 바뀔까 — 마스터 러너 연구가 말하는 것 — calrank</title>
-    <link>https://calrank.vercel.app/column-running-after-50-body-change.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/column-running-after-50-body-change.html</guid>
+    <link>https://calrank.kr/column-running-after-50-body-change.html</link>
+    <guid isPermaLink="true">https://calrank.kr/column-running-after-50-body-change.html</guid>
     <pubDate>Wed, 21 Oct 2026 00:23:59 +0000</pubDate>
     <author>calrank</author>
     <category>칼럼</category>
@@ -315,8 +315,8 @@
   </item>
   <item>
     <title>그란폰도 보급: 100km·200km에 얼마나 먹고 마셔야 할까</title>
-    <link>https://calrank.vercel.app/guide-cycling-fuel.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-cycling-fuel.html</guid>
+    <link>https://calrank.kr/guide-cycling-fuel.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-cycling-fuel.html</guid>
     <pubDate>Mon, 19 Oct 2026 21:04:22 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -324,8 +324,8 @@
   </item>
   <item>
     <title>자전거대회 준비물과 전날 점검: 펑크까지 생각하고 싸기</title>
-    <link>https://calrank.vercel.app/guide-cycling-gear.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-cycling-gear.html</guid>
+    <link>https://calrank.kr/guide-cycling-gear.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-cycling-gear.html</guid>
     <pubDate>Mon, 19 Oct 2026 21:04:22 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -333,8 +333,8 @@
   </item>
   <item>
     <title>장거리 라이딩 후 회복: 허벅지·허리·안장통, 무엇이 효과 있나</title>
-    <link>https://calrank.vercel.app/guide-cycling-recovery.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-cycling-recovery.html</guid>
+    <link>https://calrank.kr/guide-cycling-recovery.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-cycling-recovery.html</guid>
     <pubDate>Mon, 19 Oct 2026 21:04:22 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -342,8 +342,8 @@
   </item>
   <item>
     <title>10km 기록 줄이기: 60분에서 55분으로, 무엇을 바꿔야 할까</title>
-    <link>https://calrank.vercel.app/guide-training-10km.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-training-10km.html</guid>
+    <link>https://calrank.kr/guide-training-10km.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-training-10km.html</guid>
     <pubDate>Mon, 19 Oct 2026 20:27:57 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -351,8 +351,8 @@
   </item>
   <item>
     <title>하프마라톤 2시간 깨기: 15km 이후가 무너지는 이유와 대비</title>
-    <link>https://calrank.vercel.app/guide-training-half.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-training-half.html</guid>
+    <link>https://calrank.kr/guide-training-half.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-training-half.html</guid>
     <pubDate>Mon, 19 Oct 2026 20:27:57 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -360,8 +360,8 @@
   </item>
   <item>
     <title>10km 마라톤 기록, 내 수준은 어디쯤일까 — 나이·성별 등급표</title>
-    <link>https://calrank.vercel.app/guide-marathon-10km.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-10km.html</guid>
+    <link>https://calrank.kr/guide-marathon-10km.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-marathon-10km.html</guid>
     <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -369,8 +369,8 @@
   </item>
   <item>
     <title>풀코스 마라톤 42.195km — 등급표와 30km 이후를 버티는 계획</title>
-    <link>https://calrank.vercel.app/guide-marathon-full.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-full.html</guid>
+    <link>https://calrank.kr/guide-marathon-full.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-marathon-full.html</guid>
     <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -378,8 +378,8 @@
   </item>
   <item>
     <title>하프마라톤 21.0975km — 기록 등급표와 보급 계획 세우는 법</title>
-    <link>https://calrank.vercel.app/guide-marathon-half.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-marathon-half.html</guid>
+    <link>https://calrank.kr/guide-marathon-half.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-marathon-half.html</guid>
     <pubDate>Mon, 19 Oct 2026 17:42:45 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -387,8 +387,8 @@
   </item>
   <item>
     <title>트레일 완주 후 다리가 더 아픈 이유: 내리막과 근육통</title>
-    <link>https://calrank.vercel.app/guide-trail-recovery.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-recovery.html</guid>
+    <link>https://calrank.kr/guide-trail-recovery.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-trail-recovery.html</guid>
     <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -396,8 +396,8 @@
   </item>
   <item>
     <title>트레일러닝 보급과 더위: 보급소가 멀 때 어떻게 계산할까</title>
-    <link>https://calrank.vercel.app/guide-trail-heat-fuel.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-heat-fuel.html</guid>
+    <link>https://calrank.kr/guide-trail-heat-fuel.html</link>
+    <guid isPermaLink="true">https://calrank.kr/guide-trail-heat-fuel.html</guid>
     <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
     <author>calrank</author>
     <category>대회 가이드</category>
@@ -405,8 +405,8 @@
   </item>
   <item>
     <title>2026 착한서구 공부방 기부앤런 — 2026.11.28 광주 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%EC%B0%A9%ED%95%9C%EC%84%9C%EA%B5%AC-%EA%B3%B5%EB%B6%80%EB%B0%A9-%EA%B8%B0%EB%B6%80%EC%95%A4%EB%9F%B0-2026-11-28.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%EC%B0%A9%ED%95%9C%EC%84%9C%EA%B5%AC-%EA%B3%B5%EB%B6%80%EB%B0%A9-%EA%B8%B0%EB%B6%80%EC%95%A4%EB%9F%B0-2026-11-28.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%EC%B0%A9%ED%95%9C%EC%84%9C%EA%B5%AC-%EA%B3%B5%EB%B6%80%EB%B0%A9-%EA%B8%B0%EB%B6%80%EC%95%A4%EB%9F%B0-2026-11-28.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%EC%B0%A9%ED%95%9C%EC%84%9C%EA%B5%AC-%EA%B3%B5%EB%B6%80%EB%B0%A9-%EA%B8%B0%EB%B6%80%EC%95%A4%EB%9F%B0-2026-11-28.html</guid>
     <pubDate>Fri, 16 Oct 2026 23:13:19 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -414,8 +414,8 @@
   </item>
   <item>
     <title>대전보문산트레일런 — 2026.12.06 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-06.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-06.html</guid>
+    <link>https://calrank.kr/e/rr-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-06.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EB%8C%80%EC%A0%84%EB%B3%B4%EB%AC%B8%EC%82%B0%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%9F%B0-2026-12-06.html</guid>
     <pubDate>Thu, 15 Oct 2026 23:31:51 +0000</pubDate>
     <author>calrank</author>
     <category>트레일</category>
@@ -423,8 +423,8 @@
   </item>
   <item>
     <title>제19회 대구광역시장기 생활체육 육상대회 — 2026.11.22 대구 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C19%ED%9A%8C-%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%EC%9E%A5%EA%B8%B0-%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-11-22.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C19%ED%9A%8C-%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%EC%9E%A5%EA%B8%B0-%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-11-22.html</guid>
+    <link>https://calrank.kr/e/rr-%EC%A0%9C19%ED%9A%8C-%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%EC%9E%A5%EA%B8%B0-%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-11-22.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EC%A0%9C19%ED%9A%8C-%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%EC%9E%A5%EA%B8%B0-%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1-%EC%9C%A1%EC%83%81%EB%8C%80%ED%9A%8C-2026-11-22.html</guid>
     <pubDate>Wed, 14 Oct 2026 23:37:48 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -432,8 +432,8 @@
   </item>
   <item>
     <title>2026 화순고인돌마라톤 — 2026.12.06 전남 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%ED%99%94%EC%88%9C%EA%B3%A0%EC%9D%B8%EB%8F%8C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-06.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%99%94%EC%88%9C%EA%B3%A0%EC%9D%B8%EB%8F%8C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-06.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%ED%99%94%EC%88%9C%EA%B3%A0%EC%9D%B8%EB%8F%8C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-06.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%ED%99%94%EC%88%9C%EA%B3%A0%EC%9D%B8%EB%8F%8C%EB%A7%88%EB%9D%BC%ED%86%A4-2026-12-06.html</guid>
     <pubDate>Wed, 14 Oct 2026 23:37:48 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -441,8 +441,8 @@
   </item>
   <item>
     <title>2026 허그런(HUG RUN) — 2026.12.05 서울 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-2026-%ED%97%88%EA%B7%B8%EB%9F%B0-hug-run-2026-12-05.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-2026-%ED%97%88%EA%B7%B8%EB%9F%B0-hug-run-2026-12-05.html</guid>
+    <link>https://calrank.kr/e/rr-2026-%ED%97%88%EA%B7%B8%EB%9F%B0-hug-run-2026-12-05.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-2026-%ED%97%88%EA%B7%B8%EB%9F%B0-hug-run-2026-12-05.html</guid>
     <pubDate>Sat, 10 Oct 2026 00:29:36 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>
@@ -450,8 +450,8 @@
   </item>
   <item>
     <title>제2회 일자산TRAL RUNNING — 2026.12.13 대회 일정·접수 | calrank</title>
-    <link>https://calrank.vercel.app/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</guid>
+    <link>https://calrank.kr/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</link>
+    <guid isPermaLink="true">https://calrank.kr/e/rr-%EC%A0%9C2%ED%9A%8C-%EC%9D%BC%EC%9E%90%EC%82%B0tral-running-2026-12-13.html</guid>
     <pubDate>Sat, 10 Oct 2026 00:29:36 +0000</pubDate>
     <author>calrank</author>
     <category>마라톤</category>

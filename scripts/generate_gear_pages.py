@@ -42,7 +42,7 @@ from gear_table_data import (  # noqa: E402
     WETSUIT_TEMPS, POLE_GRADIENTS)
 
 ROOT = Path(__file__).resolve().parent.parent
-BASE = "https://calrank.vercel.app"
+BASE = "https://calrank.kr"
 KST = timezone(timedelta(hours=9))
 TODAY = datetime.now(KST).strftime("%Y-%m-%d")
 

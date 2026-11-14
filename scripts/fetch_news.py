@@ -327,7 +327,7 @@ def write_rss_feed(items, path="feed.xml", limit=50):
     새 글이 계속 나온다는 걸 알리는 용도. 새 소스를 만드는 게 아니라
     news.json을 다른 형식으로 한 번 더 펴내는 것뿐이라 비용이 들지 않는다."""
     KST = timezone(timedelta(hours=9))
-    site = "https://calrank.vercel.app"
+    site = "https://calrank.kr"
 
     rss_items = []
     for it in items[:limit]:

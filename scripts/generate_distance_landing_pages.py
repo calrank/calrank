@@ -122,7 +122,7 @@ def build_page(sport, dist_label, events):
                  + _rows(list(reversed(done))[:60]) + "\n</div>")
     rows += build_dist_stats(dist_label, sport_label, events_sorted, upcoming)
     slug = slugify(sport, dist_label)
-    canonical_url = f"https://calrank.vercel.app/{slug}"
+    canonical_url = f"https://calrank.kr/{slug}"
     collection_ld = json.dumps({
         "@context": "https://schema.org", "@type": "CollectionPage",
         "name": title, "description": desc, "url": canonical_url,
@@ -130,8 +130,8 @@ def build_page(sport, dist_label, events):
     breadcrumb_ld = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.vercel.app/index.html"},
-            {"@type": "ListItem", "position": 2, "name": "거리별", "item": "https://calrank.vercel.app/distances.html"},
+            {"@type": "ListItem", "position": 1, "name": "calrank", "item": "https://calrank.kr/index.html"},
+            {"@type": "ListItem", "position": 2, "name": "거리별", "item": "https://calrank.kr/distances.html"},
             {"@type": "ListItem", "position": 3, "name": title},
         ],
     }, ensure_ascii=False)
@@ -146,8 +146,8 @@ def build_page(sport, dist_label, events):
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://calrank.vercel.app/og-image.png">
-<meta property="og:url" content="https://calrank.vercel.app/{slug}">
+<meta property="og:image" content="https://calrank.kr/og-image.png">
+<meta property="og:url" content="https://calrank.kr/{slug}">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -222,12 +222,12 @@ def update_sitemap(slugs):
     for slug in slugs:
         entry = (
             f"  <url>\n"
-            f"    <loc>https://calrank.vercel.app/{slug}</loc>\n"
+            f"    <loc>https://calrank.kr/{slug}</loc>\n"
             f"    <changefreq>weekly</changefreq>\n"
             f"    <priority>0.6</priority>\n"
             f"  </url>\n"
         )
-        if f"<loc>https://calrank.vercel.app/{slug}</loc>" not in xml:   # lastmod 가 채워져도 중복되지 않게 <loc> 로 비교
+        if f"<loc>https://calrank.kr/{slug}</loc>" not in xml:   # lastmod 가 채워져도 중복되지 않게 <loc> 로 비교
             added += entry
     if added and marker in xml:
         xml = xml.replace(marker, added + marker)
@@ -251,7 +251,7 @@ def build_index(pages):
     body = "\n".join(sections)
     index_ld = json.dumps({
         "@context": "https://schema.org", "@type": "CollectionPage",
-        "name": "거리별 대회 일정", "url": "https://calrank.vercel.app/distances.html",
+        "name": "거리별 대회 일정", "url": "https://calrank.kr/distances.html",
     }, ensure_ascii=False)
 
     return f'''<!DOCTYPE html>
@@ -270,7 +270,7 @@ def build_index(pages):
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#0B0B0B">
-<link rel="canonical" href="https://calrank.vercel.app/distances.html">
+<link rel="canonical" href="https://calrank.kr/distances.html">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">{index_ld}</script>
 <style>

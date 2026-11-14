@@ -17,7 +17,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parent.parent
-HOST = "https://calrank.vercel.app"
+HOST = "https://calrank.kr"
 
 
 def kind(path: str) -> str:

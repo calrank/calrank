@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 KST = timezone(timedelta(hours=9))
 WEEKDAY = ["월", "화", "수", "목", "금", "토", "일"]
 

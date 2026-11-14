@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
   <title>calrank 종목뉴스</title>
-  <link>https://calrank.vercel.app/news.html</link>
+  <link>https://calrank.kr/news.html</link>
   <description>마라톤·자전거·철인3종·산악 공식 협회 소식을 매일 자동으로 모읍니다.</description>
   <language>ko</language>
   <lastBuildDate>Sat, 14 Nov 2026 10:07:27 +0900</lastBuildDate>

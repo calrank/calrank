@@ -17,7 +17,7 @@ import requests
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "source_watch.json"
 KST = timezone(timedelta(hours=9))
-UA = "Mozilla/5.0 (compatible; calrank-source-watch/1.0; +https://calrank.vercel.app)"
+UA = "Mozilla/5.0 (compatible; calrank-source-watch/1.0; +https://calrank.kr)"
 
 
 def urls() -> list[str]:

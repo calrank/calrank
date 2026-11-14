@@ -8,7 +8,7 @@
     }
   } catch (e) {}
   try {
-    if (location.hostname !== "calrank.vercel.app") return;
+    if (location.hostname !== "calrank.kr") return;
     // 운영자 본인 방문은 세지 않는다. 주소 끝에 ?cr_me=1 을 붙여 한 번 열면 이 기기에서 제외되고, ?cr_me=0 으로 풀린다.
     try {
       var me = new URLSearchParams(location.search).get("cr_me");

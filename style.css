@@ -738,3 +738,12 @@ body .gr-switch a:not(.on):hover{ box-shadow:var(--lift); border-color:var(--acc
 .rel-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .rel-cols ul li a{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none!important;font-size:14.5px;line-height:1.5}
 .rel-cols ul li a:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+/* 등급 여정 */
+.th-group{padding:10px 0;border-top:1px solid var(--line,var(--border))}
+.th-group:first-child{border-top:0;padding-top:0}
+.th-title{margin:0 0 6px;font-weight:700;font-size:14.5px}
+.th-list{margin:0;padding-left:0;list-style:none;display:grid;gap:4px;font-size:14px;line-height:1.5}
+.th-sub{color:var(--ink-faint,var(--ink-faint));font-size:13px;font-weight:400}
+.th-date{color:var(--ink-faint,var(--ink-faint));font-variant-numeric:tabular-nums;margin-right:6px}
+.th-next{margin:6px 0 0;font-size:13.5px}

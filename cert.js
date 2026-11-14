@@ -1281,7 +1281,7 @@
     ctx.fillText("나이·성별 보정 기준 · calrank 자체 지표", pad, H - 110);
     ctx.fillStyle = "#FF3D1A";
     ctx.font = "900 40px 'Noto Sans KR', sans-serif";
-    ctx.fillText("calrank.vercel.app", pad, H - 55);
+    ctx.fillText("calrank.kr", pad, H - 55);
   }
 
   formEl.addEventListener("submit", function (e) {

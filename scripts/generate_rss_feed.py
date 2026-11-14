@@ -23,7 +23,7 @@ from urllib.parse import quote
 from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 KST = timezone(timedelta(hours=9))
 MAX_COLUMNS = 20
 MAX_EVENTS = 30

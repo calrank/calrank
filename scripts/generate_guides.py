@@ -40,7 +40,7 @@ from guides_data import GUIDES, SPORTS, STAGES, TAG_INFO
 
 ROOT = Path(__file__).resolve().parent.parent
 KST = timezone(timedelta(hours=9))
-BASE = "https://calrank.vercel.app"
+BASE = "https://calrank.kr"
 
 CITE_RE = re.compile(r"\{\{([a-zA-Z0-9_]+)\}\}")
 
@@ -343,7 +343,7 @@ SHARE_JS = """<script>
         window.Kakao.Share.sendDefault({objectType:'feed',
           content:{title:document.title,
             description:(document.querySelector('meta[name=description]')||{}).content||'',
-            imageUrl:'https://calrank.vercel.app/og-image.png',link:link},
+            imageUrl:'https://calrank.kr/og-image.png',link:link},
           buttons:[{title:'가이드 보기',link:link}]});
       }catch(e){tell(ka,'보내지 못했어요');}
     }

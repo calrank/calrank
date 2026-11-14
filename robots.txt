@@ -22,5 +22,5 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://calrank.vercel.app/sitemap.xml
-Sitemap: https://calrank.vercel.app/sitemap-events.xml
+Sitemap: https://calrank.kr/sitemap.xml
+Sitemap: https://calrank.kr/sitemap-events.xml

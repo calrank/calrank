@@ -20,7 +20,7 @@ from distance_tier_data import DECADES, TIER_TABLES  # noqa: E402
 from goal_data import DISTANCES, GOALS, DIST_INTRO  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://calrank.vercel.app"
+SITE = "https://calrank.kr"
 TIER_NAMES = ["비기너", "노비스", "인터미디엇", "어드밴스드", "엘리트"]
 # 10대는 성장기라 성인 기준을 그대로 대지 않는다.
 SHOW_DECADES = list(range(1, 7))          # 20대 ~ 70대
