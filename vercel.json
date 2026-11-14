@@ -2,36 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(self), payment=(), usb=()"
-        },
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000"
-        }
-      ]
-    },
-    {
-      "source": "/((?!widget).*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        }
-      ]
-    },
-    {
       "source": "/feed.ics",
       "headers": [
         {
@@ -3849,11 +3819,6 @@
     {
       "source": "/e/rw-%ED%8F%89%ED%99%94%EC%9D%98%EC%84%AC-2026-%EA%B5%AD%EB%AC%B4%EC%B4%9D%EB%A6%AC%EA%B8%B0%EA%B5%AD%EC%A0%9C%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1%EA%B5%AC%EA%B0%84-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html",
       "destination": "/e/rr-%ED%8F%89%ED%99%94%EC%9D%98%EC%84%AC-2026-%EA%B5%AD%EB%AC%B4%EC%B4%9D%EB%A6%AC%EA%B8%B0%EA%B5%AD%EC%A0%9C%EC%83%9D%ED%99%9C%EC%B2%B4%EC%9C%A1%EA%B5%AC%EA%B0%84-%EB%A7%88%EB%9D%BC%ED%86%A4-2026-11-07.html",
-      "permanent": true
-    },
-    {
-      "source": "/landing-dist-trail-ultra.html",
-      "destination": "/distances.html",
       "permanent": true
     }
   ]
