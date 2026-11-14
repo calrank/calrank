@@ -34,6 +34,7 @@ IMG = {
 # Wikimedia Commons 사진(공개 도메인·CC BY). 촬영자와 라이선스를 사진 아래에 적는다.
 CC2 = ("CC BY 2.0", "https://creativecommons.org/licenses/by/2.0/")
 PD = ("공개 도메인", "")
+CCBYSA3 = ("CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0/")
 CC0 = ("CC0", "https://creativecommons.org/publicdomain/zero/1.0/")
 COMMONS = {
     "tri-helmet": ("Couple_preparing_for_bike_ride.jpg", "자전거 타기 전에 헬멧을 쓴 두 사람", "Bill Branson", PD),
@@ -42,6 +43,7 @@ COMMONS = {
     "shoe-section": ("Nike_Running_Shoe_Dissected_Rear.jpg", "반으로 잘라 밑창 단면이 보이는 러닝화 뒤꿈치", "Yottanesia", CC0, "카본 플레이트가 없는 구형 신발을 자른 사진이라, 밑창이 어떤 층으로 이루어졌는지 보여 주는 용도입니다."),
     "uci-saddle": ("Koersfiets_Scott,_Annemiek_van_Vleuten,_2020_-_detailopname_zadel_rechts_(R0629_-_collectie_KOERS._Museum_van_de_Wielersport).jpg", "도로 사이클 경기용 안장 옆면", "Scott USA / Syncros", CC0),
     "ccc-gear": ("CCC_Gears.jpg", "트레일 대회 필수 장비를 펼쳐 놓은 모습", "mako10", CC2),
+    "drivetrain": ("Shimano_105_rear_derailleur.jpg", "시마노 105 리어 디레일러", "Tx-re", CCBYSA3),
     "tri-swim":   ("Swim_start_Ironman_Brazil_2011.jpg", "아이언맨 수영 출발 모습", "Arcadiuš", CC2),
 }
 
@@ -73,6 +75,7 @@ SLUG = {
     "gear-uci-min-weight": "road", "gear-uci-saddle-setback": "uci-saddle", "gear-uci-frame-approval": "frame",
     "gear-wt-bike-agegroup": "tribike", "gear-wt-wetsuit-thickness": "tri-swim", "gear-wetsuit": "wetbeach",
     "gear-wt-wetsuit-temp": "openwater", "gear-wetsuit-by-temp": "swimstart",
+    "gear-groupset-tier": "drivetrain", "gear-shoe-rotation": "shoe",
     "gear-ws-wheel-diameter": "skate", "gear-inline-bearings": "skate",
 }
 

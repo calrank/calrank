@@ -1,0 +1,605 @@
+{
+  "_읽는이에게": [
+    "참고 영상 목록. 판정의 근거가 아니라 이해를 돕는 자료다.",
+    "공식 기관·연맹·지자체 채널의 영상만 싣고, checked 에 사람이 확인한 날을 적는다.",
+    "oEmbed 로 채널명과 제목이 맞는지 확인했다. 영상이 사라지면 status 를 dead 로 바꾼다."
+  ],
+  "items": [
+    {
+      "id": "ir3SVg9Ju6Y",
+      "title": "18명이 1200㎞ 이어달리기 가능? Ep.01 해파랑길",
+      "channel": "한국관광N",
+      "kind": "한국관광공사 공식 채널",
+      "title_in": [
+        "해파랑길"
+      ],
+      "checked": "2026-11-14",
+      "only": "course-dr-*.html"
+    },
+    {
+      "id": "bYGmVQamz0w",
+      "title": "무박 3일, 우리만의 속도로 달린 400km의 기록 Ep.02 남파랑길",
+      "channel": "한국관광N",
+      "kind": "한국관광공사 공식 채널",
+      "title_in": [
+        "남파랑길"
+      ],
+      "checked": "2026-11-14",
+      "only": "course-dr-*.html"
+    },
+    {
+      "id": "nD6p6_kFdUA",
+      "title": "15년 여정 끝 완성된 4,500km 코리아둘레길",
+      "channel": "KTV 국민방송",
+      "kind": "정부 공식 방송",
+      "title_in": [
+        "해파랑길",
+        "남파랑길",
+        "서해랑길",
+        "DMZ 평화의 길"
+      ],
+      "checked": "2026-11-14",
+      "only": "course-dr-*.html"
+    },
+    {
+      "id": "4OJcIhNahyY",
+      "title": "UCI 규정에 따른 심판의 로드바이크 검사 안내",
+      "channel": "UCI",
+      "kind": "국제사이클연맹 공식",
+      "published": "2016-08-24",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-uci-min-weight.html",
+        "gear-uci-saddle-setback.html",
+        "gear-uci-frame-approval.html"
+      ]
+    },
+    {
+      "id": "iX-uSy_KuO4",
+      "title": "세계선수권에서 UCI 심판이 자전거를 검사하는 방법",
+      "channel": "AusCycling",
+      "kind": "호주사이클연맹 공식",
+      "published": "2023-01-31",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-uci-saddle-setback.html",
+        "gear-uci-frame-approval.html"
+      ]
+    },
+    {
+      "id": "SzjJ5i7TcAM",
+      "title": "UCI는 6.8kg 규정을 없애야 하나",
+      "channel": "The Aero Hour",
+      "kind": "",
+      "published": "2026-10-31",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-uci-min-weight.html"
+      ],
+      "official": false
+    },
+    {
+      "id": "RUJbbB8u7gM",
+      "title": "2026 UCI Rules Explained: Do You Need a Legal Bike?",
+      "channel": "Lab4Run",
+      "kind": "",
+      "published": "2026-02-17",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-uci-saddle-setback.html",
+        "gear-uci-frame-approval.html"
+      ],
+      "official": false
+    },
+    {
+      "id": "-q0DM_RS4KU",
+      "title": "The 40mm Limit: Are Your Shoes Legal?",
+      "channel": "Lab4Run",
+      "kind": "",
+      "published": "2026-01-10",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-wa-stack-height.html"
+      ],
+      "official": false
+    },
+    {
+      "id": "a5xQ8ceCC_k",
+      "title": "The Rules and Regulations Of Running Shoes!",
+      "channel": "Running Warehouse",
+      "kind": "용품점 채널",
+      "published": "2024-07-22",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-wa-rigid-plate.html",
+        "gear-carbon-plate*.html"
+      ],
+      "official": false
+    },
+    {
+      "id": "jyEvBATxzDg",
+      "title": "Discover the mandatory equipment for UTMB Mont-Blanc 2021",
+      "channel": "HOKA UTMB Mont-Blanc",
+      "kind": "후원사 채널",
+      "published": "2021-07-30",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-utmb-jacket.html",
+        "gear-utmb-kit.html"
+      ],
+      "official": false
+    },
+    {
+      "id": "X_0BYxKQr5k",
+      "title": "A first look at next-gen DURA-ACE",
+      "channel": "SHIMANO",
+      "kind": "제조사 공식",
+      "published": "2021-08-31",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-groupset-tier.html"
+      ]
+    },
+    {
+      "id": "MABmkomPHrU",
+      "title": "Shimano Road Groupsets Explained — Dura-Ace vs Ultegra vs 105",
+      "channel": "Contender Bicycles",
+      "kind": "판매점 채널",
+      "published": "2026-02-09",
+      "checked": "2026-11-14",
+      "pages": [
+        "gear-groupset-tier.html"
+      ],
+      "official": false
+    },
+    {
+      "id": "bA3K1vW1XB8",
+      "title": "Journey to Gold Podcast: Athlete Age Grading & How it Works",
+      "channel": "USA Track and Field",
+      "kind": "미국육상연맹 공식",
+      "published": "2024-11-26",
+      "checked": "2026-11-14",
+      "pages": [
+        "grade-*.html",
+        "age-curve.html"
+      ]
+    },
+    {
+      "id": "VEoZDR5mBKk",
+      "title": "[트래블숲] 한국의 대표적인 명산! 봉화 청량산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2023-12-06",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2708013300.html"
+      ]
+    },
+    {
+      "id": "Tr1wbADCScs",
+      "title": "[트래블숲] 순창의 명산, 강천산의 설경",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2024-12-15",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2607102300.html"
+      ]
+    },
+    {
+      "id": "wQIofHLMwfc",
+      "title": "[트래블숲] 가을풍경을 만끽할 수 있는 진안 마이산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2024-10-28",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2515021000.html"
+      ]
+    },
+    {
+      "id": "Clck6-QHDV0",
+      "title": "[트래블숲] 충남의 금강산이라 불리는 홍성 용봉산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2024-04-08",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2412071400.html"
+      ]
+    },
+    {
+      "id": "KGS3e-fl6m0",
+      "title": "끝없는 능선이 아름다운 계방산을 가다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2013-07-18",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2215064300.html"
+      ]
+    },
+    {
+      "id": "-QHPveoTppc",
+      "title": "화려한 암릉으로 사랑받는 관악산을 가다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2013-08-16",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1105040200.html"
+      ]
+    },
+    {
+      "id": "70R1pOJQCk8",
+      "title": "녹음이 우거진 관악산 — 관악구를 만나보세요",
+      "channel": "관악구청",
+      "kind": "지자체 공식",
+      "published": "2026-05-19",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1105040200.html"
+      ]
+    },
+    {
+      "id": "4vMb-qsO6-s",
+      "title": "계족산, 초록을 걷다",
+      "channel": "대전TV(대전광역시 공식)",
+      "kind": "지자체 공식",
+      "published": "2026-02-04",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1601270100.html"
+      ]
+    },
+    {
+      "id": "tbwiEBCeLeo",
+      "title": "서귀포가 한눈에 보이는 고근산으로 GOGO",
+      "channel": "서귀포시청",
+      "kind": "지자체 공식",
+      "published": "2022-03-21",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2901139016.html"
+      ]
+    },
+    {
+      "id": "DUtT2Ej8iqY",
+      "title": "비경의 수타계곡을 품은 공작산을 가다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2013-07-18",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2216100300.html"
+      ]
+    },
+    {
+      "id": "9Khai9ivDIQ",
+      "title": "9개의 바위봉이 장관을 이루는 구병산에 가다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2013-08-16",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2303020400.html"
+      ]
+    },
+    {
+      "id": "SEVvgYGx700",
+      "title": "청풍호반의 비단물결로 장식한 금수산을 가다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2013-09-04",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2307050900.html"
+      ]
+    },
+    {
+      "id": "33mc4LFhmQA",
+      "title": "금정산 숲속 둘레길을 소개합니다",
+      "channel": "부산광역시금정구청",
+      "kind": "지자체 공식",
+      "published": "2022-06-01",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2810040200.html"
+      ]
+    },
+    {
+      "id": "PJrQABWPPf0",
+      "title": "12폭포가 있는 영남의 금강산 내연산을 가다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2014-01-06",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2724130500.html"
+      ]
+    },
+    {
+      "id": "wDcwzXd7y7c",
+      "title": "함께 오르는 대금산, 진달래군락지 구경하기",
+      "channel": "거제시 공식 유튜브",
+      "kind": "지자체 공식",
+      "published": "2023-04-27",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2801131100.html"
+      ]
+    },
+    {
+      "id": "SrEcZDRrCnI",
+      "title": "색다른 매력을 지닌 겨울산, 겨울 대둔산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2020-02-10",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2404170800.html"
+      ]
+    },
+    {
+      "id": "UQ4baOTthWY",
+      "title": "금산 지역의 절경, 호남의 작은 금강산 대둔산 요가 편",
+      "channel": "한국산림복지진흥원",
+      "kind": "산림복지진흥원 공식",
+      "published": "2022-04-21",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2404170800.html"
+      ]
+    },
+    {
+      "id": "NYyrui52GrY",
+      "title": "세계 최대 규모의 타포니 지형을 만나다, 마이산",
+      "channel": "빠망TV(진안군 공식)",
+      "kind": "지자체 공식",
+      "published": "2023-11-20",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2515021000.html"
+      ]
+    },
+    {
+      "id": "T5vmgf0WEVM",
+      "title": "포천 핫플레이스 — 명성산 억새밭 소개",
+      "channel": "포천시청",
+      "kind": "지자체 공식",
+      "published": "2026-10-20",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2212010400.html"
+      ]
+    },
+    {
+      "id": "I5qoE2rEk8Q",
+      "title": "무등산국립공원 대표 명승지 소개",
+      "channel": "국립공원TV",
+      "kind": "국립공원공단 공식",
+      "published": "2021-02-03",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2622132600.html"
+      ]
+    },
+    {
+      "id": "wEwvgDR_5sA",
+      "title": "무등산국립공원 소개영상",
+      "channel": "국립공원연구원",
+      "kind": "국립공원공단 공식",
+      "published": "2014-05-19",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2622132600.html"
+      ]
+    },
+    {
+      "id": "XmfW7SWbYGE",
+      "title": "50년 만에 문학산 정상 개방",
+      "channel": "인천광역시",
+      "kind": "지자체 공식",
+      "published": "2015-10-20",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1408070100.html"
+      ]
+    },
+    {
+      "id": "MClneVdqcq0",
+      "title": "방태산 숲길을 거닐다",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2013-04-22",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2210011400.html"
+      ]
+    },
+    {
+      "id": "M9En15UvaZM",
+      "title": "비슬산 치유의숲에서 편안한 힐링의 시간을",
+      "channel": "달성군(대구광역시)",
+      "kind": "지자체 공식",
+      "published": "2024-03-04",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1303011500.html"
+      ]
+    },
+    {
+      "id": "nme-E4ZPvAM",
+      "title": "[오늘의숲] 늦가을 단풍이 펼쳐진 소요산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2022-12-06",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2112130200.html"
+      ]
+    },
+    {
+      "id": "B_q4obclDwE",
+      "title": "대전에서 가장 높은 산 식장산 (등산대전 EP.1)",
+      "channel": "대전TV(대전광역시 공식)",
+      "kind": "지자체 공식",
+      "published": "2026-11-11",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1602461200.html"
+      ]
+    },
+    {
+      "id": "IPSjf6LbGoA",
+      "title": "[숲을마주하다] 신불산 억새평원",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2024-11-24",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1704041600.html"
+      ]
+    },
+    {
+      "id": "9Su59Mez2mY",
+      "title": "[오늘의숲] 억새 은빛 물결로 물든 영남알프스 신불산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2022-09-26",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1704041600.html"
+      ]
+    },
+    {
+      "id": "K8vs_P906GI",
+      "title": "포천 핫플레이스 — 운악산 구름길 출렁다리 소개",
+      "channel": "포천시청",
+      "kind": "지자체 공식",
+      "published": "2026-09-16",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2101062700.html"
+      ]
+    },
+    {
+      "id": "wYrn03FtzaY",
+      "title": "월아산 숲속의 진주 산림레포츠·우드랜드 여행",
+      "channel": "하모진주(진주시 공식)",
+      "kind": "지자체 공식",
+      "published": "2026-03-17",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2812390200.html"
+      ]
+    },
+    {
+      "id": "hLUhVWDwHuQ",
+      "title": "경남 41경 — 장복산 공원",
+      "channel": "경남TV(경상남도 공식)",
+      "kind": "지자체 공식",
+      "published": "2013-05-27",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2813381300.html"
+      ]
+    },
+    {
+      "id": "Fw1pjtfzrbM",
+      "title": "[합포속으로] 산정상 구름다리 적석산 편",
+      "channel": "합포유(마산합포구 공식)",
+      "kind": "지자체 공식",
+      "published": "2024-10-25",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2806592600.html"
+      ]
+    },
+    {
+      "id": "nBLWiIxYc6o",
+      "title": "대구 팔공산 케이블카 타고 가을여행",
+      "channel": "대구 동구청 팔공TV",
+      "kind": "지자체 공식",
+      "published": "2026-11-10",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1304461200.html"
+      ]
+    },
+    {
+      "id": "khR2tBzq-2s",
+      "title": "가을에 꼭 가봐야 할 대구 단풍 명소 팔공산과 동화사",
+      "channel": "대구 동구청 팔공TV",
+      "kind": "지자체 공식",
+      "published": "2026-11-08",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-1304461200.html"
+      ]
+    },
+    {
+      "id": "hvYH8Gf0o64",
+      "title": "계룡시 향적산 치유의 숲 홍보 영상",
+      "channel": "계룡시 공식 유튜브",
+      "kind": "지자체 공식",
+      "published": "2023-09-14",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2401030500.html"
+      ]
+    },
+    {
+      "id": "XjnIDi8HlJY",
+      "title": "[오늘의숲] 봄꽃의 마지막 향연, 철쭉이 펼쳐진 황매산",
+      "channel": "대한민국 산림청",
+      "kind": "산림청 공식",
+      "published": "2022-05-29",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2820020300.html"
+      ]
+    },
+    {
+      "id": "eSimba6Xkwc",
+      "title": "차로 오르는 천안의 명산, 해발 519m 흑성산",
+      "channel": "충남문화관광재단",
+      "kind": "재단 공식",
+      "published": "2026-09-07",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-2413084500.html"
+      ]
+    },
+    {
+      "id": "_NfValm9z08",
+      "title": "안전 산행 3분 꿀Tip — 등린이 필수 시청",
+      "channel": "국립공원교육원",
+      "kind": "국립공원공단 공식",
+      "published": "2021-12-14",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-*.html",
+        "mountainarea-*.html",
+        "course-ft-*.html",
+        "trailroute-*.html",
+        "trailarea-*.html"
+      ]
+    },
+    {
+      "id": "7lNEs1XbnMY",
+      "title": "오르樂내리樂 등산안전 인식 개선 캠페인",
+      "channel": "KAFTV[대한산악연맹]",
+      "kind": "대한산악연맹 공식",
+      "published": "2020-11-24",
+      "checked": "2026-11-14",
+      "pages": [
+        "mountain-*.html",
+        "mountainarea-*.html",
+        "course-ft-*.html",
+        "trailroute-*.html",
+        "trailarea-*.html"
+      ]
+    }
+  ]
+}

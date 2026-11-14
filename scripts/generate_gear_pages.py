@@ -116,6 +116,13 @@ def rule_body(rule, bodies):
         out.append("<h2>측정 방법과 부가 조건</h2>"
                    f'<p class="gm-measure">{esc(rule["measure_note"])}</p>')
 
+    w = rule.get("watch")
+    if w:
+        wl = (f' <a href="{esc(w["url"])}" target="_blank" rel="noopener">원문 →</a>' if w.get("url") else "")
+        out.append("<h2>개정 예정 사항</h2>"
+                   f'<p class="gm-measure">{esc(w["text"])}</p>'
+                   f'<p class="gm-src">출처 · {esc(w["source"])}{wl}</p>')
+
     b = bodies.get(rule.get("body"))
     if b:
         note = f'<span class="gm-note">{esc(b["note"])}</span>' if b.get("note") else ""
@@ -125,8 +132,9 @@ def rule_body(rule, bodies):
 
     link = (f' <a href="{esc(rule["url"])}" target="_blank" rel="noopener">규정 원문 →</a>'
             if rule.get("url") else "")
+    upd = f'최종 갱신 {esc(rule["updated"])} · ' if rule.get("updated") else ""
     out.append(f'<p class="gm-src">출처 · {esc(rule["source"])}{link}'
-               '<span class="gm-note">장비 규정은 거의 매년 바뀝니다. '
+               f'<span class="gm-note">{upd}장비 규정은 거의 매년 바뀝니다. '
                '중요한 결정 전에는 원문을 한 번 더 확인해 주세요.</span></p>')
     return "\n".join(out)
 
@@ -261,8 +269,9 @@ def claim_body(claim):
     if claim.get("transfer_note"):
         out.append("<h2>기록 환산 가정</h2>"
                    f'<p class="gm-measure">{esc(claim["transfer_note"])}</p>')
+    upd = f'최종 갱신 {esc(claim["updated"])} · ' if claim.get("updated") else ""
     out.append('<p class="gm-src">연구에서 보고된 값이며, 개인의 결과를 보장하지 않습니다.'
-               '<span class="gm-note">새 연구가 나오면 이 판정도 함께 갱신합니다.</span></p>')
+               f'<span class="gm-note">{upd}새 연구가 나오면 이 판정도 함께 갱신합니다.</span></p>')
     return "\n".join(out)
 
 
@@ -359,6 +368,31 @@ PAGE = """<!DOCTYPE html>
 """
 
 
+def _citations(item):
+    """판정이 기대는 출처. 검색·AI 요약이 인용 관계를 읽도록 Article.citation 에 싣는다.
+    화면에 출처로 적힌 것만 넣는다."""
+    seen, out = set(), []
+    srcs = []
+    if item.get("source"):
+        srcs.append((item["source"], item.get("url")))
+    if item.get("watch") and item["watch"].get("url"):
+        srcs.append((item["watch"]["source"], item["watch"]["url"]))
+    for eff in item.get("effects", []):
+        for ev in eff.get("evidence", []):
+            if ev.get("source") and ev.get("url") and not ev.get("no_data"):
+                srcs.append((ev["source"], ev["url"]))
+    for name, url in srcs:
+        key = url or name
+        if key in seen:
+            continue
+        seen.add(key)
+        c = {"@type": "CreativeWork", "name": name[:200]}
+        if url:
+            c["url"] = url
+        out.append(c)
+    return out[:10]
+
+
 def jsonld_for(item, slug, title, desc, sport):
     qa = [(item.get("question") or title, item.get("headline") or desc)]
     # 화면에도 그대로 보이는 문항만 넣는다. 보이지 않는 질문을 마크업에만
@@ -383,6 +417,12 @@ def jsonld_for(item, slug, title, desc, sport):
     }
     if img:
         article["image"] = [img]
+    if item.get("updated"):
+        article["dateModified"] = item["updated"]
+        article["datePublished"] = item["updated"]
+    cites = _citations(item)
+    if cites:
+        article["citation"] = cites
     crumb = {
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [

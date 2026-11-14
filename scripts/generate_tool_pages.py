@@ -506,31 +506,73 @@ def grade_cls(g):
     return "gp-3"
 
 
+def _km_step(total_km):
+    for st in (0.5, 1, 2, 5, 10, 20, 50):
+        if total_km / st <= 6:
+            return st
+    return 100
+
+
 def profile_svg(prof):
-    """경사 색 단면도. 스크립트 없이도 보이도록 서버에서 SVG 로 그린다(색만으로 구분하지 않게 범례 글자도 함께)."""
-    W, H, PAD = 640, 170, 6
+    """경사 색 단면도. 스크립트 없이도 보이도록 서버에서 SVG 로 그린다(색만으로 구분하지 않게 범례 글자도 함께).
+
+    색 단면도 자체는 흔한 표현이라, 칼랭크 것으로 읽히는 건 이 경로의 값을 직접 읽어 준 부분이다:
+    거리·고도 눈금, 출발·도착 고도, 가장 가파른 오르막 한 곳의 위치와 경사.
+    """
+    W, H = 440, 160
+    L, R, T, B = 34, 8, 14, 22
     total = prof[-1][0] or 1
     es = [p[1] for p in prof]
     lo, hi = min(es), max(es)
     span = max(hi - lo, 20.0)
     top = hi + span * 0.05
     bot = lo - span * 0.05
-    def X(d): return PAD + (W - 2 * PAD) * d / total
-    def Y(e): return PAD + (H - 2 * PAD) * (top - e) / (top - bot)
-    cols = []
+    def X(d): return L + (W - L - R) * d / total
+    def Y(e): return T + (H - T - B) * (top - e) / (top - bot)
+    base = H - B
+    cols, best = [], None
     for a, b in zip(prof, prof[1:]):
         d = b[0] - a[0]
         if d <= 0:
             continue
         g = (b[1] - a[1]) / d * 100
         x0, x1 = X(a[0]), X(b[0])
-        cols.append(f'<path class="{grade_cls(g)}" d="M{x0:.1f},{H - PAD} L{x0:.1f},{Y(a[1]):.1f} L{x1:.1f},{Y(b[1]):.1f} L{x1:.1f},{H - PAD}Z"/>')
+        cols.append(f'<path class="{grade_cls(g)}" d="M{x0:.1f},{base} L{x0:.1f},{Y(a[1]):.1f} L{x1:.1f},{Y(b[1]):.1f} L{x1:.1f},{base}Z"/>')
+        if best is None or g > best[0]:
+            best = (g, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
     line = "M" + " L".join(f"{X(p[0]):.1f},{Y(p[1]):.1f}" for p in prof)
+    # 눈금
+    grid = (f'<line class="gp-grid" x1="{L}" x2="{W - R}" y1="{Y(hi):.1f}" y2="{Y(hi):.1f}"/>'
+            f'<text class="gp-tx" x="{L - 5}" y="{Y(hi) + 4:.1f}" text-anchor="end">{hi:.0f}m</text>'
+            f'<text class="gp-tx" x="{L - 5}" y="{Y(lo) + 4:.1f}" text-anchor="end">{lo:.0f}m</text>')
+    st = _km_step(total / 1000)
+    k = 0.0
+    while k * 1000 <= total + 1:
+        x = X(k * 1000)
+        anchor = "start" if k == 0 else "middle"
+        lab = f"{k:g}" + ("km" if k + st > total / 1000 + 1e-9 else "")
+        grid += (f'<line class="gp-tick" x1="{x:.1f}" x2="{x:.1f}" y1="{base}" y2="{base + 4}"/>'
+                 f'<text class="gp-tx" x="{x:.1f}" y="{H - 5}" text-anchor="{anchor}">{lab}</text>')
+        k += st
+    # 출발·도착, 가장 가파른 오르막
+    marks = (f'<circle class="gp-dot" cx="{X(prof[0][0]):.1f}" cy="{Y(prof[0][1]):.1f}" r="3"/>'
+             f'<circle class="gp-dot" cx="{X(prof[-1][0]):.1f}" cy="{Y(prof[-1][1]):.1f}" r="3"/>')
+    note = ""
+    if best and best[0] >= 3:
+        g, d, e = best
+        cx, cy = X(d), Y(e)
+        right = cx > W * 0.55
+        tx = cx - 8 if right else cx + 8
+        ty = max(cy - 6, T + 6)
+        marks += (f'<circle class="gp-peak" cx="{cx:.1f}" cy="{cy:.1f}" r="4.5"/>'
+                  f'<text class="gp-tx gp-tx-b" x="{tx:.1f}" y="{ty:.1f}" text-anchor="{"end" if right else "start"}">최대 {g:.0f}%</text>')
+        note = f" 고리 표시는 가장 가파른 오르막(약 {g:.0f}%, 출발점에서 {d / 1000:.1f}km 지점)입니다."
     leg = "".join(f'<li><i class="gp-sw {cl}"></i>{nm}</li>' for _, cl, nm in GRADE_BANDS)
-    return (f'<figure class="gp-fig"><svg class="gp-svg" viewBox="0 0 {W} {H}" role="img" '
+    return (f'<figure class="gp-fig"><div class="gp-tag">칼랭크 경사 단면도</div>'
+            f'<svg class="gp-svg" viewBox="0 0 {W} {H}" role="img" '
             f'aria-label="고도 단면도. 낮은 곳 {lo:.0f}m, 높은 곳 {hi:.0f}m, 전체 {total / 1000:.1f}km">'
-            f'{"".join(cols)}<path class="gp-line" d="{line}" fill="none"/></svg>'
-            f'<figcaption class="tp-small">가로는 거리 0~{total / 1000:.1f}km, 세로는 고도 {lo:.0f}~{hi:.0f}m입니다. 색은 그 구간의 경사입니다.</figcaption>'
+            f'{grid}{"".join(cols)}<path class="gp-line" d="{line}" fill="none"/>{marks}</svg>'
+            f'<figcaption class="tp-small">가로는 거리 0~{total / 1000:.1f}km, 세로는 고도 {lo:.0f}~{hi:.0f}m입니다. 색은 그 구간의 경사입니다.{note}</figcaption>'
             f'<ul class="gp-leg">{leg}</ul></figure>')
 
 
@@ -1185,8 +1227,8 @@ def hub_page():
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있습니다. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었습니다.</p>' if MOUNTAINS else "")}
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있습니다. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있습니다. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
-<div class="mn-import"><span class="mn-import-t">다른 기기에서 저장해 둔 백업이 있나요?</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
-<section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
+<div class="mn-import"><span class="mn-import-t">다른 기기에서 저장한 백업이 있으면 불러올 수 있습니다.</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
+<section class="tp-sec"><label class="tp-field">이름·지역으로 찾기<input id="listQ" type="search" placeholder="예: 해파랑길, 서울둘레길 (산 이름도 찾아 줍니다)" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p><ul id="listMore" class="cp-list" data-other="mountains.html"></ul></section>
 {lvtab}
 <section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
@@ -1421,8 +1463,8 @@ def mountains_hub():
     tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
     body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
 <section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
-<div class="mn-import"><span class="mn-import-t">다른 기기에서 저장해 둔 백업이 있나요?</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
-<section class="tp-sec"><label class="tp-field">이름으로 찾기<input id="listQ" type="search" placeholder="예: 북한산, 해파랑" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p></section>
+<div class="mn-import"><span class="mn-import-t">다른 기기에서 저장한 백업이 있으면 불러올 수 있습니다.</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
+<section class="tp-sec"><label class="tp-field">이름·지역으로 찾기<input id="listQ" type="search" placeholder="예: 마이산, 계방산, 진안" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p><ul id="listMore" class="cp-list" data-other="trailroot.html"></ul></section>
 <section class="tp-sec"><h2 class="tp-h2">지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 산</li>' for sl, nm_, n_ in MT_GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 산</h2><ul class="cp-list">{tall}</ul></section>
 {secs}

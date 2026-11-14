@@ -85,6 +85,18 @@ def fix(path: Path, rel: str, check: bool) -> list[str]:
             inserts.append('<meta property="og:title" content="%s">' % title)
             added.append("og:title")
 
+    # 공유 카드. 사진이 없는 페이지도 사이트 기본 카드가 나가야 주소만 남지 않는다.
+    if not meta_of(doc, prop="og:image"):
+        inserts.append('<meta property="og:image" content="%sog-image.png">' % SITE)
+        added.append("og:image")
+        if not meta_of(doc, name="twitter:image"):
+            inserts.append('<meta name="twitter:image" content="%sog-image.png">' % SITE)
+    if not meta_of(doc, prop="og:description"):
+        d = meta_of(doc, name="description")
+        if d:
+            inserts.append('<meta property="og:description" content="%s">' % html_mod.escape(d, quote=True))
+            added.append("og:description")
+
     if added and not check:
         block = "".join("  %s\n" % line for line in inserts)
         doc = HEAD_END.sub(lambda _m: block + "</head>", doc, count=1)

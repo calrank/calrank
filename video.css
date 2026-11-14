@@ -1,0 +1,14 @@
+/* 참고 영상 카드. 색은 style.css 토큰만 쓴다. */
+.vid-card{margin:2rem 0;padding:0}
+.vid-card h2{font-size:1.05rem;margin:0 0 .75rem}
+.vid-link,.vid-link *{text-decoration:none!important}
+.vid-link{position:relative;display:block;max-width:560px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);text-decoration:none;color:inherit}
+.vid-thumb{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--line)}
+.vid-play{position:absolute;left:50%;top:calc(50% - 1.1rem);width:64px;height:64px;transform:translate(-50%,-50%);color:var(--ink);filter:drop-shadow(0 1px 4px rgba(0,0,0,.55))}
+.vid-play svg{display:block;width:100%;height:100%;fill:currentColor}
+.vid-cap{display:block;padding:.7rem .9rem}
+.vid-cap b{display:block;font-size:.95rem;line-height:1.4}
+.vid-cap span{display:block;margin-top:.15rem;font-size:.82rem;color:var(--ink-faint)}
+.vid-link:hover .vid-play,.vid-link:focus-visible .vid-play{transform:translate(-50%,-50%) scale(1.06)}
+.vid-note{margin:.6rem 0 0;font-size:.82rem;color:var(--ink-faint);max-width:560px}
+.vid-card + .vid-card{margin-top:1.25rem}
