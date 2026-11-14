@@ -1477,6 +1477,27 @@ def generate_event_sitemap(events: list[dict], out_path: str = "sitemap-events.x
                 pass
             listed.append((ev, ev_date >= today))
 
+    # 한 번에 늘리는 URL 수를 제한한다(docs/new-page-criteria.md §4).
+    # 신생 도메인에서 한꺼번에 늘리면 구글이 "발견됨 - 색인 안 됨"으로 쌓아 둔다.
+    # 이전 사이트맵에 이미 있던 주소는 그대로 두고, 새로 들어올 주소만 임박한 대회부터 상한까지 받는다.
+    # 나머지는 다음 실행(매일)에 이어서 들어간다. 페이지 파일 자체는 그대로 있다.
+    NEW_URL_CAP = 50
+    try:
+        with open(out_path, encoding="utf-8") as pf:
+            prev_locs = set(re.findall(r"<loc>([^<]+)</loc>", pf.read()))
+    except OSError:
+        prev_locs = None
+    if prev_locs:
+        def _u(ev):
+            return f"https://calrank.kr/e/{quote(ev['id'])}.html"
+        kept = [x for x in listed if _u(x[0]) in prev_locs]
+        fresh = sorted((x for x in listed if _u(x[0]) not in prev_locs), key=lambda x: x[0]["date"])
+        deferred = max(0, len(fresh) - NEW_URL_CAP)
+        allowed = {_u(x[0]) for x in kept + fresh[:NEW_URL_CAP]}
+        listed = [x for x in listed if _u(x[0]) in allowed]   # 원래 순서를 유지해 불필요한 diff 를 만들지 않는다
+        if deferred:
+            print(f"[sitemap-events.xml] 신규 {len(fresh)}개 중 {NEW_URL_CAP}개만 추가, {deferred}개는 다음 실행으로 미룸")
+
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

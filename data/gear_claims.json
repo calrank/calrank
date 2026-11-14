@@ -1,2170 +1,2509 @@
 {
- "_읽는이에게": [
-  "칼랭크 기어 판정의 원자료다. 단위는 '제품'이 아니라 '효과 주장(claim)'이다.",
-  "제품을 단위로 잡으면 같은 연구를 제품 수만큼 되풀이해 적게 된다. 주장을 단위로",
-  "잡으면 한 번만 적고, 새 논문이 나오면 이 파일 한 줄만 고쳐도 그 주장을 쓰는",
-  "모든 제품의 판정이 함께 갱신된다.",
-  "",
-  "한 장비가 효과 하나만 내지 않는다. 트레일 폴은 산소 소모를 '늘리면서' 다리",
-  "충격을 '줄인다'. 그래서 claim 안에 effects 를 여러 개 둔다. 좋은 쪽만 적으면",
-  "광고가 되고, 나쁜 쪽만 적으면 그것도 거짓이다.",
-  "",
-  "evidence 는 적용 조건(applies)이 다른 묶음으로 나뉜다. 같은 장비라도 속도·경사에",
-  "따라 근거가 다르기 때문이다. 판정할 때는 사용자 조건이 들어가는 묶음 하나를",
-  "고르고, 그 묶음의 근거 등급을 결과와 반드시 함께 보여 준다.",
-  "",
-  "숫자를 지어내지 않는다. 근거가 없는 구간은 비워 둔다. 비어 있으면 판정도",
-  "'근거 없음'으로 나가야지, 옆 구간 값을 끌어다 쓰면 안 된다."
- ],
- "sports": [
-  {
-   "id": "running",
-   "label": "러닝",
-   "status": "ready"
-  },
-  {
-   "id": "trail",
-   "label": "트레일러닝",
-   "status": "ready"
-  },
-  {
-   "id": "cycling",
-   "label": "사이클링",
-   "status": "planned"
-  },
-  {
-   "id": "triathlon",
-   "label": "철인3종",
-   "status": "planned"
-  },
-  {
-   "id": "inline",
-   "label": "인라인",
-   "status": "planned"
-  }
- ],
- "evidence_grades": {
-  "A": "메타분석 또는 복수의 무작위 대조 연구",
-  "B": "동료심사를 거친 단일 연구 (대조군 있음)",
-  "C": "소규모 연구, 학회 초록, 관찰 연구",
-  "D": "제조사 자료 또는 검증되지 않은 주장"
- },
- "claims": [
-  {
-   "id": "carbon-plate",
-   "sport": "running",
-   "category": "racing-shoe",
-   "label": "카본 플레이트 레이싱화",
-   "question": "카본 플레이트 레이싱화의 달리기 경제성 개선 효과 — 연구 결과",
-   "condition": "speed_kmh",
-   "condition_label": "달리는 속도",
-   "transfer_to_time": 0.7,
-   "transfer_note": "이코노미가 1% 좋아져도 기록이 1% 줄어드는 것은 아니다. 공기저항, 피로, 페이스 조절이 그대로 남기 때문이다. 여기서는 보수적으로 70%만 기록에 반영되는 것으로 계산했다. 이 값은 연구에서 나온 수치가 아니라 칼랭크가 정한 가정이며, 화면에도 그렇게 표시한다.",
-   "effects": [
+  "_읽는이에게": [
+    "칼랭크 기어 판정의 원자료다. 단위는 '제품'이 아니라 '효과 주장(claim)'이다.",
+    "제품을 단위로 잡으면 같은 연구를 제품 수만큼 되풀이해 적게 된다. 주장을 단위로",
+    "잡으면 한 번만 적고, 새 논문이 나오면 이 파일 한 줄만 고쳐도 그 주장을 쓰는",
+    "모든 제품의 판정이 함께 갱신된다.",
+    "",
+    "한 장비가 효과 하나만 내지 않는다. 트레일 폴은 산소 소모를 '늘리면서' 다리",
+    "충격을 '줄인다'. 그래서 claim 안에 effects 를 여러 개 둔다. 좋은 쪽만 적으면",
+    "광고가 되고, 나쁜 쪽만 적으면 그것도 거짓이다.",
+    "",
+    "evidence 는 적용 조건(applies)이 다른 묶음으로 나뉜다. 같은 장비라도 속도·경사에",
+    "따라 근거가 다르기 때문이다. 판정할 때는 사용자 조건이 들어가는 묶음 하나를",
+    "고르고, 그 묶음의 근거 등급을 결과와 반드시 함께 보여 준다.",
+    "",
+    "숫자를 지어내지 않는다. 근거가 없는 구간은 비워 둔다. 비어 있으면 판정도",
+    "'근거 없음'으로 나가야지, 옆 구간 값을 끌어다 쓰면 안 된다."
+  ],
+  "sports": [
     {
-     "id": "running_economy",
-     "label": "러닝 이코노미",
-     "detail": "같은 속도에서 드는 산소량",
-     "better": "lower",
-     "affects_time": true,
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "speed_kmh": [
-         14.0,
-         null
-        ]
-       },
-       "effect_pct": 2.88,
-       "ci": [
-        1.19,
-        4.57
-       ],
-       "significant": true,
-       "studies": 4,
-       "n": 62,
-       "source": "Kobayashi EN 등 (2026). Metabolic effects of carbon-plated running shoes: a systematic review and meta-analysis. Front Sports Act Living 7:1710224",
-       "url": "https://doi.org/10.3389/fspor.2025.1710224",
-       "note": "연구 4편을 평균 속도 14.14km/h 조건에서 통합한 결과라서 이 구간에만 적용한다. 원 논문은 속도별 조절효과를 따로 검정하지 않았다."
+      "id": "running",
+      "label": "러닝",
+      "status": "ready"
+    },
+    {
+      "id": "trail",
+      "label": "트레일러닝",
+      "status": "ready"
+    },
+    {
+      "id": "cycling",
+      "label": "사이클링",
+      "status": "planned"
+    },
+    {
+      "id": "triathlon",
+      "label": "철인3종",
+      "status": "planned"
+    },
+    {
+      "id": "inline",
+      "label": "인라인",
+      "status": "planned"
+    }
+  ],
+  "evidence_grades": {
+    "A": "메타분석 또는 복수의 무작위 대조 연구",
+    "B": "동료심사를 거친 단일 연구 (대조군 있음)",
+    "C": "소규모 연구, 학회 초록, 관찰 연구",
+    "D": "제조사 자료 또는 검증되지 않은 주장"
+  },
+  "claims": [
+    {
+      "id": "carbon-plate",
+      "sport": "running",
+      "category": "racing-shoe",
+      "label": "카본 플레이트 레이싱화",
+      "question": "카본 플레이트 레이싱화의 달리기 경제성 개선 효과 — 연구 결과",
+      "condition": "speed_kmh",
+      "condition_label": "달리는 속도",
+      "transfer_to_time": 0.7,
+      "transfer_note": "이코노미가 1% 좋아져도 기록이 1% 줄어드는 것은 아니다. 공기저항, 피로, 페이스 조절이 그대로 남기 때문이다. 여기서는 보수적으로 70%만 기록에 반영되는 것으로 계산했다. 이 값은 연구에서 나온 수치가 아니라 칼랭크가 정한 가정이며, 화면에도 그렇게 표시한다.",
+      "effects": [
+        {
+          "id": "running_economy",
+          "label": "러닝 이코노미",
+          "detail": "같은 속도에서 드는 산소량",
+          "better": "lower",
+          "affects_time": true,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "speed_kmh": [
+                  14.0,
+                  null
+                ]
+              },
+              "effect_pct": 2.88,
+              "ci": [
+                1.19,
+                4.57
+              ],
+              "significant": true,
+              "studies": 4,
+              "n": 62,
+              "source": "Kobayashi EN 등 (2026). Metabolic effects of carbon-plated running shoes: a systematic review and meta-analysis. Front Sports Act Living 7:1710224",
+              "url": "https://doi.org/10.3389/fspor.2025.1710224",
+              "note": "연구 4편을 평균 속도 14.14km/h 조건에서 통합한 결과라서 이 구간에만 적용한다. 원 논문은 속도별 조절효과를 따로 검정하지 않았다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  12.0,
+                  14.0
+                ]
+              },
+              "effect_pct": 1.4,
+              "ci": [
+                1.4,
+                1.4
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 16,
+              "source": "Dominy TA, Joubert DP. Effects of a Carbon-Plated Shoe on Running Economy at Slower Speeds. Int J Exerc Sci",
+              "url": "https://digitalcommons.wku.edu/ijesab/vol2/iss14/15/",
+              "note": "12km/h에서 p<0.001. 참가자 16명 단일 연구라 근거 등급은 C다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  12.0
+                ]
+              },
+              "effect_pct": 0.9,
+              "ci": [
+                0.0,
+                0.9
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 16,
+              "source": "Dominy TA, Joubert DP. Effects of a Carbon-Plated Shoe on Running Economy at Slower Speeds. Int J Exerc Sci",
+              "url": "https://digitalcommons.wku.edu/ijesab/vol2/iss14/15/",
+              "note": "10km/h에서 p=0.065로 통계적으로 유의하지 않았다. 효과가 0일 가능성을 배제할 수 없어 아래끝을 0으로 표시했다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "카본화 효과 — 속도별 근거 등급",
+        "description": "카본화(카본 플레이트 레이싱화)가 기록을 얼마나 줄이는지 속도별로 정리했습니다. 14㎞/h 이상은 메타분석(A등급)이 뒷받침하고, 그보다 느린 구간은 소규모 연구라 유의하지 않았습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "speed_kmh": [
-         12.0,
-         14.0
-        ]
-       },
-       "effect_pct": 1.4,
-       "ci": [
-        1.4,
-        1.4
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 16,
-       "source": "Dominy TA, Joubert DP. Effects of a Carbon-Plated Shoe on Running Economy at Slower Speeds. Int J Exerc Sci",
-       "url": "https://digitalcommons.wku.edu/ijesab/vol2/iss14/15/",
-       "note": "12km/h에서 p<0.001. 참가자 16명 단일 연구라 근거 등급은 C다."
+      "short_label": "카본화",
+      "faq": [
+        {
+          "q": "카본화의 기록 단축 폭",
+          "a": "속도에 따라 다릅니다. 평균 14㎞/h 이상에서는 메타분석(근거 A)에서 러닝 이코노미 2.9%(95% 신뢰구간 1.2~4.6%) 개선이 보고됐습니다. 12~14㎞/h는 1.4%, 12㎞/h 미만은 0.9%였는데, 소규모 연구(근거 C)이고 느린 구간은 통계적으로 유의하지 않았습니다."
+        },
+        {
+          "q": "달리기 경제성 개선과 기록 단축의 관계",
+          "a": "그대로 줄지는 않습니다. 공기저항, 피로, 페이스 조절이 남기 때문입니다. 칼랭크는 보수적으로 70%만 반영해 계산하며, 이 70%는 연구에서 나온 값이 아니라 칼랭크가 정한 가정입니다."
+        },
+        {
+          "q": "카본화는 일반 러닝화와 무엇이 다른가",
+          "a": "카본 플레이트만이 아니라 중창 폼과 형상까지 함께 다릅니다. 같은 카본 신발끼리 비교해도 새 PEBA 중창이 새 EVA 중창보다 에너지 비용이 낮았습니다(Rodrigo-Carranza 외, 2024, 근거 C)."
+        },
+        {
+          "q": "카본화는 몇 ㎞까지 신을 수 있나",
+          "a": "단일 연구에서 450㎞ 착용 후 PEBA 중창 신발의 에너지 비용이 약 2.3% 늘었고 EVA 중창은 변화가 없었습니다(남성 22명, 근거 C). 모든 모델에 적용되는 기준은 아닙니다."
+        },
+        {
+          "q": "카본화의 단점이나 부상 위험은",
+          "a": "카본 플레이트 신발 사용 후 발배뼈 피로골절이 확인된 5명의 사례 보고가 있습니다(Tenforde 외, 2023, 근거 D). 인과는 확정되지 않았고 저자들은 점진적 적응을 권합니다."
+        }
+      ],
+      "updated": "2026-11-14",
+      "explainers": [
+        {
+          "h": "카본화의 뜻",
+          "p": "카본화는 카본 플레이트(탄소섬유 판)를 중창에 넣은 레이싱화를 가리키는 통칭이다. 2017년 Hoogkamer 등은 이런 구성의 마라톤 레이싱화(Nike Vaporfly 4%)가 다른 두 레이싱화보다 러닝 이코노미를 평균 4% 높였다고 보고했다. 이 4%는 플레이트 하나의 몫이 아니라 중창 폼과 신발 형상을 함께 바꾼 결과다.",
+          "src": [
+            [
+              "Hoogkamer W 외 (2018). A Comparison of the Energetic Cost of Running in Marathon Racing Shoes. Sports Medicine 48(4):1009–1019",
+              "https://doi.org/10.1007/s40279-017-0811-2"
+            ]
+          ]
+        },
+        {
+          "h": "일반 러닝화와의 차이",
+          "p": "차이는 플레이트의 유무만으로 설명되지 않는다. 같은 카본 플레이트 신발끼리 비교한 연구에서도 새 PEBA 중창 신발(14.87 W/kg)이 새 EVA 중창 신발(15.15 W/kg)보다 달리는 데 드는 에너지가 낮았다. 훈련된 남성 22명이 시속 13㎞로 달린 결과이며 근거 등급은 C다.",
+          "src": [
+            [
+              "Rodrigo-Carranza V 외 (2024). Influence of different midsole foam in advanced footwear technology use on running economy and biomechanics in trained runners. Scandinavian Journal of Medicine & Science in Sports 34(1):e14526",
+              "https://pubmed.ncbi.nlm.nih.gov/37858294/"
+            ]
+          ]
+        },
+        {
+          "h": "단점과 위험",
+          "p": "속도가 느릴수록 효과가 작고 유의하지 않을 수 있다는 점은 위의 속도별 근거에 있다. 부상 위험에 대해서는 카본 플레이트 신발을 쓴 뒤 발배뼈 피로골절이 확인된 선수 5명의 사례 보고가 있다. 사례 보고(근거 등급 D)여서 신발이 원인이라고 확정할 수 없고, 저자들은 기존 신발에서 점진적으로 옮겨 가기를 권하며 추가 연구가 필요하다고 밝혔다.",
+          "src": [
+            [
+              "Tenforde AS 외 (2023). Bone Stress Injuries in Runners Using Carbon Fiber Plate Footwear. Sports Medicine, 1499–1505",
+              "https://doi.org/10.1007/s40279-023-01818-z"
+            ]
+          ]
+        },
+        {
+          "h": "수명",
+          "p": "450㎞를 신은 뒤 PEBA 중창 신발은 달리는 데 드는 에너지가 14.87에서 15.21 W/kg으로 약 2.3% 늘었고, EVA 중창 신발은 변화가 없었다(15.15 → 15.13 W/kg). 한 모델 쌍, 남성 22명, 시속 13㎞ 조건의 단일 연구라 모든 카본화에 일반화할 수 없다(근거 등급 C).",
+          "src": [
+            [
+              "Rodrigo-Carranza V 외 (2024). Scandinavian Journal of Medicine & Science in Sports 34(1):e14526",
+              "https://pubmed.ncbi.nlm.nih.gov/37858294/"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shoe-mass",
+      "sport": "running",
+      "category": "shoe",
+      "label": "신발 무게",
+      "question": "신발 무게가 달리기 경제성에 미치는 영향 — 연구 결과",
+      "condition": "intensity_pct_vt2",
+      "condition_label": "운동 강도",
+      "transfer_to_time": 0.7,
+      "transfer_note": "위와 같은 이유로 보수적으로 70%만 반영했다.",
+      "effects": [
+        {
+          "id": "running_economy",
+          "label": "러닝 이코노미",
+          "detail": "신발 한 짝당 100g 더할 때 드는 에너지 증가",
+          "better": "lower",
+          "affects_time": true,
+          "direction": "worse",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "intensity_pct_vt2": [
+                  90,
+                  null
+                ]
+              },
+              "effect_pct": 10.2,
+              "ci": [
+                10.2,
+                10.2
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 11,
+              "source": "Rodrigo-Carranza V, González-Mohíno F, Santos-Concejero J, González-Ravé JM (2020). Influence of shoe mass on performance and running economy in trained runners. Front Physiol 11:573660",
+              "url": "https://doi.org/10.3389/fphys.2020.573660",
+              "note": "2차 환기역치의 95% 강도. 같은 연구에서 vVO2max 지속시간은 약 22%(42초) 줄었다."
+            },
+            {
+              "grade": "B",
+              "applies": {
+                "intensity_pct_vt2": [
+                  80,
+                  90
+                ]
+              },
+              "effect_pct": 7.4,
+              "ci": [
+                7.4,
+                7.4
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 11,
+              "source": "Rodrigo-Carranza V 등 (2020). Front Physiol 11:573660",
+              "url": "https://doi.org/10.3389/fphys.2020.573660",
+              "note": "2차 환기역치의 85% 강도."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "intensity_pct_vt2": [
+                  null,
+                  80
+                ]
+              },
+              "effect_pct": 5.5,
+              "ci": [
+                0.0,
+                5.5
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 11,
+              "source": "Rodrigo-Carranza V 등 (2020). Front Physiol 11:573660",
+              "url": "https://doi.org/10.3389/fphys.2020.573660",
+              "note": "75% 강도에서는 통계적으로 유의하지 않았다. 선행 연구들은 100g당 약 1%로 보고했는데, 이 연구에서 더 큰 값이 나온 것은 트레드밀 1% 경사와 상대강도 설계 때문일 수 있다고 저자들이 적었다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "러닝화 무게와 기록 — 신발 100g이 몇 초인가",
+        "description": "신발 한 짝이 100g 무거워지면 러닝 이코노미가 얼마나 나빠지는지 강도별 연구 결과와 기록으로 환산한 값을 근거 등급과 함께 정리했습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "speed_kmh": [
-         null,
-         12.0
-        ]
-       },
-       "effect_pct": 0.9,
-       "ci": [
-        0.0,
-        0.9
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 16,
-       "source": "Dominy TA, Joubert DP. Effects of a Carbon-Plated Shoe on Running Economy at Slower Speeds. Int J Exerc Sci",
-       "url": "https://digitalcommons.wku.edu/ijesab/vol2/iss14/15/",
-       "note": "10km/h에서 p=0.065로 통계적으로 유의하지 않았다. 효과가 0일 가능성을 배제할 수 없어 아래끝을 0으로 표시했다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "카본화 효과, 기록 얼마나 줄어드나 — 속도별 근거 등급",
-    "description": "카본화(카본 플레이트 레이싱화)가 기록을 얼마나 줄이는지 속도별로 정리했습니다. 14㎞/h 이상은 메타분석(A등급)이 뒷받침하고, 그보다 느린 구간은 소규모 연구라 유의하지 않았습니다."
-   },
-   "short_label": "카본화",
-   "faq": [
-    {
-     "q": "카본화의 기록 단축 폭",
-     "a": "속도에 따라 다릅니다. 평균 14㎞/h 이상에서는 메타분석(근거 A)에서 러닝 이코노미 2.9%(95% 신뢰구간 1.2~4.6%) 개선이 보고됐습니다. 12~14㎞/h는 1.4%, 12㎞/h 미만은 0.9%였는데, 소규모 연구(근거 C)이고 느린 구간은 통계적으로 유의하지 않았습니다."
+      "short_label": "신발 무게",
+      "faq": [
+        {
+          "q": "신발 100g 증가에 따른 달리기 경제성 변화",
+          "a": "한 짝에 100g을 더한 연구(Rodrigo-Carranza 외, 2020, 참가자 11명)에서 2차 환기역치의 80% 이상 강도일 때 러닝 이코노미가 7.4~10.2% 나빠졌습니다(근거 B). 80% 미만 강도에서는 5.5%였지만 통계적으로 유의하지 않았습니다."
+        },
+        {
+          "q": "기록 환산 시 지연 시간",
+          "a": "내 속도와 거리를 넣으면 계산해 드립니다. 이코노미 변화가 그대로 기록이 되지는 않아서 보수적으로 70%만 반영했고, 이 70%는 칼랭크가 정한 가정입니다."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "q": "달리기 경제성 개선과 기록 단축의 관계",
-     "a": "그대로 줄지는 않습니다. 공기저항, 피로, 페이스 조절이 남기 때문입니다. 칼랭크는 보수적으로 70%만 반영해 계산하며, 이 70%는 연구에서 나온 값이 아니라 칼랭크가 정한 가정입니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "shoe-mass",
-   "sport": "running",
-   "category": "shoe",
-   "label": "신발 무게",
-   "question": "신발 무게가 달리기 경제성에 미치는 영향 — 연구 결과",
-   "condition": "intensity_pct_vt2",
-   "condition_label": "운동 강도",
-   "transfer_to_time": 0.7,
-   "transfer_note": "위와 같은 이유로 보수적으로 70%만 반영했다.",
-   "effects": [
-    {
-     "id": "running_economy",
-     "label": "러닝 이코노미",
-     "detail": "신발 한 짝당 100g 더할 때 드는 에너지 증가",
-     "better": "lower",
-     "affects_time": true,
-     "direction": "worse",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "intensity_pct_vt2": [
-         90,
-         null
-        ]
-       },
-       "effect_pct": 10.2,
-       "ci": [
-        10.2,
-        10.2
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 11,
-       "source": "Rodrigo-Carranza V, González-Mohíno F, Santos-Concejero J, González-Ravé JM (2020). Influence of shoe mass on performance and running economy in trained runners. Front Physiol 11:573660",
-       "url": "https://doi.org/10.3389/fphys.2020.573660",
-       "note": "2차 환기역치의 95% 강도. 같은 연구에서 vVO2max 지속시간은 약 22%(42초) 줄었다."
+      "id": "trail-poles",
+      "sport": "trail",
+      "category": "poles",
+      "label": "트레일 폴(스틱)",
+      "question": "트레일 폴 사용이 에너지 소모와 하지 부하에 미치는 효과 — 연구 결과",
+      "condition": "gradient_pct",
+      "condition_label": "경사",
+      "headline": "에너지 소모는 늘지만 다리에 걸리는 부담은 줄어든다.",
+      "effects": [
+        {
+          "id": "oxygen_cost",
+          "label": "산소 소모",
+          "detail": "같은 속도에서 드는 산소량",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  5
+                ]
+              },
+              "effect_pct": 22.0,
+              "ci": [
+                12.0,
+                37.0
+              ],
+              "significant": true,
+              "studies": 3,
+              "n": 29,
+              "source": "Saller M, Nagengast N, Frisch M, Fuss FK (2023). A Review of Biomechanical and Physiological Effects of Using Poles in Sports. Bioengineering 10(4):497",
+              "url": "https://doi.org/10.3390/bioengineering10040497",
+              "note": "평지 걷기에서 산소 소모가 오히려 늘었다는 보고가 여러 건이다(1.11m/s에서 약 22%, 1.53m/s에서 약 37%). 참가자가 9~10명인 소규모 트레드밀 연구들이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  5,
+                  20
+                ]
+              },
+              "effect_pct": 7.0,
+              "ci": [
+                0.0,
+                7.0
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 9,
+              "source": "Saller M 등 (2023). Bioengineering 10(4):497",
+              "url": "https://doi.org/10.3390/bioengineering10040497",
+              "note": "15% 경사에서 약 7% 증가했고, 경사가 가팔라질수록 증가폭이 줄어드는 경향이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  20,
+                  null
+                ]
+              },
+              "effect_pct": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 14,
+              "source": "Saller M 등 (2023). Bioengineering 10(4):497",
+              "url": "https://doi.org/10.3390/bioengineering10040497",
+              "note": "25~36도 구간에서는 수직 이동 비용이 낮아졌다는 보고가 있다. 폴이 유리해지는 구간일 수 있지만 근거가 많지 않다."
+            }
+          ]
+        },
+        {
+          "id": "ground_force",
+          "label": "다리에 걸리는 힘",
+          "detail": "지면반력과 발바닥 압력",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": 11.0,
+              "ci": [
+                2.9,
+                24.0
+              ],
+              "significant": true,
+              "studies": 4,
+              "n": 68,
+              "source": "Saller M 등 (2023). Bioengineering 10(4):497",
+              "url": "https://doi.org/10.3390/bioengineering10040497",
+              "note": "평지 걷기 2.9~8%, 맨발 압력 18~24%, 트레일 러닝 평균 힘 11%·내리막 뒤꿈치 충격 14.2% 감소로 보고됐다. 측정 방식이 제각각이라 하나로 묶기 어렵고, 러닝 근거에는 참가자 1명짜리 연구도 포함돼 있다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "트레일 폴 효과 — 에너지 소모와 다리 부담 연구",
+        "description": "트레일러닝·산행에서 폴(스틱)을 쓰면 산소 소모와 다리에 걸리는 힘이 어떻게 달라지는지 경사별 연구를 정리했습니다. 에너지는 더 들고 다리 부담은 줄어드는 양쪽을 함께 봅니다."
       },
-      {
-       "grade": "B",
-       "applies": {
-        "intensity_pct_vt2": [
-         80,
-         90
-        ]
-       },
-       "effect_pct": 7.4,
-       "ci": [
-        7.4,
-        7.4
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 11,
-       "source": "Rodrigo-Carranza V 등 (2020). Front Physiol 11:573660",
-       "url": "https://doi.org/10.3389/fphys.2020.573660",
-       "note": "2차 환기역치의 85% 강도."
+      "short_label": "폴",
+      "faq": [
+        {
+          "q": "트레일 폴 사용 시 에너지 소모와 하지 부하 변화",
+          "a": "에너지 소모는 늘고 다리 부담은 줄어드는 쪽으로 보고됐습니다(Saller 외, 2023, 근거 C). 산소 소모는 평지에서 가장 불리했고 15% 경사에서 약 7% 늘었으며, 경사가 가팔라질수록 증가폭이 줄었습니다. 다리에 걸리는 힘은 모든 경사에서 평균 11% 줄었습니다."
+        },
+        {
+          "q": "UTMB에서의 폴 사용 가능 여부",
+          "a": "폴은 선택 장비입니다. 다만 한번 들면 전 구간 들고 가야 합니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "trail-pack-weight",
+      "sport": "trail",
+      "category": "pack",
+      "label": "배낭 무게",
+      "question": "배낭 하중이 에너지 소모에 미치는 영향 — 연구 결과",
+      "condition": "load_pct_bodymass",
+      "condition_label": "배낭 무게 (체중의 %)",
+      "headline": "UTMB 필수 장비의 무게 구간은 연구가 거의 없는 구간이다.",
+      "transfer_to_time": 0.7,
+      "transfer_note": "에너지 비용이 1% 늘어도 기록이 1% 느려지는 것은 아니다. 보수적으로 70%만 반영했고, 이 70%는 연구에서 나온 수치가 아니라 칼랭크의 가정이다.",
+      "effects": [
+        {
+          "id": "energy_cost",
+          "label": "에너지 소모",
+          "detail": "같은 속도를 유지하는 데 드는 에너지",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": true,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "load_pct_bodymass": [
+                  10,
+                  20
+                ]
+              },
+              "effect_pct": 5.5,
+              "ci": [
+                5.0,
+                6.0
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 265,
+              "source": "Pinedo-Jauregi A, Mejuto Hidalgo G, Bentley DJ, Grimshaw P, Cámara Tobalina J (2021). Protocols used to determine the influence of backpack load on physiological variables: Systematic review. Int J Industrial Ergonomics 86:103227 — 인용된 Quesada 등 (2000)",
+              "url": "https://doi.org/10.1016/j.ergon.2021.103227",
+              "note": "체중의 15%를 실었을 때 에너지 소모가 5~6% 늘었다는 보고다. 다만 걷기(3~5.4㎞/h) 조건이고 달리기 자료가 아니다. 리뷰에 포함된 14편은 모두 Oxford 근거수준 3b, PEDro 평균 3.5점으로 연구 질이 높지 않다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "load_pct_bodymass": [
+                  20,
+                  60
+                ]
+              },
+              "effect_pct": 14.5,
+              "ci": [
+                11.0,
+                18.0
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 265,
+              "source": "Pinedo-Jauregi A 등 (2021). Int J Industrial Ergonomics 86:103227 — 인용된 Phillips 등 (2016)",
+              "url": "https://doi.org/10.1016/j.ergon.2021.103227",
+              "note": "절대 산소 소모가 0~15kg에서 11%, 15~30kg에서 14.5%, 30~45kg에서 18% 늘었다. 군용 수준 적재이고 역시 걷기 조건이다. 생리적 변화의 문턱은 20~40kg 사이로 보고됐고, 체중의 30%를 권장 상한, 40% 초과를 부상 위험 구간으로 본 저자들이 있다."
+            },
+            {
+              "grade": "D",
+              "applies": {
+                "load_pct_bodymass": [
+                  null,
+                  10
+                ]
+              },
+              "effect_pct": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "해당 구간을 다룬 연구를 찾지 못했다",
+              "note": "UTMB 필수 장비는 보통 2~4kg이고 70kg 러너 기준 체중의 3~6%다. 그런데 적재 연구는 20kg 이상, 걷기, 산업 인체공학 쪽에 몰려 있어 이 구간을 직접 다룬 자료가 거의 없다. 위 구간의 수치를 끌어와 추정할 수도 있지만 근거 없는 숫자가 되므로 비워 두었다.",
+              "no_data": true
+            }
+          ]
+        },
+        {
+          "id": "distal_vs_trunk",
+          "label": "같은 무게라도 어디에 붙는지",
+          "detail": "발에 붙은 무게와 등에 진 무게의 차이",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "load_pct_bodymass": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": 7.4,
+              "ci": [
+                7.4,
+                10.2
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 11,
+              "source": "Rodrigo-Carranza V, González-Mohíno F, Santos-Concejero J, González-Ravé JM (2020). Influence of shoe mass on performance and running economy in trained runners. Front Physiol 11:573660",
+              "url": "https://doi.org/10.3389/fphys.2020.573660",
+              "note": "신발 한 짝에 100g을 더했을 때 이코노미가 7.4~10.2% 나빠졌다(강도 85~95%). 배낭 쪽 수치와 직접 비교하지는 않았다. 측정 조건과 연구 질이 달라서 두 수치를 곱해 몇 배라고 말할 근거가 없기 때문이다. 다만 방향은 분명해서, 발에 붙은 무게가 등에 진 무게보다 그램당 부담이 크다. 배낭 무게를 줄이려고 신발을 무겁게 바꾸면 오히려 손해일 수 있다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "트레일 배낭 무게와 기록 — 필수 장비는 몇 kg이 적당한가",
+        "description": "배낭이 무거워지면 에너지 소모가 얼마나 늘어나는지 적재 연구를 근거 등급과 함께 정리했습니다. UTMB 필수 장비 2~4kg 구간을 직접 다룬 연구가 적다는 점도 적었습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "intensity_pct_vt2": [
-         null,
-         80
-        ]
-       },
-       "effect_pct": 5.5,
-       "ci": [
-        0.0,
-        5.5
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 11,
-       "source": "Rodrigo-Carranza V 등 (2020). Front Physiol 11:573660",
-       "url": "https://doi.org/10.3389/fphys.2020.573660",
-       "note": "75% 강도에서는 통계적으로 유의하지 않았다. 선행 연구들은 100g당 약 1%로 보고했는데, 이 연구에서 더 큰 값이 나온 것은 트레드밀 1% 경사와 상대강도 설계 때문일 수 있다고 저자들이 적었다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "러닝화 무게와 기록 — 신발 100g이 몇 초인가",
-    "description": "신발 한 짝이 100g 무거워지면 러닝 이코노미가 얼마나 나빠지는지 강도별 연구 결과와 기록으로 환산한 값을 근거 등급과 함께 정리했습니다."
-   },
-   "short_label": "신발 무게",
-   "faq": [
-    {
-     "q": "신발 100g 증가에 따른 달리기 경제성 변화",
-     "a": "한 짝에 100g을 더한 연구(Rodrigo-Carranza 외, 2020, 참가자 11명)에서 2차 환기역치의 80% 이상 강도일 때 러닝 이코노미가 7.4~10.2% 나빠졌습니다(근거 B). 80% 미만 강도에서는 5.5%였지만 통계적으로 유의하지 않았습니다."
+      "short_label": "배낭 무게",
+      "faq": [
+        {
+          "q": "배낭 하중에 따른 추가 에너지 소모",
+          "a": "체중의 15%를 실었을 때 에너지 소모가 5~6% 늘었다는 보고가 있습니다. 다만 걷기(3~5.4㎞/h) 조건이고 연구 질이 높지 않아 근거 C입니다. UTMB 필수 장비 2~4kg(체중 3~6%) 구간을 직접 다룬 연구는 거의 없습니다."
+        },
+        {
+          "q": "신발 무게와 배낭 무게의 부담 비교",
+          "a": "신발 한 짝에 100g을 더하면 이코노미가 7.4~10.2% 나빠졌습니다. 두 수치를 직접 비교할 수는 없지만, 그램당 부담은 발에 붙은 무게가 더 크다는 방향은 분명합니다."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "q": "기록 환산 시 지연 시간",
-     "a": "내 속도와 거리를 넣으면 계산해 드립니다. 이코노미 변화가 그대로 기록이 되지는 않아서 보수적으로 70%만 반영했고, 이 70%는 칼랭크가 정한 가정입니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "trail-poles",
-   "sport": "trail",
-   "category": "poles",
-   "label": "트레일 폴(스틱)",
-   "question": "트레일 폴 사용이 에너지 소모와 하지 부하에 미치는 효과 — 연구 결과",
-   "condition": "gradient_pct",
-   "condition_label": "경사",
-   "headline": "에너지 소모는 늘지만 다리에 걸리는 부담은 줄어든다.",
-   "effects": [
-    {
-     "id": "oxygen_cost",
-     "label": "산소 소모",
-     "detail": "같은 속도에서 드는 산소량",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         null,
-         5
-        ]
-       },
-       "effect_pct": 22.0,
-       "ci": [
-        12.0,
-        37.0
-       ],
-       "significant": true,
-       "studies": 3,
-       "n": 29,
-       "source": "Saller M, Nagengast N, Frisch M, Fuss FK (2023). A Review of Biomechanical and Physiological Effects of Using Poles in Sports. Bioengineering 10(4):497",
-       "url": "https://doi.org/10.3390/bioengineering10040497",
-       "note": "평지 걷기에서 산소 소모가 오히려 늘었다는 보고가 여러 건이다(1.11m/s에서 약 22%, 1.53m/s에서 약 37%). 참가자가 9~10명인 소규모 트레드밀 연구들이다."
+      "id": "aero-wheel",
+      "sport": "cycling",
+      "category": "wheel",
+      "label": "에어로 휠",
+      "question": "에어로 휠의 평균 속도별 기록 단축 효과 — 출력 모델 계산",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "속도가 빠를수록 공기저항 비중은 커지지만, 절약되는 시간은 오히려 줄어든다.",
+      "model": "martin1998",
+      "model_note": "Martin 등(1998)이 검증한 도로사이클 출력 모델을 그대로 사용했다. 같은 출력을 유지할 때 CdA가 줄면 속도가 얼마나 오르는지 계산하는 방식이다. 이 모델은 실측 출력과 r=.97, 표준오차 2.7W로 일치했다. 평지·무풍을 가정한다. 기본값 중 CdA 0.264㎡는 논문 참가자 6명의 평균이고(범위 0.211~0.317), 구름저항계수 0.004, 총중량 80㎏, 공기밀도 1.225㎏/㎥는 논문에서 가져온 값이 아니라 칼랭크가 정한 기본값이다. 상체를 세우고 타면 CdA가 0.3을 넘기 쉬우니 알고 있는 값이 있으면 바꿔 넣는 것이 좋다.",
+      "effects": [
+        {
+          "id": "aero_share",
+          "label": "공기저항이 가져가는 몫",
+          "detail": "내 속도에서 페달 힘의 몇 %가 바람과 싸우는 데 쓰이나",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": false,
+          "computed": "aero_share",
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 6,
+              "source": "Martin JC, Milliken DL, Cobb JE, McFadden KL, Coggan AR (1998). Validation of a mathematical model for road cycling power. J Appl Biomech 14(3):276–291",
+              "url": "https://collections.lib.utah.edu/dl_files/b4/8e/b48ef26086091662c561e673d7bd990d77868437.pdf",
+              "note": "모델이 실측 출력과 r=.97로 맞았고 측정 표준오차는 2.7W였다. 공기저항이 차지하는 몫은 속도가 오를수록 커진다 — 논문의 오르막 주행에서 56~76%, 내리막에서 93~96%였다. 참가자 6명의 CdA는 0.211~0.317㎡, 평균 0.264㎡였다."
+            }
+          ]
+        },
+        {
+          "id": "time_saved",
+          "label": "기록 단축",
+          "detail": "CdA가 줄면 같은 힘으로 얼마나 빨라지나",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_time",
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 0,
+              "n": 0,
+              "cda_delta_m2": 0.01,
+              "source": "모델은 Martin 등(1998), 그러나 CdA 감소폭은 제조사·잡지 풍동 자료",
+              "url": "https://collections.lib.utah.edu/dl_files/b4/8e/b48ef26086091662c561e673d7bd990d77868437.pdf",
+              "note": "한 주장 안에서 근거 등급이 나뉘는 경우다. 'CdA가 줄면 얼마나 빨라지는가'를 계산하는 식은 검증돼 있지만(A), '이 휠이 CdA를 얼마나 줄이는가'는 동료심사 문헌이 거의 없다(D). 시중 자료 대부분이 제조사 발표나 잡지 풍동 시험이고, 시험 조건과 비교 대상이 달라서 서로 견주기 어렵다. 여기서는 깊은 림 휠에서 흔히 말하는 0.010㎡ 감소를 예시로 넣었다. 이 수치는 연구에서 나온 값이 아니므로, 실제 수치를 알고 있다면 바꿔 넣어 주세요."
+            }
+          ]
+        }
+      ],
+      "surprise": "에어로 장비는 빠른 사람에게 맞는 장비라고 알려져 있다. 공기저항이 페달 힘에서 차지하는 비중은 속도에 따라 커져서 20㎞/h에서 60%, 40㎞/h에서 86%다. 다만 기록으로 돌아오는 시간은 반대로 움직인다. 같은 휠로 40km를 달리면 25㎞/h로 가는 사람은 64초, 40㎞/h로 가는 사람은 44초를 아낀다. 속도가 오르는 비율은 1.1~1.2%로 거의 같지만, 느린 사람이 코스에 더 오래 머물기 때문에 같은 비율이 더 많은 초가 된다.",
+      "seo": {
+        "title": "에어로 휠 효과 — 평속별로 몇 초 줄어드나(40km)",
+        "description": "에어로 휠(딥림 휠)이 평속 25~40㎞/h의 40km 주행에서 몇 초를 줄이는지 검증된 출력 모델로 계산했습니다. 빠를수록 공기저항 비중은 커지지만 아끼는 시간은 줄어듭니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         5,
-         20
-        ]
-       },
-       "effect_pct": 7.0,
-       "ci": [
-        0.0,
-        7.0
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 9,
-       "source": "Saller M 등 (2023). Bioengineering 10(4):497",
-       "url": "https://doi.org/10.3390/bioengineering10040497",
-       "note": "15% 경사에서 약 7% 증가했고, 경사가 가팔라질수록 증가폭이 줄어드는 경향이다."
+      "short_label": "에어로 휠",
+      "faq": [
+        {
+          "q": "에어로 휠의 효과가 나타나는 평균 속도",
+          "a": "공기저항이 페달 힘에서 차지하는 비중은 20㎞/h에서 60%, 40㎞/h에서 86%입니다. 다만 같은 휠로 40km를 달릴 때 아끼는 시간은 25㎞/h에서 64초, 40㎞/h에서 44초로 느린 쪽이 더 큽니다(CdA 0.010㎡ 감소를 가정한 예시, 근거 D)."
+        },
+        {
+          "q": "계산 방법의 검증 수준과 근거 등급",
+          "a": "계산식은 Martin 외(1998)가 실측과 r=.97로 검증했습니다(근거 A). 반면 휠이 CdA를 얼마나 줄이는지는 동료심사 문헌이 거의 없고 제조사 자료가 대부분이라 근거 D입니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "tyre-rolling",
+      "sport": "cycling",
+      "category": "tyre",
+      "label": "타이어와 공기압",
+      "question": "타이어 종류·공기압에 따른 구름저항과 기록 영향",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "같은 제조사의 같은 타이어도 버전에 따라 구름저항이 33% 차이 난다.",
+      "model": "martin1998",
+      "model_note": "구름저항이 줄 때 기록이 얼마나 줄어드는지는 Martin 등(1998)의 검증된 출력 모델로 계산했다(실측과 r=.97, 표준오차 2.7W). 평지·무풍을 가정한다. 기본 구름저항계수 0.004, 총중량 80㎏, 공기밀도 1.225㎏/㎥, CdA 0.264㎡는 칼랭크가 정한 기본값이고 바꿔 넣을 수 있다. 참고로 Sellier·Bellenoue가 실측한 도로 선수 CdA는 0.369㎡였고, 상체를 세우고 타면 0.264보다 이쪽에 가깝다.",
+      "effects": [
+        {
+          "id": "tyre_version",
+          "label": "같은 제조사, 다른 버전",
+          "detail": "타임트라이얼용과 일반용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "crr_time",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "crr_delta_pct": 33.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Sellier M, Bellenoue S (2025). A Novel Energy Imbalance Approach Applied to Rolling Resistance Assessment in Cycling. Journal of Science and Cycling 14(2), Article 17",
+              "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
+              "note": "한 제조사의 타임트라이얼 버전과 일반 버전 사이에 구름저항이 33% 차이 났다. 45㎞/h·81.5㎏ 기준으로 6bar 에서 6W, 3bar 에서 11W 다. 다만 타임트라이얼 타이어는 더 낮은 기온에서 측정됐다고 저자들이 밝혀 두었다 — 기온이 낮으면 구름저항이 낮게 나오므로 33%에는 기온 효과가 섞여 있을 수 있다. 시험 주행자는 한 명, 28mm 튜블리스 레이스 타이어, 측정 반복성 2% 미만이다."
+            }
+          ]
+        },
+        {
+          "id": "tyre_brand",
+          "label": "제조사 사이의 차이",
+          "detail": "세 제조사를 같은 조건에서",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "crr_time",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "crr_delta_pct": 9.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Sellier M, Bellenoue S (2025). Journal of Science and Cycling 14(2), Article 17",
+              "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
+              "note": "세 제조사 사이의 평균 차이가 9%였다. 한 제조사가 나머지 둘보다 공기압에 따라 7~11% 낮았고, 나머지 둘 사이에는 유의한 차이가 없었다. 제조사 이름은 논문이 M1·M2·M3 로만 적어 공개하지 않았다."
+            }
+          ]
+        },
+        {
+          "id": "tyre_pressure",
+          "label": "공기압을 낮추면",
+          "detail": "6bar 에서 3bar 로",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": true,
+          "computed": "crr_time",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "crr_delta_pct": 26.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Sellier M, Bellenoue S (2025). Journal of Science and Cycling 14(2), Article 17",
+              "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
+              "note": "6bar에서 3bar로 낮추면 구름저항이 26% 늘었다. 매끈한 포장도로 한 곳에서만 측정했다는 점에 유의해야 한다. 노면이 거칠면 공기압을 낮추는 쪽이 더 빨라지는 구간이 있다고 알려져 있는데 이 연구는 그 조건을 다루지 않았고, 저자들도 노면 효과를 다음 과제로 남겼다. 공기압을 낮추면 바퀴 둘레가 줄어 속도계가 어긋난다는 점도 적어 두었다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "자전거 타이어 공기압과 구름저항 — 휠보다 먼저 볼 것",
+        "description": "타이어 구름저항이 제조사·버전·공기압에 따라 얼마나 달라지는지 실측 연구를 정리했습니다. 같은 제조사 타이어도 버전에 따라 33%, 공기압 6bar에서 3bar로 낮추면 26% 차이가 났습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         20,
-         null
-        ]
-       },
-       "effect_pct": 0.0,
-       "ci": [
-        0.0,
-        0.0
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 14,
-       "source": "Saller M 등 (2023). Bioengineering 10(4):497",
-       "url": "https://doi.org/10.3390/bioengineering10040497",
-       "note": "25~36도 구간에서는 수직 이동 비용이 낮아졌다는 보고가 있다. 폴이 유리해지는 구간일 수 있지만 근거가 많지 않다."
-      }
-     ]
+      "short_label": "타이어",
+      "faq": [
+        {
+          "q": "타이어 교체의 효과",
+          "a": "Sellier·Bellenoue(2025) 실측에서 같은 제조사의 타임트라이얼용과 일반용 타이어는 구름저항이 33% 달랐고, 세 제조사 사이 평균 차이는 9%였습니다(근거 C)."
+        },
+        {
+          "q": "공기압 조정과 속도의 관계",
+          "a": "같은 연구에서 6bar를 3bar로 낮추자 구름저항이 26% 늘었습니다. 매끈한 포장도로 한 곳에서만 측정한 값이라, 거친 노면 조건은 다루지 않았습니다."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "id": "ground_force",
-     "label": "다리에 걸리는 힘",
-     "detail": "지면반력과 발바닥 압력",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "effect_pct": 11.0,
-       "ci": [
-        2.9,
-        24.0
-       ],
-       "significant": true,
-       "studies": 4,
-       "n": 68,
-       "source": "Saller M 등 (2023). Bioengineering 10(4):497",
-       "url": "https://doi.org/10.3390/bioengineering10040497",
-       "note": "평지 걷기 2.9~8%, 맨발 압력 18~24%, 트레일 러닝 평균 힘 11%·내리막 뒤꿈치 충격 14.2% 감소로 보고됐다. 측정 방식이 제각각이라 하나로 묶기 어렵고, 러닝 근거에는 참가자 1명짜리 연구도 포함돼 있다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "트레일 폴 효과 — 에너지 소모와 다리 부담 연구",
-    "description": "트레일러닝·산행에서 폴(스틱)을 쓰면 산소 소모와 다리에 걸리는 힘이 어떻게 달라지는지 경사별 연구를 정리했습니다. 에너지는 더 들고 다리 부담은 줄어드는 양쪽을 함께 봅니다."
-   },
-   "short_label": "폴",
-   "faq": [
-    {
-     "q": "트레일 폴 사용 시 에너지 소모와 하지 부하 변화",
-     "a": "에너지 소모는 늘고 다리 부담은 줄어드는 쪽으로 보고됐습니다(Saller 외, 2023, 근거 C). 산소 소모는 평지에서 가장 불리했고 15% 경사에서 약 7% 늘었으며, 경사가 가팔라질수록 증가폭이 줄었습니다. 다리에 걸리는 힘은 모든 경사에서 평균 11% 줄었습니다."
-    },
-    {
-     "q": "UTMB에서의 폴 사용 가능 여부",
-     "a": "폴은 선택 장비입니다. 다만 한번 들면 전 구간 들고 가야 합니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "trail-pack-weight",
-   "sport": "trail",
-   "category": "pack",
-   "label": "배낭 무게",
-   "question": "배낭 하중이 에너지 소모에 미치는 영향 — 연구 결과",
-   "condition": "load_pct_bodymass",
-   "condition_label": "배낭 무게 (체중의 %)",
-   "headline": "UTMB 필수 장비의 무게 구간은 연구가 거의 없는 구간이다.",
-   "transfer_to_time": 0.7,
-   "transfer_note": "에너지 비용이 1% 늘어도 기록이 1% 느려지는 것은 아니다. 보수적으로 70%만 반영했고, 이 70%는 연구에서 나온 수치가 아니라 칼랭크의 가정이다.",
-   "effects": [
-    {
-     "id": "energy_cost",
-     "label": "에너지 소모",
-     "detail": "같은 속도를 유지하는 데 드는 에너지",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": true,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "load_pct_bodymass": [
-         10,
-         20
-        ]
-       },
-       "effect_pct": 5.5,
-       "ci": [
-        5.0,
-        6.0
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 265,
-       "source": "Pinedo-Jauregi A, Mejuto Hidalgo G, Bentley DJ, Grimshaw P, Cámara Tobalina J (2021). Protocols used to determine the influence of backpack load on physiological variables: Systematic review. Int J Industrial Ergonomics 86:103227 — 인용된 Quesada 등 (2000)",
-       "url": "https://doi.org/10.1016/j.ergon.2021.103227",
-       "note": "체중의 15%를 실었을 때 에너지 소모가 5~6% 늘었다는 보고다. 다만 걷기(3~5.4㎞/h) 조건이고 달리기 자료가 아니다. 리뷰에 포함된 14편은 모두 Oxford 근거수준 3b, PEDro 평균 3.5점으로 연구 질이 높지 않다."
+      "id": "aero-helmet",
+      "sport": "cycling",
+      "category": "helmet",
+      "label": "에어로 헬멧",
+      "question": "에어로 헬멧의 공기저항(CdA) 차이와 기록 영향",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "헬멧을 바꾸는 것보다 바이저를 빼지 않는 쪽이 더 큰 차이를 만든다.",
+      "surprise": "타임트라이얼 헬멧 두 종이 에어로 로드 헬멧보다 CdA가 2% 낮았다. 같은 타임트라이얼 헬멧에서 바이저를 빼면 CdA가 4.8% 올라가, 헬멧을 바꿔 얻는 값보다 크다. 통풍구를 테이프로 막은 경우는 0.25% 변화에 그쳐 유의하지 않았다. 통풍구를 막으면 12% 줄어든다는 수치가 알려져 있지만 이 연구의 결과가 아니라 다른 논문에서 인용된 값이다.",
+      "model": "martin1998",
+      "model_note": "헬멧 자료는 모나시대 풍동에서 마네킹으로 44㎞/h에 측정한 CdA다. 기록 환산은 Martin 등(1998) 모델로 했다. 이 시험은 요각(옆바람 각도)을 바꾸지 않았고 자세도 도로 주행 자세 하나로 고정했다. 실제 주행에서는 옆바람이 있으므로 여기 수치는 무풍 정면 조건의 값으로 보아야 한다.",
+      "effects": [
+        {
+          "id": "helmet_choice",
+          "label": "TT 헬멧으로 바꾸면",
+          "detail": "에어로 로드 헬멧 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 2.0,
+              "studies": 1,
+              "n": 0,
+              "source": "Novak J, Burton D, Crouch T (2019). Aerodynamic test results of bicycle helmets in different configurations: Towards a responsive design. Proc IMechE Part P: J Sports Engineering and Technology 233(2):268–276",
+              "url": "https://doi.org/10.1177/1754337118822613",
+              "note": "바이저를 단 타임트라이얼 헬멧 두 종(Giro Advantage, Kask Bambino)이 에어로 로드 헬멧(S-Works Evade)보다 CdA가 약 2% 낮았다. 마네킹을 80rpm으로 페달링시키며 44㎞/h에서 측정했고, 세 번 시험의 평균이며 측정 불확도는 ±0.001㎡ 미만이다. 마네킹 측정에 자세도 하나뿐이어서 본인 자세에서 같은 값이 나온다고 단정하기는 어렵다."
+            }
+          ]
+        },
+        {
+          "id": "visor",
+          "label": "바이저를 빼면",
+          "detail": "같은 헬멧에서",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 4.8,
+              "ci_pct": [
+                0.8,
+                4.8
+              ],
+              "studies": 1,
+              "n": 0,
+              "source": "Novak J, Burton D, Crouch T (2019). Proc IMechE Part P 233(2):268–276",
+              "url": "https://doi.org/10.1177/1754337118822613",
+              "note": "바이저를 떼면 Kask Bambino는 CdA가 4.8%, Giro Advantage는 0.8% 올라갔다. 헬멧마다 바이저의 영향이 크게 다르다. 헬멧을 바꿔 얻는 2%보다 바이저 하나가 더 클 수 있다."
+            }
+          ]
+        },
+        {
+          "id": "vent_taping",
+          "label": "통풍구를 막으면",
+          "detail": "테이프로",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": 0.25,
+              "ci": [
+                0.0,
+                0.25
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 0,
+              "source": "Novak J, Burton D, Crouch T (2019). Proc IMechE Part P 233(2):268–276",
+              "url": "https://doi.org/10.1177/1754337118822613",
+              "note": "Giro Advantage의 통풍구를 막았을 때 변화는 약 0.25%로 유의하지 않았다. 통풍구를 막으면 항력계수가 12% 줄어든다는 수치가 알려져 있지만 이 연구가 측정한 값이 아니라 Alam 등(2010)에서 인용된 수치다. 통풍구를 막으면 열 배출에는 불리할 수 있다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "에어로 헬멧 효과 — TT 헬멧과 바이저 풍동 시험",
+        "description": "TT 헬멧이 에어로 로드 헬멧보다 공기저항(CdA)이 2% 낮고, 바이저를 떼면 최대 4.8% 높아진다는 풍동 연구를 정리했습니다. 통풍구를 테이프로 막는 효과는 유의하지 않았습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "load_pct_bodymass": [
-         20,
-         60
-        ]
-       },
-       "effect_pct": 14.5,
-       "ci": [
-        11.0,
-        18.0
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 265,
-       "source": "Pinedo-Jauregi A 등 (2021). Int J Industrial Ergonomics 86:103227 — 인용된 Phillips 등 (2016)",
-       "url": "https://doi.org/10.1016/j.ergon.2021.103227",
-       "note": "절대 산소 소모가 0~15kg에서 11%, 15~30kg에서 14.5%, 30~45kg에서 18% 늘었다. 군용 수준 적재이고 역시 걷기 조건이다. 생리적 변화의 문턱은 20~40kg 사이로 보고됐고, 체중의 30%를 권장 상한, 40% 초과를 부상 위험 구간으로 본 저자들이 있다."
+      "short_label": "에어로 헬멧",
+      "faq": [
+        {
+          "q": "TT 헬멧과 에어로 로드 헬멧의 속도 차이",
+          "a": "풍동 시험(Novak 외, 2019)에서 바이저를 단 TT 헬멧 두 종이 에어로 로드 헬멧보다 CdA가 약 2% 낮았습니다(근거 B). 마네킹으로 44㎞/h, 무풍 정면 조건에서 잰 값입니다."
+        },
+        {
+          "q": "헬멧 바이저 제거의 영향",
+          "a": "Kask Bambino는 CdA가 4.8%, Giro Advantage는 0.8% 올라갔습니다. 통풍구를 테이프로 막은 경우는 약 0.25% 변화로 유의하지 않았습니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "groupset-tier",
+      "sport": "cycling",
+      "category": "drivetrain",
+      "label": "구동계 등급 (Dura-Ace·Ultegra·105…)",
+      "short_label": "구동계 등급",
+      "question": "구동계 등급 변경의 기록 단축 효과 — 출력 모델 계산",
+      "condition": "gradient_pct",
+      "condition_label": "오르막 경사",
+      "headline": "구동계 한 등급의 무게 차이는 평지에서 1초 미만, 가파른 오르막에서도 수 초 수준이다. 효율·변속·내구성 차이는 근거가 확인되지 않았다.",
+      "model": "martin1998",
+      "model_note": "Martin 등(1998)이 검증한 도로사이클 출력 모델에 오르막 항(중력, m·g·sinθ·v)을 더해 푼다. 같은 출력을 유지하면서 총중량만 줄었을 때 속도가 얼마나 오르는지 계산하는 방식이다. 이 모델은 실측 출력과 r=.97, 표준오차 2.7W로 일치했다. 구름저항계수 0.004, 공기밀도 1.225㎏/㎥, 오르막에서의 CdA 0.35㎡, 총중량 78㎏(사람 70+자전거 8)은 논문 값이 아니라 칼랭크가 정한 기본값이다. 오르막에서는 속도가 느려 공기저항 몫이 작기 때문에 CdA를 바꿔도 결과가 거의 달라지지 않는다. 바람과 내리막은 넣지 않았고, 오르막 구간 전체가 같은 경사라고 가정한다.",
+      "effects": [
+        {
+          "id": "weight_time",
+          "label": "기록 단축 (무게)",
+          "detail": "같은 힘으로 오르막을 오를 때 무게 차이가 만드는 초",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "mass_time",
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 0,
+              "n": 0,
+              "delta_kg": 0.278,
+              "source": "계산식은 Martin 등(1998), 그러나 등급 간 무게 차이는 매체 표기(Cyclingnews, 시마노 로드 그룹셋 안내: Dura-Ace R9200 2,438g, Ultegra R8100 2,716g)",
+              "url": "https://collections.lib.utah.edu/dl_files/b4/8e/b48ef26086091662c561e673d7bd990d77868437.pdf",
+              "note": "한 주장 안에서 근거 등급이 나뉘는 경우다. '무게가 줄면 몇 초 빨라지는가'를 계산하는 식은 검증돼 있다. 반면 '등급이 오르면 몇 g 가벼워지는가'는 공통 기준으로 재어 공개한 자료가 없다. 위 278g은 같은 기사가 적은 두 값(2,716 − 2,438)의 차이이고, 시마노가 부품별 공식 무게를 모두 공개하지는 않는다. 같은 매체 표에서 Tiagra 4700(2,767g)이 105 R7100(2,800g)보다 가볍게 적혀 있는 것도 표기 범위(브레이크 포함 여부, 전동·기계식)가 섞여 있다는 신호다. 그래서 무게 차이는 직접 바꿔 넣어 볼 수 있게 했다."
+            }
+          ]
+        },
+        {
+          "id": "weight_check",
+          "label": "이 계산이 실측과 맞는가",
+          "detail": "무게 1㎏을 더한 실험 하나와 모델의 차이",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "kind": "caveat",
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "caveat": true,
+              "significant": false,
+              "studies": 1,
+              "n": 13,
+              "source": "Wood BM (2007). Power development in hill climbing as a function of bicycle weight. 석사학위논문, University of Wisconsin–Whitewater",
+              "url": "https://minds.wisc.edu/items/95c88f4a-a753-4a7f-b219-fd17dca5df68",
+              "note": "경쟁 선수 13명이 같은 2.9㎞(1.78마일) 오르막을 자기 자전거로 두 번 올랐다. 한 번은 물통에 모래 1.0㎏을 넣었다. 무게를 더한 쪽이 평균 21초 느렸다. 같은 길이에서 이 모델은 경사 3~9%, 출력 200~300W 범위에서 1㎏당 2~13초로 계산한다. 실험의 경사와 출력이 요약에 없어 직접 견줄 수는 없지만, 모델이 계산한 범위 위쪽을 넘는다. 이 초록은 평균 출력 변화를 +53.8W와 −3.5W로 서로 모순되게 적었고 통계 검정도 보이지 않는다. 그래서 '모델보다 실제가 더 클 수도 있다' 정도로만 읽고, 모델이 오르막 무게 효과를 과소평가한다고 단정하지는 않는다."
+            }
+          ]
+        },
+        {
+          "id": "chain_efficiency",
+          "label": "체인 구동 효율",
+          "detail": "구동계에서 힘이 새는 정도를 재 본 연구들",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "kind": "caveat",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "caveat": true,
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Spicer JB 외 (2001). Effects of frictional loss on bicycle chain drive efficiency. J Mech Des, doi:10.1115/1.1412848 (존스홉킨스대, 시마노 후원 — 후원 사실은 1999년 대학 보도자료 기준)",
+              "url": "https://www.sciencegate.app/document/10.1115/1.1412848",
+              "note": "효율이 시험 조건에 따라 81%에서 98.6%까지 움직였다(대학 보도자료 기준). 효율을 가장 크게 좌우한 것은 체인 장력과 스프로킷 크기였고, 같은 실험에서 왁스계·합성유·건식 윤활제와 윤활제를 아예 뺀 상태 사이에는 뚜렷한 차이가 없었다. 실험실 환경이라 진흙과 먼지가 낀 실제 주행과 다르다. 이 시험은 시마노 후원으로 이뤄졌다. 어느 등급 부품이 더 효율적인지가 아니라 체인 구동 자체의 손실 구조를 본 연구다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "caveat": true,
+              "significant": false,
+              "studies": 1,
+              "n": 0,
+              "source": "Kyle C, Berto F (2001). The mechanical efficiency of bicycle derailleur and hub-gear transmissions. Human Power 52 (IHPVA 기술지)",
+              "url": "https://hupi.org/HParchive/PDF/hp55/hp55p11-15.pdf",
+              "note": "변속기 3종(4~27단)과 내장 허브 8종을 80·150·200W, 75rpm에서 쟀다. 외장 변속기는 87~97%, 허브 기어는 86~95%였다. 두 차례 시험이 1% 안에서 재현됐다고 한다. 이 지면에는 시마노 같은 등급이 아니라 변속기 종류가 비교 대상으로 들어 있고, 심사를 거치는 학술지가 아니라 인간동력 기술지여서 근거 C로 두었다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "caveat": true,
+              "significant": false,
+              "studies": 1,
+              "n": 0,
+              "source": "Rohloff B, Greb P. Efficiency measurements of bicycle transmissions — a neverending story? Human Power 55 (IHPVA 기술지)",
+              "url": "https://hupi.org/HParchive/PDF/hp55/hp55p11-15.pdf",
+              "note": "24단 외장 변속기를 새것으로 100㎞ 길들인 뒤 쟀을 때 95~98.5%였다(일정 토크 50Nm, 60rpm). 같은 구동계를 1,000㎞ 지저분한 환경에서 쓴 체인·스프로킷으로 바꾸자 평균 효율이 약 1% 낮아졌다. 저자가 내장 허브 제조사 소속이라 이해관계가 있다. 체인 마모와 오염이 효율을 떨어뜨린다는 방향은 위 학위논문 리뷰(Kidd 2000)의 서술과 같다."
+            }
+          ]
+        },
+        {
+          "id": "tier_efficiency",
+          "label": "등급 간 효율 차이",
+          "detail": "Ultegra와 105, 105와 Tiagra의 구동 손실 차이",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "no_data": true,
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
+              "note": "같은 체인 구동이라도 스프로킷 이빨 수와 장력이 효율을 좌우한다는 연구는 있다. 그러나 시마노 등급(Dura-Ace, Ultegra, 105, Tiagra, Sora, Claris)끼리 구동 효율을 같은 조건에서 재어 비교한 동료심사 연구는 이번 검색에서 나오지 않았다. 검색에 나오는 것은 제조사 자료와 매체 시험이다. 효율 차이가 없다는 뜻이 아니라 믿을 만한 측정이 없다는 뜻이다."
+            }
+          ]
+        },
+        {
+          "id": "shift_durability",
+          "label": "변속감·내구성 차이",
+          "detail": "등급이 오를수록 변속이 정확하고 오래 가는가",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "gradient_pct": [
+                  null,
+                  null
+                ]
+              },
+              "no_data": true,
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
+              "note": "변속 정확도, 변속 지연, 마모 속도가 등급에 따라 어떻게 달라지는지 독립적으로 측정한 동료심사 연구를 찾지 못했다. 등급이 오를수록 소재와 가공이 좋아진다는 설명은 제조사와 판매점 자료에서 나오고, 이 판정소는 그것을 효과로 받아들이지 않는다. 사용감은 사람마다 달라서 직접 타 보고 정할 몫이다."
+            }
+          ]
+        }
+      ],
+      "surprise": "계산 결과 등급 상승에 따른 무게 감소는 평지에서 거의 기록에 반영되지 않는다. 같은 출력으로 40km를 주행할 때 278g 감소는 0.7초 단축에 그친다. 오르막에서 영향이 커지지만 5km·7% 구간을 250W로 오를 때도 3.7초다. 같은 278g을 체중에서 줄여도 동일한 3.7초가 단축되며, 이는 물 300ml에 해당하는 무게다.",
+      "seo": {
+        "title": "구동계 등급 효과 — Dura-Ace·Ultegra·105 몇 초 빨라지나",
+        "description": "시마노 구동계 등급을 올리면 오르막에서 몇 초 빨라지는지 검증된 출력 모델로 계산했습니다. 평지에서는 거의 0초, 5km 7% 오르막에서도 몇 초입니다. 효율·변속감은 근거가 없는 부분도 함께 적었습니다."
       },
-      {
-       "grade": "D",
-       "applies": {
-        "load_pct_bodymass": [
-         null,
-         10
-        ]
-       },
-       "effect_pct": 0.0,
-       "ci": [
-        0.0,
-        0.0
-       ],
-       "significant": false,
-       "studies": 0,
-       "n": 0,
-       "source": "해당 구간을 다룬 연구를 찾지 못했다",
-       "note": "UTMB 필수 장비는 보통 2~4kg이고 70kg 러너 기준 체중의 3~6%다. 그런데 적재 연구는 20kg 이상, 걷기, 산업 인체공학 쪽에 몰려 있어 이 구간을 직접 다룬 자료가 거의 없다. 위 구간의 수치를 끌어와 추정할 수도 있지만 근거 없는 숫자가 되므로 비워 두었다.",
-       "no_data": true
-      }
-     ]
+      "faq": [
+        {
+          "q": "Ultegra에서 Dura-Ace로 변경 시 단축 시간",
+          "a": "두 등급의 완성 무게 차이를 278g으로 보면, 같은 힘으로 5km·7% 오르막을 오를 때 약 3.7초, 평지 40km에서는 0.7초가 줄어듭니다(근거 D: 계산식은 검증됐으나 무게 차이는 매체 표기입니다). 효율과 변속감 차이는 독립 측정이 없어 판정하지 않았습니다."
+        },
+        {
+          "q": "105와 Ultegra의 성능 차이",
+          "a": "무게를 빼면 객관적으로 잴 수 있는 차이가 이 판정소가 찾은 문헌에는 없습니다. 효율, 변속 정확도, 내구성은 등급 간 독립 측정이 없어 '근거 없음'으로 표시했습니다. 직접 타 보고 변속감이 마음에 드는지로 정하는 것이 가장 정직한 방법입니다."
+        },
+        {
+          "q": "체인 윤활과 속도의 관계",
+          "a": "실험실에서는 왁스계, 합성유, 건식 윤활제와 윤활제를 뺀 체인 사이에 효율 차이가 뚜렷하지 않았습니다(Spicer 외, 시마노 후원 연구). 마모와 오염이 쌓인 체인은 약 1% 낮은 효율을 보였다는 별도 측정이 있습니다. 윤활은 속도보다 부품 수명을 위해 하는 일로 읽는 것이 근거에 맞습니다."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "id": "distal_vs_trunk",
-     "label": "같은 무게라도 어디에 붙는지",
-     "detail": "발에 붙은 무게와 등에 진 무게의 차이",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "load_pct_bodymass": [
-         null,
-         null
-        ]
-       },
-       "effect_pct": 7.4,
-       "ci": [
-        7.4,
-        10.2
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 11,
-       "source": "Rodrigo-Carranza V, González-Mohíno F, Santos-Concejero J, González-Ravé JM (2020). Influence of shoe mass on performance and running economy in trained runners. Front Physiol 11:573660",
-       "url": "https://doi.org/10.3389/fphys.2020.573660",
-       "note": "신발 한 짝에 100g을 더했을 때 이코노미가 7.4~10.2% 나빠졌다(강도 85~95%). 배낭 쪽 수치와 직접 비교하지는 않았다. 측정 조건과 연구 질이 달라서 두 수치를 곱해 몇 배라고 말할 근거가 없기 때문이다. 다만 방향은 분명해서, 발에 붙은 무게가 등에 진 무게보다 그램당 부담이 크다. 배낭 무게를 줄이려고 신발을 무겁게 바꾸면 오히려 손해일 수 있다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "트레일 배낭 무게와 기록 — 필수 장비는 몇 kg이 적당한가",
-    "description": "배낭이 무거워지면 에너지 소모가 얼마나 늘어나는지 적재 연구를 근거 등급과 함께 정리했습니다. UTMB 필수 장비 2~4kg 구간을 직접 다룬 연구가 적다는 점도 적었습니다."
-   },
-   "short_label": "배낭 무게",
-   "faq": [
-    {
-     "q": "배낭 하중에 따른 추가 에너지 소모",
-     "a": "체중의 15%를 실었을 때 에너지 소모가 5~6% 늘었다는 보고가 있습니다. 다만 걷기(3~5.4㎞/h) 조건이고 연구 질이 높지 않아 근거 C입니다. UTMB 필수 장비 2~4kg(체중 3~6%) 구간을 직접 다룬 연구는 거의 없습니다."
-    },
-    {
-     "q": "신발 무게와 배낭 무게의 부담 비교",
-     "a": "신발 한 짝에 100g을 더하면 이코노미가 7.4~10.2% 나빠졌습니다. 두 수치를 직접 비교할 수는 없지만, 그램당 부담은 발에 붙은 무게가 더 크다는 방향은 분명합니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "aero-wheel",
-   "sport": "cycling",
-   "category": "wheel",
-   "label": "에어로 휠",
-   "question": "에어로 휠의 평균 속도별 기록 단축 효과 — 출력 모델 계산",
-   "condition": "speed_kmh",
-   "condition_label": "평균 속도",
-   "headline": "속도가 빠를수록 공기저항 비중은 커지지만, 절약되는 시간은 오히려 줄어든다.",
-   "model": "martin1998",
-   "model_note": "Martin 등(1998)이 검증한 도로사이클 출력 모델을 그대로 사용했다. 같은 출력을 유지할 때 CdA가 줄면 속도가 얼마나 오르는지 계산하는 방식이다. 이 모델은 실측 출력과 r=.97, 표준오차 2.7W로 일치했다. 평지·무풍을 가정한다. 기본값 중 CdA 0.264㎡는 논문 참가자 6명의 평균이고(범위 0.211~0.317), 구름저항계수 0.004, 총중량 80㎏, 공기밀도 1.225㎏/㎥는 논문에서 가져온 값이 아니라 칼랭크가 정한 기본값이다. 상체를 세우고 타면 CdA가 0.3을 넘기 쉬우니 알고 있는 값이 있으면 바꿔 넣는 것이 좋다.",
-   "effects": [
-    {
-     "id": "aero_share",
-     "label": "공기저항이 가져가는 몫",
-     "detail": "내 속도에서 페달 힘의 몇 %가 바람과 싸우는 데 쓰이나",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": false,
-     "computed": "aero_share",
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 6,
-       "source": "Martin JC, Milliken DL, Cobb JE, McFadden KL, Coggan AR (1998). Validation of a mathematical model for road cycling power. J Appl Biomech 14(3):276–291",
-       "url": "https://collections.lib.utah.edu/dl_files/b4/8e/b48ef26086091662c561e673d7bd990d77868437.pdf",
-       "note": "모델이 실측 출력과 r=.97로 맞았고 측정 표준오차는 2.7W였다. 공기저항이 차지하는 몫은 속도가 오를수록 커진다 — 논문의 오르막 주행에서 56~76%, 내리막에서 93~96%였다. 참가자 6명의 CdA는 0.211~0.317㎡, 평균 0.264㎡였다."
-      }
-     ]
-    },
-    {
-     "id": "time_saved",
-     "label": "기록 단축",
-     "detail": "CdA가 줄면 같은 힘으로 얼마나 빨라지나",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_time",
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 0,
-       "n": 0,
-       "cda_delta_m2": 0.01,
-       "source": "모델은 Martin 등(1998), 그러나 CdA 감소폭은 제조사·잡지 풍동 자료",
-       "url": "https://collections.lib.utah.edu/dl_files/b4/8e/b48ef26086091662c561e673d7bd990d77868437.pdf",
-       "note": "한 주장 안에서 근거 등급이 나뉘는 경우다. 'CdA가 줄면 얼마나 빨라지는가'를 계산하는 식은 검증돼 있지만(A), '이 휠이 CdA를 얼마나 줄이는가'는 동료심사 문헌이 거의 없다(D). 시중 자료 대부분이 제조사 발표나 잡지 풍동 시험이고, 시험 조건과 비교 대상이 달라서 서로 견주기 어렵다. 여기서는 깊은 림 휠에서 흔히 말하는 0.010㎡ 감소를 예시로 넣었다. 이 수치는 연구에서 나온 값이 아니므로, 실제 수치를 알고 있다면 바꿔 넣어 주세요."
-      }
-     ]
-    }
-   ],
-   "surprise": "에어로 장비는 빠른 사람에게 맞는 장비라고 알려져 있다. 공기저항이 페달 힘에서 차지하는 비중은 속도에 따라 커져서 20㎞/h에서 60%, 40㎞/h에서 86%다. 다만 기록으로 돌아오는 시간은 반대로 움직인다. 같은 휠로 40km를 달리면 25㎞/h로 가는 사람은 64초, 40㎞/h로 가는 사람은 44초를 아낀다. 속도가 오르는 비율은 1.1~1.2%로 거의 같지만, 느린 사람이 코스에 더 오래 머물기 때문에 같은 비율이 더 많은 초가 된다.",
-   "seo": {
-    "title": "에어로 휠 효과 — 평속별로 몇 초 줄어드나(40km)",
-    "description": "에어로 휠(딥림 휠)이 평속 25~40㎞/h의 40km 주행에서 몇 초를 줄이는지 검증된 출력 모델로 계산했습니다. 빠를수록 공기저항 비중은 커지지만 아끼는 시간은 줄어듭니다."
-   },
-   "short_label": "에어로 휠",
-   "faq": [
-    {
-     "q": "에어로 휠의 효과가 나타나는 평균 속도",
-     "a": "공기저항이 페달 힘에서 차지하는 비중은 20㎞/h에서 60%, 40㎞/h에서 86%입니다. 다만 같은 휠로 40km를 달릴 때 아끼는 시간은 25㎞/h에서 64초, 40㎞/h에서 44초로 느린 쪽이 더 큽니다(CdA 0.010㎡ 감소를 가정한 예시, 근거 D)."
-    },
-    {
-     "q": "계산 방법의 검증 수준과 근거 등급",
-     "a": "계산식은 Martin 외(1998)가 실측과 r=.97로 검증했습니다(근거 A). 반면 휠이 CdA를 얼마나 줄이는지는 동료심사 문헌이 거의 없고 제조사 자료가 대부분이라 근거 D입니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "tyre-rolling",
-   "sport": "cycling",
-   "category": "tyre",
-   "label": "타이어와 공기압",
-   "question": "타이어 종류·공기압에 따른 구름저항과 기록 영향",
-   "condition": "speed_kmh",
-   "condition_label": "평균 속도",
-   "headline": "같은 제조사의 같은 타이어도 버전에 따라 구름저항이 33% 차이 난다.",
-   "model": "martin1998",
-   "model_note": "구름저항이 줄 때 기록이 얼마나 줄어드는지는 Martin 등(1998)의 검증된 출력 모델로 계산했다(실측과 r=.97, 표준오차 2.7W). 평지·무풍을 가정한다. 기본 구름저항계수 0.004, 총중량 80㎏, 공기밀도 1.225㎏/㎥, CdA 0.264㎡는 칼랭크가 정한 기본값이고 바꿔 넣을 수 있다. 참고로 Sellier·Bellenoue가 실측한 도로 선수 CdA는 0.369㎡였고, 상체를 세우고 타면 0.264보다 이쪽에 가깝다.",
-   "effects": [
-    {
-     "id": "tyre_version",
-     "label": "같은 제조사, 다른 버전",
-     "detail": "타임트라이얼용과 일반용",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "crr_time",
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "crr_delta_pct": 33.0,
-       "studies": 1,
-       "n": 1,
-       "source": "Sellier M, Bellenoue S (2025). A Novel Energy Imbalance Approach Applied to Rolling Resistance Assessment in Cycling. Journal of Science and Cycling 14(2), Article 17",
-       "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
-       "note": "한 제조사의 타임트라이얼 버전과 일반 버전 사이에 구름저항이 33% 차이 났다. 45㎞/h·81.5㎏ 기준으로 6bar 에서 6W, 3bar 에서 11W 다. 다만 타임트라이얼 타이어는 더 낮은 기온에서 측정됐다고 저자들이 밝혀 두었다 — 기온이 낮으면 구름저항이 낮게 나오므로 33%에는 기온 효과가 섞여 있을 수 있다. 시험 주행자는 한 명, 28mm 튜블리스 레이스 타이어, 측정 반복성 2% 미만이다."
-      }
-     ]
-    },
-    {
-     "id": "tyre_brand",
-     "label": "제조사 사이의 차이",
-     "detail": "세 제조사를 같은 조건에서",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "crr_time",
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "crr_delta_pct": 9.0,
-       "studies": 1,
-       "n": 1,
-       "source": "Sellier M, Bellenoue S (2025). Journal of Science and Cycling 14(2), Article 17",
-       "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
-       "note": "세 제조사 사이의 평균 차이가 9%였다. 한 제조사가 나머지 둘보다 공기압에 따라 7~11% 낮았고, 나머지 둘 사이에는 유의한 차이가 없었다. 제조사 이름은 논문이 M1·M2·M3 로만 적어 공개하지 않았다."
-      }
-     ]
-    },
-    {
-     "id": "tyre_pressure",
-     "label": "공기압을 낮추면",
-     "detail": "6bar 에서 3bar 로",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": true,
-     "computed": "crr_time",
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "crr_delta_pct": 26.0,
-       "studies": 1,
-       "n": 1,
-       "source": "Sellier M, Bellenoue S (2025). Journal of Science and Cycling 14(2), Article 17",
-       "url": "https://jsc-journal.com/index.php/JSC/article/download/1034/867",
-       "note": "6bar에서 3bar로 낮추면 구름저항이 26% 늘었다. 매끈한 포장도로 한 곳에서만 측정했다는 점에 유의해야 한다. 노면이 거칠면 공기압을 낮추는 쪽이 더 빨라지는 구간이 있다고 알려져 있는데 이 연구는 그 조건을 다루지 않았고, 저자들도 노면 효과를 다음 과제로 남겼다. 공기압을 낮추면 바퀴 둘레가 줄어 속도계가 어긋난다는 점도 적어 두었다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "자전거 타이어 공기압과 구름저항 — 휠보다 먼저 볼 것",
-    "description": "타이어 구름저항이 제조사·버전·공기압에 따라 얼마나 달라지는지 실측 연구를 정리했습니다. 같은 제조사 타이어도 버전에 따라 33%, 공기압 6bar에서 3bar로 낮추면 26% 차이가 났습니다."
-   },
-   "short_label": "타이어",
-   "faq": [
-    {
-     "q": "타이어 교체의 효과",
-     "a": "Sellier·Bellenoue(2025) 실측에서 같은 제조사의 타임트라이얼용과 일반용 타이어는 구름저항이 33% 달랐고, 세 제조사 사이 평균 차이는 9%였습니다(근거 C)."
-    },
-    {
-     "q": "공기압 조정과 속도의 관계",
-     "a": "같은 연구에서 6bar를 3bar로 낮추자 구름저항이 26% 늘었습니다. 매끈한 포장도로 한 곳에서만 측정한 값이라, 거친 노면 조건은 다루지 않았습니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "aero-helmet",
-   "sport": "cycling",
-   "category": "helmet",
-   "label": "에어로 헬멧",
-   "question": "에어로 헬멧의 공기저항(CdA) 차이와 기록 영향",
-   "condition": "speed_kmh",
-   "condition_label": "평균 속도",
-   "headline": "헬멧을 바꾸는 것보다 바이저를 빼지 않는 쪽이 더 큰 차이를 만든다.",
-   "surprise": "타임트라이얼 헬멧 두 종이 에어로 로드 헬멧보다 CdA가 2% 낮았다. 같은 타임트라이얼 헬멧에서 바이저를 빼면 CdA가 4.8% 올라가, 헬멧을 바꿔 얻는 값보다 크다. 통풍구를 테이프로 막은 경우는 0.25% 변화에 그쳐 유의하지 않았다. 통풍구를 막으면 12% 줄어든다는 수치가 알려져 있지만 이 연구의 결과가 아니라 다른 논문에서 인용된 값이다.",
-   "model": "martin1998",
-   "model_note": "헬멧 자료는 모나시대 풍동에서 마네킹으로 44㎞/h에 측정한 CdA다. 기록 환산은 Martin 등(1998) 모델로 했다. 이 시험은 요각(옆바람 각도)을 바꾸지 않았고 자세도 도로 주행 자세 하나로 고정했다. 실제 주행에서는 옆바람이 있으므로 여기 수치는 무풍 정면 조건의 값으로 보아야 한다.",
-   "effects": [
-    {
-     "id": "helmet_choice",
-     "label": "TT 헬멧으로 바꾸면",
-     "detail": "에어로 로드 헬멧 대비",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "cda_delta_pct": 2.0,
-       "studies": 1,
-       "n": 0,
-       "source": "Novak J, Burton D, Crouch T (2019). Aerodynamic test results of bicycle helmets in different configurations: Towards a responsive design. Proc IMechE Part P: J Sports Engineering and Technology 233(2):268–276",
-       "url": "https://doi.org/10.1177/1754337118822613",
-       "note": "바이저를 단 타임트라이얼 헬멧 두 종(Giro Advantage, Kask Bambino)이 에어로 로드 헬멧(S-Works Evade)보다 CdA가 약 2% 낮았다. 마네킹을 80rpm으로 페달링시키며 44㎞/h에서 측정했고, 세 번 시험의 평균이며 측정 불확도는 ±0.001㎡ 미만이다. 마네킹 측정에 자세도 하나뿐이어서 본인 자세에서 같은 값이 나온다고 단정하기는 어렵다."
-      }
-     ]
-    },
-    {
-     "id": "visor",
-     "label": "바이저를 빼면",
-     "detail": "같은 헬멧에서",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "cda_delta_pct": 4.8,
-       "ci_pct": [
-        0.8,
-        4.8
-       ],
-       "studies": 1,
-       "n": 0,
-       "source": "Novak J, Burton D, Crouch T (2019). Proc IMechE Part P 233(2):268–276",
-       "url": "https://doi.org/10.1177/1754337118822613",
-       "note": "바이저를 떼면 Kask Bambino는 CdA가 4.8%, Giro Advantage는 0.8% 올라갔다. 헬멧마다 바이저의 영향이 크게 다르다. 헬멧을 바꿔 얻는 2%보다 바이저 하나가 더 클 수 있다."
-      }
-     ]
-    },
-    {
-     "id": "vent_taping",
-     "label": "통풍구를 막으면",
-     "detail": "테이프로",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "effect_pct": 0.25,
-       "ci": [
-        0.0,
-        0.25
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 0,
-       "source": "Novak J, Burton D, Crouch T (2019). Proc IMechE Part P 233(2):268–276",
-       "url": "https://doi.org/10.1177/1754337118822613",
-       "note": "Giro Advantage의 통풍구를 막았을 때 변화는 약 0.25%로 유의하지 않았다. 통풍구를 막으면 항력계수가 12% 줄어든다는 수치가 알려져 있지만 이 연구가 측정한 값이 아니라 Alam 등(2010)에서 인용된 수치다. 통풍구를 막으면 열 배출에는 불리할 수 있다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "에어로 헬멧 효과 — TT 헬멧과 바이저 풍동 시험",
-    "description": "TT 헬멧이 에어로 로드 헬멧보다 공기저항(CdA)이 2% 낮고, 바이저를 떼면 최대 4.8% 높아진다는 풍동 연구를 정리했습니다. 통풍구를 테이프로 막는 효과는 유의하지 않았습니다."
-   },
-   "short_label": "에어로 헬멧",
-   "faq": [
-    {
-     "q": "TT 헬멧과 에어로 로드 헬멧의 속도 차이",
-     "a": "풍동 시험(Novak 외, 2019)에서 바이저를 단 TT 헬멧 두 종이 에어로 로드 헬멧보다 CdA가 약 2% 낮았습니다(근거 B). 마네킹으로 44㎞/h, 무풍 정면 조건에서 잰 값입니다."
-    },
-    {
-     "q": "헬멧 바이저 제거의 영향",
-     "a": "Kask Bambino는 CdA가 4.8%, Giro Advantage는 0.8% 올라갔습니다. 통풍구를 테이프로 막은 경우는 약 0.25% 변화로 유의하지 않았습니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "groupset-tier",
-   "sport": "cycling",
-   "category": "drivetrain",
-   "label": "구동계 등급 (Dura-Ace·Ultegra·105…)",
-   "short_label": "구동계 등급",
-   "question": "구동계 등급 변경의 기록 단축 효과 — 출력 모델 계산",
-   "condition": "gradient_pct",
-   "condition_label": "오르막 경사",
-   "headline": "구동계 한 등급의 무게 차이는 평지에서 1초 미만, 가파른 오르막에서도 수 초 수준이다. 효율·변속·내구성 차이는 근거가 확인되지 않았다.",
-   "model": "martin1998",
-   "model_note": "Martin 등(1998)이 검증한 도로사이클 출력 모델에 오르막 항(중력, m·g·sinθ·v)을 더해 푼다. 같은 출력을 유지하면서 총중량만 줄었을 때 속도가 얼마나 오르는지 계산하는 방식이다. 이 모델은 실측 출력과 r=.97, 표준오차 2.7W로 일치했다. 구름저항계수 0.004, 공기밀도 1.225㎏/㎥, 오르막에서의 CdA 0.35㎡, 총중량 78㎏(사람 70+자전거 8)은 논문 값이 아니라 칼랭크가 정한 기본값이다. 오르막에서는 속도가 느려 공기저항 몫이 작기 때문에 CdA를 바꿔도 결과가 거의 달라지지 않는다. 바람과 내리막은 넣지 않았고, 오르막 구간 전체가 같은 경사라고 가정한다.",
-   "effects": [
-    {
-     "id": "weight_time",
-     "label": "기록 단축 (무게)",
-     "detail": "같은 힘으로 오르막을 오를 때 무게 차이가 만드는 초",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "mass_time",
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 0,
-       "n": 0,
-       "delta_kg": 0.278,
-       "source": "계산식은 Martin 등(1998), 그러나 등급 간 무게 차이는 매체 표기(Cyclingnews, 시마노 로드 그룹셋 안내: Dura-Ace R9200 2,438g, Ultegra R8100 2,716g)",
-       "url": "https://collections.lib.utah.edu/dl_files/b4/8e/b48ef26086091662c561e673d7bd990d77868437.pdf",
-       "note": "한 주장 안에서 근거 등급이 나뉘는 경우다. '무게가 줄면 몇 초 빨라지는가'를 계산하는 식은 검증돼 있다. 반면 '등급이 오르면 몇 g 가벼워지는가'는 공통 기준으로 재어 공개한 자료가 없다. 위 278g은 같은 기사가 적은 두 값(2,716 − 2,438)의 차이이고, 시마노가 부품별 공식 무게를 모두 공개하지는 않는다. 같은 매체 표에서 Tiagra 4700(2,767g)이 105 R7100(2,800g)보다 가볍게 적혀 있는 것도 표기 범위(브레이크 포함 여부, 전동·기계식)가 섞여 있다는 신호다. 그래서 무게 차이는 직접 바꿔 넣어 볼 수 있게 했다."
-      }
-     ]
-    },
-    {
-     "id": "weight_check",
-     "label": "이 계산이 실측과 맞는가",
-     "detail": "무게 1㎏을 더한 실험 하나와 모델의 차이",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "kind": "caveat",
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "caveat": true,
-       "significant": false,
-       "studies": 1,
-       "n": 13,
-       "source": "Wood BM (2007). Power development in hill climbing as a function of bicycle weight. 석사학위논문, University of Wisconsin–Whitewater",
-       "url": "https://minds.wisc.edu/items/95c88f4a-a753-4a7f-b219-fd17dca5df68",
-       "note": "경쟁 선수 13명이 같은 2.9㎞(1.78마일) 오르막을 자기 자전거로 두 번 올랐다. 한 번은 물통에 모래 1.0㎏을 넣었다. 무게를 더한 쪽이 평균 21초 느렸다. 같은 길이에서 이 모델은 경사 3~9%, 출력 200~300W 범위에서 1㎏당 2~13초로 계산한다. 실험의 경사와 출력이 요약에 없어 직접 견줄 수는 없지만, 모델이 계산한 범위 위쪽을 넘는다. 이 초록은 평균 출력 변화를 +53.8W와 −3.5W로 서로 모순되게 적었고 통계 검정도 보이지 않는다. 그래서 '모델보다 실제가 더 클 수도 있다' 정도로만 읽고, 모델이 오르막 무게 효과를 과소평가한다고 단정하지는 않는다."
-      }
-     ]
-    },
-    {
-     "id": "chain_efficiency",
-     "label": "체인 구동 효율",
-     "detail": "구동계에서 힘이 새는 정도를 재 본 연구들",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "kind": "caveat",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "caveat": true,
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Spicer JB 외 (2001). Effects of frictional loss on bicycle chain drive efficiency. J Mech Des, doi:10.1115/1.1412848 (존스홉킨스대, 시마노 후원 — 후원 사실은 1999년 대학 보도자료 기준)",
-       "url": "https://www.sciencegate.app/document/10.1115/1.1412848",
-       "note": "효율이 시험 조건에 따라 81%에서 98.6%까지 움직였다(대학 보도자료 기준). 효율을 가장 크게 좌우한 것은 체인 장력과 스프로킷 크기였고, 같은 실험에서 왁스계·합성유·건식 윤활제와 윤활제를 아예 뺀 상태 사이에는 뚜렷한 차이가 없었다. 실험실 환경이라 진흙과 먼지가 낀 실제 주행과 다르다. 이 시험은 시마노 후원으로 이뤄졌다. 어느 등급 부품이 더 효율적인지가 아니라 체인 구동 자체의 손실 구조를 본 연구다."
+      "id": "wetsuit",
+      "sport": "triathlon",
+      "category": "wetsuit",
+      "label": "웻슈트",
+      "question": "웻슈트 착용이 기록에 미치는 효과 — 실제 대회 기록 분석",
+      "condition": "swim_distance_km",
+      "condition_label": "수영 거리",
+      "headline": "실제 대회 기록에서는 웻슈트 착용에 따른 유의한 차이가 나오지 않았다.",
+      "surprise": "웻슈트는 부력을 주고 항력을 줄여서 기록이 빨라질 것으로 기대된다. 그런데 실제 대회 기록 584명분을 모아 비교하니 웻슈트를 입은 쪽과 입지 않은 쪽의 완주 시간 차이는 통계적으로 유의하지 않았다. 26.4㎞에서 남자 3.1%, 여자 2.8%, 3.8㎞에서 남자 0.0%, 여자 1.2%로 모두 p>0.05다. 상위권만 따로 보면 다른 결과가 나오지만 표본이 급격히 작아진다. 이 논문의 초록은 웻슈트가 긍정적 영향을 줬다고 맺는데 본문의 유의하지 않은 결과와는 맞지 않는 부분이 있어, 여기서는 본문 수치를 기준으로 했다.",
+      "effects": [
+        {
+          "id": "race_time",
+          "label": "완주 시간 차이",
+          "detail": "실제 대회 기록으로 견준 값",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "swim_distance_km": [
+                  10,
+                  null
+                ]
+              },
+              "effect_pct": 3.1,
+              "ci": [
+                0.0,
+                3.1
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 300,
+              "source": "Ulsamer S, Rüst CA, Rosemann T, Lepers R, Knechtle B (2014). Swimming performances in long distance open-water events with and without wetsuit. BMC Sports Sci Med Rehabil 6:20",
+              "url": "https://doi.org/10.1186/2052-1847-6-20",
+              "note": "취리히호 26.4㎞ 마라톤 스윔, 2002~2012년 완주자 300명(여 111·남 189). 남자 534±82분 대 551±89분(3.1%), 여자 572±94분 대 589±105분(2.8%)으로 둘 다 유의하지 않았다. 남자 상위 3명만 보면 웻슈트 쪽이 5.9% 빨랐다(p<0.01). 여자는 반대로 웻슈트 쪽이 느렸는데(상위 10명 25.5%, p<0.01), 웻슈트를 입은 여자가 12명뿐이라 저자들 스스로 믿을 만한 표본이 아니라고 적었다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "swim_distance_km": [
+                  null,
+                  10
+                ]
+              },
+              "effect_pct": 1.2,
+              "ci": [
+                0.0,
+                1.2
+              ],
+              "significant": false,
+              "studies": 1,
+              "n": 284,
+              "source": "Ulsamer S 등 (2014). BMC Sports Sci Med Rehabil 6:20",
+              "url": "https://doi.org/10.1186/2052-1847-6-20",
+              "note": "온타리오호 3.8㎞ LOST 레이스, 2008~2012년 완주자 284명. 남자는 73±16분 대 73±19분으로 차이가 0.0%, 여자는 1.2%로 둘 다 유의하지 않았다. 여자 상위 10명만 보면 웻슈트 쪽이 6.5% 빨랐다(p<0.01)."
+            }
+          ]
+        },
+        {
+          "id": "confounding",
+          "label": "이 숫자를 믿을 때 조심할 것",
+          "detail": "관찰 연구의 한계",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "swim_distance_km": [
+                  null,
+                  null
+                ]
+              },
+              "significant": false,
+              "studies": 1,
+              "n": 584,
+              "source": "Ulsamer S 등 (2014). BMC Sports Sci Med Rehabil 6:20",
+              "url": "https://doi.org/10.1186/2052-1847-6-20",
+              "note": "같은 사람에게 둘 다 입혀 본 실험이 아니라 선수가 스스로 고른 결과를 나중에 모은 자료다. 웻슈트를 고르는 사람과 고르지 않는 사람이 처음부터 다를 수 있고, 경험 많은 장거리 수영 선수일수록 웻슈트 없이 뛰는 경향이 있다. 두 대회 모두 수온이 20℃를 넘었고, 웻슈트가 가장 크게 도움이 될 찬물 조건은 이 자료에 들어 있지 않다. 따라서 '웻슈트는 효과가 없다'가 아니라 '따뜻한 물에서 치른 이 두 대회 기록에서는 차이를 찾지 못했다'로 읽어야 한다.",
+              "caveat": true
+            }
+          ],
+          "kind": "caveat"
+        }
+      ],
+      "seo": {
+        "title": "웻슈트 효과 — 입으면 기록이 빨라질까, 대회 기록 분석",
+        "description": "오픈워터 수영 대회 완주자 584명의 기록을 비교한 연구에서 웻슈트 착용에 따른 완주 시간 차이는 통계적으로 유의하지 않았습니다. 연구의 한계와 조건도 함께 정리했습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "caveat": true,
-       "significant": false,
-       "studies": 1,
-       "n": 0,
-       "source": "Kyle C, Berto F (2001). The mechanical efficiency of bicycle derailleur and hub-gear transmissions. Human Power 52 (IHPVA 기술지)",
-       "url": "https://hupi.org/HParchive/PDF/hp55/hp55p11-15.pdf",
-       "note": "변속기 3종(4~27단)과 내장 허브 8종을 80·150·200W, 75rpm에서 쟀다. 외장 변속기는 87~97%, 허브 기어는 86~95%였다. 두 차례 시험이 1% 안에서 재현됐다고 한다. 이 지면에는 시마노 같은 등급이 아니라 변속기 종류가 비교 대상으로 들어 있고, 심사를 거치는 학술지가 아니라 인간동력 기술지여서 근거 C로 두었다."
+      "short_label": "웻슈트",
+      "faq": [
+        {
+          "q": "웻슈트 착용과 기록 단축",
+          "a": "오픈워터 수영 대회 완주자 584명의 기록을 비교한 연구(Ulsamer 외, 2014)에서 26.4㎞는 남자 3.1%, 여자 2.8%, 3.8㎞는 남자 0.0%, 여자 1.2%로 모두 통계적으로 유의하지 않았습니다."
+        },
+        {
+          "q": "웻슈트 효과 부재 결과의 해석",
+          "a": "그렇게 읽을 수는 없습니다. 선수가 스스로 고른 결과를 모은 관찰 자료이고, 두 대회 모두 수온이 20℃를 넘었습니다. 웻슈트가 가장 크게 도움이 될 찬물 조건은 이 자료에 들어 있지 않습니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "inline-bearings",
+      "sport": "inline",
+      "category": "bearing",
+      "label": "베어링 등급(ABEC)",
+      "question": "베어링 등급(ABEC)과 주행 속도의 관계 — 연구 현황",
+      "condition": "wheel_mm",
+      "condition_label": "바퀴 지름",
+      "headline": "동료심사 연구는 확인되지 않았고, 등급이 무엇을 재는지는 계산으로 따져볼 수 있다.",
+      "surprise": "스포츠과학 문헌을 서로 다른 검색어로 두 차례 찾아봤지만 베어링 등급과 주행 속도의 관계를 측정한 동료심사 연구는 찾지 못했다. 나오는 자료는 제조사 자료, 판매점 블로그, 특허 정도다. 그래서 효과 칸은 비워 두었다. 다만 계산으로 확인할 수 있는 것이 있다. ABEC은 성능 등급이 아니라 가공 정밀도 등급이고, 고속 산업기계를 위해 만들어진 척도다. 80mm 바퀴로 20㎞/h를 내면 베어링은 분당 약 1,326회 돈다. SKF 카탈로그가 같은 규격(608) 베어링의 한계 회전수를 38,000rpm으로 적어 두었으니 스케이팅에서는 한계의 3.5%만 쓰는 셈이다. 경기용 125mm 바퀴라면 849rpm으로 2.2%다. 정밀도 등급이 의미를 갖는 회전수 영역과 스케이팅에서 쓰는 영역은 약 30~45배 떨어져 있다.",
+      "effects": [
+        {
+          "id": "speed_effect",
+          "label": "베어링 등급이 속도에 주는 영향",
+          "detail": "ABEC 5 와 ABEC 9 의 차이",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "wheel_mm": [
+                  null,
+                  null
+                ]
+              },
+              "no_data": true,
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
+              "note": "두 차례 다른 검색어로 스포츠과학 문헌을 찾았으나 베어링 등급과 주행 속도·구름저항의 관계를 측정한 동료심사 연구가 나오지 않았다. 검색에 나오는 것은 제조사 카탈로그, 판매점 블로그, 특허, 취미 글이다. 효과가 없다는 뜻이 아니라 아직 제대로 측정한 연구가 없다는 뜻이다."
+            }
+          ]
+        },
+        {
+          "id": "abec_meaning",
+          "label": "등급이 실제로 재는 것",
+          "detail": "성능이 아니라 가공 정밀도",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "kind": "caveat",
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "wheel_mm": [
+                  null,
+                  null
+                ]
+              },
+              "caveat": true,
+              "significant": false,
+              "studies": 0,
+              "n": 0,
+              "source": "SKF, Rolling Bearings 카탈로그 (608 규격 한계 회전수) · 회전수 환산은 칼랭크 계산",
+              "note": "ABEC은 가공 정밀도 허용오차를 1부터 9까지 홀수로 나눈 척도이고, 재료의 질이나 내구성, 먼지·물에 대한 저항은 재지 않는다. 20㎞/h로 달릴 때 80mm 바퀴는 분당 약 1,326회, 경기용 125mm 바퀴는 849회 돈다(바퀴 둘레로 나눈 값이다). SKF 카탈로그가 같은 608 규격의 한계 회전수를 38,000rpm으로 적어 두었으므로 쓰는 영역은 한계의 2~4%다. 이 비교는 제조사 문서와 산술에서 나온 것이고 동료심사 연구가 아니어서 근거 D로 두었다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "인라인 베어링 ABEC 등급 — 높으면 정말 빠를까",
+        "description": "ABEC 5와 ABEC 9 베어링이 인라인 주행 속도에 주는 영향을 다룬 동료심사 연구는 확인되지 않았습니다. ABEC이 무엇을 재는 등급인지 스케이팅 회전수와 비교해 정리했습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "caveat": true,
-       "significant": false,
-       "studies": 1,
-       "n": 0,
-       "source": "Rohloff B, Greb P. Efficiency measurements of bicycle transmissions — a neverending story? Human Power 55 (IHPVA 기술지)",
-       "url": "https://hupi.org/HParchive/PDF/hp55/hp55p11-15.pdf",
-       "note": "24단 외장 변속기를 새것으로 100㎞ 길들인 뒤 쟀을 때 95~98.5%였다(일정 토크 50Nm, 60rpm). 같은 구동계를 1,000㎞ 지저분한 환경에서 쓴 체인·스프로킷으로 바꾸자 평균 효율이 약 1% 낮아졌다. 저자가 내장 허브 제조사 소속이라 이해관계가 있다. 체인 마모와 오염이 효율을 떨어뜨린다는 방향은 위 학위논문 리뷰(Kidd 2000)의 서술과 같다."
-      }
-     ]
+      "short_label": "베어링",
+      "faq": [
+        {
+          "q": "ABEC 9와 ABEC 5의 속도 차이",
+          "a": "베어링 등급과 주행 속도의 관계를 측정한 동료심사 연구는 문헌 검색에서 확인되지 않았습니다. 그래서 효과 수치는 비워 두었습니다."
+        },
+        {
+          "q": "ABEC 등급이 측정하는 항목",
+          "a": "ABEC은 가공 정밀도 허용오차를 1부터 9까지 홀수로 나눈 척도이고, 재료의 질이나 내구성, 먼지·물 저항은 재지 않습니다. 80mm 바퀴로 20㎞/h를 내면 베어링은 분당 약 1,326회 도는데, 608 규격 한계 회전수(38,000rpm, SKF 카탈로그)의 3.5% 수준입니다."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "id": "tier_efficiency",
-     "label": "등급 간 효율 차이",
-     "detail": "Ultegra와 105, 105와 Tiagra의 구동 손실 차이",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "no_data": true,
-       "significant": false,
-       "studies": 0,
-       "n": 0,
-       "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
-       "note": "같은 체인 구동이라도 스프로킷 이빨 수와 장력이 효율을 좌우한다는 연구는 있다. 그러나 시마노 등급(Dura-Ace, Ultegra, 105, Tiagra, Sora, Claris)끼리 구동 효율을 같은 조건에서 재어 비교한 동료심사 연구는 이번 검색에서 나오지 않았다. 검색에 나오는 것은 제조사 자료와 매체 시험이다. 효율 차이가 없다는 뜻이 아니라 믿을 만한 측정이 없다는 뜻이다."
-      }
-     ]
-    },
-    {
-     "id": "shift_durability",
-     "label": "변속감·내구성 차이",
-     "detail": "등급이 오를수록 변속이 정확하고 오래 가는가",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "gradient_pct": [
-         null,
-         null
-        ]
-       },
-       "no_data": true,
-       "significant": false,
-       "studies": 0,
-       "n": 0,
-       "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
-       "note": "변속 정확도, 변속 지연, 마모 속도가 등급에 따라 어떻게 달라지는지 독립적으로 측정한 동료심사 연구를 찾지 못했다. 등급이 오를수록 소재와 가공이 좋아진다는 설명은 제조사와 판매점 자료에서 나오고, 이 판정소는 그것을 효과로 받아들이지 않는다. 사용감은 사람마다 달라서 직접 타 보고 정할 몫이다."
-      }
-     ]
-    }
-   ],
-   "surprise": "계산 결과 등급 상승에 따른 무게 감소는 평지에서 거의 기록에 반영되지 않는다. 같은 출력으로 40km를 주행할 때 278g 감소는 0.7초 단축에 그친다. 오르막에서 영향이 커지지만 5km·7% 구간을 250W로 오를 때도 3.7초다. 같은 278g을 체중에서 줄여도 동일한 3.7초가 단축되며, 이는 물 300ml에 해당하는 무게다.",
-   "seo": {
-    "title": "구동계 등급 효과 — Dura-Ace·Ultegra·105 몇 초 빨라지나",
-    "description": "시마노 구동계 등급을 올리면 오르막에서 몇 초 빨라지는지 검증된 출력 모델로 계산했습니다. 평지에서는 거의 0초, 5km 7% 오르막에서도 몇 초입니다. 효율·변속감은 근거가 없는 부분도 함께 적었습니다."
-   },
-   "faq": [
-    {
-     "q": "Ultegra에서 Dura-Ace로 변경 시 단축 시간",
-     "a": "두 등급의 완성 무게 차이를 278g으로 보면, 같은 힘으로 5km·7% 오르막을 오를 때 약 3.7초, 평지 40km에서는 0.7초가 줄어듭니다(근거 D: 계산식은 검증됐으나 무게 차이는 매체 표기입니다). 효율과 변속감 차이는 독립 측정이 없어 판정하지 않았습니다."
-    },
-    {
-     "q": "105와 Ultegra의 성능 차이",
-     "a": "무게를 빼면 객관적으로 잴 수 있는 차이가 이 판정소가 찾은 문헌에는 없습니다. 효율, 변속 정확도, 내구성은 등급 간 독립 측정이 없어 '근거 없음'으로 표시했습니다. 직접 타 보고 변속감이 마음에 드는지로 정하는 것이 가장 정직한 방법입니다."
-    },
-    {
-     "q": "체인 윤활과 속도의 관계",
-     "a": "실험실에서는 왁스계, 합성유, 건식 윤활제와 윤활제를 뺀 체인 사이에 효율 차이가 뚜렷하지 않았습니다(Spicer 외, 시마노 후원 연구). 마모와 오염이 쌓인 체인은 약 1% 낮은 효율을 보였다는 별도 측정이 있습니다. 윤활은 속도보다 부품 수명을 위해 하는 일로 읽는 것이 근거에 맞습니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "wetsuit",
-   "sport": "triathlon",
-   "category": "wetsuit",
-   "label": "웻슈트",
-   "question": "웻슈트 착용이 기록에 미치는 효과 — 실제 대회 기록 분석",
-   "condition": "swim_distance_km",
-   "condition_label": "수영 거리",
-   "headline": "실제 대회 기록에서는 웻슈트 착용에 따른 유의한 차이가 나오지 않았다.",
-   "surprise": "웻슈트는 부력을 주고 항력을 줄여서 기록이 빨라질 것으로 기대된다. 그런데 실제 대회 기록 584명분을 모아 비교하니 웻슈트를 입은 쪽과 입지 않은 쪽의 완주 시간 차이는 통계적으로 유의하지 않았다. 26.4㎞에서 남자 3.1%, 여자 2.8%, 3.8㎞에서 남자 0.0%, 여자 1.2%로 모두 p>0.05다. 상위권만 따로 보면 다른 결과가 나오지만 표본이 급격히 작아진다. 이 논문의 초록은 웻슈트가 긍정적 영향을 줬다고 맺는데 본문의 유의하지 않은 결과와는 맞지 않는 부분이 있어, 여기서는 본문 수치를 기준으로 했다.",
-   "effects": [
-    {
-     "id": "race_time",
-     "label": "완주 시간 차이",
-     "detail": "실제 대회 기록으로 견준 값",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "swim_distance_km": [
-         10,
-         null
-        ]
-       },
-       "effect_pct": 3.1,
-       "ci": [
-        0.0,
-        3.1
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 300,
-       "source": "Ulsamer S, Rüst CA, Rosemann T, Lepers R, Knechtle B (2014). Swimming performances in long distance open-water events with and without wetsuit. BMC Sports Sci Med Rehabil 6:20",
-       "url": "https://doi.org/10.1186/2052-1847-6-20",
-       "note": "취리히호 26.4㎞ 마라톤 스윔, 2002~2012년 완주자 300명(여 111·남 189). 남자 534±82분 대 551±89분(3.1%), 여자 572±94분 대 589±105분(2.8%)으로 둘 다 유의하지 않았다. 남자 상위 3명만 보면 웻슈트 쪽이 5.9% 빨랐다(p<0.01). 여자는 반대로 웻슈트 쪽이 느렸는데(상위 10명 25.5%, p<0.01), 웻슈트를 입은 여자가 12명뿐이라 저자들 스스로 믿을 만한 표본이 아니라고 적었다."
+      "id": "shoe-rotation",
+      "sport": "running",
+      "category": "shoe",
+      "label": "러닝화 돌려 신기",
+      "question": "러닝화 교대 착용과 달리기 부상 위험 — 연구 결과",
+      "condition": "weekly_km",
+      "condition_label": "주간 달리기 거리",
+      "headline": "두 켤레 이상을 번갈아 신은 사람은 22주 동안 달리기 부상 위험이 약 39% 낮았다.",
+      "surprise": "신발을 바꾸면 기록이 빨라지는 것이 아니라 부상 쪽에 영향이 있었다. 아마추어 러너 264명을 22주 동안 따라간 연구에서 87명(3분의 1)이 부상을 겪었고, 신발을 둘 이상 번갈아 신은 쪽의 위험비는 0.614(95% 신뢰구간 0.389~0.969)였다. 신뢰구간 위쪽 끝이 1에 가까워서 '확실히 줄어든다'가 아니라 '줄어드는 쪽으로 보인다' 정도로 읽는 것이 맞다. 같은 연구에서 지난 부상 경험이 있으면 위험이 1.7배(HR 1.722, 95% 신뢰구간 1.114~2.661)였다.",
+      "effects": [
+        {
+          "id": "injury_risk",
+          "label": "달리기 부상 위험",
+          "detail": "22주 추적 관찰, 위험비를 감소율로 옮김",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "weekly_km": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": 38.6,
+              "ci": [
+                3.1,
+                61.1
+              ],
+              "significant": true,
+              "studies": 1,
+              "n": 264,
+              "source": "Malisoux L, Ramesh J, Mann R, Seil R, Urhausen A, Theisen D (2015). Can parallel use of different running shoes decrease running-related injury risk? Scand J Med Sci Sports 25(1):110-115",
+              "url": "https://doi.org/10.1111/sms.12154",
+              "note": "신발 한 켤레만 쓴 사람과 둘 이상을 번갈아 신은 사람을 견준 관찰 연구다. 위험비 0.614를 감소율(1-0.614=38.6%)로 바꿨고 신뢰구간 0.389~0.969도 같은 식으로 3.1~61.1%가 된다. 러너가 스스로 고른 습관을 따라간 자료라서 신발 돌려 신기 자체의 효과인지, 그렇게 하는 사람의 다른 습관 때문인지는 가릴 수 없다. 대상은 아마추어 러너이고 주간 거리별로 나눈 결과는 아니라 모든 거리에 같은 값을 적었다."
+            }
+          ],
+          "verb": "낮아집니다"
+        }
+      ],
+      "seo": {
+        "title": "러닝화 돌려 신기 효과 — 두 켤레 번갈아 신으면 부상이 줄까",
+        "description": "아마추어 러너 264명을 22주 추적한 연구에서 러닝화를 둘 이상 번갈아 신은 쪽의 부상 위험비는 0.614(95% 신뢰구간 0.389~0.969)였습니다. 연구의 한계도 함께 정리했습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "swim_distance_km": [
-         null,
-         10
-        ]
-       },
-       "effect_pct": 1.2,
-       "ci": [
-        0.0,
-        1.2
-       ],
-       "significant": false,
-       "studies": 1,
-       "n": 284,
-       "source": "Ulsamer S 등 (2014). BMC Sports Sci Med Rehabil 6:20",
-       "url": "https://doi.org/10.1186/2052-1847-6-20",
-       "note": "온타리오호 3.8㎞ LOST 레이스, 2008~2012년 완주자 284명. 남자는 73±16분 대 73±19분으로 차이가 0.0%, 여자는 1.2%로 둘 다 유의하지 않았다. 여자 상위 10명만 보면 웻슈트 쪽이 6.5% 빨랐다(p<0.01)."
-      }
-     ]
+      "short_label": "신발 돌려 신기",
+      "faq": [
+        {
+          "q": "러닝화 교대 착용과 부상 위험",
+          "a": "아마추어 러너 264명을 22주 따라간 연구(Malisoux 외, 2015)에서 신발을 둘 이상 번갈아 신은 쪽의 부상 위험비는 0.614(95% 신뢰구간 0.389~0.969)였습니다. 위험이 약 39% 낮은 쪽으로 나왔지만 신뢰구간이 넓습니다."
+        },
+        {
+          "q": "교대 착용을 위한 추가 구매의 필요성",
+          "a": "이 연구는 스스로 고른 습관을 관찰한 것이라 신발을 돌려 신은 것 자체가 원인이라고 단정할 수 없습니다. 가진 신발이 있다면 번갈아 신어 볼 만하다 정도로 읽어 주세요."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "id": "confounding",
-     "label": "이 숫자를 믿을 때 조심할 것",
-     "detail": "관찰 연구의 한계",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "swim_distance_km": [
-         null,
-         null
-        ]
-       },
-       "significant": false,
-       "studies": 1,
-       "n": 584,
-       "source": "Ulsamer S 등 (2014). BMC Sports Sci Med Rehabil 6:20",
-       "url": "https://doi.org/10.1186/2052-1847-6-20",
-       "note": "같은 사람에게 둘 다 입혀 본 실험이 아니라 선수가 스스로 고른 결과를 나중에 모은 자료다. 웻슈트를 고르는 사람과 고르지 않는 사람이 처음부터 다를 수 있고, 경험 많은 장거리 수영 선수일수록 웻슈트 없이 뛰는 경향이 있다. 두 대회 모두 수온이 20℃를 넘었고, 웻슈트가 가장 크게 도움이 될 찬물 조건은 이 자료에 들어 있지 않다. 따라서 '웻슈트는 효과가 없다'가 아니라 '따뜻한 물에서 치른 이 두 대회 기록에서는 차이를 찾지 못했다'로 읽어야 한다.",
-       "caveat": true
-      }
-     ],
-     "kind": "caveat"
-    }
-   ],
-   "seo": {
-    "title": "웻슈트 효과 — 입으면 기록이 빨라질까, 대회 기록 분석",
-    "description": "오픈워터 수영 대회 완주자 584명의 기록을 비교한 연구에서 웻슈트 착용에 따른 완주 시간 차이는 통계적으로 유의하지 않았습니다. 연구의 한계와 조건도 함께 정리했습니다."
-   },
-   "short_label": "웻슈트",
-   "faq": [
-    {
-     "q": "웻슈트 착용과 기록 단축",
-     "a": "오픈워터 수영 대회 완주자 584명의 기록을 비교한 연구(Ulsamer 외, 2014)에서 26.4㎞는 남자 3.1%, 여자 2.8%, 3.8㎞는 남자 0.0%, 여자 1.2%로 모두 통계적으로 유의하지 않았습니다."
-    },
-    {
-     "q": "웻슈트 효과 부재 결과의 해석",
-     "a": "그렇게 읽을 수는 없습니다. 선수가 스스로 고른 결과를 모은 관찰 자료이고, 두 대회 모두 수온이 20℃를 넘었습니다. 웻슈트가 가장 크게 도움이 될 찬물 조건은 이 자료에 들어 있지 않습니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "inline-bearings",
-   "sport": "inline",
-   "category": "bearing",
-   "label": "베어링 등급(ABEC)",
-   "question": "베어링 등급(ABEC)과 주행 속도의 관계 — 연구 현황",
-   "condition": "wheel_mm",
-   "condition_label": "바퀴 지름",
-   "headline": "동료심사 연구는 확인되지 않았고, 등급이 무엇을 재는지는 계산으로 따져볼 수 있다.",
-   "surprise": "스포츠과학 문헌을 서로 다른 검색어로 두 차례 찾아봤지만 베어링 등급과 주행 속도의 관계를 측정한 동료심사 연구는 찾지 못했다. 나오는 자료는 제조사 자료, 판매점 블로그, 특허 정도다. 그래서 효과 칸은 비워 두었다. 다만 계산으로 확인할 수 있는 것이 있다. ABEC은 성능 등급이 아니라 가공 정밀도 등급이고, 고속 산업기계를 위해 만들어진 척도다. 80mm 바퀴로 20㎞/h를 내면 베어링은 분당 약 1,326회 돈다. SKF 카탈로그가 같은 규격(608) 베어링의 한계 회전수를 38,000rpm으로 적어 두었으니 스케이팅에서는 한계의 3.5%만 쓰는 셈이다. 경기용 125mm 바퀴라면 849rpm으로 2.2%다. 정밀도 등급이 의미를 갖는 회전수 영역과 스케이팅에서 쓰는 영역은 약 30~45배 떨어져 있다.",
-   "effects": [
-    {
-     "id": "speed_effect",
-     "label": "베어링 등급이 속도에 주는 영향",
-     "detail": "ABEC 5 와 ABEC 9 의 차이",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "wheel_mm": [
-         null,
-         null
-        ]
-       },
-       "no_data": true,
-       "significant": false,
-       "studies": 0,
-       "n": 0,
-       "source": "동료심사 문헌에서 해당 연구를 찾지 못했다",
-       "note": "두 차례 다른 검색어로 스포츠과학 문헌을 찾았으나 베어링 등급과 주행 속도·구름저항의 관계를 측정한 동료심사 연구가 나오지 않았다. 검색에 나오는 것은 제조사 카탈로그, 판매점 블로그, 특허, 취미 글이다. 효과가 없다는 뜻이 아니라 아직 제대로 측정한 연구가 없다는 뜻이다."
-      }
-     ]
-    },
-    {
-     "id": "abec_meaning",
-     "label": "등급이 실제로 재는 것",
-     "detail": "성능이 아니라 가공 정밀도",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "kind": "caveat",
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "wheel_mm": [
-         null,
-         null
-        ]
-       },
-       "caveat": true,
-       "significant": false,
-       "studies": 0,
-       "n": 0,
-       "source": "SKF, Rolling Bearings 카탈로그 (608 규격 한계 회전수) · 회전수 환산은 칼랭크 계산",
-       "note": "ABEC은 가공 정밀도 허용오차를 1부터 9까지 홀수로 나눈 척도이고, 재료의 질이나 내구성, 먼지·물에 대한 저항은 재지 않는다. 20㎞/h로 달릴 때 80mm 바퀴는 분당 약 1,326회, 경기용 125mm 바퀴는 849회 돈다(바퀴 둘레로 나눈 값이다). SKF 카탈로그가 같은 608 규격의 한계 회전수를 38,000rpm으로 적어 두었으므로 쓰는 영역은 한계의 2~4%다. 이 비교는 제조사 문서와 산술에서 나온 것이고 동료심사 연구가 아니어서 근거 D로 두었다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "인라인 베어링 ABEC 등급 — 높으면 정말 빠를까",
-    "description": "ABEC 5와 ABEC 9 베어링이 인라인 주행 속도에 주는 영향을 다룬 동료심사 연구는 확인되지 않았습니다. ABEC이 무엇을 재는 등급인지 스케이팅 회전수와 비교해 정리했습니다."
-   },
-   "short_label": "베어링",
-   "faq": [
-    {
-     "q": "ABEC 9와 ABEC 5의 속도 차이",
-     "a": "베어링 등급과 주행 속도의 관계를 측정한 동료심사 연구는 문헌 검색에서 확인되지 않았습니다. 그래서 효과 수치는 비워 두었습니다."
-    },
-    {
-     "q": "ABEC 등급이 측정하는 항목",
-     "a": "ABEC은 가공 정밀도 허용오차를 1부터 9까지 홀수로 나눈 척도이고, 재료의 질이나 내구성, 먼지·물 저항은 재지 않습니다. 80mm 바퀴로 20㎞/h를 내면 베어링은 분당 약 1,326회 도는데, 608 규격 한계 회전수(38,000rpm, SKF 카탈로그)의 3.5% 수준입니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "shoe-rotation",
-   "sport": "running",
-   "category": "shoe",
-   "label": "러닝화 돌려 신기",
-   "question": "러닝화 교대 착용과 달리기 부상 위험 — 연구 결과",
-   "condition": "weekly_km",
-   "condition_label": "주간 달리기 거리",
-   "headline": "두 켤레 이상을 번갈아 신은 사람은 22주 동안 달리기 부상 위험이 약 39% 낮았다.",
-   "surprise": "신발을 바꾸면 기록이 빨라지는 것이 아니라 부상 쪽에 영향이 있었다. 아마추어 러너 264명을 22주 동안 따라간 연구에서 87명(3분의 1)이 부상을 겪었고, 신발을 둘 이상 번갈아 신은 쪽의 위험비는 0.614(95% 신뢰구간 0.389~0.969)였다. 신뢰구간 위쪽 끝이 1에 가까워서 '확실히 줄어든다'가 아니라 '줄어드는 쪽으로 보인다' 정도로 읽는 것이 맞다. 같은 연구에서 지난 부상 경험이 있으면 위험이 1.7배(HR 1.722, 95% 신뢰구간 1.114~2.661)였다.",
-   "effects": [
-    {
-     "id": "injury_risk",
-     "label": "달리기 부상 위험",
-     "detail": "22주 추적 관찰, 위험비를 감소율로 옮김",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "weekly_km": [
-         null,
-         null
-        ]
-       },
-       "effect_pct": 38.6,
-       "ci": [
-        3.1,
-        61.1
-       ],
-       "significant": true,
-       "studies": 1,
-       "n": 264,
-       "source": "Malisoux L, Ramesh J, Mann R, Seil R, Urhausen A, Theisen D (2015). Can parallel use of different running shoes decrease running-related injury risk? Scand J Med Sci Sports 25(1):110-115",
-       "url": "https://doi.org/10.1111/sms.12154",
-       "note": "신발 한 켤레만 쓴 사람과 둘 이상을 번갈아 신은 사람을 견준 관찰 연구다. 위험비 0.614를 감소율(1-0.614=38.6%)로 바꿨고 신뢰구간 0.389~0.969도 같은 식으로 3.1~61.1%가 된다. 러너가 스스로 고른 습관을 따라간 자료라서 신발 돌려 신기 자체의 효과인지, 그렇게 하는 사람의 다른 습관 때문인지는 가릴 수 없다. 대상은 아마추어 러너이고 주간 거리별로 나눈 결과는 아니라 모든 거리에 같은 값을 적었다."
-      }
-     ],
-     "verb": "낮아집니다"
-    }
-   ],
-   "seo": {
-    "title": "러닝화 돌려 신기 효과 — 두 켤레 번갈아 신으면 부상이 줄까",
-    "description": "아마추어 러너 264명을 22주 추적한 연구에서 러닝화를 둘 이상 번갈아 신은 쪽의 부상 위험비는 0.614(95% 신뢰구간 0.389~0.969)였습니다. 연구의 한계도 함께 정리했습니다."
-   },
-   "short_label": "신발 돌려 신기",
-   "faq": [
-    {
-     "q": "러닝화 교대 착용과 부상 위험",
-     "a": "아마추어 러너 264명을 22주 따라간 연구(Malisoux 외, 2015)에서 신발을 둘 이상 번갈아 신은 쪽의 부상 위험비는 0.614(95% 신뢰구간 0.389~0.969)였습니다. 위험이 약 39% 낮은 쪽으로 나왔지만 신뢰구간이 넓습니다."
-    },
-    {
-     "q": "교대 착용을 위한 추가 구매의 필요성",
-     "a": "이 연구는 스스로 고른 습관을 관찰한 것이라 신발을 돌려 신은 것 자체가 원인이라고 단정할 수 없습니다. 가진 신발이 있다면 번갈아 신어 볼 만하다 정도로 읽어 주세요."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "drafting",
-   "sport": "cycling",
-   "category": "technique",
-   "label": "앞 선수 뒤 따라가기(드래프팅)",
-   "question": "앞 선수 뒤에 붙었을 때의 공기저항 감소와 기록 영향",
-   "condition": "speed_kmh",
-   "condition_label": "평균 속도",
-   "headline": "바로 뒤에 붙은 선수의 항력은 13.8~27.1% 줄지만 앞에서 끄는 선수는 0.8~2.6%만 줄어든다.",
-   "surprise": "앞 선수 뒤에 붙으면 공기저항이 크게 줄지만 이득은 한쪽으로 쏠린다. 전산유체역학 시험에서 뒤 선수의 항력은 자세에 따라 13.8~27.1% 줄었고, 앞 선수는 0.8~2.6%만 줄었다. 타임트라이얼 자세는 뒤 선수의 이득이 가장 작아서(13.8%) 상체를 세운 자세(27.1%)의 절반 수준이다. 사람을 대상으로 측정한 산소 섭취량은 시속 37~40㎞에서 한 명 뒤에 붙으면 27% 줄었고, 8명 무리의 맨 뒤에서는 39% 줄었다. 산소 섭취의 감소폭이 항력의 감소폭보다 작은 점은 두 값이 서로 다른 것을 재기 때문이며, 같은 효과를 서로 다른 단위로 적은 것이 아니다.",
-   "model": "martin1998",
-   "model_note": "기록 환산은 Martin 등(1998) 출력 모델로 했다. 같은 출력을 유지할 때 CdA가 줄면 속도가 얼마나 오르는지 계산하는 방식이며, 평지·무풍을 가정한다. 항력 감소폭은 풍동·전산유체역학 시험값이고 앞 선수와의 간격이 거의 붙은 조건이다. 실제 무리 주행에서는 간격과 옆바람, 앞 선수의 체격에 따라 이득이 달라진다. 철인3종 일반 부문처럼 드래프팅이 금지된 대회에서는 이 효과를 쓸 수 없다.",
-   "effects": [
-    {
-     "id": "follow_upright",
-     "label": "바로 뒤에 붙으면 (상체를 세운 자세)",
-     "detail": "앞 선수 뒤, 간격 0.01m",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
-       "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
-       "note": "뒤 선수의 항력이 단독 주행 대비 27.1% 줄었다. 시뮬레이션(전산유체역학)이며 풍동 시험으로 검증했다. 앞 선수와의 간격은 0.01m, 즉 거의 붙은 상태에서 얻은 값이고, 저자들은 간격이 벌어지면 줄어든다고 밝혔다. 실제 주행의 간격에서는 이 값보다 작아진다.",
-       "cda_delta_pct": 27.1
-      }
-     ]
-    },
-    {
-     "id": "follow_drop",
-     "label": "바로 뒤에 붙으면 (드롭 자세)",
-     "detail": "앞 선수 뒤, 간격 0.01m",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
-       "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
-       "note": "뒤 선수의 항력이 단독 주행 대비 23.1% 줄었다. 시뮬레이션(전산유체역학)이며 풍동 시험으로 검증했다. 앞 선수와의 간격은 0.01m, 즉 거의 붙은 상태에서 얻은 값이고, 저자들은 간격이 벌어지면 줄어든다고 밝혔다. 실제 주행의 간격에서는 이 값보다 작아진다.",
-       "cda_delta_pct": 23.1
-      }
-     ]
-    },
-    {
-     "id": "follow_tt",
-     "label": "바로 뒤에 붙으면 (타임트라이얼 자세)",
-     "detail": "앞 선수 뒤, 간격 0.01m",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
-       "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
-       "note": "뒤 선수의 항력이 단독 주행 대비 13.8% 줄었다. 세 자세 가운데 가장 작다. 시뮬레이션(전산유체역학)이며 풍동 시험으로 검증했다. 앞 선수와의 간격은 0.01m, 즉 거의 붙은 상태에서 얻은 값이고, 저자들은 간격이 벌어지면 줄어든다고 밝혔다. 실제 주행의 간격에서는 이 값보다 작아진다.",
-       "cda_delta_pct": 13.8
-      }
-     ]
-    },
-    {
-     "id": "lead_rider",
-     "label": "앞에서 끌면",
-     "detail": "뒤에 선수가 붙었을 때의 앞 선수",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
-       "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
-       "note": "앞 선수의 항력은 자세에 따라 0.8%(상체를 세운 자세)·1.7%(드롭)·2.6%(타임트라이얼) 줄었다. 간격 0.15m에서 드롭 자세의 값은 풍동 1.6%, 시뮬레이션 1.3%였다. 앞에서 끄는 일의 이득은 거의 없다고 보아야 한다.",
-       "effect_pct": 2.6,
-       "ci": [
-        0.8,
-        2.6
-       ]
-      }
-     ]
-    },
-    {
-     "id": "physio_one",
-     "label": "산소 섭취량: 한 명 뒤에서 (실외 주행)",
-     "detail": "시속 32~40㎞",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "McCole SD 외 (1990). Energy expenditure during bicycling. Journal of Applied Physiology 68(2):748–753",
-       "url": "https://doi.org/10.1152/jappl.1990.68.2.748",
-       "note": "실외 주행에서 한 명 뒤에 붙으면 산소 섭취량이 시속 32㎞에서 18%±11, 37·40㎞에서 27%±8 줄었다. 40㎞/h에서는 앞에 한 명·두 명·네 명이 있어도 감소폭이 같았다(27%±7). 오차는 논문이 표시한 변동폭이다.",
-       "effect_pct": 27.0,
-       "ci": [
-        19.0,
-        35.0
-       ]
-      }
-     ]
-    },
-    {
-     "id": "physio_pack",
-     "label": "산소 섭취량: 8명 무리의 맨 뒤에서",
-     "detail": "시속 40㎞",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "McCole SD 외 (1990). Energy expenditure during bicycling. Journal of Applied Physiology 68(2):748–753",
-       "url": "https://doi.org/10.1152/jappl.1990.68.2.748",
-       "note": "40㎞/h에서 8명 무리의 맨 뒤에 붙으면 산소 섭취량이 39%±6 줄었다. 차량 뒤에서는 62%±6 줄었다. 사람이 측정한 값이라 항력 감소폭보다 작게 나온다.",
-       "effect_pct": 39.0,
-       "ci": [
-        33.0,
-        45.0
-       ]
-      }
-     ]
-    },
-    {
-     "id": "pack_cfd",
-     "label": "대규모 무리의 가운데·뒤쪽 항력",
-     "detail": "121명 무리 전산유체역학",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Blocken B, van Druenen T, Toparlar Y, Malizia F, Mannion P, Andrianne T 외 (2018). Aerodynamic drag in cycling pelotons: new insights by CFD simulation and wind tunnel testing. Journal of Wind Engineering and Industrial Aerodynamics 179:319–337",
-       "url": "https://doi.org/10.1016/j.jweia.2018.06.011",
-       "note": "121명 무리를 시뮬레이션하고 풍동으로 확인한 결과, 모든 선수의 항력이 단독 주행보다 낮았고 무리의 중간과 뒤쪽 선수의 항력은 단독 값의 5~10% 수준이었다. 저자들은 이를 무리의 실제 속도보다 3.2~4.5배 낮은 단독 주행 속도에 해당한다고 환산했다. 시뮬레이션 값이어서 실제 출력 절감을 그대로 뜻하지 않는다.",
-       "effect_pct": 90.0,
-       "ci": [
-        90.0,
-        95.0
-       ]
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "드래프팅 효과 — 앞 선수 뒤 따라가기 항력·산소 섭취 연구",
-    "description": "앞 선수 바로 뒤에 붙은 선수의 공기저항은 13.8~27.1% 줄고 앞 선수는 0.8~2.6%만 줄어든다는 전산유체역학 연구와, 한 명 뒤 27%·8명 무리 맨 뒤 39%의 산소 섭취량 감소 측정을 정리했습니다."
-   },
-   "short_label": "드래프팅",
-   "faq": [
-    {
-     "q": "앞 선수 뒤에 붙으면 공기저항이 얼마나 줄어드나",
-     "a": "전산유체역학 시험(Blocken 외, 2013)에서 뒤 선수의 항력은 자세에 따라 13.8~27.1% 줄었습니다(근거 B). 상체를 세운 자세 27.1%, 드롭 23.1%, 타임트라이얼 13.8%이고 앞 선수와의 간격이 0.01m인 조건입니다. 간격이 벌어지면 줄어듭니다."
-    },
-    {
-     "q": "드래프팅은 산소 섭취량을 얼마나 줄이나",
-     "a": "실외 주행 측정(McCole 외, 1990)에서 한 명 뒤에 붙으면 시속 37·40㎞에서 27%, 8명 무리 맨 뒤에서는 39% 줄었습니다(근거 B)."
-    },
-    {
-     "q": "앞에서 끄는 선수에게도 이득이 있나",
-     "a": "앞 선수의 항력은 0.8~2.6%만 줄었습니다. 이득은 거의 뒤 선수에게 돌아갑니다(근거 B)."
-    }
-   ],
-   "updated": "2026-11-14",
-   "no_price": true
-  },
-  {
-   "id": "aero-clothing",
-   "sport": "cycling",
-   "category": "clothing",
-   "label": "에어로 저지·스킨슈트",
-   "question": "공기역학 설계 의류와 옷 크기에 따른 공기저항·출력 차이",
-   "condition": "test_speed_kmh",
-   "condition_label": "시험 속도",
-   "headline": "설계를 바꾼 저지가 아끼는 총 출력의 2.2%보다 한 치수 큰 저지가 더하는 3.8%가 더 크다.",
-   "surprise": "공기역학 소재와 재봉선을 새로 설계한 저지는 시속 50㎞에서 약 8.2W를 아꼈다. 같은 시험에서 한 치수 큰 저지(M)를 입으면 작은 치수(S)보다 항력이 104g, 출력으로 14.2W 늘었다. 소재를 바꿔 얻는 이득보다 치수를 잘못 고르는 손실이 더 컸다. 다만 두 값 모두 한 명의 선수를 시험한 결과이고, 소재 연구는 의류 제조사와 협업한 시험이다.",
-   "model_note": "여기 수치는 풍동에서 시험한 항력과 그 항력에 해당하는 출력이다. 기록(초)으로 환산하지 않았다. 의류 시험은 시험 선수 한 명 또는 마네킹으로 이루어졌고, 자세와 체형이 다르면 값이 달라진다. 의류 소재의 이득이 한 번의 시험에서 측정 오차 안에 드는 경우도 있어서 독립된 연구자가 여러 선수로 반복 측정한 자료가 필요하다.",
-   "effects": [
-    {
-     "id": "jersey_design",
-     "label": "공기역학 설계 저지로 바꾸면",
-     "detail": "같은 선수, 시속 50㎞, 총 출력 대비",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "test_speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Spurkland L, Bardal LM, Sætran L, Oggiano L (2015). Low Aerodynamic Drag Suit for Cycling – Design and Testing. Proc. 3rd International Congress on Sport Sciences Research and Technology Support (icSPORTS) 89–96, SCITEPRESS",
-       "url": "https://www.scitepress.org/Papers/2015/55896/55896.pdf",
-       "note": "가장 거친 UCI 허용 소재와 재봉선 배치로 설계한 저지는 원래 저지보다 항력이 60g 적었고 이는 8.2W(전체 출력의 약 2.2%)에 해당했다(시속 50㎞). 마네킹에서는 25~35g 개선이었다. 하의(빕숏)는 35g, 약 5W를 아꼈다. 시험 선수는 한 명이며, 의류 제조사(Trimtex)와 협업한 연구다.",
-       "effect_pct": 2.2
-      }
-     ]
-    },
-    {
-     "id": "jersey_size",
-     "label": "저지가 한 치수 크면 (S → M)",
-     "detail": "같은 선수, 시속 50㎞, 총 출력 대비",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "test_speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Spurkland L, Bardal LM, Sætran L, Oggiano L (2015). Low Aerodynamic Drag Suit for Cycling – Design and Testing. Proc. 3rd International Congress on Sport Sciences Research and Technology Support (icSPORTS) 89–96, SCITEPRESS",
-       "url": "https://www.scitepress.org/Papers/2015/55896/55896.pdf",
-       "note": "중간 치수(M)를 입으면 작은 치수(S)보다 항력이 104g, 출력으로 14.2W 늘었다. 같은 시험에서 설계 저지가 아낀 8.2W가 총 출력의 2.2%이므로 14.2W는 약 3.8%로 환산된다(칼랭크 환산). 저자들은 옷 맞음새가 소재만큼 중요하다고 해석했다. 시험 선수 한 명의 값이다.",
-       "effect_pct": 3.8
-      }
-     ]
-    },
-    {
-     "id": "tt_suit",
-     "label": "타임트라이얼 슈트를 새로 설계한 제품으로 바꾸면",
-     "detail": "2001년형 대비, 시속 53㎞, 항력 대비",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "D",
-       "applies": {
-        "test_speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "significant": true,
-       "studies": 1,
-       "n": 0,
-       "source": "Brownlie L, Kyle C 외 (2009). Streamlining the time trial apparel of cyclists: the Nike Swift Spin project. Sports Technology 2(1–2):53–60",
-       "url": "https://doi.org/10.1080/19346182.2009.9648499",
-       "note": "약 200종 신축 소재를 풍동에서 시험해 설계한 2005년형 슈트는 2001년형 일반 타임트라이얼 슈트보다 항력이 125g, 3.9% 적었다(시속 53㎞). 저자들의 수식 모델은 55㎞ 타임트라이얼에서 약 44초를 아낀다고 추정했다. 의류 제조사가 후원하고 자체 팀이 수행한 시험이어서 독립 검증은 없다.",
-       "effect_pct": 3.9
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "에어로 저지·스킨슈트 효과 — 소재보다 치수가 더 큰 차이",
-    "description": "공기역학 설계 저지는 시속 50㎞에서 약 8W를 아끼지만, 한 치수 큰 저지는 14W를 더 쓰게 한다는 풍동 시험과 타임트라이얼 슈트 3.9% 항력 감소 자료를 정리했습니다. 근거 등급 C·D입니다."
-   },
-   "short_label": "에어로 의류",
-   "faq": [
-    {
-     "q": "에어로 저지가 줄여 주는 공기저항",
-     "a": "풍동 시험(Spurkland 외, 2015)에서 설계를 바꾼 저지는 시속 50㎞에서 약 8.2W를 아꼈고 하의는 약 5W를 아꼈습니다(근거 C, 선수 한 명, 제조사 협업)."
-    },
-    {
-     "q": "저지 치수를 잘못 고르면 얼마나 손해인가",
-     "a": "같은 시험에서 중간 치수(M)는 작은 치수(S)보다 14.2W를 더 썼습니다(근거 C, 선수 한 명)."
-    },
-    {
-     "q": "타임트라이얼 슈트의 항력 감소",
-     "a": "Nike Swift Spin 프로젝트(Brownlie 외, 2009)에서 2005년형 슈트가 2001년형보다 항력이 3.9% 적었습니다(근거 D, 제조사 연구)."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "aero-position",
-   "sport": "cycling",
-   "category": "position",
-   "label": "에어로 자세",
-   "question": "자세별 공기저항(CdA)과 기록 영향 — 상체 세움·드롭·타임트라이얼",
-   "condition": "speed_kmh",
-   "condition_label": "평균 속도",
-   "headline": "타임트라이얼 자세는 상체를 세운 자세보다 CdA가 21.9% 낮고, 드롭 자세와의 차이는 10.0%다.",
-   "surprise": "풍동 시험에서 자전거를 포함한 CdA는 상체를 세운 자세 0.270㎡, 드롭 자세 0.243㎡, 타임트라이얼 자세 0.211㎡였다. 정면 면적은 0.41, 0.37, 0.34㎡로 줄어든 폭(17%)보다 CdA가 줄어든 폭(21.9%)이 더 컸다. 자세를 낮추면 면적이 줄 뿐 아니라 항력계수도 낮아진다. 라이더가 항력에서 차지하는 몫은 자세에 따라 72%, 68%, 64%였다.",
-   "model": "martin1998",
-   "model_note": "기록 환산은 Martin 등(1998) 출력 모델로 했다. 같은 출력을 유지할 때 CdA가 줄면 속도가 얼마나 오르는지 계산하는 방식이며 평지·무풍을 가정한다. 이 환산은 자세를 바꿔도 낼 수 있는 출력이 같다고 가정한다. 실제로는 낮은 자세에서 출력이 줄 수 있어 환산값이 이득을 크게 보여 줄 수 있다. 시험 대상이 한 명이어서 체격이 다르면 값이 달라진다.",
-   "effects": [
-    {
-     "id": "up_to_drop",
-     "label": "상체를 세운 자세에서 드롭 자세로",
-     "detail": "자전거 포함 CdA 0.270 → 0.243㎡",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "cda_delta_pct": 10.0,
-       "studies": 1,
-       "n": 1,
-       "source": "Defraeye T, Blocken B, Koninckx E, Hespel P, Carmeliet J (2010). Aerodynamic study of different cyclist positions: CFD analysis and full-scale wind-tunnel tests. Journal of Biomechanics 43(7):1262–1268",
-       "url": "https://doi.org/10.1016/j.jbiomech.2010.01.025",
-       "note": "드롭 자세의 CdA는 상체를 세운 자세보다 10.0% 낮았다(0.270 → 0.243㎡, 풍동 측정값에서 칼랭크가 계산). 시험은 풍속 10m/s(시속 36㎞)에서 했고, 시험 대상은 키 183㎝·체중 72㎏ 선수 한 명이며 자전거를 포함한 풍동 값이다. 이 연구는 자세를 바꿨을 때 낼 수 있는 출력의 변화는 측정하지 않았다."
-      }
-     ]
-    },
-    {
-     "id": "drop_to_tt",
-     "label": "드롭 자세에서 타임트라이얼 자세로",
-     "detail": "자전거 포함 CdA 0.243 → 0.211㎡",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "cda_delta_pct": 13.2,
-       "studies": 1,
-       "n": 1,
-       "source": "Defraeye T, Blocken B, Koninckx E, Hespel P, Carmeliet J (2010). Aerodynamic study of different cyclist positions: CFD analysis and full-scale wind-tunnel tests. Journal of Biomechanics 43(7):1262–1268",
-       "url": "https://doi.org/10.1016/j.jbiomech.2010.01.025",
-       "note": "타임트라이얼 자세의 CdA는 드롭 자세보다 13.2% 낮았다(0.243 → 0.211㎡, 풍동 측정값에서 칼랭크가 계산). 시험은 풍속 10m/s(시속 36㎞)에서 했고, 시험 대상은 키 183㎝·체중 72㎏ 선수 한 명이며 자전거를 포함한 풍동 값이다. 이 연구는 자세를 바꿨을 때 낼 수 있는 출력의 변화는 측정하지 않았다."
-      }
-     ]
-    },
-    {
-     "id": "up_to_tt",
-     "label": "상체를 세운 자세에서 타임트라이얼 자세로",
-     "detail": "자전거 포함 CdA 0.270 → 0.211㎡",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "computed": "cda_pct_time",
-     "evidence": [
-      {
-       "grade": "B",
-       "applies": {
-        "speed_kmh": [
-         null,
-         null
-        ]
-       },
-       "model": "martin1998",
-       "significant": true,
-       "cda_delta_pct": 21.9,
-       "studies": 1,
-       "n": 1,
-       "source": "Defraeye T, Blocken B, Koninckx E, Hespel P, Carmeliet J (2010). Aerodynamic study of different cyclist positions: CFD analysis and full-scale wind-tunnel tests. Journal of Biomechanics 43(7):1262–1268",
-       "url": "https://doi.org/10.1016/j.jbiomech.2010.01.025",
-       "note": "타임트라이얼 자세의 CdA는 상체를 세운 자세보다 21.9% 낮았다(0.270 → 0.211㎡, 풍동 측정값에서 칼랭크가 계산). 시험은 풍속 10m/s(시속 36㎞)에서 했고, 시험 대상은 키 183㎝·체중 72㎏ 선수 한 명이며 자전거를 포함한 풍동 값이다. 이 연구는 자세를 바꿨을 때 낼 수 있는 출력의 변화는 측정하지 않았다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "에어로 자세 효과 — 상체 세움·드롭·타임트라이얼 CdA 풍동 시험",
-    "description": "풍동 시험에서 타임트라이얼 자세의 CdA는 상체를 세운 자세보다 21.9%, 드롭 자세보다 13.2% 낮았습니다. 출력 변화는 측정하지 않은 한 명 대상 연구여서 근거 등급 B로 정리했습니다."
-   },
-   "short_label": "에어로 자세",
-   "faq": [
-    {
-     "q": "드롭 자세와 타임트라이얼 자세의 공기저항 차이",
-     "a": "풍동 시험(Defraeye 외, 2010)에서 자전거를 포함한 CdA는 상체를 세운 자세 0.270㎡, 드롭 자세 0.243㎡, 타임트라이얼 자세 0.211㎡였습니다(근거 B). 타임트라이얼 자세는 드롭보다 13.2%, 상체를 세운 자세보다 21.9% 낮습니다."
-    },
-    {
-     "q": "에어로 자세로 바꾸면 출력도 유지되나",
-     "a": "이 연구는 자세를 바꿨을 때의 출력 변화를 측정하지 않았습니다. 기록 환산은 출력이 같다는 가정에서 한 값입니다."
-    }
-   ],
-   "updated": "2026-11-14",
-   "no_price": true
-  },
-  {
-   "id": "caffeine",
-   "sport": "running",
-   "category": "supplement",
-   "label": "카페인 섭취",
-   "question": "카페인 섭취가 지구력 기록과 평균 출력에 미치는 영향",
-   "condition": "dose_mg_kg",
-   "condition_label": "카페인 용량 (㎎/체중㎏)",
-   "no_price": true,
-   "headline": "체중 1㎏당 3~6㎎의 카페인은 지구력 기록 측정에서 평균 2.22% 빠른 결과와 연결됐지만, 개인차가 크다.",
-   "surprise": "무작위 대조 연구 46편을 합친 메타분석에서 체중 1㎏당 3~6㎎의 카페인은 기록 측정(타임트라이얼) 시간을 위약보다 평균 2.22% 줄였고, 평균 출력은 3.03% 높였다. 효과크기는 작은 편(시간 0.41, 출력 0.23)이었다. 그리고 모든 연구에서 효과가 나온 것은 아니어서 기록 측정 연구 2편은 오히려 느려졌고 평균 출력 연구 5편은 출력이 낮아졌다. 상위 검토(21개 메타분석을 묶은 우산 리뷰)도 카페인이 지구력 운동에 유익하다고 보면서, 대부분의 연구가 젊은 남성 대상이라 여성·중장년에게 같은 값을 적용하기 어렵다고 밝혔다.",
-   "model_note": "기록 단축 값은 메타분석이 보고한 타임트라이얼 시간 변화율을 그대로 내 기록에 곱한 것이다. 이 메타분석은 달리기만이 아니라 지구력 운동 전체의 기록 측정을 합친 결과이고, 달리기만 따로 분석한 값은 초록에서 확인하지 못했다. 보고된 변동폭(±2.59%)은 연구 간 차이를 보여 주는 값이어서 개인의 결과가 그 범위 안에 든다는 보증이 아니다. 카페인은 대회 규정상 금지약물이 아니지만 용량·개인 반응·위장 부담은 개인차가 크고, 이 판정은 의학적 권고가 아니다.",
-   "effects": [
-    {
-     "id": "time_trial",
-     "label": "기록 측정 시간",
-     "detail": "체중 1㎏당 3~6㎎, 위약 대비",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "dose_mg_kg": [
-         null,
-         null
-        ]
-       },
-       "significant": true,
-       "effect_pct": 2.22,
-       "ci": [
-        2.22,
-        2.22
-       ],
-       "studies": 46,
-       "n": 0,
-       "source": "Southward K, Rutherfurd-Markwick KJ, Ali A (2018). The Effect of Acute Caffeine Ingestion on Endurance Performance: A Systematic Review and Meta-Analysis. Sports Medicine 48(8)",
-       "url": "https://doi.org/10.1007/s40279-018-0939-8",
-       "note": "46편 통합 결과로 기록 측정 완료 시간이 위약보다 평균 2.22% 짧았다(효과크기 0.41). 논문이 표기한 변동폭은 ±2.59%이고, 기록 측정 연구 2편은 오히려 기록이 느려졌다. 평균을 내 기록에 곱한 값이며 개인의 결과를 보장하지 않는다. 상위 검토: Grgic 외(2020) British Journal of Sports Medicine 54(11):681–688, doi 10.1136/bjsports-2018-100278."
-      }
-     ]
-    },
-    {
-     "id": "mean_power",
-     "label": "평균 출력",
-     "detail": "체중 1㎏당 3~6㎎, 위약 대비",
-     "better": "higher",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "dose_mg_kg": [
-         null,
-         null
-        ]
-       },
-       "significant": true,
-       "effect_pct": 3.03,
-       "ci": [
-        3.03,
-        3.03
-       ],
-       "studies": 46,
-       "n": 0,
-       "source": "Southward K, Rutherfurd-Markwick KJ, Ali A (2018). The Effect of Acute Caffeine Ingestion on Endurance Performance: A Systematic Review and Meta-Analysis. Sports Medicine 48(8)",
-       "url": "https://doi.org/10.1007/s40279-018-0939-8",
-       "note": "46편 통합 결과로 기록 측정 중 평균 출력이 위약보다 평균 3.03% 높았다(효과크기 0.23, 논문 표기 변동폭 ±3.07%). 평균 출력 연구 5편에서는 출력이 오히려 낮아졌다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "카페인 섭취 효과 — 기록 2.22% 단축 메타분석(46편)",
-    "description": "체중 1㎏당 3~6㎎의 카페인은 지구력 기록 측정 시간을 위약보다 평균 2.22% 줄이고 평균 출력을 3.03% 높였다는 메타분석(46편)과 개인차·한계를 근거 등급 A로 정리했습니다. 의학적 권고는 아닙니다."
-   },
-   "short_label": "카페인",
-   "faq": [
-    {
-     "q": "카페인은 기록을 얼마나 단축하나",
-     "a": "46편을 합친 메타분석(Southward 외, 2018)에서 체중 1㎏당 3~6㎎의 카페인은 기록 측정 시간을 위약보다 평균 2.22%, 평균 출력은 3.03% 개선했습니다(근거 A). 효과크기는 작은 편이고 개인차가 큽니다."
-    },
-    {
-     "q": "카페인은 누구에게나 효과가 있나",
-     "a": "아닙니다. 기록 측정 연구 2편은 기록이 느려졌고 평균 출력 연구 5편은 출력이 낮아졌습니다. 우산 리뷰(Grgic 외, 2020)도 대부분의 연구가 젊은 남성 대상이라 여성·중장년에게 일반화하기 어렵다고 밝혔습니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "carb-intake",
-   "sport": "running",
-   "category": "supplement",
-   "label": "운동 중 탄수화물 섭취",
-   "question": "1시간 이상 운동 중 탄수화물 섭취가 기록 측정과 지속 시간에 미치는 영향",
-   "condition": "duration_min",
-   "condition_label": "운동(완주) 시간 (분)",
-   "no_price": true,
-   "headline": "1시간 이상 운동 중 탄수화물 섭취는 기록 측정 성적을 평균 2.0% 높였고, 탈진까지 버틴 시간은 15.1% 늘렸다.",
-   "surprise": "메타분석 50편에서 탄수화물을 먹은 쪽의 기록 측정(타임트라이얼) 성적은 위약보다 평균 2.0% 좋았다(효과크기 0.30, 95% 신뢰구간 0.07~0.53). 효과는 측정 방식에 따라 크게 달랐다. 탈진할 때까지 버틴 시간은 평균 15.1% 늘었고, 중강도 운동 뒤 기록 측정을 한 경우는 7.5% 좋아졌다. 이 분석은 시간당 30~80g, 8% 이하 용액만 다뤘으며 그보다 많은 섭취량의 효과는 이 연구로 알 수 없다.",
-   "model_note": "기록 단축 값은 메타분석이 보고한 기록 측정 성적 향상률을 내 기록에 그대로 곱한 것이다. 성적 향상률이 시간과 출력 중 어느 쪽 기준인지는 초록에서 확인하지 못해서 기록 단축으로 보는 것은 근사값이다. 이 메타분석은 달리기 전용이 아니라 지구력 운동 전체를 합친 결과이다. 개인의 위장 반응과 훈련 여부에 따라 달라지므로 대회 전에 훈련 중 먼저 시험해 보는 것이 좋다.",
-   "effects": [
-    {
-     "id": "time_trial",
-     "label": "기록 측정 성적",
-     "detail": "1시간 이상 운동, 시간당 30~80g, 위약 대비",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": true,
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "duration_min": [
-         60.0,
-         null
-        ]
-       },
-       "significant": true,
-       "effect_pct": 2.0,
-       "ci": [
-        2.0,
-        2.0
-       ],
-       "studies": 50,
-       "n": 0,
-       "source": "Temesi J, Johnson NA, Raymond J, Burdon CA, O'Connor HT (2011). Carbohydrate ingestion during endurance exercise improves performance in adults. Journal of Nutrition 141(5):890–897",
-       "url": "https://doi.org/10.3945/jn.110.137075",
-       "note": "탄수화물 섭취 시 기록 측정 성적이 위약보다 평균 2.0% 좋았다(효과크기 0.30, 95% 신뢰구간 0.07~0.53). 무작위 위약 대조 교차 시험 50편을 합친 메타분석이다. 포함된 시험은 1시간 이상의 운동에서 시간당 30~80g을 8% 이하 용액으로 섭취한 것이고, 이 범위 밖의 섭취량에는 적용할 수 없다. 합친 효과의 95% 신뢰구간은 효과크기 기준이며 퍼센트로 바꿔 쓰지 않았다."
-      }
-     ]
-    },
-    {
-     "id": "submax_then_tt",
-     "label": "중강도 운동 뒤 기록 측정 성적",
-     "detail": "일정 강도 운동 후 기록 측정, 위약 대비",
-     "better": "lower",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "duration_min": [
-         60.0,
-         null
-        ]
-       },
-       "significant": true,
-       "effect_pct": 7.5,
-       "ci": [
-        7.5,
-        7.5
-       ],
-       "studies": 50,
-       "n": 0,
-       "source": "Temesi J, Johnson NA, Raymond J, Burdon CA, O'Connor HT (2011). Carbohydrate ingestion during endurance exercise improves performance in adults. Journal of Nutrition 141(5):890–897",
-       "url": "https://doi.org/10.3945/jn.110.137075",
-       "note": "일정한 강도의 운동을 한 뒤 기록 측정을 하는 방식에서는 평균 7.5% 좋았다(효과크기 0.53, 95% 신뢰구간 0.37~0.69). 무작위 위약 대조 교차 시험 50편을 합친 메타분석이다. 포함된 시험은 1시간 이상의 운동에서 시간당 30~80g을 8% 이하 용액으로 섭취한 것이고, 이 범위 밖의 섭취량에는 적용할 수 없다. 합친 효과의 95% 신뢰구간은 효과크기 기준이며 퍼센트로 바꿔 쓰지 않았다."
-      }
-     ]
-    },
-    {
-     "id": "time_to_exhaustion",
-     "label": "탈진까지 버틴 시간",
-     "detail": "일정 강도로 탈진할 때까지, 위약 대비",
-     "better": "higher",
-     "direction": "better",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "A",
-       "applies": {
-        "duration_min": [
-         60.0,
-         null
-        ]
-       },
-       "significant": true,
-       "effect_pct": 15.1,
-       "ci": [
-        15.1,
-        15.1
-       ],
-       "studies": 50,
-       "n": 0,
-       "source": "Temesi J, Johnson NA, Raymond J, Burdon CA, O'Connor HT (2011). Carbohydrate ingestion during endurance exercise improves performance in adults. Journal of Nutrition 141(5):890–897",
-       "url": "https://doi.org/10.3945/jn.110.137075",
-       "note": "탈진할 때까지 운동한 시간이 평균 15.1% 늘었다(효과크기 0.47, 95% 신뢰구간 0.32~0.62). 실제 대회 기록이 아니라 일정 강도로 버틴 시간을 잰 방식이어서 기록 단축으로 읽으면 안 된다. 무작위 위약 대조 교차 시험 50편을 합친 메타분석이다. 포함된 시험은 1시간 이상의 운동에서 시간당 30~80g을 8% 이하 용액으로 섭취한 것이고, 이 범위 밖의 섭취량에는 적용할 수 없다. 합친 효과의 95% 신뢰구간은 효과크기 기준이며 퍼센트로 바꿔 쓰지 않았다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "운동 중 탄수화물 섭취 효과 — 기록 2.0% 향상 메타분석(50편)",
-    "description": "1시간 이상 운동 중 시간당 30~80g의 탄수화물 섭취는 기록 측정 성적을 평균 2.0%, 탈진까지 버틴 시간을 15.1% 높였다는 메타분석(50편)을 근거 등급 A로 정리했습니다. 의학적 권고는 아닙니다."
-   },
-   "short_label": "탄수화물 섭취",
-   "faq": [
-    {
-     "q": "운동 중 탄수화물 섭취가 기록에 주는 영향",
-     "a": "50편을 합친 메타분석(Temesi 외, 2011)에서 1시간 이상 운동 중 시간당 30~80g의 탄수화물 섭취는 기록 측정 성적을 평균 2.0% 높였습니다(근거 A). 탈진까지 버틴 시간은 15.1% 늘었습니다."
-    },
-    {
-     "q": "이 효과는 시간당 몇 그램까지 확인됐나",
-     "a": "이 메타분석에 포함된 시험은 시간당 30~80g, 8% 이하 용액입니다. 이보다 많은 섭취량의 효과는 이 연구로 확인할 수 없습니다."
-    }
-   ],
-   "updated": "2026-11-14"
-  },
-  {
-   "id": "heat",
-   "sport": "running",
-   "category": "environment",
-   "label": "대회 당일 기온(WBGT)",
-   "question": "대회 당일 습구흑구온도(WBGT)가 마라톤 기록에 미치는 영향",
-   "condition": "wbgt_c",
-   "condition_label": "대회 당일 WBGT (℃)",
-   "no_price": true,
-   "headline": "WBGT가 20℃를 넘는 날의 마라톤에서 상위 남자 선수는 코스 기록보다 평균 4.5% 느렸고, 5~10℃ 구간은 1.7%였다.",
-   "surprise": "미국 마라톤 7개 대회의 기록과 기상 자료를 비교한 연구에서, 상위 3위 남자 선수의 기록은 WBGT 5.1~10℃에서 코스 기록보다 평균 1.7%, 20.1~25℃에서 4.5% 느렸다. 같은 4.5%라도 엘리트 선수 기준이어서, 저자들은 25·50·100·300위 선수일수록 WBGT가 오를 때 더 많이 느려지고 기록이 느린 집단이 더 큰 영향을 받는다고 보고했다. 다만 이 집단들의 구체적 수치는 확인하지 못해 판정에 넣지 않았다.",
-   "model_note": "WBGT는 기온에 습도·복사열·바람을 반영한 지수라 일반 기온과 다르다. 이 판정의 값은 상위 3위 선수의 기록이 코스 기록보다 느렸던 평균 비율이며, 일반 참가자의 기록 저하 비율이 아니다. 여성은 구간별 차이가 통계적으로 유의하지 않았다. 관찰 자료이므로 기온 외 요인(코스, 경쟁 상황)을 배제하지 못하고, 개인의 기록 보정에 쓸 수 없다.",
-   "effects": [
-    {
-     "id": "elite_men",
-     "label": "상위 3위 남자 기록 저하",
-     "detail": "코스 기록 대비, WBGT 구간별",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         5.1,
-         10.0
-        ]
-       },
-       "significant": true,
-       "effect_pct": 1.7,
-       "ci": [
-        1.7,
-        1.7
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 5.1~10℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 1.7%(표준편차 ±1.5%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+      "id": "drafting",
+      "sport": "cycling",
+      "category": "technique",
+      "label": "앞 선수 뒤 따라가기(드래프팅)",
+      "question": "앞 선수 뒤에 붙었을 때의 공기저항 감소와 기록 영향",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "바로 뒤에 붙은 선수의 항력은 13.8~27.1% 줄지만 앞에서 끄는 선수는 0.8~2.6%만 줄어든다.",
+      "surprise": "앞 선수 뒤에 붙으면 공기저항이 크게 줄지만 이득은 한쪽으로 쏠린다. 전산유체역학 시험에서 뒤 선수의 항력은 자세에 따라 13.8~27.1% 줄었고, 앞 선수는 0.8~2.6%만 줄었다. 타임트라이얼 자세는 뒤 선수의 이득이 가장 작아서(13.8%) 상체를 세운 자세(27.1%)의 절반 수준이다. 사람을 대상으로 측정한 산소 섭취량은 시속 37~40㎞에서 한 명 뒤에 붙으면 27% 줄었고, 8명 무리의 맨 뒤에서는 39% 줄었다. 산소 섭취의 감소폭이 항력의 감소폭보다 작은 점은 두 값이 서로 다른 것을 재기 때문이며, 같은 효과를 서로 다른 단위로 적은 것이 아니다.",
+      "model": "martin1998",
+      "model_note": "기록 환산은 Martin 등(1998) 출력 모델로 했다. 같은 출력을 유지할 때 CdA가 줄면 속도가 얼마나 오르는지 계산하는 방식이며, 평지·무풍을 가정한다. 항력 감소폭은 풍동·전산유체역학 시험값이고 앞 선수와의 간격이 거의 붙은 조건이다. 실제 무리 주행에서는 간격과 옆바람, 앞 선수의 체격에 따라 이득이 달라진다. 철인3종 일반 부문처럼 드래프팅이 금지된 대회에서는 이 효과를 쓸 수 없다.",
+      "effects": [
+        {
+          "id": "follow_upright",
+          "label": "바로 뒤에 붙으면 (상체를 세운 자세)",
+          "detail": "앞 선수 뒤, 간격 0.01m",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
+              "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
+              "note": "뒤 선수의 항력이 단독 주행 대비 27.1% 줄었다. 시뮬레이션(전산유체역학)이며 풍동 시험으로 검증했다. 앞 선수와의 간격은 0.01m, 즉 거의 붙은 상태에서 얻은 값이고, 저자들은 간격이 벌어지면 줄어든다고 밝혔다. 실제 주행의 간격에서는 이 값보다 작아진다.",
+              "cda_delta_pct": 27.1
+            }
+          ]
+        },
+        {
+          "id": "follow_drop",
+          "label": "바로 뒤에 붙으면 (드롭 자세)",
+          "detail": "앞 선수 뒤, 간격 0.01m",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
+              "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
+              "note": "뒤 선수의 항력이 단독 주행 대비 23.1% 줄었다. 시뮬레이션(전산유체역학)이며 풍동 시험으로 검증했다. 앞 선수와의 간격은 0.01m, 즉 거의 붙은 상태에서 얻은 값이고, 저자들은 간격이 벌어지면 줄어든다고 밝혔다. 실제 주행의 간격에서는 이 값보다 작아진다.",
+              "cda_delta_pct": 23.1
+            }
+          ]
+        },
+        {
+          "id": "follow_tt",
+          "label": "바로 뒤에 붙으면 (타임트라이얼 자세)",
+          "detail": "앞 선수 뒤, 간격 0.01m",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
+              "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
+              "note": "뒤 선수의 항력이 단독 주행 대비 13.8% 줄었다. 세 자세 가운데 가장 작다. 시뮬레이션(전산유체역학)이며 풍동 시험으로 검증했다. 앞 선수와의 간격은 0.01m, 즉 거의 붙은 상태에서 얻은 값이고, 저자들은 간격이 벌어지면 줄어든다고 밝혔다. 실제 주행의 간격에서는 이 값보다 작아진다.",
+              "cda_delta_pct": 13.8
+            }
+          ]
+        },
+        {
+          "id": "lead_rider",
+          "label": "앞에서 끌면",
+          "detail": "뒤에 선수가 붙었을 때의 앞 선수",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Blocken B, Defraeye T, Koninckx E, Carmeliet J, Hespel P (2013). CFD simulations of the aerodynamic drag of two drafting cyclists. Computers & Fluids 71:435–445",
+              "url": "https://doi.org/10.1016/j.compfluid.2012.11.012",
+              "note": "앞 선수의 항력은 자세에 따라 0.8%(상체를 세운 자세)·1.7%(드롭)·2.6%(타임트라이얼) 줄었다. 간격 0.15m에서 드롭 자세의 값은 풍동 1.6%, 시뮬레이션 1.3%였다. 앞에서 끄는 일의 이득은 거의 없다고 보아야 한다.",
+              "effect_pct": 2.6,
+              "ci": [
+                0.8,
+                2.6
+              ]
+            }
+          ]
+        },
+        {
+          "id": "physio_one",
+          "label": "산소 섭취량: 한 명 뒤에서 (실외 주행)",
+          "detail": "시속 32~40㎞",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "McCole SD 외 (1990). Energy expenditure during bicycling. Journal of Applied Physiology 68(2):748–753",
+              "url": "https://doi.org/10.1152/jappl.1990.68.2.748",
+              "note": "실외 주행에서 한 명 뒤에 붙으면 산소 섭취량이 시속 32㎞에서 18%±11, 37·40㎞에서 27%±8 줄었다. 40㎞/h에서는 앞에 한 명·두 명·네 명이 있어도 감소폭이 같았다(27%±7). 오차는 논문이 표시한 변동폭이다.",
+              "effect_pct": 27.0,
+              "ci": [
+                19.0,
+                35.0
+              ]
+            }
+          ]
+        },
+        {
+          "id": "physio_pack",
+          "label": "산소 섭취량: 8명 무리의 맨 뒤에서",
+          "detail": "시속 40㎞",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "McCole SD 외 (1990). Energy expenditure during bicycling. Journal of Applied Physiology 68(2):748–753",
+              "url": "https://doi.org/10.1152/jappl.1990.68.2.748",
+              "note": "40㎞/h에서 8명 무리의 맨 뒤에 붙으면 산소 섭취량이 39%±6 줄었다. 차량 뒤에서는 62%±6 줄었다. 사람이 측정한 값이라 항력 감소폭보다 작게 나온다.",
+              "effect_pct": 39.0,
+              "ci": [
+                33.0,
+                45.0
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pack_cfd",
+          "label": "대규모 무리의 가운데·뒤쪽 항력",
+          "detail": "121명 무리 전산유체역학",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Blocken B, van Druenen T, Toparlar Y, Malizia F, Mannion P, Andrianne T 외 (2018). Aerodynamic drag in cycling pelotons: new insights by CFD simulation and wind tunnel testing. Journal of Wind Engineering and Industrial Aerodynamics 179:319–337",
+              "url": "https://doi.org/10.1016/j.jweia.2018.06.011",
+              "note": "121명 무리를 시뮬레이션하고 풍동으로 확인한 결과, 모든 선수의 항력이 단독 주행보다 낮았고 무리의 중간과 뒤쪽 선수의 항력은 단독 값의 5~10% 수준이었다. 저자들은 이를 무리의 실제 속도보다 3.2~4.5배 낮은 단독 주행 속도에 해당한다고 환산했다. 시뮬레이션 값이어서 실제 출력 절감을 그대로 뜻하지 않는다.",
+              "effect_pct": 90.0,
+              "ci": [
+                90.0,
+                95.0
+              ]
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "드래프팅 효과 — 앞 선수 뒤 따라가기 항력·산소 섭취 연구",
+        "description": "앞 선수 바로 뒤에 붙은 선수의 공기저항은 13.8~27.1% 줄고 앞 선수는 0.8~2.6%만 줄어든다는 전산유체역학 연구와, 한 명 뒤 27%·8명 무리 맨 뒤 39%의 산소 섭취량 감소 측정을 정리했습니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         10.01,
-         15.0
-        ]
-       },
-       "significant": true,
-       "effect_pct": 2.5,
-       "ci": [
-        2.5,
-        2.5
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 10.1~15℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 2.5%(표준편차 ±2.1%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
-      },
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         15.01,
-         20.0
-        ]
-       },
-       "significant": true,
-       "effect_pct": 3.3,
-       "ci": [
-        3.3,
-        3.3
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 15.1~20℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.3%(표준편차 ±2.0%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
-      },
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         20.01,
-         25.0
-        ]
-       },
-       "significant": true,
-       "effect_pct": 4.5,
-       "ci": [
-        4.5,
-        4.5
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 20.1~25℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 4.5%(표준편차 ±2.3%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
-      }
-     ]
+      "short_label": "드래프팅",
+      "faq": [
+        {
+          "q": "앞 선수 뒤에 붙으면 공기저항이 얼마나 줄어드나",
+          "a": "전산유체역학 시험(Blocken 외, 2013)에서 뒤 선수의 항력은 자세에 따라 13.8~27.1% 줄었습니다(근거 B). 상체를 세운 자세 27.1%, 드롭 23.1%, 타임트라이얼 13.8%이고 앞 선수와의 간격이 0.01m인 조건입니다. 간격이 벌어지면 줄어듭니다."
+        },
+        {
+          "q": "드래프팅은 산소 섭취량을 얼마나 줄이나",
+          "a": "실외 주행 측정(McCole 외, 1990)에서 한 명 뒤에 붙으면 시속 37·40㎞에서 27%, 8명 무리 맨 뒤에서는 39% 줄었습니다(근거 B)."
+        },
+        {
+          "q": "앞에서 끄는 선수에게도 이득이 있나",
+          "a": "앞 선수의 항력은 0.8~2.6%만 줄었습니다. 이득은 거의 뒤 선수에게 돌아갑니다(근거 B)."
+        }
+      ],
+      "updated": "2026-11-14",
+      "no_price": true
     },
     {
-     "id": "elite_women",
-     "label": "상위 3위 여자 기록 저하",
-     "detail": "코스 기록 대비, WBGT 구간별 (통계적 유의성 없음)",
-     "better": "lower",
-     "direction": "worse",
-     "affects_time": false,
-     "evidence": [
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         5.1,
-         10.0
-        ]
-       },
-       "significant": false,
-       "effect_pct": 3.2,
-       "ci": [
-        3.2,
-        3.2
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 5.1~10℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.2%(표준편차 ±4.9%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+      "id": "aero-clothing",
+      "sport": "cycling",
+      "category": "clothing",
+      "label": "에어로 저지·스킨슈트",
+      "question": "공기역학 설계 의류와 옷 크기에 따른 공기저항·출력 차이",
+      "condition": "test_speed_kmh",
+      "condition_label": "시험 속도",
+      "headline": "설계를 바꾼 저지가 아끼는 총 출력의 2.2%보다 한 치수 큰 저지가 더하는 3.8%가 더 크다.",
+      "surprise": "공기역학 소재와 재봉선을 새로 설계한 저지는 시속 50㎞에서 약 8.2W를 아꼈다. 같은 시험에서 한 치수 큰 저지(M)를 입으면 작은 치수(S)보다 항력이 104g, 출력으로 14.2W 늘었다. 소재를 바꿔 얻는 이득보다 치수를 잘못 고르는 손실이 더 컸다. 다만 두 값 모두 한 명의 선수를 시험한 결과이고, 소재 연구는 의류 제조사와 협업한 시험이다.",
+      "model_note": "여기 수치는 풍동에서 시험한 항력과 그 항력에 해당하는 출력이다. 기록(초)으로 환산하지 않았다. 의류 시험은 시험 선수 한 명 또는 마네킹으로 이루어졌고, 자세와 체형이 다르면 값이 달라진다. 의류 소재의 이득이 한 번의 시험에서 측정 오차 안에 드는 경우도 있어서 독립된 연구자가 여러 선수로 반복 측정한 자료가 필요하다.",
+      "effects": [
+        {
+          "id": "jersey_design",
+          "label": "공기역학 설계 저지로 바꾸면",
+          "detail": "같은 선수, 시속 50㎞, 총 출력 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "test_speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Spurkland L, Bardal LM, Sætran L, Oggiano L (2015). Low Aerodynamic Drag Suit for Cycling – Design and Testing. Proc. 3rd International Congress on Sport Sciences Research and Technology Support (icSPORTS) 89–96, SCITEPRESS",
+              "url": "https://www.scitepress.org/Papers/2015/55896/55896.pdf",
+              "note": "가장 거친 UCI 허용 소재와 재봉선 배치로 설계한 저지는 원래 저지보다 항력이 60g 적었고 이는 8.2W(전체 출력의 약 2.2%)에 해당했다(시속 50㎞). 마네킹에서는 25~35g 개선이었다. 하의(빕숏)는 35g, 약 5W를 아꼈다. 시험 선수는 한 명이며, 의류 제조사(Trimtex)와 협업한 연구다.",
+              "effect_pct": 2.2
+            }
+          ]
+        },
+        {
+          "id": "jersey_size",
+          "label": "저지가 한 치수 크면 (S → M)",
+          "detail": "같은 선수, 시속 50㎞, 총 출력 대비",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "test_speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Spurkland L, Bardal LM, Sætran L, Oggiano L (2015). Low Aerodynamic Drag Suit for Cycling – Design and Testing. Proc. 3rd International Congress on Sport Sciences Research and Technology Support (icSPORTS) 89–96, SCITEPRESS",
+              "url": "https://www.scitepress.org/Papers/2015/55896/55896.pdf",
+              "note": "중간 치수(M)를 입으면 작은 치수(S)보다 항력이 104g, 출력으로 14.2W 늘었다. 같은 시험에서 설계 저지가 아낀 8.2W가 총 출력의 2.2%이므로 14.2W는 약 3.8%로 환산된다(칼랭크 환산). 저자들은 옷 맞음새가 소재만큼 중요하다고 해석했다. 시험 선수 한 명의 값이다.",
+              "effect_pct": 3.8
+            }
+          ]
+        },
+        {
+          "id": "tt_suit",
+          "label": "타임트라이얼 슈트를 새로 설계한 제품으로 바꾸면",
+          "detail": "2001년형 대비, 시속 53㎞, 항력 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "D",
+              "applies": {
+                "test_speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "significant": true,
+              "studies": 1,
+              "n": 0,
+              "source": "Brownlie L, Kyle C 외 (2009). Streamlining the time trial apparel of cyclists: the Nike Swift Spin project. Sports Technology 2(1–2):53–60",
+              "url": "https://doi.org/10.1080/19346182.2009.9648499",
+              "note": "약 200종 신축 소재를 풍동에서 시험해 설계한 2005년형 슈트는 2001년형 일반 타임트라이얼 슈트보다 항력이 125g, 3.9% 적었다(시속 53㎞). 저자들의 수식 모델은 55㎞ 타임트라이얼에서 약 44초를 아낀다고 추정했다. 의류 제조사가 후원하고 자체 팀이 수행한 시험이어서 독립 검증은 없다.",
+              "effect_pct": 3.9
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "에어로 저지·스킨슈트 효과 — 소재보다 치수가 더 큰 차이",
+        "description": "공기역학 설계 저지는 시속 50㎞에서 약 8W를 아끼지만, 한 치수 큰 저지는 14W를 더 쓰게 한다는 풍동 시험과 타임트라이얼 슈트 3.9% 항력 감소 자료를 정리했습니다. 근거 등급 C·D입니다."
       },
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         10.01,
-         15.0
-        ]
-       },
-       "significant": false,
-       "effect_pct": 3.2,
-       "ci": [
-        3.2,
-        3.2
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 10.1~15℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.2%(표준편차 ±2.9%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
-      },
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         15.01,
-         20.0
-        ]
-       },
-       "significant": false,
-       "effect_pct": 3.8,
-       "ci": [
-        3.8,
-        3.8
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 15.1~20℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.8%(표준편차 ±3.2%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
-      },
-      {
-       "grade": "C",
-       "applies": {
-        "wbgt_c": [
-         20.01,
-         25.0
-        ]
-       },
-       "significant": false,
-       "effect_pct": 5.4,
-       "ci": [
-        5.4,
-        5.4
-       ],
-       "studies": 7,
-       "n": 0,
-       "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
-       "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
-       "note": "습구흑구온도(WBGT) 20.1~25℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 5.4%(표준편차 ±4.1%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
-      }
-     ]
-    }
-   ],
-   "seo": {
-    "title": "대회 당일 기온(WBGT)과 마라톤 기록 — 7개 대회 분석",
-    "description": "WBGT 구간별로 상위 선수의 마라톤 기록이 코스 기록보다 얼마나 느렸는지(남자 1.7%→4.5%)를 Ely 외(2007) 관찰 연구로 정리했습니다. 근거 등급 C."
-   },
-   "short_label": "기온(WBGT)",
-   "faq": [
-    {
-     "q": "더운 날 마라톤 기록은 얼마나 느려지나",
-     "a": "Ely 외(2007)는 7개 마라톤을 분석해 상위 3위 남자 선수의 기록이 WBGT 5.1~10℃에서 코스 기록보다 평균 1.7%, 20.1~25℃에서 4.5% 느렸다고 보고했습니다(근거 C). 기록이 느린 집단일수록 영향이 크다고 밝혔으나 구체적 수치는 확인하지 못했습니다."
+      "short_label": "에어로 의류",
+      "faq": [
+        {
+          "q": "에어로 저지가 줄여 주는 공기저항",
+          "a": "풍동 시험(Spurkland 외, 2015)에서 설계를 바꾼 저지는 시속 50㎞에서 약 8.2W를 아꼈고 하의는 약 5W를 아꼈습니다(근거 C, 선수 한 명, 제조사 협업)."
+        },
+        {
+          "q": "저지 치수를 잘못 고르면 얼마나 손해인가",
+          "a": "같은 시험에서 중간 치수(M)는 작은 치수(S)보다 14.2W를 더 썼습니다(근거 C, 선수 한 명)."
+        },
+        {
+          "q": "타임트라이얼 슈트의 항력 감소",
+          "a": "Nike Swift Spin 프로젝트(Brownlie 외, 2009)에서 2005년형 슈트가 2001년형보다 항력이 3.9% 적었습니다(근거 D, 제조사 연구)."
+        }
+      ],
+      "updated": "2026-11-14"
     },
     {
-     "q": "WBGT는 일반 기온과 무엇이 다른가",
-     "a": "기온에 습도·복사열·바람의 영향을 합친 열 스트레스 지수입니다. 같은 기온이라도 습도가 높으면 WBGT가 더 높게 나옵니다."
+      "id": "aero-position",
+      "sport": "cycling",
+      "category": "position",
+      "label": "에어로 자세",
+      "question": "자세별 공기저항(CdA)과 기록 영향 — 상체 세움·드롭·타임트라이얼",
+      "condition": "speed_kmh",
+      "condition_label": "평균 속도",
+      "headline": "타임트라이얼 자세는 상체를 세운 자세보다 CdA가 21.9% 낮고, 드롭 자세와의 차이는 10.0%다.",
+      "surprise": "풍동 시험에서 자전거를 포함한 CdA는 상체를 세운 자세 0.270㎡, 드롭 자세 0.243㎡, 타임트라이얼 자세 0.211㎡였다. 정면 면적은 0.41, 0.37, 0.34㎡로 줄어든 폭(17%)보다 CdA가 줄어든 폭(21.9%)이 더 컸다. 자세를 낮추면 면적이 줄 뿐 아니라 항력계수도 낮아진다. 라이더가 항력에서 차지하는 몫은 자세에 따라 72%, 68%, 64%였다.",
+      "model": "martin1998",
+      "model_note": "기록 환산은 Martin 등(1998) 출력 모델로 했다. 같은 출력을 유지할 때 CdA가 줄면 속도가 얼마나 오르는지 계산하는 방식이며 평지·무풍을 가정한다. 이 환산은 자세를 바꿔도 낼 수 있는 출력이 같다고 가정한다. 실제로는 낮은 자세에서 출력이 줄 수 있어 환산값이 이득을 크게 보여 줄 수 있다. 시험 대상이 한 명이어서 체격이 다르면 값이 달라진다.",
+      "effects": [
+        {
+          "id": "up_to_drop",
+          "label": "상체를 세운 자세에서 드롭 자세로",
+          "detail": "자전거 포함 CdA 0.270 → 0.243㎡",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 10.0,
+              "studies": 1,
+              "n": 1,
+              "source": "Defraeye T, Blocken B, Koninckx E, Hespel P, Carmeliet J (2010). Aerodynamic study of different cyclist positions: CFD analysis and full-scale wind-tunnel tests. Journal of Biomechanics 43(7):1262–1268",
+              "url": "https://doi.org/10.1016/j.jbiomech.2010.01.025",
+              "note": "드롭 자세의 CdA는 상체를 세운 자세보다 10.0% 낮았다(0.270 → 0.243㎡, 풍동 측정값에서 칼랭크가 계산). 시험은 풍속 10m/s(시속 36㎞)에서 했고, 시험 대상은 키 183㎝·체중 72㎏ 선수 한 명이며 자전거를 포함한 풍동 값이다. 이 연구는 자세를 바꿨을 때 낼 수 있는 출력의 변화는 측정하지 않았다."
+            }
+          ]
+        },
+        {
+          "id": "drop_to_tt",
+          "label": "드롭 자세에서 타임트라이얼 자세로",
+          "detail": "자전거 포함 CdA 0.243 → 0.211㎡",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 13.2,
+              "studies": 1,
+              "n": 1,
+              "source": "Defraeye T, Blocken B, Koninckx E, Hespel P, Carmeliet J (2010). Aerodynamic study of different cyclist positions: CFD analysis and full-scale wind-tunnel tests. Journal of Biomechanics 43(7):1262–1268",
+              "url": "https://doi.org/10.1016/j.jbiomech.2010.01.025",
+              "note": "타임트라이얼 자세의 CdA는 드롭 자세보다 13.2% 낮았다(0.243 → 0.211㎡, 풍동 측정값에서 칼랭크가 계산). 시험은 풍속 10m/s(시속 36㎞)에서 했고, 시험 대상은 키 183㎝·체중 72㎏ 선수 한 명이며 자전거를 포함한 풍동 값이다. 이 연구는 자세를 바꿨을 때 낼 수 있는 출력의 변화는 측정하지 않았다."
+            }
+          ]
+        },
+        {
+          "id": "up_to_tt",
+          "label": "상체를 세운 자세에서 타임트라이얼 자세로",
+          "detail": "자전거 포함 CdA 0.270 → 0.211㎡",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "computed": "cda_pct_time",
+          "evidence": [
+            {
+              "grade": "B",
+              "applies": {
+                "speed_kmh": [
+                  null,
+                  null
+                ]
+              },
+              "model": "martin1998",
+              "significant": true,
+              "cda_delta_pct": 21.9,
+              "studies": 1,
+              "n": 1,
+              "source": "Defraeye T, Blocken B, Koninckx E, Hespel P, Carmeliet J (2010). Aerodynamic study of different cyclist positions: CFD analysis and full-scale wind-tunnel tests. Journal of Biomechanics 43(7):1262–1268",
+              "url": "https://doi.org/10.1016/j.jbiomech.2010.01.025",
+              "note": "타임트라이얼 자세의 CdA는 상체를 세운 자세보다 21.9% 낮았다(0.270 → 0.211㎡, 풍동 측정값에서 칼랭크가 계산). 시험은 풍속 10m/s(시속 36㎞)에서 했고, 시험 대상은 키 183㎝·체중 72㎏ 선수 한 명이며 자전거를 포함한 풍동 값이다. 이 연구는 자세를 바꿨을 때 낼 수 있는 출력의 변화는 측정하지 않았다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "에어로 자세 효과 — 상체 세움·드롭·타임트라이얼 CdA 풍동 시험",
+        "description": "풍동 시험에서 타임트라이얼 자세의 CdA는 상체를 세운 자세보다 21.9%, 드롭 자세보다 13.2% 낮았습니다. 출력 변화는 측정하지 않은 한 명 대상 연구여서 근거 등급 B로 정리했습니다."
+      },
+      "short_label": "에어로 자세",
+      "faq": [
+        {
+          "q": "드롭 자세와 타임트라이얼 자세의 공기저항 차이",
+          "a": "풍동 시험(Defraeye 외, 2010)에서 자전거를 포함한 CdA는 상체를 세운 자세 0.270㎡, 드롭 자세 0.243㎡, 타임트라이얼 자세 0.211㎡였습니다(근거 B). 타임트라이얼 자세는 드롭보다 13.2%, 상체를 세운 자세보다 21.9% 낮습니다."
+        },
+        {
+          "q": "에어로 자세로 바꾸면 출력도 유지되나",
+          "a": "이 연구는 자세를 바꿨을 때의 출력 변화를 측정하지 않았습니다. 기록 환산은 출력이 같다는 가정에서 한 값입니다."
+        }
+      ],
+      "updated": "2026-11-14",
+      "no_price": true
+    },
+    {
+      "id": "caffeine",
+      "sport": "running",
+      "category": "supplement",
+      "label": "카페인 섭취",
+      "question": "카페인 섭취가 지구력 기록과 평균 출력에 미치는 영향",
+      "condition": "dose_mg_kg",
+      "condition_label": "카페인 용량 (㎎/체중㎏)",
+      "no_price": true,
+      "headline": "체중 1㎏당 3~6㎎의 카페인은 지구력 기록 측정에서 평균 2.22% 빠른 결과와 연결됐지만, 개인차가 크다.",
+      "surprise": "무작위 대조 연구 46편을 합친 메타분석에서 체중 1㎏당 3~6㎎의 카페인은 기록 측정(타임트라이얼) 시간을 위약보다 평균 2.22% 줄였고, 평균 출력은 3.03% 높였다. 효과크기는 작은 편(시간 0.41, 출력 0.23)이었다. 그리고 모든 연구에서 효과가 나온 것은 아니어서 기록 측정 연구 2편은 오히려 느려졌고 평균 출력 연구 5편은 출력이 낮아졌다. 상위 검토(21개 메타분석을 묶은 우산 리뷰)도 카페인이 지구력 운동에 유익하다고 보면서, 대부분의 연구가 젊은 남성 대상이라 여성·중장년에게 같은 값을 적용하기 어렵다고 밝혔다.",
+      "model_note": "기록 단축 값은 메타분석이 보고한 타임트라이얼 시간 변화율을 그대로 내 기록에 곱한 것이다. 이 메타분석은 달리기만이 아니라 지구력 운동 전체의 기록 측정을 합친 결과이고, 달리기만 따로 분석한 값은 초록에서 확인하지 못했다. 보고된 변동폭(±2.59%)은 연구 간 차이를 보여 주는 값이어서 개인의 결과가 그 범위 안에 든다는 보증이 아니다. 카페인은 대회 규정상 금지약물이 아니지만 용량·개인 반응·위장 부담은 개인차가 크고, 이 판정은 의학적 권고가 아니다.",
+      "effects": [
+        {
+          "id": "time_trial",
+          "label": "기록 측정 시간",
+          "detail": "체중 1㎏당 3~6㎎, 위약 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "dose_mg_kg": [
+                  null,
+                  null
+                ]
+              },
+              "significant": true,
+              "effect_pct": 2.22,
+              "ci": [
+                2.22,
+                2.22
+              ],
+              "studies": 46,
+              "n": 0,
+              "source": "Southward K, Rutherfurd-Markwick KJ, Ali A (2018). The Effect of Acute Caffeine Ingestion on Endurance Performance: A Systematic Review and Meta-Analysis. Sports Medicine 48(8)",
+              "url": "https://doi.org/10.1007/s40279-018-0939-8",
+              "note": "46편 통합 결과로 기록 측정 완료 시간이 위약보다 평균 2.22% 짧았다(효과크기 0.41). 논문이 표기한 변동폭은 ±2.59%이고, 기록 측정 연구 2편은 오히려 기록이 느려졌다. 평균을 내 기록에 곱한 값이며 개인의 결과를 보장하지 않는다. 상위 검토: Grgic 외(2020) British Journal of Sports Medicine 54(11):681–688, doi 10.1136/bjsports-2018-100278."
+            }
+          ]
+        },
+        {
+          "id": "mean_power",
+          "label": "평균 출력",
+          "detail": "체중 1㎏당 3~6㎎, 위약 대비",
+          "better": "higher",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "dose_mg_kg": [
+                  null,
+                  null
+                ]
+              },
+              "significant": true,
+              "effect_pct": 3.03,
+              "ci": [
+                3.03,
+                3.03
+              ],
+              "studies": 46,
+              "n": 0,
+              "source": "Southward K, Rutherfurd-Markwick KJ, Ali A (2018). The Effect of Acute Caffeine Ingestion on Endurance Performance: A Systematic Review and Meta-Analysis. Sports Medicine 48(8)",
+              "url": "https://doi.org/10.1007/s40279-018-0939-8",
+              "note": "46편 통합 결과로 기록 측정 중 평균 출력이 위약보다 평균 3.03% 높았다(효과크기 0.23, 논문 표기 변동폭 ±3.07%). 평균 출력 연구 5편에서는 출력이 오히려 낮아졌다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "카페인 섭취 효과 — 기록 2.22% 단축 메타분석(46편)",
+        "description": "체중 1㎏당 3~6㎎의 카페인은 지구력 기록 측정 시간을 위약보다 평균 2.22% 줄이고 평균 출력을 3.03% 높였다는 메타분석(46편)과 개인차·한계를 근거 등급 A로 정리했습니다. 의학적 권고는 아닙니다."
+      },
+      "short_label": "카페인",
+      "faq": [
+        {
+          "q": "카페인은 기록을 얼마나 단축하나",
+          "a": "46편을 합친 메타분석(Southward 외, 2018)에서 체중 1㎏당 3~6㎎의 카페인은 기록 측정 시간을 위약보다 평균 2.22%, 평균 출력은 3.03% 개선했습니다(근거 A). 효과크기는 작은 편이고 개인차가 큽니다."
+        },
+        {
+          "q": "카페인은 누구에게나 효과가 있나",
+          "a": "아닙니다. 기록 측정 연구 2편은 기록이 느려졌고 평균 출력 연구 5편은 출력이 낮아졌습니다. 우산 리뷰(Grgic 외, 2020)도 대부분의 연구가 젊은 남성 대상이라 여성·중장년에게 일반화하기 어렵다고 밝혔습니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "carb-intake",
+      "sport": "running",
+      "category": "supplement",
+      "label": "운동 중 탄수화물 섭취",
+      "question": "1시간 이상 운동 중 탄수화물 섭취가 기록 측정과 지속 시간에 미치는 영향",
+      "condition": "duration_min",
+      "condition_label": "운동(완주) 시간 (분)",
+      "no_price": true,
+      "headline": "1시간 이상 운동 중 탄수화물 섭취는 기록 측정 성적을 평균 2.0% 높였고, 탈진까지 버틴 시간은 15.1% 늘렸다.",
+      "surprise": "메타분석 50편에서 탄수화물을 먹은 쪽의 기록 측정(타임트라이얼) 성적은 위약보다 평균 2.0% 좋았다(효과크기 0.30, 95% 신뢰구간 0.07~0.53). 효과는 측정 방식에 따라 크게 달랐다. 탈진할 때까지 버틴 시간은 평균 15.1% 늘었고, 중강도 운동 뒤 기록 측정을 한 경우는 7.5% 좋아졌다. 이 분석은 시간당 30~80g, 8% 이하 용액만 다뤘으며 그보다 많은 섭취량의 효과는 이 연구로 알 수 없다.",
+      "model_note": "기록 단축 값은 메타분석이 보고한 기록 측정 성적 향상률을 내 기록에 그대로 곱한 것이다. 성적 향상률이 시간과 출력 중 어느 쪽 기준인지는 초록에서 확인하지 못해서 기록 단축으로 보는 것은 근사값이다. 이 메타분석은 달리기 전용이 아니라 지구력 운동 전체를 합친 결과이다. 개인의 위장 반응과 훈련 여부에 따라 달라지므로 대회 전에 훈련 중 먼저 시험해 보는 것이 좋다.",
+      "effects": [
+        {
+          "id": "time_trial",
+          "label": "기록 측정 성적",
+          "detail": "1시간 이상 운동, 시간당 30~80g, 위약 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": true,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "duration_min": [
+                  60.0,
+                  null
+                ]
+              },
+              "significant": true,
+              "effect_pct": 2.0,
+              "ci": [
+                2.0,
+                2.0
+              ],
+              "studies": 50,
+              "n": 0,
+              "source": "Temesi J, Johnson NA, Raymond J, Burdon CA, O'Connor HT (2011). Carbohydrate ingestion during endurance exercise improves performance in adults. Journal of Nutrition 141(5):890–897",
+              "url": "https://doi.org/10.3945/jn.110.137075",
+              "note": "탄수화물 섭취 시 기록 측정 성적이 위약보다 평균 2.0% 좋았다(효과크기 0.30, 95% 신뢰구간 0.07~0.53). 무작위 위약 대조 교차 시험 50편을 합친 메타분석이다. 포함된 시험은 1시간 이상의 운동에서 시간당 30~80g을 8% 이하 용액으로 섭취한 것이고, 이 범위 밖의 섭취량에는 적용할 수 없다. 합친 효과의 95% 신뢰구간은 효과크기 기준이며 퍼센트로 바꿔 쓰지 않았다."
+            }
+          ]
+        },
+        {
+          "id": "submax_then_tt",
+          "label": "중강도 운동 뒤 기록 측정 성적",
+          "detail": "일정 강도 운동 후 기록 측정, 위약 대비",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "duration_min": [
+                  60.0,
+                  null
+                ]
+              },
+              "significant": true,
+              "effect_pct": 7.5,
+              "ci": [
+                7.5,
+                7.5
+              ],
+              "studies": 50,
+              "n": 0,
+              "source": "Temesi J, Johnson NA, Raymond J, Burdon CA, O'Connor HT (2011). Carbohydrate ingestion during endurance exercise improves performance in adults. Journal of Nutrition 141(5):890–897",
+              "url": "https://doi.org/10.3945/jn.110.137075",
+              "note": "일정한 강도의 운동을 한 뒤 기록 측정을 하는 방식에서는 평균 7.5% 좋았다(효과크기 0.53, 95% 신뢰구간 0.37~0.69). 무작위 위약 대조 교차 시험 50편을 합친 메타분석이다. 포함된 시험은 1시간 이상의 운동에서 시간당 30~80g을 8% 이하 용액으로 섭취한 것이고, 이 범위 밖의 섭취량에는 적용할 수 없다. 합친 효과의 95% 신뢰구간은 효과크기 기준이며 퍼센트로 바꿔 쓰지 않았다."
+            }
+          ]
+        },
+        {
+          "id": "time_to_exhaustion",
+          "label": "탈진까지 버틴 시간",
+          "detail": "일정 강도로 탈진할 때까지, 위약 대비",
+          "better": "higher",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "duration_min": [
+                  60.0,
+                  null
+                ]
+              },
+              "significant": true,
+              "effect_pct": 15.1,
+              "ci": [
+                15.1,
+                15.1
+              ],
+              "studies": 50,
+              "n": 0,
+              "source": "Temesi J, Johnson NA, Raymond J, Burdon CA, O'Connor HT (2011). Carbohydrate ingestion during endurance exercise improves performance in adults. Journal of Nutrition 141(5):890–897",
+              "url": "https://doi.org/10.3945/jn.110.137075",
+              "note": "탈진할 때까지 운동한 시간이 평균 15.1% 늘었다(효과크기 0.47, 95% 신뢰구간 0.32~0.62). 실제 대회 기록이 아니라 일정 강도로 버틴 시간을 잰 방식이어서 기록 단축으로 읽으면 안 된다. 무작위 위약 대조 교차 시험 50편을 합친 메타분석이다. 포함된 시험은 1시간 이상의 운동에서 시간당 30~80g을 8% 이하 용액으로 섭취한 것이고, 이 범위 밖의 섭취량에는 적용할 수 없다. 합친 효과의 95% 신뢰구간은 효과크기 기준이며 퍼센트로 바꿔 쓰지 않았다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "운동 중 탄수화물 섭취 효과 — 기록 2.0% 향상 메타분석(50편)",
+        "description": "1시간 이상 운동 중 시간당 30~80g의 탄수화물 섭취는 기록 측정 성적을 평균 2.0%, 탈진까지 버틴 시간을 15.1% 높였다는 메타분석(50편)을 근거 등급 A로 정리했습니다. 의학적 권고는 아닙니다."
+      },
+      "short_label": "탄수화물 섭취",
+      "faq": [
+        {
+          "q": "운동 중 탄수화물 섭취가 기록에 주는 영향",
+          "a": "50편을 합친 메타분석(Temesi 외, 2011)에서 1시간 이상 운동 중 시간당 30~80g의 탄수화물 섭취는 기록 측정 성적을 평균 2.0% 높였습니다(근거 A). 탈진까지 버틴 시간은 15.1% 늘었습니다."
+        },
+        {
+          "q": "이 효과는 시간당 몇 그램까지 확인됐나",
+          "a": "이 메타분석에 포함된 시험은 시간당 30~80g, 8% 이하 용액입니다. 이보다 많은 섭취량의 효과는 이 연구로 확인할 수 없습니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "heat",
+      "sport": "running",
+      "category": "environment",
+      "label": "대회 당일 기온(WBGT)",
+      "question": "대회 당일 습구흑구온도(WBGT)가 마라톤 기록에 미치는 영향",
+      "condition": "wbgt_c",
+      "condition_label": "대회 당일 WBGT (℃)",
+      "no_price": true,
+      "headline": "WBGT가 20℃를 넘는 날의 마라톤에서 상위 남자 선수는 코스 기록보다 평균 4.5% 느렸고, 5~10℃ 구간은 1.7%였다.",
+      "surprise": "미국 마라톤 7개 대회의 기록과 기상 자료를 비교한 연구에서, 상위 3위 남자 선수의 기록은 WBGT 5.1~10℃에서 코스 기록보다 평균 1.7%, 20.1~25℃에서 4.5% 느렸다. 같은 4.5%라도 엘리트 선수 기준이어서, 저자들은 25·50·100·300위 선수일수록 WBGT가 오를 때 더 많이 느려지고 기록이 느린 집단이 더 큰 영향을 받는다고 보고했다. 다만 이 집단들의 구체적 수치는 확인하지 못해 판정에 넣지 않았다.",
+      "model_note": "WBGT는 기온에 습도·복사열·바람을 반영한 지수라 일반 기온과 다르다. 이 판정의 값은 상위 3위 선수의 기록이 코스 기록보다 느렸던 평균 비율이며, 일반 참가자의 기록 저하 비율이 아니다. 여성은 구간별 차이가 통계적으로 유의하지 않았다. 관찰 자료이므로 기온 외 요인(코스, 경쟁 상황)을 배제하지 못하고, 개인의 기록 보정에 쓸 수 없다.",
+      "effects": [
+        {
+          "id": "elite_men",
+          "label": "상위 3위 남자 기록 저하",
+          "detail": "코스 기록 대비, WBGT 구간별",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  5.1,
+                  10.0
+                ]
+              },
+              "significant": true,
+              "effect_pct": 1.7,
+              "ci": [
+                1.7,
+                1.7
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 5.1~10℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 1.7%(표준편차 ±1.5%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  10.01,
+                  15.0
+                ]
+              },
+              "significant": true,
+              "effect_pct": 2.5,
+              "ci": [
+                2.5,
+                2.5
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 10.1~15℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 2.5%(표준편차 ±2.1%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  15.01,
+                  20.0
+                ]
+              },
+              "significant": true,
+              "effect_pct": 3.3,
+              "ci": [
+                3.3,
+                3.3
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 15.1~20℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.3%(표준편차 ±2.0%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  20.01,
+                  25.0
+                ]
+              },
+              "significant": true,
+              "effect_pct": 4.5,
+              "ci": [
+                4.5,
+                4.5
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 20.1~25℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 4.5%(표준편차 ±2.3%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            }
+          ]
+        },
+        {
+          "id": "elite_women",
+          "label": "상위 3위 여자 기록 저하",
+          "detail": "코스 기록 대비, WBGT 구간별 (통계적 유의성 없음)",
+          "better": "lower",
+          "direction": "worse",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  5.1,
+                  10.0
+                ]
+              },
+              "significant": false,
+              "effect_pct": 3.2,
+              "ci": [
+                3.2,
+                3.2
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 5.1~10℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.2%(표준편차 ±4.9%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  10.01,
+                  15.0
+                ]
+              },
+              "significant": false,
+              "effect_pct": 3.2,
+              "ci": [
+                3.2,
+                3.2
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 10.1~15℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.2%(표준편차 ±2.9%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  15.01,
+                  20.0
+                ]
+              },
+              "significant": false,
+              "effect_pct": 3.8,
+              "ci": [
+                3.8,
+                3.8
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 15.1~20℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 3.8%(표준편차 ±3.2%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            },
+            {
+              "grade": "C",
+              "applies": {
+                "wbgt_c": [
+                  20.01,
+                  25.0
+                ]
+              },
+              "significant": false,
+              "effect_pct": 5.4,
+              "ci": [
+                5.4,
+                5.4
+              ],
+              "studies": 7,
+              "n": 0,
+              "source": "Ely BR, Cheuvront SN, Kenefick RW, Sawka MN (2007). Impact of weather on marathon-running performance. Medicine & Science in Sports & Exercise 39(3):487–493",
+              "url": "https://doi.org/10.1249/mss.0b013e31802d3aba",
+              "note": "습구흑구온도(WBGT) 20.1~25℃ 구간 대회에서 상위 3위 이내 기록이 코스 기록보다 평균 5.4%(표준편차 ±4.1%p) 느렸다. 7개 마라톤의 관찰 자료이며 코스 기록과의 차이를 본 값이다."
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "대회 당일 기온(WBGT)과 마라톤 기록 — 7개 대회 분석",
+        "description": "WBGT 구간별로 상위 선수의 마라톤 기록이 코스 기록보다 얼마나 느렸는지(남자 1.7%→4.5%)를 Ely 외(2007) 관찰 연구로 정리했습니다. 근거 등급 C."
+      },
+      "short_label": "기온(WBGT)",
+      "faq": [
+        {
+          "q": "더운 날 마라톤 기록은 얼마나 느려지나",
+          "a": "Ely 외(2007)는 7개 마라톤을 분석해 상위 3위 남자 선수의 기록이 WBGT 5.1~10℃에서 코스 기록보다 평균 1.7%, 20.1~25℃에서 4.5% 느렸다고 보고했습니다(근거 C). 기록이 느린 집단일수록 영향이 크다고 밝혔으나 구체적 수치는 확인하지 못했습니다."
+        },
+        {
+          "q": "WBGT는 일반 기온과 무엇이 다른가",
+          "a": "기온에 습도·복사열·바람의 영향을 합친 열 스트레스 지수입니다. 같은 기온이라도 습도가 높으면 WBGT가 더 높게 나옵니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "beetroot-nitrate",
+      "sport": "running",
+      "category": "supplement",
+      "label": "비트 주스(질산염) 섭취",
+      "question": "질산염(비트 주스) 섭취가 지구력 운동 수행에 미치는 영향",
+      "condition": "vo2peak_ml_kg_min",
+      "condition_label": "최대산소섭취량 (㎖/㎏/분)",
+      "no_price": true,
+      "headline": "질산염 섭취의 효과는 작은 편이며(효과크기 0.17), 최대산소섭취량이 높은 잘 훈련된 선수에서는 유의하지 않았다.",
+      "surprise": "80편(111개 자료)을 합친 메타분석에서 질산염은 위약보다 수행을 작게 높였다(효과크기 0.174, 95% 신뢰구간 0.120–0.229). 그러나 기록 측정(타임트라이얼)만 보면 효과크기가 0.086으로 더 작았고, 최대산소섭취량 65 이상인 잘 훈련된 지구력 선수 26개 자료에서는 0.021(신뢰구간 −0.103~0.144)로 유의하지 않았다. 기록을 몇 초 줄여 준다는 환산 수치는 이 논문에서 제공되지 않았다.",
+      "model_note": "이 논문은 합산 효과를 효과크기(Cohen d)로만 보고했고 완주 시간 변화율은 제시하지 않았다. 그래서 내 기록을 몇 초 줄이는지로는 환산하지 않는다. 기록 측정 효과크기 0.086의 신뢰구간 표기가 논문 본문에서 점추정과 맞지 않아(오기로 보임) 구간은 싣지 않았다. 지속시간별 수치는 논문 그림에만 있어 확인하지 못했다. 이 판정은 의학적 권고가 아니며, 위장 반응·복용 시점·용량은 개인차가 크다.",
+      "effects": [
+        {
+          "id": "overall",
+          "label": "수행 전반(위약 대비)",
+          "detail": "질산염 섭취 vs 위약, 80편 111개 자료",
+          "better": "higher",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "vo2peak_ml_kg_min": [
+                  null,
+                  65
+                ]
+              },
+              "significant": true,
+              "effect_pct": null,
+              "studies": 80,
+              "n": 1335,
+              "source": "Senefeld JW, Wiggins CC, Regimbal RJ, Dominelli PB, Baker SE, Joyner MJ (2020). Ergogenic Effect of Nitrate Supplementation: A Systematic Review and Meta-analysis. Medicine & Science in Sports & Exercise 52(10):2250–2261",
+              "url": "https://doi.org/10.1249/MSS.0000000000002363",
+              "note": "전체 합산 효과크기 d=0.174(95% 신뢰구간 0.120–0.229), 논문은 '작은 효과'로 분류했다. 합산에는 65 이상 선수도 포함돼 있어 이 구간만의 값은 아니다. 기록 측정(타임트라이얼, 52개 자료)만의 효과크기는 0.086이다.",
+              "effect_d": 0.174,
+              "d_ci": [
+                0.12,
+                0.229
+              ]
+            },
+            {
+              "grade": "A",
+              "applies": {
+                "vo2peak_ml_kg_min": [
+                  65,
+                  null
+                ]
+              },
+              "significant": false,
+              "effect_pct": null,
+              "studies": 26,
+              "n": 0,
+              "source": "Senefeld JW, Wiggins CC, Regimbal RJ, Dominelli PB, Baker SE, Joyner MJ (2020). Ergogenic Effect of Nitrate Supplementation: A Systematic Review and Meta-analysis. Medicine & Science in Sports & Exercise 52(10):2250–2261",
+              "url": "https://doi.org/10.1249/MSS.0000000000002363",
+              "note": "최대산소섭취량 65 ㎖/㎏/분 이상인 잘 훈련된 지구력 선수 26개 자료의 효과크기는 0.021(95% 신뢰구간 −0.103~0.144, P=0.745)로 유의하지 않았다.",
+              "effect_d": 0.021,
+              "d_ci": [
+                -0.103,
+                0.144
+              ]
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "비트 주스(질산염) 효과 — 효과크기 0.17, 훈련된 선수는 유의하지 않음",
+        "description": "질산염(비트 주스) 섭취가 지구력 수행에 미치는 효과를 80편 메타분석으로 정리했습니다. 전체 효과는 작고 최대산소섭취량이 높은 선수에서는 유의하지 않았습니다. 의학적 권고는 아닙니다."
+      },
+      "short_label": "비트 주스",
+      "faq": [
+        {
+          "q": "비트 주스는 기록을 줄여 주나",
+          "a": "80편 메타분석(Senefeld 외, 2020)의 전체 효과크기는 0.174로 작은 편이고, 기록 측정만 보면 0.086입니다. 이 논문은 몇 초 단축이라는 환산 값을 제시하지 않았습니다(근거 A)."
+        },
+        {
+          "q": "잘 훈련된 선수에게도 효과가 있나",
+          "a": "최대산소섭취량 65 ㎖/㎏/분 이상인 잘 훈련된 선수 26개 자료의 효과크기는 0.021(신뢰구간 −0.103~0.144)로 유의하지 않았습니다."
+        }
+      ],
+      "updated": "2026-11-14"
+    },
+    {
+      "id": "helmet-safety",
+      "sport": "cycling",
+      "category": "helmet-safety",
+      "label": "자전거 헬멧 착용(안전)",
+      "question": "자전거 헬멧 착용이 사고 시 머리·얼굴 부상에 미치는 영향",
+      "condition": "none",
+      "condition_label": "조건 없음",
+      "no_price": true,
+      "headline": "사고가 났을 때 헬멧 착용자는 머리 부상 오즈가 51%, 중증 머리 부상은 69% 낮았고 목 부상은 차이가 없었다.",
+      "surprise": "40편을 합친 메타분석에서 헬멧 착용의 오즈비는 머리 부상 0.49(95% 신뢰구간 0.42–0.57), 중증 머리 부상 0.31(0.25–0.37), 치명적 머리 부상 0.35(0.14–0.88), 얼굴 부상 0.67(0.56–0.81)이었다. 목 부상은 0.96(0.74–1.25)으로 유의한 차이가 없었다. 치명적 머리 부상은 신뢰구간이 넓어 값이 불확실하다.",
+      "model_note": "이 자료는 기록이 아니라 사고 시 부상 오즈의 차이다. 그래서 몇 초 빨라지는지로 바꾸지 않는다. 사고가 난 사람만을 비교한 관찰 연구를 합친 값이라 헬멧이 부상을 줄였다는 인과를 증명하지는 못하며, 사고를 얼마나 막는지나 평소 사고 확률은 이 자료로 알 수 없다. 오즈비는 위험의 비율과 같지 않다. 대회 헬멧 의무 규정은 각 대회 요강을 따른다.",
+      "effects": [
+        {
+          "id": "head",
+          "label": "머리 부상",
+          "detail": "사고 시, 착용 vs 미착용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "none": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": null,
+              "significant": true,
+              "studies": 40,
+              "n": 0,
+              "source": "Olivier J, Creighton P (2017). Bicycle injuries and helmet use: a systematic review and meta-analysis. International Journal of Epidemiology 46(1):278–292",
+              "url": "https://doi.org/10.1093/ije/dyw153",
+              "note": "사고나 넘어짐을 겪은 자전거 이용자를 비교한 연구 40편(다친 사람 약 6만 4천 명)의 합산 값이다.",
+              "effect_or": 0.49,
+              "or_ci": [
+                0.42,
+                0.57
+              ]
+            }
+          ]
+        },
+        {
+          "id": "serious_head",
+          "label": "중증 머리 부상",
+          "detail": "사고 시, 착용 vs 미착용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "none": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": null,
+              "significant": true,
+              "studies": 40,
+              "n": 0,
+              "source": "Olivier J, Creighton P (2017). Bicycle injuries and helmet use: a systematic review and meta-analysis. International Journal of Epidemiology 46(1):278–292",
+              "url": "https://doi.org/10.1093/ije/dyw153",
+              "note": "사고나 넘어짐을 겪은 자전거 이용자를 비교한 연구 40편(다친 사람 약 6만 4천 명)의 합산 값이다.",
+              "effect_or": 0.31,
+              "or_ci": [
+                0.25,
+                0.37
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fatal_head",
+          "label": "치명적 머리 부상",
+          "detail": "사고 시, 착용 vs 미착용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "none": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": null,
+              "significant": true,
+              "studies": 40,
+              "n": 0,
+              "source": "Olivier J, Creighton P (2017). Bicycle injuries and helmet use: a systematic review and meta-analysis. International Journal of Epidemiology 46(1):278–292",
+              "url": "https://doi.org/10.1093/ije/dyw153",
+              "note": "사고나 넘어짐을 겪은 자전거 이용자를 비교한 연구 40편(다친 사람 약 6만 4천 명)의 합산 값이다. 신뢰구간이 넓어 불확실하다.",
+              "effect_or": 0.35,
+              "or_ci": [
+                0.14,
+                0.88
+              ]
+            }
+          ]
+        },
+        {
+          "id": "face",
+          "label": "얼굴 부상",
+          "detail": "사고 시, 착용 vs 미착용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "none": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": null,
+              "significant": true,
+              "studies": 40,
+              "n": 0,
+              "source": "Olivier J, Creighton P (2017). Bicycle injuries and helmet use: a systematic review and meta-analysis. International Journal of Epidemiology 46(1):278–292",
+              "url": "https://doi.org/10.1093/ije/dyw153",
+              "note": "사고나 넘어짐을 겪은 자전거 이용자를 비교한 연구 40편(다친 사람 약 6만 4천 명)의 합산 값이다.",
+              "effect_or": 0.67,
+              "or_ci": [
+                0.56,
+                0.81
+              ]
+            }
+          ]
+        },
+        {
+          "id": "neck",
+          "label": "목 부상",
+          "detail": "사고 시, 착용 vs 미착용",
+          "better": "lower",
+          "direction": "better",
+          "affects_time": false,
+          "evidence": [
+            {
+              "grade": "A",
+              "applies": {
+                "none": [
+                  null,
+                  null
+                ]
+              },
+              "effect_pct": null,
+              "significant": false,
+              "studies": 40,
+              "n": 0,
+              "source": "Olivier J, Creighton P (2017). Bicycle injuries and helmet use: a systematic review and meta-analysis. International Journal of Epidemiology 46(1):278–292",
+              "url": "https://doi.org/10.1093/ije/dyw153",
+              "note": "사고나 넘어짐을 겪은 자전거 이용자를 비교한 연구 40편(다친 사람 약 6만 4천 명)의 합산 값이다. 유의한 연관은 발견되지 않았다.",
+              "effect_or": 0.96,
+              "or_ci": [
+                0.74,
+                1.25
+              ]
+            }
+          ]
+        }
+      ],
+      "explainers": [
+        {
+          "h": "다른 체계적 문헌고찰",
+          "p": "Cochrane 문헌고찰(Thompson 등, 1999)은 사례-대조 연구 5편을 합쳐 헬멧이 머리·뇌·중증 뇌 손상 위험을 63~88% 줄이고, 상부·중부 얼굴 부상을 65% 줄이지만 하부 얼굴 부상은 막지 못한다고 보고했다. 자동차가 관여한 사고(69%)와 그 밖의 사고(68%)에서 보호 효과가 비슷했다. 무작위 대조 시험은 없었고 관찰 연구에 근거한다.",
+          "src": [
+            [
+              "Thompson DC, Rivara F, Thompson R. Helmets for preventing head and facial injuries in bicyclists. Cochrane Database of Systematic Reviews CD001855",
+              "https://www.cochrane.org/CD001855"
+            ]
+          ]
+        }
+      ],
+      "seo": {
+        "title": "자전거 헬멧 착용 효과 — 머리·얼굴 부상 오즈비 메타분석",
+        "description": "사고 시 헬멧 착용자의 머리 부상 오즈비 0.49, 중증 머리 부상 0.31, 얼굴 부상 0.67. 40편 메타분석과 Cochrane 문헌고찰을 근거 등급과 함께 정리했습니다."
+      },
+      "short_label": "자전거 헬멧(안전)",
+      "faq": [
+        {
+          "q": "자전거 헬멧을 쓰면 머리 부상이 얼마나 줄어드나",
+          "a": "사고가 난 사람을 비교한 40편의 합산에서 착용자의 머리 부상 오즈비는 0.49(95% 신뢰구간 0.42–0.57), 중증 머리 부상은 0.31이었습니다(Olivier & Creighton, 2017)."
+        },
+        {
+          "q": "헬멧은 목 부상도 줄이나",
+          "a": "유의한 차이가 없었습니다(오즈비 0.96, 95% 신뢰구간 0.74–1.25)."
+        },
+        {
+          "q": "이 수치가 헬멧이 사고를 막아 준다는 뜻인가",
+          "a": "아닙니다. 사고가 난 뒤의 부상 오즈를 비교한 관찰 연구여서 사고 발생 자체나 인과를 증명하지 않습니다."
+        }
+      ],
+      "updated": "2026-11-14"
     }
-   ],
-   "updated": "2026-11-14"
-  }
- ]
+  ]
 }

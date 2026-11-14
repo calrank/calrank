@@ -96,7 +96,7 @@
   }
 
   function parseTime(text) {
-    var parts = String(text).trim().split(":").map(Number);
+    var parts = String(text).trim().replace(/시간|시|분/g, ":").replace(/초/g, "").replace(/[.,;\s]+/g, ":").replace(/^:+|:+$/g, "").split(":").map(Number);
     if (parts.some(isNaN)) return null;
     if (parts.length === 2) return parts[0] * 60 + parts[1];
     if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];

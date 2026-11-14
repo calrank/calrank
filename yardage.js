@@ -12,7 +12,7 @@
     return h ? h + ":" + p(m) + ":" + p(s) : m + ":" + p(s);
   }
   function parseTime(t) {
-    var a = String(t).trim().split(":").map(Number);
+    var a = String(t).trim().replace(/시간|시|분/g, ":").replace(/초/g, "").replace(/[.,;\s]+/g, ":").replace(/^:+|:+$/g, "").split(":").map(Number);
     if (a.some(isNaN) || a.length < 2 || a.length > 3) return 0;
     return a.length === 3 ? a[0] * 3600 + a[1] * 60 + a[2] : a[0] * 60 + a[1];
   }

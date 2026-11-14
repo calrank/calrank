@@ -235,6 +235,23 @@ def claim_body(claim):
                 val = "연구 없음"
             elif ev.get("model"):
                 val = "검증된 모델로 계산"
+            elif ev.get("effect_or") is not None:
+                oci = ev.get("or_ci") or [None, None]
+                val = f"오즈비 {ev['effect_or']:.2f}"
+                if None not in oci:
+                    val += f" (95% 신뢰구간 {oci[0]:.2f} ~ {oci[1]:.2f})"
+                if ev.get("significant") is False:
+                    val += " <em>유의하지 않음</em>"
+                else:
+                    val += f" — 착용 시 부상 오즈 약 {round((1 - ev['effect_or']) * 100)}% 낮음"
+            elif ev.get("effect_d") is not None:
+                # 효과크기(Cohen d)로만 보고된 근거: 시간으로 환산하지 않는다
+                dci = ev.get("d_ci") or [None, None]
+                val = f"효과크기 d={ev['effect_d']:.3f}"
+                if None not in dci:
+                    val += f" (95% 신뢰구간 {dci[0]:.3f} ~ {dci[1]:.3f})"
+                if ev.get("significant") is False:
+                    val += " <em>유의하지 않음</em>"
             else:
                 ci = ev.get("ci") or [ev.get("effect_pct"), ev.get("effect_pct")]
                 lo2 = 0.0 if ev.get("significant") is False else ci[0]
@@ -261,6 +278,10 @@ def claim_body(claim):
         out.append(f"<h2>{esc(eff['label'])}{detail}</h2>"
                    f'<table class="gm-table"><tbody>{"".join(rows)}</tbody></table>')
 
+    for ex in claim.get("explainers", []):
+        srcs = " · ".join(f'{esc(t)} <a href="{esc(u)}" target="_blank" rel="noopener">원문 →</a>' for t, u in ex.get("src", []))
+        out.append(f'<h2>{esc(ex["h"])}</h2><p class="gm-measure">{esc(ex["p"])}</p>'
+                   + (f'<p class="gm-src"><span class="gm-note">{srcs}</span></p>' if srcs else ""))
     if claim.get("id") == "groupset-tier":
         out.append(groupset_extra())
     if claim.get("model_note"):
@@ -511,7 +532,7 @@ ITEM_EMO = {
     "carbon-plate": "running-shoe", "shoe-mass": "balance-scale",
     "utmb-jacket": "coat", "utmb-kit": "backpack", "trail-poles": "hiking-boot", "trail-pack-weight": "backpack",
     "uci-min-weight": "balance-scale", "uci-saddle-setback": "bicycle", "uci-frame-approval": "bicycle",
-    "aero-wheel": "bicycle", "tyre-rolling": "wheel", "aero-helmet": "rescue-workers-helmet",
+    "aero-wheel": "bicycle", "tyre-rolling": "wheel", "aero-helmet": "rescue-workers-helmet", "helmet-safety": "rescue-workers-helmet",
     "wt-wetsuit-thickness": "diving-mask", "wt-wetsuit-temp": "thermometer", "wt-bike-agegroup": "bicycle",
     "wetsuit": "diving-mask", "ws-wheel-diameter": "roller-skate", "inline-bearings": "roller-skate",
 }
@@ -1098,8 +1119,8 @@ def wetsuit_temp_page(rules, claims):
         f'자세히 적어 두었습니다.</p>')
 
     slug = "gear-wetsuit-by-temp.html"
-    h1 = "수온별 웻슈트 — 입어도 되나, 빨라지나"
-    title = "수온별 웻슈트 착용 기준과 효과 — 입어도 되나, 빨라지나 | 칼랭크"
+    h1 = "수온별 웻슈트 착용 기준과 기록 효과"
+    title = "수온별 웻슈트 착용 기준과 기록 효과 | 칼랭크"
     desc = ("수온별로 웻슈트가 금지·선택·의무 중 무엇인지 참가 구분까지 나눠 정리하고, "
             "실제 대회 기록에서 웻슈트가 얼마나 빨랐는지 함께 봅니다.")[:155]
     return slug, PAGE.format(
@@ -1107,7 +1128,7 @@ def wetsuit_temp_page(rules, claims):
         jsonld=jsonld_for({"question": "이 수온에서 웻슈트를 입어도 되나?",
                            "headline": desc}, slug, h1, desc, "철인3종"),
         nav=nav_html(active_for("gear.html")), sport="철인3종",
-        h1=esc(h1), question=esc("내 대회 수온에서는 어떻게 되나?"),
+        h1=esc(h1), question=esc("대회 수온별 착용 가능 여부와 기록 효과 — 연맹 규정과 연구 결과"),
         body=body + pair_html("wetsuit-by-temp"), related="", bodyattr="")
 
 

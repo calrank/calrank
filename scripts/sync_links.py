@@ -33,7 +33,10 @@ GROUPS = [
     ("거리-트레일", "다른 거리의 트레일러닝 대회", ["landing-dist-trail-*.html"], 3),
     ("기어-헬멧휠타이어", "함께 보는 기어 판정",
      ["gear-aero-helmet*.html", "gear-aero-wheel*.html", "gear-tyre-rolling*.html", "gear-drafting.html",
-      "gear-aero-position.html", "gear-aero-clothing.html"], 4),
+      "gear-aero-position.html", "gear-aero-clothing.html", "gear-helmet-safety.html"], 4),
+    ("기어-러닝·보급", "함께 보는 기어 판정",
+     ["gear-carbon-plate.html", "gear-shoe-mass.html", "gear-caffeine.html", "gear-carb-intake.html",
+      "gear-beetroot-nitrate.html", "gear-heat.html"], 3),
     ("기어-인라인", "함께 보는 기어 판정", ["gear-inline-bearings.html", "gear-ws-wheel-diameter.html", "gear-shoe-rotation.html"], 2),
     ("도구", "함께 쓰는 도구",
      ["age-curve.html", "zone2-heart-rate-calculator.html", "goals.html", "ledger.html", "standards-running.html",
@@ -68,6 +71,14 @@ def expand(patterns):
 def main(check: bool) -> int:
     pages = {p.name: read(p) for p in ROOT.glob("*.html")}
     changed = {}
+    # 한 페이지가 두 묶음에 들어 있으면 같은 자리를 서로 덮어써서 실행할 때마다 결과가 뒤집힌다.
+    owner = {}
+    for gname, _h, pats, _n in GROUPS:
+        for n in expand(pats):
+            if n in owner and owner[n] != gname:
+                print(f"링크 묶음 오류: {n} 가 '{owner[n]}' 와 '{gname}' 두 묶음에 들어 있습니다. 한 곳에만 두세요.")
+                return 1
+            owner[n] = gname
     for gname, heading, pats, n_per in GROUPS:
         members = [n for n in expand(pats) if n in pages and indexable(pages[n])]
         if len(members) < 2:

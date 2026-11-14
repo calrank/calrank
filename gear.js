@@ -70,7 +70,7 @@
     return sec < 10 ? (Math.round(sec * 10) / 10).toFixed(1) + "초" : minSec(sec);
   }
   function parseTime(text) {
-    var p = String(text || "").trim().split(":").map(Number);
+    var p = String(text || "").trim().replace(/시간|시|분/g, ":").replace(/초/g, "").replace(/[.,;\s]+/g, ":").replace(/^:+|:+$/g, "").split(":").map(Number);
     if (!p.length || p.some(function (n) { return !isFinite(n) || n < 0; })) return 0;
     if (p.length === 3) return p[0] * 3600 + p[1] * 60 + p[2];
     if (p.length === 2) return p[0] * 60 + p[1];
@@ -409,6 +409,37 @@
         '<p class="ge-gap">' + esc(e.evidence.note || "") + "</p>" +
         (hasStaticBody() ? "" : evidenceCard(e.evidence)) + "</section>";
     }
+    // 오즈비(OR)로 보고된 근거(안전 장비): 기록으로 바꾸지 않고 부상 오즈의 차이로 보여 준다.
+    if (e.evidence && e.evidence.effect_or != null) {
+      var oc = e.evidence.or_ci, ons = e.evidence.significant === false, orv = e.evidence.effect_or;
+      return '<section class="ge-eff"><h3>' + esc(e.label) +
+        (e.detail ? ' <span class="ge-detail">' + esc(e.detail) + "</span>" : "") + "</h3>" +
+        '<p class="ge-big"><strong>오즈비 ' + orv.toFixed(2) + "</strong>" +
+        (oc && oc.length === 2 ? " (95% 신뢰구간 " + oc[0].toFixed(2) + " ~ " + oc[1].toFixed(2) + ")" : "") +
+        (ons ? ' <em class="ge-ns">통계적으로 유의하지 않음 — 차이가 없을 가능성을 배제하지 못합니다</em>'
+             : " — 착용하면 부상 오즈가 약 " + Math.round((1 - orv) * 100) + "% 낮았습니다") + "</p>" +
+        '<p class="ge-note">오즈비는 위험(확률)의 비율과 다릅니다. 사고가 난 사람을 비교한 관찰 연구의 합산 값입니다.</p>' +
+        (hasStaticBody()
+          ? '<p class="ge-mini-src"><span class="ge-grade ge-' + esc(e.evidence.grade) +
+            '">근거 ' + esc(e.evidence.grade) + "</span> 자세한 근거와 출처는 아래에 적어 두었습니다.</p>"
+          : evidenceCard(e.evidence)) +
+        "</section>";
+    }
+    // 효과크기(Cohen d)로만 보고된 근거: %나 초로 바꾸지 않고 보고된 값 그대로 보여 준다.
+    if (e.evidence && e.evidence.effect_d != null) {
+      var dns = e.evidence.significant === false, dci = e.evidence.d_ci;
+      return '<section class="ge-eff"><h3>' + esc(e.label) +
+        (e.detail ? ' <span class="ge-detail">' + esc(e.detail) + "</span>" : "") + "</h3>" +
+        '<p class="ge-big"><strong>효과크기 d=' + e.evidence.effect_d.toFixed(3) + "</strong>" +
+        (dci && dci.length === 2 ? " (95% 신뢰구간 " + dci[0].toFixed(3) + " ~ " + dci[1].toFixed(3) + ")" : "") +
+        (dns ? ' <em class="ge-ns">통계적으로 유의하지 않음 — 효과가 없을 가능성을 배제하지 못합니다</em>' : "") + "</p>" +
+        '<p class="ge-note">이 근거는 효과크기로만 보고돼 있어 내 기록을 몇 초 줄이는지로는 바꾸지 않았습니다.</p>' +
+        (hasStaticBody()
+          ? '<p class="ge-mini-src"><span class="ge-grade ge-' + esc(e.evidence.grade) +
+            '">근거 ' + esc(e.evidence.grade) + "</span> 자세한 근거와 출처는 아래에 적어 두었습니다.</p>"
+          : evidenceCard(e.evidence)) +
+        "</section>";
+    }
     var r = e.range, ns = e.evidence.significant === false;
     var dirWord = e.verb || (e.direction === "worse" ? "나빠집니다" : "좋아집니다");
     var headline = ns ? "0 ~ " + r.hi.toFixed(1) + "%"
@@ -506,7 +537,10 @@
     }
 
     if (CLAIM.condition === "speed_kmh" || CLAIM.condition === "duration_min") {
-      if (!sec) { out.innerHTML = '<p class="gr-hint">완주 기록을 넣으면 판정이 나옵니다.</p>'; return; }
+      if (!sec) {
+        var typed = $("geTime") && $("geTime").value.trim();
+        out.innerHTML = '<p class="gr-hint">' + (typed ? "기록은 59:00 또는 1:02:30 처럼 시:분:초 형식으로 넣어 주세요." : "완주 기록을 넣으면 판정이 나옵니다.") + "</p>"; return;
+      }
       input.finishSec = sec; input.distanceKm = km;
     } else {
       input[CLAIM.condition] = parseFloat($("geCond") && $("geCond").value);
