@@ -4,9 +4,18 @@
   <link>https://calrank.vercel.app/index.html</link>
   <description>마라톤·자전거·트레일러닝·철인3종·인라인 대회 일정과 새 칼럼을 알려드립니다.</description>
   <language>ko</language>
-  <lastBuildDate>Thu, 12 Nov 2026 02:07:08 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 13 Nov 2026 15:47:33 +0900</lastBuildDate>
   <atom:link href="https://calrank.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
   <generator>calrank</generator>
+  <item>
+    <title>달리기를 하면 무릎 연골이 닳을까? 임상·코호트 연구로 확인한 허와 실 — calrank</title>
+    <link>https://calrank.vercel.app/column-running-knee-cartilage-evidence.html</link>
+    <guid isPermaLink="true">https://calrank.vercel.app/column-running-knee-cartilage-evidence.html</guid>
+    <pubDate>Fri, 13 Nov 2026 15:47:33 +0900</pubDate>
+    <author>calrank</author>
+    <category>칼럼</category>
+    <description>달리기와 무릎 관절염, 이미 무릎이 아픈 사람의 달리기, 당뇨·사망률·노년 장애까지 메타분석과 장기 추적 연구 14편의 수치로 따져 봤습니다. 진짜 주의할 점도 함께 적었습니다.</description>
+  </item>
   <item>
     <title>2026 한강짐런 (2026 HANGANG GYMRUN) — 2026.11.21 서울 대회 일정·접수 | calrank</title>
     <link>https://calrank.vercel.app/e/rw-2026-%ED%95%9C%EA%B0%95%EC%A7%90%EB%9F%B0-2026-hangang-gymrun-2026-11-21.html</link>
@@ -393,15 +402,6 @@
     <author>calrank</author>
     <category>대회 가이드</category>
     <description>산에서는 급수대가 촘촘하지 않습니다. 시간당 필요한 탄수화물과 물을 보급소 간격에 맞춰 계산하는 법, 그리고 더운 날 기준까지 정리했습니다.</description>
-  </item>
-  <item>
-    <title>트레일러닝 필수장비: 왜 그렇게 많이 챙기라고 하는지</title>
-    <link>https://calrank.vercel.app/guide-trail-gear.html</link>
-    <guid isPermaLink="true">https://calrank.vercel.app/guide-trail-gear.html</guid>
-    <pubDate>Mon, 19 Oct 2026 16:18:53 +0900</pubDate>
-    <author>calrank</author>
-    <category>대회 가이드</category>
-    <description>조끼, 물, 헤드램프, 보온의류, 응급키트. 귀찮아 보이는 필수장비 목록이 사실은 저체온증 대비라는 걸 알면 빼먹지 않게 됩니다.</description>
   </item>
   <item>
     <title>2026 착한서구 공부방 기부앤런 — 2026.11.28 광주 대회 일정·접수 | calrank</title>
