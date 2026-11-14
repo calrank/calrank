@@ -607,7 +607,9 @@ def build_hub(rules, claims):
         '<a class="gh-item" href="standards-running.html"><b>러닝화 규칙 기준</b>'
         '<span class="gh-q">세계육상 신발 규정 (도로 40mm, 플레이트 1개)</span></a>'
         '<a class="gh-item" href="standards-cycling.html"><b>사이클 규칙 기준</b>'
-        '<span class="gh-q">UCI 장비 규정 (최소 6.8kg, 안장 후방 5cm)</span></a></div></div></section>']
+        '<span class="gh-q">UCI 장비 규정 (최소 6.8kg, 안장 후방 5cm)</span></a>'
+        '<a class="gh-item" href="gear-no-effect.html"><b>효과가 확인되지 않은 기어</b>'
+        '<span class="gh-q">연구했지만 차이가 없었던 항목과 연구를 찾지 못한 항목</span></a></div></div></section>']
     for sp in claims.get("sports", []):
         sid = sp["id"]
         rs = [r for r in rules.get("rules", []) if r.get("sport") == sid]
@@ -1228,6 +1230,74 @@ def update_sitemap(slugs):
     return n
 
 
+NO_EFFECT_FOUND = [  # (claim id, effect id 일부, evidence 인덱스, 한 줄 결과)
+    ("beetroot-nitrate", "overall", 1, "잘 훈련된 선수(최대산소섭취량 65 이상)에서 비트 주스(질산염)의 효과크기 d=0.021(95% 신뢰구간 −0.103~0.144)로 유의하지 않았다."),
+    ("helmet-safety", "neck", 0, "자전거 헬멧 착용과 목 부상은 오즈비 0.96(95% 신뢰구간 0.74~1.25)으로 유의한 연관이 없었다."),
+    ("aero-helmet", "vent_taping", 0, "에어로 헬멧의 통풍구를 테이프로 막은 변화는 약 0.25%로 유의하지 않았다."),
+]
+NO_EFFECT_MISSING = [  # (claim id, effect id)
+    ("inline-bearings", "speed_effect"),
+    ("groupset-tier", "tier_efficiency"),
+    ("groupset-tier", "shift_durability"),
+]
+
+
+def no_effect_page(claims):
+    def pick(cid, eid):
+        c = findc(claims, cid)
+        if not c:
+            return None, None
+        for e in c["effects"]:
+            if e["id"] == eid:
+                return c, e
+        return c, None
+
+    found, missing = "", ""
+    for cid, eid, i, line in NO_EFFECT_FOUND:
+        c, e = pick(cid, eid)
+        if not e:
+            continue
+        ev = e["evidence"][i]
+        found += (f'<li><b><a href="{esc(slug_for("claim", cid))}">{esc(c["label"])}</a></b> '
+                  f'<span class="ge-grade ge-{esc(ev["grade"])}">근거 {esc(ev["grade"])}</span> '
+                  f'{esc(line)}<span class="gm-note">{esc(ev["source"])}'
+                  + (f' <a href="{esc(ev["url"])}" target="_blank" rel="noopener">원문 →</a>' if ev.get("url") else "")
+                  + "</span></li>")
+    for cid, eid in NO_EFFECT_MISSING:
+        c, e = pick(cid, eid)
+        if not e:
+            continue
+        ev = e["evidence"][0]
+        missing += (f'<li><b><a href="{esc(slug_for("claim", cid))}">{esc(e["label"])}</a></b> '
+                    f'<span class="gm-note">{esc(c["label"])} · {esc(e.get("detail") or "")} — '
+                    f'{esc(ev.get("note") or ev["source"])}</span></li>')
+    if not found or not missing:
+        return None
+    body = (
+        '<p class="gm-surprise">기어 판정에는 효과가 큰 항목만 있는 것이 아닙니다. 연구했는데 차이가 확인되지 않은 항목과, '
+        '연구 자체를 찾지 못한 항목을 나눠 적었습니다. 두 가지는 뜻이 다릅니다.</p>'
+        '<h2>연구했지만 뚜렷한 차이가 확인되지 않은 것</h2>'
+        f'<ul class="gm-list">{found}</ul>'
+        '<p class="gm-measure">유의하지 않다는 것은 효과가 없다고 증명했다는 뜻이 아닙니다. 표본이 작거나 구간이 넓어서 '
+        '차이를 가려내지 못했을 수 있어, 위 항목마다 신뢰구간을 함께 적었습니다.</p>'
+        '<h2>연구 자체를 찾지 못한 것</h2>'
+        f'<ul class="gm-list">{missing}</ul>'
+        '<p class="gm-measure">이 항목은 효과가 없다는 뜻이 아니라 동료심사 문헌에서 측정한 연구를 찾지 못했다는 뜻입니다. '
+        '숫자를 지어내지 않고 비워 둡니다. 새 연구가 확인되면 근거 등급과 함께 채웁니다.</p>')
+    slug = "gear-no-effect.html"
+    h1 = "효과가 확인되지 않은 기어"
+    title = "효과가 확인되지 않은 기어 — 연구 결과와 근거 없음 목록 | 칼랭크"
+    desc = ("비트 주스, 헬멧과 목 부상, 통풍구 테이프처럼 연구했지만 차이가 확인되지 않은 항목과 "
+            "연구를 찾지 못한 항목을 근거 등급과 함께 정리했습니다.")[:155]
+    page = PAGE.format(
+        title=esc(title), desc=esc(desc), base=BASE, slug=slug,
+        jsonld=jsonld_for({"question": h1, "headline": desc}, slug, h1, desc, ""),
+        nav=nav_html(active_for("gear.html")), sport="",
+        h1=esc(h1), question=esc("연구했는데 차이가 없었던 것과, 연구가 없는 것"),
+        body=body, related="", bodyattr="")
+    return slug, page.replace('기어 판정</a> · </nav>', '기어 판정</a></nav>')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -1249,7 +1319,7 @@ def main():
                         tidx.get(it["id"]) if kind == "claim" else None)
              for kind, it in items]
     pages += build_tables(claims, bodies)
-    for fn in (lambda: wetsuit_temp_page(rules, claims), lambda: pole_gradient_page(claims)):
+    for fn in (lambda: wetsuit_temp_page(rules, claims), lambda: pole_gradient_page(claims), lambda: no_effect_page(claims)):
         r = fn()
         if r:
             pages.append(r)

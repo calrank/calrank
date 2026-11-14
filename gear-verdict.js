@@ -124,6 +124,54 @@
     return out.join("");
   }
 
+  // 내 장비 서랍(calrank-local.js)과 같은 값을 쓴다. 대회 페이지는 파일을 따로 싣지 않아서 필요할 때 불러온다.
+  var LOCAL = null;
+  function loadLocal() {
+    if (g.CalrankLocal) return Promise.resolve(g.CalrankLocal);
+    if (LOCAL) return LOCAL;
+    LOCAL = new Promise(function (resolve) {
+      var sc = document.createElement("script");
+      sc.src = "calrank-local.js";
+      sc.onload = function () { resolve(g.CalrankLocal || null); };
+      sc.onerror = function () { resolve(null); };
+      document.head.appendChild(sc);
+    });
+    return LOCAL;
+  }
+
+  // 대회 기준으로 보는 첫 줄(로드·UCI 최소 무게)만 판정한다. 나머지 구분은 판정 페이지에서 본다.
+  function mineBlock(ruleId) {
+    var r = find(ruleId), L = g.CalrankLocal;
+    if (!r || !r.check || !L || !(r.limits || []).length) return "";
+    var saved = L.kit()[ruleId];
+    return '<div class="gv-mine" data-rule="' + esc(ruleId) + '"><label>내 ' + esc(r.check.label) + " (" + esc(r.check.unit) + ")" +
+      '<input type="number" inputmode="decimal" step="' + esc(r.check.step || "any") + '" placeholder="' + esc(r.check.placeholder || "") +
+      '" value="' + (saved != null ? esc(saved) : "") + '"></label>' +
+      '<p class="gv-out" aria-live="polite"></p>' +
+      '<p class="gv-small">내 장비 서랍과 같은 값을 씁니다. 이 기기에만 저장됩니다.</p></div>';
+  }
+  function paintMine(box) {
+    var id = box.getAttribute("data-rule"), r = find(id), out = box.querySelector(".gv-out");
+    var v = parseFloat(box.querySelector("input").value);
+    if (!r || isNaN(v) || !g.calrankRules) { out.textContent = ""; return; }
+    var first = Object.assign({}, r, { limits: [r.limits[0]] });
+    var res = g.calrankRules.judge({ rule: first, value: v });
+    var x = res && res.results && res.results[0] && res.results[0].result;
+    if (!x) { out.textContent = ""; return; }
+    var m = x.margin != null ? " (" + (x.margin >= 0 ? "여유 " : "초과 ") + Math.abs(Math.round(x.margin * 100) / 100) + res.unit + ")" : "";
+    out.textContent = (x.verdict === "pass" ? "연맹 기준 통과" : x.verdict === "fail" ? "연맹 기준 밖" : "확인이 필요합니다") + m;
+  }
+  function wireMine() {
+    [].forEach.call(document.querySelectorAll(".gv-mine"), function (box) {
+      paintMine(box);
+      box.querySelector("input").addEventListener("input", function () {
+        var v = parseFloat(this.value);
+        g.CalrankLocal.setKit(box.getAttribute("data-rule"), isNaN(v) ? null : v);
+        paintMine(box);
+      });
+    });
+  }
+
   function row(title, bodyHtml, linkHref, linkLabel) {
     return '<div class="gv-row"><h3 class="gv-h">' + esc(title) + "</h3>" + bodyHtml +
       (linkHref ? '<p class="gv-link"><a href="' + esc(linkHref) + '">' + esc(linkLabel) + "</a></p>" : "") + "</div>";
@@ -142,7 +190,7 @@
         var road = (r.limits || [])[0];
         s.push(row("신발 밑창 두께",
           "<p>World Athletics 기준으로 로드 신발의 밑창 두께 상한은 <b>" + esc(road.max) + "mm</b>입니다. " +
-          "이 기준은 연맹 공인 경기 규정입니다. 이 대회 일반 부문에도 같은 제한이 있는지는 요강에서 확인하세요.</p>",
+          "이 기준은 연맹 공인 경기 규정입니다. 이 대회 일반 부문에도 같은 제한이 있는지는 요강에서 확인하세요.</p>" + mineBlock("wa-stack-height"),
           "gear-wa-stack-height.html", "내 신발 두께 판정하기"));
       }
       s.push(row("카본화를 신을까",
@@ -180,7 +228,7 @@
       if (r) {
         var lim = (r.limits || [])[0] || {};
         s.push(row("자전거 무게 기준",
-          "<p>UCI 기준 최소 무게는 <b>" + esc(lim.min) + "kg</b>입니다. UCI 공인 경기에 적용되는 기준이라, 이 대회에 해당하는지는 요강에서 확인하세요.</p>",
+          "<p>UCI 기준 최소 무게는 <b>" + esc(lim.min) + "kg</b>입니다. UCI 공인 경기에 적용되는 기준이라, 이 대회에 해당하는지는 요강에서 확인하세요.</p>" + mineBlock("uci-min-weight"),
           "gear-uci-min-weight.html", "내 자전거 무게 판정하기"));
       }
       s.push(row("타이어와 휠",
@@ -236,7 +284,7 @@
     if (!box || !ev || !ev.sport || !ev.date) return;
     var d = dday(ev.date);
     if (d < 0) return;
-    Promise.all([loadRules(), getForecast(ev, d), ev.sport === "triathlon" ? getSea(ev, d) : Promise.resolve(null), ev.sport === "triathlon" ? loadDq() : Promise.resolve(null)])
+    Promise.all([loadRules(), getForecast(ev, d), ev.sport === "triathlon" ? getSea(ev, d) : Promise.resolve(null), ev.sport === "triathlon" ? loadDq() : Promise.resolve(null), loadLocal()])
       .then(function (res) {
         var f = res[1], sea = res[2];
         var list = sections(ev, f, sea);
@@ -247,6 +295,7 @@
           list.join("") +
           '<p class="gv-foot">규정은 연맹 문서 기준이며, 주최측이 따로 정한 규정이 있으면 그쪽이 우선합니다. 예보는 바뀔 수 있습니다. <a href="kit.html">내 장비 서랍에 저장해 두고 한 번에 보기</a></p></section>';
         wireWetsuit();
+        wireMine();
         wireChecks(ev);
       }).catch(function () {});
   }

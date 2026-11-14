@@ -270,3 +270,8 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .tr-prog-bar { height: 10px; border-radius: 999px; background: var(--line); overflow: hidden; margin: 0 0 10px; }
 .tr-prog-bar i { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
 .cv-scroll { overflow-x: auto; }
+
+.gv-mine { display: grid; gap: 4px; margin: 8px 0 4px; }
+.gv-mine label { display: grid; gap: 4px; font-size: 13px; color: var(--ink-faint); }
+.gv-mine input { min-height: 40px; padding: 8px 10px; border-radius: 8px; font-size: 15px; max-width: 200px;
+  background: var(--tint-1); border: 1px solid var(--line); color: var(--ink); }
