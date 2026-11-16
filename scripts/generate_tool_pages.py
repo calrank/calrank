@@ -683,9 +683,9 @@ for _lv in (1, 2, 3):
 
 def map_block(data, legend=""):
     j = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-    return ('<section class="tp-sec"><h2 class="tp-h2">지도</h2>'
-            '<p class="tp-small">버튼을 누르면 OpenStreetMap 지도를 불러옵니다. 누르기 전에는 지도 서버로 아무것도 보내지 않습니다.</p>'
-            '<p><button type="button" class="tp-btn ghost" id="mapBtn">지도 보기</button></p>'
+    return ('<section class="tp-sec"><h2 class="tp-h2">트레일루트 맵</h2>'
+            '<p class="tp-small">칼랭크 트레일루트 맵은 전체화면, 내 위치(GPS), 북쪽 표시를 지원하고, 코스 몇 km 지점인지와 다음 오르막까지의 거리, 일몰 시각과 비교한 도착 예상 시각을 보여 줍니다. 버튼을 누르면 OpenStreetMap 지도를 불러오며, 누르기 전에는 지도 서버로 아무것도 보내지 않습니다. 내 위치는 이 기기 안에서만 쓰입니다.</p>'
+            '<p><button type="button" class="tp-btn ghost" id="mapBtn">트레일루트 맵 열기</button></p>'
             f'<div id="mapBox" class="rm-box" hidden></div>{legend}'
             f'<script type="application/json" id="mapData">{j}</script></section>')
 
@@ -786,6 +786,21 @@ def course_fuel_html(c, hours):
             f'<p class="tp-p">{esc(body)}{esc(water_txt)}</p>'
             '<p class="tp-small">소요시간은 두루누비 표기 시간(없으면 고도 단면으로 가늠한 걷는 시간)입니다. 이 권고는 지구력 운동 기준이라 천천히 걷는 낮은 강도에서는 낮춰도 된다고 하며(Jeukendrup 2014), 개인에 맞춰 조정하는 것을 전제로 합니다. 의학적 조언이 아닙니다. '
             'Burke 외(2011, J Sports Sci 29 Suppl 1:S17-27, 국제올림픽위원회 합의문)와 Jeukendrup(2014, Sports Med 44 Suppl 1:S25-33)을 바탕으로 했습니다.</p></section>')
+
+
+def data_status_html(c):
+    """코스 자료 확인 상태. 무엇을 어디서 가져왔고 무엇은 아직 확인하지 못했는지 그대로 적는다."""
+    src = c.get("source") or {}; q = c.get("quality") or {}; tech = c.get("technical") or {}; off = c.get("official") or {}
+    n_ok = sum(1 for pc in (c.get("checks") or {}).values() for it in (pc or {}).values() if isinstance(it, dict) and it.get("status") == "확인")
+    li = [f'<li><b>경로·고도</b> {esc(src.get("label", "출처 미표기"))}{(" · 자료 받은 날 " + esc(src["fetched"])) if src.get("fetched") else ""} <span class="cp-v">출처 확인</span></li>']
+    if q.get("distRatio"):
+        li.append(f'<li><b>거리 일치</b> 경로 좌표로 잰 거리가 공식 {off.get("km", "")}km의 {q["distRatio"] * 100:.0f}%입니다. <span class="cp-v">직접 계산</span></li>' if off.get("km") else "")
+    if q.get("rawGainM") and q.get("smoothGainM"):
+        li.append(f'<li><b>오르막 보정</b> 원본 고도를 그대로 더하면 {q["rawGainM"]:.0f}m, 약 100m 구간으로 다듬으면 {q["smoothGainM"]:.0f}m입니다. 다듬은 값을 씁니다.</li>')
+    li.append(f'<li><b>노면·기술 난이도</b> {"평가함" if tech.get("level") else "아직 평가하지 않음"}</li>')
+    li.append(f'<li class="cp-un"><b>현장 확인(출발·중간·도착 시설)</b> {"%d개 항목 확인" % n_ok if n_ok else "아직 확인하지 못함"}</li>')
+    return ('<section class="tp-sec"><h2 class="tp-h2">자료 확인 상태</h2><ul class="cp-list">' + "".join(x for x in li if x) +
+            '</ul><p class="tp-small">확인하지 못한 항목은 비워 두지 않고 그대로 적습니다. 지도 앱의 이용자 업로드 경로와 달리 출처와 확인 여부를 코스마다 밝힙니다.</p></section>')
 
 
 def course_page(c):
@@ -946,6 +961,7 @@ def course_page(c):
 {dg_html}
 <section class="tp-sec">{profile_svg(prof)}
 <table class="cv-table"><tbody>{stat_html}</tbody></table>{qual}</section>
+{data_status_html(c)}
 {notable}
 {course_gear_html(c, km)}
 {course_fuel_html(c, _fuel_h)}
@@ -1245,6 +1261,7 @@ def hub_page():
                  '<p class="tp-small">여기 실린 코스의 중앙값입니다. 난이도 숫자가 클수록 1km당 오르막이 많은 경향이 있습니다.</p></section>')
     body = f"""<section class="tp-sec"><p class="tp-p">걷는 길마다 거리, 누적 오르막, 경사 색 단면도를 한 장에 모았습니다. 경로 파일의 고도로 계산했고, 흔들린 GPS 고도는 약 100m 구간으로 다듬었습니다. 지금 {len(COURSES)}개 코스가 있습니다.</p>
 {('<p class="tp-small">산 코스는 <a href="mountains.html">산별 등산로</a>에서 볼 수 있습니다. 코스마다 붙는 칼랭크 난이도는 <a href="dg-method.html">어떻게 계산하는지</a> 근거와 함께 적어 두었습니다.</p>' if MOUNTAINS else "")}
+<p class="tp-small"><strong>트레일루트 맵</strong>은 코스 페이지의 지도입니다. 전체화면에서 GPS로 내 위치를 잡으면 코스 몇 km 지점인지, 다음 오르막이 얼마나 남았는지, 일몰 전에 도착할 수 있는지를 알려 줍니다. 근거는 <a href="column-trail-slope-energy-cost-minetti.html">경사별 에너지 비용 연구</a>와 <a href="column-trail-mountain-accident-lost-position.html">소방청 산악사고 통계</a>에 적었습니다.</p>
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있습니다. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있습니다. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <div class="mn-import"><span class="mn-import-t">다른 기기에서 저장한 백업이 있으면 불러올 수 있습니다.</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
@@ -1254,7 +1271,8 @@ def hub_page():
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
 {secs}
 <p class="tp-src">자료: 한국관광공사 두루누비 코스 정보(공공데이터포털 오픈 API), 한국등산트레킹지원센터 오감만족 숲길·국가숲길 코스(공공데이터포털 파일데이터, 둘 다 이용허락범위 제한 없음). 계산과 표시는 칼랭크가 했습니다.</p>"""
-    faq = [("거리가 같아도 힘든 정도가 왜 다른가요?", "오르막이 많으면 같은 거리도 더 힘듭니다. 그래서 거리와 함께 누적 오르막, 가파른 구간 길이를 같이 보여 드립니다."),
+    faq = [("칼랭크 트레일루트 맵은 무엇인가요?", "코스 페이지에서 여는 지도입니다. 전체화면, GPS 내 위치, 북쪽 표시에 더해 코스 위 지점, 다음 오르막까지의 거리, 일몰과 비교한 도착 예상 시각, 코스 이탈 경고를 보여 줍니다. 위치는 이 기기 안에서만 쓰이고 서버로 보내지 않습니다."),
+           ("거리가 같아도 힘든 정도가 왜 다른가요?", "오르막이 많으면 같은 거리도 더 힘듭니다. 그래서 거리와 함께 누적 오르막, 가파른 구간 길이를 같이 보여 드립니다."),
            ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
     return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
         f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있습니다.",

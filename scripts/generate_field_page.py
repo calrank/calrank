@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 kit = (ROOT / "kit.html").read_text(encoding="utf-8")
 
-TITLE = "코스 현장 보기 — 달리는 중 지금 오르막인지 내리막인지 한눈에 | 칼랭크 CALRANK"
+TITLE = "코스 현장 보기(트레일루트 맵) — 달리는 중 지금 오르막인지 내리막인지 한눈에 | 칼랭크 CALRANK"
 DESC = ("트레일·둘레길 코스에서 지금 평지, 오르막, 내리막 중 어디인지와 다음 지형 변화까지 남은 거리를 큰 글씨로 보여 줍니다. "
         "GPS로 코스 위 내 위치를 확인하고, 계산은 내 기기 안에서만 합니다.")
 URL = "https://calrank.kr/field.html"

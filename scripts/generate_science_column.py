@@ -50,6 +50,14 @@ def render_refs(ref_ids, refs):
         r = refs.get(rid)
         if not r:
             continue
+        if r.get("url"):
+            items.append(
+                f'<li id="ref{i}"><span class="ref-n">[{i}]</span> '
+                f'{esc(r["authors"])} ({esc(r["year"])}). {esc(r["title"])} '
+                f'<em>{esc(r["journal"])}</em>. '
+                f'<a href="{esc(r["url"])}" target="_blank" rel="noopener nofollow">원문 보기</a></li>'
+            )
+            continue
         items.append(
             f'<li id="ref{i}"><span class="ref-n">[{i}]</span> '
             f'{esc(r["authors"])} ({esc(r["year"])}). {esc(r["title"])} '
@@ -61,7 +69,7 @@ def render_refs(ref_ids, refs):
         return ""
     return (
         '<h2 id="refs">참고문헌</h2>\n'
-        '<p class="ref-note">아래 논문은 모두 PubMed 에서 원문 정보를 확인할 수 있습니다. '
+        '<p class="ref-note">아래 자료는 모두 원문 정보를 직접 확인할 수 있습니다. '
         '번호를 본문의 <sup>[n]</sup> 표시와 맞춰 두었습니다.</p>\n'
         '<ol class="ref-list">\n' + "\n".join(items) + "\n</ol>"
     )

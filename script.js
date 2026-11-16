@@ -596,6 +596,10 @@ function renderMap(filteredEvents) {
       maxZoom: 18,
     }).addTo(mapInstance);
     mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+    // 전체화면·내 위치(GPS)·방위 — 내 주변 대회를 찾을 때 쓴다
+    const attachTools = () => window.CalrankMapTools && window.CalrankMapTools.attach(L, mapInstance, { wrap: mapDiv, all: [] });
+    if (window.CalrankMapTools) attachTools();
+    else { const t = document.createElement("script"); t.src = "/map-tools.js"; t.onload = attachTools; document.head.appendChild(t); }
   }
 
   mapMarkersLayer.clearLayers();
@@ -609,7 +613,7 @@ function renderMap(filteredEvents) {
       weight: 2,
     });
     marker.bindTooltip(ev.name, { direction: "top" });
-    marker.on("click", () => openDetail(ev.id));
+    marker.on("click", () => { if (window.CalrankMapTools) window.CalrankMapTools.exitFull(); openDetail(ev.id); });
     marker.addTo(mapMarkersLayer);
   });
 

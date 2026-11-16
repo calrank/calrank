@@ -12,7 +12,7 @@
     if (window.L) return cb();
     var css = document.createElement("link"); css.rel = "stylesheet"; css.href = BASE + "leaflet.css"; document.head.appendChild(css);
     var s = document.createElement("script"); s.src = BASE + "leaflet.js"; s.onload = cb;
-    s.onerror = function () { btn.disabled = false; btn.textContent = "지도를 불러오지 못했어요. 다시 눌러 보세요"; };
+    s.onerror = function () { btn.disabled = false; btn.textContent = "트레일루트 맵을 불러오지 못했어요. 다시 눌러 보세요"; };
     document.head.appendChild(s);
   }
   function draw() {
@@ -31,9 +31,17 @@
     }
     if (all.length) map.fitBounds(L.latLngBounds(all), { padding: [16, 16] });
     setTimeout(function () { map.invalidateSize(); }, 50);
+    controls(L, map, all);
+  }
+
+  // 전체화면·내 위치(GPS)·방위는 map-tools.js 가 붙인다(메인 대회 지도와 같은 코드).
+  function controls(L, map, all) {
+    function go() { if (window.CalrankMapTools) window.CalrankMapTools.attach(L, map, { wrap: box, all: all }); }
+    if (window.CalrankMapTools) return go();
+    var t = document.createElement("script"); t.src = "/map-tools.js"; t.onload = go; document.head.appendChild(t);
   }
   btn.addEventListener("click", function () {
-    btn.disabled = true; btn.textContent = "지도를 불러오는 중…";
+    btn.disabled = true; btn.textContent = "트레일루트 맵을 불러오는 중…";
     load(function () { box.hidden = false; draw(); btn.hidden = true; });
   });
 })();
