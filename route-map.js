@@ -31,12 +31,12 @@
     }
     if (all.length) map.fitBounds(L.latLngBounds(all), { padding: [16, 16] });
     setTimeout(function () { map.invalidateSize(); }, 50);
-    controls(L, map, all);
+    controls(L, map, all, data.secs || null);
   }
 
   // 전체화면·내 위치(GPS)·방위는 map-tools.js 가 붙인다(메인 대회 지도와 같은 코드).
-  function controls(L, map, all) {
-    function go() { if (window.CalrankMapTools) window.CalrankMapTools.attach(L, map, { wrap: box, all: all }); }
+  function controls(L, map, all, secs) {
+    function go() { if (window.CalrankMapTools) window.CalrankMapTools.attach(L, map, { wrap: box, all: all, secs: secs }); }
     if (window.CalrankMapTools) return go();
     var t = document.createElement("script"); t.src = "/map-tools.js"; t.onload = go; document.head.appendChild(t);
   }

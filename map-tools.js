@@ -69,6 +69,10 @@
     var wrap = opt.wrap, all = opt.all || [];
     injectCss();
     var full = false, gps = null, follow = true, me = null, acc = null, meEl = null, heading = null, lock = null, stat = null, gpsBtn = null, fullBtn = null, oriOn = false, C = null, hudEl = null, lastD = null, offWarn = 0;
+    var secList = [];
+    if (opt.secs && opt.secs.length && !courseId()) loadScript("/seg-core.js", function () {
+      secList = opt.secs.filter(function (x) { return x.p && x.p.length > 1; }).map(function (x) { var L2 = 0; for (var i = 1; i < x.p.length; i++) L2 += Math.hypot((x.p[i][1] - x.p[i - 1][1]) * 111320 * Math.cos(x.p[i][0] * Math.PI / 180), (x.p[i][0] - x.p[i - 1][0]) * 111320); return { p: x.p, g: x.g, len: L2 }; });
+    });
     var cid = courseId();
     if (cid) fetch("/field/" + cid + ".json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.profile && j.path && j.path.length > 1) loadScript("/seg-core.js", function () { C = { j: j, c: CalrankSeg.course(j.path, j.profile[j.profile.length - 1][0]), segs: CalrankSeg.segments(j.profile) }; }); }).catch(function () {});
     function Ctl(pos, ic, label, title, fn) {
@@ -112,13 +116,29 @@
       lab(gpsBtn, "my_location", "내 위치"); gpsBtn.setAttribute("aria-pressed", "false"); say("");
     }
     function share() {
-      if (!hudEl || !C) return;
-      var t = (C.j.name || "코스") + " · 코스 " + km(hudEl.d) + " 지점 · 위도 " + hudEl.ll[0].toFixed(5) + ", 경도 " + hudEl.ll[1].toFixed(5) + " (GPS 오차 ±" + hudEl.ac + "m) · " + hm(new Date()) + " 기준. 긴급 상황은 119에 이 위치를 불러 주세요.";
+      if (!hudEl || (!C && !secList.length)) return;
+      var h1 = document.querySelector("h1"), nm = C ? (C.j.name || "코스") : ((h1 && h1.textContent.trim()) || "등산로");
+      var t = nm + (C ? " · 코스 " + km(hudEl.d) + " 지점" : "") + " · 위도 " + hudEl.ll[0].toFixed(5) + ", 경도 " + hudEl.ll[1].toFixed(5) + " (GPS 오차 ±" + hudEl.ac + "m) · " + hm(new Date()) + " 기준. 긴급 상황은 119에 이 위치를 불러 주세요.";
       if (navigator.share) navigator.share({ text: t }).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { say("위치 문구를 복사했습니다."); }, function () { say(t); });
       else say(t);
     }
+    // 산 등산로 지도: 한 줄로 이어진 코스가 아니라 구간 모음이라, 가장 가까운 구간의 길이·평균 경사와 일몰 정보만 보여 준다.
+    function mtHud(ll, ac) {
+      var best = null;
+      secList.forEach(function (sc, i) { var o = distToPath(ll[0], ll[1], sc.p); if (!best || o < best.o) best = { o: o, i: i }; });
+      if (!best) return "";
+      var sc = secList[best.i], off = Math.round(best.o), lines = [];
+      if (off > 60) { lines.push('<span class="rm-warn">가장 가까운 등산로에서 ' + off + 'm 떨어져 있습니다.</span>'); var now = Date.now(); if (now - offWarn > 20000) { offWarn = now; try { navigator.vibrate && navigator.vibrate([300, 150, 300]); } catch (e) {} } }
+      else lines.push("지금 구간 <b>" + km(sc.len) + "</b> · 평균 경사 <b>" + Math.abs(sc.g).toFixed(0) + "%</b>");
+      var sun = CalrankSeg.sun(ll[0], ll[1], new Date());
+      if (sun) { var left = Math.round((sun.set - Date.now()) / 60000); lines.push("일몰 " + hm(sun.set) + (left > 0 ? " (" + left + "분 남음)" : ' <span class="rm-warn">일몰 후입니다</span>')); }
+      lines.push('<button type="button" id="rmShare">내 위치 문구 복사</button>');
+      hudEl = { d: null, ll: ll, ac: ac };
+      return lines.join("<br>");
+    }
     function hud(ll, ac, off) {
+      if (!C && secList.length) return mtHud(ll, ac);
       if (!C) return "";
       var P = C.j.profile, tot = C.c.total, s = C.c.snap(ll[0], ll[1], lastD), d = s.dist, lines = [];
       if (off != null && off > 60) { lines.push('<span class="rm-warn">코스에서 ' + off + 'm 벗어났습니다. 왔던 길로 돌아가세요.</span>'); var now = Date.now(); if (now - offWarn > 20000) { offWarn = now; try { navigator.vibrate && navigator.vibrate([300, 150, 300]); } catch (e) {} } return lines.join("<br>"); }
@@ -152,7 +172,7 @@
         } else { me.setLatLng(ll); acc.setLatLng(ll).setRadius(ac); if (follow) map.panTo(ll); }
         if (g.coords.heading != null && !isNaN(g.coords.heading) && (g.coords.speed || 0) > 1) setHeading(g.coords.heading);
         var off = all.length > 1 ? Math.round(distToPath(ll[0], ll[1], all)) : null, offT = off == null ? "" : off >= 1000 ? (off / 1000).toFixed(off >= 10000 ? 0 : 1) + "km" : off + "m";
-        var base = off == null ? "GPS 오차 ±" + ac + "m" : off <= 30 ? "코스 위에 있습니다 (코스에서 " + off + "m · GPS 오차 ±" + ac + "m)" : off > 100 ? "코스에서 약 " + offT + " 벗어나 있습니다 (GPS 오차 ±" + ac + "m)" : "코스에서 약 " + offT + " 떨어져 있습니다 (GPS 오차 ±" + ac + "m)", h = hud(ll, ac, off);
+        var nn = (!C && secList.length) ? "등산로" : "코스", base = off == null ? "GPS 오차 ±" + ac + "m" : off <= 30 ? (nn + " 위에 있습니다 (" + nn + "에서 ") + off + "m · GPS 오차 ±" + ac + "m)" : off > 100 ? nn + "에서 약 " + offT + " 벗어나 있습니다 (GPS 오차 ±" + ac + "m)" : nn + "에서 약 " + offT + " 떨어져 있습니다 (GPS 오차 ±" + ac + "m)", h = hud(ll, ac, off);
         stat.hidden = false; stat.innerHTML = ""; stat.appendChild(document.createTextNode(base));
         if (h) { var hd = document.createElement("div"); hd.className = "rm-hud"; hd.innerHTML = h; stat.appendChild(hd); var sb = hd.querySelector("#rmShare"); if (sb) sb.onclick = share; }
       }, function (err) {

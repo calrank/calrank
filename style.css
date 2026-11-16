@@ -808,3 +808,30 @@ body .gr-switch a:not(.on):hover{ box-shadow:var(--lift); border-color:var(--acc
   .g-table:has(th:nth-child(5)) tbody tr:nth-child(even) td:first-child { background-image: linear-gradient(var(--tint-1, transparent), var(--tint-1, transparent)); }
   .g-table th, .g-table td { font-size: 13px; }
 }
+
+/* 칼럼 검색 */
+.col-search{margin:18px 0 6px}
+.col-search-label{display:block;font-size:13.5px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.col-search-msg{min-height:20px;margin:6px 2px 0;font-size:13.5px;color:var(--ink-soft)}
+.column-card[hidden],.column-section-title[hidden],.column-toc[hidden]{display:none!important}
+
+/* 사이트 모든 검색칸 공통 디자인: 둥근 모서리, 왼쪽 돋보기, 눌렀을 때 포인트색 테두리.
+   돋보기는 Material Design Icons(Apache 2.0)의 search. 새 검색칸을 만들면 여기에 아이디를 더한다. */
+body #eventSearch, body #listQ, body #fdQ, body #colQ, body #claimSearchInput{
+  box-sizing:border-box;width:100%;min-width:0;min-height:48px;margin:0;padding:0 14px 0 44px;
+  border:1px solid var(--border);border-radius:16px;color:var(--ink);
+  background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236B6460' d='M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E") no-repeat 14px center/22px 22px;
+  font:500 16px/1.4 inherit;font-family:inherit;box-shadow:0 1px 3px rgba(21,17,15,.06);transition:border-color .15s,box-shadow .15s}
+body #eventSearch{flex:1 1 auto}
+body #eventSearch::placeholder, body #listQ::placeholder, body #fdQ::placeholder, body #colQ::placeholder, body #claimSearchInput::placeholder{color:var(--ink-faint);opacity:1}
+body #eventSearch:hover, body #listQ:hover, body #fdQ:hover, body #colQ:hover, body #claimSearchInput:hover{border-color:var(--ink-faint)}
+body #eventSearch:focus, body #listQ:focus, body #fdQ:focus, body #colQ:focus, body #claimSearchInput:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(255,61,26,.16)}
+body #claimSearchBtn{min-height:48px;border-radius:14px}
+
+@media (max-width:560px){
+  .filter-row-find{flex-wrap:wrap}
+  body #eventSearch{flex:1 1 100%}
+  .filter-row-find .region-select{flex:1 1 0;min-width:0}
+}
+.filter-row-find::after{display:none}
+.filter-row-find .region-select, .filter-row-find #mapToggleBtn{min-height:48px;border-radius:16px;box-sizing:border-box}

@@ -1283,7 +1283,7 @@ def hub_page():
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있습니다. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있습니다. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <div class="mn-import"><span class="mn-import-t">다른 기기에서 저장한 백업이 있으면 불러올 수 있습니다.</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
-<section class="tp-sec"><label class="tp-field">이름·지역으로 찾기<input id="listQ" type="search" placeholder="예: 해파랑길, 서울둘레길 (산 이름도 찾아 줍니다)" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p><ul id="listMore" class="cp-list" data-other="mountains.html"></ul></section>
+<section class="tp-sec"><label class="tp-field">이름·지역·산 이름으로 찾기<input id="listQ" type="search" placeholder="예: 해파랑길, 서울둘레길, 북한산" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p><ul id="listMore" class="cp-list" data-other="mountains.html"></ul></section>
 {lvtab}
 <section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>

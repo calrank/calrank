@@ -90,6 +90,12 @@
 </div>
 </div>
 
+<div class="col-search" role="search">
+<label class="col-search-label" for="colQ">칼럼 검색</label>
+<div class="col-search-row"><input id="colQ" type="search" placeholder="키워드로 찾기 (예: 등산 지도, 무릎, 하프 등급)" autocomplete="off" enterkeyhint="search"></div>
+<p id="colQMsg" class="col-search-msg" role="status" aria-live="polite"></p>
+</div>
+
 <nav class="column-toc" id="columnToc" aria-label="카테고리 목차"></nav>
 
 <div style="margin-top:24px;" id="columnCardsContainer">
@@ -507,6 +513,27 @@
       toc.appendChild(link);
     }
   });
+})();
+</script>
+<script>
+(function () {
+  // 칼럼 검색: 제목·설명·분류에서 키워드를 찾는다. 입력은 이 기기 안에서만 쓰고 서버로 보내지 않는다.
+  var q = document.getElementById("colQ"), msg = document.getElementById("colQMsg");
+  var box = document.getElementById("columnCardsContainer"), toc = document.getElementById("columnToc");
+  if (!q || !box) return;
+  function norm(t) { return String(t || "").replace(/\s+/g, "").toLowerCase(); }
+  var cards = Array.prototype.slice.call(box.querySelectorAll(".column-card")).map(function (c) { return { el: c, t: norm(c.textContent) }; });
+  var heads = Array.prototype.slice.call(box.querySelectorAll(".column-section-title"));
+  function run() {
+    var terms = q.value.trim().split(/\s+/).map(norm).filter(Boolean), shown = 0;
+    cards.forEach(function (c) { var ok = terms.every(function (t) { return c.t.indexOf(t) >= 0; }); c.el.hidden = !ok; if (ok) shown++; });
+    heads.forEach(function (h) { var n = h.nextElementSibling, any = false; while (n && !n.classList.contains("column-section-title")) { if (n.classList.contains("column-card") && !n.hidden) any = true; n = n.nextElementSibling; } h.hidden = !any; });
+    if (toc) toc.hidden = terms.length > 0;
+    msg.textContent = !terms.length ? "" : shown ? shown + "개 칼럼을 찾았습니다." : "찾는 칼럼이 없습니다. 다른 키워드로 찾아 보세요.";
+  }
+  q.addEventListener("input", run);
+  var pre = new URLSearchParams(location.search).get("q"); if (pre) { q.value = pre; }
+  run();
 })();
 </script>
 </body>
