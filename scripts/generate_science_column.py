@@ -171,7 +171,7 @@ PAGE = """<!DOCTYPE html>
   .col-q {{ font-weight: 700; color: #fff; margin-bottom: 7px; }}
   .col-a {{ color: #C9C3BF; }}
   .col-table-wrap {{ overflow-x: auto; margin-bottom: 20px; }}
-  .col-table {{ width: 100%; border-collapse: collapse; font-size: 14px; min-width: 460px; }}
+  .col-table {{ width: 100%; border-collapse: collapse; font-size: 14px; }}
   .col-table th, .col-table td {{ padding: 10px 12px; border-bottom: 1px solid var(--border,#2A2A2A); text-align: left; vertical-align: top; }}
   .col-table th {{ color: #fff; background: rgba(255,255,255,.03); white-space: nowrap; }}
   .ref-note {{ font-size: 13px; color: #8E8884; }}

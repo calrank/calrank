@@ -52,12 +52,15 @@
   table.gr-table thead th { background: var(--surface); color: var(--ink); font-weight: 700; font-size: 13.5px; line-height: 1.4; }
   /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
   table.gr-table tbody th { background: var(--surface); color:var(--accent-ink); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid var(--tint-3); }
+  table.gr-table.gr-fit { min-width: 0; }
   table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid var(--tint-3); }
   table.gr-table tbody tr:nth-child(even) td { background: var(--tint-1); }
   .gr-swipe { display: none; font-size: 13.5px; color: var(--ink-faint); margin: 8px 2px 0; }
   @media (max-width: 680px) {
     .gr-wrap { padding: 32px 14px 70px; }
-    table.gr-table { font-size: 13.5px; }
+    table.gr-table { font-size: 13.5px; min-width: 560px; }
+    table.gr-table.gr-fit { min-width: 0; }
+    table.gr-table.gr-fit th, table.gr-table.gr-fit td { white-space: normal; }
     table.gr-table th, table.gr-table td { padding: 9px 7px; }
     .gr-swipe { display: block; }
   }

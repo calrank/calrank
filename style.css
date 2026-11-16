@@ -747,3 +747,52 @@ body .gr-switch a:not(.on):hover{ box-shadow:var(--lift); border-color:var(--acc
 .th-sub{color:var(--ink-faint,var(--ink-faint));font-size:13px;font-weight:400}
 .th-date{color:var(--ink-faint,var(--ink-faint));font-variant-numeric:tabular-nums;margin-right:6px}
 .th-next{margin:6px 0 0;font-size:13.5px}
+
+/* 표 가로 스크롤 힌트 — 가로로 밀 수 있는 표는 오른쪽 가장자리가 흐려진다.
+   끝까지 밀면 사라지고, 밀 필요가 없는 표에는 아무 효과가 없다.
+   지원하지 않는 브라우저에서는 힌트만 빠지고 표는 그대로 동작한다. */
+@property --tf-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
+@keyframes tbl-fade-r { 0%, 90% { --tf-r: 30px; } 100% { --tf-r: 0px; } }
+.gr-tablebox, .g-tablewrap, .tp-scroll, .aq-scroll, .col-table-wrap,
+.mt-wrap, .table-scroll, .gt-wrap, .cv-scroll, .tp-table-wrap {
+  animation: tbl-fade-r linear both;
+  animation-timeline: scroll(self inline);
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--tf-r)), transparent);
+  mask-image: linear-gradient(90deg, #000 calc(100% - var(--tf-r)), transparent);
+}
+
+/* 좁은 화면: 헤더·첫 열이 줄바꿈 없이 버티면 표가 화면보다 넓어져 잘린다.
+   열이 4개 이하인 표는 줄바꿈으로 화면 안에 맞추고, 넓은 표만 가로 스크롤로 둔다. */
+@media (max-width: 520px) {
+  .g-table:not(:has(th:nth-child(5))) th, .g-table:not(:has(th:nth-child(5))) td,
+  .tp-table th, .tp-table td, .aq-table th, .aq-table td,
+  .col-table th, .col-table td { white-space: normal !important; }
+  .tp-table th, .tp-table td { padding-left: 4px; padding-right: 4px; }
+  .aq-table th, .aq-table td { padding-left: 6px; padding-right: 6px; }
+  .mt-table th, .mt-table td { padding-left: 4px; padding-right: 4px; }
+  .gt.wt-grid th, .gt.wt-grid td { white-space: normal !important; }
+}
+@media (max-width: 520px) {
+  .g-table { min-width: 0 !important; font-size: 13.5px; }
+  .g-table th, .g-table td { white-space: normal !important; padding-left: 7px; padding-right: 7px; }
+  .mt-table th, .mt-table td { white-space: normal !important; font-size: 13.5px; }
+  .tp-table, .aq-table { font-size: 14px; }
+}
+
+/* 대회 목록표: 좁은 화면에서는 한 줄을 한 항목으로 쌓아 보여 준다.
+   열을 억지로 줄이면 글자가 세로로 쪼개져 읽을 수 없다. */
+@media (max-width: 520px) {
+  .tp-table, .tp-table tbody, .tp-table tr, .tp-table td,
+  .aq-table, .aq-table tbody, .aq-table tr, .aq-table td { display: block; width: auto; }
+  .tp-table thead, .aq-table thead { display: none; }
+  .tp-table tr, .aq-table tr { padding: 12px 0; border-top: 1px solid rgba(128,128,128,.22); }
+  .tp-table tr:first-child, .aq-table tbody tr:first-child { border-top: 0; }
+  .tp-table td, .aq-table td { padding: 1px 0 !important; border: 0 !important; text-align: left !important; line-height: 1.55; }
+  .tp-table td:first-child, .aq-table td:first-child { font-weight: 700; margin-bottom: 2px; }
+  .tp-scroll, .aq-scroll { -webkit-mask-image: none; mask-image: none; animation: none; }
+}
+@media (max-width: 520px) {
+  .g-table th, .g-table td { padding-left: 5px; padding-right: 5px; }
+  .mt-table th, .mt-table td { padding-left: 3px; padding-right: 3px; }
+  .tier-data-table th, .tier-data-table td { padding-left: 5px !important; padding-right: 5px !important; }
+}

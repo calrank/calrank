@@ -41,7 +41,7 @@ GROUPS = [
     ("도구", "함께 쓰는 도구",
      ["age-curve.html", "zone2-heart-rate-calculator.html", "goals.html", "ledger.html", "standards-running.html",
       "standards-cycling.html", "standards-trail.html", "standards-triathlon.html", "race-finder-quiz.html",
-      "race-checklist-tool.html", "record-issue-diagnosis-tool.html", "level.html", "course.html"], 4),
+      "race-checklist-tool.html", "record-issue-diagnosis-tool.html", "level.html", "course.html", "field.html"], 4),
     ("일정모음", "대회 일정 모아 보기",
      ["monthly.html", "trail-monthly.html", "cycling-monthly.html", "triathlon-monthly.html", "kids-marathon.html",
       "night-run.html", "ultra-marathon.html", "walking-events.html", "open-registration.html", "aquathlon.html"], 4),

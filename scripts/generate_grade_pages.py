@@ -359,12 +359,15 @@ PAGE_CSS = """  .gr-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 
   table.gr-table thead th { background: #171514; color: #E8E4E1; font-weight: 700; font-size: 13.5px; line-height: 1.4; }
   /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
   table.gr-table tbody th { background: #121010; color: var(--accent); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid rgba(255,255,255,0.09); }
+  table.gr-table.gr-fit { min-width: 0; }
   table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid rgba(255,255,255,0.09); }
   table.gr-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
   .gr-swipe { display: none; font-size: 13.5px; color: #8E8884; margin: 8px 2px 0; }
   @media (max-width: 680px) {
     .gr-wrap { padding: 32px 14px 70px; }
-    table.gr-table { font-size: 13.5px; }
+    table.gr-table { font-size: 13.5px; min-width: 560px; }
+    table.gr-table.gr-fit { min-width: 0; }
+    table.gr-table.gr-fit th, table.gr-table.gr-fit td { white-space: normal; }
     table.gr-table th, table.gr-table td { padding: 9px 7px; }
     .gr-swipe { display: block; }
   }
@@ -820,7 +823,7 @@ def build_hub():
                 f'<tr><th>{d["label"]} {g["label"]}</th><td>{u}</td><td>{t}</td></tr>'
             )
     summary = (
-        '<div class="gr-tablebox"><table class="gr-table">\n'
+        '<div class="gr-tablebox"><table class="gr-table gr-fit">\n'
         "<thead><tr><th>구분</th><th>매우 좋은 편</th><th>꾸준한 러너</th></tr></thead>\n"
         "<tbody>\n" + "\n".join(summary_rows) + "\n</tbody></table></div>"
     )

@@ -53,12 +53,15 @@
   table.gr-table thead th { background: var(--surface); color: var(--ink); font-weight: 700; font-size: 13.5px; line-height: 1.4; }
   /* 모바일 비중이 높아 가로 스크롤 시 나이 칸이 항상 보이도록 고정 */
   table.gr-table tbody th { background: var(--surface); color:var(--accent-ink); font-weight: 700; text-align: left; padding-left: 14px; position: sticky; left: 0; z-index: 2; border-right: 1px solid var(--tint-3); }
+  table.gr-table.gr-fit { min-width: 0; }
   table.gr-table thead th:first-child { position: sticky; left: 0; z-index: 3; border-right: 1px solid var(--tint-3); }
   table.gr-table tbody tr:nth-child(even) td { background: var(--tint-1); }
   .gr-swipe { display: none; font-size: 13.5px; color: var(--ink-faint); margin: 8px 2px 0; }
   @media (max-width: 680px) {
     .gr-wrap { padding: 32px 14px 70px; }
-    table.gr-table { font-size: 13.5px; }
+    table.gr-table { font-size: 13.5px; min-width: 560px; }
+    table.gr-table.gr-fit { min-width: 0; }
+    table.gr-table.gr-fit th, table.gr-table.gr-fit td { white-space: normal; }
     table.gr-table th, table.gr-table td { padding: 9px 7px; }
     .gr-swipe { display: block; }
   }
@@ -131,7 +134,7 @@
 <h2 class="gr-h2">한눈에 보는 40세 기준</h2>
 <p class="gr-p">가장 많이 찾는 40세 기준으로, 각 거리에서 '매우 좋은 편'과 '꾸준한 러너'에 들어가려면
 어느 정도 기록이 필요한지 추려 봤습니다. 다른 나이는 각 등급표에서 확인하세요.</p>
-<div class="gr-tablebox"><table class="gr-table">
+<div class="gr-tablebox"><table class="gr-table gr-fit">
 <thead><tr><th>구분</th><th>매우 좋은 편</th><th>꾸준한 러너</th></tr></thead>
 <tbody>
 <tr><th>5km 남성</th><td>22:56</td><td>30:04</td></tr>

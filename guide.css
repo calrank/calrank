@@ -39,7 +39,8 @@
 
 /* 표 */
 .g-tablewrap{overflow-x:auto;margin:0 0 20px;-webkit-overflow-scrolling:touch;}
-.g-table{width:100%;border-collapse:collapse;font-size:15px;min-width:420px;}
+.g-table{width:100%;border-collapse:collapse;font-size:15px;}
+.g-table:has(th:nth-child(5)){min-width:560px;}
 .g-tcap{caption-side:top;text-align:left;font-size:13.5px;color:var(--ink-faint);padding:0 0 8px;}
 .g-table th{background:var(--surface);color:var(--ink);font-weight:700;text-align:left;
   padding:11px 12px;border:1px solid var(--border);white-space:nowrap;}

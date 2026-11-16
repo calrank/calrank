@@ -798,6 +798,8 @@ def course_page(c):
     lv = tech.get("level")
     region = c.get("region") or ""
     nm = c["name"]
+    field_link = (f'<section class="tp-sec"><h2 class="tp-h2">달리는 중 보기</h2><p class="tp-p">지금 평지인지 오르막인지 내리막인지, 다음 지형 변화까지 남은 거리를 큰 글씨로 보여 줍니다. '
+                  f'<a href="field.html?c={cid}">이 코스 현장 보기</a></p></section>') if (ROOT / "field" / f"{cid}.json").exists() else ""
     if lv:
         name, desc_ = [(n, d) for l, n, d in TECH if l == lv][0]
         tech_html = (f'<p class="cp-lv"><b>{lv}단계</b> · {esc(name)}</p><p class="tp-p">{esc(desc_)}</p>'
@@ -949,7 +951,7 @@ def course_page(c):
 {course_fuel_html(c, _fuel_h)}
 {_ins_html}
 {ft_extra}{sun_block(c, wt)}
-{map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}
+{map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}{field_link}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
 <label class="cv-check"><input type="checkbox" id="cpDown"> 내리막에서 빨라지는 것까지 반영</label></div>
