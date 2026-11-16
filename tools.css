@@ -176,7 +176,7 @@
 .mt-table th { color: var(--ink-soft); font-weight: 400; }
 
 /* 경로 지도 */
-.rm-box { height: 340px; max-width: 100%; border-radius: 8px; margin-top: 10px; border: 1px solid var(--line); }
+.rm-box { height: 340px; max-width: 100%; border-radius: 20px; margin-top: 10px; border: 1px solid rgba(14,159,135,.35); box-shadow: 0 6px 18px rgba(8,70,58,.16); overflow: hidden; }
 
 /* 목록·본문 속 링크: 기본 파랑 대신 글자색에 포인트 밑줄 */
 .tp a:not(.tp-btn), .cp-list a, .mt-table a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
@@ -275,3 +275,13 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .gv-mine label { display: grid; gap: 4px; font-size: 13px; color: var(--ink-faint); }
 .gv-mine input { min-height: 40px; padding: 8px 10px; border-radius: 8px; font-size: 15px; max-width: 200px;
   background: var(--tint-1); border: 1px solid var(--line); color: var(--ink); }
+
+/* 목록 옆 트레일루트 맵 바로가기 */
+.tr-chip { display: inline-flex; align-items: center; gap: 3px; margin-left: 6px; padding: 3px 10px 3px 8px; min-height: 28px; border-radius: 999px; background: #3EE0BE; color: #06362d !important; font-size: 12px; font-weight: 800; text-decoration: none !important; vertical-align: middle; white-space: nowrap; box-shadow: 0 1px 3px rgba(8,70,58,.25); transition: transform .12s, background .15s; }
+.tr-chip svg { flex: none; }
+.tr-chip:hover { background: #29cfac; }
+.tr-chip:active { transform: scale(.95); }
+.tr-chip:focus-visible { outline: 3px solid #0E9F87; outline-offset: 2px; }
+.cp-card.has-chip{position:relative;}
+.cp-card.has-chip .tr-chip{position:absolute;top:12px;right:44px;margin:0;z-index:1;}
+.cp-card.has-chip .cp-name{padding-right:70px;}

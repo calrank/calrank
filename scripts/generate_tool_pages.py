@@ -681,9 +681,18 @@ for _lv in (1, 2, 3):
         LV_MED[_lv] = (_med(_g), len(_g))
 
 
+# 코스·산 목록 옆에 붙는 "트레일루트 맵" 바로가기. 아이콘은 Material Design Icons(Apache 2.0)의 map.
+_MAP_D = "m14.65 4.98-5-1.75c-.42-.15-.88-.15-1.3-.01L4.36 4.56C3.55 4.84 3 5.6 3 6.46v11.85c0 1.41 1.41 2.37 2.72 1.86l2.93-1.14c.22-.09.47-.09.69-.01l5 1.75c.42.15.88.15 1.3.01l3.99-1.34c.81-.27 1.36-1.04 1.36-1.9V5.69c0-1.41-1.41-2.37-2.72-1.86l-2.93 1.14c-.22.08-.46.09-.69.01zM15 18.89l-6-2.11V5.11l6 2.11v11.67z"
+
+
+def mapchip(href):
+    return (f' <a class="tr-chip" href="{href}#trailmap" aria-label="트레일루트 맵으로 바로 보기" title="트레일루트 맵으로 바로 보기">'
+            f'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="{_MAP_D}"/></svg>맵</a>')
+
+
 def map_block(data, legend=""):
     j = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-    return ('<section class="tp-sec"><h2 class="tp-h2">트레일루트 맵</h2>'
+    return ('<section class="tp-sec" id="trailmap"><h2 class="tp-h2">트레일루트 맵</h2>'
             '<p class="tp-small">칼랭크 트레일루트 맵은 전체화면, 내 위치(GPS), 북쪽 표시를 지원하고, 코스 몇 km 지점인지와 다음 오르막까지의 거리, 일몰 시각과 비교한 도착 예상 시각을 보여 줍니다. 버튼을 누르면 OpenStreetMap 지도를 불러오며, 누르기 전에는 지도 서버로 아무것도 보내지 않습니다. 내 위치는 이 기기 안에서만 쓰입니다.</p>'
             '<p><button type="button" class="tp-btn ghost" id="mapBtn">트레일루트 맵 열기</button></p>'
             f'<div id="mapBox" class="rm-box" hidden></div>{legend}'
@@ -967,7 +976,7 @@ def course_page(c):
 {course_fuel_html(c, _fuel_h)}
 {_ins_html}
 {ft_extra}{sun_block(c, wt)}
-{map_block({"path": c["path"]}, '<p class="tp-small">초록 점이 출발, 파란 점이 도착입니다.</p>') if c.get("path") else ""}{field_link}
+{map_block({"path": c["path"]}, '<p class="tp-small">민트색 점이 출발, 검은 점이 도착입니다.</p>') if c.get("path") else ""}{field_link}
 <section class="tp-card"><h2 class="tp-h2">달린다면 걸리는 시간</h2><div class="tp-grid">
 <label class="tp-field">평지 페이스 (분:초 / km)<input id="cpPace" type="text" inputmode="numeric" value="6:30" autocomplete="off"></label>
 <label class="cv-check"><input type="checkbox" id="cpDown"> 내리막에서 빨라지는 것까지 반영</label></div>
@@ -1087,7 +1096,7 @@ def dg_method_page():
     _lo = [c for c in COURSES if (c.get("official") or {}).get("level") == 3 and dg_of(c)[1] <= 1]
     def _mm_rows(lst, k=6):
         lst = sorted(lst, key=lambda c: -abs(dg_of(c)[0] - 100))[:k]
-        return "".join(f'<tr><th><a href="course-{c["id"]}.html">{esc(c["name"])}</a></th><td>{course_stats(c)[0]:.1f}km · {course_stats(c)[1]:.0f}m</td><td>{dg_of(c)[2]} ({dg_of(c)[0]:.0f}점)</td></tr>' for c in lst)
+        return "".join(f'<tr><th><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")}</th><td>{course_stats(c)[0]:.1f}km · {course_stats(c)[1]:.0f}m</td><td>{dg_of(c)[2]} ({dg_of(c)[0]:.0f}점)</td></tr>' for c in lst)
     n_lv = sum(len(v) for v in byl.values())
     who = ["처음 걷는 분도 부담이 적은 편입니다.", "평소 걷는 분이라면 무리 없이 걸을 수 있는 정도입니다.",
            "오르막이 꽤 있어서 물과 간식, 쉬는 시간을 넉넉히 잡는 편이 좋습니다.", "체력이 필요한 코스입니다. 시간을 넉넉히 잡고 이른 시간에 출발하세요.",
@@ -1171,11 +1180,11 @@ def ft_group_page(slug, name, intro, cs):
         cn = ((c.get("waypoints") or {}).get("counts") or {})
         fac = " · ".join(f"{x} {cn[x]}" for x in ("화장실", "쉼터", "전망") if cn.get(x)) or "-"
         _hm = lambda m_: f"{int(round(m_)) // 60}:{int(round(m_)) % 60:02d}"
-        rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a></td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td>{diff_grade(k_, g_)[2]}</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
+        rows += (f'<tr><td><a href="course-{c["id"]}.html">{esc(nm_short(c))}</a>{mapchip("course-"+c["id"]+".html")}</td><td>{k_:.1f}km</td><td>{g_:.0f}m</td><td>{diff_grade(k_, g_)[2]}</td><td class="hide-sm">{g_ / max(k_, 0.1):.0f}m</td>'
                  f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{max(p_[1] for p_ in c["profile"]):.0f}m</td>' + (f'<td class="hide-sm">{fac}</td>' if any_fac else '') + '</tr>')
     table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th>난이도</th><th class="hide-sm">1km당</th><th>걷는 시간<span class="hide-sm"> (시:분)</span></th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
              f'<tbody>{rows}</tbody></table></div>')
-    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m · 난이도 {dg_of(c)[2]}</li>' for c in lst)
+    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m · 난이도 {dg_of(c)[2]}</li>' for c in lst)
     lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
             f"가장 긴 코스는 {nm_short(longest)}({st[longest['id']][0]:.1f}km)입니다. 1km당 오르막으로 가장 가파른 코스는 {nm_short(hard[0])}(약 {per(hard[0]):.0f}m), 가장 완만한 코스는 {nm_short(easy[0])}(약 {per(easy[0]):.0f}m)입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p></section>
@@ -1208,7 +1217,7 @@ def group_page(slug, name, intro, cs):
     def li(c):
         k_, g_, _, _ = course_stats(c)
         l2 = (c.get("official") or {}).get("level")
-        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m · 난이도 {dg_of(c)[2]}'
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} · {esc(c.get("region") or "")} · {k_:.1f}km · 오르막 {g_:.0f}m · 난이도 {dg_of(c)[2]}'
                 + (f' · 두루누비 난이도 {l2}' if l2 else "") + _near_txt(c) + "</li>")
     if cs and all(c.get("trail") for c in cs):
         return ft_group_page(slug, name, intro, cs)
@@ -1225,6 +1234,14 @@ def group_page(slug, name, intro, cs):
                       f"{name} 코스 모음", f"{len(cs)}개 코스 · {km:.0f}km · 오르막 합계 {gain:.0f}m", body, ["calrank-local.js", "trail-mark.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
+CAPITAL = ("서울", "경기", "인천")
+
+
+def cap_pri(name):
+    """수도권(서울·경기·인천)을 먼저, 나머지는 원래 순서."""
+    return 0 if str(name or "").startswith(CAPITAL) else 1
+
+
 _groups = []
 for _r, (_sl, _in) in ROUTES.items():
     _cs = [c for c in COURSES if route_of(c) == _r]
@@ -1234,6 +1251,7 @@ for _s, _sl in SIDO.items():
     _cs = [c for c in COURSES if sido_of(c) == _s]
     if len(_cs) >= 3:
         _groups.append((f"trailarea-{_sl}.html", f"{_s} 지역", "", _cs))
+_groups.sort(key=lambda g_: cap_pri(g_[1]))
 GROUP_PAGES = [group_page(sl, nm_, it_, cs_) for sl, nm_, it_, cs_ in _groups]
 GROUP_LINKS = [(sl, nm_, len(cs_)) for sl, nm_, it_, cs_ in _groups]
 
@@ -1245,10 +1263,10 @@ def hub_page():
     def li(c):
         km, gain, _, _ = course_stats(c)
         lv = (c.get("official") or {}).get("level")
-        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> · {esc(c.get("region") or "")} · {km:.1f}km · 오르막 {gain:.0f}m · 난이도 {dg_of(c)[2]}'
+        return (f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} · {esc(c.get("region") or "")} · {km:.1f}km · 오르막 {gain:.0f}m · 난이도 {dg_of(c)[2]}'
                 + (f' · 두루누비 난이도 {lv}' if lv else "") + _near_txt(c) + "</li>")
     secs = ""
-    for reg in sorted(by, key=lambda r: (r == "지역 미표기", r)):
+    for reg in sorted(by, key=lambda r: (r == "지역 미표기", cap_pri(r), CAPITAL.index(r) if r in CAPITAL else 0, r)):
         cs = sorted(by[reg], key=lambda c: c["name"])
         secs += f'<section class="tp-sec"><h2 class="tp-h2">{esc(reg)} ({len(cs)})</h2><ul class="cp-list">{"".join(li(c) for c in cs)}</ul></section>'
     steepest = sorted(COURSES, key=lambda c: -course_stats(c)[1] / max(course_stats(c)[0], 0.1))[:10]
@@ -1274,8 +1292,8 @@ def hub_page():
     faq = [("칼랭크 트레일루트 맵은 무엇인가요?", "코스 페이지에서 여는 지도입니다. 전체화면, GPS 내 위치, 북쪽 표시에 더해 코스 위 지점, 다음 오르막까지의 거리, 일몰과 비교한 도착 예상 시각, 코스 이탈 경고를 보여 줍니다. 위치는 이 기기 안에서만 쓰이고 서버로 보내지 않습니다."),
            ("거리가 같아도 힘든 정도가 왜 다른가요?", "오르막이 많으면 같은 거리도 더 힘듭니다. 그래서 거리와 함께 누적 오르막, 가파른 구간 길이를 같이 보여 드립니다."),
            ("고도는 어떻게 계산했나요?", "경로 파일에 적힌 GPS 고도를 약 100m 구간으로 다듬어 계산했습니다. 그대로 더하면 오르막이 실제보다 크게 나올 수 있어서입니다.")]
-    return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 걷기 코스 오르막과 소요시간",
-        f"걷기 좋은 {len(COURSES)}개 코스의 거리, 누적 오르막, 경사 색 단면도를 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있습니다.",
+    return "trailroot.html", page("trailroot.html", "트레일루트 코스 모음 — 등산·트레킹 코스 지도와 오르막, 소요시간",
+        f"등산·하이킹·트레킹 코스 {len(COURSES)}개의 거리, 누적 오르막, 경사 색 단면도와 트레일루트 맵(산악지도·GPS 내비게이션)을 지역별로 모았습니다. 내 페이스로 걸리는 시간도 계산해 볼 수 있습니다.",
         "트레일루트", f"걷는 길의 오르막을 한눈에 · {len(COURSES)}개 코스", body, ["calrank-local.js", "trail-mark.js", "list-filter.js"], faq, crumb=("트레일루트", "trailroot.html"))
 
 
@@ -1409,7 +1427,7 @@ def mountain_page(m):
     mt_map = ""
     if all(s.get("path") for s in S):
         mt_map = map_block({"secs": [{"p": s["path"], "g": s["meanGrade"]} for s in S]},
-                           '<p class="tp-small">선의 색은 구간 평균 경사입니다. 연두 5% 미만, 노랑 5~10%, 주황 10~15%, 빨강 15% 이상.</p>')
+                           '<p class="tp-small">선의 색은 구간 평균 경사입니다. 민트 5% 미만, 노랑 5~10%, 주황 10~15%, 빨강 15% 이상.</p>')
     _sd = mt_sido(m)
     area_link = (f'<p class="tp-small"><a href="mountainarea-{_sd[1]}.html">{_sd[0]} 지역 산 모아 보기</a></p>' if _sd and len(_mg.get(_sd, [])) >= 3 else "")
     import math
@@ -1433,7 +1451,7 @@ def mountain_page(m):
     mt_courses_html = ""
     if _cn:
         mt_courses_html = ('<section class="tp-sec"><h2 class="tp-h2">근처 걷기 코스</h2><p class="tp-p">이 산의 등산로 가까이를 지나는 두루누비 코스입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
-                           "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a> <span class="tp-small">{esc(c.get("region") or "")} · {_mt_dist(d_)} 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
+                           "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} <span class="tp-small">{esc(c.get("region") or "")} · {_mt_dist(d_)} 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
 {mt_prof_html}
@@ -1468,7 +1486,7 @@ def mt_group_page(short, slug, ms):
     tot = sum(mt_stats(m)[0] for m in ms)
     def li(m):
         tt, steep, hi, lo = mt_stats(m)
-        return f'<li><a href="mountain-{m["id"]}.html">{esc(mt_title(m))}</a> · 구간 {len(m["sections"])}개 · {tt:.1f}km · 최고 약 {hi:.0f}m</li>'
+        return f'<li><a href="mountain-{m["id"]}.html">{esc(mt_title(m))}</a>{mapchip("mountain-"+m["id"]+".html")} · 구간 {len(m["sections"])}개 · {tt:.1f}km · 최고 약 {hi:.0f}m</li>'
     body = f"""<section class="tp-sec"><p class="tp-p">{short} 지역에서 산림청 등산로 자료로 정리한 산은 {len(ms)}곳입니다. 등산로 구간을 모두 합치면 {tot:.0f}km이고, 구간 최고 고도가 가장 높은 산은 {esc(ms[0]["name"])}(약 {mt_stats(ms[0])[2]:.0f}m)입니다.</p>
 <p class="tp-small">위치를 확인할 수 있는 산만 실었습니다. 같은 이름의 산이 다른 지역에도 있을 수 있습니다.</p></section>
 <section class="tp-sec"><h2 class="tp-h2">구간 최고 고도가 높은 순</h2><ul class="cp-list">{"".join(li(m) for m in ms)}</ul></section>
@@ -1480,7 +1498,7 @@ def mt_group_page(short, slug, ms):
 
 
 MT_GROUP_PAGES = [mt_group_page(k[0], k[1], v) for k, v in sorted(_mg.items(), key=lambda kv: kv[0][1]) if len(v) >= 3]
-MT_GROUP_LINKS = [(f"mountainarea-{k[1]}.html", k[0], len(v)) for k, v in sorted(_mg.items(), key=lambda kv: kv[0][1]) if len(v) >= 3]
+MT_GROUP_LINKS = [(f"mountainarea-{k[1]}.html", k[0], len(v)) for k, v in sorted(_mg.items(), key=lambda kv: (cap_pri(kv[0][0]), kv[0][1])) if len(v) >= 3]
 
 
 def mountains_hub():
@@ -1496,7 +1514,7 @@ def mountains_hub():
         by.setdefault(cho(m["name"]), []).append(m)
     def li(m):
         tot, steep, hi, lo = mt_stats(m)
-        return f'<li><a href="mountain-{m["id"]}.html">{esc(mt_title(m))}</a> · 구간 {len(m["sections"])}개 · {tot:.1f}km · 최고 약 {hi:.0f}m</li>'
+        return f'<li><a href="mountain-{m["id"]}.html">{esc(mt_title(m))}</a>{mapchip("mountain-"+m["id"]+".html")} · 구간 {len(m["sections"])}개 · {tot:.1f}km · 최고 약 {hi:.0f}m</li>'
     secs = "".join(f'<section class="tp-sec"><h2 class="tp-h2">{k} ({len(v)})</h2><ul class="cp-list">{"".join(li(m) for m in v)}</ul></section>' for k, v in by.items())
     tall = "".join(li(m) for m in sorted(MOUNTAINS, key=lambda m: -mt_stats(m)[2])[:12])
     body = f"""<section class="tp-sec"><p class="tp-p">산림청이 공개한 등산로 자료에 고도를 겹쳐, 산마다 길이와 경사, 가파른 구간을 정리했습니다. 지금 {len(MOUNTAINS)}개 산이 있습니다.</p></section>
@@ -1571,6 +1589,10 @@ def _cards(html):
     밑줄 링크를 쭉 이어 쓰면 눌러야 하는 곳인지 모르고, 줄도 항목 한가운데서 끊긴다."""
     def one(m):
         href, name, rest = m.group(1), m.group(2).strip(), m.group(3)
+        chip = ""
+        cm = re.search(r'\s*<a class="tr-chip".*?</a>', rest, re.S)
+        if cm:
+            chip = cm.group(0).strip(); rest = rest.replace(cm.group(0), "", 1)
         if "<a " in rest:
             return m.group(0)
         parts = [x.strip() for x in re.sub(r"<[^>]+>", "", rest).split(" · ") if x.strip()]
@@ -1587,6 +1609,8 @@ def _cards(html):
             inner += '<span class="cp-meta">' + "".join(f"<span>{x}</span>" for x in meta) + "</span>"
         for x in near:
             inner += '<span class="cp-near">' + x + "</span>"
+        if chip:
+            return f'<li class="cp-card has-chip"><a class="cp-row" href="{href}">{inner}</a>{chip}</li>'
         return f'<li class="cp-card"><a class="cp-row" href="{href}">{inner}</a></li>'
     return _UL_RE.sub(lambda u: '<ul class="cp-list">' + _LI_RE.sub(one, u.group(1)) + "</ul>", html)
 
