@@ -796,3 +796,15 @@ body .gr-switch a:not(.on):hover{ box-shadow:var(--lift); border-color:var(--acc
   .mt-table th, .mt-table td { padding-left: 3px; padding-right: 3px; }
   .tier-data-table th, .tier-data-table td { padding-left: 5px !important; padding-right: 5px !important; }
 }
+
+/* 가로로 밀어야 하는 넓은 표: 첫 열(행 이름)을 고정해 밀어도 어느 줄인지 알 수 있게 한다 */
+@media (max-width: 520px) {
+  .g-table:has(th:nth-child(5)) th:first-child,
+  .g-table:has(th:nth-child(5)) td:first-child {
+    position: sticky; left: 0; z-index: 1; background-color: var(--bg);
+    box-shadow: 1px 0 0 var(--border, rgba(128,128,128,.3));
+  }
+  .g-table:has(th:nth-child(5)) th:first-child { background-color: var(--surface, var(--bg)); z-index: 2; }
+  .g-table:has(th:nth-child(5)) tbody tr:nth-child(even) td:first-child { background-image: linear-gradient(var(--tint-1, transparent), var(--tint-1, transparent)); }
+  .g-table th, .g-table td { font-size: 13px; }
+}

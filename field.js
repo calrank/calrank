@@ -41,7 +41,7 @@
   }
 
   // ── 상태 ─────────────────────────────────────────────────
-  var C = null, P, PATH, TOT, SEG, XY, CUM, SC, LAT0, ZOOM = 0, pos = 0, lastDist = null, watch = null, lock = null, EMIN, EMAX;
+  var MAPON = false, C = null, P, PATH, TOT, SEG, XY, CUM, SC, LAT0, ZOOM = 0, pos = 0, lastDist = null, watch = null, lock = null, EMIN, EMAX;
 
   function elevAt(d) { for (var i = 1; i < P.length; i++) { if (P[i][0] >= d) { var a = P[i - 1], b = P[i], t = (d - a[0]) / (b[0] - a[0] || 1); return a[1] + (b[1] - a[1]) * t; } } return P[P.length - 1][1]; }
   function segAt(d) { for (var i = 0; i < SEG.length; i++) { if (d < SEG[i].to) return i; } return SEG.length - 1; }
@@ -96,6 +96,7 @@
       sc = (W / 2 - pad) / ZW[ZOOM];
       tx = function (p) { return W / 2 + (p[0] - me[0]) * sc; }; ty = function (p) { return H / 2 - (p[1] - me[1]) * sc; };
     }
+    if (MAPON) s += tiles(tx, ty, sc, W, H);
     var d = ""; XY.forEach(function (p, i) { d += (i ? " L" : "M") + tx(p).toFixed(1) + "," + ty(p).toFixed(1); });
     s += '<path d="' + d + '" fill="none" stroke="var(--fd-flat)" stroke-width="' + (ZOOM ? 6 : 4) + '" stroke-linecap="round" stroke-linejoin="round"/>';
     // 지나온 길은 진하게, 남은 길은 옅게
@@ -108,6 +109,31 @@
     s += '<circle cx="' + tx(me) + '" cy="' + ty(me) + '" r="8" fill="var(--fd-up)" stroke="var(--surface)" stroke-width="3"/>';
     if (ZOOM) { var bar = ZOOM === 1 ? 500 : 100; s += '<line x1="' + pad + '" x2="' + (pad + bar * sc) + '" y1="' + (H - 12) + '" y2="' + (H - 12) + '" stroke="var(--ink)" stroke-width="3"/><text class="fd-ax" x="' + pad + '" y="' + (H - 18) + '" style="font-size:11px;fill:var(--ink)">' + bar + "m</text>"; }
     $("fdMini").innerHTML = s + "</svg>";
+  }
+
+  // 배경 지도: 켠 뒤에만 OpenStreetMap 타일 이미지를 요청한다. 코스 선을 그리는 좌표계(미터)와 타일 모서리를 같은 식으로 맞춘다.
+  function tiles(tx, ty, sc, W, H) {
+    var lat0 = LAT0, lon0 = PATH[0][1];
+    function inv(x, y) { return [lat0 + y / 111320, lon0 + x / (111320 * Math.cos(lat0 * Math.PI / 180))]; }
+    // 화면 모서리 → 지도 좌표
+    var mx0, mx1, my0, my1;
+    if (ZW[ZOOM]) { var me = ptAt(pos); mx0 = me[0] - (W / 2) / sc; mx1 = me[0] + (W / 2) / sc; my0 = me[1] - (H / 2) / sc; my1 = me[1] + (H / 2) / sc; }
+    else { mx0 = (0 - tx([0, 0]) ) / sc; mx1 = (W - tx([0, 0])) / sc; my0 = (ty([0, 0]) - H) / sc; my1 = ty([0, 0]) / sc; }
+    var a = inv(mx0, my0), b = inv(mx1, my1);
+    // 화면에 타일이 9장 안팎이 되도록 줌을 고른다
+    var z = 17; while (z > 8) { var n = Math.pow(2, z), tw = (b[1] - a[1]) / 360 * n; if (tw <= 3.2) break; z--; }
+    var N = Math.pow(2, z);
+    function tX(lon) { return (lon + 180) / 360 * N; }
+    function tY(lat) { var r = lat * Math.PI / 180; return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * N; }
+    function lon(x) { return x / N * 360 - 180; }
+    function lat(y) { var n2 = Math.PI - 2 * Math.PI * y / N; return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n2) - Math.exp(-n2))); }
+    var x0 = Math.floor(tX(a[1])), x1 = Math.floor(tX(b[1])), y0 = Math.floor(tY(b[0])), y1 = Math.floor(tY(a[0])), out = "";
+    if ((x1 - x0 + 1) * (y1 - y0 + 1) > 20) return "";
+    for (var X = x0; X <= x1; X++) for (var Y = y0; Y <= y1; Y++) {
+      var nw = xy([lat(Y), lon(X)]), se = xy([lat(Y + 1), lon(X + 1)]);
+      out += '<image href="https://tile.openstreetmap.org/' + z + "/" + X + "/" + Y + '.png" x="' + tx(nw).toFixed(1) + '" y="' + ty(nw).toFixed(1) + '" width="' + (tx(se) - tx(nw)).toFixed(1) + '" height="' + (ty(se) - ty(nw)).toFixed(1) + '" opacity=".85"/>';
+    }
+    return out + '<rect x="0" y="' + (H - 15) + '" width="' + W + '" height="15" fill="#fff" opacity=".7"/><text class="fd-attr" x="' + (W - 6) + '" y="' + (H - 4) + '" text-anchor="end" style="fill:#333">© OpenStreetMap contributors</text>';
   }
 
   function paint(acc) {
@@ -158,6 +184,74 @@
     if (document.visibilityState === "visible" && watch !== null && navigator.wakeLock) navigator.wakeLock.request("screen").then(function (l) { lock = l; }).catch(function () {});
   });
 
+
+  // ── 내 GPX ───────────────────────────────────────────────
+  // 파일은 이 브라우저 안에서만 읽고 localStorage에만 저장한다(서버 전송 없음).
+  var STORE = "calrank.field.gpx.v1";
+  function loadMine() { try { return JSON.parse(localStorage.getItem(STORE) || "[]"); } catch (e) { return []; } }
+  function saveMine(list) { try { localStorage.setItem(STORE, JSON.stringify(list)); return true; } catch (e) { return false; } }
+  function hav(a, b) { var R = 6371000, r = Math.PI / 180, dl = (b[0] - a[0]) * r, dn = (b[1] - a[1]) * r, x = Math.sin(dl / 2) * Math.sin(dl / 2) + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dn / 2) * Math.sin(dn / 2); return 2 * R * Math.asin(Math.sqrt(x)); }
+
+  function parseGpx(text, fname) {
+    var doc = new DOMParser().parseFromString(text, "application/xml");
+    if (doc.getElementsByTagName("parsererror").length) throw new Error("GPX 파일을 읽지 못했습니다. 파일이 깨졌거나 GPX 형식이 아닙니다.");
+    var nodes = doc.getElementsByTagName("trkpt"); if (!nodes.length) nodes = doc.getElementsByTagName("rtept");
+    if (nodes.length < 10) throw new Error("코스 좌표가 너무 적습니다. 경로(track)가 들어 있는 GPX가 필요합니다.");
+    var pts = [], withEle = 0;
+    for (var i = 0; i < nodes.length; i++) {
+      var la = parseFloat(nodes[i].getAttribute("lat")), lo = parseFloat(nodes[i].getAttribute("lon")), ee = nodes[i].getElementsByTagName("ele")[0], ev = ee ? parseFloat(ee.textContent) : NaN;
+      if (isNaN(la) || isNaN(lo)) continue;
+      if (!isNaN(ev)) withEle++;
+      pts.push([la, lo, ev]);
+    }
+    if (pts.length < 10 || withEle < pts.length * 0.8) throw new Error("고도 값이 없는 GPX입니다. 고도가 들어 있어야 오르막과 내리막을 나눌 수 있습니다.");
+    // 고도가 빠진 점은 앞 값으로 채운다
+    var lastE = null; pts.forEach(function (p) { if (isNaN(p[2])) p[2] = lastE == null ? 0 : lastE; lastE = p[2]; });
+    var cum = [0]; for (var k = 1; k < pts.length; k++) cum.push(cum[k - 1] + hav(pts[k - 1], pts[k]));
+    var total = cum[cum.length - 1];
+    if (total < 500) throw new Error("코스가 500m보다 짧습니다.");
+    // 50m 간격으로 다시 뽑는다
+    var STEP = 50, out = [], path = [], j = 1;
+    for (var d = 0; d < total; d += STEP) {
+      while (j < cum.length - 1 && cum[j] < d) j++;
+      var t = (d - cum[j - 1]) / ((cum[j] - cum[j - 1]) || 1), a = pts[j - 1], b = pts[j];
+      out.push([d, a[2] + (b[2] - a[2]) * t]); path.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+    }
+    out.push([total, pts[pts.length - 1][2]]); path.push([pts[pts.length - 1][0], pts[pts.length - 1][1]]);
+    // GPS 고도는 흔들리므로 5점 이동평균으로 누른다
+    var sm = out.map(function (p, i) { var s = 0, c = 0; for (var q = Math.max(0, i - 2); q <= Math.min(out.length - 1, i + 2); q++) { s += out[q][1]; c++; } return [Math.round(p[0]), Math.round(s / c * 10) / 10]; });
+    var nm = doc.getElementsByTagName("name")[0];
+    var name = ((nm && nm.textContent.trim()) || fname.replace(/\.(gpx|xml)$/i, "") || "내 코스").slice(0, 60);
+    return { id: "gpx-" + Date.now().toString(36), name: name, region: "내 GPX", km: Math.round(total / 100) / 10, profile: sm, path: path.map(function (p) { return [Math.round(p[0] * 1e5) / 1e5, Math.round(p[1] * 1e5) / 1e5]; }), src: "내가 올린 GPX 파일(이 기기에만 저장)" };
+  }
+
+  function renderMine() {
+    var ul = $("fdMine"); if (!ul) return; var list = loadMine();
+    ul.innerHTML = list.length ? list.map(function (c) { return '<li class="fd-mine-row"><a href="field.html?c=' + encodeURIComponent(c.id) + '">' + esc(c.name) + "<span>내 GPX · " + c.km + 'km</span></a><button type="button" class="fd-del" data-del="' + esc(c.id) + '" aria-label="' + esc(c.name) + ' 삭제">삭제</button></li>'; }).join("") : "";
+    [].forEach.call(ul.querySelectorAll("[data-del]"), function (b) { b.addEventListener("click", function () { saveMine(loadMine().filter(function (c) { return c.id !== b.getAttribute("data-del"); })); renderMine(); }); });
+  }
+
+  function wireUpload() {
+    var f = $("fdFile"); if (!f) return; renderMine();
+    f.addEventListener("change", function () {
+      var file = f.files && f.files[0], m = $("fdUpMsg"); if (!file) return;
+      if (file.size > 8 * 1024 * 1024) { m.textContent = "파일이 너무 큽니다(8MB 이하)."; return; }
+      m.textContent = "파일을 읽는 중입니다.";
+      var rd = new FileReader();
+      rd.onload = function () {
+        try {
+          var c = parseGpx(String(rd.result), file.name), list = loadMine();
+          list.unshift(c); list = list.slice(0, 6);
+          if (!saveMine(list)) { m.textContent = "읽었지만 이 기기에 저장하지 못했습니다. 이번에만 볼 수 있습니다."; } else { m.textContent = ""; }
+          history.replaceState(null, "", "field.html?c=" + encodeURIComponent(c.id)); open(c); renderMine();
+        } catch (e) { m.textContent = e.message || "파일을 열지 못했습니다."; }
+        f.value = "";
+      };
+      rd.onerror = function () { m.textContent = "파일을 읽지 못했습니다."; };
+      rd.readAsText(file);
+    });
+  }
+
   // ── 코스 열기 ────────────────────────────────────────────
   function open(c) {
     C = c; P = c.profile; PATH = c.path; TOT = P[P.length - 1][0]; SEG = segments(P); LAT0 = PATH[0][0];
@@ -190,6 +284,10 @@
         paint();
       });
     });
+    var mb = $("fdMapBtn");
+    if (mb) mb.addEventListener("click", function () {
+      MAPON = !MAPON; mb.setAttribute("aria-pressed", MAPON ? "true" : "false"); mb.textContent = MAPON ? "배경 지도 끄기" : "배경 지도 켜기"; paint();
+    });
     $("fdOther").addEventListener("click", function (e) { e.preventDefault(); if (watch !== null) toggleGps(); history.replaceState(null, "", "field.html"); $("fdApp").hidden = true; $("fdPick").hidden = false; });
   }
 
@@ -208,6 +306,8 @@
     wire();
     var id = (location.search.match(/[?&]c=([\w-]+)/) || [])[1];
     fetch("field/index.json").then(function (r) { return r.json(); }).then(picker).catch(function () { $("fdList").innerHTML = '<li class="fd-small">코스 목록을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.</li>'; });
-    if (id) fetch("field/" + id + ".json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(open).catch(function () { $("fdMsgTop").textContent = "이 코스의 자료를 불러오지 못했습니다. 아래에서 다른 코스를 골라 주세요."; });
+    wireUpload();
+    if (id && id.indexOf("gpx-") === 0) { var mine = loadMine().filter(function (c) { return c.id === id; })[0]; if (mine) open(mine); else $("fdMsgTop").textContent = "이 기기에 저장된 GPX가 없습니다. 아래에서 다시 올려 주세요."; }
+    else if (id) fetch("field/" + id + ".json").then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(open).catch(function () { $("fdMsgTop").textContent = "이 코스의 자료를 불러오지 못했습니다. 아래에서 다른 코스를 골라 주세요."; });
   });
 })();

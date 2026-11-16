@@ -20,9 +20,11 @@ FAQ = [
     ("내 위치가 코스와 맞는지는 어떻게 알 수 있나요?",
      "GPS를 켜면 코스 선에서 몇 m 떨어져 있는지와 기기가 알려 주는 GPS 오차를 함께 보여 줍니다. 오차 25m 이하이고 코스에서 30m 이내면 코스 위로 보고, 그보다 어긋나면 갈림길에서 표지판과 함께 확인하라고 안내합니다. 코스에서 100m 넘게 벗어나면 벗어났다고 알립니다."),
     ("인터넷이 없는 산에서도 쓸 수 있나요?",
-     "GPS 위치는 통신이 없어도 잡히지만, 코스 자료는 처음 열 때 받아 옵니다. 출발 전에 같은 기기로 한 번 열어 두세요. 오프라인 저장은 준비 중이라 지금은 보장하지 못합니다."),
+     "GPS 위치는 통신이 없어도 잡힙니다. 코스 자료와 화면은 처음 열 때 이 기기에 저장되므로, 출발 전에 같은 기기와 같은 브라우저로 한 번 열어 두면 통신이 없어도 같은 코스를 열 수 있습니다. 직접 올린 GPX는 처음부터 기기에만 저장됩니다. 배경 지도는 인터넷이 있을 때만 나옵니다."),
     ("화면이 꺼지지 않게 할 수 있나요?",
      "GPS를 켜면 브라우저의 화면 켜짐 유지 기능(Screen Wake Lock)을 요청합니다. 다른 앱으로 넘어가거나 화면이 가려지면 풀리고, 절전 모드에서는 지원되지 않을 수 있습니다."),
+    ("대회 코스도 볼 수 있나요?",
+     "대회 주최 측이 공개한 GPX 파일이 있으면 직접 올려서 볼 수 있습니다. 칼랭크가 대회별 공식 코스 파일을 가지고 있는 것은 아니며, 올린 파일은 서버로 보내지 않고 이 기기에만 저장합니다. 고도 값이 없는 파일은 오르막과 내리막을 나눌 수 없어 열지 않습니다."),
     ("내 위치가 서버로 전송되나요?",
      "아니요. 위치와 계산은 이 기기의 브라우저 안에서만 처리하고 칼랭크 서버로 보내지 않습니다."),
     ("해발과 오르막 값은 얼마나 정확한가요?",
@@ -72,7 +74,16 @@ main = f'''<main class="tp fd">
 <h3>코스 고르기</h3>
 <input class="fd-q" id="fdQ" type="search" inputmode="search" placeholder="코스 이름이나 지역" aria-label="코스 이름이나 지역으로 찾기" autocomplete="off">
 <ul class="fd-list" id="fdList"></ul>
-<p class="fd-small">트레일·둘레길 코스 149곳의 자료가 있습니다. 대회 코스는 공식 GPX 파일을 구할 수 있을 때 같은 화면으로 확장할 예정입니다.</p>
+<p class="fd-small">트레일·둘레길 코스 149곳의 자료가 있습니다.</p>
+</section>
+
+<section class="fd-card" id="fdUp">
+<h3>내 GPX 올리기</h3>
+<p class="fd-small">대회 공식 코스 GPX나 직접 만든 코스 파일을 올리면 같은 화면으로 볼 수 있습니다. 파일은 서버로 보내지 않고 이 기기의 브라우저에만 저장합니다. 고도 값이 들어 있는 파일이어야 오르막·내리막을 나눌 수 있습니다.</p>
+<div class="fd-row"><label class="fd-btn fd-lbl" for="fdFile">GPX 파일 고르기</label></div>
+<input type="file" id="fdFile" accept=".gpx,.xml,application/gpx+xml,text/xml" hidden>
+<p class="fd-msg" id="fdUpMsg" role="status"></p>
+<ul class="fd-list" id="fdMine"></ul>
 </section>
 
 <div id="fdApp" hidden>
@@ -96,6 +107,8 @@ main = f'''<main class="tp fd">
 <button type="button" class="fd-btn" data-z="1" aria-pressed="false">앞뒤 1km</button>
 <button type="button" class="fd-btn" data-z="2" aria-pressed="false">앞뒤 250m</button>
 </div>
+<div class="fd-row"><button type="button" class="fd-btn" id="fdMapBtn" aria-pressed="false">배경 지도 켜기</button></div>
+<p class="fd-small" id="fdMapNote">켜면 OpenStreetMap 지도 이미지를 인터넷에서 불러옵니다. 꺼 두면 외부로 요청하지 않습니다. 인터넷이 없으면 지도 없이 코스 선만 보입니다.</p>
 <p class="fd-conf" id="fdConf" data-s="manual" aria-live="polite"></p>
 </section>
 
