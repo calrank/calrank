@@ -174,7 +174,7 @@
         m.textContent = "GPS로 따라가는 중";
       }, function (err) {
         watch = null; btn.textContent = "GPS로 따라가기";
-        m.textContent = err && err.code === 1 ? "위치 권한이 꺼져 있습니다. 브라우저 설정에서 허용하면 따라갑니다. 지금은 슬라이더로 움직일 수 있습니다." : "위치를 가져오지 못했습니다. 하늘이 트인 곳에서 다시 눌러 주세요.";
+        m.textContent = err && err.code === 1 ? "위치 권한이 꺼져 있습니다. 주소창 왼쪽 자물쇠(또는 aA)에서 위치를 허용하고 폰의 위치 서비스도 켜 주세요. 앱 안의 브라우저(카카오톡 등)에서는 막혀 있으니 크롬·사파리에서 열어야 합니다. 지금은 슬라이더로 움직일 수 있습니다." : "위치를 가져오지 못했습니다. 하늘이 트인 곳에서 다시 눌러 주세요.";
       }, { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 });
       btn.textContent = "GPS 끄기";
       if (navigator.wakeLock) navigator.wakeLock.request("screen").then(function (l) { lock = l; }).catch(function () {});

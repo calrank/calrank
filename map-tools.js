@@ -137,7 +137,7 @@
         stat.hidden = false; stat.innerHTML = ""; stat.appendChild(document.createTextNode(base));
         if (h) { var hd = document.createElement("div"); hd.className = "rm-hud"; hd.innerHTML = h; stat.appendChild(hd); var sb = hd.querySelector("#rmShare"); if (sb) sb.onclick = share; }
       }, function (err) {
-        stop(); say(err && err.code === 1 ? "위치 권한이 꺼져 있습니다. 브라우저 설정에서 허용해 주세요." : "위치를 가져오지 못했습니다. 하늘이 트인 곳에서 다시 눌러 주세요.");
+        stop(); say(err && err.code === 1 ? "위치 권한이 꺼져 있습니다. 주소창 왼쪽 자물쇠(또는 aA)에서 위치를 허용하고, 폰의 위치 서비스도 켜져 있는지 확인해 주세요. 카카오톡 같은 앱 안의 브라우저에서는 막혀 있으니 크롬·사파리에서 열어 주세요." : "위치를 가져오지 못했습니다. 하늘이 트인 곳에서 다시 눌러 주세요.");
       }, { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 });
     });
   }
