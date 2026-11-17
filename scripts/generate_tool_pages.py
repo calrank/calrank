@@ -463,8 +463,15 @@ def _near_li(d_, m):
             f'<span class="tp-small">산림청 등산로 구간 {len(S)}개, 합계 {tot:.1f}km, 구간 최고 해발 약 {hi:.0f}m. {steep_txt}</span></li>')
 
 
+def _near_sorted(c):
+    """코스 근처 산을 가까운 순으로 두되, 어르신들이 부르는 "○○산"을 "○○봉"보다 앞에 둔다."""
+    h = list(COURSE_NEAR.get(c["id"], []))
+    h.sort(key=lambda t: (not t[1]["name"].endswith("산"), t[0]))
+    return h
+
+
 def _near_txt(c):
-    h = [x for x in COURSE_NEAR.get(c["id"], []) if not x[1].get("point")]
+    h = _near_sorted(c)
     if not h:
         return ""
     return " · " + _near_word(h[0][0]) + " 산 " + ", ".join(esc(m["name"]) for _, m in h[:3])
@@ -926,7 +933,7 @@ def course_page(c):
         rel += '<section class="tp-sec"><h2 class="tp-h2">같은 길·지역의 코스 모음</h2><ul class="cp-list">' + "".join(_lk) + "</ul></section>"
     if same:
         rel += ('<section class="tp-sec"><h2 class="tp-h2">같은 지역의 다른 코스</h2><ul class="cp-list">' +
-               "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km · 난이도 {dg_of(o)[2]}</li>' for o in same) +
+               "".join(f'<li><a href="course-{o["id"]}.html">{esc(o["name"])}</a> · {o["profile"][-1][0] / 1000:.1f}km · 난이도 {dg_of(o)[2]}{_near_txt(o)}</li>' for o in same) +
                '</ul></section>')
     ft_extra = ""
     if _ft:
@@ -1020,9 +1027,10 @@ def course_page(c):
     base = nm if (nm.endswith("코스") or _ft) else nm + " 코스"
     # 제목은 "산 이름 + 근처 + 코스 이름" 순서로 쓴다. 해파랑길·남파랑길 같은 코스 이름은
     # 일반인이 검색하지 않고 "OO산 근처", "강릉 걷기" 처럼 산·동네 이름으로 찾기 때문이다.
-    # 이름만 있는 작은 산(좌표 한 점)은 본문에만 쓴다. 제목에 넣으면 지역명을 밀어내는데
-    # 그 이름으로 검색하는 사람은 거의 없고, 좌표도 근사값이다.
-    _tn = [h for h in _nm if not h[1].get("point")]
+    # 등산로 자료가 있는 산을 먼저 쓴다. 없으면 산림청 산정보의 좌표 한 점짜리 중 "○○산"으로 끝나는 이름만
+    # 제목에 쓴다. 코스가 어디 근처인지 지명으로 아는 사람(특히 어르신)이 많기 때문이다. 좌표는 근사값이라
+    # 거리를 근처(1km 안)·인근(3km 안)으로만 나눠 말한다.
+    _tn = [h for h in _nm if not h[1].get("point")] or [h for h in _near_sorted(c) if h[1].get("point") and h[1]["name"].endswith("산")]
     _mt1 = _tn[0][1]["name"] if _tn and _tn[0][1]["name"] not in nm else ""
     _mtw = f"{_mt1} {_near_word(_tn[0][0])} " if _mt1 else ""
     _rg = " ".join(region.split()[:2])
@@ -1184,7 +1192,7 @@ def ft_group_page(slug, name, intro, cs):
                  f'<td>{_hm(min(w_))}~{_hm(max(w_))}</td><td class="hide-sm">{max(p_[1] for p_ in c["profile"]):.0f}m</td>' + (f'<td class="hide-sm">{fac}</td>' if any_fac else '') + '</tr>')
     table = ('<div class="mt-wrap"><table class="mt-table"><thead><tr><th>코스</th><th>거리</th><th>오르막</th><th>난이도</th><th class="hide-sm">1km당</th><th>걷는 시간<span class="hide-sm"> (시:분)</span></th><th class="hide-sm">최고점</th>' + ('<th class="hide-sm">시설</th>' if any_fac else '') + '</tr></thead>'
              f'<tbody>{rows}</tbody></table></div>')
-    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m · 난이도 {dg_of(c)[2]}</li>' for c in lst)
+    lk = lambda lst: "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} · {st[c["id"]][0]:.1f}km · 1km당 오르막 {per(c):.0f}m · 난이도 {dg_of(c)[2]}{_near_txt(c)}</li>' for c in lst)
     lead = (f"{name}{josa(name, '은', '는')} 칼랭크에 코스 {len(cs)}개가 실려 있고, 모두 합치면 {km:.0f}km이며 누적 오르막은 {gain:.0f}m입니다. "
             f"가장 긴 코스는 {nm_short(longest)}({st[longest['id']][0]:.1f}km)입니다. 1km당 오르막으로 가장 가파른 코스는 {nm_short(hard[0])}(약 {per(hard[0]):.0f}m), 가장 완만한 코스는 {nm_short(easy[0])}(약 {per(easy[0]):.0f}m)입니다.")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc((intro + " ") if intro else "")}{esc(lead)}</p></section>
