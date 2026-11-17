@@ -73,6 +73,7 @@
         var utm = (new URLSearchParams(location.search).get("utm_source") || "").toLowerCase();
         var h = utm || host;
         if (host === location.hostname) src = "";
+        else if (utm === "share") src = "share";  // 칼랭크의 공유 버튼으로 만든 링크
         else if (h) {
           src = /naver\.com|naver$|^naver/.test(h) ? (/cafe\.naver|^cafe/.test(h) ? "cafe" : /blog\.naver|^blog/.test(h) ? "blog" : "naver")
             : /google|^google/.test(h) ? "google" : /daum|^daum/.test(h) ? "daum"

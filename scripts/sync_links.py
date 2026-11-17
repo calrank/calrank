@@ -39,7 +39,7 @@ GROUPS = [
       "gear-beetroot-nitrate.html", "gear-heat.html"], 3),
     ("기어-인라인", "함께 보는 기어 판정", ["gear-inline-bearings.html", "gear-ws-wheel-diameter.html", "gear-shoe-rotation.html"], 2),
     ("도구", "함께 쓰는 도구",
-     ["age-curve.html", "zone2-heart-rate-calculator.html", "goals.html", "ledger.html", "standards-running.html",
+     ["age-curve.html", "race-compare.html", "zone2-heart-rate-calculator.html", "goals.html", "ledger.html", "standards-running.html",
       "standards-cycling.html", "standards-trail.html", "standards-triathlon.html", "race-finder-quiz.html",
       "race-checklist-tool.html", "record-issue-diagnosis-tool.html", "level.html", "course.html", "field.html"], 4),
     ("일정모음", "대회 일정 모아 보기",

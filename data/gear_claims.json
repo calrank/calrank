@@ -427,7 +427,19 @@
           "a": "폴은 선택 장비입니다. 다만 한번 들면 전 구간 들고 가야 합니다."
         }
       ],
-      "updated": "2026-11-14"
+      "updated": "2026-11-17",
+      "explainers": [
+        {
+          "h": "내리막에서 무릎에 걸리는 힘",
+          "p": "Schwameder 등(1999)은 남성 8명이 25도 경사로(경사율로 약 47%)를 내려갈 때 폴을 쓴 경우와 쓰지 않은 경우를 비교했습니다. 폴을 쓰면 지면반력, 무릎 모멘트, 정강뼈-넓적다리뼈 압박력과 전단력의 최대값과 평균값이 12~25% 낮았습니다. 무릎뼈 압박력과 대퇴사두근 힘, 외측광근 활동도 비슷하게 줄었지만 개인차가 커서 통계적으로 유의하지 않았습니다. 힘은 센서로 잰 값이 아니라 준정적 무릎 모델로 계산한 값이고 참가자가 8명이라, 한 연구의 결과로만 읽어야 합니다.",
+          "src": [
+            [
+              "Schwameder H, Roithner R, Müller E, Niessen W, Raschner C (1999). Knee joint forces during downhill walking with hiking poles. Journal of Sports Sciences 17(12):969–978. PMID 10622357",
+              "https://pubmed.ncbi.nlm.nih.gov/10622357/"
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "trail-pack-weight",

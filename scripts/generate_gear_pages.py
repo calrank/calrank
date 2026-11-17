@@ -598,6 +598,8 @@ def build_hub(rules, claims):
         '<div class="gh-col">'
         '<a class="gh-item" href="' + ("trailroot.html" if (ROOT / "trailroot.html").exists() else "course.html") + '"><b>트레일루트</b><span class="gh-tag">새로 나왔습니다</span>'
         '<span class="gh-q">코스 오르막 누적 고도와 페이스별 예상 소요시간</span></a>'
+        '<a class="gh-item" href="race-compare.html"><b>마라톤 대회 비교</b><span class="gh-tag">새로 나왔습니다</span>'
+        '<span class="gh-q">대회 날 기온과 기록에 주는 영향 나란히 보기</span></a>'
         '<a class="gh-item" href="age-curve.html"><b>나이 곡선</b>'
         '<span class="gh-q">나이·성별 보정 연령등급 판정</span></a>'
         '<a class="gh-item" href="standards-triathlon.html"><b>철인3종 규칙 기준</b>'

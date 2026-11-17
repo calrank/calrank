@@ -1291,7 +1291,7 @@ def hub_page():
 <p class="tp-small">직접 만든 경로(GPX)는 <a href="course.html">코스 판정</a>에서 바로 계산해 볼 수 있습니다. 대회 코스 GPX는 <a href="yardage.html">대회 코스 야디지북</a>에서 구간별로 볼 수 있습니다. 파일은 이 기기 밖으로 나가지 않습니다.</p></section>
 <section class="tp-sec mn" id="trMine" hidden><h2 class="tp-h2">내 목록</h2></section>
 <div class="mn-import"><span class="mn-import-t">다른 기기에서 저장한 백업이 있으면 불러올 수 있습니다.</span><label class="tp-btn ghost mn-file">백업 불러오기<input type="file" id="trImport" accept="application/json,.json"></label><span id="trImportMsg" class="tp-small" role="status"></span></div>
-<section class="tp-sec"><label class="tp-field">이름·지역·산 이름으로 찾기<input id="listQ" type="search" placeholder="예: 해파랑길, 서울둘레길, 북한산" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p><ul id="listMore" class="cp-list" data-other="mountains.html"></ul></section>
+<section class="tp-sec"><label class="tp-field">이름·지역·산 이름으로 찾기<input id="listQ" type="search" placeholder="예: 인왕산, 해파랑길, 서울둘레길" autocomplete="off"></label><p id="listMsg" class="tp-small" role="status" aria-live="polite"></p><ul id="listMore" class="cp-list" data-other="mountains.html"></ul></section>
 {lvtab}
 <section class="tp-sec"><h2 class="tp-h2">길과 지역으로 보기</h2><ul class="cp-list">{"".join(f'<li><a href="{sl}">{esc(nm_)}</a> · {n_}개 코스</li>' for sl, nm_, n_ in GROUP_LINKS)}</ul></section>
 <section class="tp-sec"><h2 class="tp-h2">1km당 오르막이 많은 순</h2><ul class="cp-list">{top}</ul></section>
@@ -1453,12 +1453,12 @@ def mountain_page(m):
         near.sort(key=lambda t: (t[0], t[1]["id"]))
     rel = ""
     if near:
-        rel = ('<section class="tp-sec"><h2 class="tp-h2">가까운 다른 산</h2><ul class="cp-list">' +
+        rel = ('<section class="tp-sec"><h2 class="tp-h2">{esc(nm)} 주변의 가까운 산</h2><ul class="cp-list">' +
                "".join(f'<li><a href="mountain-{o["id"]}.html">{esc(mt_title(o))}</a> <span class="tp-small">직선 약 {dk:.0f}km</span></li>' for dk, o in near[:6]) + "</ul></section>")
     _cn = MT_NEAR_COURSES.get(mid, [])
     mt_courses_html = ""
     if _cn:
-        mt_courses_html = ('<section class="tp-sec"><h2 class="tp-h2">근처 걷기 코스</h2><p class="tp-p">이 산의 등산로 가까이를 지나는 두루누비 코스입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
+        mt_courses_html = ('<section class="tp-sec"><h2 class="tp-h2">{esc(nm)} 근처 걷기 코스</h2><p class="tp-p">이 산의 등산로 가까이를 지나는 두루누비 코스입니다. 경로 좌표로 잰 값이라 같은 길이라는 뜻은 아닙니다.</p><ul class="cp-list">' +
                            "".join(f'<li><a href="course-{c["id"]}.html">{esc(c["name"])}</a>{mapchip("course-"+c["id"]+".html")} <span class="tp-small">{esc(c.get("region") or "")} · {_mt_dist(d_)} 거리</span></li>' for d_, c in sorted(_cn, key=lambda t: t[0])[:6]) + "</ul></section>")
     body = f"""<section class="tp-sec"><p class="tp-p">{esc(lead)}</p>
 <table class="cv-table"><tbody>{stat_html}</tbody></table></section>
@@ -1477,7 +1477,15 @@ def mountain_page(m):
                   (f"{nm} 등산로는 모두 몇 km인가요?", f"산림청 등산로 구간을 모두 더하면 {tot:.1f}km입니다. 한 번에 걷는 거리가 아니라 산 전체 등산로의 합입니다.")] if _km >= 2 else [])
     faq = faq_extra + [(f"{nm}의 가파른 구간은 어디인가요?", f"산림청 구간 중 평균 경사가 가장 큰 곳은 약 {abs(top[0]['meanGrade']):.0f}%입니다(구간 길이 {top[0]['lenM']}m)."),
            ("고도는 어떻게 구했나요?", "산림청 등산로 선에 약 30m 간격의 지표 고도 자료를 겹쳐 읽었습니다. 나무 높이가 섞일 수 있어 정상부는 조금 높게 나올 수 있습니다.")]
-    desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.')
+    desc = (f'{mt_title(m)} 등산로 {len(S)}개 구간, 합계 {tot:.1f}km. 구간별 경사와 가파른 곳, 고도를 산림청 자료로 정리했습니다.'
+            + (f' {nm} 근처 걷기 코스 {len(_cn)}개.' if _cn else ""))
+    if _cn:
+        _cs = sorted(_cn, key=lambda t: t[0])[:3]
+        faq.append((f"{nm} 근처에 걷기 좋은 코스는 어디인가요?",
+                    "산 등산로에서 가까운 순으로 " + ", ".join(f'{c["name"]}({_mt_dist(d_)})' for d_, c in _cs) + "입니다. 경로 좌표로 잰 거리라 같은 길이라는 뜻은 아닙니다."))
+    if near:
+        faq.append((f"{nm} 주변에 가까운 산은 어디인가요?",
+                    "직선거리로 " + ", ".join(f'{o["name"]}(약 {dk:.0f}km)' for dk, o in near[:3]) + "입니다."))
     return slug, page(slug, f"{mt_title(m)} 등산로 경사와 가파른 구간", desc, f"{mt_title(m)} 등산로",
                       f"구간 {len(S)}개 · {tot:.1f}km · 최고 약 {hi:.0f}m", body, ["calrank-local.js", "trail-mark.js", "route-map.js"], faq, crumb=("산", "mountains.html"),
                       place={"type": "Mountain", "name": nm, "lat": S[0].get("lat"), "lon": S[0].get("lon"), "ele": off if off else hi,
@@ -1572,7 +1580,7 @@ if MOUNTAINS:
 from site_emoji import emo as _emo  # noqa: E402
 
 _H1_EMO = [("course", "hiking-boot"), ("trail", "hiking-boot"), ("mountain", "mountain"),
-           ("kit", "backpack"), ("age-curve", "chart-increasing"), ("ledger", "memo"),
+           ("kit", "backpack"), ("race-compare", "thermometer"), ("age-curve", "chart-increasing"), ("ledger", "memo"),
            ("gear-changes", "memo"), ("standards-triathlon", "person-swimming"),
            ("standards-trail", "mountain"), ("standards-running", "running-shoe"),
            ("standards-cycling", "bicycle")]
@@ -1669,10 +1677,93 @@ YARD = page(
      ("보정 페이스는 어떻게 나오나요?", "경사별 에너지 비용 식으로 구간마다 같은 노력의 속도를 계산한 뒤, 목표 기록에 맞게 전체를 맞춥니다. 오르막은 느려지고 평지는 상대적으로 빨라집니다.")],
     crumb=("코스 판정", "course.html"))
 
+
+# ---- 마라톤 대회 비교: 풀코스를 여는 대회의 대회일 기온·기록 영향·비 온 해를 나란히 ----
+def _race_compare_rows():
+    """events.json 에 기온 평년값을 붙여(generate_event_pages 와 같은 방법) 비교용 행을 만든다.
+    트레일·스카이·원본 중복은 거르고, 관측소가 20km 넘게 먼 대회는 뺀다. 코스 오르막·기록 분포는 자료가 없어 넣지 않는다."""
+    import json as _j, re as _r
+    import generate_event_pages as _gep
+    import event_insights as _ei
+    evs = _j.loads((ROOT / "events.json").read_text(encoding="utf-8"))
+    _gep.attach_climate(evs)
+    bad = _r.compile(r"트레일|Trail|스카이|런트립|/ /")
+    rows, seen = [], set()
+    for e in evs:
+        c = e.get("climate")
+        if e.get("sport") != "marathon" or not c or c.get("stationKm", 99) > 20:
+            continue
+        if not any("풀" in str(d) for d in (e.get("distances") or [])) or e.get("date", "") < "2026-01-01":
+            continue
+        nm = _r.sub(r"\s+", " ", e["name"]).strip()
+        if bad.search(nm):
+            continue
+        k = (e["date"], e.get("region"), _r.sub(r"[^가-힣]", "", nm)[:5])
+        if k in seen:
+            continue
+        seen.add(k)
+        avg = (c["minAvg"] + c["maxAvg"]) / 2
+        over = avg - _ei.ADJ_REF_C
+        rows.append({"id": e["id"], "name": _r.sub(r"^(20\d\d|\d\d)\s*", "", nm), "date": e["date"], "region": e.get("region") or "",
+                     "lo": c["minAvg"], "hi": c["maxAvg"], "hot": c["hottestMax"], "hotY": c["hottestYear"],
+                     "rain": c["rainYears"], "yrs": c["years"], "st": c["station"], "km": c["stationKm"],
+                     "avg": round(avg, 1), "over": round(over, 1),
+                     "pct": round(_ei.ADJ_PER_C * min(over, _ei.ADJ_MAX_DELTA) * 100, 1) if over > 0 else None,
+                     "capped": over > _ei.ADJ_MAX_DELTA})
+    rows.sort(key=lambda x: (x["date"], x["name"]))
+    return rows
+
+
+RC_ROWS = _race_compare_rows()
+
+
+def _rc_li(x):
+    href = f"e/{x['id']}.html"
+    nm = (f'<a href="{href}">{esc(x["name"])}</a>' if (ROOT / href).exists() else esc(x["name"]))
+    return (f'<li>{nm} · {x["date"][5:7].lstrip("0")}/{x["date"][8:]} {esc(x["region"])} · 기온 {x["lo"]:.1f}~{x["hi"]:.1f}도 · '
+            f'비 {x["rain"]}/{x["yrs"]}년</li>')
+
+
+import json as _rcj
+_RC_BODY = """<section class="tp-card"><div class="rc-pick">
+<label class="rc-sel"><span class="rc-dot rc-d0"></span><select id="rcS0" aria-label="첫째 대회"></select></label>
+<label class="rc-sel"><span class="rc-dot rc-d1"></span><select id="rcS1" aria-label="둘째 대회"></select></label>
+<label class="rc-sel"><span class="rc-dot rc-d2"></span><select id="rcS2" aria-label="셋째 대회"></select></label>
+</div><p class="rc-share"><button type="button" class="tp-btn ghost" id="rcShare">이 비교 링크 공유</button><span id="rcShareMsg" class="tp-small" role="status" aria-live="polite"></span></p></section>
+<section class="tp-sec"><h2 class="tp-h2">대회일 기온</h2>
+<p class="tp-small">막대는 대회 날 앞뒤 3일 중 해마다 가장 낮은 값과 가장 높은 값을 최근 10년 평균한 구간입니다. 점은 10년 중 가장 더웠던 해의 최고 기온입니다.</p>
+<div class="tp-card"><svg id="rcChart" class="rc-chart" role="img" aria-label="대회별 대회일 기온 구간"></svg><ul id="rcNames" class="rc-names"></ul></div></section>
+<section class="tp-sec"><h2 class="tp-h2">기온이 기록에 주는 영향</h2>
+<div class="tp-card rc-list" id="rcHeat"></div>
+<p class="tp-small">기준 15도와 1도당 약 0.8%는 풀코스 기록 연구에서 나온 값입니다. 15도보다 추운 쪽은 발표된 계수가 없어 숫자를 만들지 않았습니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">최근 10년 중 비 온 해</h2>
+<div class="tp-card rc-list" id="rcRain"></div>
+<p class="tp-small">대회 당일 하루 강수량이 1mm 이상이었던 해를 셉니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">코스 오르막과 기록 분포</h2>
+<p class="tp-p">두 항목은 <b>자료 없음</b>입니다. 누적 오르막은 공식 요강이나 GPX로 확인한 대회만 적는데 확인된 로드 마라톤이 아직 없고, 대회별 공식 결과는 칼랭크가 갖고 있지 않습니다. 확보한 대회부터 채웁니다.</p></section>
+<section class="tp-sec"><h2 class="tp-h2">풀코스 마라톤 대회일 기온 목록</h2>
+<p class="tp-p">칼랭크에 일정이 실린 풀코스 대회 __N__곳입니다. 날짜순이고, 기온은 아침 최저·낮 최고의 10년 평균, 비는 10년 중 당일 비가 온 해입니다.</p>
+<ul class="cp-list">__LIST__</ul></section>
+<script type="application/json" id="rcData">__DATA__</script>
+<p class="tp-src">기온: 기상청 종관기상관측(ASOS) 일자료를 대회장에서 가장 가까운 관측소(20km 이내) 기준으로 모았고, 관측소 이름과 거리는 대회마다 적었습니다. 기온 기준: El Helou 외, <i>PLoS ONE</i> 2012;7(5):e37407 · 기온과 기록: Nikolaidis 외, <i>Int J Environ Res Public Health</i> 2019;16:614 · Knechtle 외, <i>PLoS ONE</i> 2019;14(3):e0212797. 계산은 칼랭크가 했고, 대회 일정은 원본 정보에 오류가 있을 수 있습니다.</p>"""
+RACE = page(
+    "race-compare.html", "마라톤 대회 비교 — 대회일 기온과 기록 영향 한눈에",
+    f"풀코스 마라톤 대회 {len(RC_ROWS)}곳 가운데 셋을 골라 대회일 기온, 15도 기준 기록 영향, 최근 10년 비 온 해를 나란히 비교합니다. 기상청 관측 자료로 계산했습니다.",
+    "마라톤 대회 비교",
+    "풀코스를 여는 대회를 고르면 대회 날 기온과 그 기온이 기록에 주는 영향을 같은 기준으로 나란히 봅니다.",
+    _RC_BODY.replace("__N__", str(len(RC_ROWS))).replace("__LIST__", "".join(_rc_li(x) for x in RC_ROWS))
+            .replace("__DATA__", _rcj.dumps(RC_ROWS, ensure_ascii=False, separators=(",", ":"))),
+    ["race-compare.js"],
+    [("대회일 기온은 어떻게 구했나요?", "대회 날 앞뒤 3일 가운데 해마다 가장 낮은 기온과 가장 높은 기온을 구해 최근 10년을 평균했습니다. 기상청 종관기상관측(ASOS) 일자료이고, 대회장에서 가장 가까운 관측소 값입니다."),
+     ("기온이 기록에 얼마나 영향을 주나요?", "아침 최저와 낮 최고를 평균한 값이 15도보다 높으면 1도당 약 0.8% 느려지는 것으로 계산합니다. 풀코스 기록 연구에서 나온 계수이고, 짧은 거리는 영향이 더 작을 수 있습니다."),
+     ("코스 오르막과 기록 분포는 왜 비어 있나요?", "확인한 값만 적는 원칙입니다. 누적 오르막은 공식 요강이나 GPX로 확인한 대회만 적고, 대회별 공식 결과는 아직 갖고 있지 않아 자료 없음으로 표시합니다.")],
+    crumb=("대회 일정", "events-index.html"))
+
 KIT, COURSE, AGE, LEDGER = (_decorate(n, h) for n, h in [("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)])
+RACE = _decorate("race-compare.html", RACE)
 STANDARDS = [(n, _decorate(n, h)) for n, h in STANDARDS]
 
-for name, html in [("yardage.html", YARD), ("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER)] + STANDARDS + ([("dg-method.html", DGM)] if DGM else []):
+for name, html in [("yardage.html", YARD), ("kit.html", KIT), ("course.html", COURSE), ("age-curve.html", AGE), ("ledger.html", LEDGER), ("race-compare.html", RACE)] + STANDARDS + ([("dg-method.html", DGM)] if DGM else []):
     p = ROOT / name
     if not p.exists() or p.read_text(encoding="utf-8") != html:
         p.write_text(html, encoding="utf-8")
@@ -1708,7 +1799,7 @@ if _stale:
 sm = ROOT / "sitemap.xml"
 t = sm.read_text(encoding="utf-8")
 add = ""
-for n in ("kit.html", "course.html", "yardage.html", "age-curve.html", "ledger.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html", "dg-method.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
+for n in ("kit.html", "course.html", "yardage.html", "age-curve.html", "ledger.html", "race-compare.html", "standards-triathlon.html", "standards-cycling.html", "standards-running.html", "standards-trail.html", "gear-changes.html", *(["trailroot.html", "dg-method.html"] if COURSES else []), *(["mountains.html"] if MOUNTAINS else []), *[s for s, _ in MOUNTAIN_PAGES], *[s for s, _ in GROUP_PAGES], *[s for s, _ in MT_GROUP_PAGES], *[s for s, _ in COURSE_PAGES]):
     if f"/{n}</loc>" not in t:
         add += f"  <url>\n    <loc>{BASE}{n}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n"
 if add:

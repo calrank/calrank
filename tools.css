@@ -285,3 +285,31 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .cp-card.has-chip{position:relative;}
 .cp-card.has-chip .tr-chip{position:absolute;top:12px;right:44px;margin:0;z-index:1;}
 .cp-card.has-chip .cp-name{padding-right:70px;}
+
+/* 마라톤 대회 비교 */
+.rc-pick { display: grid; gap: 10px; }
+.rc-sel { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.rc-sel select { flex: 1; min-width: 0; min-height: 48px; padding: 8px 12px; border-radius: 14px; font-size: 16px; }
+.rc-dot { flex: none; width: 14px; height: 14px; display: inline-block; margin-top: 0; }
+.rc-d0 { background: var(--accent-fill); border-radius: 50%; }
+.rc-d1 { background: var(--ink); border-radius: 3px; }
+.rc-d2 { background: #2F6DB5; transform: rotate(45deg) scale(.8); border-radius: 2px; }
+.rc-chart { width: 100%; height: auto; display: block; }
+.rc-chart text { fill: var(--ink-soft); font-size: 12px; }
+.rc-ax { stroke: var(--line); stroke-width: 1; }
+.rc-ref { stroke: #0E9F87; stroke-width: 1.5; stroke-dasharray: 4 3; }
+.rc-chart .rc-reft { fill: #0E9F87; font-weight: 700; }
+.rc-s0 { fill: var(--accent-fill); } .rc-s1 { fill: var(--ink); } .rc-s2 { fill: #2F6DB5; }
+.rc-bar { fill-opacity: .28; stroke: currentColor; stroke-width: 1.5; }
+.rc-s0 .rc-bar { stroke: var(--accent-fill); } .rc-s1 .rc-bar { stroke: var(--ink); } .rc-s2 .rc-bar { stroke: #2F6DB5; }
+.rc-names { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.rc-names li, .rc-row { display: flex; gap: 10px; align-items: flex-start; min-width: 0; font-size: 14.5px; line-height: 1.65; }
+.rc-names .rc-dot, .rc-row .rc-dot { margin-top: 6px; }
+.rc-row p { margin: 0; min-width: 0; }
+.rc-list { display: grid; gap: 12px; }
+.rc-dots { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+.rc-dots i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--ink-faint); display: inline-block; }
+.rc-dots i.on { background: var(--ink); border-color: var(--ink); }
+@media (prefers-color-scheme: dark) { .rc-d2 { background: #6FA8E8; } .rc-s2 { fill: #6FA8E8; } .rc-s2 .rc-bar { stroke: #6FA8E8; } }
+.rc-share { margin: 12px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.rc-share .tp-small { margin: 0; min-width: 0; overflow-wrap: anywhere; }
