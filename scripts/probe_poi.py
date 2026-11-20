@@ -207,17 +207,25 @@ def probe_danger():
     """위험지역 POI(dangerInfoService)가 장소유형이 다양한 전체 지점 목록인지, 우리 코스에 얼마나 걸리는지 본다."""
     ep = SERVICES["위험지역POI(danger)"]
     print("\n===== 위험지역POI 전체 내려받기 (장소유형코드 분포)")
-    rows, page, total = [], 1, None
-    while page <= 60:
-        rr, err = call(ep, pageNo=page, numOfRows=1000)
+    rows, total, failed, streak, t0 = [], None, [], 0, time.time()
+    size, page = 300, 1
+    # 한 쪽을 작게 받고, 실패한 쪽은 건너뛰며 끝까지 간다(서버가 큰 쪽에서 시간 초과를 낸다).
+    while time.time() - t0 < 1500:
+        rr, err = call(ep, pageNo=page, numOfRows=size)
         if not rr:
-            print(f"  {page}쪽 실패: {err}")
-            break
-        total = rr["total"]
-        rows += rr["items"]
-        if not rr["items"] or len(rows) >= total:
-            break
+            failed.append(page)
+            streak += 1
+            if streak >= 12 or (total and (page - 1) * size >= total):
+                print(f"  {page}쪽 실패: {err}" if streak >= 12 else "")
+                break
+        else:
+            streak = 0
+            total = rr["total"]
+            rows += rr["items"]
+            if not rr["items"] or page * size >= total:
+                break
         page += 1
+    print(f"  실패한 쪽 {len(failed)}개 {failed[:20]}")
     print(f"  받은 {len(rows)}건 / 전체 {total}")
     if not rows:
         return
