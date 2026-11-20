@@ -9,7 +9,6 @@ docs/
 supabase/
 README.md
 data/asos_stations.json
-data/course_pois.json
 data/courses.json
 data/event_history.json
 data/event_lastmod.json

@@ -1,0 +1,28 @@
+name: Build POI layer
+
+# 코스 주변의 화장실·식수대·샘·쉼터·전망 지점을 OpenStreetMap 에서 받아 data/course_pois.json 을 만든다.
+# 코스마다 Overpass 에 한 번씩 묻고(요청 사이 2초 간격), 실패한 코스는 파일에 '받지 못함'으로 남긴다.
+# 처음에는 수동으로만 돌린다. 결과를 확인한 뒤에 월 1회 일정을 붙인다.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/fetch_osm_pois.py
+      - name: Commit data
+        run: |
+          git config user.name "calrank-bot"
+          git config user.email "bot@calrank.local"
+          git add data/course_pois.json
+          git diff --quiet --cached || (git commit -m "data: update course POI layer (OpenStreetMap)" && git pull --rebase && git push)
