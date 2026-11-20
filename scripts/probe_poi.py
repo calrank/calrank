@@ -53,17 +53,26 @@ def get(url, timeout=60):
 def call(endpoint, **params):
     q = {"serviceKey": KEY, "type": "json", **params}
     url = endpoint + "?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote)
-    try:
-        text = get(url)
-    except urllib.error.HTTPError as e:
-        body = ""
+    text = None
+    for attempt in range(4):
         try:
-            body = e.read().decode("utf-8", "replace")[:300]
-        except Exception:  # noqa: BLE001
-            pass
-        return None, f"HTTP {e.code} {safe(body)}"
-    except Exception as e:  # noqa: BLE001
-        return None, f"요청 실패 {safe(e)}"
+            text = get(url)
+            break
+        except urllib.error.HTTPError as e:
+            body = ""
+            try:
+                body = e.read().decode("utf-8", "replace")[:300]
+            except Exception:  # noqa: BLE001
+                pass
+            if e.code >= 500 and attempt < 3:  # 서버 시간 초과는 잠깐 쉬었다 다시
+                time.sleep(3 * (attempt + 1))
+                continue
+            return None, f"HTTP {e.code} {safe(body)}"
+        except Exception as e:  # noqa: BLE001
+            if attempt < 3:
+                time.sleep(3 * (attempt + 1))
+                continue
+            return None, f"요청 실패 {safe(e)}"
     try:
         j = json.loads(text)
     except ValueError:
@@ -194,6 +203,51 @@ def probe_coverage():
     print(f"  화장실·샘터 둘 다 잡힌 코스 {len(both)}곳 · 화장실·샘터·쉼터·대피소 중 하나라도 잡힌 코스 {len(anyfac)}곳 / 전체 {len(routes)}곳")
 
 
+def probe_danger():
+    """위험지역 POI(dangerInfoService)가 장소유형이 다양한 전체 지점 목록인지, 우리 코스에 얼마나 걸리는지 본다."""
+    ep = SERVICES["위험지역POI(danger)"]
+    print("\n===== 위험지역POI 전체 내려받기 (장소유형코드 분포)")
+    rows, page, total = [], 1, None
+    while page <= 60:
+        rr, err = call(ep, pageNo=page, numOfRows=1000)
+        if not rr:
+            print(f"  {page}쪽 실패: {err}")
+            break
+        total = rr["total"]
+        rows += rr["items"]
+        if not rr["items"] or len(rows) >= total:
+            break
+        page += 1
+    print(f"  받은 {len(rows)}건 / 전체 {total}")
+    if not rows:
+        return
+    cnt = collections.Counter(str(r.get("plcTypeCd")) for r in rows)
+    ex = {}
+    for r in rows:
+        ex.setdefault(str(r.get("plcTypeCd")), []).append(r.get("plcNm"))
+    for code, n in cnt.most_common():
+        print(f"  {code:10s} {n:6d}건  예: {[x for x in ex[code][:3]]}")
+    years = collections.Counter(str(r.get("crtrDt", ""))[:4] for r in rows)
+    print("  기준일 연도:", dict(sorted(years.items())))
+    routes = load_routes()
+    print(f"\n===== 우리 코스 경로와 맞춰 보기 (경로 {len(routes)}곳, 경로에서 {NEAR_M}m 안)")
+    grid, _ = L.build_grid(routes)
+    per_code = collections.defaultdict(set)
+    near = collections.Counter()
+    for r in rows:
+        try:
+            lat, lon = float(r.get("lat")), float(r.get("lot"))
+        except (TypeError, ValueError):
+            continue
+        hit = set(L.snap(grid, lat, lon))
+        if hit:
+            c = str(r.get("plcTypeCd"))
+            near[c] += 1
+            per_code[c] |= hit
+    for code, n in cnt.most_common():
+        print(f"  {code:10s} 경로 안 {near[code]:5d}건 · 걸친 코스 {len(per_code[code])}곳 / {len(routes)}곳")
+
+
 OVERPASS = "https://overpass-api.de/api/interpreter"
 AREAS = {"북한산": (37.60, 126.90, 37.72, 127.05), "설악산": (38.05, 128.25, 38.25, 128.55),
          "지리산": (35.20, 127.45, 35.45, 127.85), "한라산": (33.30, 126.40, 33.45, 126.75)}
@@ -227,6 +281,5 @@ if __name__ == "__main__":
     if not KEY:
         print("DATA_GO_KR_KEY 가 없다. 공공데이터 점검은 건너뛰고 OSM 만 센다.")
     else:
-        probe_services()
-        probe_coverage()
+        probe_danger()
     probe_osm()
