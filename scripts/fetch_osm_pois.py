@@ -55,26 +55,32 @@ def query(bbox):
                  ("tourism", "alpine_hut"), ("tourism", "wilderness_hut")]) + ");out center meta;")
     data = urllib.parse.urlencode({"data": q}).encode()
     last = None
-    for attempt in range(6):
+    for attempt in range(3):
         url = MIRRORS[attempt % len(MIRRORS)]
         try:
             req = urllib.request.Request(url, data=data, headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=120) as r:
+            with urllib.request.urlopen(req, timeout=60) as r:
                 return json.loads(r.read().decode()).get("elements", []), None
         except Exception as ex:  # noqa: BLE001
             last = str(ex)
-            time.sleep(5 * (attempt + 1))
+            time.sleep(4 * (attempt + 1))
     return None, last
 
 
+BUDGET_S = 60 * 60  # 이 시간이 지나면 거기까지만 쓰고 나머지는 '받지 못함'으로 남긴다
+
+
 def rows_for(routes):
-    rows, seen, failed = [], set(), []
+    rows, seen, failed, t0 = [], set(), [], time.time()
     for i, (rid, pts) in enumerate(routes.items(), 1):
+        if time.time() - t0 > BUDGET_S:
+            failed.append(rid)
+            continue
         lats, lons = [p[0] for p in pts], [p[1] for p in pts]
         els, err = query((min(lats) - MARGIN, min(lons) - MARGIN, max(lats) + MARGIN, max(lons) + MARGIN))
         if els is None:
             failed.append(rid)
-            print(f"[{i}/{len(routes)}] {rid} 실패: {err}")
+            print(f"[{i}/{len(routes)}] {rid} 실패: {err}", flush=True)
             continue
         for el in els:
             key = (el.get("type"), el.get("id"))
@@ -89,8 +95,7 @@ def rows_for(routes):
             t = el.get("tags") or {}
             rows.append({"code": c, "lat": lat, "lot": lon, "placeNm": t.get("name:ko") or t.get("name") or "",
                          "crtrDt": str(el.get("timestamp") or "")[:10]})
-        if i % 20 == 0:
-            print(f"[{i}/{len(routes)}] 누적 지점 {len(rows)}")
+        print(f"[{i}/{len(routes)}] {rid} 지점 {len(els)} · 누적 {len(rows)} · {int(time.time() - t0)}초", flush=True)
         time.sleep(SLEEP)
     return rows, failed
 
