@@ -22236,13 +22236,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://giverun.kr",
     "forecast": {
-      "tmn": 0.0,
+      "tmn": -1.0,
       "tmx": 8.0,
-      "morningTa": 1.2,
+      "morningTa": 1.4,
       "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22299,13 +22299,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://urfesta.com",
     "forecast": {
-      "tmn": -5.0,
+      "tmn": -4.0,
       "tmx": 2.0,
-      "morningTa": -4.4,
+      "morningTa": -3.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22348,12 +22348,12 @@
     },
     "forecast": {
       "tmn": -2.0,
-      "tmx": 7.0,
-      "morningTa": 0.6,
+      "tmx": 8.0,
+      "morningTa": 2.0,
       "pop": 30,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22418,13 +22418,13 @@
       "stationKm": 7
     },
     "forecast": {
-      "tmn": 1.0,
+      "tmn": 2.0,
       "tmx": 8.0,
-      "morningTa": 2.4,
+      "morningTa": 4.8,
       "pop": 60,
       "sky": "비",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22455,11 +22455,11 @@
     "forecast": {
       "tmn": -4.0,
       "tmx": 2.0,
-      "morningTa": -3.4,
+      "morningTa": -2.8,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22487,13 +22487,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://runten.co.kr",
     "forecast": {
-      "tmn": -3.0,
-      "tmx": 5.0,
-      "morningTa": -0.8,
+      "tmn": -2.0,
+      "tmx": 6.0,
+      "morningTa": -0.2,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22524,11 +22524,11 @@
     "forecast": {
       "tmn": -3.0,
       "tmx": 5.0,
-      "morningTa": -1.8,
+      "morningTa": -1.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22559,11 +22559,11 @@
     "forecast": {
       "tmn": -5.0,
       "tmx": 2.0,
-      "morningTa": -4.0,
+      "morningTa": -3.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22593,13 +22593,13 @@
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
     "applyUrl": "http://www.kpioneertrailrun.co.kr/",
     "forecast": {
-      "tmn": -2.0,
+      "tmn": -1.0,
       "tmx": 8.0,
-      "morningTa": 0.0,
+      "morningTa": 0.6,
       "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22627,12 +22627,12 @@
     "applyUrl": "http://cafe.naver.com/daehanindependence",
     "forecast": {
       "tmn": -5.0,
-      "tmx": 4.0,
+      "tmx": 3.0,
       "morningTa": -3.4,
       "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22668,13 +22668,13 @@
       "stationKm": 4
     },
     "forecast": {
-      "tmn": 1.0,
+      "tmn": 2.0,
       "tmx": 9.0,
-      "morningTa": 2.6,
+      "morningTa": 3.6,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22749,13 +22749,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "https://www.namhaerun.com/",
     "forecast": {
-      "tmn": 1.0,
+      "tmn": 2.0,
       "tmx": 9.0,
-      "morningTa": 2.2,
+      "morningTa": 3.2,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22871,12 +22871,12 @@
     },
     "forecast": {
       "tmn": -5.0,
-      "tmx": 6.0,
-      "morningTa": -3.2,
+      "tmx": 5.0,
+      "morningTa": -3.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22918,11 +22918,11 @@
     "forecast": {
       "tmn": 0.0,
       "tmx": 9.0,
-      "morningTa": 1.8,
+      "morningTa": 1.4,
       "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22955,7 +22955,7 @@
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -22996,11 +22996,11 @@
     "forecast": {
       "tmn": -4.0,
       "tmx": 5.0,
-      "morningTa": -2.8,
+      "morningTa": -2.6,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -23033,11 +23033,11 @@
     "forecast": {
       "tmn": -6.0,
       "tmx": 5.0,
-      "morningTa": -3.6,
+      "morningTa": -3.8,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -23077,13 +23077,13 @@
       "stationKm": 20
     },
     "forecast": {
-      "tmn": -5.0,
+      "tmn": -6.0,
       "tmx": 5.0,
       "morningTa": -3.2,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -23118,7 +23118,7 @@
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -23146,11 +23146,11 @@
     "forecast": {
       "tmn": -1.0,
       "tmx": 9.0,
-      "morningTa": 0.2,
+      "morningTa": 0.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -23185,7 +23185,7 @@
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
@@ -23263,11 +23263,11 @@
     "forecast": {
       "tmn": -2.0,
       "tmx": 9.0,
-      "morningTa": 2.0,
+      "morningTa": 1.6,
       "pop": 30,
-      "sky": "맑음",
+      "sky": "흐림",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-20 11:14"
+      "asOf": "2026-11-21 02:44"
     }
   },
   {
