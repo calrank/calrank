@@ -1,0 +1,27 @@
+# 배포(공개 주소)에서 뺀다. 브라우저가 실제로 읽지 않는 원자료·수집 도구는
+# 누구나 주소만 알면 통째로 내려받을 수 있었다. 사이트가 읽는 파일은 아래에 없다:
+#   events.json, event_ratings.json, event_aliases.json, news.json, course-diff.json,
+#   field/*.json, data/gear_claims.json, data/gear_rules.json, data/gear_dq.json, data/source_watch.json
+# 새 data/ 파일은 기본으로 공개되므로, 브라우저가 읽지 않는 파일을 추가하면 여기에도 적는다.
+scripts/
+.github/
+docs/
+supabase/
+README.md
+data/asos_stations.json
+data/course_pois.json
+data/courses.json
+data/event_history.json
+data/event_lastmod.json
+data/event_overrides.json
+data/forest_trail_names.json
+data/forest_trails.json
+data/forest_trails_geo.json
+data/indexed_events.json
+data/mountain_geocache.json
+data/mountain_names.json
+data/mountains.json
+data/mountains_extra.json
+data/race_climate.json
+data/trail_event_gain.json
+data/videos.json

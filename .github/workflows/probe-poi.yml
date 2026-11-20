@@ -1,0 +1,22 @@
+name: Probe POI Coverage
+
+# 화장실·약수터·쉼터 같은 시설 지점이 공공 POI 서비스와 OpenStreetMap 에 얼마나 있는지 한 번 센다.
+# 로그에만 남고 저장소에는 아무것도 쓰지 않는다. 공공데이터 키가 활용신청이 안 된 서비스는 오류 코드가 로그에 나온다.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/probe_poi.py
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}

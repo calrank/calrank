@@ -53,6 +53,7 @@
       try {
         var el = ev.target && ev.target.closest ? ev.target.closest("a[href],button[id],[role=button][id]") : null;
         if (!el) return;
+        if (el.id === "acctBtn") { evt("click", "btn:acctBtn"); return; }
         if (el.tagName === "A") {
           var u = new URL(el.getAttribute("href"), location.href);
           if (u.hostname !== location.hostname) { evt("click", "ext"); return; }

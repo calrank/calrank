@@ -45,6 +45,13 @@ jobs:
       - name: Fetch events
         run: python scripts/fetch_events.py --out events.json
 
+      - name: Track event changes
+        # 어제와 비교해 접수 마감일·날짜·장소 변경, 신규·사라짐을 data/event_history.json 에 쌓는다.
+        # 소스 사이트는 지난 모습을 남기지 않으므로 오늘부터 저장하지 않으면 되찾을 수 없다.
+        # 이력은 부가 자료라서 실패해도 일정 수집을 막지 않는다.
+        continue-on-error: true
+        run: python scripts/track_event_changes.py
+
       - name: Generate static event pages
         # events.json의 대회마다 내용이 미리 채워진 정적 페이지(e/<id>.html)를 만든다.
         # 검색엔진이 자바스크립트 없이도 대회 정보를 읽을 수 있게 하기 위함.

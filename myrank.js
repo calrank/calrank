@@ -410,32 +410,59 @@ function setupAuthTabs() {
       document.querySelectorAll(".auth-tab").forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       authMode = tab.dataset.mode;
-      document.getElementById("authSubmitBtn").textContent = authMode === "signin" ? "로그인" : "회원가입";
+      const up = authMode === "signup";
+      document.getElementById("authSubmitBtn").textContent = up ? "회원가입" : "로그인";
+      document.getElementById("authPassword").autocomplete = up ? "new-password" : "current-password";
+      document.getElementById("authPassword").placeholder = up ? "8자 이상" : "비밀번호";
+      document.getElementById("authEmail").autocomplete = up ? "email" : "username";
+      document.getElementById("authPwHint").style.display = up ? "block" : "none";
+      document.getElementById("authAgreeWrap").style.display = up ? "flex" : "none";
       document.getElementById("authMsg").textContent = "";
     });
   });
 }
+
+document.addEventListener("click", (ev) => {
+  const t = ev.target.closest && ev.target.closest("#authEye");
+  if (!t) return;
+  const inp = document.getElementById("authPassword");
+  const show = inp.type === "password";
+  inp.type = show ? "text" : "password";
+  t.textContent = show ? "숨기기" : "보기";
+  t.setAttribute("aria-pressed", String(show));
+  t.setAttribute("aria-label", show ? "비밀번호 숨기기" : "비밀번호 보기");
+});
 
 async function handleAuthSubmit(e) {
   e.preventDefault();
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
   const msgEl = document.getElementById("authMsg");
-  msgEl.textContent = "처리 중...";
   msgEl.className = "auth-msg";
+  const fail = (t) => { msgEl.textContent = t; msgEl.className = "auth-msg error"; };
+  if (authMode === "signup") {
+    if (password.length < 8) return fail("비밀번호는 8자 이상으로 정해 주세요.");
+    if (!document.getElementById("authAgree").checked) return fail("가입하려면 약관과 개인정보처리방침에 동의해 주세요.");
+  }
+  msgEl.textContent = "처리 중...";
 
   const { error } = authMode === "signin"
     ? await sb.auth.signInWithPassword({ email, password })
     : await sb.auth.signUp({ email, password });
 
   if (error) {
-    msgEl.textContent = error.message;
-    msgEl.className = "auth-msg error";
-    return;
+    const m = String(error.message || "") + " " + (error.code || "");
+    return fail(
+      error.status === 429 || /rate limit|too many/i.test(m) ? "잠시 후 다시 시도해 주세요. 요청이 한꺼번에 많았습니다."
+      : /invalid login credentials/i.test(m) ? "이메일 또는 비밀번호가 맞지 않습니다."
+      : /email not confirmed/i.test(m) ? "이메일 인증을 먼저 마쳐 주세요. 가입할 때 보낸 메일을 확인해 주세요."
+      : /weak_password|pwned|known to be weak|easy to guess/i.test(m) ? "너무 흔하거나 유출된 적 있는 비밀번호입니다. 다른 비밀번호로 정해 주세요."
+      : /password/i.test(m) && /(least|short|characters)/i.test(m) ? "비밀번호는 8자 이상으로 정해 주세요."
+      : "처리하지 못했습니다. 잠시 후 다시 시도해 주세요.");
   }
 
   if (authMode === "signup") {
-    msgEl.textContent = "가입 완료! 이메일 인증이 필요할 수 있습니다. 로그인해 주세요.";
+    msgEl.textContent = "이메일로 인증 안내를 보냈습니다. 받은 편지함과 스팸함을 확인한 뒤 로그인해 주세요.";
     msgEl.className = "auth-msg";
     return;
   }

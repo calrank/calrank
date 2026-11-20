@@ -57,8 +57,11 @@ function friendly(error) {
   if (/should be different|same.{0,12}(old|previous)/i.test(m)) {
     return "이전과 다른 비밀번호를 입력해 주세요.";
   }
-  if (/at least|too short|6 characters|weak.{0,10}password/i.test(m)) {
-    return "비밀번호는 6자 이상이어야 합니다.";
+  if (/weak_password|pwned|known to be weak|easy to guess/i.test(m + ((error && error.code) || ""))) {
+    return "너무 흔하거나 유출된 적 있는 비밀번호입니다. 다른 비밀번호로 정해 주세요.";
+  }
+  if (/at least|too short|characters/i.test(m)) {
+    return "비밀번호는 8자 이상이어야 합니다.";
   }
   if (/session|expired|invalid|jwt|token/i.test(m)) {
     return "링크가 만료됐습니다. 메일을 다시 받아 주세요.";
@@ -80,7 +83,7 @@ async function submitNewPassword(e) {
   const p1 = $("rsPw1").value;
   const p2 = $("rsPw2").value;
 
-  if (p1.length < 6) return say(msg, "비밀번호는 6자 이상이어야 합니다.", "error");
+  if (p1.length < 8) return say(msg, "비밀번호는 8자 이상이어야 합니다.", "error");
   if (p1 !== p2) return say(msg, "두 비밀번호가 서로 다릅니다. 다시 확인해 주세요.", "error");
 
   say(msg, "변경 중...");

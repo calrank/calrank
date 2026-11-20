@@ -12,10 +12,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_nav import WORDMARK, active_for, nav_html  # noqa: E402
+from site_nav import WORDMARK, active_for, nav_html_with_account  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-NAV_RE = re.compile(r'<nav class="main-nav">.*?</nav>(?:\n<script defer src="/header-hide\.js"></script>)?', re.S)
+NAV_RE = re.compile(r'<nav class="main-nav">.*?</nav>(?:\n<script defer src="/header-hide\.js"></script>)?(?:\n<script defer src="/account\.js"></script>)?', re.S)
 # 로고도 같이 맞춘다. 손으로 만든 페이지에 옛 글자 로고가 남으면 머리줄만 다른 사이트가 된다.
 MARK_RE = re.compile(r'<a href="index\.html" class="wordmark"[^>]*>.*?</a>', re.S)
 
@@ -45,7 +45,7 @@ def sync(path: Path) -> bool:
         return False
     # 대회 상세 페이지(e/…)는 파일 이름이 대회 id 라 접두사로 못 찾는다. 캘린더로 둔다.
     active = "calendar" if path.parent.name == "e" else active_for(path.name)
-    want = nav_html(active)
+    want = nav_html_with_account(active)
     new = NAV_RE.sub(lambda _m: want, html, count=1)
     new = MARK_RE.sub(lambda _m: WORDMARK, new, count=1)
     for _o, _n in BRAND_SUBS:

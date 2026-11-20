@@ -131,3 +131,19 @@ def site_header(active: str = "") -> str:
             + WORDMARK + "\n"
             + nav_html(active) + "\n"
             "</div>\n</header>")
+
+# ── 계정 버튼 ─────────────────────────────────────────────────────────────
+# 생성기가 만드는 헤더(nav_html)에는 넣지 않는다. 대회 상세 페이지의 사이트맵 날짜(lastmod)는
+# 생성기가 만든 본문의 서명으로 정해져서, 여기에 넣으면 대회 페이지 800여 장이 한꺼번에
+# "오늘 수정"으로 찍힌다. 그래서 sync_nav 가 모든 페이지에 같은 모양으로 덧붙인다.
+ACCOUNT_SCRIPT = '<script defer src="/account.js"></script>'
+
+
+def nav_html_with_account(active: str = "") -> str:
+    """nav_html 에 계정 버튼과 account.js 를 더한다. 버튼은 링크라서 스크립트가 없어도 내 랭크(로그인 화면)로 간다."""
+    html = nav_html(active)
+    btn = ('<a href="myrank.html" class="acct-btn" id="acctBtn" role="button" aria-haspopup="dialog" '
+           'aria-label="로그인·내 계정">' + emo("bust-in-silhouette", "acct-emo") + "</a>\n")
+    marker = '<button type="button" class="nav-toggle"'
+    assert html.count(marker) == 1 and html.endswith(HIDE_SCRIPT)
+    return html.replace(marker, btn + marker, 1) + "\n" + ACCOUNT_SCRIPT
