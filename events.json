@@ -22234,7 +22234,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://giverun.kr"
+    "applyUrl": "http://giverun.kr",
+    "forecast": {
+      "tmn": 1.0,
+      "tmx": 8.0,
+      "morningTa": 3.5,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-2026-남해트레일레이스-가을-2026-11-21",
@@ -22288,7 +22297,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://urfesta.com"
+    "applyUrl": "http://urfesta.com",
+    "forecast": {
+      "tmn": -4.0,
+      "tmx": 3.0,
+      "morningTa": -2.5,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-2026-전마협-보성녹차-마라톤-2026-11-21",
@@ -22329,13 +22347,13 @@
       "stationKm": 12
     },
     "forecast": {
-      "tmn": -2.0,
-      "tmx": 8.0,
-      "morningTa": 2.0,
-      "pop": 30,
+      "tmn": -1.0,
+      "tmx": 7.0,
+      "morningTa": 2.5,
+      "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -22400,13 +22418,13 @@
       "stationKm": 7
     },
     "forecast": {
-      "tmn": 2.0,
-      "tmx": 8.0,
-      "morningTa": 4.8,
+      "tmn": 1.0,
+      "tmx": 9.0,
+      "morningTa": 4.0,
       "pop": 60,
-      "sky": "비",
+      "sky": "비/눈",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -22433,7 +22451,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://gofree.seoul.co.kr/"
+    "applyUrl": "http://gofree.seoul.co.kr/",
+    "forecast": {
+      "tmn": -3.0,
+      "tmx": 2.0,
+      "morningTa": -1.5,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-런텐-14차-레이스-just-run10-대구-2026-11-21",
@@ -22458,7 +22485,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://runten.co.kr"
+    "applyUrl": "http://runten.co.kr",
+    "forecast": {
+      "tmn": -1.0,
+      "tmx": 6.0,
+      "morningTa": 1.5,
+      "pop": 20,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-2026-getr구미-에코-트레일레이스-2026-11-21",
@@ -22484,7 +22520,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://naver.me/59lo1fB8"
+    "applyUrl": "http://naver.me/59lo1fB8",
+    "forecast": {
+      "tmn": -2.0,
+      "tmx": 5.0,
+      "morningTa": 0.0,
+      "pop": 20,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-2026-서울-라이프마라톤-가을-2026-11-21",
@@ -22510,7 +22555,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://seoul.lifemarathon.co.kr"
+    "applyUrl": "http://seoul.lifemarathon.co.kr",
+    "forecast": {
+      "tmn": -3.0,
+      "tmx": 3.0,
+      "morningTa": -1.5,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-k-거상-트레일-러닝-대회-2026-11-21",
@@ -22537,7 +22591,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.kpioneertrailrun.co.kr/"
+    "applyUrl": "http://www.kpioneertrailrun.co.kr/",
+    "forecast": {
+      "tmn": 0.0,
+      "tmx": 9.0,
+      "morningTa": 3.0,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-천안시장배-대한독립천안트레일런산악등반대회-2026-11-21",
@@ -22561,7 +22624,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://cafe.naver.com/daehanindependence"
+    "applyUrl": "http://cafe.naver.com/daehanindependence",
+    "forecast": {
+      "tmn": -3.0,
+      "tmx": 4.0,
+      "morningTa": -1.0,
+      "pop": 20,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rm-런트립-남해-2026-11-21",
@@ -22596,13 +22668,13 @@
       "stationKm": 4
     },
     "forecast": {
-      "tmn": 2.0,
+      "tmn": 3.0,
       "tmx": 9.0,
-      "morningTa": 3.6,
+      "morningTa": 3.5,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -22675,7 +22747,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "https://www.namhaerun.com/"
+    "applyUrl": "https://www.namhaerun.com/",
+    "forecast": {
+      "tmn": 2.0,
+      "tmx": 9.0,
+      "morningTa": 4.0,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "ro-2026-한강짐런-2026-11-21",
@@ -22789,13 +22870,13 @@
       "stationKm": 6
     },
     "forecast": {
-      "tmn": -5.0,
-      "tmx": 5.0,
-      "morningTa": -3.4,
+      "tmn": -4.0,
+      "tmx": 6.0,
+      "morningTa": -2.8,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -22837,11 +22918,11 @@
     "forecast": {
       "tmn": 0.0,
       "tmx": 9.0,
-      "morningTa": 1.4,
+      "morningTa": 1.6,
       "pop": 20,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -22866,7 +22947,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://zeiss-smilerace.kr/"
+    "applyUrl": "http://zeiss-smilerace.kr/",
+    "forecast": {
+      "tmn": -4.0,
+      "tmx": 5.0,
+      "morningTa": -2.6,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rm-서울-억새-마라톤-2026-11-22",
@@ -22905,12 +22995,12 @@
     },
     "forecast": {
       "tmn": -4.0,
-      "tmx": 5.0,
-      "morningTa": -2.6,
+      "tmx": 6.0,
+      "morningTa": -2.4,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -22939,7 +23029,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://incheonmarathon.or.kr"
+    "applyUrl": "http://incheonmarathon.or.kr",
+    "forecast": {
+      "tmn": -5.0,
+      "tmx": 5.0,
+      "morningTa": -3.2,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rm-무주반딧불평화마라톤-2026-11-22",
@@ -22978,13 +23077,13 @@
       "stationKm": 20
     },
     "forecast": {
-      "tmn": -6.0,
-      "tmx": 5.0,
-      "morningTa": -3.2,
+      "tmn": -5.0,
+      "tmx": 4.0,
+      "morningTa": -3.0,
       "pop": 0,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-21 02:44"
+      "asOf": "2026-11-21 11:07"
     }
   },
   {
@@ -23011,7 +23110,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://krun.or.kr"
+    "applyUrl": "http://krun.or.kr",
+    "forecast": {
+      "tmn": -4.0,
+      "tmx": 6.0,
+      "morningTa": -2.6,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-부산항일학생의거86주년기념-부산시민이어달리기-2026-11-22",
@@ -23034,7 +23142,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://i1123.org"
+    "applyUrl": "http://i1123.org",
+    "forecast": {
+      "tmn": -1.0,
+      "tmx": 9.0,
+      "morningTa": 0.4,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rr-제19회-대구광역시장기-생활체육-육상대회-2026-11-22",
@@ -23060,7 +23177,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.daegutf.co.kr/front/board/view.php?code=game&tab=%EB%8C%80%EA%B5%AC&mid=0003%2C0014&no=722"
+    "applyUrl": "http://www.daegutf.co.kr/front/board/view.php?code=game&tab=%EB%8C%80%EA%B5%AC&mid=0003%2C0014&no=722",
+    "forecast": {
+      "tmn": -4.0,
+      "tmx": 7.0,
+      "morningTa": -2.2,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "ro-부산항일학생의거86주년기념-부산시민이어달리기-2026-11-22",
@@ -23111,7 +23237,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://events.maar-adv.com/backyardultra"
+    "applyUrl": "http://events.maar-adv.com/backyardultra",
+    "forecast": {
+      "tmn": 3.0,
+      "tmx": 10.0,
+      "morningTa": 5.0,
+      "pop": 20,
+      "sky": "구름많음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rm-2026-무진장트레일레이스-2026-11-23",
@@ -23134,7 +23269,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "forecast": {
+      "tmn": -3.0,
+      "tmx": 10.0,
+      "morningTa": 2.0,
+      "pop": 30,
+      "sky": "흐림",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-21 11:07"
+    }
   },
   {
     "id": "rm-평화런-2026-11-28",
