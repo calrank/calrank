@@ -67,14 +67,16 @@ def query(bbox):
     return None, last
 
 
-BUDGET_S = 60 * 60  # 이 시간이 지나면 거기까지만 쓰고 나머지는 '받지 못함'으로 남긴다
+BUDGET_S = 75 * 60  # 이 시간이 지나면 거기까지만 쓰고 나머지는 '받지 못함'으로 남긴다
 
 
 def rows_for(routes):
-    rows, seen, failed, t0 = [], set(), [], time.time()
+    """예산 안에서 받을 수 있는 코스까지만 받는다. (rows, 받은 코스 id 목록, 실패 id 목록, 남은 코스 수)"""
+    rows, seen, failed, done, t0 = [], set(), [], [], time.time()
+    pending = 0
     for i, (rid, pts) in enumerate(routes.items(), 1):
         if time.time() - t0 > BUDGET_S:
-            failed.append(rid)
+            pending += 1
             continue
         lats, lons = [p[0] for p in pts], [p[1] for p in pts]
         els, err = query((min(lats) - MARGIN, min(lons) - MARGIN, max(lats) + MARGIN, max(lons) + MARGIN))
@@ -82,6 +84,7 @@ def rows_for(routes):
             failed.append(rid)
             print(f"[{i}/{len(routes)}] {rid} 실패: {err}", flush=True)
             continue
+        done.append(rid)
         for el in els:
             key = (el.get("type"), el.get("id"))
             if key in seen:
@@ -97,7 +100,7 @@ def rows_for(routes):
                          "crtrDt": str(el.get("timestamp") or "")[:10]})
         print(f"[{i}/{len(routes)}] {rid} 지점 {len(els)} · 누적 {len(rows)} · {int(time.time() - t0)}초", flush=True)
         time.sleep(SLEEP)
-    return rows, failed
+    return rows, done, failed, pending
 
 
 def main():
@@ -106,24 +109,31 @@ def main():
     ap.add_argument("--out", default=B.OUT)
     a = ap.parse_args()
     routes = P.load_routes()
-    failed = []
+    prior = {}
+    if os.path.exists(a.out) and not a.rows:  # 이어받기: 이미 받은 코스는 건너뛴다(실패 표시된 코스만 다시)
+        try:
+            prior = {k: v for k, v in json.load(open(a.out, encoding="utf-8")).get("routes", {}).items() if not v.get("failed")}
+        except Exception:  # noqa: BLE001
+            prior = {}
+    todo = {k: v for k, v in routes.items() if k not in prior}
+    print(f"이미 받은 코스 {len(prior)}곳, 이번에 받을 코스 {len(todo)}곳", flush=True)
+    failed, pending = [], 0
     if a.rows:
         rows = json.load(open(a.rows, encoding="utf-8"))
+        done = list(routes)
     else:
-        rows, failed = rows_for(routes)
-    if not rows:
-        print("지점을 하나도 받지 못했다. 파일을 쓰지 않는다.")
+        rows, done, failed, pending = rows_for(todo)
+    if not done and not prior:
+        print("받은 코스가 하나도 없다. 파일을 쓰지 않는다.")
         return 1
-    if failed and len(failed) > len(routes) * 0.2:
-        print(f"실패한 코스가 {len(failed)}곳으로 많다. 파일을 쓰지 않는다.")
-        return 1
-    out, skipped = B.build(rows, routes)
+    out, skipped = B.build(rows, {k: routes[k] for k in done})
+    out.update(prior)
     for rid in failed:  # 못 받은 코스는 '없음'이 아니라 '받지 못함'으로 남긴다
-        out[rid]["failed"] = True
+        out[rid] = {"lengthM": 0, "pois": [], "failed": True}
     day = (datetime.now(timezone.utc) + timedelta(hours=9)).strftime("%Y-%m-%d")
     doc = {"built": day, "source": "OpenStreetMap contributors (ODbL 1.0)", "license": "https://www.openstreetmap.org/copyright",
            "note": "기준일은 OSM 마지막 편집일입니다. 현장 확인은 하지 않았고, 자료에 없는 지점은 실제로 없다는 뜻이 아닙니다.",
-           "near_m": L.NEAR_M, "routes": out}
+           "near_m": L.NEAR_M, "total_routes": len(routes), "routes": out}
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
@@ -132,7 +142,9 @@ def main():
     for v in out.values():
         for p in v["pois"]:
             kinds[p[1]] = kinds.get(p[1], 0) + 1
-    print(f"코스 {len(out)}곳 중 지점이 잡힌 코스 {withp}곳 · 실패 {len(failed)}곳 · 종류별 {kinds} → {a.out}")
+    print(f"받은 코스 {len(out)}곳 중 지점이 잡힌 코스 {withp}곳 · 이번 실패 {len(failed)}곳 · 아직 못 받은 코스 {pending}곳 · 종류별 {kinds} → {a.out}")
+    if pending:
+        print("예산이 끝나 일부만 받았다. 워크플로를 한 번 더 돌리면 이어서 받는다.")
     return 0
 
 
