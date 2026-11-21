@@ -23,7 +23,7 @@ import build_poi_layer as B  # noqa: E402
 import probe_poi as P  # noqa: E402
 
 MIRRORS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]
-UA = "calrank-poi/1.0 (https://calrank.kr; 시설 지점 월 1회 수집)"
+UA = "calrank-poi/1.0 (https://calrank.kr; monthly trail facility fetch)"
 MARGIN = 0.0015  # 약 150m
 SLEEP = 2.0
 B.KIND.setdefault("DRINK", "식수대")

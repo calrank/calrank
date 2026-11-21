@@ -38,19 +38,53 @@
   // 시설 지점. 산림청 등산로 자료의 지점(2016-12-31 기준)을 산 페이지 지도에만 올린다. 현장 확인은 하지 않았다.
   var KIND = {
     toilet: { label: "화장실", icon: "toilet", c: "#3b82f6" },
-    water: { label: "음수대", icon: "droplet", c: "#0ea5e9" },
+    water: { label: "식수·샘터", icon: "droplet", c: "#0ea5e9" },
+    spring: { label: "샘터", icon: "droplet", c: "#0891b2" },
     shelter: { label: "쉼터", icon: "umbrella-on-ground", c: "#16a34a" },
     view: { label: "조망", icon: "camera", c: "#8b5cf6" },
     danger: { label: "위험", icon: "warning", c: "#e5484d" },
     peak: { label: "정상", icon: "mountain", c: "#92400e" }
   };
   // 처음에는 꼭 필요한 것만 보여 주고, 확대할수록 더 보인다. 조망은 기본으로 꺼 둔다(버튼으로 켠다).
-  var MINZ = { peak: 0, danger: 0, toilet: 14, water: 14, shelter: 15, view: 16 }, DEFOFF = { view: 1 };
+  var MINZ = { peak: 0, danger: 0, toilet: 14, water: 14, spring: 14, shelter: 15, view: 16 }, DEFOFF = { view: 1 };
+  var COURSEZ = { peak: 0, danger: 0, toilet: 12, water: 12, spring: 12, shelter: 13, view: 14 };  // 코스는 길어서 더 멀리서부터 보인다
+  // 코스 페이지: data/course_pois.json 의 지점은 '출발점에서 몇 m' 로만 들어 있으니 경로 위의 위치로 바꾼다.
+  var KOR = { "화장실": "toilet", "식수대": "water", "약수터·샘터": "water", "쉼터": "shelter", "대피소": "shelter", "전망": "view" };
+  function planar(a, b) {
+    var x = (b[1] - a[1]) * Math.PI / 180 * Math.cos((a[0] + b[0]) / 2 * Math.PI / 180), y = (b[0] - a[0]) * Math.PI / 180;
+    return 6371000 * Math.sqrt(x * x + y * y);
+  }
+  function pointAt(path, cum, d) {
+    for (var i = 1; i < path.length; i++) {
+      if (cum[i] >= d) {
+        var seg = cum[i] - cum[i - 1], t = seg > 0 ? (d - cum[i - 1]) / seg : 0;
+        return [path[i - 1][0] + (path[i][0] - path[i - 1][0]) * t, path[i - 1][1] + (path[i][1] - path[i - 1][1]) * t];
+      }
+    }
+    return path[path.length - 1];
+  }
+  function courseList(cb) {
+    var m = /course-(dr|ft)-(.+)\.html/.exec(location.pathname), path = data.path;
+    if (!m || !path || path.length < 2) return cb(null);
+    var rid = (m[1] === "dr" ? "두루누비:dr-" : "숲길:ft-") + m[2];
+    fetch("/data/course_pois.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      var r = j && j.routes && j.routes[rid];
+      if (!r || !r.pois || !r.pois.length) return cb(null);
+      var cum = [0]; for (var i = 1; i < path.length; i++) cum.push(cum[i - 1] + planar(path[i - 1], path[i]));
+      var list = []; r.pois.forEach(function (p) { var k = KOR[p[1]]; if (!k) return; var ll = pointAt(path, cum, Math.min(p[0], cum[cum.length - 1])); list.push([k, ll[0], ll[1]]); });
+      cb(list, "OpenStreetMap 기여자가 등록한 지점(" + (j.built || "") + " 수집)입니다. 현장 확인은 하지 않았고, 목록에 없다고 실제로 없다는 뜻은 아닙니다. 가기 전에 최신 안내를 확인해 주세요.");
+    }).catch(function () { cb(null); });
+  }
   function spots(L, map) {
+    if (!window.fetch) return;
     var m = /mountain-(\d+)\.html/.exec(location.pathname);
-    if (!m || !window.fetch) return;
-    fetch("/data/mountain_spots.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
-      var list = j && j.mountains && j.mountains[m[1]];
+    var get = m ? function (cb) {
+      fetch("/data/mountain_spots.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+        cb(j && j.mountains && j.mountains[m[1]], "산림청 등산로 자료의 지점(2016년 12월 기준)입니다. 현장 확인은 하지 않았으니 가기 전에 최신 안내를 확인해 주세요. 지도 바탕의 작은 심볼은 OpenStreetMap 기본 표시입니다.");
+      }).catch(function () { cb(null); });
+    } : courseList;
+    var MZ = m ? MINZ : COURSEZ;
+    get(function (list, noteText) {
       if (!list || !list.length) return;
       if (!document.getElementById("spStyle")) {
         var st = document.createElement("style"); st.id = "spStyle";
@@ -63,7 +97,7 @@
       function refresh() {
         var z = map.getZoom();
         Object.keys(groups).forEach(function (key) {
-          var show = want[key] && z >= MINZ[key];
+          var show = want[key] && z >= MZ[key];
           if (show && !map.hasLayer(groups[key])) groups[key].addTo(map);
           if (!show && map.hasLayer(groups[key])) map.removeLayer(groups[key]);
         });
@@ -87,15 +121,15 @@
         b.innerHTML = '<img src="/emoji/' + k.icon + '.svg" alt="" width="20" height="20">' + k.label + " <i>" + counts[key] + "</i>";
         b.addEventListener("click", function () {
           want[key] = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", want[key] ? "true" : "false");
-          if (want[key] && map.getZoom() < MINZ[key]) map.setZoom(MINZ[key]);
+          if (want[key] && map.getZoom() < MZ[key]) map.setZoom(MZ[key]);
           refresh();
         });
         bar.appendChild(b);
       });
       var note = document.createElement("p"); note.className = "sp-note";
-      note.textContent = "산림청 등산로 자료의 지점(2016년 12월 기준)입니다. 현장 확인은 하지 않았으니 가기 전에 최신 안내를 확인해 주세요. 지도 바탕의 작은 심볼은 OpenStreetMap 기본 표시입니다.";
+      note.textContent = noteText;
       box.parentNode.insertBefore(bar, box.nextSibling); bar.parentNode.insertBefore(note, bar.nextSibling);
-    }).catch(function () {});
+    });
   }
 
   // 전체화면·내 위치(GPS)·방위는 map-tools.js 가 붙인다(메인 대회 지도와 같은 코드).
