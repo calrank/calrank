@@ -398,3 +398,14 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gi-aff ul { margin: 0; padding-left: 18px; }
 .gi-aff li { font-size: 15.5px; line-height: 1.9; }
 .gi-aff a { color: var(--ink); border-bottom: 1px dashed var(--ink-faint); text-decoration: none; }
+.gu-why{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--ink-soft,#5b524b)}
+.gu-small{margin:4px 0 0;font-size:13px;line-height:1.6;color:var(--ink-soft,#5b524b)}
+.gu-stat{margin:10px 0 0}
+.gu-bar{display:flex;gap:3px;height:10px;border-radius:999px;overflow:hidden;margin:0 0 8px}
+.gu-bar-g{background:#3EE0BE;min-width:0}
+.gu-bar-b{background:var(--border,#d8d1ca);min-width:0}
+.gu-bar:empty{display:none}
+.gu-done{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:rgba(62,224,190,.14);border:1px solid rgba(62,224,190,.55)}
+.gu-done-t{margin:0;font-size:15px;font-weight:800;line-height:1.5}
+.gu-next{display:inline-block;margin-top:8px;font-size:14px;font-weight:700}
+.gu-mine{margin:0 0 8px;font-size:14px;font-weight:700}

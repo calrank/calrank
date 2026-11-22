@@ -322,6 +322,9 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 .asp-head{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
 .asp-n{font-size:14px;color:var(--ink-soft,#5b524b)}
 .asp-by{margin:4px 0 0;font-size:13px;color:var(--ink-soft,#5b524b)}
+.asp-why{margin:0 0 6px;font-size:14px;line-height:1.6;color:var(--ink-soft,#5b524b)}
+.asp-thanks{margin:8px 0;padding:12px 14px;border-radius:12px;background:rgba(62,224,190,.14);border:1px solid rgba(62,224,190,.55)}
+.asp-thanks-t{margin:0;font-weight:800;font-size:15px}
 .asp-btns{display:flex;gap:8px;margin-top:10px}
 .asp-btn{flex:1;min-height:46px;border-radius:999px;border:1px solid var(--border,#d8d1ca);background:transparent;color:inherit;font:800 15px/1 inherit;cursor:pointer}
 .asp-btn.on{background:#3EE0BE;border-color:#3EE0BE;color:#06362d}
