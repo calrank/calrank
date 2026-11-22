@@ -173,7 +173,7 @@
   }
 
   // ── 창 ───────────────────────────────────────────────────────────
-  var CSS = ".acct-scrim{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}" +
+  var CSS = ".acct-scrim{position:fixed;inset:0;z-index:200000;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}" +
     ".acct-scrim[hidden]{display:none}" +
     ".acct-sheet{box-sizing:border-box;width:100%;max-width:420px;max-height:92vh;max-height:92dvh;overflow-y:auto;background:var(--bg);color:var(--ink);" +
     "border:1px solid var(--line);border-radius:18px 18px 0 0;padding:20px 20px calc(22px + env(safe-area-inset-bottom,0px));font-family:var(--font-body,inherit)}" +
