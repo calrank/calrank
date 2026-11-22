@@ -29,6 +29,8 @@
       ".rm-q{margin-top:8px;padding:10px 12px;border-radius:14px;background:#e9fbf6;border:1px solid #bfeee3}.rm-q span{display:block;font-weight:700}" +
       ".rm-q button{margin:8px 6px 0 0}.rm-q button.alt{background:#fff;color:#15110F;border:1px solid #9fd8cc;box-shadow:none}.rm-q small{display:block;margin-top:6px;font-weight:500;color:#4a5a56}" +
       ".rm-thx{margin-top:8px;padding:8px 12px;border-radius:14px;background:#e9fbf6;font-weight:700}" +
+      ".rm-dot{display:inline-block;width:9px;height:9px;margin-right:7px;border-radius:50%;background:#1f9d62;vertical-align:1px;animation:rmBlink 1.4s ease-in-out infinite}.rm-dot.mid{background:#d99a00}.rm-dot.bad{background:#b3261e}.rm-dot.wait{background:#8a8a8a;animation:none}" +
+      "@keyframes rmBlink{0%,100%{opacity:1}50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.rm-dot{animation:none}}" +
       ".rm-me{position:relative;width:22px;height:22px}" +
       ".rm-me i{position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.3)}" +
       ".rm-me::before{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;opacity:.45;animation:rmPulse 2s ease-out infinite}" +
@@ -80,6 +82,8 @@
       secList = opt.secs.filter(function (x) { return x.p && x.p.length > 1; }).map(function (x) { var L2 = 0; for (var i = 1; i < x.p.length; i++) L2 += Math.hypot((x.p[i][1] - x.p[i - 1][1]) * 111320 * Math.cos(x.p[i][0] * Math.PI / 180), (x.p[i][0] - x.p[i - 1][0]) * 111320); return { p: x.p, g: x.g, len: L2 }; });
     });
     var cid = courseId();
+    var mm = /mountain-(\d+)\.html/.exec(location.pathname), routeId = cid || (mm ? "mt-" + mm[1] : null);
+    function getSpots() { return (opt.spots || []).filter(function (s) { return s[0] === "toilet"; }); }
     var poiList = null, poiAll = [], poiLen = 0, pq = null, thx = null, skipQ = {};
     var ASK = { "화장실": "화장실", "식수대": "식수대", "약수터·샘터": "약수터·샘터", "대피소": "대피소" };
     var memDev = null;
@@ -95,11 +99,31 @@
       if (pq && Math.abs(pq.pos - d) > 70) { skipQ[pq.key] = 1; pq = null; }
       if (!pq) {
         var done = doneMap(), best = null;
-        poiAll.forEach(function (p) { var pos = p.d * k, g = Math.abs(pos - d); if (g <= 40 && !skipQ[p.key] && !done[cid + "|" + p.key] && (!best || g < best.g)) best = { g: g, pos: pos, key: p.key, kind: p.kind }; });
+        poiAll.forEach(function (p) { var pos = p.d * k, g = Math.abs(pos - d); if (g <= 40 && !skipQ[p.key] && !done[routeId + "|" + p.key] && (!best || g < best.g)) best = { g: g, pos: pos, key: p.key, kind: p.kind }; });
         pq = best;
       }
       if (!pq) return "";
-      return '<div class="rm-q" role="group" aria-label="시설 확인"><span>여기 <b>' + pq.kind + '</b>이(가) 있나요?</span><button type="button" id="rmQy">있어요</button><button type="button" id="rmQn" class="alt">없어요</button><button type="button" id="rmQs" class="alt">건너뛰기</button><small>누르면 확인 기록이 남습니다. 내 위치는 보내지 않습니다.</small></div>';
+      return qBox(pq.kind);
+    }
+    function qBox(kind) {
+      return '<div class="rm-q" role="group" aria-label="시설 확인"><span>여기 <b>' + kind + '</b>이(가) 있나요?</span><button type="button" id="rmQy">있어요</button><button type="button" id="rmQn" class="alt">없어요</button><button type="button" id="rmQs" class="alt">건너뛰기</button><small>누르면 확인 기록이 남습니다. 내 위치는 보내지 않습니다.</small></div>';
+    }
+    // 산 페이지: 등산로 구간 거리 대신 좌표로 가까운 화장실 지점(40m)을 찾는다. 70m 넘게 멀어지면 접는다.
+    function askSpot(ll, ac) {
+      if (thx && Date.now() < thx.until) return '<div class="rm-thx">' + thx.html + "</div>";
+      thx = null;
+      var spotList = getSpots();
+      if (!spotList.length || ac > 50) { pq = null; return ""; }
+      var kx = 111320 * Math.cos(ll[0] * Math.PI / 180), ky = 111320;
+      function dist(s) { return Math.hypot((s[2] - ll[1]) * kx, (s[1] - ll[0]) * ky); }
+      if (pq && dist(pq.s) > 70) { skipQ[pq.key] = 1; pq = null; }
+      if (!pq) {
+        var done = doneMap(), best = null;
+        spotList.forEach(function (s) { var key = s[3], g = dist(s); if (key && g <= 40 && !skipQ[key] && !done[routeId + "|" + key] && (!best || g < best.g)) best = { g: g, s: s, key: key, kind: "화장실" }; });
+        pq = best;
+      }
+      if (!pq) return "";
+      return qBox(pq.kind);
     }
     function bindAsk(root) {
       var y = root.querySelector("#rmQy"), n = root.querySelector("#rmQn"), sk = root.querySelector("#rmQs"); if (!y || !pq) return;
@@ -108,10 +132,10 @@
       function send(ans) {
         if (!window.CalrankAuth) { close("지금은 기록하지 못했습니다."); return; }
         close("기록하는 중…");
-        CalrankAuth.rpc("submit_poi_check", { p_route: cid, p_poi: q.key, p_answer: ans, p_device: devId() }).then(function (r) {
+        CalrankAuth.rpc("submit_poi_check", { p_route: routeId, p_poi: q.key, p_answer: ans, p_device: devId() }).then(function (r) {
           var res = r && !r.error ? r.data : "err";
           if (res === "ok") {
-            markDone(cid + "|" + q.key);
+            markDone(routeId + "|" + q.key);
             var who = CalrankAuth.user() ? "" : ' <small>로그인하면 닉네임이 함께 남습니다.</small>';
             thx = { html: "고맙습니다. 다음 사람이 이 기록을 봅니다." + who, until: Date.now() + 7000 };
           } else thx = { html: res === "slow" ? "너무 자주 눌렀습니다. 잠시 뒤에 다시 해 주세요." : "지금은 기록하지 못했습니다.", until: Date.now() + 5000 };
@@ -179,19 +203,20 @@
     function mtHud(ll, ac) {
       var best = null;
       secList.forEach(function (sc, i) { var o = distToPath(ll[0], ll[1], sc.p); if (!best || o < best.o) best = { o: o, i: i }; });
-      if (!best) return "";
+      if (!best) return askSpot(ll, ac);
       var sc = secList[best.i], off = Math.round(best.o), lines = [];
       if (off > 60) { lines.push('<span class="rm-warn">가장 가까운 등산로에서 ' + off + 'm 떨어져 있습니다.</span>'); var now = Date.now(); if (now - offWarn > 20000) { offWarn = now; try { navigator.vibrate && navigator.vibrate([300, 150, 300]); } catch (e) {} } }
       else lines.push("지금 구간 <b>" + km(sc.len) + "</b> · 평균 경사 <b>" + Math.abs(sc.g).toFixed(0) + "%</b>");
       var sun = CalrankSeg.sun(ll[0], ll[1], new Date());
       if (sun) { var left = Math.round((sun.set - Date.now()) / 60000); lines.push("일몰 " + hm(sun.set) + (left > 0 ? " (" + left + "분 남음)" : ' <span class="rm-warn">일몰 후입니다</span>')); }
+      var qs = askSpot(ll, ac); if (qs) lines.push(qs);
       lines.push('<button type="button" id="rmShare">내 위치 문구 복사</button>');
       hudEl = { d: null, ll: ll, ac: ac };
       return lines.join("<br>");
     }
     function hud(ll, ac, off) {
       if (!C && secList.length) return mtHud(ll, ac);
-      if (!C) return "";
+      if (!C) return getSpots().length ? askSpot(ll, ac) : "";
       var P = C.j.profile, tot = C.c.total, s = C.c.snap(ll[0], ll[1], lastD), d = s.dist, lines = [];
       if (off != null && off > 60) { lines.push('<span class="rm-warn">코스에서 ' + off + 'm 벗어났습니다. 왔던 길로 돌아가세요.</span>'); var now = Date.now(); if (now - offWarn > 20000) { offWarn = now; try { navigator.vibrate && navigator.vibrate([300, 150, 300]); } catch (e) {} } return lines.join("<br>"); }
       lastD = d;
@@ -215,9 +240,12 @@
     }
     var lastFix = null;
     function paintStat(base, h) {
-      stat.hidden = false; stat.innerHTML = ""; stat.appendChild(document.createTextNode(base));
+      stat.hidden = false; stat.innerHTML = "";
+      var ac0 = lastFix ? lastFix.ac : 0, dot = document.createElement("i"); dot.className = "rm-dot " + (ac0 <= 30 ? "" : ac0 <= 100 ? "mid" : "bad"); dot.setAttribute("aria-hidden", "true"); dot.id = "rmDot"; stat.appendChild(dot);
+      stat.appendChild(document.createTextNode((ac0 <= 30 ? "GPS 연결됨 · " : ac0 <= 100 ? "GPS 신호 보통 · " : "GPS 신호 약함 · ") + base));
       if (h) { var hd = document.createElement("div"); hd.className = "rm-hud"; hd.innerHTML = h; stat.appendChild(hd); var sb = hd.querySelector("#rmShare"); if (sb) sb.onclick = share; bindAsk(hd); }
     }
+    setInterval(function () { var d = document.getElementById("rmDot"); if (d && lastFix && gps !== null) { var stale = Date.now() - lastFix.at > 12000; d.classList.toggle("wait", stale); d.title = stale ? "위치 신호를 기다리는 중" : ""; } }, 2000);
     function repaint() { if (lastFix && gps !== null) paintStat(lastFix.base, hud(lastFix.ll, lastFix.ac, lastFix.off)); }
     Ctl("topleft", "my_location", "내 위치", "GPS로 내 위치 보기", function (a) {
       gpsBtn = a;
@@ -237,7 +265,7 @@
         if (g.coords.heading != null && !isNaN(g.coords.heading) && (g.coords.speed || 0) > 1) setHeading(g.coords.heading);
         var off = all.length > 1 ? Math.round(distToPath(ll[0], ll[1], all)) : null, offT = off == null ? "" : off >= 1000 ? (off / 1000).toFixed(off >= 10000 ? 0 : 1) + "km" : off + "m";
         var nn = (!C && secList.length) ? "등산로" : "코스", base = off == null ? "GPS 오차 ±" + ac + "m" : off <= 30 ? (nn + " 위에 있습니다 (" + nn + "에서 ") + off + "m · GPS 오차 ±" + ac + "m)" : off > 100 ? nn + "에서 약 " + offT + " 벗어나 있습니다 (GPS 오차 ±" + ac + "m)" : nn + "에서 약 " + offT + " 떨어져 있습니다 (GPS 오차 ±" + ac + "m)", h = hud(ll, ac, off);
-        lastFix = { ll: ll, ac: ac, off: off, base: base };
+        lastFix = { ll: ll, ac: ac, off: off, base: base, at: Date.now() };
         paintStat(base, h);
       }, function (err) {
         stop(); say(err && err.code === 1 ? "위치 권한이 꺼져 있습니다. 주소창 왼쪽 자물쇠(또는 aA)에서 위치를 허용하고, 폰의 위치 서비스도 켜져 있는지 확인해 주세요. 카카오톡 같은 앱 안의 브라우저에서는 막혀 있으니 크롬·사파리에서 열어 주세요." : "위치를 가져오지 못했습니다. 하늘이 트인 곳에서 다시 눌러 주세요.");

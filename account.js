@@ -55,7 +55,23 @@
     btn.classList.toggle("is-in", !!u);
     btn.setAttribute("aria-label", u ? "내 계정 (로그인됨)" : "로그인·내 계정");
     btn.title = u ? "내 계정" : "로그인";
+    var nm = btn.querySelector(".acct-name");
+    if (!u) { if (nm) nm.remove(); btn.classList.remove("has-name"); try { localStorage.removeItem("calrank_nick"); } catch (e) {} return; }
+    var cached = null; try { cached = localStorage.getItem("calrank_nick"); } catch (e) {}
+    setName(cached || "내 계정");
+    if (!cached) CalrankAuth.nick().then(function (n) { if (n) { try { localStorage.setItem("calrank_nick", n); } catch (e) {} setName(n); } });
   }
+  function setName(t) {
+    if (!document.getElementById("acctNameCss")) {
+      var st = document.createElement("style"); st.id = "acctNameCss";
+      st.textContent = ".acct-btn.has-name{text-decoration:none;width:auto!important;padding:0 14px 0 10px;gap:7px;border-radius:999px;border-color:#2A7A50}.acct-name{max-width:5.5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:800 14px/1 var(--font-body,inherit);color:var(--ink,#15110F)}@media(max-width:360px){.acct-name{display:none}.acct-btn.has-name{padding:0;width:44px!important;justify-content:center}}";
+      document.head.appendChild(st);
+    }
+    var nm = btn.querySelector(".acct-name");
+    if (!nm) { nm = document.createElement("span"); nm.className = "acct-name"; btn.appendChild(nm); }
+    nm.textContent = t; btn.classList.add("has-name");
+  }
+  window.addEventListener("calrank:nick", function (e) { try { localStorage.setItem("calrank_nick", e.detail); } catch (x) {} if (savedUser()) setName(e.detail); });
   paint();
   // 서비스 워커가 예전 style.css 를 먼저 내줄 때(재방문 첫 1회) 버튼 모양이 깨지지 않도록 최소 규칙을 보충한다.
   try {
@@ -279,6 +295,7 @@
         m.className = "acct-msg err"; m.textContent = NICK_MSG[r.data] || "처리하지 못했습니다."; inp.focus();
       });
     };
+    if (!cur) { var lt = document.createElement("button"); lt.type = "button"; lt.className = "acct-link"; lt.textContent = "나중에 할게요"; lt.onclick = function () { try { localStorage.setItem("calrank_nickskip", String(Date.now())); } catch (x) { /* 무시 */ } close(); }; f.appendChild(lt); }
     if (cur) { var c = document.createElement("button"); c.type = "button"; c.className = "acct-link"; c.textContent = "취소"; c.onclick = function () { paintNick(box, cur); }; f.appendChild(c); }
   }
 
@@ -417,7 +434,6 @@
         : c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + "/reset.html" });
       p.then(function (r) {
         busy(false);
-        if (!r.error && r.data && r.data.session) setTimeout(function () { window.dispatchEvent(new CustomEvent("calrank:auth")); }, 0);
         if (r.error) {
           var em = String(r.error.message || "");
           if (kind === "login" && /invalid login credentials/i.test(em)) return msg("이메일 또는 비밀번호가 맞지 않습니다. 가입하지 않은 이메일일 수도 있습니다.", true, false, [["reset", "비밀번호 재설정"], ["signup", "아직 가입 전이에요 · 회원가입"]]);
@@ -439,8 +455,15 @@
           if (kind === "login" && kp && !kp.checked) localStorage.setItem(ONLY, "1"); else localStorage.removeItem(ONLY);
           localStorage.setItem(LAST, String(Date.now()));
         } catch (x) { /* 무시 */ }
-        paint(); close();
+        paint();
         window.dispatchEvent(new CustomEvent("calrank:auth"));
+        // 닉네임이 아직 없으면 닫지 않고 바로 정하게 한다(건너뛰면 7일 동안 다시 묻지 않는다).
+        var skipAt = 0; try { skipAt = +localStorage.getItem("calrank_nickskip") || 0; } catch (x) { /* 무시 */ }
+        if (kind !== "login" && kind !== "signup" || Date.now() - skipAt < 6048e5) return close();
+        CalrankAuth.nick().then(function (n) {
+          if (n) return close();
+          render("in"); msg("로그인됐습니다. 내가 확인한 지점 옆에 남길 닉네임을 정해 주세요. 지금 안 정해도 됩니다.", false, true);
+        });
       }, function (x) { busy(false); msg(friendly(x), true); });
     });
   }

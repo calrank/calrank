@@ -2,6 +2,7 @@
 // 자료는 #mapData(JSON)에 들어 있다. {"path": [[lat,lon],...]} 또는 {"secs": [{"p": [[lat,lon],...], "g": 평균경사%}, ...]}
 (function () {
   "use strict";
+  var mtSpots = [];
   var btn = document.getElementById("mapBtn"), box = document.getElementById("mapBox"), el = document.getElementById("mapData");
   if (!btn || !box || !el) return;
   var data; try { data = JSON.parse(el.textContent); } catch (e) { return; }
@@ -80,7 +81,7 @@
     var m = /mountain-(\d+)\.html/.exec(location.pathname);
     var get = m ? function (cb) {
       fetch("/data/mountain_spots.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
-        cb(j && j.mountains && j.mountains[m[1]], "산림청 등산로 자료의 지점(2016년 12월 기준)입니다. 현장 확인은 하지 않았으니 가기 전에 최신 안내를 확인해 주세요. 지도 바탕의 작은 심볼은 OpenStreetMap 기본 표시입니다.");
+        mtSpots.length = 0; ((j && j.mountains && j.mountains[m[1]]) || []).forEach(function (s) { mtSpots.push([s[0], s[1], s[2], String(s[0]).toUpperCase() + ":" + Math.round(s[1] * 1e4) + "-" + Math.round(s[2] * 1e4)]); }); cb(mtSpots.length ? mtSpots : null, "산림청 등산로 자료의 지점(2016년 12월 기준)입니다. 현장 확인은 하지 않았으니 가기 전에 최신 안내를 확인해 주세요. 지도 바탕의 작은 심볼은 OpenStreetMap 기본 표시입니다.");
       }).catch(function () { cb(null); });
     } : courseList;
     var MZ = m ? MINZ : COURSEZ;
@@ -115,11 +116,11 @@
       });
       map.on("zoomend", refresh); refresh();
       // 이 코스에서 사람들이 직접 확인한 기록(닉네임·횟수·최근 날짜)을 마커 설명에 붙인다.
-      var cm = /course-(dr|ft)-(.+)\.html/.exec(location.pathname);
-      if (cm && Object.keys(byKey).length) {
+      var cm = /course-(dr|ft)-(.+)\.html/.exec(location.pathname), routeKey = cm ? cm[1] + "-" + cm[2] : (m ? "mt-" + m[1] : null);
+      if (routeKey && Object.keys(byKey).length) {
         var tries = 0, wait = setInterval(function () {
           if (!window.CalrankAuth && ++tries < 40) return; clearInterval(wait); if (!window.CalrankAuth) return;
-          CalrankAuth.rpc("poi_check_summary", { p_route: cm[1] + "-" + cm[2] }).then(function (r) {
+          CalrankAuth.rpc("poi_check_summary", { p_route: routeKey }).then(function (r) {
             if (!r || r.error || !Array.isArray(r.data)) return;
             r.data.forEach(function (x) {
               var e = byKey[x.poi_key]; if (!e || !(x.yes_n || x.no_n)) return;
@@ -152,7 +153,7 @@
 
   // 전체화면·내 위치(GPS)·방위는 map-tools.js 가 붙인다(메인 대회 지도와 같은 코드).
   function controls(L, map, all, secs) {
-    function go() { if (window.CalrankMapTools) window.CalrankMapTools.attach(L, map, { wrap: box, all: all, secs: secs }); }
+    function go() { if (window.CalrankMapTools) window.CalrankMapTools.attach(L, map, { wrap: box, all: all, secs: secs, spots: mtSpots }); }
     if (window.CalrankMapTools) return go();
     var t = document.createElement("script"); t.src = "/map-tools.js"; t.onload = go; document.head.appendChild(t);
   }
