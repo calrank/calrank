@@ -1,5 +1,5 @@
 /* 등급 페이지 안에서 바로 내 등급을 보는 입력창.
-   계산은 이 페이지 안에서 끝나고 기록은 저장하지 않는다. 등급 경계(data-tiers)는
+   계산은 이 페이지 안에서 끝나고, 저장은 이용자가 버튼을 누를 때만 이 기기(calrank-local.js)에 한다. 등급 경계(data-tiers)는
    페이지 생성기가 TIER_BOUNDS 에서 그대로 넣는다. wma-standards.js 가 먼저 불려 있어야 한다. */
 (function () {
   var box = document.getElementById("grQuick");
@@ -58,11 +58,34 @@
     } else {
       h += '<p class="gq-next">가장 높은 등급입니다.</p>';
     }
+    var L = window.CalrankLocal, kmN = Number(km), prev = null;
+    try { if (L && isFinite(kmN)) prev = L.lastResult(kmN); } catch (x) {}
+    if (prev && prev.sec && prev.pct != null) {
+      var d = pct - prev.pct, dt = prev.sec - s;
+      h += '<p class="gq-prev">지난 기록 ' + prev.t.replace(/-/g, ".") + ' ' + clock(prev.sec) + ' (연령등급 ' + prev.pct.toFixed(1) + '%) → 지금 ' +
+           (Math.abs(d) < 0.05 ? "같은 수준입니다." : '연령등급 <b>' + (d > 0 ? "+" : "") + d.toFixed(1) + '%p</b>' + (dt > 0 ? ", " + clock(dt) + " 빨라졌습니다." : dt < 0 ? ", " + clock(-dt) + " 느려졌습니다." : ".")) + '</p>';
+    }
     var by = new Date().getFullYear() - age;
     var q = "level.html?d=" + encodeURIComponent(km) + "&t=" + encodeURIComponent(clock(s)) + "&g=" + sex + "&by=" + by + "#now";
     h += '<a class="gq-more" href="' + q + '">공유 카드 만들고 다른 거리 등급도 보기 →</a>' +
-         '<p class="gq-note">계산은 이 페이지 안에서 끝납니다. 기록은 저장되지 않습니다.</p>';
+         (L ? '<button type="button" class="gq-save">이 기록을 내 기기에 저장</button>' : '') +
+         '<p class="gq-note">계산은 이 페이지 안에서 끝납니다. 저장은 위 버튼을 누를 때만 이 기기 안에 됩니다.</p>';
     out.innerHTML = h; out.hidden = false;
+    var sv = out.querySelector(".gq-save");
+    if (sv) sv.addEventListener("click", function () {
+      try {
+        L.pushResult({ km: kmN, sec: s, age: age, gender: sex, pct: Math.round(pct * 10) / 10 });
+        var n = L.results().length;
+        var keep = true;
+        try { keep = L.isPersistent(); } catch (y) {}
+        sv.outerHTML = keep
+          ? '<p class="gq-saved" role="status">저장했습니다. 이 기기에 기록 ' + n + '개가 쌓여 있습니다. 다음에 같은 거리를 넣으면 지난 기록과 비교해 보여 드립니다.</p>'
+          : '<p class="gq-saved" role="status">이 브라우저는 저장을 막고 있어 이 탭을 닫으면 사라집니다. 사생활 보호 창이면 일반 창에서 다시 시도해 주세요.</p>';
+        if (window.calrankMark) window.calrankMark("gq-save");
+      } catch (x) {
+        sv.outerHTML = '<p class="gq-saved" role="status">이 브라우저에서는 저장할 수 없습니다. 사생활 보호 창이면 일반 창에서 다시 시도해 주세요.</p>';
+      }
+    });
     try { if (window.calrankMark) window.calrankMark("gq-calc"); } catch (x) {}
   });
 })();

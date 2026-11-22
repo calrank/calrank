@@ -393,6 +393,9 @@ PAGE_CSS = """  .gr-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 
   .gq-v { display: block; margin-top: 2px; font-size: 14px; color: inherit; opacity: .78; }
   .gq-next { margin: 12px 0 0; font-size: 15px; line-height: 1.75; }
   .gq-more { display: block; margin-top: 14px; padding: 13px; text-align: center; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; }
+  .gq-prev { margin: 12px 0 0; font-size: 14.5px; line-height: 1.7; }
+  .gq-save { display: block; width: 100%; margin-top: 10px; padding: 12px; border-radius: 8px; border: 1.5px solid var(--accent); background: transparent; color: var(--accent); font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit; }
+  .gq-saved { margin: 10px 0 0; padding: 12px; border-radius: 8px; background: rgba(127,127,127,.12); font-size: 14.5px; line-height: 1.7; }
   .gq-note { margin: 10px 0 0; font-size: 13px; color: inherit; opacity: .62; }
   .gq-fallback { color: var(--accent); font-weight: 700; }
   .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; text-align: center; }
@@ -494,7 +497,7 @@ def quick_box(dist, gender_key=""):
     return (f'<section class="gq-box" id="grQuick" data-dist="{dist["key"]}" data-km="{dist["km"]:g}" '
             f'data-gender="{gender_key}" data-label="{dist["search"]}" data-tiers="{tiers}">'
             f'<a class="gq-fallback" href="level.html?d={dist["km"]:g}#now">내 기록으로 등급 계산하기 →</a></section>\n'
-            '<script defer src="wma-standards.js"></script><script defer src="grade-quick.js"></script>')
+            '<script defer src="wma-standards.js"></script><script defer src="calrank-local.js"></script><script defer src="grade-quick.js"></script>')
 
 
 def build_page(dist, gender):

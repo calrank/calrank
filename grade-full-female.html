@@ -87,6 +87,9 @@
   .gq-v { display: block; margin-top: 2px; font-size: 14px; color: inherit; opacity: .78; }
   .gq-next { margin: 12px 0 0; font-size: 15px; line-height: 1.75; }
   .gq-more { display: block; margin-top: 14px; padding: 13px; text-align: center; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; }
+  .gq-prev { margin: 12px 0 0; font-size: 14.5px; line-height: 1.7; }
+  .gq-save { display: block; width: 100%; margin-top: 10px; padding: 12px; border-radius: 8px; border: 1.5px solid var(--accent); background: transparent; color:var(--accent-ink); font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit; }
+  .gq-saved { margin: 10px 0 0; padding: 12px; border-radius: 8px; background: rgba(127,127,127,.12); font-size: 14.5px; line-height: 1.7; }
   .gq-note { margin: 10px 0 0; font-size: 13px; color: inherit; opacity: .62; }
   .gq-fallback { color:var(--accent-ink); font-weight: 700; }
   .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, var(--surface)); border: 1px solid var(--border, var(--border)); border-radius: 10px; text-align: center; }
@@ -129,7 +132,7 @@
 <div class="gr-switch"><a href="grade-5km-female.html">5km</a><a href="grade-10km-female.html">10km</a><a href="grade-half-female.html">하프(21.1km)</a><a href="grade-full-female.html" class="on">풀코스(42.195km)</a></div>
 <div class="gr-switch"><a href="grade-full-male.html">남성</a><a href="grade-full-female.html" class="on">여성</a></div>
 <section class="gq-box" id="grQuick" data-dist="full" data-km="42.195" data-gender="female" data-label="풀코스 마라톤" data-tiers="[[72, &quot;상당한 러너&quot;], [65, &quot;러닝 상급자&quot;], [59, &quot;매우 좋은 편&quot;], [51, &quot;상당히 좋은 편&quot;], [45, &quot;꾸준한 러너&quot;], [39, &quot;보통&quot;], [0, &quot;이제 시작&quot;]]"><a class="gq-fallback" href="level.html?d=42.195#now">내 기록으로 등급 계산하기 →</a></section>
-<script defer src="wma-standards.js"></script><script defer src="grade-quick.js"></script>
+<script defer src="wma-standards.js"></script><script defer src="calrank-local.js"></script><script defer src="grade-quick.js"></script>
 <div class="gr-tablebox"><table class="gr-table">
 <thead><tr><th>나이</th><th>상당한 러너</th><th>러닝 상급자</th><th>매우 좋은 편</th><th>상당히 좋은 편</th><th>꾸준한 러너</th><th>보통</th><th>그 이상</th></tr></thead>
 <tbody>
