@@ -1,0 +1,27 @@
+name: GSC Index Inspect
+
+# 서치 콘솔 URL 검사 API 로 색인 상태를 매일 표본 조사한다. 저장소에는 아무것도 쓰지 않는다(배포 없음).
+on:
+  schedule:
+    - cron: "47 21 * * *"   # 매일 06:47 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install google-auth requests
+      - name: 색인 상태 조사
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          echo "### 서치 콘솔 색인 상태 표본" >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/gsc_inspect.py | tee -a "$GITHUB_STEP_SUMMARY"
