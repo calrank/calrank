@@ -52,6 +52,12 @@ jobs:
         continue-on-error: true
         run: python scripts/track_event_changes.py
 
+      - name: Generate schedule changes page
+        # 위에서 쌓은 변경 이력 중 최근 60일·아직 열리지 않은 대회의 변경을 공개 페이지(schedule-changes.html)로 만든다.
+        # 칼랭크에만 있는 자료라서 접수 마감일 변경을 확인하려는 사람이 찾아 올 수 있다. 부가 페이지라 실패해도 수집을 막지 않는다.
+        continue-on-error: true
+        run: python scripts/generate_changes_page.py
+
       - name: Generate static event pages
         # events.json의 대회마다 내용이 미리 채워진 정적 페이지(e/<id>.html)를 만든다.
         # 검색엔진이 자바스크립트 없이도 대회 정보를 읽을 수 있게 하기 위함.
@@ -130,6 +136,7 @@ jobs:
           # 링크만 올라가고 대상이 404 가 됐다(2026-11 이 실제로 그랬다).
           git add events-archive-20*.html
           git add open-registration.html ultra-marathon.html night-run.html
+          git add schedule-changes.html
           git add walking-events.html kids-marathon.html
           git add -u          # 목차 동기화 등으로 바뀐 기존 파일
           git diff --quiet --cached && echo "변경 없음" && exit 0

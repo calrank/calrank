@@ -265,6 +265,9 @@ def render(topic, upcoming, past, today) -> str:
         desc = (f"{head} 지난 대회 {len(past)}개의 일정과 장소를 정리했습니다. "
                 "새 대회가 등록되면 이 페이지가 자동으로 갱신됩니다.")
     today_ko = f"{today.year}년 {today.month}월 {today.day}일"
+    # 일정 변경 소식 페이지가 있을 때만 잇는다(없는 페이지로 링크하지 않는다).
+    changes_line = ('· <a href="schedule-changes.html">대회 일정 변경 소식</a> — 접수 마감일·대회일이 바뀐 대회를 날짜와 함께 모았습니다.<br>\n'
+                    if (ROOT / "schedule-changes.html").exists() else "")
 
     if upcoming:
         is_open = topic.get("select") == "open"
@@ -350,7 +353,7 @@ def render(topic, upcoming, past, today) -> str:
 <div class="tp-next">
 · <a href="feed.ics">캘린더 구독(feed.ics)</a> — 새 대회가 등록되면 내 캘린더에 자동으로 들어옵니다. 접수 마감 3일 전·하루 전에 알림이 옵니다.<br>
 · <a href="events-index.html">전국 대회 일정 전체 목록</a> — 종목 구분 없이 월별로 모아 둔 목록입니다.<br>
-· <a href="{esc(topic['related'])}">{esc(topic['related_label'])}</a> — 종목·지역·거리로 걸러 볼 수 있습니다.
+{changes_line}· <a href="{esc(topic['related'])}">{esc(topic['related_label'])}</a> — 종목·지역·거리로 걸러 볼 수 있습니다.
 </div>
 <h2>자주 묻는 질문</h2>
 {faq_html}
