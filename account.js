@@ -75,13 +75,21 @@
     document.head.appendChild(s);
   }
   function friendly(err) {
-    var m = String((err && err.message) || ""), st = err && err.status;
-    if (st === 429 || /rate limit|too many/i.test(m)) return "잠시 후 다시 시도해 주세요. 요청이 한꺼번에 많았습니다.";
+    var m = String((err && err.message) || ""), st = err && err.status, code = String((err && err.code) || ""), mc = m + " " + code;
+    if (/over_email_send_rate_limit|email rate limit/i.test(mc)) return "메일을 보내는 횟수가 잠시 한도에 닿았습니다. 몇 분 뒤에 다시 눌러 주세요.";
+    if (/over_request_rate_limit|only request this after/i.test(mc)) { var sec = /(\d+)\s*seconds?/i.exec(m); return "너무 자주 눌렀습니다. " + (sec ? sec[1] + "초" : "잠시") + " 뒤에 다시 눌러 주세요."; }
+    if (st === 429 || /rate limit|too many/i.test(mc)) return "요청이 한꺼번에 많았습니다. 잠시 뒤에 다시 눌러 주세요.";
     if (/invalid login credentials/i.test(m)) return "이메일 또는 비밀번호가 맞지 않습니다.";
     if (/email not confirmed/i.test(m)) return "이메일 인증을 먼저 마쳐 주세요. 가입할 때 보낸 메일을 확인해 주세요.";
-    if (/weak_password|pwned|known to be weak|easy to guess/i.test(m + ((err && err.code) || ""))) return "너무 흔하거나 유출된 적 있는 비밀번호입니다. 다른 비밀번호로 정해 주세요.";
+    if (/weak_password|pwned|known to be weak|easy to guess/i.test(mc)) return "너무 흔하거나 유출된 적 있는 비밀번호입니다. 다른 비밀번호로 정해 주세요.";
+    if (/password/i.test(m) && /(longer|too long|72)/i.test(m)) return "비밀번호는 72자 이하로 정해 주세요.";
     if (/password/i.test(m) && /(least|short|characters)/i.test(m)) return "비밀번호는 8자 이상으로 정해 주세요.";
-    return "처리하지 못했습니다. 잠시 후 다시 시도해 주세요.";
+    if (/email_address_invalid|invalid.*email|email.*invalid|unable to validate email/i.test(mc)) return "이메일 주소를 확인해 주세요. 쓸 수 없는 주소입니다.";
+    if (/error sending|sending (confirmation|recovery|magic)|smtp|email_provider|unexpected_failure/i.test(mc) || st === 500) return "인증 메일을 보내지 못했습니다. 잠시 뒤에 다시 시도해 주세요.";
+    if (/user_banned|banned/i.test(mc)) return "이용이 제한된 계정입니다.";
+    if (/signup_disabled|signups? not allowed|signups? .*disabled/i.test(mc)) return "지금은 새 가입을 받지 않습니다.";
+    if (/failed to fetch|networkerror|network request failed|load failed|fetch/i.test(m) || st === 0) return "인터넷 연결을 확인하고 다시 눌러 주세요.";
+    return "처리하지 못했습니다. 잠시 뒤에 다시 시도해 주세요.";
   }
 
   // ── 창 ───────────────────────────────────────────────────────────
@@ -98,7 +106,7 @@
     ".acct-tab[aria-selected=true]{border-color:var(--ink);background:var(--ink);color:var(--bg)}" +
     ".acct-form{display:flex;flex-direction:column;gap:6px}" +
     ".acct-form label{font-size:13px;font-weight:700;color:var(--ink-soft);margin-top:6px}" +
-    ".acct-form input[type=email],.acct-form input[type=password]{box-sizing:border-box;width:100%;min-height:46px;padding:0 14px;font:500 16px/1 var(--font-body,inherit);" +
+    ".acct-form input[type=email],.acct-form input[type=password],.acct-pwrow input[type=text]{box-sizing:border-box;width:100%;min-height:46px;padding:0 14px;font:500 16px/1 var(--font-body,inherit);" +
     "color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:12px}" +
     ".acct-form input:focus-visible,.acct-sheet button:focus-visible,.acct-sheet a:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}" +
     ".acct-pwrow{position:relative;display:flex}.acct-pwrow input{padding-right:64px!important}" +
@@ -110,13 +118,15 @@
     ".acct-go{min-height:48px;margin-top:12px;border:0;border-radius:999px;background:var(--accent-fill);color:var(--on-accent);font:800 16px/1 var(--font-body,inherit);cursor:pointer}" +
     ".acct-go[disabled]{opacity:.6;cursor:default}" +
     ".acct-msg{min-height:1.4em;margin:8px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink-soft)}" +
-    ".acct-msg.err{color:var(--accent-ink)}" +
+    ".acct-acts{display:flex;flex-direction:column;gap:6px;margin-top:10px;font-weight:600}.acct-acts .acct-link{margin:0;align-self:flex-start}.acct-msg.err{color:var(--accent-ink)}" +
+    ".acct-msg.ok{white-space:pre-line;padding:12px 14px;border-radius:12px;background:var(--surface);border:1.5px solid var(--ink);color:var(--ink);font-weight:700}" +
     ".acct-note{margin:12px 0 0;font-size:13px;line-height:1.6;color:var(--ink-faint)}" +
     ".acct-link{display:inline-block;margin-top:10px;padding:0;border:0;background:none;color:var(--ink-soft);font:600 14px/1.4 var(--font-body,inherit);text-decoration:underline;cursor:pointer}" +
     ".acct-row{display:flex;flex-direction:column;gap:8px;margin-top:6px}" +
     ".acct-btn2{display:flex;align-items:center;justify-content:center;min-height:48px;border:1.5px solid var(--ink);border-radius:999px;background:var(--bg);color:var(--ink);font:800 16px/1 var(--font-body,inherit);text-decoration:none;cursor:pointer}" +
     ".acct-who{margin:0 0 14px;font-size:15px;color:var(--ink-soft);word-break:break-all}";
 
+  var carry = "";
   function emailField(auto) {
     return '<label for="acctEmail">이메일</label><input type="email" id="acctEmail" name="email" autocomplete="' + auto +
       '" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" required placeholder="you@example.com">';
@@ -193,6 +203,9 @@
               '<p class="acct-note">로그인 없이도 대회 일정과 등급 확인은 그대로 쓸 수 있습니다.</p>');
       sheet.innerHTML = h;
     }
+    var ce = sheet.querySelector("#acctEmail");
+    if (ce && carry) ce.value = carry;
+    carry = "";
     var f = sheet.querySelector("input");
     if (f) f.focus(); else { var b = sheet.querySelector("a,button:not(.acct-x)"); if (b) b.focus(); }
   }
@@ -226,9 +239,15 @@
   var TYPO = { "gmial.com": "gmail.com", "gamil.com": "gmail.com", "gmail.co": "gmail.com", "gmail.con": "gmail.com", "naver.con": "naver.com", "naver.co": "naver.com",
     "nave.com": "naver.com", "daum.com": "daum.net", "hanmial.net": "hanmail.net", "hanmail.com": "hanmail.net", "kakao.net": "kakao.com" };
   function typoOf(e) { var d = e.split("@")[1]; return d && TYPO[d.toLowerCase()] ? e.split("@")[0] + "@" + TYPO[d.toLowerCase()] : ""; }
-  function msg(t, err) {
+  function msg(t, err, ok, acts) {
     var m = sheet.querySelector("#acctMsg"); if (!m) return;
-    m.textContent = t; m.className = "acct-msg" + (err ? " err" : "");
+    m.textContent = t; m.className = "acct-msg" + (err ? " err" : ok ? " ok" : "");
+    if (acts && acts.length) {
+      var row = document.createElement("span"); row.className = "acct-acts";
+      acts.forEach(function (a, i) { var b = document.createElement("button"); b.type = "button"; b.setAttribute("data-act", a[0]); b.className = i ? "acct-link" : "acct-btn2"; b.textContent = a[1]; row.appendChild(b); });
+      m.appendChild(row);
+    }
+    if (ok) { try { m.scrollIntoView({ block: "nearest" }); } catch (e) {} }
   }
   function busy(on) { var g = sheet.querySelector(".acct-go"); if (g) g.disabled = on; }
 
@@ -236,6 +255,7 @@
     var t = e.target.closest ? e.target.closest("[data-act]") : null;
     if (!t) return;
     var a = t.getAttribute("data-act");
+    var ei = sheet.querySelector("#acctEmail"); if (ei && ei.value && (a === "login" || a === "signup" || a === "reset")) carry = ei.value.trim();
     if (a === "close") close();
     else if (a === "login" || a === "signup" || a === "reset" || a === "chpw") render(a);
     else if (a === "in") render("in");
@@ -280,7 +300,8 @@
     var pwEl = sheet.querySelector("#acctPw"), pw = pwEl ? pwEl.value : "";
     if (kind === "chpw") {
       var pw2 = sheet.querySelector("#acctPw2").value;
-      if (pw.length < 8) return msg("비밀번호는 8자 이상으로 정해 주세요.", true);
+      if (pw.length < 8) return msg("비밀번호는 8자 이상이어야 합니다. 지금 " + pw.length + "자입니다.", true);
+      if (pw.length > 72) return msg("비밀번호는 72자 이하로 정해 주세요.", true);
       if (pw !== pw2) return msg("두 비밀번호가 서로 다릅니다.", true);
       busy(true); msg("처리하는 중…");
       return getClient(function (err, c) {
@@ -291,10 +312,14 @@
         }, function (x) { busy(false); msg(friendly(x), true); });
       });
     }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return msg("이메일 주소를 확인해 주세요.", true);
-    if (kind === "signup" && pw.length < 8) return msg("비밀번호는 8자 이상으로 정해 주세요.", true);
-    if (kind === "login" && !pw) return msg("비밀번호를 입력해 주세요.", true);
-    if (kind === "signup" && !sheet.querySelector("#acctAgree").checked) return msg("가입하려면 약관과 개인정보처리방침에 동의해 주세요.", true);
+    function bad(t, el) { msg(t, true); if (el && el.focus) el.focus(); return; }
+    if (!email) return bad("이메일을 입력해 주세요.", emEl);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bad("이메일 주소 형식이 맞지 않습니다. 예: name@example.com", emEl);
+    if (kind === "signup" && !pw) return bad("비밀번호를 입력해 주세요. 8자 이상이면 됩니다.", pwEl);
+    if (kind === "signup" && pw.length < 8) return bad("비밀번호는 8자 이상이어야 합니다. 지금 " + pw.length + "자입니다.", pwEl);
+    if (kind === "signup" && pw.length > 72) return bad("비밀번호는 72자 이하로 정해 주세요.", pwEl);
+    if (kind === "login" && !pw) return bad("비밀번호를 입력해 주세요.", pwEl);
+    if (kind === "signup" && !sheet.querySelector("#acctAgree").checked) return bad("가입하려면 약관과 개인정보처리방침에 동의해 주세요.", sheet.querySelector("#acctAgree"));
     if (kind !== "chpw" && typoOf(email) && sheet.getAttribute("data-typo") !== email) {
       var fix = typoOf(email);
       sheet.setAttribute("data-typo", email);
@@ -309,11 +334,17 @@
         : c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + "/reset.html" });
       p.then(function (r) {
         busy(false);
-        if (r.error) return msg(friendly(r.error), true);
-        if (kind === "reset") return msg(email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인해 주세요.");
+        if (r.error) {
+          var em = String(r.error.message || "");
+          if (kind === "login" && /invalid login credentials/i.test(em)) return msg("이메일 또는 비밀번호가 맞지 않습니다. 가입하지 않은 이메일일 수도 있습니다.", true, false, [["reset", "비밀번호 재설정"], ["signup", "아직 가입 전이에요 · 회원가입"]]);
+          if (kind === "login" && /email not confirmed/i.test(em)) return msg("이메일 인증이 아직 끝나지 않았습니다. 가입 때 받은 메일의 링크를 눌러 주세요. 메일이 없다면 회원가입을 다시 눌러 새 인증 메일을 받을 수 있습니다.", true, false, [["signup", "인증 메일 다시 받기"]]);
+          if (kind === "signup" && /already|registered|exists/i.test(em)) return msg("이미 가입한 이메일입니다. 로그인해 주세요.", false, true, [["login", "로그인하기"], ["reset", "비밀번호가 기억나지 않아요"]]);
+          return msg(friendly(r.error), true);
+        }
+        if (kind === "reset") return msg(email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인해 주세요. 메일이 없다면 가입하지 않은 이메일일 수 있습니다.", false, true, [["signup", "회원가입하기"]]);
         if (kind === "signup" && !(r.data && r.data.session)) {
           // 가입된 이메일인지 여부는 일부러 알려 주지 않는다.
-          return msg("이메일로 인증 안내를 보냈습니다. 받은 편지함과 스팸함을 확인한 뒤 로그인해 주세요.");
+          return msg("가입 요청을 받았습니다.\n① 메일함(스팸함 포함)에서 인증 링크를 눌러 주세요.\n② 메일이 없다면 이미 가입한 이메일입니다. 로그인해 주세요.", false, true, [["login", "로그인하기"], ["reset", "비밀번호가 기억나지 않아요"]]);
         }
         try {
           var kp = sheet.querySelector("#acctKeep");
@@ -325,6 +356,28 @@
       }, function (x) { busy(false); msg(friendly(x), true); });
     });
   }
+
+  // 메일 인증 링크로 들어온 경우: 만료·재사용이면 다음 할 일을, 성공이면 로그인됐다는 안내를 보여 준다.
+  (function landing() {
+    var raw = (location.hash || "") + "&" + (location.search || "");
+    if (/reset\.html/.test(location.pathname)) return;
+    var errc = /error_code=([a-z_]+)/.exec(raw), ok = /type=signup/.test(raw) && /access_token=/.test(raw);
+    if (!errc && !ok) return;
+    function clean() { try { history.replaceState(null, "", location.pathname + (ok || errc ? "" : location.search)); } catch (e) { /* 무시 */ } }
+    function show() {
+      if (!sheet) build();
+      lastFocus = document.activeElement; render("login");
+      scrim.hidden = false; document.documentElement.style.overflow = "hidden"; btn.setAttribute("aria-expanded", "true");
+    }
+    if (errc) {
+      clean();
+      return show(), msg(errc[1] === "otp_expired" ? "인증 링크가 만료됐거나 이미 사용됐습니다. 이미 인증했다면 로그인해 주세요. 아직이라면 회원가입을 다시 눌러 새 인증 메일을 받을 수 있습니다." : "인증 링크를 확인하지 못했습니다. 로그인해 보시고, 안 되면 회원가입을 다시 눌러 새 메일을 받아 주세요.", true, false, [["signup", "인증 메일 다시 받기"]]);
+    }
+    getClient(function (err, c) {
+      if (err) return;
+      setTimeout(function () { clean(); paint(); show(); render(savedUser() ? "in" : "login"); msg(savedUser() ? "이메일 인증이 끝났습니다. 로그인된 상태입니다." : "이메일 인증이 끝났습니다. 로그인해 주세요.", false, true); }, 600);
+    });
+  })();
 
   btn.addEventListener("click", function (e) {
     // 새 탭·창으로 열기(휠 클릭, Ctrl·Cmd 클릭)는 원래 링크(내 랭크)대로 둔다.
