@@ -738,3 +738,6 @@
     document.addEventListener("DOMContentLoaded", init);
   } else { init(); }
 })();
+
+// 써 본 분의 확인(gear-use.js): 판정 페이지 아래에 붙인다. 허브·목록 페이지에서는 스스로 멈춘다.
+(function () { var s = document.createElement("script"); s.defer = true; s.src = "/gear-use.js"; document.head.appendChild(s); })();

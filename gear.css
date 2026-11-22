@@ -378,3 +378,17 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 /* 허브 종목 제목: 이모지 + 제목 + 작은 설명이 한 줄에서 같은 세로 가운데에 놓이게 한다. */
 .gh-sport h2:has(> .emo:first-child) { align-items: center; gap: 10px; flex-wrap: wrap; }
 .gh-sport h2 > .gh-body { margin-left: 2px; }
+
+/* 기어 써 봤어요(gear-use.js) */
+.gu-sec{margin:28px 0 8px;padding:18px;border-radius:18px;border:1px solid var(--border,#e4dfda);background:var(--surface,transparent)}
+.gu-h{margin:0 0 8px;font-size:17px}
+.gu-n{margin:0;font-size:15px;line-height:1.6}
+.gu-by,.gu-note{margin:6px 0 0;font-size:13px;color:var(--ink-soft,#5b524b);line-height:1.6}
+.gu-q{margin:14px 0 8px;font-size:14px;font-weight:700}
+.gu-per{display:flex;flex-wrap:wrap;gap:8px}
+.gu-chip{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--border,#d8d1ca);background:transparent;color:inherit;font:700 14px/1 inherit;cursor:pointer}
+.gu-chip.on{background:#3EE0BE;border-color:#3EE0BE;color:#06362d}
+.gu-btns{display:flex;gap:8px;margin-top:12px}
+.gu-btn{flex:1;min-height:46px;border-radius:999px;border:1px solid var(--border,#d8d1ca);background:transparent;color:inherit;font:800 15px/1 inherit;cursor:pointer}
+.gu-btn.on{background:#3EE0BE;border-color:#3EE0BE;color:#06362d}
+.gu-msg{min-height:20px;margin:8px 0 0;font-size:14px;color:#8a2a22}

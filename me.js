@@ -25,8 +25,8 @@
   function show() {
     var u = CalrankAuth.user(); if (!u) return out();
     body.innerHTML = "";
-    Promise.all([CalrankAuth.nick(), CalrankAuth.rpc("my_poi_checks"), CalrankAuth.rpc("my_impact"), CalrankAuth.rpc("my_poi_users"), CalrankAuth.rpc("my_event_aspects")]).then(function (v) {
-      var nick = v[0], rows = v[1] && !v[1].error && Array.isArray(v[1].data) ? v[1].data : [], imp = v[2] && !v[2].error && Array.isArray(v[2].data) ? v[2].data : [], mine = v[3] && !v[3].error && Array.isArray(v[3].data) ? v[3].data : [], ea = v[4] && !v[4].error && Array.isArray(v[4].data) ? v[4].data : [];
+    Promise.all([CalrankAuth.nick(), CalrankAuth.rpc("my_poi_checks"), CalrankAuth.rpc("my_impact"), CalrankAuth.rpc("my_poi_users"), CalrankAuth.rpc("my_event_aspects"), CalrankAuth.rpc("my_gear_uses")]).then(function (v) {
+      var nick = v[0], rows = v[1] && !v[1].error && Array.isArray(v[1].data) ? v[1].data : [], imp = v[2] && !v[2].error && Array.isArray(v[2].data) ? v[2].data : [], mine = v[3] && !v[3].error && Array.isArray(v[3].data) ? v[3].data : [], ea = v[4] && !v[4].error && Array.isArray(v[4].data) ? v[4].data : [], gu = v[5] && !v[5].error && Array.isArray(v[5].data) ? v[5].data : [];
       body.innerHTML = "";
       var a = card(); a.appendChild(el("p", "me-note", "닉네임"));
       a.appendChild(el("p", "me-nick", nick || "정하지 않음 (익명으로 남습니다)"));
@@ -61,6 +61,19 @@
           var eb = el("button", "me-btn", "삭제"); eb.type = "button"; eb.style.marginLeft = "8px"; eb.setAttribute("aria-label", "이 현장 확인 삭제");
           eb.onclick = function () { eb.disabled = true; CalrankAuth.rpc("delete_event_aspect", { p_event: r.event_id, p_aspect: r.aspect }).then(function (x) { if (x && !x.error && x.data === "ok") li.remove(); else eb.disabled = false; }); };
           li.appendChild(eb); eul.appendChild(li);
+        });
+      }
+      if (gu.length) {
+        var gc = card(); gc.appendChild(el("p", "me-note", "내가 써 본 장비 확인")); gc.appendChild(el("p", "me-num", gu.length + "건"));
+        gc.appendChild(el("p", "me-note", "기어 판정 페이지에 닉네임과 함께 보입니다. 필요 없으면 삭제할 수 있습니다."));
+        var gul = el("ul", "me-list"); gc.appendChild(gul);
+        gu.forEach(function (r) {
+          var li = el("li"); li.appendChild(el("span", "me-tag" + (r.answer === "bad" ? " no" : ""), r.answer === "good" ? "효과 있었어요" : "별로였어요"));
+          var ga = el("a", "", r.gear_id.replace(/^gear-/, "").replace(/-/g, " ")); ga.href = r.gear_id + ".html"; li.appendChild(ga);
+          li.appendChild(el("span", "me-date", ago(r.updated_at)));
+          var gb = el("button", "me-btn", "삭제"); gb.type = "button"; gb.style.marginLeft = "8px"; gb.setAttribute("aria-label", "이 장비 확인 삭제");
+          gb.onclick = function () { gb.disabled = true; CalrankAuth.rpc("delete_gear_use", { p_gear: r.gear_id }).then(function (x) { if (x && !x.error && x.data === "ok") li.remove(); else gb.disabled = false; }); };
+          li.appendChild(gb); gul.appendChild(li);
         });
       }
       if (!rows.length) return;
