@@ -985,7 +985,7 @@ def build_table_page(claim, ctx, bodies):
     if sibs:
         body += ('<p class="gi-links">다른 거리 표 · '
                  + " · ".join(f'<a href="{esc(h)}">{esc(l)}</a>' for h, l in sibs) + "</p>")
-    body += pair_html(claim["id"], slug)
+    body += pair_html(claim["id"], slug) + affiliate_block(slug)
     body += (f'<p class="gm-src">근거와 출처는 '
              f'<a href="{esc(slug_for("claim", claim["id"]))}">{esc(claim["label"])} 판정</a>에 '
              f'자세히 적어 두었습니다.</p>')

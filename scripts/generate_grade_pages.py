@@ -575,6 +575,8 @@ def build_page(dist, gender):
 {faq_html}
 </div>
 
+<p class="gr-note gr-gearbridge">기록을 줄이려는 분을 위해, 카본 플레이트 러닝화가 {dist["label"]} 기록에 얼마나 도움이 되는지 연구 근거와 함께 정리했습니다. <a href="gear-carbon-plate-{dk}.html">카본화 효과와 근거 보기 →</a></p>
+
 <div class="gr-cta">
 <p>표에 없는 나이거나, 기록을 정확히 넣어 보고 싶다면 계산기를 쓰는 편이 빠릅니다.</p>
 <a href="level.html">내 기록으로 등급 계산하기 →</a>
@@ -1085,6 +1087,8 @@ def build_age_page(dist, decade):
 {quick_box(dist)}
 {tables}
 <p class="gr-note">{HOW_TO_READ}</p>
+
+<p class="gr-note gr-gearbridge">기록을 줄이려는 분을 위해, 카본 플레이트 러닝화가 {dist["label"]} 기록에 얼마나 도움이 되는지 연구 근거와 함께 정리했습니다. <a href="gear-carbon-plate-{dk}.html">카본화 효과와 근거 보기 →</a></p>
 
 <div class="gr-cta">
 <p>표에서 찾는 대신 기록을 넣으면 등급과 다음 등급까지 남은 시간이 바로 나옵니다. 결과는 이미지로 저장해 공유할 수 있습니다.</p>
