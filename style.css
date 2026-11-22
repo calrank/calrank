@@ -852,10 +852,18 @@ body #claimSearchBtn{min-height:48px;border-radius:14px}
 .home-grades a:hover{border-color:var(--accent);}
 .home-grades .hg-all{font-weight:700;color:var(--accent-ink);}
 
-/* 칼럼의 제휴 블록(scripts/sync_affiliate.py) */
-.aff-box{margin:28px 0 8px;padding:16px 0 0;border-top:1px solid var(--border,#e4dfda)}
-.aff-box h2{font-size:17px;margin:0 0 6px}
-.aff-note{font-size:14px;line-height:1.8;color:var(--ink-faint,#6B6460);margin:0 0 8px}
-.aff-box ul{margin:0;padding-left:18px}
-.aff-box li{font-size:15.5px;line-height:1.9}
-.aff-box a{color:inherit;border-bottom:1px dashed currentColor;text-decoration:none}
+/* 제휴 배너(scripts/aff_render.py): 배너가 주인공이고 대가성 문구는 아래에 작게 */
+.aff-box{margin:28px 0 8px}
+.aff-ban{margin:0 auto 6px;line-height:0;border-radius:8px;overflow:hidden}
+.aff-ban iframe{display:block;max-width:100%;border:0}
+.aff-box p.aff-note{margin:4px 0 0;text-align:center;font-size:12px;line-height:1.6;color:var(--ink-faint,#6B6460)}
+.aff-box p.aff-lk{margin:0;text-align:center;font-size:14px}
+.aff-lk a{color:inherit;border-bottom:1px dashed currentColor;text-decoration:none}
+/* 매주 갱신되는 상품 카드(aff.js): 가로로 밀어 보는 한 줄 */
+.aff-cards{list-style:none;margin:0 0 6px;padding:0;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.aff-cards li{flex:0 0 132px;scroll-snap-align:start}
+.aff-box .aff-cards a{display:block;text-decoration:none;color:var(--ink,inherit);border:0}
+.aff-box .aff-cards .aff-nm{color:var(--ink-soft,inherit)}
+.aff-cards img{display:block;width:132px;height:132px;object-fit:cover;border-radius:10px;background:#eee}
+.aff-cards .aff-nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:6px;font-size:13px;line-height:1.45}
+.aff-cards .aff-pr{display:block;margin-top:2px;font-size:14px;font-weight:800}

@@ -394,10 +394,6 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gu-msg{min-height:20px;margin:8px 0 0;font-size:14px;color:#8a2a22}
 
 /* 제휴 링크 구역: 대가성 문구가 링크보다 눈에 먼저 들어와야 한다 */
-.gi-aff-note { font-size: 14px; line-height: 1.8; color: var(--ink-faint); margin: 6px 0 10px; }
-.gi-aff ul { margin: 0; padding-left: 18px; }
-.gi-aff li { font-size: 15.5px; line-height: 1.9; }
-.gi-aff a { color: var(--ink); border-bottom: 1px dashed var(--ink-faint); text-decoration: none; }
 .gu-why{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--ink-soft,#5b524b)}
 .gu-small{margin:4px 0 0;font-size:13px;line-height:1.6;color:var(--ink-soft,#5b524b)}
 .gu-stat{margin:10px 0 0}

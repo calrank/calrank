@@ -8,24 +8,19 @@ data/affiliate_links.json 의 항목 중 page 가 gear- 로 시작하지 않는 
   python3 scripts/sync_affiliate.py          # 적용
   python3 scripts/sync_affiliate.py --check  # 바뀔 게 있으면 1로 끝난다
 """
-import html as htmllib
 import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 BEGIN, END = "<!--sync-aff-->", "<!--/sync-aff-->"
-NOTICE = ("이 페이지의 링크로 구매하시면 칼랭크가 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 받습니다. "
-          "구매 가격은 달라지지 않고, 글의 내용은 제휴와 관계없이 같은 기준으로 씁니다.")
+import aff_render  # noqa: E402
 
 
 def block(page, rows):
-    li = "".join(
-        f'<li><a href="{htmllib.escape(x["url"])}" rel="sponsored nofollow noopener" target="_blank" data-aff="{htmllib.escape(page)}">'
-        f'{htmllib.escape(x.get("label", "쿠팡에서 보기"))}</a></li>' for x in rows)
-    return (f'{BEGIN}\n<section class="aff-box"><h2>관련 제품 찾아보기</h2><p class="aff-note">{NOTICE}</p><ul>{li}</ul></section>\n'
-            f'<script defer src="funnel.js"></script><script defer src="aff.js"></script>\n{END}\n')
+    return f'{BEGIN}\n' + aff_render.render(page, "") + f'\n{END}\n'
 
 
 def strip(t):
@@ -37,7 +32,7 @@ def main(check):
     by = {}
     for x in data.get("items", []):
         pg = str(x.get("page", ""))
-        if pg.startswith("gear-") or not str(x.get("url", "")).startswith("https://link.coupang.com/"):
+        if pg.startswith("gear-") or not (x.get("widget") or str(x.get("url", "")).startswith("https://link.coupang.com/")):
             continue
         by.setdefault(pg, []).append(x)
     changed = {}

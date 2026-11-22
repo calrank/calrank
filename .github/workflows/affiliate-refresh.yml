@@ -1,0 +1,28 @@
+name: Affiliate Refresh
+
+# 제휴 배너의 인기 상품을 쿠팡 파트너스 오픈 API 로 매주 갱신한다. 저장소에는 아무것도 쓰지 않는다(배포 없음, Supabase 에만 쓴다).
+# 파트너스 최종 승인 뒤 COUPANG_ACCESS_KEY / COUPANG_SECRET_KEY 를 GitHub Secret 에 넣기 전에는 "키 없음" 안내만 남기고 끝난다.
+on:
+  schedule:
+    - cron: "17 0 * * 1"   # 매주 월요일 09:17 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 인기 상품 갱신
+        env:
+          COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}
+          COUPANG_SECRET_KEY: ${{ secrets.COUPANG_SECRET_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          echo "### 제휴 배너 인기 상품 갱신" >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/affiliate_refresh.py | tee -a "$GITHUB_STEP_SUMMARY"

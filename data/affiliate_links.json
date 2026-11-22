@@ -1,156 +1,384 @@
 {
  "partner": "coupang",
- "note": "쿠팡 파트너스 대시보드에서 만든 https://link.coupang.com/ 주소만 넣는다. page 는 페이지 파일명. gear-*.html 은 기어 생성기가, 그 밖의 칼럼은 scripts/sync_affiliate.py 가 그린다.",
+ "note": "쿠팡 파트너스 대시보드에서 만든 다이나믹 배너 id(widget)와 임시 글자 링크(url). banners 는 매주 오픈 API(scripts/affiliate_refresh.py)가 인기 상품을 갱신할 때 쓰는 검색어·브랜드 목록. 그리기는 scripts/aff_render.py.",
  "items": [
   {
    "page": "gear-carbon-plate.html",
-   "label": "쿠팡에서 카본화 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSM5wGJpIG"
+   "label": "나이키·아디다스·아식스 카본 러닝화",
+   "url": "https://link.coupang.com/a/iSM5wGJpIG",
+   "widget": 1054314,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-trail-poles.html",
-   "label": "쿠팡에서 트레킹폴 찾아보기",
-   "url": "https://link.coupang.com/a/iSM6rzs1WS"
+   "label": "레키·블랙다이아몬드 트레킹폴",
+   "url": "https://link.coupang.com/a/iSM6rzs1WS",
+   "widget": 1054319,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-wetsuit.html",
-   "label": "쿠팡에서 트라이애슬론 웻슈트 찾아보기",
-   "url": "https://link.coupang.com/a/iSM66nz9dk"
+   "label": "오르카·STM 철인3종 웻슈트",
+   "url": "https://link.coupang.com/a/iSM66nz9dk",
+   "widget": 1054321,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-helmet.html",
-   "label": "쿠팡에서 로드 자전거 헬멧 찾아보기",
-   "url": "https://link.coupang.com/a/iSM7GkitBk"
+   "label": "지로·스페셜라이즈드 로드 헬멧",
+   "url": "https://link.coupang.com/a/iSM7GkitBk",
+   "widget": 1054322,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-helmet-safety.html",
-   "label": "쿠팡에서 로드 자전거 헬멧 찾아보기",
-   "url": "https://link.coupang.com/a/iSM7GkitBk"
+   "label": "지로·스페셜라이즈드 로드 헬멧",
+   "url": "https://link.coupang.com/a/iSM7GkitBk",
+   "widget": 1054322,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-tyre-rolling.html",
-   "label": "쿠팡에서 로드 자전거 타이어 찾아보기",
-   "url": "https://link.coupang.com/a/iSM8kLgQ7U"
+   "label": "콘티넨탈·미쉐린 로드 타이어",
+   "url": "https://link.coupang.com/a/iSM8kLgQ7U",
+   "widget": 1054324,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-carbon-plate-5km.html",
-   "label": "쿠팡에서 카본화 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSM5wGJpIG"
+   "label": "나이키·아디다스·아식스 카본 러닝화",
+   "url": "https://link.coupang.com/a/iSM5wGJpIG",
+   "widget": 1054314,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-carbon-plate-10km.html",
-   "label": "쿠팡에서 카본화 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSM5wGJpIG"
+   "label": "나이키·아디다스·아식스 카본 러닝화",
+   "url": "https://link.coupang.com/a/iSM5wGJpIG",
+   "widget": 1054314,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-carbon-plate-half.html",
-   "label": "쿠팡에서 카본화 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSM5wGJpIG"
+   "label": "나이키·아디다스·아식스 카본 러닝화",
+   "url": "https://link.coupang.com/a/iSM5wGJpIG",
+   "widget": 1054314,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-carbon-plate-full.html",
-   "label": "쿠팡에서 카본화 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSM5wGJpIG"
+   "label": "나이키·아디다스·아식스 카본 러닝화",
+   "url": "https://link.coupang.com/a/iSM5wGJpIG",
+   "widget": 1054314,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-shoe-mass.html",
-   "label": "쿠팡에서 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSNN9mFrwa"
+   "label": "나이키·아식스 러닝화",
+   "url": "https://link.coupang.com/a/iSNN9mFrwa",
+   "widget": 1054338,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-shoe-rotation.html",
-   "label": "쿠팡에서 러닝화 찾아보기",
-   "url": "https://link.coupang.com/a/iSNN9mFrwa"
+   "label": "나이키·아식스 러닝화",
+   "url": "https://link.coupang.com/a/iSNN9mFrwa",
+   "widget": 1054338,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-trail-poles-by-gradient.html",
-   "label": "쿠팡에서 트레킹폴 찾아보기",
-   "url": "https://link.coupang.com/a/iSM6rzs1WS"
+   "label": "레키·블랙다이아몬드 트레킹폴",
+   "url": "https://link.coupang.com/a/iSM6rzs1WS",
+   "widget": 1054319,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-trail-pack-weight.html",
-   "label": "쿠팡에서 트레일러닝 배낭·베스트 찾아보기",
-   "url": "https://link.coupang.com/a/iSNOTlX66e"
+   "label": "살로몬 트레일러닝 베스트",
+   "url": "https://link.coupang.com/a/iSNOTlX66e",
+   "widget": 1054337,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-wheel.html",
-   "label": "쿠팡에서 로드 자전거 휠셋 찾아보기",
-   "url": "https://link.coupang.com/a/iSNLgUQbIW"
+   "label": "캄파놀로 로드 휠셋",
+   "url": "https://link.coupang.com/a/iSNLgUQbIW",
+   "widget": 1054325,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-wheel-40km.html",
-   "label": "쿠팡에서 로드 자전거 휠셋 찾아보기",
-   "url": "https://link.coupang.com/a/iSNLgUQbIW"
+   "label": "캄파놀로 로드 휠셋",
+   "url": "https://link.coupang.com/a/iSNLgUQbIW",
+   "widget": 1054325,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-wheel-100km.html",
-   "label": "쿠팡에서 로드 자전거 휠셋 찾아보기",
-   "url": "https://link.coupang.com/a/iSNLgUQbIW"
+   "label": "캄파놀로 로드 휠셋",
+   "url": "https://link.coupang.com/a/iSNLgUQbIW",
+   "widget": 1054325,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-tyre-rolling-40km.html",
-   "label": "쿠팡에서 로드 자전거 타이어 찾아보기",
-   "url": "https://link.coupang.com/a/iSM8kLgQ7U"
+   "label": "콘티넨탈·미쉐린 로드 타이어",
+   "url": "https://link.coupang.com/a/iSM8kLgQ7U",
+   "widget": 1054324,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-tyre-rolling-100km.html",
-   "label": "쿠팡에서 로드 자전거 타이어 찾아보기",
-   "url": "https://link.coupang.com/a/iSM8kLgQ7U"
+   "label": "콘티넨탈·미쉐린 로드 타이어",
+   "url": "https://link.coupang.com/a/iSM8kLgQ7U",
+   "widget": 1054324,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-helmet-40km.html",
-   "label": "쿠팡에서 로드 자전거 헬멧 찾아보기",
-   "url": "https://link.coupang.com/a/iSM7GkitBk"
+   "label": "지로·스페셜라이즈드 로드 헬멧",
+   "url": "https://link.coupang.com/a/iSM7GkitBk",
+   "widget": 1054322,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-helmet-100km.html",
-   "label": "쿠팡에서 로드 자전거 헬멧 찾아보기",
-   "url": "https://link.coupang.com/a/iSM7GkitBk"
+   "label": "지로·스페셜라이즈드 로드 헬멧",
+   "url": "https://link.coupang.com/a/iSM7GkitBk",
+   "widget": 1054322,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-groupset-tier.html",
-   "label": "쿠팡에서 로드 자전거 그룹셋 찾아보기",
-   "url": "https://link.coupang.com/a/iSNMjVfIlM"
+   "label": "시마노 105·울테그라 부품",
+   "url": "https://link.coupang.com/a/iSNMjVfIlM",
+   "widget": 1054326,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-wetsuit-by-temp.html",
-   "label": "쿠팡에서 트라이애슬론 웻슈트 찾아보기",
-   "url": "https://link.coupang.com/a/iSM66nz9dk"
+   "label": "오르카·STM 철인3종 웻슈트",
+   "url": "https://link.coupang.com/a/iSM66nz9dk",
+   "widget": 1054321,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-inline-bearings.html",
-   "label": "쿠팡에서 인라인 스케이트 베어링 찾아보기",
-   "url": "https://link.coupang.com/a/iSNNx7HlhB"
+   "label": "NSK 인라인 베어링",
+   "url": "https://link.coupang.com/a/iSNNx7HlhB",
+   "widget": 1054328,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-aero-clothing.html",
-   "label": "쿠팡에서 사이클 져지 찾아보기",
-   "url": "https://link.coupang.com/a/iSNLMZK8aa"
+   "label": "카스텔리 사이클 져지",
+   "url": "https://link.coupang.com/a/iSNLMZK8aa",
+   "widget": 1054330,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-caffeine.html",
-   "label": "쿠팡에서 카페인 에너지젤 찾아보기",
-   "url": "https://link.coupang.com/a/iSNKaY1gqq"
+   "label": "SiS·GU 에너지젤",
+   "url": "https://link.coupang.com/a/iSNKaY1gqq",
+   "widget": 1054333,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-carb-intake.html",
-   "label": "쿠팡에서 마라톤 에너지젤 찾아보기",
-   "url": "https://link.coupang.com/a/iSNKJI0nDM"
+   "label": "SiS·GU 에너지젤",
+   "url": "https://link.coupang.com/a/iSNKJI0nDM",
+   "widget": 1054333,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-heat.html",
-   "label": "쿠팡에서 쿨링 아이스 슬리브 찾아보기",
-   "url": "https://link.coupang.com/a/iSNMXolAHY"
+   "label": "나이키·아디다스 쿨링 슬리브",
+   "url": "https://link.coupang.com/a/iSNMXolAHY",
+   "widget": 1054334,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "gear-beetroot-nitrate.html",
-   "label": "쿠팡에서 비트 주스 찾아보기",
-   "url": "https://link.coupang.com/a/iSNJDEXWQC"
+   "label": "비트 주스",
+   "url": "https://link.coupang.com/a/iSNJDEXWQC",
+   "widget": 1054336,
+   "w": 340,
+   "h": 90
   },
   {
    "page": "column-howto-cycling-knee-saddle-pain.html",
-   "label": "쿠팡에서 사이클 안장 찾아보기",
-   "url": "https://link.coupang.com/a/iSOIZkpjxc"
+   "label": "셀레이탈리아·피직 로드 안장",
+   "url": "https://link.coupang.com/a/iSOIZkpjxc",
+   "widget": 1054340,
+   "w": 340,
+   "h": 90
   }
- ]
+ ],
+ "tracking": "AF9187111",
+ "banners": {
+  "carbon": {
+   "id": 1054314,
+   "pages": [
+    "gear-carbon-plate.html",
+    "gear-carbon-plate-5km.html",
+    "gear-carbon-plate-10km.html",
+    "gear-carbon-plate-half.html",
+    "gear-carbon-plate-full.html"
+   ],
+   "query": "나이키 아식스 아디다스 카본 러닝화",
+   "brands": "나이키|아디다스|아식스|호카|뉴발란스|브룩스|푸마|사코니|미즈노|NIKE|ADIDAS|ASICS|HOKA"
+  },
+  "poles": {
+   "id": 1054319,
+   "pages": [
+    "gear-trail-poles.html",
+    "gear-trail-poles-by-gradient.html"
+   ],
+   "query": "레키 블랙다이아몬드 트레킹폴",
+   "brands": "레키|LEKI|블랙다이아몬드|Black Diamond|코오롱|살로몬|몽벨|그레고리"
+  },
+  "wetsuit": {
+   "id": 1054321,
+   "pages": [
+    "gear-wetsuit.html",
+    "gear-wetsuit-by-temp.html"
+   ],
+   "query": "ORCA 오르카 철인3종 슈트 STM",
+   "brands": "ORCA|오르카|STM|휴고|HUUB|조그|ZOGGS|스피도|아레나|2XU"
+  },
+  "helmet": {
+   "id": 1054322,
+   "pages": [
+    "gear-aero-helmet.html",
+    "gear-aero-helmet-40km.html",
+    "gear-aero-helmet-100km.html",
+    "gear-helmet-safety.html"
+   ],
+   "query": "지로 스페셜라이즈드 로드 자전거 헬멧",
+   "brands": "지로|GIRO|스페셜라이즈드|SPECIALIZED|벨 |BELL|카스크|KASK|POC|라지르|LAZER|스미스|SMITH"
+  },
+  "tyre": {
+   "id": 1054324,
+   "pages": [
+    "gear-tyre-rolling.html",
+    "gear-tyre-rolling-40km.html",
+    "gear-tyre-rolling-100km.html"
+   ],
+   "query": "콘티넨탈 슈발베 미쉐린 로드 자전거 타이어 700c",
+   "brands": "콘티넨탈|컨티넨탈|슈발베|미쉐린|비트리아|판아레이서|마빅|CONTINENTAL|SCHWALBE|MICHELIN"
+  },
+  "wheel": {
+   "id": 1054325,
+   "pages": [
+    "gear-aero-wheel.html",
+    "gear-aero-wheel-40km.html",
+    "gear-aero-wheel-100km.html"
+   ],
+   "query": "캄파놀로 시마노 로드 자전거 휠셋",
+   "brands": "캄파놀로|CAMPAGNOLO|시마노|SHIMANO|풀크럼|마빅|ZIPP|ENVE|레이놀즈|DT SWISS"
+  },
+  "groupset": {
+   "id": 1054326,
+   "pages": [
+    "gear-groupset-tier.html"
+   ],
+   "query": "시마노 105 울테그라 로드 그룹셋",
+   "brands": "시마노|SHIMANO|스램|SRAM|캄파놀로"
+  },
+  "bearing": {
+   "id": 1054328,
+   "pages": [
+    "gear-inline-bearings.html"
+   ],
+   "query": "NSK 인라인 스케이트 베어링 608",
+   "brands": "NSK|KYK|본즈|BONES"
+  },
+  "jersey": {
+   "id": 1054330,
+   "pages": [
+    "gear-aero-clothing.html"
+   ],
+   "query": "카스텔리 사이클링 저지",
+   "brands": "카스텔리|CASTELLI|라파|RAPHA|MAAP|아소스|ASSOS|스페셜라이즈드"
+  },
+  "gel": {
+   "id": 1054333,
+   "pages": [
+    "gear-caffeine.html",
+    "gear-carb-intake.html"
+   ],
+   "query": "에너지젤 SiS GU 마라톤",
+   "brands": "SIS|GU|구에너지|모르텐|MAURTEN|파워바|POWERBAR|맥스|요헤미티|아미노바이탈"
+  },
+  "cool": {
+   "id": 1054334,
+   "pages": [
+    "gear-heat.html"
+   ],
+   "query": "나이키 쿨링 슬리브 쿨토시",
+   "brands": "나이키|아디다스|언더아머|아식스|휠라|뉴발란스|NIKE|ADIDAS"
+  },
+  "beet": {
+   "id": 1054336,
+   "pages": [
+    "gear-beetroot-nitrate.html"
+   ],
+   "query": "비트 주스 비트루트",
+   "brands": "Beet-it|비트잇|리타|푸드버킷|비트"
+  },
+  "vest": {
+   "id": 1054337,
+   "pages": [
+    "gear-trail-pack-weight.html"
+   ],
+   "query": "살로몬 트레일러닝 베스트",
+   "brands": "살로몬|SALOMON|노스페이스|그레고리|오스프리|호카|몽벨"
+  },
+  "shoes": {
+   "id": 1054338,
+   "pages": [
+    "gear-shoe-mass.html",
+    "gear-shoe-rotation.html"
+   ],
+   "query": "나이키 아식스 호카 뉴발란스 러닝화",
+   "brands": "나이키|아식스|호카|뉴발란스|브룩스|아디다스|살로몬|푸마|미즈노|NIKE|ASICS|HOKA"
+  },
+  "saddle": {
+   "id": 1054340,
+   "pages": [
+    "column-howto-cycling-knee-saddle-pain.html"
+   ],
+   "query": "셀레이탈리아 피직 로드 자전거 안장",
+   "brands": "셀레|SELLE|피직|FIZIK|산마르코|SAN MARCO|스페셜라이즈드|브룩스"
+  }
+ }
 }

@@ -291,7 +291,7 @@ def main():
     # 제휴 링크(쿠팡 파트너스) 규정 점검: 링크가 있는 페이지는 대가성 문구가 있어야 하고, 링크에 sponsored 가 있어야 한다.
     for p in all_html:
         body = read(p)
-        if "link.coupang.com" not in body and "coupang.com/np" not in body:
+        if "link.coupang.com" not in body and "coupang.com/np" not in body and "ads-partners.coupang.com" not in body:
             continue
         rel = "/" + p.relative_to(ROOT).as_posix()
         if "쿠팡 파트너스 활동의 일환으로" not in body:
