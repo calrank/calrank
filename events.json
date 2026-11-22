@@ -22753,15 +22753,6 @@
       "years": 10,
       "station": "서울",
       "stationKm": 6
-    },
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 6.0,
-      "morningTa": -0.5,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
     }
   },
   {
@@ -22799,15 +22790,6 @@
       "hottestMax": 22.0,
       "station": "목포",
       "stationKm": 2
-    },
-    "forecast": {
-      "tmn": 3.0,
-      "tmx": 10.0,
-      "morningTa": 4.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
     }
   },
   {
@@ -22832,16 +22814,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://zeiss-smilerace.kr/",
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 6.0,
-      "morningTa": -0.5,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
-    }
+    "applyUrl": "http://zeiss-smilerace.kr/"
   },
   {
     "id": "rm-서울-억새-마라톤-2026-11-22",
@@ -22877,15 +22850,6 @@
       "years": 10,
       "station": "서울",
       "stationKm": 9
-    },
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 6.0,
-      "morningTa": 0.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
     }
   },
   {
@@ -22914,16 +22878,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://incheonmarathon.or.kr",
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 6.0,
-      "morningTa": -0.5,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
-    }
+    "applyUrl": "http://incheonmarathon.or.kr"
   },
   {
     "id": "rm-무주반딧불평화마라톤-2026-11-22",
@@ -22960,15 +22915,6 @@
       "years": 10,
       "station": "금산",
       "stationKm": 20
-    },
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 5.0,
-      "morningTa": 0.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
     }
   },
   {
@@ -22995,16 +22941,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://krun.or.kr",
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 6.0,
-      "morningTa": 0.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
-    }
+    "applyUrl": "http://krun.or.kr"
   },
   {
     "id": "rr-부산항일학생의거86주년기념-부산시민이어달리기-2026-11-22",
@@ -23027,16 +22964,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://i1123.org",
-    "forecast": {
-      "tmn": 2.0,
-      "tmx": 9.0,
-      "morningTa": 3.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
-    }
+    "applyUrl": "http://i1123.org"
   },
   {
     "id": "rr-제19회-대구광역시장기-생활체육-육상대회-2026-11-22",
@@ -23062,16 +22990,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://www.daegutf.co.kr/front/board/view.php?code=game&tab=%EB%8C%80%EA%B5%AC&mid=0003%2C0014&no=722",
-    "forecast": {
-      "tmn": -1.0,
-      "tmx": 7.0,
-      "morningTa": 0.0,
-      "pop": 0,
-      "sky": "맑음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
-    }
+    "applyUrl": "http://www.daegutf.co.kr/front/board/view.php?code=game&tab=%EB%8C%80%EA%B5%AC&mid=0003%2C0014&no=722"
   },
   {
     "id": "ro-부산항일학생의거86주년기념-부산시민이어달리기-2026-11-22",
@@ -23122,16 +23041,7 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://events.maar-adv.com/backyardultra",
-    "forecast": {
-      "tmn": 6.0,
-      "tmx": 11.0,
-      "morningTa": 6.5,
-      "pop": 20,
-      "sky": "구름많음",
-      "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
-    }
+    "applyUrl": "http://events.maar-adv.com/backyardultra"
   },
   {
     "id": "rm-2026-무진장트레일레이스-2026-11-23",
@@ -23156,13 +23066,13 @@
     "sourceUrl": "https://runningmap.kr",
     "applyUrl": "http://rocknrun.kr/",
     "forecast": {
-      "tmn": -2.0,
-      "tmx": 10.0,
+      "tmn": -3.0,
+      "tmx": 11.0,
       "morningTa": 3.6,
-      "pop": 20,
+      "pop": 30,
       "sky": "맑음",
       "src": "KMA 단기예보",
-      "asOf": "2026-11-22 10:09"
+      "asOf": "2026-11-23 02:03"
     }
   },
   {
