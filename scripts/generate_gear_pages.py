@@ -1158,7 +1158,7 @@ def wetsuit_temp_page(rules, claims):
                            "headline": desc}, slug, h1, desc, "철인3종"),
         nav=nav_html(active_for("gear.html")), sport="철인3종",
         h1=esc(h1), question=esc("대회 수온별 착용 가능 여부와 기록 효과 — 연맹 규정과 연구 결과"),
-        body=body + pair_html("wetsuit-by-temp"), related="", bodyattr="")
+        body=body + pair_html("wetsuit-by-temp") + affiliate_block(slug), related="", bodyattr="")
 
 
 # ── 경사표: 한 장비의 효과가 서로 반대로 간다 ────────────────────
@@ -1231,7 +1231,7 @@ def pole_gradient_page(claims):
                           slug, h1, desc, "트레일러닝"),
         nav=nav_html(active_for("gear.html")), sport="트레일러닝",
         h1=esc(h1), question=esc("경사에 따라 얼마나 달라지나?"),
-        body=body + pair_html("trail-poles-by-gradient"), related="", bodyattr="")
+        body=body + pair_html("trail-poles-by-gradient") + affiliate_block(slug), related="", bodyattr="")
 
 
 def update_sitemap(slugs):
