@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 AFF_FILE = ROOT / "data" / "affiliate_links.json"
 # 대가성 문구. "쿠팡 파트너스 활동의 일환으로" 는 site_health 가 찾는 문구이므로 바꾸지 않는다.
-NOTICE = "이 배너·링크는 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 받으며, 구매 가격은 달라지지 않습니다."
+NOTICE = "쿠팡 파트너스 활동의 일환으로 수수료를 받습니다."
 
 
 def load():
