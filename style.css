@@ -851,3 +851,11 @@ body #claimSearchBtn{min-height:48px;border-radius:14px}
 .home-grades a{padding:9px 13px;min-height:40px;display:inline-flex;align-items:center;border:1px solid var(--line,var(--border));border-radius:999px;font-size:14px;text-decoration:none;color:inherit;}
 .home-grades a:hover{border-color:var(--accent);}
 .home-grades .hg-all{font-weight:700;color:var(--accent-ink);}
+
+/* 칼럼의 제휴 블록(scripts/sync_affiliate.py) */
+.aff-box{margin:28px 0 8px;padding:16px 0 0;border-top:1px solid var(--border,#e4dfda)}
+.aff-box h2{font-size:17px;margin:0 0 6px}
+.aff-note{font-size:14px;line-height:1.8;color:var(--ink-faint,#6B6460);margin:0 0 8px}
+.aff-box ul{margin:0;padding-left:18px}
+.aff-box li{font-size:15.5px;line-height:1.9}
+.aff-box a{color:inherit;border-bottom:1px dashed currentColor;text-decoration:none}

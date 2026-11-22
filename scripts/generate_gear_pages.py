@@ -485,7 +485,8 @@ PAIRS = {
     "trail-poles": [("utmb-kit", "UTMB 필수 장비와 폴 규정"),
                     ("trail-poles-by-gradient", "경사도별 트레일 폴 효과")],
     "uci-min-weight": [("aero-wheel", "에어로 휠 효과"), ("tyre-rolling", "타이어와 구름저항")],
-    "uci-saddle-setback": [("uci-frame-approval", "UCI 승인 프레임 규정"), ("uci-min-weight", "UCI 최소 중량 규정")],
+    "uci-saddle-setback": [("uci-frame-approval", "UCI 승인 프레임 규정"), ("uci-min-weight", "UCI 최소 중량 규정"),
+                           ("column-howto-cycling-knee-saddle-pain.html", "안장 높이·위치와 무릎 통증 조정법")],
     "uci-frame-approval": [("aero-wheel", "에어로 휠 효과"), ("aero-helmet", "에어로 헬멧 효과")],
     "aero-wheel": [("uci-min-weight", "UCI 자전거 최소 중량 규정"),
                    ("uci-frame-approval", "UCI 승인 프레임 규정"),
@@ -531,7 +532,7 @@ def affiliate_block(slug):
 
 
 def pair_html(item_id, self_slug=""):
-    rows = [(slug_for("x", i), lab) for i, lab in PAIRS.get(item_id, [])]
+    rows = [(i if i.endswith(".html") else slug_for("x", i), lab) for i, lab in PAIRS.get(item_id, [])]
     rows = [(h, l) for h, l in rows if h != self_slug]
     if not rows:
         return ""

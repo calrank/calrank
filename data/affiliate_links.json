@@ -1,6 +1,6 @@
 {
  "partner": "coupang",
- "note": "쿠팡 파트너스 대시보드에서 만든 https://link.coupang.com/ 주소만 넣는다. page 는 기어 페이지 파일명.",
+ "note": "쿠팡 파트너스 대시보드에서 만든 https://link.coupang.com/ 주소만 넣는다. page 는 페이지 파일명. gear-*.html 은 기어 생성기가, 그 밖의 칼럼은 scripts/sync_affiliate.py 가 그린다.",
  "items": [
   {
    "page": "gear-carbon-plate.html",
@@ -146,6 +146,11 @@
    "page": "gear-beetroot-nitrate.html",
    "label": "쿠팡에서 비트 주스 찾아보기",
    "url": "https://link.coupang.com/a/iSNJDEXWQC"
+  },
+  {
+   "page": "column-howto-cycling-knee-saddle-pain.html",
+   "label": "쿠팡에서 사이클 안장 찾아보기",
+   "url": "https://link.coupang.com/a/iSOIZkpjxc"
   }
  ]
 }
