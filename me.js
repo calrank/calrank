@@ -25,14 +25,30 @@
   function show() {
     var u = CalrankAuth.user(); if (!u) return out();
     body.innerHTML = "";
-    Promise.all([CalrankAuth.nick(), CalrankAuth.rpc("my_poi_checks"), CalrankAuth.rpc("my_impact")]).then(function (v) {
-      var nick = v[0], rows = v[1] && !v[1].error && Array.isArray(v[1].data) ? v[1].data : [], imp = v[2] && !v[2].error && Array.isArray(v[2].data) ? v[2].data : [];
+    Promise.all([CalrankAuth.nick(), CalrankAuth.rpc("my_poi_checks"), CalrankAuth.rpc("my_impact"), CalrankAuth.rpc("my_poi_users")]).then(function (v) {
+      var nick = v[0], rows = v[1] && !v[1].error && Array.isArray(v[1].data) ? v[1].data : [], imp = v[2] && !v[2].error && Array.isArray(v[2].data) ? v[2].data : [], mine = v[3] && !v[3].error && Array.isArray(v[3].data) ? v[3].data : [];
       body.innerHTML = "";
       var a = card(); a.appendChild(el("p", "me-note", "닉네임"));
       a.appendChild(el("p", "me-nick", nick || "정하지 않음 (익명으로 남습니다)"));
       var nb = el("button", "me-btn", nick ? "닉네임 바꾸기" : "닉네임 정하기"); nb.type = "button"; nb.style.marginTop = "12px"; nb.onclick = function () { CalrankAuth.openSheet(); }; a.appendChild(nb);
       var s = card(); s.appendChild(el("p", "me-note", "내가 확인한 지점")); s.appendChild(el("p", "me-num", rows.length + "곳"));
       s.appendChild(el("p", "me-note", rows.length ? "다른 사람이 코스·산 지도에서 이 확인을 볼 수 있습니다." : "코스·산 페이지에서 지도의 내 위치(GPS)를 켜고 시설 근처를 지나면 \"있어요/없어요\"를 한 번 눌러 확인을 남길 수 있습니다."));
+      var pc = card(); pc.appendChild(el("p", "me-note", "내가 제보한 장소")); pc.appendChild(el("p", "me-num", mine.length + "곳"));
+      pc.appendChild(el("p", "me-note", mine.length ? "제보한 닉네임이 장소에 남습니다. 필요 없으면 삭제할 수 있습니다." : "코스·산 지도에서 내 위치(GPS)를 켜고 ‘장소 제보’를 누르면, 지도에 없는 화장실·식수·쉼터·조망·위험 구간을 직접 올릴 수 있습니다."));
+      if (mine.length) {
+        var pul = el("ul", "me-list"); pc.appendChild(pul);
+        var PK = { toilet: "화장실", water: "식수·샘터", shelter: "쉼터", view: "조망", danger: "위험 구간" };
+        titles(Object.keys(mine.reduce(function (o, r) { o[r.route_id] = 1; return o; }, {})), function (T2) {
+          mine.forEach(function (r) {
+            var li = el("li"); li.appendChild(el("span", "me-tag" + (r.status === "hidden" ? " no" : ""), r.status === "hidden" ? "가려짐" : "표시 중"));
+            var a3 = el("a", "", (T2[r.route_id] || r.route_id) + " · " + (PK[r.kind] || "장소") + (r.note ? " · " + r.note : "")); a3.href = pageOf(r.route_id).slice(1); li.appendChild(a3);
+            li.appendChild(el("span", "me-date", ago(r.created_at)));
+            var db = el("button", "me-btn", "삭제"); db.type = "button"; db.style.marginLeft = "8px"; db.setAttribute("aria-label", "이 제보 삭제");
+            db.onclick = function () { db.disabled = true; CalrankAuth.rpc("delete_poi_user", { p_id: r.id }).then(function (x) { if (x && !x.error && x.data === "ok") li.remove(); else db.disabled = false; }, function () { db.disabled = false; }); };
+            li.appendChild(db); pul.appendChild(li);
+          });
+        });
+      }
       if (!rows.length) return;
       var total = 0; imp.forEach(function (x) { total += +x.visitors || 0; });
       var ic = card(); ic.appendChild(el("p", "me-note", "내 확인이 닿은 사람")); ic.appendChild(el("p", "me-num", total > 0 ? total + "명" : "아직 없음"));
