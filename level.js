@@ -1638,6 +1638,17 @@ function scrollToFormIfAsked() {
 function prefillFromUrl() {
   try {
     const q = new URLSearchParams(location.search);
+    // 등급 페이지의 입력창이 성별·출생연도까지 넘긴다. 거리가 없어도 이 둘은 채운다.
+    const g = q.get("g");
+    if (g === "male" || g === "female") {
+      const gs = document.getElementById("lvGender");
+      if (gs) gs.value = g;
+    }
+    const by = parseInt(q.get("by"), 10);
+    if (by >= 1930 && by <= 2020) {
+      const bf = document.getElementById("lvBirthYear");
+      if (bf) bf.value = by;
+    }
     const d = q.get("d");
     if (!d) return;
     const sel = document.getElementById("lvDistance");

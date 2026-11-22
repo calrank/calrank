@@ -378,8 +378,25 @@ PAGE_CSS = """  .gr-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 
   .gr-faq details { border: 1px solid var(--border, #2A2A2A); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
   .gr-faq summary { cursor: pointer; font-size: 15px; font-weight: 700; color: #E8E4E1; }
   .gr-faq p { margin-top: 9px; font-size: 15px; line-height: 1.8; color: #B5AFAB; }
+  .gq-box { margin: 22px 0 6px; padding: 20px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 12px; }
+  .gq-h { margin: 0 0 4px; font-size: 19px; font-weight: 900; }
+  .gq-sub { margin: 0 0 14px; font-size: 14.5px; color: inherit; opacity: .78; }
+  .gq-form { display: flex; flex-wrap: wrap; gap: 10px; }
+  .gq-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 700; flex: 1 1 110px; color: inherit; opacity: .78; }
+  .gq-form input, .gq-form select { padding: 11px 10px; font-size: 16px; border-radius: 8px; border: 1px solid var(--border, #2A2A2A); background: transparent; color: inherit; font-family: inherit; min-height: 44px; }
+  .gq-go { flex: 1 1 100%; min-height: 46px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 900; font-family: inherit; cursor: pointer; }
+  .gq-err { margin: 10px 0 0; font-size: 14.5px; color: #FF8A70; }
+  .gq-out { margin-top: 16px; }
+  .gq-card { padding: 14px; border-radius: 10px; border: 1px solid var(--border, #2A2A2A); }
+  .gq-k { display: block; font-size: 12.5px; font-weight: 700; color: inherit; opacity: .62; letter-spacing: .3px; }
+  .gq-card b { display: block; font-size: 24px; font-weight: 900; line-height: 1.35; }
+  .gq-v { display: block; margin-top: 2px; font-size: 14px; color: inherit; opacity: .78; }
+  .gq-next { margin: 12px 0 0; font-size: 15px; line-height: 1.75; }
+  .gq-more { display: block; margin-top: 14px; padding: 13px; text-align: center; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; }
+  .gq-note { margin: 10px 0 0; font-size: 13px; color: inherit; opacity: .62; }
+  .gq-fallback { color: var(--accent); font-weight: 700; }
   .gr-cta { margin-top: 34px; padding: 22px; background: var(--surface, #141414); border: 1px solid var(--border, #2A2A2A); border-radius: 10px; text-align: center; }
-  .gr-cta p { font-size: 15.5px; color: #C9C3BF; }
+  .gr-cta p { font-size: 15.5px; color: inherit; opacity: .78; }
   .gr-cta a { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }
   .gr-links { margin-top: 26px; font-size: 15px; line-height: 2; }
   .gr-links a { color: #D6D1CD; text-decoration: none; border-bottom: 1px dashed #5E5A57; }
@@ -470,6 +487,16 @@ def build_table(dist, gender):
     )
 
 
+def quick_box(dist, gender_key=""):
+    """페이지 안에서 바로 내 등급을 보는 입력창(grade-quick.js). 경계는 TIER_BOUNDS 에서 그대로 넣는다."""
+    import html as _h, json as _j
+    tiers = _h.escape(_j.dumps([[b, n] for b, n in TIER_BOUNDS], ensure_ascii=False), quote=True)
+    return (f'<section class="gq-box" id="grQuick" data-dist="{dist["key"]}" data-km="{dist["km"]:g}" '
+            f'data-gender="{gender_key}" data-label="{dist["search"]}" data-tiers="{tiers}">'
+            f'<a class="gq-fallback" href="level.html?d={dist["km"]:g}#now">내 기록으로 등급 계산하기 →</a></section>\n'
+            '<script defer src="wma-standards.js"></script><script defer src="grade-quick.js"></script>')
+
+
 def build_page(dist, gender):
     dk, gk = dist["key"], gender["key"]
     slug = slug_for(dk, gk)
@@ -533,6 +560,7 @@ def build_page(dist, gender):
 <figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">{INTRO[dk]} 이 표에 나오는 등급이 칼랭크 등급(기록등급)이고, 연령 기준은 WMA 연령 기준표를 씁니다.</p>
 {build_switch(dk, gk)}
+{quick_box(dist, gk)}
 {build_table(dist, gender)}
 <p class="gr-note">{HOW_TO_READ} {ref_line}</p>
 
@@ -1051,6 +1079,7 @@ def build_age_page(dist, decade):
 <figure class="gr-photo">\n<img src="/og-level.jpg" width="1200" height="630" loading="eager" decoding="async"\n     alt="공원에서 달리다 멈춰 손목시계로 기록을 확인하는 러너 — 내 기록이 어느 등급인지 확인해 보세요">\n</figure>
 <p class="gr-lead">{lead}</p>
 {build_age_switch(dk, decade)}
+{quick_box(dist)}
 {tables}
 <p class="gr-note">{HOW_TO_READ}</p>
 
