@@ -28,6 +28,7 @@
       ".rm-hud button{margin-top:6px;min-height:40px;padding:0 16px;border:0;border-radius:999px;background:" + M + ";color:#06362d;font:800 13px sans-serif;box-shadow:0 2px 6px rgba(8,70,58,.25);cursor:pointer}.rm-hud button:active{transform:scale(.96)}" +
       ".rm-q{margin-top:8px;padding:10px 12px;border-radius:14px;background:#e9fbf6;border:1px solid #bfeee3}.rm-q span{display:block;font-weight:700}" +
       ".rm-q button{margin:8px 6px 0 0}.rm-q button.alt{background:#fff;color:#15110F;border:1px solid #9fd8cc;box-shadow:none}.rm-q small{display:block;margin-top:6px;font-weight:500;color:#4a5a56}" +
+      ".rm-by{display:block;margin:0 0 4px;font-style:normal;font-size:12.5px;color:#2A7A50}.rm-by b{font-weight:900}" +
       ".rm-thx{margin-top:8px;padding:8px 12px;border-radius:14px;background:#e9fbf6;font-weight:700}" +
       ".rm-dot{display:inline-block;width:9px;height:9px;margin-right:7px;border-radius:50%;background:#1f9d62;vertical-align:1px;animation:rmBlink 1.4s ease-in-out infinite}.rm-dot.mid{background:#d99a00}.rm-dot.bad{background:#b3261e}.rm-dot.wait{background:#8a8a8a;animation:none}" +
       "@keyframes rmBlink{0%,100%{opacity:1}50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.rm-dot{animation:none}}" +
@@ -103,10 +104,18 @@
         pq = best;
       }
       if (!pq) return "";
-      return qBox(pq.kind);
+      return qBox(pq.kind, pq.key);
     }
-    function qBox(kind) {
-      return '<div class="rm-q" role="group" aria-label="시설 확인"><span>여기 <b>' + kind + '</b>이(가) 있나요?</span><button type="button" id="rmQy">있어요</button><button type="button" id="rmQn" class="alt">없어요</button><button type="button" id="rmQs" class="alt">건너뛰기</button><small>누르면 확인 기록이 남습니다. 내 위치는 보내지 않습니다.</small></div>';
+    // 이 지점을 처음 확인한 사람의 닉네임을 보여 주거나, 아직 없으면 "내 이름이 남는다"고 알려 준다.
+    function whoNote(key) {
+      var c = window.CalrankChecks && window.CalrankChecks[key], nm = c && c.first_name ? String(c.first_name).replace(/[^가-힣A-Za-z0-9_]/g, "") : "";
+      if (nm) return '<em class="rm-by"><b>' + nm + "</b> 님이 확인한 지점</em>";
+      var mine = ""; try { mine = localStorage.getItem("calrank_nick") || ""; } catch (e) {}
+      if (!(c && c.yes_n) && mine && window.CalrankAuth && window.CalrankAuth.user()) return '<em class="rm-by">처음 확인하면 내 닉네임이 남습니다</em>';
+      return "";
+    }
+    function qBox(kind, key) {
+      return '<div class="rm-q" role="group" aria-label="시설 확인">' + (key ? whoNote(key) : "") + '<span>여기 <b>' + kind + '</b>이(가) 있나요?</span><button type="button" id="rmQy">있어요</button><button type="button" id="rmQn" class="alt">없어요</button><button type="button" id="rmQs" class="alt">건너뛰기</button><small>누르면 확인 기록이 남습니다. 내 위치는 보내지 않습니다.</small></div>';
     }
     // 산 페이지: 등산로 구간 거리 대신 좌표로 가까운 화장실 지점(40m)을 찾는다. 70m 넘게 멀어지면 접는다.
     function askSpot(ll, ac) {
@@ -123,7 +132,7 @@
         pq = best;
       }
       if (!pq) return "";
-      return qBox(pq.kind);
+      return qBox(pq.kind, pq.key);
     }
     function bindAsk(root) {
       var y = root.querySelector("#rmQy"), n = root.querySelector("#rmQn"), sk = root.querySelector("#rmQs"); if (!y || !pq) return;

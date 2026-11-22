@@ -90,6 +90,7 @@
       if (!document.getElementById("spStyle")) {
         var st = document.createElement("style"); st.id = "spStyle";
         st.textContent = ".sp{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--c);box-shadow:0 2px 6px rgba(0,0,0,.28)}.sp img{width:16px;height:16px;margin:0;display:block}" +
+          ".sp-pop{font:600 13px/1.6 sans-serif;color:#15110f;min-width:150px}.sp-pop .by{margin:4px 0 2px;font-weight:900;font-size:14px}.sp-pop .cnt{color:#555}.sp-pop button{margin-top:8px;min-height:36px;padding:0 12px;border:1.5px solid #bbb;border-radius:999px;background:#fff;color:#444;font:700 12px/1 sans-serif;cursor:pointer}.sp-pop .rmsg{margin-top:6px;font-size:12px;color:#444}" +
           ".sp-bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0}.sp-chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px 0 8px;border:1.5px solid var(--c);border-radius:999px;background:#fff;color:#15110f;font:700 13px/1 sans-serif;cursor:pointer}.sp-chip img{width:20px;height:20px;margin:0}.sp-chip[aria-pressed=false]{opacity:.45;background:transparent}.sp-chip i{font-style:normal;font-weight:600;opacity:.7}" +
           ".sp-note{margin:8px 0 0;font-size:12px;line-height:1.5;opacity:.75}";
         document.head.appendChild(st);
@@ -122,12 +123,36 @@
           if (!window.CalrankAuth && ++tries < 40) return; clearInterval(wait); if (!window.CalrankAuth) return;
           CalrankAuth.rpc("poi_check_summary", { p_route: routeKey }).then(function (r) {
             if (!r || r.error || !Array.isArray(r.data)) return;
+            window.CalrankChecks = window.CalrankChecks || {};
             r.data.forEach(function (x) {
+              window.CalrankChecks[x.poi_key] = { first_name: x.first_name || "", yes_n: x.yes_n || 0, no_n: x.no_n || 0 };
               var e = byKey[x.poi_key]; if (!e || !(x.yes_n || x.no_n)) return;
-              var t = e.label + " · 자료상 지점", days = x.last_at ? Math.max(0, Math.floor((Date.now() - new Date(x.last_at)) / 864e5)) : null;
-              if (x.yes_n) t += "\n" + x.yes_n + "명이 있다고 확인" + (days == null ? "" : " · 최근 " + (days === 0 ? "오늘" : days + "일 전")) + (x.first_name ? " · 처음 확인 " + x.first_name : "");
-              if (x.no_n >= 2) t += "\n없다는 기록 " + x.no_n + "명";
-              e.m.setTooltipContent(t.replace(/\n/g, "<br>"));
+              var days = x.last_at ? Math.max(0, Math.floor((Date.now() - new Date(x.last_at)) / 864e5)) : null;
+              var who = String(x.first_name || "").replace(/[^가-힣A-Za-z0-9_]/g, "");
+              var h = '<div class="sp-pop"><b>' + e.label + "</b> · 자료상 지점";
+              if (who) h += '<div class="by">' + who + " 님이 처음 확인</div>";
+              if (x.yes_n) h += '<div class="cnt">' + x.yes_n + "명이 있다고 확인" + (days == null ? "" : " · 최근 " + (days === 0 ? "오늘" : days + "일 전")) + "</div>";
+              if (x.no_n >= 2) h += '<div class="cnt">없다는 기록 ' + x.no_n + "명</div>";
+              if (who) h += '<button type="button" class="rep">닉네임 신고</button><div class="rmsg" aria-live="polite"></div>';
+              h += "</div>";
+              e.m.unbindTooltip(); e.m.bindPopup(h, { maxWidth: 240 });
+              e.m.on("popupopen", function (ev) {
+                var root = ev.popup.getElement(), btn = root && root.querySelector(".rep"), msg = root && root.querySelector(".rmsg");
+                if (!btn || btn._b) return; btn._b = 1;
+                btn.addEventListener("click", function () {
+                  if (!window.CalrankAuth || !CalrankAuth.user()) { msg.textContent = "로그인하면 신고할 수 있습니다."; return; }
+                  btn.disabled = true; msg.textContent = "신고하는 중…";
+                  CalrankAuth.rpc("report_nickname", { p_route: routeKey, p_poi: x.poi_key }).then(function (rr) {
+                    var v = rr && !rr.error ? rr.data : "err";
+                    msg.textContent = v === "ok" ? "신고했습니다. 여러 명이 신고하면 자동으로 가려집니다."
+                      : v === "self" ? "내 닉네임은 신고할 수 없습니다."
+                      : v === "none" ? "신고할 닉네임이 없습니다."
+                      : v === "slow" ? "신고가 많습니다. 잠시 뒤에 다시 해 주세요."
+                      : v === "login" ? "로그인하면 신고할 수 있습니다." : "지금은 신고하지 못했습니다.";
+                    btn.disabled = v !== "ok" && v !== "self" && v !== "none" ? false : true;
+                  }, function () { btn.disabled = false; msg.textContent = "지금은 신고하지 못했습니다."; });
+                });
+              });
             });
           });
         }, 250);
