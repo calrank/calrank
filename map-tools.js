@@ -312,7 +312,7 @@
     var repEl = document.createElement("div"); repEl.className = "rm-rep"; repEl.hidden = true; repEl.setAttribute("role", "dialog"); repEl.setAttribute("aria-label", "새 장소 제보");
     document.body.appendChild(repEl);
     var rep = { kind: null, busy: false, msg: "", note: "", done: false, doneMsg: "" }, RK = ["toilet", "water", "shelter", "view", "danger"];
-    var RMSG = { login: "로그인한 뒤 제보해 주세요.", nick: "닉네임을 먼저 정해 주세요(내 활동 페이지).", bad: "제보 내용을 확인해 주세요. 메모에는 연락처·인터넷 주소·욕설을 쓸 수 없습니다.", region: "한국 밖의 위치는 제보할 수 없습니다.", accuracy: "GPS 오차가 커서 받을 수 없습니다. 하늘이 트인 곳에서 다시 시도해 주세요.", blocked: "제보가 여러 번 가려져 7일 동안 제보할 수 없습니다.", slow: "방금 제보했습니다. 1분 뒤에 다시 올려 주세요.", limit: "하루 5건까지 제보할 수 있습니다. 내일 다시 올려 주세요." };
+    var RMSG = { login: "로그인한 뒤 제보해 주세요.", nick: "닉네임을 먼저 정해 주세요(내 활동 페이지).", bad: "제보 내용을 확인해 주세요. 메모에는 연락처·인터넷 주소·욕설을 쓸 수 없습니다.", region: "이 코스에서 너무 멀리 떨어진 위치는 제보할 수 없습니다.", accuracy: "GPS 오차가 커서 받을 수 없습니다. 하늘이 트인 곳에서 다시 시도해 주세요.", blocked: "제보가 여러 번 가려져 7일 동안 제보할 수 없습니다.", slow: "방금 제보했습니다. 1분 뒤에 다시 올려 주세요.", limit: "하루 5건까지 제보할 수 있습니다. 내일 다시 올려 주세요." };
     function myNick() { try { return localStorage.getItem("calrank_nick") || ""; } catch (e) { return ""; } }
     function posProblem() {
       if (gps === null || !lastFix) return "먼저 ‘내 위치’를 켜 주세요. 위치가 잡히면 제보할 수 있습니다.";
