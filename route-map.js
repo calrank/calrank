@@ -46,6 +46,9 @@
     danger: { label: "위험", icon: "warning", c: "#e5484d" },
     peak: { label: "정상", icon: "mountain", c: "#92400e" }
   };
+  // 마커 글리프: Material Symbols Rounded(Apache-2.0). 직접 그리지 않고 그대로 쓴다.
+  var GLY = {"toilet": "M212-110v-270h-20q-12.75 0-21.37-8.63Q162-397.25 162-410v-198q0-29 21.5-50.5t50.24-21.5h104.52q28.74 0 50.24 21.5Q410-637 410-608v198q0 12.75-8.62 21.37Q392.75-380 380-380h-20v270q0 12.75-8.62 21.37Q342.75-80 330-80h-88q-12.75 0-21.37-8.63Q212-97.25 212-110Zm22.5-645.42q-21.5-21.42-21.5-51.5t21.42-51.58q21.42-21.5 51.5-21.5t51.58 21.42q21.5 21.42 21.5 51.5t-21.42 51.58q-21.42 21.5-51.5 21.5t-51.58-21.42ZM630-110v-210h-65q-14.55 0-23.27-12-8.73-12-4.73-26l75-273q7.22-23.59 26.61-36.3Q658-680 684-680t45.39 12.7Q748.78-654.59 756-631l75 273q4 14-4.73 26-8.72 12-23.27 12h-65v210q0 12.75-8.62 21.37Q720.75-80 708-80h-48q-12.75 0-21.37-8.63Q630-97.25 630-110Zm2.5-645.42q-21.5-21.42-21.5-51.5t21.42-51.58q21.42-21.5 51.5-21.5t51.58 21.42q21.5 21.42 21.5 51.5t-21.42 51.58q-21.42 21.5-51.5 21.5t-51.58-21.42Z", "water": "M251.5-174Q160-268 160-408q0-64 29-127t72.5-121q43.5-58 94-108.5T450-854q7-6 14.5-8.5T480-865q8 0 15.5 2.5T510-854q44 39 94.5 89.5t94 108.5Q742-598 771-535t29 127q0 140-91.5 234T480-80q-137 0-228.5-94ZM479-208q16 0 24.5-5.5T512-230q0-11-8.5-17t-25.5-6q-42 0-85.5-26.5T337-373q-2-9-9-14.5t-15-5.5q-11 0-17 8.5t-4 17.5q15 84 71 121.5T479-208Z", "spring": "M251.5-174Q160-268 160-408q0-64 29-127t72.5-121q43.5-58 94-108.5T450-854q7-6 14.5-8.5T480-865q8 0 15.5 2.5T510-854q44 39 94.5 89.5t94 108.5Q742-598 771-535t29 127q0 140-91.5 234T480-80q-137 0-228.5-94ZM479-208q16 0 24.5-5.5T512-230q0-11-8.5-17t-25.5-6q-42 0-85.5-26.5T337-373q-2-9-9-14.5t-15-5.5q-11 0-17 8.5t-4 17.5q15 84 71 121.5T479-208Z", "shelter": "M160-180v-341l-60 46q-10 8-22 6t-20-12q-8-10-6-22t12-20l96-73v-84q0-13 8.5-21.5T190-710q13 0 21.5 8.5T220-680v38l224-170q8-6 17-9.5t19-3.5q10 0 19 3.5t17 9.5l381 290q10 8 11.5 20t-6.5 22q-8 10-19.5 11.5T861-475l-61-46v341q0 25-17.5 42.5T740-120H525q-6 0-10.5-4.5T510-135v-175q0-13-8.5-21.5T480-340q-13 0-21.5 8.5T450-310v175q0 6-4.5 10.5T435-120H220q-25 0-42.5-17.5T160-180Zm35-580q-15 0-24.5-11t-4.5-24q11-34 40-54.5t64-20.5q14 0 26-7t18-20q5-9 12.5-16t18.5-7q15 0 24.5 11t4.5 24q-12 34-40.5 54.5T270-810q-14 0-25.5 7.5T226-783q-5 9-12.5 16t-18.5 7Z", "view": "M480-267q72 0 121-49t49-121q0-73-49-121.5T480-607q-73 0-121.5 48.5T310-437q0 72 48.5 121T480-267Zm0-60q-48 0-79-31.5T370-437q0-48 31-79t79-31q47 0 78.5 31t31.5 79q0 47-31.5 78.5T480-327ZM140-120q-24 0-42-18t-18-42v-513q0-23 18-41.5t42-18.5h147l55-66q8-11 20-16t26-5h184q14 0 26 5t20 16l55 66h147q23 0 41.5 18.5T880-693v513q0 24-18.5 42T820-120H140Z", "danger": "M92-120q-9 0-15.5-4T66-135q-4-7-4.5-14.5T66-165l388-670q5-8 11.5-11.5T480-850q8 0 14.5 3.5T506-835l388 670q5 8 4.5 15.5T894-135q-4 7-10.5 11t-15.5 4H92Zm413.5-125.5Q514-254 514-267t-8.5-21.5Q497-297 484-297t-21.5 8.5Q454-280 454-267t8.5 21.5Q471-237 484-237t21.5-8.5Zm0-111Q514-365 514-378v-164q0-13-8.5-21.5T484-572q-13 0-21.5 8.5T454-542v164q0 13 8.5 21.5T484-348q13 0 21.5-8.5Z", "peak": "m76-288 180-240q5-6 11-9t13-3q7 0 13 3t11 9l162 216q5 6 11 9t13 3q19 0 27-16.5t-3-31.5L411-485q-6-8-6-18t6-18l125-167q5-6 11-9t13-3q7 0 13 3t11 9l300 400q11 15 3 31.5T860-240H100q-19 0-27-16.5t3-31.5Z"};
+  function sign(key, px) { return '<svg viewBox="0 -960 960 960" width="' + px + '" height="' + px + '" aria-hidden="true"><path fill="#fff" d="' + GLY[key] + '"/></svg>'; }
   // 처음에는 꼭 필요한 것만 보여 주고, 확대할수록 더 보인다. 조망은 기본으로 꺼 둔다(버튼으로 켠다).
   var MINZ = { peak: 0, danger: 0, toilet: 14, water: 14, spring: 14, shelter: 15, view: 16 }, DEFOFF = { view: 1 };
   var COURSEZ = { peak: 0, danger: 0, toilet: 12, water: 12, spring: 12, shelter: 13, view: 14 };  // 코스는 길어서 더 멀리서부터 보인다
@@ -89,9 +92,9 @@
       if (!list || !list.length) return;
       if (!document.getElementById("spStyle")) {
         var st = document.createElement("style"); st.id = "spStyle";
-        st.textContent = ".sp{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--c);box-shadow:0 2px 6px rgba(0,0,0,.28)}.sp img{width:16px;height:16px;margin:0;display:block}" +
+        st.textContent = ".sp{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9px;background:var(--c);border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.3);box-sizing:border-box}.sp svg{display:block}.sp-dot{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:var(--c)}.sp-dot svg{display:block}" +
           ".sp-pop{font:600 13px/1.6 sans-serif;color:#15110f;min-width:150px}.sp-pop .by{margin:4px 0 2px;font-weight:900;font-size:14px}.sp-pop .cnt{color:#555}.sp-pop button{margin-top:8px;min-height:36px;padding:0 12px;border:1.5px solid #bbb;border-radius:999px;background:#fff;color:#444;font:700 12px/1 sans-serif;cursor:pointer}.sp-pop .rmsg{margin-top:6px;font-size:12px;color:#444}" +
-          ".sp-bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0}.sp-chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px 0 8px;border:1.5px solid var(--c);border-radius:999px;background:#fff;color:#15110f;font:700 13px/1 sans-serif;cursor:pointer}.sp-chip img{width:20px;height:20px;margin:0}.sp-chip[aria-pressed=false]{opacity:.45;background:transparent}.sp-chip i{font-style:normal;font-weight:600;opacity:.7}" +
+          ".sp-bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0}.sp-chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px 0 8px;border:1.5px solid var(--c);border-radius:999px;background:#fff;color:#15110f;font:700 13px/1 sans-serif;cursor:pointer}.sp-chip[aria-pressed=false]{opacity:.45;background:transparent}.sp-chip i{font-style:normal;font-weight:600;opacity:.7}" +
           ".sp-note{margin:8px 0 0;font-size:12px;line-height:1.5;opacity:.75}";
         document.head.appendChild(st);
       }
@@ -109,8 +112,8 @@
         var key = s[0] + ":" + s[1].toFixed(4) + ":" + s[2].toFixed(4);  // 같은 종류가 약 10m 안에 겹치면 하나만
         if (seen[key]) return; seen[key] = 1;
         var g = groups[s[0]] || (groups[s[0]] = L.layerGroup()); if (want[s[0]] === undefined) want[s[0]] = !DEFOFF[s[0]]; counts[s[0]] = (counts[s[0]] || 0) + 1;
-        var ic = L.divIcon({ className: "", iconSize: [26, 26], iconAnchor: [13, 13],
-          html: '<span class="sp" style="--c:' + k.c + '"><img src="/emoji/' + k.icon + '.svg" alt="" width="16" height="16"></span>' });
+        var ic = L.divIcon({ className: "", iconSize: [28, 28], iconAnchor: [14, 14],
+          html: '<span class="sp" style="--c:' + k.c + '">' + sign(s[0], 18) + '</span>' });
         var mk = L.marker([s[1], s[2]], { icon: ic, keyboard: false, zIndexOffset: s[0] === "danger" ? 500 : 0 })
           .bindTooltip(k.label + " · 자료상 지점").addTo(g);
         if (s[3]) byKey[s[3]] = { m: mk, label: k.label };
@@ -162,7 +165,7 @@
         if (!counts[key]) return;
         var k = KIND[key], b = document.createElement("button"); b.type = "button"; b.className = "sp-chip"; b.style.setProperty("--c", k.c);
         b.setAttribute("aria-pressed", want[key] ? "true" : "false");
-        b.innerHTML = '<img src="/emoji/' + k.icon + '.svg" alt="" width="20" height="20">' + k.label + " <i>" + counts[key] + "</i>";
+        b.innerHTML = '<span class="sp-dot" style="--c:' + k.c + '">' + sign(key, 16) + '</span>' + k.label + " <i>" + counts[key] + "</i>";
         b.addEventListener("click", function () {
           want[key] = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", want[key] ? "true" : "false");
           if (want[key] && map.getZoom() < MZ[key]) map.setZoom(MZ[key]);

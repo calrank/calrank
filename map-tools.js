@@ -34,9 +34,12 @@
       "@keyframes rmBlink{0%,100%{opacity:1}50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.rm-dot{animation:none}}" +
       ".rm-me{position:relative;width:22px;height:22px}" +
       ".rm-me i{position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.3)}" +
-      ".rm-me::before{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;opacity:.45;animation:rmPulse 2s ease-out infinite}" +
-      "@keyframes rmPulse{0%{transform:scale(1);opacity:.45}100%{transform:scale(3.2);opacity:0}}" +
-      "@media (prefers-reduced-motion:reduce){.rm-me::before{animation:none;opacity:0}}" +
+      ".rm-me::before{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;opacity:.55;animation:rmPulse 1.6s ease-out infinite}" +
+      ".rm-me i{animation:rmBeat 1.6s ease-in-out infinite}" +
+      "@keyframes rmPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(4);opacity:0}}" +
+      "@keyframes rmBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}" +
+      "@keyframes rmFade{0%,100%{opacity:.55}50%{opacity:.1}}" +
+      "@media (prefers-reduced-motion:reduce){.rm-me i{animation:none}.rm-me::before{animation:rmFade 2.4s ease-in-out infinite;transform:scale(2.2)}}" +
       ".rm-me u{position:absolute;left:5px;top:-9px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #1a73e8;transform-origin:6px 20px;display:none}";
     document.head.appendChild(st);
   }
