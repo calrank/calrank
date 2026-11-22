@@ -25,8 +25,8 @@
   function show() {
     var u = CalrankAuth.user(); if (!u) return out();
     body.innerHTML = "";
-    Promise.all([CalrankAuth.nick(), CalrankAuth.rpc("my_poi_checks"), CalrankAuth.rpc("my_impact"), CalrankAuth.rpc("my_poi_users")]).then(function (v) {
-      var nick = v[0], rows = v[1] && !v[1].error && Array.isArray(v[1].data) ? v[1].data : [], imp = v[2] && !v[2].error && Array.isArray(v[2].data) ? v[2].data : [], mine = v[3] && !v[3].error && Array.isArray(v[3].data) ? v[3].data : [];
+    Promise.all([CalrankAuth.nick(), CalrankAuth.rpc("my_poi_checks"), CalrankAuth.rpc("my_impact"), CalrankAuth.rpc("my_poi_users"), CalrankAuth.rpc("my_event_aspects")]).then(function (v) {
+      var nick = v[0], rows = v[1] && !v[1].error && Array.isArray(v[1].data) ? v[1].data : [], imp = v[2] && !v[2].error && Array.isArray(v[2].data) ? v[2].data : [], mine = v[3] && !v[3].error && Array.isArray(v[3].data) ? v[3].data : [], ea = v[4] && !v[4].error && Array.isArray(v[4].data) ? v[4].data : [];
       body.innerHTML = "";
       var a = card(); a.appendChild(el("p", "me-note", "닉네임"));
       a.appendChild(el("p", "me-nick", nick || "정하지 않음 (익명으로 남습니다)"));
@@ -47,6 +47,20 @@
             db.onclick = function () { db.disabled = true; CalrankAuth.rpc("delete_poi_user", { p_id: r.id }).then(function (x) { if (x && !x.error && x.data === "ok") li.remove(); else db.disabled = false; }, function () { db.disabled = false; }); };
             li.appendChild(db); pul.appendChild(li);
           });
+        });
+      }
+      if (ea.length) {
+        var ec = card(); ec.appendChild(el("p", "me-note", "내가 남긴 대회 현장 확인")); ec.appendChild(el("p", "me-num", ea.length + "건"));
+        ec.appendChild(el("p", "me-note", "대회 페이지에 닉네임과 함께 보입니다. 필요 없으면 삭제할 수 있습니다."));
+        var EA = { water: "급수", toilet: "화장실", access: "교통·주차", start: "출발 혼잡", marks: "코스 표시", bag: "짐 보관" }, eul = el("ul", "me-list"); ec.appendChild(eul);
+        ea.forEach(function (r) {
+          var li = el("li"); li.appendChild(el("span", "me-tag" + (r.answer === "bad" ? " no" : ""), r.answer === "good" ? "좋았어요" : "아쉬웠어요"));
+          var nm = r.event_id.replace(/^[a-z]+-/, "").replace(/-\d{4}-\d{2}-\d{2}$/, "").replace(/-/g, " ");
+          var ea3 = el("a", "", nm + " · " + (EA[r.aspect] || "항목")); ea3.href = "event.html?id=" + encodeURIComponent(r.event_id); li.appendChild(ea3);
+          li.appendChild(el("span", "me-date", ago(r.updated_at)));
+          var eb = el("button", "me-btn", "삭제"); eb.type = "button"; eb.style.marginLeft = "8px"; eb.setAttribute("aria-label", "이 현장 확인 삭제");
+          eb.onclick = function () { eb.disabled = true; CalrankAuth.rpc("delete_event_aspect", { p_event: r.event_id, p_aspect: r.aspect }).then(function (x) { if (x && !x.error && x.data === "ok") li.remove(); else eb.disabled = false; }); };
+          li.appendChild(eb); eul.appendChild(li);
         });
       }
       if (!rows.length) return;

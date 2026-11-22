@@ -160,19 +160,15 @@ async function renderReviews(eventId, allEvents, currentName) {
     summaryEl.textContent = "아직 후기·평점이 등록되지 않았습니다. 참가하셨다면 대회평을 남겨주세요!";
   }
 
-  const { data: reviews } = await sb
-    .from("event_reviews")
-    .select("id, rating, comment, created_at, user_id")
-    .eq("event_id", eventId)
-    .order("created_at", { ascending: false })
-    .limit(20);
+  // 닉네임이 있는 후기는 닉네임과 함께 보인다(로그인해서 쓴 후기).
+  const { data: reviews } = await sb.rpc("event_review_list", { p_event: eventId });
 
   if (!reviews || reviews.length === 0) {
     listEl.innerHTML = "";
   } else {
     listEl.innerHTML = reviews.map(r => {
       const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-      return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${escapeHtml(r.comment)}</p>` : ""}</div>`;
+      return `<div class="record-item"><p>${stars} <span class="hero-sub" style="display:inline;">· ${r.nick ? escapeHtml(r.nick) + " · " : ""}${timeAgo(r.created_at)}</span></p>${r.comment ? `<p>${escapeHtml(r.comment)}</p>` : ""}</div>`;
     }).join("");
   }
 
@@ -303,6 +299,8 @@ async function init() {
 
   renderSaveWidget(ev.id);
   renderReviews(ev.id, allEvents, ev.name);
+  window.__calrankEvAsp = { id: ev.id, date: ev.date };
+  try { window.dispatchEvent(new CustomEvent("calrank:event")); } catch (e) { /* 무시 */ }
 
   const meta = SPORT_META[ev.sport] || SPORT_META.marathon;
   const dday = ddayInfo(ev);

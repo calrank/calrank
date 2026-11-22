@@ -313,3 +313,17 @@ input[type=file]::file-selector-button{font:700 14.5px var(--font-body);min-heig
 @media (prefers-color-scheme: dark) { .rc-d2 { background: #6FA8E8; } .rc-s2 { fill: #6FA8E8; } .rc-s2 .rc-bar { stroke: #6FA8E8; } }
 .rc-share { margin: 12px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .rc-share .tp-small { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* 대회 현장 확인(event-aspects.js) */
+.asp-box{margin-top:12px}
+.asp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.asp-list li{padding:14px 0;border-top:1px solid var(--border,#e4dfda)}
+.asp-list li:first-child{border-top:0}
+.asp-head{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.asp-n{font-size:14px;color:var(--ink-soft,#5b524b)}
+.asp-by{margin:4px 0 0;font-size:13px;color:var(--ink-soft,#5b524b)}
+.asp-btns{display:flex;gap:8px;margin-top:10px}
+.asp-btn{flex:1;min-height:46px;border-radius:999px;border:1px solid var(--border,#d8d1ca);background:transparent;color:inherit;font:800 15px/1 inherit;cursor:pointer}
+.asp-btn.on{background:#3EE0BE;border-color:#3EE0BE;color:#06362d}
+.asp-msg{min-height:20px;margin:8px 0 0;font-size:14px;color:#8a2a22}
+.asp-note{margin:6px 0 0;font-size:13px;color:var(--ink-soft,#5b524b);line-height:1.6}
