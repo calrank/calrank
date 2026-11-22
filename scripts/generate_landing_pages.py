@@ -257,9 +257,9 @@ def build_page(region, sport, events):
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark">CALRANK</a>
 <nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
+<a href="index.html" class="nav-link">대회캘린더</a>
 <a href="ranking.html" class="nav-link">대회랭킹</a>
-<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="news.html" class="nav-link">종목별뉴스</a>
 <a href="column.html" class="nav-link">칼럼</a>
 <a href="myrank.html" class="nav-link">내 랭크</a>
 <a href="contact.html" class="nav-contact-link">제휴문의</a>
@@ -339,9 +339,9 @@ def build_index(pages):
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark">CALRANK</a>
 <nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
+<a href="index.html" class="nav-link">대회캘린더</a>
 <a href="ranking.html" class="nav-link">대회랭킹</a>
-<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="news.html" class="nav-link">종목별뉴스</a>
 <a href="column.html" class="nav-link">칼럼</a>
 <a href="myrank.html" class="nav-link">내 랭크</a>
 <a href="contact.html" class="nav-contact-link">제휴문의</a>

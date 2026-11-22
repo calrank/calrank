@@ -250,9 +250,9 @@ def render(upcoming, entries, events, today) -> str:
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark">CALRANK</a>
 <nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
+<a href="index.html" class="nav-link">대회캘린더</a>
 <a href="ranking.html" class="nav-link">대회랭킹</a>
-<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="news.html" class="nav-link">종목별뉴스</a>
 <a href="column.html" class="nav-link">칼럼</a>
 <a href="myrank.html" class="nav-link">내 랭크</a>
 <a href="contact.html" class="nav-contact-link">제휴문의</a>
@@ -267,7 +267,7 @@ def render(upcoming, entries, events, today) -> str:
 <h2>다음 대회를 놓치지 않는 방법</h2>
 <div class="aq-next">
 · <a href="feed.ics">캘린더 구독(feed.ics)</a> — 새 대회가 등록되면 내 캘린더에 자동으로 추가됩니다. 전 종목 일정이 함께 들어옵니다.<br>
-· <a href="news.html">종목뉴스</a> — 대한철인3종협회 공식 소식을 매일 자동으로 모아 보여줍니다.<br>
+· <a href="news.html">종목별뉴스</a> — 대한철인3종협회 공식 소식을 매일 자동으로 모아 보여줍니다.<br>
 · <a href="{FEDERATION_URL}" target="_blank" rel="noopener">대한철인3종협회 대회일정/참가신청 ↗</a> — 접수 상태의 원본 페이지입니다.<br>
 · <a href="index.html?sport=triathlon">철인3종 전체 대회 캘린더</a> — 아쿠아슬론 외 철인3종 대회까지 한눈에 볼 수 있습니다.
 </div>

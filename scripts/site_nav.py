@@ -21,15 +21,15 @@ from site_emoji import emo
 # 묶음 순서가 곧 안내 순서다: 대회를 찾고 → 내 기록·장비·길을 판정하고 → 읽는다.
 # 모바일에서는 묶음 단위로 줄이 바뀌어, 한 줄에 같은 종류끼리 모인다.
 NAV_GROUPS = [
-    [("index.html", "캘린더", "calendar"),
-     ("regions.html", "지역별", "regions"),
+    [("index.html", "대회캘린더", "calendar"),
+     ("regions.html", "지역별대회", "regions"),
      ("ranking.html", "대회랭킹", "ranking")],
     [("grade.html", "기록등급", "grade"),
      ("myrank.html", "내 랭크", "myrank"),
-     ("gear.html", "기어", "gear"),
+     ("gear.html", "기어(전종목)", "gear"),
      ("trailroot.html", "트레일루트", "trailroot")],
     [("running-weather.html", "러닝날씨", "weather"),
-     ("news.html", "종목뉴스", "news"),
+     ("news.html", "종목별뉴스", "news"),
      ("column.html", "칼럼", "column")],
 ]
 NAV_ITEMS = [it for g in NAV_GROUPS for it in g]

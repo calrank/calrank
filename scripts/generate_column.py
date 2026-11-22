@@ -318,9 +318,9 @@ def build_html(stats, content, slug, rng):
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark">CALRANK</a>
 <nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
+<a href="index.html" class="nav-link">대회캘린더</a>
 <a href="ranking.html" class="nav-link">대회랭킹</a>
-<a href="news.html" class="nav-link">종목뉴스</a>
+<a href="news.html" class="nav-link">종목별뉴스</a>
 <a href="column.html" class="nav-link active">칼럼</a>
 <a href="myrank.html" class="nav-link">내 랭크</a>
 <a href="contact.html" class="nav-contact-link">제휴문의</a>

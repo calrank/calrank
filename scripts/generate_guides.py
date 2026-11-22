@@ -250,8 +250,8 @@ NAV = """<header class="site-header">
 <div class="wrap header-inner">
 <a href="index.html" class="wordmark">CALRANK</a>
 <nav class="main-nav">
-<a href="index.html" class="nav-link">캘린더</a>
-<a href="regions.html" class="nav-link">지역별</a>
+<a href="index.html" class="nav-link">대회캘린더</a>
+<a href="regions.html" class="nav-link">지역별대회</a>
 <a href="ranking.html" class="nav-link">대회랭킹</a>
 <a href="guides.html" class="nav-link active">대회가이드</a>
 <a href="column.html" class="nav-link">칼럼</a>
