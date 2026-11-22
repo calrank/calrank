@@ -1149,7 +1149,7 @@ def wetsuit_temp_page(rules, claims):
 
     slug = "gear-wetsuit-by-temp.html"
     h1 = "수온별 웻슈트 착용 기준과 기록 효과"
-    title = "수온별 웻슈트 착용 기준과 기록 효과 | 칼랭크"
+    title = "웻슈트 몇 도부터 입나 — 수온별 착용 기준과 기록 효과 | 칼랭크"
     desc = ("수온별로 웻슈트가 금지·선택·의무 중 무엇인지 참가 구분까지 나눠 정리하고, "
             "실제 대회 기록에서 웻슈트가 얼마나 빨랐는지 함께 봅니다.")[:155]
     return slug, PAGE.format(
