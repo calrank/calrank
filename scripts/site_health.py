@@ -86,6 +86,60 @@ def internal_target(href: str, src: Path, base_root: bool = False) -> str | None
     return "/index.html" if path == "/" else path
 
 
+def main_text(html: str) -> str:
+    m = re.search(r"<main\b.*?</main>", html, re.S | re.I)
+    b = m.group(0) if m else re.sub(r"<(nav|header|footer)\b.*?</\1>", "", html, flags=re.S | re.I)
+    b = re.sub(r"<(script|style|svg)\b.*?</\1>", "", b, flags=re.S | re.I)
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", b)).strip()
+
+
+def group_of(f: Path) -> str:
+    stem = re.sub(r"[-_].*", "", f.name.replace(".html", ""))
+    return (f.parent.name + "/" + stem) if f.parent != ROOT else stem
+
+
+THIN_CHARS = 500      # 본문(머리글·바닥글 제외) 글자 수 기준
+DUP_JACCARD = 0.8     # 5단어 조각 기준 유사도
+
+
+def content_quality(files: dict) -> list[str]:
+    """얇거나 서로 거의 같은 페이지를 유형별로 집계한다(경고). 구글이 '크롤링됨-색인 안 됨'으로
+    넘기는 흔한 원인이라 숫자로 본다."""
+    groups = defaultdict(list)
+    for u, f in files.items():
+        t = main_text(read(f))
+        words = t.split()
+        sh = {hash(" ".join(words[i:i + 5])) for i in range(max(len(words) - 4, 0))}
+        groups[group_of(f)].append((u, len(t), sh))
+    out = []
+    thin_total = dup_total = 0
+    for g, items in sorted(groups.items(), key=lambda kv: -len(kv[1])):
+        if len(items) < 3:
+            continue
+        thin = sum(1 for _, n, _ in items if n < THIN_CHARS)
+        dup = 0
+        if len(items) <= 600:
+            sets = [x[2] for x in items]
+            flagged = set()
+            for i in range(len(sets)):
+                if i in flagged or not sets[i]:
+                    continue
+                for j in range(i + 1, len(sets)):
+                    if not sets[j]:
+                        continue
+                    inter = len(sets[i] & sets[j])
+                    if inter and inter / len(sets[i] | sets[j]) >= DUP_JACCARD:
+                        flagged.add(j)
+            dup = len(flagged)
+        thin_total += thin
+        dup_total += dup
+        if thin or dup:
+            out.append(f"{g}: {len(items)}쪽 중 얇음(<{THIN_CHARS}자) {thin}쪽, 유사(≥{int(DUP_JACCARD*100)}%) {dup}쪽")
+    if out:
+        out.insert(0, f"본문 품질 요약: 얇은 페이지 {thin_total}쪽, 다른 페이지와 거의 같은 페이지 {dup_total}쪽")
+    return out
+
+
 def main():
     as_json = "--json" in sys.argv
     critical, warn = [], []
@@ -151,6 +205,8 @@ def main():
             orphans.append(rel)
     if orphans:
         warn.append(f"고아 페이지 {len(orphans)}개(사이트맵에만 있음). 예: {', '.join(orphans[:3])}")
+
+    warn += content_quality(files)
 
     dup_t = [(k, v) for k, v in titles.items() if len(v) > 1]
     dup_d = [(k, v) for k, v in descs.items() if len(v) > 1]
