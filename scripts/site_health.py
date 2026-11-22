@@ -87,8 +87,8 @@ def internal_target(href: str, src: Path, base_root: bool = False) -> str | None
 
 
 def main_text(html: str) -> str:
-    m = re.search(r"<main\b.*?</main>", html, re.S | re.I)
-    b = m.group(0) if m else re.sub(r"<(nav|header|footer)\b.*?</\1>", "", html, flags=re.S | re.I)
+    # <main> 밖에 본문 구획이 붙는 페이지가 있어(이벤트 페이지) 몸통 전체에서 머리글·바닥글·내비만 뺀다.
+    b = re.sub(r"<(nav|header|footer)\b.*?</\1>", "", html, flags=re.S | re.I)
     b = re.sub(r"<(script|style|svg)\b.*?</\1>", "", b, flags=re.S | re.I)
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", b)).strip()
 

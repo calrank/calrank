@@ -25,6 +25,28 @@ WEEKDAY = ["월", "화", "수", "목", "금", "토", "일"]
 # 각 주제는 events.json 의 대회 이름·거리에서 정규식으로 골라낸다.
 TOPICS = [
     {
+        "page": "weekend.html",
+        "select": "weekend",       # 이름이 아니라 날짜로 고른다: 오늘부터 다음 주말(일요일)까지
+        "desc_head": "이번 주말과 다음 주말에 열리는 전국 마라톤·트레일러닝·자전거·철인3종 대회를 날짜순으로 모았습니다.",
+        "h1": "이번 주말 대회 일정",
+        "title": "이번 주말 대회 일정 | 이번 주·다음 주 마라톤·자전거·트레일 대회 - calrank",
+        "lead": ("이번 주말과 다음 주말에 열리는 전국 대회를 날짜순으로 모았습니다. "
+                 "마라톤은 물론 트레일러닝, 자전거, 철인3종까지 함께 담았고, "
+                 "대회마다 코스 거리와 접수 마감일, 신청 링크를 확인할 수 있습니다."),
+        "related": "index.html",
+        "related_label": "전체 대회 캘린더",
+        "faq": [
+            ("이 목록은 얼마나 자주 갱신되나요?",
+             "대회 수집이 도는 매일 아침에 다시 만들어집니다. 오늘 이후 대회만 남고, "
+             "새로 등록된 대회가 들어옵니다."),
+            ("접수가 끝난 대회도 들어 있나요?",
+             "대회일 기준으로 모은 목록이라 접수가 이미 마감된 대회도 있습니다. "
+             "현장 접수 여부와 잔여 정원은 신청 링크에서 확인하세요."),
+            ("대회 당일 날씨는 어디서 보나요?",
+             "대회 상세 페이지에서 개최지 기준 날씨와 과거 같은 시기의 기온·강수 기록을 볼 수 있습니다."),
+        ],
+    },
+    {
         "page": "open-registration.html",
         "select": "open",          # 이름이 아니라 접수 마감일로 고른다
         "h1": "지금 접수 중인 마라톤 대회",
@@ -357,7 +379,16 @@ def main():
     today = datetime.now(KST).date()
     made = []
     for topic in TOPICS:
-        if topic.get("select") == "open":
+        if topic.get("select") == "weekend":
+            # 오늘부터 '다음 주말'의 일요일까지. 평일이면 이번 주말, 토·일이면 오늘 포함.
+            to_sun = (6 - today.weekday()) % 7
+            end = today + timedelta(days=to_sun + 7)
+            upcoming = sorted(
+                (e for e in events
+                 if e.get("id") and parse_d(e.get("date")) and today <= parse_d(e["date"]) <= end),
+                key=lambda e: e["date"])
+            past = []
+        elif topic.get("select") == "open":
             # 접수가 열려 있는 대회: 대회일도 마감일도 아직 안 지난 것
             upcoming = sorted(
                 (e for e in events

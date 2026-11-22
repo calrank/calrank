@@ -43,7 +43,7 @@ GROUPS = [
       "standards-cycling.html", "standards-trail.html", "standards-triathlon.html", "race-finder-quiz.html",
       "race-checklist-tool.html", "record-issue-diagnosis-tool.html", "level.html", "course.html", "field.html"], 4),
     ("일정모음", "대회 일정 모아 보기",
-     ["monthly.html", "trail-monthly.html", "cycling-monthly.html", "triathlon-monthly.html", "kids-marathon.html",
+     ["weekend.html", "monthly.html", "trail-monthly.html", "cycling-monthly.html", "triathlon-monthly.html", "kids-marathon.html",
       "night-run.html", "ultra-marathon.html", "walking-events.html", "open-registration.html", "aquathlon.html"], 4),
     ("소개자료", "칼랭크 소개·자료", ["about.html", "editorial.html", "distribution.html", "guides.html"], 3),
     ("코스허브", "코스·산 찾아보기", ["trailroot.html", "mountains.html"], 2),

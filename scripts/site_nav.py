@@ -55,6 +55,7 @@ ACTIVE_BY_PREFIX = [
     ("saved-events", "saved"),
     ("events-index", "calendar"),
     ("events-archive", "calendar"),
+    ("weekend", "calendar"),
     ("monthly", "calendar"),
     ("trail-monthly", "calendar"),
     ("cycling-monthly", "calendar"),
