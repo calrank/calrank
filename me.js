@@ -33,8 +33,8 @@
       var nb = el("button", "me-btn", nick ? "닉네임 바꾸기" : "닉네임 정하기"); nb.type = "button"; nb.style.marginTop = "12px"; nb.onclick = function () { CalrankAuth.openSheet(); }; a.appendChild(nb);
       var s = card(); s.appendChild(el("p", "me-note", "내가 확인한 지점")); s.appendChild(el("p", "me-num", rows.length + "곳"));
       s.appendChild(el("p", "me-note", rows.length ? "다른 사람이 코스·산 지도에서 이 확인을 볼 수 있습니다." : "코스·산 페이지에서 지도의 내 위치(GPS)를 켜고 시설 근처를 지나면 \"있어요/없어요\"를 한 번 눌러 확인을 남길 수 있습니다."));
-      var pc = card(); pc.appendChild(el("p", "me-note", "내가 제보한 장소")); pc.appendChild(el("p", "me-num", mine.length + "곳"));
-      pc.appendChild(el("p", "me-note", mine.length ? "제보한 닉네임이 장소에 남습니다. 필요 없으면 삭제할 수 있습니다." : "코스·산 지도에서 내 위치(GPS)를 켜고 ‘장소 제보’를 누르면, 지도에 없는 화장실·식수·쉼터·조망·위험 구간을 직접 올릴 수 있습니다."));
+      var pc = card(); pc.appendChild(el("p", "me-note", "내가 깃발을 꽂은 곳")); pc.appendChild(el("p", "me-num", mine.length + "곳"));
+      pc.appendChild(el("p", "me-note", mine.length ? "내 닉네임이 ‘처음 발견한 사람’으로 남습니다. 필요 없으면 뽑을(삭제할) 수 있습니다." : "코스·산 지도에서 내 위치(GPS)를 켜고 ‘깃발 꽂기’를 누르면, 지도에 없는 화장실·식수·쉼터·조망·위험 구간을 처음 발견한 사람으로 내 이름을 남길 수 있습니다."));
       if (mine.length) {
         var pul = el("ul", "me-list"); pc.appendChild(pul);
         var PK = { toilet: "화장실", water: "식수·샘터", shelter: "쉼터", view: "조망", danger: "위험 구간" };

@@ -138,7 +138,7 @@
         var ic = L.divIcon({ className: "", iconSize: [28, 28], iconAnchor: [14, 14],
           html: '<span class="sp" style="--c:' + k.c + '">' + sign(s[0], 18) + "</span>" });
         var mk = L.marker([s[1], s[2]], { icon: ic, keyboard: false, zIndexOffset: s[0] === "danger" ? 500 : 0 })
-          .bindTooltip(k.label + (user ? " · 이용자 제보" : " · 자료상 지점")).addTo(g);
+          .bindTooltip(k.label + (user ? " · 이용자가 꽂은 깃발" : " · 자료상 지점")).addTo(g);
         pts.push({ kind: s[0], lat: s[1], lon: s[2], key: s[3] || null, user: !!user });
         if (s[3]) byKey[s[3]] = { m: mk, label: k.label, user: !!user, note: note || "", mine: !!mine, kind: s[0], g: g };
         ensureChip(s[0]);
@@ -151,13 +151,13 @@
         if (!e.user && !(x.yes_n || x.no_n)) return;
         var days = x.last_at ? Math.max(0, Math.floor((Date.now() - new Date(x.last_at)) / 864e5)) : null;
         var who = String(x.first_name || "").replace(/[^가-힣A-Za-z0-9_]/g, "");
-        var h = '<div class="sp-pop"><b>' + e.label + "</b> · " + (e.user ? "이용자 제보" : "자료상 지점");
+        var h = '<div class="sp-pop"><b>' + e.label + "</b> · " + (e.user ? "이용자가 꽂은 깃발" : "자료상 지점");
         if (e.note) h += '<div class="cnt">' + esc(e.note) + "</div>";
         if (who) h += '<div class="by">' + who + " 님이 처음 확인</div>";
         if (x.yes_n) h += '<div class="cnt">' + x.yes_n + "명이 있다고 확인" + (days == null ? "" : " · 최근 " + (days === 0 ? "오늘" : days + "일 전")) + "</div>";
         if (x.no_n >= 2) h += '<div class="cnt">없다는 기록 ' + x.no_n + "명</div>";
-        if (e.kind === "danger" && e.user) h += '<div class="cnt">이용자 제보입니다. 현장 상황이 바뀌었을 수 있으니 직접 확인하세요.</div>';
-        if (e.mine) h += '<button type="button" class="del">내 제보 삭제</button>';
+        if (e.kind === "danger" && e.user) h += '<div class="cnt">이용자가 발견해 알린 구간입니다. 현장 상황이 바뀌었을 수 있으니 직접 확인하세요.</div>';
+        if (e.mine) h += '<button type="button" class="del">내 깃발 뽑기</button>';
         else if (who) h += '<button type="button" class="rep">닉네임 신고</button>';
         h += '<div class="rmsg" aria-live="polite"></div></div>';
         e.m.unbindTooltip(); e.m.bindPopup(h, { maxWidth: 240 });
@@ -238,7 +238,7 @@
         }, 250);
       }
       var note = document.createElement("p"); note.className = "sp-note";
-      note.textContent = noteText || "이 코스에는 등록된 시설 자료가 없습니다. 내 위치(GPS)를 켜고 현장에서 ‘장소 제보’로 알려 주세요. 제보한 닉네임이 함께 남습니다.";
+      note.textContent = noteText || "이 코스에는 등록된 시설 자료가 없습니다. 내 위치(GPS)를 켜고 지도에 없는 곳을 처음 발견하면 ‘깃발 꽂기’로 내 이름을 남겨 주세요. 뒤따르는 사람에게 길잡이가 됩니다.";
       box.parentNode.insertBefore(bar, box.nextSibling); bar.parentNode.insertBefore(note, bar.nextSibling);
     });
   }

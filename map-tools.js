@@ -250,7 +250,7 @@
       hudEl = { d: null, ll: ll, ac: ac };
       return lines.join("<br>");
     }
-    function btns() { return '<button type="button" id="rmShare">내 위치 문구 복사</button> <button type="button" id="rmAdd" class="alt">＋ 장소 제보</button>'; }
+    function btns() { return '<button type="button" id="rmShare">내 위치 문구 복사</button> <button type="button" id="rmAdd" class="alt">＋ 깃발 꽂기</button>'; }
     function hud(ll, ac, off) {
       if (!C && secList.length) return mtHud(ll, ac);
       if (!C) return (getSpots().length ? askSpot(ll, ac) : "") || askUser(ll, ac);
@@ -309,32 +309,32 @@
       }, { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 });
     });
     // ── 새 장소 제보: 지도에 없는 화장실·식수·쉼터·조망·위험을, 지금 서 있는 곳(GPS)에서 직접 올린다. ──
-    var repEl = document.createElement("div"); repEl.className = "rm-rep"; repEl.hidden = true; repEl.setAttribute("role", "dialog"); repEl.setAttribute("aria-label", "새 장소 제보");
+    var repEl = document.createElement("div"); repEl.className = "rm-rep"; repEl.hidden = true; repEl.setAttribute("role", "dialog"); repEl.setAttribute("aria-label", "깃발 꽂기");
     document.body.appendChild(repEl);
     var rep = { kind: null, busy: false, msg: "", note: "", done: false, doneMsg: "" }, RK = ["toilet", "water", "shelter", "view", "danger"];
-    var RMSG = { login: "로그인한 뒤 제보해 주세요.", nick: "닉네임을 먼저 정해 주세요(내 활동 페이지).", bad: "제보 내용을 확인해 주세요. 메모에는 연락처·인터넷 주소·욕설을 쓸 수 없습니다.", region: "이 코스에서 너무 멀리 떨어진 위치는 제보할 수 없습니다.", accuracy: "GPS 오차가 커서 받을 수 없습니다. 하늘이 트인 곳에서 다시 시도해 주세요.", blocked: "제보가 여러 번 가려져 7일 동안 제보할 수 없습니다.", slow: "방금 제보했습니다. 1분 뒤에 다시 올려 주세요.", limit: "하루 5건까지 제보할 수 있습니다. 내일 다시 올려 주세요." };
+    var RMSG = { login: "로그인하면 깃발을 꽂을 수 있습니다.", nick: "깃발에 걸 닉네임을 먼저 정해 주세요(내 활동 페이지).", bad: "내용을 확인해 주세요. 메모에는 연락처·인터넷 주소·욕설을 쓸 수 없습니다.", region: "이 코스에서 너무 멀리 떨어진 곳에는 깃발을 꽂을 수 없습니다.", accuracy: "GPS 오차가 커서 받을 수 없습니다. 하늘이 트인 곳에서 다시 시도해 주세요.", blocked: "올린 깃발이 여러 번 가려져 7일 동안 꽂을 수 없습니다.", slow: "방금 깃발을 꽂았습니다. 1분 뒤에 다시 꽂아 주세요.", limit: "깃발은 하루 5개까지 꽂을 수 있습니다. 내일 또 발견해 주세요." };
     function myNick() { try { return localStorage.getItem("calrank_nick") || ""; } catch (e) { return ""; } }
     function posProblem() {
-      if (gps === null || !lastFix) return "먼저 ‘내 위치’를 켜 주세요. 위치가 잡히면 제보할 수 있습니다.";
+      if (gps === null || !lastFix) return "먼저 ‘내 위치’를 켜 주세요. 위치가 잡히면 깃발을 꽂을 수 있습니다.";
       if (Date.now() - lastFix.at > 20000) return "위치 신호를 기다리는 중입니다. 잠시 뒤에 다시 시도해 주세요.";
       if (lastFix.ac > 30) return "GPS 오차가 ±" + lastFix.ac + "m 로 큽니다. 하늘이 트인 곳에서 잠시 기다린 뒤 다시 시도해 주세요.";
       var off = (!C && secList.length) ? lastOff : lastFix.off;
-      if (off != null && off > 80) return "코스에서 " + Math.round(off) + "m 떨어져 있어 제보할 수 없습니다. 코스 위에서 제보해 주세요.";
+      if (off != null && off > 80) return "코스에서 " + (off >= 1000 ? (off / 1000).toFixed(1) + "km" : Math.round(off) + "m") + " 떨어져 있어 깃발을 꽂을 수 없습니다. 코스 위에서 꽂아 주세요.";
       return "";
     }
     function closeRep() { repEl.hidden = true; }
     function renderRep() {
       var SPx = window.CalrankSpots, KD = SPx && SPx.KIND, user = window.CalrankAuth && CalrankAuth.user();
-      var h = '<button type="button" class="x" aria-label="닫기">×</button><h3>새 장소 제보</h3>';
-      if (!SPx || !KD || !routeId) h += "<p>이 페이지에서는 장소를 제보할 수 없습니다.</p>";
-      else if (!user) h += '<p>로그인하면 제보할 수 있습니다. 제보한 닉네임이 장소에 함께 남습니다.</p><button type="button" class="go" id="rmRepLogin">로그인</button>';
-      else if (!myNick()) h += '<p>닉네임을 정하면 제보할 수 있습니다. 제보한 사람의 닉네임이 장소에 남기 때문입니다.</p><a href="/myrank.html">내 활동에서 닉네임 정하기</a>';
-      else if (rep.done) h += '<p class="m" id="rmRepDone"></p><button type="button" class="go" id="rmRepClose">닫기</button><button type="button" class="ghost" id="rmRepMore">하나 더 제보</button>';
+      var h = '<button type="button" class="x" aria-label="닫기">×</button><h3>첫 발견자가 되어 보세요</h3>';
+      if (!SPx || !KD || !routeId) h += "<p>이 페이지에서는 깃발을 꽂을 수 없습니다.</p>";
+      else if (!user) h += '<p>로그인하면 내 이름으로 깃발을 꽂을 수 있습니다. 닉네임이 ‘처음 발견한 사람’으로 지도에 남습니다.</p><button type="button" class="go" id="rmRepLogin">로그인</button>';
+      else if (!myNick()) h += '<p>깃발에는 닉네임이 걸립니다. 닉네임을 정하면 바로 꽂을 수 있습니다.</p><a href="/myrank.html">내 활동에서 닉네임 정하기</a>';
+      else if (rep.done) h += '<p class="m" id="rmRepDone"></p><button type="button" class="go" id="rmRepClose">닫기</button><button type="button" class="ghost" id="rmRepMore">다른 곳도 꽂기</button>';
       else {
-        h += '<p>지금 서 있는 곳이 제보 위치가 됩니다. <span id="rmRepAcc"></span></p><div class="ks" role="group" aria-label="장소 종류">';
+        h += '<p>지도에 없는 곳을 발견하셨나요? 지금 서 있는 곳에 내 이름으로 깃발을 꽂습니다. <span id="rmRepAcc"></span></p><div class="ks" role="group" aria-label="발견한 것">';
         RK.forEach(function (k) { h += '<button type="button" class="k" data-k="' + k + '" style="--c:' + KD[k].c + '" aria-pressed="' + (rep.kind === k ? "true" : "false") + '"><span class="kd" style="--c:' + KD[k].c + '">' + SPx.sign(k, 20) + "</span>" + (k === "danger" ? "위험 구간" : KD[k].label) + "</button>"; });
-        h += '</div><input id="rmRepNote" type="text" maxlength="40" autocomplete="off" placeholder="메모(선택, 40자) 예: 문 앞 계단" aria-label="메모(선택)"><button type="button" class="go" id="rmRepGo">제보하기</button><div class="m" id="rmRepMsg" aria-live="polite"></div>' +
-          "<small>제보는 닉네임과 함께 남고, 다른 이용자가 ‘있어요/없어요’로 확인합니다. 위험 구간은 다른 이용자 2명이 확인해야 모두에게 보입니다. 하루 5건까지 올릴 수 있습니다.</small>";
+        h += '</div><input id="rmRepNote" type="text" maxlength="40" autocomplete="off" placeholder="메모(선택, 40자) 예: 문 앞 계단" aria-label="메모(선택)"><button type="button" class="go" id="rmRepGo">여기에 깃발 꽂기</button><div class="m" id="rmRepMsg" aria-live="polite"></div>' +
+          "<small>깃발에는 내 닉네임이 ‘처음 발견한 사람’으로 남고, 뒤따르는 러너·산악인이 ‘있어요/없어요’로 확인합니다. 위험 구간은 2명이 확인하면 모두에게 보입니다. 깃발은 하루 5개까지 꽂을 수 있습니다.</small>";
       }
       repEl.innerHTML = h;
       var nt = repEl.querySelector("#rmRepNote"); if (nt) { nt.value = rep.note || ""; nt.oninput = function () { rep.note = nt.value; }; }
@@ -347,20 +347,20 @@
       var a = repEl.querySelector("#rmRepAcc"), m = repEl.querySelector("#rmRepMsg"), prob = posProblem();
       if (a) a.textContent = lastFix && gps !== null ? "(GPS 오차 ±" + lastFix.ac + "m)" : "";
       go.disabled = !!prob || !rep.kind || rep.busy;
-      if (m) { var t = rep.msg || prob || (rep.kind ? "" : "장소 종류를 골라 주세요."); m.textContent = t; m.className = "m" + (prob || (rep.msg && !rep.busy && !rep.done) ? " w" : ""); }
+      if (m) { var t = rep.msg || prob || (rep.kind ? "" : "무엇을 발견하셨는지 골라 주세요."); m.textContent = t; m.className = "m" + (prob || (rep.msg && !rep.busy && !rep.done) ? " w" : ""); }
     }
     function fin(ok, msg) { rep.busy = false; if (ok) { rep.done = true; rep.doneMsg = msg; rep.msg = ""; rep.kind = null; rep.note = ""; renderRep(); } else { rep.msg = msg; updRep(); } }
     function sendRep() {
       var SPx = window.CalrankSpots, nt = repEl.querySelector("#rmRepNote"); rep.note = nt ? nt.value : rep.note;
       if (posProblem() || !rep.kind || rep.busy || !window.CalrankAuth) { updRep(); return; }
       var ll = lastFix.ll, ac = lastFix.ac, kind = rep.kind, note = (rep.note || "").trim();
-      rep.busy = true; rep.msg = "제보하는 중…"; updRep();
+      rep.busy = true; rep.msg = "깃발을 꽂는 중…"; updRep();
       var near = SPx.near(kind, ll[0], ll[1], 25);
       if (near) {
-        if (!near.key) { fin(false, "25m 안에 이미 지도에 있는 지점입니다."); return; }
+        if (!near.key) { fin(false, "25m 안에 이미 지도에 있는 곳입니다. 그곳을 눌러 ‘있어요’로 확인해 주세요."); return; }
         CalrankAuth.rpc("submit_poi_check", { p_route: routeId, p_poi: near.key, p_answer: "yes", p_device: devId() }).then(function (r) {
           var v = r && !r.error ? r.data : "err";
-          if (v === "ok") { markDone(routeId + "|" + near.key); fin(true, "25m 안에 같은 지점이 이미 있어 ‘있어요’ 확인으로 기록했습니다. 고맙습니다."); }
+          if (v === "ok") { markDone(routeId + "|" + near.key); fin(true, "이미 누군가 발견한 곳입니다. ‘있어요’ 확인을 더했습니다. 고맙습니다."); }
           else fin(false, v === "slow" ? "너무 자주 눌렀습니다. 잠시 뒤에 다시 해 주세요." : "지금은 기록하지 못했습니다.");
         }, function () { fin(false, "지금은 기록하지 못했습니다."); });
         return;
@@ -369,10 +369,10 @@
         var v = r && !r.error ? String(r.data) : "err";
         if (v.indexOf("ok:USER:") === 0) {
           var id = Number(v.slice(8)); SPx.add({ id: id, kind: kind, lat: ll[0], lon: ll[1], note: note, mine: true }, myNick()); markDone(routeId + "|USER:" + id);
-          fin(true, kind === "danger" ? "제보했습니다. 위험 구간은 다른 이용자 2명이 확인하면 모두에게 보입니다. 지금은 나에게만 보입니다." : "제보했습니다. 지도에 ‘이용자 제보’로 올라갔고, 닉네임이 함께 남습니다. 다른 이용자가 확인할수록 믿을 만한 지점이 됩니다.");
-        } else if (v.indexOf("dup:") === 0) { markDone(routeId + "|" + v.slice(4)); fin(true, "25m 안에 같은 종류의 제보가 이미 있어 ‘있어요’ 확인으로 기록했습니다."); }
-        else fin(false, RMSG[v] || "지금은 제보하지 못했습니다.");
-      }, function () { fin(false, "지금은 제보하지 못했습니다."); });
+          fin(true, kind === "danger" ? "깃발을 꽂았습니다. 위험 구간은 2명이 확인하면 모두에게 보입니다. 지금은 나에게만 보입니다." : "깃발을 꽂았습니다. 이 곳의 첫 발견자로 내 닉네임이 남았습니다. 뒤따르는 사람이 확인할수록 믿을 만한 곳이 됩니다.");
+        } else if (v.indexOf("dup:") === 0) { markDone(routeId + "|" + v.slice(4)); fin(true, "이미 누군가 발견한 곳입니다. ‘있어요’ 확인을 더했습니다. 고맙습니다."); }
+        else fin(false, RMSG[v] || "지금은 깃발을 꽂지 못했습니다.");
+      }, function () { fin(false, "지금은 깃발을 꽂지 못했습니다."); });
     }
     repEl.addEventListener("click", function (e) {
       var t = e.target; if (!t || !t.closest) return;
@@ -387,7 +387,7 @@
       if (!repEl.hidden) { closeRep(); return; }
       rep.done = false; rep.msg = ""; repEl.hidden = false; renderRep();
     }
-    Ctl("topleft", "add_place", "장소 제보", "지금 서 있는 곳을 새 장소로 제보", toggleRep);
+    Ctl("topleft", "add_place", "깃발 꽂기", "지금 서 있는 곳에 내 이름으로 깃발 꽂기", toggleRep);
   }
   api.attach = attach; window.CalrankMapTools = api;
 })();
