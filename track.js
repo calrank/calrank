@@ -24,11 +24,21 @@
     } catch (e) {}
     var path = location.pathname === "/" ? "/index.html" : location.pathname;
     var K = "sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
-    fetch("https://mlbzsqeoqlyvnyzeegeu.supabase.co/rest/v1/rpc/track_view", {
-      method: "POST", keepalive: true,
-      headers: { apikey: K, Authorization: "Bearer " + K, "Content-Type": "application/json" },
-      body: JSON.stringify({ p_path: path, p_new: fresh })
-    }).catch(function () {});
+    // 화면에 실제로 보일 때만 센다. 링크 미리보기·미리 읽기(prerender)·백그라운드 탭은 hidden 이라 걸러진다.
+    function whenVisible(fn) {
+      if (document.visibilityState !== "hidden") { fn(); return; }
+      var done = false;
+      document.addEventListener("visibilitychange", function () {
+        if (!done && document.visibilityState === "visible") { done = true; fn(); }
+      });
+    }
+    whenVisible(function () {
+      fetch("https://mlbzsqeoqlyvnyzeegeu.supabase.co/rest/v1/rpc/track_view", {
+        method: "POST", keepalive: true,
+        headers: { apikey: K, Authorization: "Bearer " + K, "Content-Type": "application/json" },
+        body: JSON.stringify({ p_path: path, p_new: fresh })
+      }).catch(function () {});
+    });
     // 행동 측정: 어느 페이지에서 어느 곳으로 이어졌는지만 센다(날짜·페이지·종류·대상 숫자). 개인 식별 정보와 검색어, 주소의 ? 뒷부분은 보내지 않는다.
     function evt(kind, target) {
       try {
@@ -82,11 +92,14 @@
             : /facebook|^facebook|fb\.com/.test(h) ? "facebook" : /youtube|youtu\.be|^youtube/.test(h) ? "youtube"
             : /^x$|twitter|t\.co$/.test(h) ? "x" : /threads/.test(h) ? "threads" : /band\.us|^band$/.test(h) ? "band" : "other";
         }
-        if (src) fetch("https://mlbzsqeoqlyvnyzeegeu.supabase.co/rest/v1/rpc/track_ref", {
-          method: "POST", keepalive: true,
-          headers: { apikey: K, Authorization: "Bearer " + K, "Content-Type": "application/json" },
-          body: JSON.stringify({ p_src: src })
-        }).catch(function () {});
+        // 어느 페이지로 들어왔는지(주소의 ? 뒷부분 제외)도 함께 보낸다. 출처×페이지 숫자만 쌓인다.
+        if (src) whenVisible(function () {
+          fetch("https://mlbzsqeoqlyvnyzeegeu.supabase.co/rest/v1/rpc/track_ref", {
+            method: "POST", keepalive: true,
+            headers: { apikey: K, Authorization: "Bearer " + K, "Content-Type": "application/json" },
+            body: JSON.stringify({ p_src: src, p_path: path })
+          }).catch(function () {});
+        });
       }
     } catch (e) {}
   } catch (e) {}

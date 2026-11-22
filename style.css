@@ -844,3 +844,10 @@ body #claimSearchBtn{min-height:48px;border-radius:14px}
 }
 .filter-row-find::after{display:none}
 .filter-row-find .region-select, .filter-row-find #mapToggleBtn{min-height:48px;border-radius:16px;box-sizing:border-box}
+
+/* 홈의 거리·성별 등급표 바로가기: 검색에서 많이 찾는 등급 페이지로 곧장 가는 길 */
+.home-grades{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 4px;}
+.home-grades .hg-t{flex:1 1 100%;font-size:13px;font-weight:700;color:var(--ink-soft,inherit);}
+.home-grades a{padding:9px 13px;min-height:40px;display:inline-flex;align-items:center;border:1px solid var(--line,var(--border));border-radius:999px;font-size:14px;text-decoration:none;color:inherit;}
+.home-grades a:hover{border-color:var(--accent);}
+.home-grades .hg-all{font-weight:700;color:var(--accent-ink);}
