@@ -1,5 +1,36 @@
 {
  "partner": "coupang",
  "note": "쿠팡 파트너스 대시보드에서 만든 https://link.coupang.com/ 주소만 넣는다. page 는 기어 페이지 파일명.",
- "items": []
+ "items": [
+  {
+   "page": "gear-carbon-plate.html",
+   "label": "쿠팡에서 카본화 러닝화 찾아보기",
+   "url": "https://link.coupang.com/a/iSM5wGJpIG"
+  },
+  {
+   "page": "gear-trail-poles.html",
+   "label": "쿠팡에서 트레킹폴 찾아보기",
+   "url": "https://link.coupang.com/a/iSM6rzs1WS"
+  },
+  {
+   "page": "gear-wetsuit.html",
+   "label": "쿠팡에서 트라이애슬론 웻슈트 찾아보기",
+   "url": "https://link.coupang.com/a/iSM66nz9dk"
+  },
+  {
+   "page": "gear-aero-helmet.html",
+   "label": "쿠팡에서 로드 자전거 헬멧 찾아보기",
+   "url": "https://link.coupang.com/a/iSM7GkitBk"
+  },
+  {
+   "page": "gear-helmet-safety.html",
+   "label": "쿠팡에서 로드 자전거 헬멧 찾아보기",
+   "url": "https://link.coupang.com/a/iSM7GkitBk"
+  },
+  {
+   "page": "gear-tyre-rolling.html",
+   "label": "쿠팡에서 로드 자전거 타이어 찾아보기",
+   "url": "https://link.coupang.com/a/iSM8kLgQ7U"
+  }
+ ]
 }
