@@ -505,6 +505,31 @@ PAIRS = {
 }
 
 
+# ── 제휴 링크(쿠팡 파트너스) ───────────────────────────────────────────
+# data/affiliate_links.json 에 이 페이지 항목이 있을 때만 그린다. 없으면 아무것도 나오지 않는다.
+# 링크는 파트너스 화면에서 만든 주소만 쓴다. 대가성 문구는 링크 바로 위에 두고(공정위 표시·광고 심사지침),
+# 링크에는 rel="sponsored nofollow" 를 단다(구글 안내). 판정 내용은 제휴와 무관하다는 문장을 함께 둔다.
+AFF_FILE = ROOT / "data" / "affiliate_links.json"
+AFF_NOTICE = ("이 페이지의 링크로 구매하시면 칼랭크가 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 받습니다. "
+              "구매 가격은 달라지지 않고, 판정은 제휴와 관계없이 같은 기준으로 정합니다.")
+
+
+def affiliate_block(slug):
+    try:
+        data = json.loads(AFF_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    rows = [x for x in data.get("items", []) if x.get("page") == slug and str(x.get("url", "")).startswith("https://link.coupang.com/")]
+    if not rows:
+        return ""
+    links = "".join(
+        f'<li><a href="{esc(x["url"])}" rel="sponsored nofollow noopener" target="_blank" data-aff="{esc(slug)}">{esc(x.get("label", "쿠팡에서 보기"))}</a></li>'
+        for x in rows)
+    return ('<section class="gi-sec gi-aff"><h2>관련 제품 찾아보기</h2>'
+            f'<p class="gi-aff-note">{AFF_NOTICE}</p><ul>{links}</ul></section>'
+            '<script defer src="funnel.js"></script><script defer src="aff.js"></script>')
+
+
 def pair_html(item_id, self_slug=""):
     rows = [(slug_for("x", i), lab) for i, lab in PAIRS.get(item_id, [])]
     rows = [(h, l) for h, l in rows if h != self_slug]
@@ -569,7 +594,7 @@ def build_page(kind, item, bodies, siblings, tables=None):
     if tables:
         links = " · ".join(f'<a href="{esc(h)}">{esc(l)}</a>' for h, l in tables)
         body = (f'<p class="gi-tablinks">기록별로 미리 보기 · {links}</p>' + body)
-    body += faq_html(item) + pair_html(item["id"], slug)
+    body += faq_html(item) + pair_html(item["id"], slug) + affiliate_block(slug)
     attr = f' data-gear-{kind}="{esc(item["id"])}"'
     return slug, PAGE.format(
         title=esc(title), desc=esc(desc), base=BASE, slug=slug,

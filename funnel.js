@@ -26,6 +26,7 @@
   function mark(step) {
     if (!step || done[step]) return;
     done[step] = 1;
+    try { if (typeof window.calrankEvt === "function") window.calrankEvt("step", step); } catch (e0) {}
     try {
       var p = "/_f/" + step;
       if (typeof window.va === "function") {

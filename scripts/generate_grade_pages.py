@@ -497,7 +497,7 @@ def quick_box(dist, gender_key=""):
     return (f'<section class="gq-box" id="grQuick" data-dist="{dist["key"]}" data-km="{dist["km"]:g}" '
             f'data-gender="{gender_key}" data-label="{dist["search"]}" data-tiers="{tiers}">'
             f'<a class="gq-fallback" href="level.html?d={dist["km"]:g}#now">내 기록으로 등급 계산하기 →</a></section>\n'
-            '<script defer src="wma-standards.js"></script><script defer src="calrank-local.js"></script><script defer src="grade-quick.js"></script>')
+            '<script defer src="wma-standards.js"></script><script defer src="calrank-local.js"></script><script defer src="funnel.js"></script><script defer src="grade-quick.js"></script>')
 
 
 def build_page(dist, gender):

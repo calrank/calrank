@@ -288,6 +288,19 @@ def main():
     if dup_d:
         warn.append(f"설명 중복 {len(dup_d)}종·{sum(len(v) for _, v in dup_d)}쪽. 예: {dup_d[0][0][:40]} ({len(dup_d[0][1])}쪽)")
 
+    # 제휴 링크(쿠팡 파트너스) 규정 점검: 링크가 있는 페이지는 대가성 문구가 있어야 하고, 링크에 sponsored 가 있어야 한다.
+    for p in all_html:
+        body = read(p)
+        if "link.coupang.com" not in body and "coupang.com/np" not in body:
+            continue
+        rel = "/" + p.relative_to(ROOT).as_posix()
+        if "쿠팡 파트너스 활동의 일환으로" not in body:
+            critical.append(f"제휴 링크가 있는데 대가성 문구가 없음: {rel}")
+        for m in re.finditer(r'<a\b[^>]*href=["\'][^"\']*coupang\.com[^"\']*["\'][^>]*>', body, re.I):
+            if "sponsored" not in m.group(0):
+                critical.append(f"제휴 링크에 rel=sponsored 가 없음: {rel}")
+                break
+
     # 홈의 봇 판별 회귀: 알려진 크롤러를 모두 걸러야 한다
     idx = read(ROOT / "index.html")
     m = re.search(r"var isBot = /([^/]+)/i\.test", idx)

@@ -49,6 +49,8 @@
         }).catch(function () {});
       } catch (e) {}
     }
+    // funnel.js 의 단계 표시(계산했다·저장했다 등)도 같은 곳에 센다. 단계 이름과 페이지만 보낸다.
+    window.calrankEvt = evt;
     // 같은 세션에서 두 번째 페이지에 도달했는지: 처음 들어온 페이지(path)에 "next"를 한 번 센다.
     try {
       var land = sessionStorage.getItem("cr_land");

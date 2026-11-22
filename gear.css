@@ -392,3 +392,9 @@ body.ge-hub-mode .gi-form-wrap { display: none; }
 .gu-btn{flex:1;min-height:46px;border-radius:999px;border:1px solid var(--border,#d8d1ca);background:transparent;color:inherit;font:800 15px/1 inherit;cursor:pointer}
 .gu-btn.on{background:#3EE0BE;border-color:#3EE0BE;color:#06362d}
 .gu-msg{min-height:20px;margin:8px 0 0;font-size:14px;color:#8a2a22}
+
+/* 제휴 링크 구역: 대가성 문구가 링크보다 눈에 먼저 들어와야 한다 */
+.gi-aff-note { font-size: 14px; line-height: 1.8; color: var(--ink-faint); margin: 6px 0 10px; }
+.gi-aff ul { margin: 0; padding-left: 18px; }
+.gi-aff li { font-size: 15.5px; line-height: 1.9; }
+.gi-aff a { color: var(--ink); border-bottom: 1px dashed var(--ink-faint); text-decoration: none; }
