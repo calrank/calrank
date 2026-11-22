@@ -35,6 +35,9 @@ jobs:
           for c in r["critical"][:50]: print(f"- ✗ {c}")
           for w in r["warnings"]: print(f"- △ {w}")
           if not r["critical"]: print("- ✓ 치명 항목 없음")
+          print("\n링크 깊이(홈 기준):", r["depth_histogram"])
+          print("\n#### 오늘 색인 요청 후보 (서치 콘솔 URL 검사 → 색인 생성 요청)")
+          for i, q in enumerate(r["index_queue"], 1): print(f"{i}. {q['url']} (점수 {q['score']}, 들어오는 링크 {q['inbound']})")
           PY
           exit $code
       - uses: actions/upload-artifact@v4

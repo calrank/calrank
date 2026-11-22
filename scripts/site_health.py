@@ -140,6 +140,73 @@ def content_quality(files: dict) -> list[str]:
     return out
 
 
+def click_depth(files: dict, adj: dict) -> dict:
+    """홈에서 몇 번 눌러야 닿는지(너비 우선 탐색). 구글은 깊은 페이지를 덜 자주 크롤링한다."""
+    depth = {"/index.html": 0}
+    frontier = ["/index.html"]
+    while frontier:
+        nxt = []
+        for u in frontier:
+            for v in adj.get(u, ()):
+                if v not in depth:
+                    depth[v] = depth[u] + 1
+                    nxt.append(v)
+        frontier = nxt
+    hist = Counter()
+    deep, lost = [], []
+    for u, f in files.items():
+        rel = "/" + f.relative_to(ROOT).as_posix()
+        d = depth.get(rel)
+        if d is None:
+            if not f.name.startswith("google"):
+                lost.append(rel)
+            hist["닿지 않음"] += 1
+        else:
+            hist[str(d)] += 1
+            if d > 3:
+                deep.append(rel)
+    warnings = []
+    if lost:
+        warnings.append(f"홈에서 링크를 따라 닿지 않는 페이지 {len(lost)}개. 예: {', '.join(lost[:3])}")
+    if deep:
+        warnings.append(f"홈에서 4번 넘게 눌러야 하는 페이지 {len(deep)}개. 예: {', '.join(deep[:3])}")
+    return {"depth": depth, "hist": dict(hist), "warnings": warnings}
+
+
+INDEX_REQUESTED = ROOT / "data" / "index_requested.json"   # {주소: 요청한 날}. 배포에서는 뺀다.
+GROUP_WEIGHT = {"weekend": 60, "monthly": 40, "open-registration": 40, "grade": 35, "column": 25,
+                "events-index": 30, "trailroot": 30, "mountains": 30, "landing": 20, "gear": 20}
+
+
+def index_queue(files: dict, inbound: Counter, depth: dict, n: int = 10) -> list[dict]:
+    """서치 콘솔에서 '색인 생성 요청'을 누를 후보 n개. 하루 한도(약 10건)가 있어 사람이 가려 눌러야 한다.
+    점수 = 유형 가중치 + 들어오는 링크 수 + 최근 7일 안에 본문이 바뀐 가산점 - 이미 요청한 것 제외."""
+    try:
+        done = json.loads(INDEX_REQUESTED.read_text(encoding="utf-8"))
+    except Exception:
+        done = {}
+    lm = {}
+    for name in ("sitemap.xml",):
+        for blk in re.findall(r"<url>.*?</url>", read(ROOT / name), re.S):
+            loc = re.search(r"<loc>([^<]+)", blk)
+            m = re.search(r"<lastmod>([^<]+)", blk)
+            if loc and m:
+                lm[loc.group(1)] = m.group(1)
+    from datetime import date, timedelta
+    recent = (date.today() - timedelta(days=7)).isoformat()
+    rows = []
+    for u, f in files.items():
+        if u in done or "/e/" in u:
+            continue
+        rel = "/" + f.relative_to(ROOT).as_posix()
+        stem = re.sub(r"[-_.].*", "", f.name)
+        w = GROUP_WEIGHT.get(stem, 5)
+        score = w + min(inbound.get(rel, 0), 40) + (25 if lm.get(u, "") >= recent else 0) - 3 * min(depth.get(rel, 6), 6)
+        rows.append({"url": u, "score": score, "inbound": inbound.get(rel, 0), "depth": depth.get(rel), "lastmod": lm.get(u)})
+    rows.sort(key=lambda r: -r["score"])
+    return rows[:n]
+
+
 def main():
     as_json = "--json" in sys.argv
     critical, warn = [], []
@@ -178,6 +245,7 @@ def main():
     # 내부 링크 전수 점검
     all_html = [p for p in ROOT.rglob("*.html") if ".git" not in p.parts and "node_modules" not in p.parts]
     inbound = Counter()
+    adj = defaultdict(set)
     broken = defaultdict(set)
     nav_hrefs = set()
     for p in all_html:
@@ -194,6 +262,7 @@ def main():
                 continue
             if tgt != src_rel:
                 inbound[tgt] += 1
+                adj[src_rel].add(tgt)
     for tgt, srcs in sorted(broken.items()):
         critical.append(f"깨진 내부 링크 {tgt} ← {len(srcs)}곳(예: {sorted(srcs)[0]})")
 
@@ -207,6 +276,10 @@ def main():
         warn.append(f"고아 페이지 {len(orphans)}개(사이트맵에만 있음). 예: {', '.join(orphans[:3])}")
 
     warn += content_quality(files)
+
+    depth_info = click_depth(files, adj)
+    warn += depth_info["warnings"]
+    queue = index_queue(files, inbound, depth_info["depth"])
 
     dup_t = [(k, v) for k, v in titles.items() if len(v) > 1]
     dup_d = [(k, v) for k, v in descs.items() if len(v) > 1]
@@ -227,7 +300,8 @@ def main():
                 critical.append(f"홈 봇 판별이 크롤러를 놓침: {name}")
 
     result = {"sitemap_urls": len(urls), "critical": critical, "warnings": warn,
-              "orphans": orphans[:50], "html_files": len(all_html)}
+              "orphans": orphans[:50], "html_files": len(all_html),
+              "depth_histogram": depth_info["hist"], "index_queue": queue}
     if as_json:
         print(json.dumps(result, ensure_ascii=False, indent=1))
     else:
@@ -238,6 +312,8 @@ def main():
             print(f"  … 치명 항목 {len(critical) - 40}개 더")
         for w in warn:
             print("  △ 경고:", w)
+        print("  링크 깊이(홈 기준):", ", ".join((f"{k}번 {v}개" if k.isdigit() else f"{k} {v}개") for k, v in sorted(depth_info["hist"].items())))
+        print("  색인 요청 후보 상위:", ", ".join(q["url"].rsplit("/", 1)[-1] or "홈" for q in queue[:5]))
         if not critical:
             print("  ✓ 치명 항목 없음")
     sys.exit(1 if critical else 0)
