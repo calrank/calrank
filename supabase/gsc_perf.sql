@@ -88,3 +88,19 @@ create or replace function public.growth_snapshot() returns void language sql se
   on conflict (week_end) do update set report = excluded.report, created_at = now();
 $$;
 revoke all on function public.growth_snapshot() from public, anon, authenticated;
+
+-- 사이트맵 제출·처리 상태(하루 한 번). 색인 표본에서 '알려지지 않은 URL'이 많을 때 발견 단계 점검용.
+create table if not exists public.gsc_sitemaps_daily (
+  day date not null,
+  path text not null,
+  last_submitted timestamptz,
+  last_downloaded timestamptz,
+  is_pending boolean not null default false,
+  errors integer not null default 0,
+  warnings integer not null default 0,
+  submitted integer not null default 0,
+  indexed integer not null default 0,
+  primary key (day, path)
+);
+alter table public.gsc_sitemaps_daily enable row level security;
+revoke all on public.gsc_sitemaps_daily from anon, authenticated;

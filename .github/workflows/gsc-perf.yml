@@ -32,3 +32,12 @@ jobs:
         run: |
           echo "### 서치 콘솔 검색 성과" >> "$GITHUB_STEP_SUMMARY"
           python3 scripts/gsc_perf.py | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: 사이트맵 처리 상태 기록
+        # 색인 표본의 '구글에 아직 알려지지 않은 URL' 원인을 가리려고 제출·읽기 상태를 함께 남긴다. 실패해도 성과 수집은 막지 않는다.
+        continue-on-error: true
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          echo "### 사이트맵 처리 상태" >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/gsc_sitemaps.py | tee -a "$GITHUB_STEP_SUMMARY"
