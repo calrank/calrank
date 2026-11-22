@@ -84,6 +84,8 @@ async function submitNewPassword(e) {
   const p2 = $("rsPw2").value;
 
   if (p1.length < 8) return say(msg, "비밀번호는 8자 이상이어야 합니다.", "error");
+  const wkMsg = window.CalrankAuth && window.CalrankAuth.weakPw ? window.CalrankAuth.weakPw(p1, "") : "";
+  if (wkMsg) return say(msg, wkMsg, "error");
   if (p1 !== p2) return say(msg, "두 비밀번호가 서로 다릅니다. 다시 확인해 주세요.", "error");
 
   say(msg, "변경 중...");
@@ -124,7 +126,7 @@ async function resendLink(e) {
   if (error) return say(msg, friendly(error), "error");
 
   // 가입된 메일인지 여부는 알려주지 않는다 (계정 존재 여부가 드러나지 않도록)
-  say(msg, email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인해 주세요.", "ok");
+  say(msg, email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인하고, 스팸함에 있다면 ‘스팸 해제’를 눌러 주세요.", "ok");
 }
 
 async function boot() {

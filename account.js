@@ -23,8 +23,49 @@
       return u && u.email ? u : null;
     } catch (e) { return null; }
   }
+  // 너무 흔한 비밀번호를 가입·변경·재설정 때 걸러 낸다. 서버의 유출 비밀번호 검사(유료 기능)를
+  // 대신하지는 못하고, 가장 흔한 것만 거른다. NIST SP 800-63B 처럼 "대문자·기호를 섞으라"는
+  // 구성 규칙은 쓰지 않고, 흔한 목록·반복·나열·이메일과의 유사만 본다.
+  var COMMON = ("12345678 123456789 1234567890 11111111 00000000 87654321 12341234 11223344 1q2w3e4r 1q2w3e4r5t " +
+    "1qaz2wsx 1qazxsw2 zaq12wsx q1w2e3r4 qwer1234 qwer4321 qwertyui qwertyuiop asdf1234 asdfghjk asdfghjkl zxcvbnm1 zxcvbnm " +
+    "abcd1234 abcdefgh abcdefg1 a1234567 a12345678 aa123456 aaaa1111 abc12345 abc123456 password password1 password12 password123 " +
+    "passw0rd p@ssw0rd p@ssword pa$$word iloveyou iloveyou1 letmein1 welcome1 welcome123 adminadmin admin123 admin1234 changeme " +
+    "monkey123 dragon123 master123 sunshine football baseball superman trustno1 starwars computer internet princess " +
+    "calrank1 calrank12 calrank123 calrank1234 calrank! kakao1234 naver1234 daum1234 google123 " +
+    "비밀번호 비밀번호1 비밀번호123 사랑해요 사랑해1234 대한민국 대한민국1 대한민국123 한국사랑 가나다라마바사 가나다라마바 " +
+    "love1234 test1234 test12345 user1234 guest1234 hello1234 happy1234 korea1234 korea123 seoul1234 marathon1 running1 runner123 ").trim().split(/\s+/);
+  var COMMON_SET = {}; COMMON.forEach(function (w) { COMMON_SET[w] = 1; });
+  function weakPw(pw, email) {
+    pw = String(pw || ""); if (!pw) return "";
+    var low = pw.toLowerCase();
+    var leet = low.replace(/@/g, "a").replace(/\$/g, "s").replace(/0/g, "o").replace(/1/g, "i").replace(/3/g, "e").replace(/5/g, "s");
+    function strip(x) { return x.replace(/[0-9!@#$%^&*._~?-]+$/, ""); }
+    var forms = [low, strip(low), leet, strip(leet)];
+    for (var i = 0; i < forms.length; i++) if (forms[i] && COMMON_SET[forms[i]]) return "common";
+    if (/^(.)\1+$/.test(pw)) return "repeat";
+    if (/^(.{1,3})\1+$/.test(pw)) return "repeat";
+    if (pw.length >= 6) {
+      var up = true, down = true;
+      for (var j = 1; j < pw.length; j++) {
+        var d = pw.charCodeAt(j) - pw.charCodeAt(j - 1);
+        if (d !== 1) up = false; if (d !== -1) down = false;
+      }
+      if (up || down) return "sequence";
+    }
+    var em = String(email || "").trim().toLowerCase(), loc = em.split("@")[0];
+    if (em && (low === em || (loc.length >= 4 && low.indexOf(loc) !== -1 && low.length <= loc.length + 4))) return "email";
+    return "";
+  }
+  var WEAK_MSG = {
+    common: "너무 흔한 비밀번호입니다. 외우기 쉬운 문장을 길게 만들어 보세요. (예: 좋아하는 대회 이름과 날짜를 이어 쓰기)",
+    repeat: "같은 글자가 반복되는 비밀번호는 쓸 수 없습니다. 다른 비밀번호로 정해 주세요.",
+    sequence: "12345678, abcdefgh 같은 나열은 쓸 수 없습니다. 다른 비밀번호로 정해 주세요.",
+    email: "이메일과 비슷한 비밀번호는 쓸 수 없습니다. 다른 비밀번호로 정해 주세요."
+  };
+
   // 다른 스크립트(지도 등)가 같은 로그인 상태로 서버 함수를 부르도록 노출한다.
   window.CalrankAuth = {
+    weakPw: function (pw, email) { var k = weakPw(pw, email); return k ? WEAK_MSG[k] : ""; },
     user: function () { return savedUser(); },
     openSheet: function () { if (btn) btn.click(); },
     nick: function () {
@@ -114,11 +155,12 @@
   }
   function friendly(err) {
     var m = String((err && err.message) || ""), st = err && err.status, code = String((err && err.code) || ""), mc = m + " " + code;
+    if (/email_address_not_authorized|not authorized/i.test(mc)) return "지금은 이 이메일 주소로 인증 메일을 보낼 수 없습니다. 다른 이메일로 해 보시거나, 문의로 알려 주세요.";
     if (/over_email_send_rate_limit|email rate limit/i.test(mc)) return "메일을 보내는 횟수가 잠시 한도에 닿았습니다. 몇 분 뒤에 다시 눌러 주세요.";
     if (/over_request_rate_limit|only request this after/i.test(mc)) { var sec = /(\d+)\s*seconds?/i.exec(m); return "너무 자주 눌렀습니다. " + (sec ? sec[1] + "초" : "잠시") + " 뒤에 다시 눌러 주세요."; }
     if (st === 429 || /rate limit|too many/i.test(mc)) return "요청이 한꺼번에 많았습니다. 잠시 뒤에 다시 눌러 주세요.";
     if (/invalid login credentials/i.test(m)) return "이메일 또는 비밀번호가 맞지 않습니다.";
-    if (/email not confirmed/i.test(m)) return "이메일 인증을 먼저 마쳐 주세요. 가입할 때 보낸 메일을 확인해 주세요.";
+    if (/email not confirmed/i.test(m)) return "이메일 인증을 먼저 마쳐 주세요. 가입할 때 보낸 메일을 확인해 주세요. 스팸함에 있다면 ‘스팸 해제’를 눌러 주세요.";
     if (/weak_password|pwned|known to be weak|easy to guess/i.test(mc)) return "너무 흔하거나 유출된 적 있는 비밀번호입니다. 다른 비밀번호로 정해 주세요.";
     if (/password/i.test(m) && /(longer|too long|72)/i.test(m)) return "비밀번호는 72자 이하로 정해 주세요.";
     if (/password/i.test(m) && /(least|short|characters)/i.test(m)) return "비밀번호는 8자 이상으로 정해 주세요.";
@@ -353,7 +395,7 @@
         if (err) return msg("연결하지 못했습니다. 잠시 뒤에 다시 눌러 주세요.", true);
         c.auth.resetPasswordForEmail(lastEmail, { redirectTo: location.origin + "/reset.html" }).then(function (r) {
           if (r.error) return msg(friendly(r.error), true, false, [["login", "로그인하기"]]);
-          msg(lastEmail + " 로 비밀번호 재설정 메일을 보냈습니다.\n메일의 링크를 누르면 새 비밀번호를 정할 수 있습니다. 메일함과 스팸함을 확인해 주세요.", false, true, [["login", "로그인 화면으로"]]);
+          msg(lastEmail + " 로 비밀번호 재설정 메일을 보냈습니다.\n메일의 링크를 누르면 새 비밀번호를 정할 수 있습니다.\n메일이 안 보이면 스팸함을 꼭 확인하고, 있으면 ‘스팸 해제’(스팸이 아님)를 눌러 주세요. 그래야 다음 메일이 받은편지함으로 옵니다.", false, true, [["login", "로그인 화면으로"]]);
         }, function (x) { msg(friendly(x), true); });
       });
     }
@@ -402,6 +444,7 @@
       var pw2 = sheet.querySelector("#acctPw2").value;
       if (pw.length < 8) return msg("비밀번호는 8자 이상이어야 합니다. 지금 " + pw.length + "자입니다.", true);
       if (pw.length > 72) return msg("비밀번호는 72자 이하로 정해 주세요.", true);
+      var wk0 = weakPw(pw, (savedUser() || {}).email); if (wk0) return msg(WEAK_MSG[wk0], true);
       if (pw !== pw2) return msg("두 비밀번호가 서로 다릅니다.", true);
       busy(true); msg("처리하는 중…");
       return getClient(function (err, c) {
@@ -418,6 +461,7 @@
     if (kind === "signup" && !pw) return bad("비밀번호를 입력해 주세요. 8자 이상이면 됩니다.", pwEl);
     if (kind === "signup" && pw.length < 8) return bad("비밀번호는 8자 이상이어야 합니다. 지금 " + pw.length + "자입니다.", pwEl);
     if (kind === "signup" && pw.length > 72) return bad("비밀번호는 72자 이하로 정해 주세요.", pwEl);
+    var wk1 = kind === "signup" ? weakPw(pw, email) : ""; if (wk1) return bad(WEAK_MSG[wk1], pwEl);
     if (kind === "login" && !pw) return bad("비밀번호를 입력해 주세요.", pwEl);
     if (kind === "signup" && !sheet.querySelector("#acctAgree").checked) return bad("가입하려면 약관과 개인정보처리방침에 동의해 주세요.", sheet.querySelector("#acctAgree"));
     if (kind !== "chpw" && typoOf(email) && sheet.getAttribute("data-typo") !== email) {
@@ -437,18 +481,18 @@
         if (r.error) {
           var em = String(r.error.message || "");
           if (kind === "login" && /invalid login credentials/i.test(em)) return msg("이메일 또는 비밀번호가 맞지 않습니다. 가입하지 않은 이메일일 수도 있습니다.", true, false, [["reset", "비밀번호 재설정"], ["signup", "아직 가입 전이에요 · 회원가입"]]);
-          if (kind === "login" && /email not confirmed/i.test(em)) return msg("이메일 인증이 아직 끝나지 않았습니다. 가입 때 받은 메일의 링크를 눌러 주세요. 메일이 없다면 회원가입을 다시 눌러 새 인증 메일을 받을 수 있습니다.", true, false, [["signup", "인증 메일 다시 받기"]]);
+          if (kind === "login" && /email not confirmed/i.test(em)) return msg("이메일 인증이 아직 끝나지 않았습니다. 가입 때 받은 메일의 링크를 눌러 주세요. 메일이 없다면 스팸함을 확인하고, 없으면 회원가입을 다시 눌러 새 인증 메일을 받을 수 있습니다.", true, false, [["signup", "인증 메일 다시 받기"]]);
           if (kind === "signup" && /already|registered|exists/i.test(em)) return msg("이미 가입한 이메일입니다. 로그인해 주세요.", false, true, [["login", "로그인하기"], ["reset", "비밀번호가 기억나지 않아요"]]);
           return msg(friendly(r.error), true);
         }
-        if (kind === "reset") return msg(email + " 이 가입된 이메일이라면 비밀번호 재설정 메일이 갑니다.\n메일의 링크를 누르면 새 비밀번호를 정할 수 있습니다. 스팸함도 확인해 주세요.\n몇 분이 지나도 메일이 없다면 가입하지 않은 이메일일 수 있습니다.", false, true, [["signup", "회원가입하기"]]);
+        if (kind === "reset") return msg(email + " 이 가입된 이메일이라면 비밀번호 재설정 메일이 갑니다.\n메일의 링크를 누르면 새 비밀번호를 정할 수 있습니다.\n메일이 안 보이면 스팸함을 꼭 확인하고, 있으면 ‘스팸 해제’(스팸이 아님)를 눌러 주세요. 그래야 다음 메일이 받은편지함으로 옵니다.\n몇 분이 지나도 메일이 없다면 가입하지 않은 이메일일 수 있습니다.", false, true, [["signup", "회원가입하기"]]);
         if (kind === "signup" && !(r.data && r.data.session) && r.data && r.data.user && Array.isArray(r.data.user.identities) && r.data.user.identities.length === 0) {
           lastEmail = email;
           return msg("이미 가입된 이메일입니다.\n로그인하거나, 비밀번호가 기억나지 않으면 재설정 메일을 받아 주세요.", false, true, [["login", "로그인하기"], ["resetnow", "비밀번호 재설정 메일 받기"]]);
         }
         if (kind === "signup" && !(r.data && r.data.session)) {
           // 가입된 이메일인지 여부는 일부러 알려 주지 않는다.
-          return msg("가입 요청을 받았습니다.\n① 메일함(스팸함 포함)에서 인증 링크를 눌러 주세요.\n② 몇 분이 지나도 메일이 없다면 로그인 탭에서 로그인해 보세요.", false, true, [["login", "로그인하기"]]);
+          return msg("가입 요청을 받았습니다.\n① 메일함에서 인증 링크를 눌러 주세요.\n② 안 보이면 스팸함을 꼭 확인하고, 있으면 ‘스팸 해제’(스팸이 아님)를 눌러 주세요. 그래야 다음 메일이 받은편지함으로 옵니다.\n③ 몇 분이 지나도 메일이 없다면 로그인 탭에서 로그인해 보세요.", false, true, [["login", "로그인하기"]]);
         }
         try {
           var kp = sheet.querySelector("#acctKeep");

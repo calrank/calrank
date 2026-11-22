@@ -442,6 +442,8 @@ async function handleAuthSubmit(e) {
   const fail = (t) => { msgEl.textContent = t; msgEl.className = "auth-msg error"; };
   if (authMode === "signup") {
     if (password.length < 8) return fail("비밀번호는 8자 이상으로 정해 주세요.");
+    const wkMsg = window.CalrankAuth && window.CalrankAuth.weakPw ? window.CalrankAuth.weakPw(password, email) : "";
+    if (wkMsg) return fail(wkMsg);
     if (!document.getElementById("authAgree").checked) return fail("가입하려면 약관과 개인정보처리방침에 동의해 주세요.");
   }
   msgEl.textContent = "처리 중...";
@@ -462,7 +464,7 @@ async function handleAuthSubmit(e) {
   }
 
   if (authMode === "signup") {
-    msgEl.textContent = "이메일로 인증 안내를 보냈습니다. 받은 편지함과 스팸함을 확인한 뒤 로그인해 주세요.";
+    msgEl.textContent = "이메일로 인증 안내를 보냈습니다. 받은 편지함과 스팸함을 확인하고, 스팸함에 있다면 ‘스팸 해제’를 누른 뒤 링크를 눌러 주세요.";
     msgEl.className = "auth-msg";
     return;
   }
@@ -537,7 +539,7 @@ async function handleResetRequest(e) {
 
   // 가입된 메일인지 여부는 알려주지 않는다 (계정 존재 여부가 드러나지 않도록)
   msgEl.className = "auth-msg ok";
-  msgEl.textContent = email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인해 주세요.";
+  msgEl.textContent = email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인하고, 스팸함에 있다면 ‘스팸 해제’를 눌러 주세요.";
 }
 
 async function showDashSection() {
