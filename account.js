@@ -23,6 +23,28 @@
       return u && u.email ? u : null;
     } catch (e) { return null; }
   }
+  // 다른 스크립트(지도 등)가 같은 로그인 상태로 서버 함수를 부르도록 노출한다.
+  window.CalrankAuth = {
+    user: function () { return savedUser(); },
+    openSheet: function () { if (btn) btn.click(); },
+    nick: function () {
+      return new Promise(function (res) {
+        var u = savedUser(); if (!u) return res(null);
+        getClient(function (err, c) {
+          if (err) return res(null);
+          c.from("profiles").select("display_name").eq("id", u.id).maybeSingle().then(function (r) { res(r && r.data ? r.data.display_name : null); }, function () { res(null); });
+        });
+      });
+    },
+    rpc: function (name, args) {
+      return new Promise(function (res) {
+        getClient(function (err, c) {
+          if (err) return res({ error: err });
+          c.rpc(name, args || {}).then(res, function (x) { res({ error: x }); });
+        });
+      });
+    }
+  };
   function maskEmail(m) {
     var p = String(m).split("@");
     if (p.length !== 2) return m;
@@ -124,9 +146,14 @@
     ".acct-link{display:inline-block;margin-top:10px;padding:0;border:0;background:none;color:var(--ink-soft);font:600 14px/1.4 var(--font-body,inherit);text-decoration:underline;cursor:pointer}" +
     ".acct-row{display:flex;flex-direction:column;gap:8px;margin-top:6px}" +
     ".acct-btn2{display:flex;align-items:center;justify-content:center;min-height:48px;border:1.5px solid var(--ink);border-radius:999px;background:var(--bg);color:var(--ink);font:800 16px/1 var(--font-body,inherit);text-decoration:none;cursor:pointer}" +
+    ".acct-on{display:inline-flex;align-items:center;gap:8px;margin:0 0 6px;padding:6px 14px;border-radius:999px;background:var(--surface);border:1.5px solid #2A7A50;color:#2A7A50;font-weight:800;font-size:14px}.acct-on i{width:10px;height:10px;border-radius:50%;background:#2A7A50}" +
+    ".acct-nick{margin:0 0 14px}.acct-nickline{margin:0;font-size:15px;color:var(--ink-soft)}.acct-nickline b{color:var(--ink)}.acct-nickline .acct-link{margin:0 0 0 10px;font-size:13px}" +
+    ".acct-nickform{display:flex;flex-direction:column;gap:6px}.acct-nickform label{font-size:13px;font-weight:700;color:var(--ink-soft)}" +
+    ".acct-nickrow{display:flex;gap:8px}.acct-nickrow input{flex:1;min-width:0;box-sizing:border-box;min-height:46px;padding:0 14px;font:500 16px/1 var(--font-body,inherit);color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:12px}" +
+    ".acct-nickrow .acct-btn2{flex:none;padding:0 18px}" +
     ".acct-who{margin:0 0 14px;font-size:15px;color:var(--ink-soft);word-break:break-all}";
 
-  var carry = "";
+  var carry = "", lastEmail = "";
   function emailField(auto) {
     return '<label for="acctEmail">이메일</label><input type="email" id="acctEmail" name="email" autocomplete="' + auto +
       '" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" required placeholder="you@example.com">';
@@ -168,12 +195,14 @@
     var h;
     if (which === "in") {
       var u = savedUser();
-      h = head("내 계정") + '<p class="acct-who" id="acctWho"></p><div class="acct-row">' +
+      h = head("내 계정") + '<p class="acct-on"><i aria-hidden="true"></i>로그인됨</p><p class="acct-who" id="acctWho"></p><div class="acct-row">' +
+        '<a class="acct-btn2" href="me.html">내 활동 보기</a>' +
         '<a class="acct-btn2" href="myrank.html">내 랭크로 가기</a>' +
         '<button type="button" class="acct-btn2" data-act="chpw">비밀번호 변경</button>' +
         '<button type="button" class="acct-btn2" data-act="out">로그아웃</button></div><p class="acct-msg" id="acctMsg" role="status"></p>';
       sheet.innerHTML = h;
       sheet.querySelector("#acctWho").textContent = u ? maskEmail(u.email) : "";
+      nickBlock();
     } else if (which === "chpw") {
       h = head("비밀번호 변경") + '<form class="acct-form" id="acctForm" data-kind="chpw" novalidate>' +
         '<label for="acctPw">새 비밀번호</label>' + pwField("acctPw", "new-password", "8자 이상", true) + HINT +
@@ -204,10 +233,53 @@
       sheet.innerHTML = h;
     }
     var ce = sheet.querySelector("#acctEmail");
-    if (ce && carry) ce.value = carry;
+    var hadCarry = !!(ce && carry);
+    if (hadCarry) ce.value = carry;
     carry = "";
-    var f = sheet.querySelector("input");
+    var f = (hadCarry && sheet.querySelector("#acctPw")) || sheet.querySelector("input");
     if (f) f.focus(); else { var b = sheet.querySelector("a,button:not(.acct-x)"); if (b) b.focus(); }
+  }
+
+  var NICK_MSG = {
+    format: "한글·영문·숫자·밑줄로 2~12자여야 합니다.",
+    reserved: "쓸 수 없는 이름입니다. 다른 이름을 정해 주세요.",
+    taken: "이미 쓰고 있는 사람이 있습니다. 다른 이름을 정해 주세요.",
+    too_soon: "닉네임은 7일에 한 번만 바꿀 수 있습니다.",
+    login: "로그인이 풀렸습니다. 다시 로그인해 주세요."
+  };
+  // 닉네임 칸: 정해 둔 이름이 있으면 보여 주고, 없으면 정하는 입력창을 띄운다. 이름은 내가 확인한 지점 옆에 공개된다.
+  function nickBlock() {
+    var who = sheet.querySelector("#acctWho"); if (!who) return;
+    var box = document.createElement("div"); box.className = "acct-nick"; who.parentNode.insertBefore(box, who.nextSibling);
+    box.textContent = "";
+    CalrankAuth.nick().then(function (n) { paintNick(box, n); });
+  }
+  function paintNick(box, name) {
+    box.innerHTML = "";
+    if (name) {
+      var p = document.createElement("p"); p.className = "acct-nickline"; p.textContent = "닉네임 "; var b = document.createElement("b"); b.textContent = name; p.appendChild(b);
+      var ch = document.createElement("button"); ch.type = "button"; ch.className = "acct-link"; ch.textContent = "바꾸기"; ch.onclick = function () { form(box, name); };
+      p.appendChild(ch); box.appendChild(p); return;
+    }
+    form(box, "");
+  }
+  function form(box, cur) {
+    box.innerHTML = '<form class="acct-nickform" novalidate><label for="acctNick">' + (cur ? "새 닉네임" : "닉네임 정하기") + '</label>' +
+      '<div class="acct-nickrow"><input id="acctNick" maxlength="12" autocomplete="nickname" autocapitalize="none" spellcheck="false" placeholder="2~12자"><button type="submit" class="acct-btn2">정하기</button></div>' +
+      '<p class="acct-hint">내가 확인한 지점 옆에 이 이름이 공개됩니다. 정하지 않으면 "익명"으로 남습니다.</p><p class="acct-msg" role="status"></p></form>';
+    var f = box.firstChild, inp = f.querySelector("input"), m = f.querySelector(".acct-msg");
+    f.onsubmit = function (e) {
+      e.preventDefault();
+      var v = inp.value.trim(); if (!v) { m.className = "acct-msg err"; m.textContent = "닉네임을 입력해 주세요."; inp.focus(); return; }
+      f.querySelector("button").disabled = true; m.className = "acct-msg"; m.textContent = "확인하는 중…";
+      CalrankAuth.rpc("set_nickname", { p_name: v }).then(function (r) {
+        f.querySelector("button").disabled = false;
+        if (r.error) { m.className = "acct-msg err"; m.textContent = "처리하지 못했습니다. 잠시 뒤에 다시 눌러 주세요."; return; }
+        if (r.data === "ok") { try { window.dispatchEvent(new CustomEvent("calrank:nick", { detail: v })); } catch (x) { /* 무시 */ } paintNick(box, v); return; }
+        m.className = "acct-msg err"; m.textContent = NICK_MSG[r.data] || "처리하지 못했습니다."; inp.focus();
+      });
+    };
+    if (cur) { var c = document.createElement("button"); c.type = "button"; c.className = "acct-link"; c.textContent = "취소"; c.onclick = function () { paintNick(box, cur); }; f.appendChild(c); }
   }
 
   function open() {
@@ -258,6 +330,16 @@
     var ei = sheet.querySelector("#acctEmail"); if (ei && ei.value && (a === "login" || a === "signup" || a === "reset")) carry = ei.value.trim();
     if (a === "close") close();
     else if (a === "login" || a === "signup" || a === "reset" || a === "chpw") render(a);
+    else if (a === "resetnow") {
+      t.disabled = true; msg("재설정 메일을 보내는 중…");
+      getClient(function (err, c) {
+        if (err) return msg("연결하지 못했습니다. 잠시 뒤에 다시 눌러 주세요.", true);
+        c.auth.resetPasswordForEmail(lastEmail, { redirectTo: location.origin + "/reset.html" }).then(function (r) {
+          if (r.error) return msg(friendly(r.error), true, false, [["login", "로그인하기"]]);
+          msg(lastEmail + " 로 비밀번호 재설정 메일을 보냈습니다.\n메일의 링크를 누르면 새 비밀번호를 정할 수 있습니다. 메일함과 스팸함을 확인해 주세요.", false, true, [["login", "로그인 화면으로"]]);
+        }, function (x) { msg(friendly(x), true); });
+      });
+    }
     else if (a === "in") render("in");
     else if (a === "oauth") oauth(t.getAttribute("data-p"));
     else if (a === "out") signOut();
@@ -295,6 +377,7 @@
   function onSubmit(e) {
     e.preventDefault();
     var kind = e.target.getAttribute("data-kind");
+    var goBtn = sheet.querySelector(".acct-go"); if (goBtn && goBtn.disabled) return;
     var emEl = sheet.querySelector("#acctEmail");
     var email = emEl ? (emEl.value || "").trim() : "";
     var pwEl = sheet.querySelector("#acctPw"), pw = pwEl ? pwEl.value : "";
@@ -334,6 +417,7 @@
         : c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + "/reset.html" });
       p.then(function (r) {
         busy(false);
+        if (!r.error && r.data && r.data.session) setTimeout(function () { window.dispatchEvent(new CustomEvent("calrank:auth")); }, 0);
         if (r.error) {
           var em = String(r.error.message || "");
           if (kind === "login" && /invalid login credentials/i.test(em)) return msg("이메일 또는 비밀번호가 맞지 않습니다. 가입하지 않은 이메일일 수도 있습니다.", true, false, [["reset", "비밀번호 재설정"], ["signup", "아직 가입 전이에요 · 회원가입"]]);
@@ -341,10 +425,14 @@
           if (kind === "signup" && /already|registered|exists/i.test(em)) return msg("이미 가입한 이메일입니다. 로그인해 주세요.", false, true, [["login", "로그인하기"], ["reset", "비밀번호가 기억나지 않아요"]]);
           return msg(friendly(r.error), true);
         }
-        if (kind === "reset") return msg(email + " 로 재설정 링크를 보냈습니다. 받은 편지함과 스팸함을 확인해 주세요. 메일이 없다면 가입하지 않은 이메일일 수 있습니다.", false, true, [["signup", "회원가입하기"]]);
+        if (kind === "reset") return msg(email + " 이 가입된 이메일이라면 비밀번호 재설정 메일이 갑니다.\n메일의 링크를 누르면 새 비밀번호를 정할 수 있습니다. 스팸함도 확인해 주세요.\n몇 분이 지나도 메일이 없다면 가입하지 않은 이메일일 수 있습니다.", false, true, [["signup", "회원가입하기"]]);
+        if (kind === "signup" && !(r.data && r.data.session) && r.data && r.data.user && Array.isArray(r.data.user.identities) && r.data.user.identities.length === 0) {
+          lastEmail = email;
+          return msg("이미 가입된 이메일입니다.\n로그인하거나, 비밀번호가 기억나지 않으면 재설정 메일을 받아 주세요.", false, true, [["login", "로그인하기"], ["resetnow", "비밀번호 재설정 메일 받기"]]);
+        }
         if (kind === "signup" && !(r.data && r.data.session)) {
           // 가입된 이메일인지 여부는 일부러 알려 주지 않는다.
-          return msg("가입 요청을 받았습니다.\n① 메일함(스팸함 포함)에서 인증 링크를 눌러 주세요.\n② 메일이 없다면 이미 가입한 이메일입니다. 로그인해 주세요.", false, true, [["login", "로그인하기"], ["reset", "비밀번호가 기억나지 않아요"]]);
+          return msg("가입 요청을 받았습니다.\n① 메일함(스팸함 포함)에서 인증 링크를 눌러 주세요.\n② 몇 분이 지나도 메일이 없다면 로그인 탭에서 로그인해 보세요.", false, true, [["login", "로그인하기"]]);
         }
         try {
           var kp = sheet.querySelector("#acctKeep");

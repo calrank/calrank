@@ -26,8 +26,14 @@
       ".rm-stat{max-width:calc(100vw - 90px);padding:10px 14px;border-radius:18px;background:rgba(255,255,255,.97);color:" + INK + ";font:600 13px/1.45 sans-serif;border:1px solid rgba(14,159,135,.3);border-left:5px solid " + M + ";box-shadow:0 4px 14px rgba(8,70,58,.25)}" +
       ".rm-hud{line-height:1.6;margin-top:6px;padding-top:6px;border-top:1px solid #d9efe9;font-weight:600}.rm-hud b{font-weight:800}.rm-warn{color:#b3261e;font-weight:800}" +
       ".rm-hud button{margin-top:6px;min-height:40px;padding:0 16px;border:0;border-radius:999px;background:" + M + ";color:#06362d;font:800 13px sans-serif;box-shadow:0 2px 6px rgba(8,70,58,.25);cursor:pointer}.rm-hud button:active{transform:scale(.96)}" +
+      ".rm-q{margin-top:8px;padding:10px 12px;border-radius:14px;background:#e9fbf6;border:1px solid #bfeee3}.rm-q span{display:block;font-weight:700}" +
+      ".rm-q button{margin:8px 6px 0 0}.rm-q button.alt{background:#fff;color:#15110F;border:1px solid #9fd8cc;box-shadow:none}.rm-q small{display:block;margin-top:6px;font-weight:500;color:#4a5a56}" +
+      ".rm-thx{margin-top:8px;padding:8px 12px;border-radius:14px;background:#e9fbf6;font-weight:700}" +
       ".rm-me{position:relative;width:22px;height:22px}" +
       ".rm-me i{position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.3)}" +
+      ".rm-me::before{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#1a73e8;opacity:.45;animation:rmPulse 2s ease-out infinite}" +
+      "@keyframes rmPulse{0%{transform:scale(1);opacity:.45}100%{transform:scale(3.2);opacity:0}}" +
+      "@media (prefers-reduced-motion:reduce){.rm-me::before{animation:none;opacity:0}}" +
       ".rm-me u{position:absolute;left:5px;top:-9px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #1a73e8;transform-origin:6px 20px;display:none}";
     document.head.appendChild(st);
   }
@@ -74,9 +80,50 @@
       secList = opt.secs.filter(function (x) { return x.p && x.p.length > 1; }).map(function (x) { var L2 = 0; for (var i = 1; i < x.p.length; i++) L2 += Math.hypot((x.p[i][1] - x.p[i - 1][1]) * 111320 * Math.cos(x.p[i][0] * Math.PI / 180), (x.p[i][0] - x.p[i - 1][0]) * 111320); return { p: x.p, g: x.g, len: L2 }; });
     });
     var cid = courseId();
-    var poiList = null;
+    var poiList = null, poiAll = [], poiLen = 0, pq = null, thx = null, skipQ = {};
+    var ASK = { "화장실": "화장실", "식수대": "식수대", "약수터·샘터": "약수터·샘터", "대피소": "대피소" };
+    var memDev = null;
+    function devId() { try { var v = localStorage.getItem("calrank_dev"); if (!v) { v = ""; for (var i = 0; i < 32; i++) v += Math.floor(Math.random() * 16).toString(16); localStorage.setItem("calrank_dev", v); } return v; } catch (e) { if (!memDev) { memDev = ""; for (var j = 0; j < 32; j++) memDev += Math.floor(Math.random() * 16).toString(16); } return memDev; } }
+    function doneMap() { try { return JSON.parse(localStorage.getItem("calrank_pc") || "{}"); } catch (e) { return {}; } }
+    function markDone(key) { try { var m = doneMap(), n = Date.now(); Object.keys(m).forEach(function (x) { if (n - m[x] > 864e5) delete m[x]; }); m[key] = n; localStorage.setItem("calrank_pc", JSON.stringify(m)); } catch (e) {} }
+    // 시설 지점 근처(40m 안)를 지날 때만 한 번 묻고, 70m 넘게 멀어지면 저절로 접는다.
+    function askHtml(d, ac, tot) {
+      if (thx && Date.now() < thx.until) return '<div class="rm-thx">' + thx.html + "</div>";
+      thx = null;
+      if (!poiAll.length || ac > 50) { pq = null; return ""; }
+      var k = poiLen > 0 && tot > 0 && Math.abs(tot / poiLen - 1) < 0.25 ? tot / poiLen : 1;
+      if (pq && Math.abs(pq.pos - d) > 70) { skipQ[pq.key] = 1; pq = null; }
+      if (!pq) {
+        var done = doneMap(), best = null;
+        poiAll.forEach(function (p) { var pos = p.d * k, g = Math.abs(pos - d); if (g <= 40 && !skipQ[p.key] && !done[cid + "|" + p.key] && (!best || g < best.g)) best = { g: g, pos: pos, key: p.key, kind: p.kind }; });
+        pq = best;
+      }
+      if (!pq) return "";
+      return '<div class="rm-q" role="group" aria-label="시설 확인"><span>여기 <b>' + pq.kind + '</b>이(가) 있나요?</span><button type="button" id="rmQy">있어요</button><button type="button" id="rmQn" class="alt">없어요</button><button type="button" id="rmQs" class="alt">건너뛰기</button><small>누르면 확인 기록이 남습니다. 내 위치는 보내지 않습니다.</small></div>';
+    }
+    function bindAsk(root) {
+      var y = root.querySelector("#rmQy"), n = root.querySelector("#rmQn"), sk = root.querySelector("#rmQs"); if (!y || !pq) return;
+      var q = pq;
+      function close(html) { skipQ[q.key] = 1; pq = null; if (html) thx = { html: html, until: Date.now() + 7000 }; repaint(); }
+      function send(ans) {
+        if (!window.CalrankAuth) { close("지금은 기록하지 못했습니다."); return; }
+        close("기록하는 중…");
+        CalrankAuth.rpc("submit_poi_check", { p_route: cid, p_poi: q.key, p_answer: ans, p_device: devId() }).then(function (r) {
+          var res = r && !r.error ? r.data : "err";
+          if (res === "ok") {
+            markDone(cid + "|" + q.key);
+            var who = CalrankAuth.user() ? "" : ' <small>로그인하면 닉네임이 함께 남습니다.</small>';
+            thx = { html: "고맙습니다. 다음 사람이 이 기록을 봅니다." + who, until: Date.now() + 7000 };
+          } else thx = { html: res === "slow" ? "너무 자주 눌렀습니다. 잠시 뒤에 다시 해 주세요." : "지금은 기록하지 못했습니다.", until: Date.now() + 5000 };
+          repaint(); setTimeout(repaint, 7100);
+        });
+      }
+      y.onclick = function () { send("yes"); }; n.onclick = function () { send("no"); }; sk.onclick = function () { close(""); };
+    }
     if (cid && window.fetch) fetch("/data/course_pois.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       var r = j && j.routes && j.routes[(/^dr-/.test(cid) ? "두루누비:" : "숲길:") + cid];
+      if (r && !r.failed) poiAll = (r.pois || []).filter(function (p) { return ASK[p[1]] && p[3]; }).map(function (p) { return { d: p[0], kind: p[1], key: p[3] + ":" + (Math.round(p[0] / 10) * 10) }; });
+      if (r && !r.failed) poiLen = r.lengthM || 0;
       if (r && !r.failed) poiList = { len: r.lengthM || 0, pois: (r.pois || []).filter(function (p) { return p[1] === "화장실"; }).map(function (p) { return p[0]; }).sort(function (x, y) { return x - y; }) };
     }).catch(function () {});
     if (cid) fetch("/field/" + cid + ".json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.profile && j.path && j.path.length > 1) loadScript("/seg-core.js", function () { C = { j: j, c: CalrankSeg.course(j.path, j.profile[j.profile.length - 1][0]), segs: CalrankSeg.segments(j.profile) }; }); }).catch(function () {});
@@ -161,10 +208,17 @@
       if (sun) { var gap = Math.round((sun.set - eta) / 60000); t += " · 일몰 " + hm(sun.set) + (gap < 0 ? ' <span class="rm-warn">일몰 후 도착 예상</span>' : " (여유 " + gap + "분)"); }
       lines.push(t);
       if (sun) { var left = Math.round((sun.set - Date.now()) / 60000), back = secs(P, 0, d) / 60; if (left > 0 && left < back * 1.2 + 30) lines.push('<span class="rm-warn">출발점으로 돌아가는 데 약 ' + Math.round(back) + '분, 일몰까지 ' + left + '분 남았습니다.</span>'); }
+      var qh = askHtml(d, ac, tot); if (qh) lines.push(qh);
       lines.push('<button type="button" id="rmShare">내 위치 문구 복사</button>');
       hudEl = { d: d, ll: ll, ac: ac };
       return lines.join("<br>");
     }
+    var lastFix = null;
+    function paintStat(base, h) {
+      stat.hidden = false; stat.innerHTML = ""; stat.appendChild(document.createTextNode(base));
+      if (h) { var hd = document.createElement("div"); hd.className = "rm-hud"; hd.innerHTML = h; stat.appendChild(hd); var sb = hd.querySelector("#rmShare"); if (sb) sb.onclick = share; bindAsk(hd); }
+    }
+    function repaint() { if (lastFix && gps !== null) paintStat(lastFix.base, hud(lastFix.ll, lastFix.ac, lastFix.off)); }
     Ctl("topleft", "my_location", "내 위치", "GPS로 내 위치 보기", function (a) {
       gpsBtn = a;
       if (gps !== null) { stop(); return; }
@@ -183,8 +237,8 @@
         if (g.coords.heading != null && !isNaN(g.coords.heading) && (g.coords.speed || 0) > 1) setHeading(g.coords.heading);
         var off = all.length > 1 ? Math.round(distToPath(ll[0], ll[1], all)) : null, offT = off == null ? "" : off >= 1000 ? (off / 1000).toFixed(off >= 10000 ? 0 : 1) + "km" : off + "m";
         var nn = (!C && secList.length) ? "등산로" : "코스", base = off == null ? "GPS 오차 ±" + ac + "m" : off <= 30 ? (nn + " 위에 있습니다 (" + nn + "에서 ") + off + "m · GPS 오차 ±" + ac + "m)" : off > 100 ? nn + "에서 약 " + offT + " 벗어나 있습니다 (GPS 오차 ±" + ac + "m)" : nn + "에서 약 " + offT + " 떨어져 있습니다 (GPS 오차 ±" + ac + "m)", h = hud(ll, ac, off);
-        stat.hidden = false; stat.innerHTML = ""; stat.appendChild(document.createTextNode(base));
-        if (h) { var hd = document.createElement("div"); hd.className = "rm-hud"; hd.innerHTML = h; stat.appendChild(hd); var sb = hd.querySelector("#rmShare"); if (sb) sb.onclick = share; }
+        lastFix = { ll: ll, ac: ac, off: off, base: base };
+        paintStat(base, h);
       }, function (err) {
         stop(); say(err && err.code === 1 ? "위치 권한이 꺼져 있습니다. 주소창 왼쪽 자물쇠(또는 aA)에서 위치를 허용하고, 폰의 위치 서비스도 켜져 있는지 확인해 주세요. 카카오톡 같은 앱 안의 브라우저에서는 막혀 있으니 크롬·사파리에서 열어 주세요." : "위치를 가져오지 못했습니다. 하늘이 트인 곳에서 다시 눌러 주세요.");
       }, { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 });

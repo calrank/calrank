@@ -71,7 +71,7 @@
       var r = j && j.routes && j.routes[rid];
       if (!r || !r.pois || !r.pois.length) return cb(null);
       var cum = [0]; for (var i = 1; i < path.length; i++) cum.push(cum[i - 1] + planar(path[i - 1], path[i]));
-      var list = []; r.pois.forEach(function (p) { var k = KOR[p[1]]; if (!k) return; var ll = pointAt(path, cum, Math.min(p[0], cum[cum.length - 1])); list.push([k, ll[0], ll[1]]); });
+      var list = []; r.pois.forEach(function (p) { var k = KOR[p[1]]; if (!k) return; var ll = pointAt(path, cum, Math.min(p[0], cum[cum.length - 1])); list.push([k, ll[0], ll[1], p[3] ? p[3] + ":" + (Math.round(p[0] / 10) * 10) : null]); });
       cb(list, "OpenStreetMap 기여자가 등록한 지점(" + (j.built || "") + " 수집)입니다. 현장 확인은 하지 않았고, 목록에 없다고 실제로 없다는 뜻은 아닙니다. 가기 전에 최신 안내를 확인해 주세요.");
     }).catch(function () { cb(null); });
   }
@@ -93,7 +93,7 @@
           ".sp-note{margin:8px 0 0;font-size:12px;line-height:1.5;opacity:.75}";
         document.head.appendChild(st);
       }
-      var groups = {}, counts = {}, seen = {}, want = {};
+      var groups = {}, counts = {}, seen = {}, want = {}, byKey = {};
       function refresh() {
         var z = map.getZoom();
         Object.keys(groups).forEach(function (key) {
@@ -109,10 +109,28 @@
         var g = groups[s[0]] || (groups[s[0]] = L.layerGroup()); if (want[s[0]] === undefined) want[s[0]] = !DEFOFF[s[0]]; counts[s[0]] = (counts[s[0]] || 0) + 1;
         var ic = L.divIcon({ className: "", iconSize: [26, 26], iconAnchor: [13, 13],
           html: '<span class="sp" style="--c:' + k.c + '"><img src="/emoji/' + k.icon + '.svg" alt="" width="16" height="16"></span>' });
-        L.marker([s[1], s[2]], { icon: ic, keyboard: false, zIndexOffset: s[0] === "danger" ? 500 : 0 })
+        var mk = L.marker([s[1], s[2]], { icon: ic, keyboard: false, zIndexOffset: s[0] === "danger" ? 500 : 0 })
           .bindTooltip(k.label + " · 자료상 지점").addTo(g);
+        if (s[3]) byKey[s[3]] = { m: mk, label: k.label };
       });
       map.on("zoomend", refresh); refresh();
+      // 이 코스에서 사람들이 직접 확인한 기록(닉네임·횟수·최근 날짜)을 마커 설명에 붙인다.
+      var cm = /course-(dr|ft)-(.+)\.html/.exec(location.pathname);
+      if (cm && Object.keys(byKey).length) {
+        var tries = 0, wait = setInterval(function () {
+          if (!window.CalrankAuth && ++tries < 40) return; clearInterval(wait); if (!window.CalrankAuth) return;
+          CalrankAuth.rpc("poi_check_summary", { p_route: cm[1] + "-" + cm[2] }).then(function (r) {
+            if (!r || r.error || !Array.isArray(r.data)) return;
+            r.data.forEach(function (x) {
+              var e = byKey[x.poi_key]; if (!e || !(x.yes_n || x.no_n)) return;
+              var t = e.label + " · 자료상 지점", days = x.last_at ? Math.max(0, Math.floor((Date.now() - new Date(x.last_at)) / 864e5)) : null;
+              if (x.yes_n) t += "\n" + x.yes_n + "명이 있다고 확인" + (days == null ? "" : " · 최근 " + (days === 0 ? "오늘" : days + "일 전")) + (x.first_name ? " · 처음 확인 " + x.first_name : "");
+              if (x.no_n >= 2) t += "\n없다는 기록 " + x.no_n + "명";
+              e.m.setTooltipContent(t.replace(/\n/g, "<br>"));
+            });
+          });
+        }, 250);
+      }
       var bar = document.createElement("div"); bar.className = "sp-bar"; bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "지도에 표시할 시설");
       Object.keys(KIND).forEach(function (key) {
         if (!counts[key]) return;
