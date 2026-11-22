@@ -102,7 +102,7 @@ def build(sport_label, month_kr, total, samples, region_pairs, dist_pairs, sport
         sec1 += " 대회로는 " + ", ".join(samples[:5]) + " 등이 있습니다."
     sec2 = region_sentence(region_pairs)
     sec3 = distance_sentence(dist_pairs)
-    cta = f"{sport_label} 대회는 캘린더에서 지역과 거리별로 걸러 볼 수 있습니다."
+    cta = f"{sport_label} 대회는 대회캘린더에서 지역과 거리별로 걸러 볼 수 있습니다."
     gear = None
     if sport in GEAR_LINK:
         h, n = GEAR_LINK[sport]

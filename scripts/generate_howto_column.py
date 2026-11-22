@@ -233,7 +233,7 @@ def build_page(sport_label, sport, concern, cycle_count):
 {next_stop}
 
 <div class="column-cta">
-<p>다음 대회를 고르는 중이라면, 캘린더에서 {sport_label} 대회를 지역과 거리별로 볼 수 있습니다.</p>
+<p>다음 대회를 고르는 중이라면, 대회캘린더에서 {sport_label} 대회를 지역과 거리별로 볼 수 있습니다.</p>
 <a href="index.html?sport={sport}">{sport_label} 대회 캘린더 보기 →</a>
 </div>
 </main>

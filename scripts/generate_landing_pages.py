@@ -272,7 +272,7 @@ def build_page(region, sport, events):
 {rows}
 <div class="landing-cta">
 <p>지도로 보거나 다른 조건으로 더 찾아보고 싶다면?</p>
-<a href="index.html?region={region}&sport={sport}">캘린더에서 필터링해서 보기 →</a>
+<a href="index.html?region={region}&sport={sport}">대회캘린더에서 필터링해서 보기 →</a>
 </div>
 </main>
 <footer class="site-footer">
