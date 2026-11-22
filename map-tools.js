@@ -74,6 +74,11 @@
       secList = opt.secs.filter(function (x) { return x.p && x.p.length > 1; }).map(function (x) { var L2 = 0; for (var i = 1; i < x.p.length; i++) L2 += Math.hypot((x.p[i][1] - x.p[i - 1][1]) * 111320 * Math.cos(x.p[i][0] * Math.PI / 180), (x.p[i][0] - x.p[i - 1][0]) * 111320); return { p: x.p, g: x.g, len: L2 }; });
     });
     var cid = courseId();
+    var poiList = null;
+    if (cid && window.fetch) fetch("/data/course_pois.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      var r = j && j.routes && j.routes[(/^dr-/.test(cid) ? "두루누비:" : "숲길:") + cid];
+      if (r && !r.failed) poiList = { len: r.lengthM || 0, pois: (r.pois || []).filter(function (p) { return p[1] === "화장실"; }).map(function (p) { return p[0]; }).sort(function (x, y) { return x - y; }) };
+    }).catch(function () {});
     if (cid) fetch("/field/" + cid + ".json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.profile && j.path && j.path.length > 1) loadScript("/seg-core.js", function () { C = { j: j, c: CalrankSeg.course(j.path, j.profile[j.profile.length - 1][0]), segs: CalrankSeg.segments(j.profile) }; }); }).catch(function () {});
     function Ctl(pos, ic, label, title, fn) {
       var C = L.Control.extend({ options: { position: pos }, onAdd: function () {
@@ -145,6 +150,11 @@
       lastD = d;
       var nx = C.segs.filter(function (g) { return g.to > d + 30 && g.t !== "flat"; })[0], rest = tot - d;
       lines.push("코스 <b>" + km(d) + "</b> 지점 · 남은 거리 <b>" + km(rest) + "</b>");
+      if (poiList) {
+        var k = poiList.len > 0 && tot > 0 && Math.abs(tot / poiList.len - 1) < 0.25 ? tot / poiList.len : 1, nt = null;
+        for (var q = 0; q < poiList.pois.length; q++) if (poiList.pois[q] * k > d + 20) { nt = poiList.pois[q] * k - d; break; }
+        lines.push(nt == null ? "앞쪽에 등록된 화장실 지점이 없습니다 (지도 자료 기준)" : "다음 화장실 지점 약 <b>" + (nt >= 1000 ? km(nt) : Math.round(nt / 10) * 10 + "m") + "</b> 앞 (지도 자료 기준·현장 확인 전)");
+      }
       if (nx) lines.push((nx.from > d ? km(nx.from - d) + " 앞 " : "지금 ") + (nx.t === "up" ? "오르막" : "내리막") + " " + km(nx.len) + " · 평균 " + Math.abs(nx.grade).toFixed(0) + "%");
       var eta = new Date(Date.now() + secs(P, d, tot) * 1000), sun = CalrankSeg.sun(ll[0], ll[1], new Date());
       var t = "도착 예상 <b>" + hm(eta) + "</b>(Tobler 근사)";
