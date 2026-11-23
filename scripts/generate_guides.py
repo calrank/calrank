@@ -498,6 +498,16 @@ def build_guide_page(g, loops, today):
     cta = (f'<div class="g-cta"><p class="g-cta-t">{h(g["cta"]["text"])}</p>'
            f'<a class="g-cta-b" href="{h(g["cta"]["href"])}">{h(g["cta"]["label"])} →</a></div>')
 
+    # 훈련 가이드(실험): 글 앞쪽에서 등급표로 바로 이어지는 링크
+    early = ""
+    _m = re.match(r"guide-training-(10km|half)\.html$", slug_of(g))
+    if _m:
+        _d = _m.group(1)
+        _n = "10km" if _d == "10km" else "하프"
+        early = (f'<div class="g-cta g-cta-early"><p class="g-cta-t">내 {_n} 기록이 어느 등급인지부터 보면 줄여야 할 시간이 정해집니다.</p>'
+                 f'<a class="g-cta-b" href="grade-{_d}-male.html">남성 등급표 →</a> '
+                 f'<a class="g-cta-b" href="grade-{_d}-female.html">여성 등급표 →</a></div>')
+
     ld = [
         {"@context": "https://schema.org", "@type": "Article",
          "headline": g["title"], "description": g["desc"],
@@ -539,6 +549,7 @@ def build_guide_page(g, loops, today):
 <p class="g-sub">{h(g['desc'])}</p>
 <div class="g-tags">{tags}</div>
 <div class="g-answer"><p class="g-answer-l">먼저 결론부터</p>{render_cites(g['answer'], order)}</div>
+{early}
 {who}
 {toc_html}
 {series_box}
