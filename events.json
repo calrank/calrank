@@ -23061,7 +23061,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "https://runningmap.kr",
-    "applyUrl": "http://rocknrun.kr/"
+    "applyUrl": "http://rocknrun.kr/",
+    "forecast": {
+      "tmn": 5.0,
+      "tmx": 11.0,
+      "morningTa": 6.0,
+      "pop": 30,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-23 10:34"
+    }
   },
   {
     "id": "rm-평화런-2026-11-28",
