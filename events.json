@@ -24425,6 +24425,15 @@
       "years": 10,
       "station": "서울",
       "stationKm": 7
+    },
+    "forecast": {
+      "tmn": 4.0,
+      "tmx": 8.0,
+      "morningTa": 5.0,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-25 05:06"
     }
   },
   {
@@ -24464,6 +24473,15 @@
       "years": 10,
       "station": "남원",
       "stationKm": 1
+    },
+    "forecast": {
+      "tmn": 6.0,
+      "tmx": 10.0,
+      "morningTa": 6.5,
+      "pop": 60,
+      "sky": "비",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-25 05:06"
     }
   },
   {
@@ -24489,7 +24507,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://mokyokrun.shop"
+    "applyUrl": "http://mokyokrun.shop",
+    "forecast": {
+      "tmn": 3.0,
+      "tmx": 9.0,
+      "morningTa": 4.5,
+      "pop": 10,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-25 05:06"
+    }
   },
   {
     "id": "rr-2026-착한서구-공부방-기부앤런-2026-11-28",
@@ -24515,7 +24542,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://기부앤런.kr"
+    "applyUrl": "http://기부앤런.kr",
+    "forecast": {
+      "tmn": 5.0,
+      "tmx": 11.0,
+      "morningTa": 7.5,
+      "pop": 10,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-25 05:06"
+    }
   },
   {
     "id": "rr-2026-spotv-night-run-2026-11-28",
@@ -24545,7 +24581,16 @@
     "saves": 0,
     "savesTrend7d": 0,
     "sourceUrl": "http://www.roadrun.co.kr/schedule/list.php",
-    "applyUrl": "http://spotvrun.co.kr"
+    "applyUrl": "http://spotvrun.co.kr",
+    "forecast": {
+      "tmn": 3.0,
+      "tmx": 9.0,
+      "morningTa": 5.0,
+      "pop": 0,
+      "sky": "맑음",
+      "src": "KMA 단기예보",
+      "asOf": "2026-11-25 05:06"
+    }
   },
   {
     "id": "rr-2026-평화런-2026-11-28",
