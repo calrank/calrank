@@ -1109,10 +1109,10 @@ def write_event_index(wanted: dict) -> None:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>전국 마라톤 대회 일정 전체 목록 | 월별 대회 {total}개 - calrank</title>
+<title>전국 마라톤 일정 · 대회 일정 전체 목록 | 월별 대회 {total}개 - calrank</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{SITE}/events-index.html">
-<meta property="og:title" content="전국 마라톤 대회 일정 전체 목록 - calrank">
+<meta property="og:title" content="전국 마라톤 일정 · 대회 일정 전체 목록 - calrank">
 <meta property="og:description" content="{esc(desc)}">
 <link rel="stylesheet" href="style.css">
 <style>
@@ -1144,7 +1144,7 @@ def write_event_index(wanted: dict) -> None:
 </header>
 
 <main class="ei-wrap">
-<h1>전국 마라톤 대회 일정 전체 목록</h1>
+<h1>전국 마라톤 일정 · 대회 일정 전체 목록</h1>
 <p class="ei-lead">{esc(desc)} 월별로 묶어 두었고, 대회 이름을 누르면
 상세 페이지로 갑니다. 종목·지역·거리로 걸러 보려면
 <a href="index.html">대회 캘린더</a>를 쓰세요.</p>
