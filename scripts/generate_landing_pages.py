@@ -106,6 +106,34 @@ def build_stats(region, sport_label, evs, upcoming):
     return "\n".join(out)
 
 
+MONTHLY_PAGE = {
+    "marathon": "monthly.html", "trail": "trail-monthly.html",
+    "cycling": "cycling-monthly.html", "triathlon": "triathlon-monthly.html",
+}
+
+
+def build_tools_block(region, sport, sport_label):
+    """검색으로 들어온 사람을 핵심 도구(등급 확인·접수 중·주말·변경 소식)로 잇는다.
+    등급표(/grade-)는 진행 중인 실험의 대상이라 12월 6일 뒤에 넣는다."""
+    links = [
+        ("level.html", "내 기록은 몇 등급? 나이·성별로 바로 확인"),
+        ("open-registration.html", "지금 접수 중인 대회 마감일 모음"),
+        ("weekend.html", "이번 주말·다음 주말 대회"),
+        ("schedule-changes.html", "접수 마감일·대회일 변경 소식"),
+    ]
+    mp = MONTHLY_PAGE.get(sport)
+    if mp:
+        links.append((mp, f"이번 달 {sport_label} 대회 일정"))
+    r = REGION_SLUG.get(region, region)
+    for sp, lab in SPORT_LABEL.items():
+        if sp != sport and (ROOT / f"landing-{r}-{sp}.html").exists():
+            links.append((f"landing-{r}-{sp}.html", f"{region} {lab} 대회 일정"))
+    links.append(("regions.html", f"다른 지역 {sport_label} 대회 일정"))
+    items = "\n".join(f'<li><a href="{h}">{t}</a></li>' for h, t in links)
+    return (f'<h2 class="landing-h2">{region} {sport_label} 대회, 함께 보면 좋은 곳</h2>\n'
+            f'<ul class="landing-facts landing-tools">\n{items}\n</ul>')
+
+
 def build_page(region, sport, events):
     sport_label = SPORT_LABEL[sport]
     events_sorted = sorted(events, key=lambda e: e.get("date") or "9999")
@@ -173,6 +201,8 @@ def build_page(region, sport, events):
                  f'코스·거리를 미리 볼 때 참고하세요.</p>\n<div class="landing-list">\n'
                  + _rows(list(reversed(done))[:60]) + "\n</div>")
     rows += build_stats(region, sport_label, events_sorted, upcoming)
+    if upcoming or done:
+        rows += "\n" + build_tools_block(region, sport, sport_label)
     if not rows:
         # 예정 대회가 하나도 없는 경우. 예전에는 이 페이지를 아예 갱신하지
         # 않아서, 이미 끝난 대회가 예정인 것처럼 남아 있었다. 틀린 정보를
@@ -247,6 +277,7 @@ def build_page(region, sport, events):
   .landing-h2 {{ font-size: 17px; margin: 34px 0 10px; }}
   .landing-note {{ font-size: 13.5px; line-height: 1.75; color: var(--ink-faint); margin: 0 0 12px; }}
   .landing-facts {{ margin: 0 0 6px; padding-left: 18px; }}
+  .landing-tools a {{ color: var(--accent); font-weight: 700; text-decoration: none; }}
   .landing-facts li {{ font-size: 15px; line-height: 1.9; color: var(--ink-soft); }}
   .landing-cta {{ margin-top: 32px; padding: 20px; background: var(--surface, #141414); border-radius: 10px; text-align: center; }}
   .landing-cta a {{ display: inline-block; margin-top: 10px; background: var(--accent); color: #fff; font-weight: 700; padding: 12px 24px; border-radius: 6px; text-decoration: none; }}
