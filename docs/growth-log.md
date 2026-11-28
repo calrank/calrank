@@ -45,3 +45,7 @@
 ## 2026-11-28 등급 카드·재방문 연결
 - 공유 카드와 지난 기록 비교는 이미 있었음. 빠진 것만 추가: 공유 링크 `?utm_source=share`, 재방문 시 지난 기록 자동 채움, step 이벤트(`lv-prefill`, `lv-card-save`, `lv-card-share`, `lv-card-kakao`).
 - 확인 쿼리: `select target, sum(n) from site_evt where kind='step' and target like 'lv-%' group by 1;`
+
+## 2026-11-28 11/25 급증 원인
+- 11/25 방문자 817명은 경로별로 1~24뷰씩 수백 개 경로에 퍼져 있었고 직접 유입이 1,255세션이었음. 봇의 사이트 전체 순회로 판단. 성장 지표에서 제외.
+- GSC 노출은 최근 열흘 동안 하루 1~2회, 클릭 0. 색인 부족이 여전히 병목.
