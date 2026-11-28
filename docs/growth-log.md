@@ -55,3 +55,7 @@
 - 변경: 입력 폼 → 기록증 사진 안내 → 사진·소개문 순으로 재배치. 입력칸 위치 836px → 254px. 본문 텍스트는 삭제 없이 아래로 이동.
 - 실험 상한(5개) 때문에 실험 등록 못 함. 전후 비교: 변경 전 8/104. 12/6 이후 같은 기간 길이로 `grade-calc`/조회 비교.
 - 실험 중인 `/grade-`, `/gear-`와 대조군 `/column-`은 12/6까지 손대지 않음.
+
+## 2026-11-28 grade.html 상단에 계산 버튼
+- grade.html(허브, `/grade-` 실험 대상 아님)은 level.html 링크가 맨 아래 한 곳뿐이었음. 소개문 아래에 "내 기록으로 등급 바로 확인" 버튼(level.html#form) 추가. 생성기도 같이 수정.
+- 측정: `site_evt` path=/grade.html click target=/level.html#form (변경 전 level.html로 가는 클릭 거의 없음).
