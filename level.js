@@ -1386,7 +1386,7 @@ function withTimeout(p, ms, fallback) {
 // 이 페이지는 유입이 가장 많다. SDK 를 늘 불러오면 쓰지 않는 사람까지
 // 값을 치르므로, 버튼을 누른 순간에만 내려받는다.
 const KAKAO_KEY = "cfdf627cdfe54e49450a13c8ca8109aa";   // 공개용 JavaScript 키
-const PAGE_URL = "https://calrank.kr/level.html";
+const PAGE_URL = "https://calrank.kr/level.html?utm_source=share";
 const KAKAO_SDK = "https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js";
 // 카카오가 공개한 2.8.3 의 SRI 해시. 받은 파일이 이 해시와 다르면 브라우저가
 // 실행을 거부한다. CDN 이 뚫리거나 중간에서 바꿔치기돼도 남의 코드가 이
@@ -1498,6 +1498,7 @@ function showCardPreview(blob, file, d) {
     if (window.calrankMark) window.calrankMark("card-saved");
     const a = document.createElement("a");
     a.href = url; a.download = "calrank-내등급.png";
+    if (window.calrankEvt) window.calrankEvt("step", "lv-card-save");
     document.body.appendChild(a); a.click(); a.remove();
   });
 
@@ -1520,6 +1521,7 @@ function showCardPreview(blob, file, d) {
     shareBtn.addEventListener("click", async () => {
       try {
         await navigator.share({ files: [file], title: "내 러닝 등급" });
+        if (window.calrankEvt) window.calrankEvt("step", "lv-card-share");
         // 취소하면 AbortError 로 빠지니, 여기까지 오면 실제로 공유된 것이다.
         if (window.calrankMark) window.calrankMark("card-shared");
       } catch (err) {
@@ -1553,6 +1555,7 @@ function showCardPreview(blob, file, d) {
         if (!imageUrl) throw new Error("이미지 주소를 받지 못했습니다");
 
         const link = { webUrl: PAGE_URL, mobileWebUrl: PAGE_URL };
+        if (window.calrankEvt) window.calrankEvt("step", "lv-card-kakao");
         K.Share.sendDefault({
           objectType: "feed",
           content: {
@@ -1682,9 +1685,38 @@ function prefillFromUrl() {
   }
 }
 
+// 다시 온 사람은 지난번 기록을 처음부터 다시 치지 않아도 된다.
+// 주소에 의도가 실려 있으면(대회 페이지, 공유 링크) 그쪽이 우선이라 건드리지 않는다.
+// 나이는 해가 바뀌면 달라지므로 출생연도는 비워 두고 직접 확인하게 한다.
+function prefillFromLast() {
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.has("d") || q.has("t") || q.has("g") || q.has("by")) return;
+    const L = window.CalrankLocal;
+    const all = L && L.results ? L.results() : [];
+    const last = all.length ? all[all.length - 1] : null;
+    if (!last || !last.sec || !last.km) return;
+    const sel = document.getElementById("lvDistance");
+    const tf = document.getElementById("lvTime");
+    const gs = document.getElementById("lvGender");
+    if (!sel || !tf || !gs || tf.value) return;
+    if (!Array.from(sel.options).some((o) => parseFloat(o.value) === last.km)) return;
+    sel.value = String(last.km);
+    sel.dispatchEvent(new Event("change", { bubbles: true }));
+    if (last.gender === "male" || last.gender === "female") gs.value = last.gender;
+    tf.value = fmtClock(last.sec);
+    const note = document.createElement("p");
+    note.className = "lv-share-hint";
+    note.textContent = `지난번(${last.t}) 기록을 불러왔습니다. 기록이 달라졌으면 고쳐서 다시 계산하세요. 이 기기에만 저장된 값입니다.`;
+    tf.closest("form").insertBefore(note, tf.closest("form").firstChild);
+    if (window.calrankEvt) window.calrankEvt("step", "lv-prefill");
+  } catch (e) {}
+}
+
 function init() {
   wirePreview();
   prefillFromUrl();
+  prefillFromLast();
   scrollToFormIfAsked();
   document.getElementById("levelForm").addEventListener("submit", (e) => {
     e.preventDefault();

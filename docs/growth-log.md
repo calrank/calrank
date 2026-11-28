@@ -41,3 +41,7 @@
 ## 2026-11-28 (재방문 측정)
 - track.js: 하루 첫 방문마다 ret-new/ret-d1/ret-d7/ret-d30 단계 이벤트를 센다(site_evt, kind=step). 모의 실행으로 신규·같은 날 재방문·3일·10일·40일·기존 기기 6경우 확인.
 - 주말(11/28~29) 자동 푸시 승인에 따라 묶어서 푸시.
+
+## 2026-11-28 등급 카드·재방문 연결
+- 공유 카드와 지난 기록 비교는 이미 있었음. 빠진 것만 추가: 공유 링크 `?utm_source=share`, 재방문 시 지난 기록 자동 채움, step 이벤트(`lv-prefill`, `lv-card-save`, `lv-card-share`, `lv-card-kakao`).
+- 확인 쿼리: `select target, sum(n) from site_evt where kind='step' and target like 'lv-%' group by 1;`
