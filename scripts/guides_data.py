@@ -1958,3 +1958,10 @@ GUIDES.extend(GUIDES_TRAINING)
 from guides_cycling import GUIDES_CYCLING  # noqa: E402
 
 GUIDES.extend(GUIDES_CYCLING)
+
+
+# ---------------------------------------------------------------------------
+# 계절 가이드(겨울 러닝복장 등). scripts/guides_seasonal.py 를 보세요.
+from guides_seasonal import GUIDES_SEASONAL  # noqa: E402
+
+GUIDES.extend(GUIDES_SEASONAL)
