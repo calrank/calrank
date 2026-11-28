@@ -18,9 +18,13 @@
     } catch (e) {}
     if (navigator.webdriver || navigator.doNotTrack === "1") return;
     if (/bot|crawl|spider|headless|lighthouse|preview/i.test(navigator.userAgent)) return;
-    var day = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10), fresh = false;
+    var day = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10), fresh = false, prevSeen = null, firstDay = day;
     try {
-      if (localStorage.getItem("cr_seen") !== day) { localStorage.setItem("cr_seen", day); fresh = true; }
+      prevSeen = localStorage.getItem("cr_seen");
+      if (prevSeen !== day) { localStorage.setItem("cr_seen", day); fresh = true; }
+      // 처음 온 날(이 기기). 이전에 온 적은 있는데 기록이 없던 기기는 마지막 방문일을 처음 온 날로 본다.
+      firstDay = localStorage.getItem("cr_first") || prevSeen || day;
+      if (!localStorage.getItem("cr_first")) localStorage.setItem("cr_first", firstDay);
     } catch (e) {}
     var path = location.pathname === "/" ? "/index.html" : location.pathname;
     var K = "sb_publishable_byKae86vGA0M5NjoZC0ELw_NMkm8ObR";
@@ -51,6 +55,13 @@
     }
     // funnel.js 의 단계 표시(계산했다·저장했다 등)도 같은 곳에 센다. 단계 이름과 페이지만 보낸다.
     window.calrankEvt = evt;
+    // 재방문 측정: 하루의 첫 방문마다 한 번, 처음 온 날로부터 며칠 만인지 구간만 센다(ret-new / ret-d1 1~6일 / ret-d7 7~29일 / ret-d30 30일 이상).
+    // 이름·주소 없이 날짜 한 줄(localStorage)과 구간 이름만 쓴다.
+    if (fresh) {
+      var gap = Math.round((Date.parse(day) - Date.parse(firstDay)) / 864e5);
+      var rt = prevSeen === null ? "ret-new" : gap >= 30 ? "ret-d30" : gap >= 7 ? "ret-d7" : "ret-d1";
+      whenVisible(function () { evt("step", rt); });
+    }
     // 같은 세션에서 두 번째 페이지에 도달했는지: 처음 들어온 페이지(path)에 "next"를 한 번 센다.
     try {
       var land = sessionStorage.getItem("cr_land");
